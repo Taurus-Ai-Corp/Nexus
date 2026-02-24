@@ -1,0 +1,36 @@
+{
+  "monitoring": {
+    "check_interval": 30,
+    "alert_threshold": 0.9,
+    "log_level": "INFO",
+    "services": [
+      "ollama",
+      "registry", 
+      "supabase",
+      "chromadb"
+    ],
+    "agents": [
+      "vibe_marketing_agent",
+      "ollama_local_agent",
+      "vertex_ai_creative",
+      "cognee_memory", 
+      "onlook_visual",
+      "claude_seo_mcp"
+    ],
+    "markets": [
+      "UAE",
+      "India", 
+      "Canada"
+    ]
+  },
+  "alerts": {
+    "email": false,
+    "slack": false,
+    "webhook": false
+  },
+  "metrics": {
+    "retention_days": 30,
+    "backup_enabled": true,
+    "export_format": "json"
+  }
+}

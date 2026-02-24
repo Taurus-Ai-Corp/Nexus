@@ -1,0 +1,287 @@
+# TAURUS AI CORP - BizFlow™ Backend Infrastructure
+# Docker Compose configuration for development and production
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: taurus_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: taurus
+      POSTGRES_USER: taurus_user
+      POSTGRES_PASSWORD: taurus_secure_password_2024
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    networks:
+      - taurus_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taurus_user -d taurus"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Redis Cache & Session Store
+  redis:
+    image: redis:7-alpine
+    container_name: taurus_redis
+    restart: unless-stopped
+    command: >
+      redis-server 
+      --appendonly yes 
+      --appendfsync everysec
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --tcp-keepalive 60
+    volumes:
+      - redis_data:/data
+      - ./database/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    ports:
+      - "6379:6379"
+    networks:
+      - taurus_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Redis Commander (Redis Web UI)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: taurus_redis_ui
+    restart: unless-stopped
+    environment:
+      REDIS_HOSTS: "taurus_redis:redis:6379"
+      HTTP_USER: taurus
+      HTTP_PASSWORD: taurus_redis_ui_2024
+    ports:
+      - "8081:8081"
+    networks:
+      - taurus_network
+    depends_on:
+      - redis
+    profiles:
+      - development
+
+  # BizFlow™ Backend API
+  bizflow-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: taurus_bizflow_api
+    restart: unless-stopped
+    environment:
+      # Database
+      DATABASE_URL: postgresql+asyncpg://taurus_user:taurus_secure_password_2024@postgres:5432/taurus
+      REDIS_URL: redis://redis:6379
+      
+      # Security
+      SECRET_KEY: taurus_ai_corp_jwt_secret_key_change_in_production_2024
+      JWT_ALGORITHM: HS256
+      JWT_EXPIRE_HOURS: 24
+      
+      # Application
+      APP_NAME: "TAURUS AI CORP BizFlow™"
+      APP_VERSION: "1.0.0"
+      ENVIRONMENT: development
+      DEBUG: "true"
+      LOG_LEVEL: INFO
+      
+      # Agent Configuration
+      AGENT_MAX_CONCURRENT_TASKS: 10
+      AGENT_TASK_TIMEOUT: 3600
+      AGENT_HEALTH_CHECK_INTERVAL: 300
+      
+      # Rate Limiting
+      RATE_LIMIT_REQUESTS_PER_MINUTE: 100
+      RATE_LIMIT_REQUESTS_PER_HOUR: 1000
+      
+      # External APIs (configure as needed)
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      WEBFLOW_API_KEY: ${WEBFLOW_API_KEY:-}
+      
+    volumes:
+      - ./:/app
+      - agent_logs:/app/logs
+    ports:
+      - "8000:8000"
+    networks:
+      - taurus_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 120s
+    profiles:
+      - development
+      - production
+
+  # Nginx Reverse Proxy (Production)
+  nginx:
+    image: nginx:alpine
+    container_name: taurus_nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - taurus_network
+    depends_on:
+      - bizflow-api
+    profiles:
+      - production
+
+  # Monitoring - Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: taurus_prometheus
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - taurus_network
+    profiles:
+      - monitoring
+
+  # Monitoring - Grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: taurus_grafana
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: taurus
+      GF_SECURITY_ADMIN_PASSWORD: taurus_grafana_2024
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_SERVER_ROOT_URL: http://localhost:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - taurus_network
+    depends_on:
+      - prometheus
+    profiles:
+      - monitoring
+
+  # Log Management - Elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: taurus_elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - taurus_network
+    profiles:
+      - logging
+
+  # Log Management - Kibana
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: taurus_kibana
+    restart: unless-stopped
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - taurus_network
+    depends_on:
+      - elasticsearch
+    profiles:
+      - logging
+
+  # Backup Service
+  postgres-backup:
+    image: prodrigestivill/postgres-backup-local:15
+    container_name: taurus_postgres_backup
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: taurus
+      POSTGRES_USER: taurus_user
+      POSTGRES_PASSWORD: taurus_secure_password_2024
+      POSTGRES_EXTRA_OPTS: "-Z9 --schema=public --blobs"
+      SCHEDULE: "@daily"
+      BACKUP_KEEP_DAYS: 30
+      BACKUP_KEEP_WEEKS: 8
+      BACKUP_KEEP_MONTHS: 12
+    volumes:
+      - postgres_backups:/backups
+    networks:
+      - taurus_network
+    depends_on:
+      - postgres
+    profiles:
+      - production
+
+# Networks
+networks:
+  taurus_network:
+    driver: bridge
+    name: taurus_ai_network
+
+# Volumes
+volumes:
+  postgres_data:
+    name: taurus_postgres_data
+  postgres_backups:
+    name: taurus_postgres_backups
+  redis_data:
+    name: taurus_redis_data
+  agent_logs:
+    name: taurus_agent_logs
+  nginx_logs:
+    name: taurus_nginx_logs
+  prometheus_data:
+    name: taurus_prometheus_data
+  grafana_data:
+    name: taurus_grafana_data
+  elasticsearch_data:
+    name: taurus_elasticsearch_data
+
+# Environment-specific overrides:
+# Development: docker-compose up -d --profile development
+# Production: docker-compose up -d --profile production
+# Monitoring: docker-compose up -d --profile development --profile monitoring
+# Full Stack: docker-compose up -d --profile development --profile monitoring --profile logging

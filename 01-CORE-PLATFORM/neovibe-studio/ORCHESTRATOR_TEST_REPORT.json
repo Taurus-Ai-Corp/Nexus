@@ -1,0 +1,187 @@
+{
+  "timestamp": "2025-09-11",
+  "test_summary": {
+    "total_agents": 15,
+    "categories": 4,
+    "routing_accuracy": 100.0,
+    "execution_success": 100.0
+  },
+  "agent_status": {
+    "total_agents": 15,
+    "categories": {
+      "core": {
+        "count": 5,
+        "agents": [
+          "vertex_ai_creative",
+          "cognee_memory",
+          "onlook_visual",
+          "ollama_local",
+          "vibe_marketing"
+        ],
+        "active": 5
+      },
+      "research": {
+        "count": 4,
+        "agents": [
+          "arxiv_researcher",
+          "deep_researcher",
+          "trend_analyzer",
+          "candidate_analyzer"
+        ],
+        "active": 4
+      },
+      "business": {
+        "count": 3,
+        "agents": [
+          "finance_agent",
+          "price_monitor",
+          "startup_validator"
+        ],
+        "active": 3
+      },
+      "content": {
+        "count": 3,
+        "agents": [
+          "blog_writer",
+          "newsletter_generator",
+          "social_media_manager"
+        ],
+        "active": 3
+      }
+    },
+    "capabilities": {
+      "vertex_ai_creative": [],
+      "cognee_memory": [],
+      "onlook_visual": [],
+      "ollama_local": [],
+      "vibe_marketing": [],
+      "arxiv_researcher": [],
+      "deep_researcher": [],
+      "trend_analyzer": [],
+      "candidate_analyzer": [],
+      "finance_agent": [],
+      "price_monitor": [],
+      "startup_validator": [],
+      "blog_writer": [],
+      "newsletter_generator": [],
+      "social_media_manager": []
+    },
+    "performance_metrics": {
+      "vibe_marketing": {
+        "last_execution": 1e-06,
+        "total_tasks": 3,
+        "success_rate": 1.0
+      }
+    },
+    "timestamp": "2025-09-11T22:21:13.055645"
+  },
+  "routing_results": [
+    {
+      "test_case": {
+        "description": "Research latest AI trends",
+        "expected_category": "research",
+        "type": "research"
+      },
+      "selected_agent": "arxiv_researcher",
+      "agent_category": "research",
+      "is_correct": true
+    },
+    {
+      "test_case": {
+        "description": "Write a blog post about marketing",
+        "expected_category": "content",
+        "type": "content"
+      },
+      "selected_agent": "blog_writer",
+      "agent_category": "content",
+      "is_correct": true
+    },
+    {
+      "test_case": {
+        "description": "Analyze stock market data",
+        "expected_category": "business",
+        "type": "finance"
+      },
+      "selected_agent": "finance_agent",
+      "agent_category": "business",
+      "is_correct": true
+    },
+    {
+      "test_case": {
+        "description": "Create social media content",
+        "expected_category": "content",
+        "type": "social"
+      },
+      "selected_agent": "social_media_manager",
+      "agent_category": "content",
+      "is_correct": true
+    },
+    {
+      "test_case": {
+        "description": "Analyze candidate profiles",
+        "expected_category": "research",
+        "type": "analysis"
+      },
+      "selected_agent": "candidate_analyzer",
+      "agent_category": "research",
+      "is_correct": true
+    }
+  ],
+  "execution_results": [
+    {
+      "task": {
+        "description": "Research quantum computing trends",
+        "type": "research",
+        "data": {
+          "topic": "quantum computing",
+          "market": "global",
+          "description": "Research quantum computing trends"
+        }
+      },
+      "result": {
+        "status": "placeholder",
+        "message": "Agent not implemented"
+      },
+      "success": true
+    },
+    {
+      "task": {
+        "description": "Create marketing content for UAE market",
+        "type": "content",
+        "data": {
+          "market": "UAE",
+          "format": "social_media",
+          "description": "Create marketing content for UAE market"
+        }
+      },
+      "result": {
+        "status": "placeholder",
+        "message": "Agent not implemented"
+      },
+      "success": true
+    },
+    {
+      "task": {
+        "description": "Analyze startup funding trends",
+        "type": "finance",
+        "data": {
+          "sector": "technology",
+          "region": "global",
+          "description": "Analyze startup funding trends"
+        }
+      },
+      "result": {
+        "status": "placeholder",
+        "message": "Agent not implemented"
+      },
+      "success": true
+    }
+  ],
+  "performance_metrics": {
+    "vibe_marketing": {
+      "last_execution": 1e-06,
+      "total_tasks": 3,
+      "success_rate": 1.0
+    }
+  }
+}

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Integration & Automation | TaurusAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Outfit', sans-serif !important;
+        }
+        
+        .gradient-bg-social {
+            background: linear-gradient(135deg, #e11d48 0%, #be185d 25%, #9333ea 50%, #7c3aed 75%, #4f46e5 100%);
+        }
+        
+        .social-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            background: linear-gradient(white, white) padding-box, 
+                        linear-gradient(135deg, #e11d48, #9333ea, #4f46e5) border-box;
+        }
+        
+        .social-card:hover {
+            transform: translateY(-16px) rotateY(5deg);
+            box-shadow: 0 32px 64px rgba(231, 29, 72, 0.2);
+            border-color: transparent;
+        }
+        
+        .floating-icons {
+            animation: floatingSocial 6s ease-in-out infinite;
+        }
+        
+        @keyframes floatingSocial {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% { 
+                transform: translateY(-10px) rotate(2deg);
+            }
+            50% { 
+                transform: translateY(-5px) rotate(-2deg);
+            }
+            75% { 
+                transform: translateY(-15px) rotate(1deg);
+            }
+        }
+        
+        .social-icon {
+            background: linear-gradient(135deg, #e11d48 0%, #9333ea 100%);
+        }
+        
+        .engagement-metric {
+            background: linear-gradient(90deg, #ef4444 0%, #f97316 20%, #eab308 40%, #22c55e 60%, #3b82f6 80%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .platform-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">T</span>
+                    </div>
+                    <span class="ml-3 text-xl font-bold text-gray-900">TaurusAI</span>
+                    <span class="ml-2 text-sm bg-pink-100 text-pink-700 px-2 py-1 rounded-full">Social</span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#platforms" class="text-gray-600 hover:text-pink-600 transition-colors">Platforms</a>
+                    <a href="#automation" class="text-gray-600 hover:text-pink-600 transition-colors">Automation</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-pink-600 transition-colors">Pricing</a>
+                    <a href="#contact" class="text-gray-600 hover:text-pink-600 transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg-social text-white py-24 overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10">
+            <div class="floating-icons absolute top-20 left-10 w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                <i data-lucide="instagram" class="w-8 h-8"></i>
+            </div>
+            <div class="floating-icons absolute top-40 right-20 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center" style="animation-delay: -1s;">
+                <i data-lucide="facebook" class="w-6 h-6"></i>
+            </div>
+            <div class="floating-icons absolute bottom-40 left-20 w-14 h-14 bg-white/20 rounded-full flex items-center justify-center" style="animation-delay: -3s;">
+                <i data-lucide="twitter" class="w-7 h-7"></i>
+            </div>
+            <div class="floating-icons absolute bottom-20 right-10 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" style="animation-delay: -2s;">
+                <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center px-4 py-2 platform-badge rounded-full text-sm font-medium mb-6">
+                        <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
+                        AI-Powered Social Media Automation
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        Automate Your <span class="text-yellow-300">Social Media</span><br>
+                        Across All Platforms
+                    </h1>
+                    <p class="text-xl text-pink-100 mb-8 leading-relaxed">
+                        Connect, schedule, and manage all your social media accounts from one powerful dashboard. Boost engagement, grow followers, and save 10+ hours per week with our AI automation.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 items-start">
+                        <button class="bg-white text-pink-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors flex items-center shadow-lg">
+                            <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
+                            WhatsApp: +91 98765 43210
+                        </button>
+                        <div class="text-left">
+                            <div class="text-2xl font-bold text-yellow-300">Starting at ₹8,000</div>
+                            <div class="text-pink-100 text-sm">Complete social media automation</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="platform-badge rounded-2xl p-6 backdrop-blur-sm">
+                        <div class="text-center mb-6">
+                            <div class="text-lg font-medium text-white">Social Media Growth</div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="text-center">
+                                <div class="engagement-metric text-3xl font-bold">+340%</div>
+                                <div class="text-pink-100 text-sm">Engagement Rate</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="engagement-metric text-3xl font-bold">+580%</div>
+                                <div class="text-pink-100 text-sm">Follower Growth</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="engagement-metric text-3xl font-bold">+220%</div>
+                                <div class="text-pink-100 text-sm">Reach Increase</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="engagement-metric text-3xl font-bold">85%</div>
+                                <div class="text-pink-100 text-sm">Time Saved</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-center space-x-4">
+                            <div class="w-10 h-10 bg-gradient-to-r from-pink-500 to-red-500 rounded-lg flex items-center justify-center">
+                                <i data-lucide="instagram" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+                                <i data-lucide="facebook" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div class="w-10 h-10 bg-gradient-to-r from-sky-400 to-sky-500 rounded-lg flex items-center justify-center">
+                                <i data-lucide="twitter" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div class="w-10 h-10 bg-gradient-to-r from-blue-700 to-blue-800 rounded-lg flex items-center justify-center">
+                                <i data-lucide="linkedin" class="w-5 h-5 text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platforms Section -->
+    <section id="platforms" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Supported Social Media Platforms
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Manage all your social media accounts from one unified dashboard with advanced automation features
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="social-card bg-white p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="instagram" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Instagram</h3>
+                    <p class="text-gray-600 text-sm">Posts, Stories, Reels automation with hashtag optimization</p>
+                </div>
+                
+                <div class="social-card bg-white p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="facebook" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Facebook</h3>
+                    <p class="text-gray-600 text-sm">Pages, Groups, and Ad campaign management</p>
+                </div>
+                
+                <div class="social-card bg-white p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-sky-400 to-sky-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="twitter" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Twitter / X</h3>
+                    <p class="text-gray-600 text-sm">Tweet scheduling, thread creation, and engagement tracking</p>
+                </div>
+                
+                <div class="social-card bg-white p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-700 to-blue-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="linkedin" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">LinkedIn</h3>
+                    <p class="text-gray-600 text-sm">Professional networking and B2B content automation</p>
+                </div>
+                
+                <div class="social-card bg-white p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-red-600 to-red-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="play" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">YouTube</h3>
+                    <p class="text-gray-600 text-sm">Video uploads, descriptions, and community posts</p>
+                </div>
+                
+                <div class="social-card bg-white p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-black to-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="music" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">TikTok</h3>
+                    <p class="text-gray-600 text-sm">Short-form video content and trend analysis</p>
+                </div>
+                
+                <div class="social-card bg-white p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="camera" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Pinterest</h3>
+                    <p class="text-gray-600 text-sm">Pin creation and board management automation</p>
+                </div>
+                
+                <div class="social-card bg-white p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="message-circle" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">WhatsApp</h3>
+                    <p class="text-gray-600 text-sm">Business messaging and customer support automation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Automation Features Section -->
+    <section id="automation" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Powerful Automation Features
+                </h2>
+                <p class="text-xl text-gray-600">Save hours every week with intelligent social media automation</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="social-icon w-14 h-14 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="calendar" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Smart Scheduling</h3>
+                    <p class="text-gray-600 mb-4">
+                        AI-powered optimal posting times based on your audience's behavior and platform algorithms.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Best time analysis</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Bulk scheduling</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Auto-republishing</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="social-icon w-14 h-14 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="edit-3" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Content Generation</h3>
+                    <p class="text-gray-600 mb-4">
+                        AI-generated captions, hashtags, and content ideas tailored to your brand voice and audience.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Caption writing</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Hashtag optimization</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Content ideas</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="social-icon w-14 h-14 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="users" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Audience Engagement</h3>
+                    <p class="text-gray-600 mb-4">
+                        Automated responses, comment management, and follower interaction to boost engagement.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Auto-reply system</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Comment moderation</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>DM automation</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="social-icon w-14 h-14 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="bar-chart-3" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Analytics & Insights</h3>
+                    <p class="text-gray-600 mb-4">
+                        Comprehensive performance tracking and detailed analytics across all connected platforms.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Performance metrics</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Growth tracking</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>ROI reporting</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="social-icon w-14 h-14 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="target" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Campaign Management</h3>
+                    <p class="text-gray-600 mb-4">
+                        Coordinated multi-platform campaigns with automated optimization and performance tracking.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Cross-platform campaigns</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>A/B testing</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Performance optimization</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="social-icon w-14 h-14 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="shield-check" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Brand Protection</h3>
+                    <p class="text-gray-600 mb-4">
+                        Monitor brand mentions, track competitors, and manage your online reputation automatically.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Brand monitoring</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Sentiment analysis</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-pink-500 mr-2"></i>Crisis management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Social Media Automation Packages
+                </h2>
+                <p class="text-xl text-gray-600">Choose the perfect plan for your social media needs</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter Package -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-8">
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Social Starter</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">₹8,000</div>
+                        <p class="text-gray-600">Per month (2 platforms)</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            2 social media platforms
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            30 posts per month
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Basic scheduling
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Content templates
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Monthly analytics report
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                        Get Started
+                    </button>
+                </div>
+                
+                <!-- Professional Package -->
+                <div class="bg-gradient-to-b from-pink-50 to-purple-50 rounded-2xl shadow-xl border-2 border-pink-500 p-8 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div class="bg-pink-500 text-white px-6 py-2 rounded-full text-sm font-medium">
+                            Most Popular
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Social Pro</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">₹18,000</div>
+                        <p class="text-gray-600">Per month (5 platforms)</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            5 social media platforms
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            100 posts per month
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            AI content generation
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Advanced analytics
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Automated engagement
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Brand monitoring
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full bg-pink-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-pink-600 transition-colors">
+                        Start Free Trial
+                    </button>
+                </div>
+                
+                <!-- Enterprise Package -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-8">
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Social Enterprise</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">₹35,000</div>
+                        <p class="text-gray-600">Per month (unlimited platforms)</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Unlimited platforms
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Unlimited posts
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Custom AI training
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Multi-account management
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            White-label dashboard
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-pink-500 mr-3"></i>
+                            Dedicated support
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 gradient-bg-social text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                Ready to Automate Your Social Media?
+            </h2>
+            <p class="text-xl text-pink-100 mb-8">
+                Join 500+ businesses already saving 10+ hours per week with our social media automation
+            </p>
+            
+            <div class="platform-badge rounded-2xl p-8 mb-8 backdrop-blur-sm">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="text-center">
+                        <div class="text-lg font-medium mb-3">Start Your Free Trial</div>
+                        <a href="https://wa.me/919876543210" class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors shadow-lg">
+                            <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+                            WhatsApp: +91 98765 43210
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg font-medium mb-3">Schedule Demo</div>
+                        <a href="tel:+919876543210" class="inline-flex items-center bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                            <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
+                            Book a Call
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 text-pink-100">
+                <div class="flex items-center">
+                    <i data-lucide="zap" class="w-5 h-5 mr-2"></i>
+                    14-day free trial
+                </div>
+                <div class="flex items-center">
+                    <i data-lucide="shield-check" class="w-5 h-5 mr-2"></i>
+                    No setup fees
+                </div>
+                <div class="flex items-center">
+                    <i data-lucide="clock" class="w-5 h-5 mr-2"></i>
+                    Cancel anytime
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">T</span>
+                        </div>
+                        <span class="ml-2 text-lg font-bold text-white">TaurusAI</span>
+                    </div>
+                    <p class="text-gray-400">
+                        AI-powered social media automation for modern businesses.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Platforms</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Facebook</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Twitter / X</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li>WhatsApp: +91 98765 43210</li>
+                        <li>Email: social@taurusai.in</li>
+                        <li>Mumbai, India</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 TaurusAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Enhanced floating animation for social icons
+        const floatingIcons = document.querySelectorAll('.floating-icons');
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            floatingIcons.forEach((icon, index) => {
+                const rate = scrolled * -0.5 * (index + 1);
+                icon.style.transform = `translate3d(0, ${rate}px, 0)`;
+            });
+        });
+    </script>
+</body>
+</html>

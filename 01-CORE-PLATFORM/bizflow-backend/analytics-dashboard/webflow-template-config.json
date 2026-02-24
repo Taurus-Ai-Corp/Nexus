@@ -1,0 +1,401 @@
+{
+  "template_name": "TAURUS Analytics Dashboard Template",
+  "template_id": "taurus-analytics-dashboard-v1",
+  "description": "Professional analytics dashboard template optimized for TAURUS AI CORP business metrics",
+  "category": "Dashboard",
+  "features": [
+    "Real-time metrics display",
+    "Interactive charts and graphs",
+    "Responsive design",
+    "Dark/light theme support",
+    "Mobile-first approach",
+    "Accessibility compliant"
+  ],
+  "layout_structure": {
+    "header": {
+      "type": "sticky",
+      "height": "80px",
+      "background": "white",
+      "shadow": "0 2px 4px rgba(0,0,0,0.1)",
+      "elements": [
+        {
+          "type": "logo",
+          "content": "TAURUS AI CORP",
+          "position": "left",
+          "font_size": "24px",
+          "font_weight": "bold",
+          "color": "#0ea5e9"
+        },
+        {
+          "type": "title",
+          "content": "Analytics Dashboard",
+          "position": "left",
+          "font_size": "16px",
+          "color": "#6b7280",
+          "margin_left": "16px"
+        },
+        {
+          "type": "connection_status",
+          "position": "right",
+          "icon": "wifi",
+          "text": "Connected",
+          "color": "#22c55e"
+        },
+        {
+          "type": "refresh_button",
+          "position": "right",
+          "text": "Refresh",
+          "background": "#f3f4f6",
+          "color": "#374151",
+          "border_radius": "6px",
+          "padding": "8px 16px",
+          "margin_right": "16px"
+        }
+      ]
+    },
+    "main_content": {
+      "type": "grid",
+      "columns": 12,
+      "gap": "24px",
+      "padding": "32px",
+      "background": "#f9fafb",
+      "sections": [
+        {
+          "name": "key_metrics",
+          "type": "grid",
+          "columns": 4,
+          "gap": "24px",
+          "margin_bottom": "32px",
+          "cards": [
+            {
+              "title": "Total Revenue",
+              "value": "$125,000",
+              "trend": "+12.5%",
+              "icon": "dollar-sign",
+              "color": "success",
+              "background": "#f0fdf4",
+              "border": "#bbf7d0"
+            },
+            {
+              "title": "Active Users",
+              "value": "1,250",
+              "trend": "+8.2%",
+              "icon": "users",
+              "color": "primary",
+              "background": "#f0f9ff",
+              "border": "#bae6fd"
+            },
+            {
+              "title": "AI Agents",
+              "value": "15",
+              "trend": "0%",
+              "icon": "bot",
+              "color": "warning",
+              "background": "#fffbeb",
+              "border": "#fde68a"
+            },
+            {
+              "title": "System Health",
+              "value": "98%",
+              "trend": "+2.1%",
+              "icon": "activity",
+              "color": "success",
+              "background": "#f0fdf4",
+              "border": "#bbf7d0"
+            }
+          ]
+        },
+        {
+          "name": "charts_section",
+          "type": "grid",
+          "columns": 2,
+          "gap": "24px",
+          "margin_bottom": "32px",
+          "charts": [
+            {
+              "title": "Revenue Over Time",
+              "type": "area_chart",
+              "height": "300px",
+              "data_source": "revenue_data",
+              "color": "#22c55e"
+            },
+            {
+              "title": "User Growth",
+              "type": "line_chart",
+              "height": "300px",
+              "data_source": "user_data",
+              "color": "#0ea5e9"
+            }
+          ]
+        },
+        {
+          "name": "performance_section",
+          "type": "grid",
+          "columns": 2,
+          "gap": "24px",
+          "margin_bottom": "32px",
+          "charts": [
+            {
+              "title": "Agent Performance",
+              "type": "bar_chart",
+              "height": "300px",
+              "data_source": "agent_data",
+              "color": "#f59e0b"
+            },
+            {
+              "title": "System Health Distribution",
+              "type": "pie_chart",
+              "height": "300px",
+              "data_source": "system_data",
+              "colors": ["#22c55e", "#f59e0b", "#ef4444"]
+            }
+          ]
+        },
+        {
+          "name": "alerts_section",
+          "type": "full_width",
+          "margin_bottom": "32px",
+          "component": {
+            "title": "System Alerts",
+            "type": "alert_panel",
+            "max_alerts": 5,
+            "background": "white",
+            "border_radius": "8px",
+            "border": "1px solid #e5e7eb"
+          }
+        },
+        {
+          "name": "additional_metrics",
+          "type": "grid",
+          "columns": 3,
+          "gap": "24px",
+          "cards": [
+            {
+              "title": "Response Time",
+              "value": "245ms",
+              "subtitle": "Average",
+              "icon": "activity",
+              "color": "primary",
+              "size": "sm"
+            },
+            {
+              "title": "Throughput",
+              "value": "1,250",
+              "subtitle": "Requests/min",
+              "icon": "trending-up",
+              "color": "success",
+              "size": "sm"
+            },
+            {
+              "title": "Error Rate",
+              "value": "0.5%",
+              "subtitle": "Last 24h",
+              "icon": "alert-circle",
+              "color": "danger",
+              "size": "sm"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "design_system": {
+    "colors": {
+      "primary": {
+        "50": "#f0f9ff",
+        "100": "#e0f2fe",
+        "200": "#bae6fd",
+        "300": "#7dd3fc",
+        "400": "#38bdf8",
+        "500": "#0ea5e9",
+        "600": "#0284c7",
+        "700": "#0369a1",
+        "800": "#075985",
+        "900": "#0c4a6e"
+      },
+      "success": {
+        "50": "#f0fdf4",
+        "100": "#dcfce7",
+        "200": "#bbf7d0",
+        "300": "#86efac",
+        "400": "#4ade80",
+        "500": "#22c55e",
+        "600": "#16a34a",
+        "700": "#15803d",
+        "800": "#166534",
+        "900": "#14532d"
+      },
+      "warning": {
+        "50": "#fffbeb",
+        "100": "#fef3c7",
+        "200": "#fde68a",
+        "300": "#fcd34d",
+        "400": "#fbbf24",
+        "500": "#f59e0b",
+        "600": "#d97706",
+        "700": "#b45309",
+        "800": "#92400e",
+        "900": "#78350f"
+      },
+      "danger": {
+        "50": "#fef2f2",
+        "100": "#fee2e2",
+        "200": "#fecaca",
+        "300": "#fca5a5",
+        "400": "#f87171",
+        "500": "#ef4444",
+        "600": "#dc2626",
+        "700": "#b91c1c",
+        "800": "#991b1b",
+        "900": "#7f1d1d"
+      }
+    },
+    "typography": {
+      "font_family": "Inter, system-ui, sans-serif",
+      "headings": {
+        "h1": {
+          "font_size": "3rem",
+          "font_weight": "700",
+          "line_height": "1.2"
+        },
+        "h2": {
+          "font_size": "2.25rem",
+          "font_weight": "600",
+          "line_height": "1.3"
+        },
+        "h3": {
+          "font_size": "1.875rem",
+          "font_weight": "600",
+          "line_height": "1.4"
+        },
+        "h4": {
+          "font_size": "1.5rem",
+          "font_weight": "500",
+          "line_height": "1.5"
+        }
+      },
+      "body": {
+        "large": {
+          "font_size": "1.125rem",
+          "line_height": "1.6"
+        },
+        "base": {
+          "font_size": "1rem",
+          "line_height": "1.6"
+        },
+        "small": {
+          "font_size": "0.875rem",
+          "line_height": "1.5"
+        }
+      }
+    },
+    "spacing": {
+      "xs": "0.25rem",
+      "sm": "0.5rem",
+      "md": "1rem",
+      "lg": "1.5rem",
+      "xl": "2rem",
+      "2xl": "3rem",
+      "3xl": "4rem"
+    },
+    "shadows": {
+      "sm": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      "base": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+      "md": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+      "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+    },
+    "border_radius": {
+      "sm": "0.25rem",
+      "base": "0.375rem",
+      "md": "0.5rem",
+      "lg": "0.75rem",
+      "xl": "1rem",
+      "2xl": "1.5rem"
+    }
+  },
+  "responsive_breakpoints": {
+    "mobile": "320px",
+    "tablet": "768px",
+    "desktop": "1024px",
+    "wide": "1440px"
+  },
+  "components": {
+    "metric_card": {
+      "background": "white",
+      "border_radius": "0.75rem",
+      "border": "2px solid",
+      "padding": "1.5rem",
+      "shadow": "0 1px 3px rgba(0, 0, 0, 0.1)",
+      "hover_effect": "shadow-md",
+      "transition": "all 0.2s ease-in-out"
+    },
+    "chart_container": {
+      "background": "white",
+      "border_radius": "0.5rem",
+      "border": "1px solid #e5e7eb",
+      "padding": "1rem",
+      "shadow": "0 1px 3px rgba(0, 0, 0, 0.1)"
+    },
+    "alert_panel": {
+      "background": "white",
+      "border_radius": "0.5rem",
+      "border": "1px solid #e5e7eb",
+      "max_height": "24rem",
+      "overflow": "auto"
+    }
+  },
+  "animations": {
+    "fade_in": {
+      "opacity": "0 to 1",
+      "duration": "0.3s",
+      "easing": "ease-in-out"
+    },
+    "slide_up": {
+      "transform": "translateY(20px) to translateY(0)",
+      "duration": "0.3s",
+      "easing": "ease-out"
+    },
+    "pulse": {
+      "opacity": "1 to 0.5 to 1",
+      "duration": "2s",
+      "iteration": "infinite"
+    }
+  },
+  "accessibility": {
+    "aria_labels": true,
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "color_contrast": "WCAG AA compliant",
+    "focus_indicators": true
+  },
+  "performance": {
+    "lazy_loading": true,
+    "image_optimization": true,
+    "css_minification": true,
+    "javascript_bundling": true,
+    "caching_strategy": "aggressive"
+  },
+  "integration_requirements": {
+    "api_endpoints": [
+      "/api/metrics/business",
+      "/api/metrics/revenue",
+      "/api/metrics/users",
+      "/api/metrics/agents",
+      "/api/metrics/performance",
+      "/api/metrics/system",
+      "/api/alerts"
+    ],
+    "websocket_events": [
+      "metrics:update",
+      "alert:new",
+      "system:status",
+      "agent:performance",
+      "revenue:update",
+      "user:activity"
+    ],
+    "chart_libraries": ["recharts"],
+    "icon_libraries": ["lucide-react"]
+  }
+}
+

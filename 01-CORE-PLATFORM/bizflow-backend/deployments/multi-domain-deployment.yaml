@@ -1,0 +1,305 @@
+# 🏰 TAURUS AI CORP. - Multi-Domain Deployment Configuration
+# Multi-Domain AI-Powered Business Platform Development
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: taurus-ai-corp-config
+  namespace: taurus-ai-corp
+data:
+  # Domain Configuration
+  main_domain: "taurusai.io"
+  bizflow_subdomain: "bizflow.taurusai.io"
+  neovibe_subdomain: "neovibe.taurusai.io"
+  
+  # Environment Configuration
+  environment: "production"
+  log_level: "info"
+  
+  # Database Configuration
+  database_url: "postgresql://user:password@postgres:5432/taurus_ai_corp"
+  redis_url: "redis://redis:6379"
+  
+  # API Configuration
+  api_version: "v1"
+  rate_limit: "1000/hour"
+  
+  # Webflow Integration
+  webflow_client_id: "f1f4344f7074e4f1f0dd50b1b2867873c17778f877f6f7a07a7882e79bf06828"
+  webflow_client_secret: "a2ae2e2baa88203e069c004a0452272c1fc8f3846d8687c27de13a34a684c097"
+  webflow_redirect_uri: "http://localhost:8168/callback"
+  
+  # AI Agent Configuration
+  max_concurrent_agents: "50"
+  agent_timeout: "300s"
+  retry_attempts: "3"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taurus-ai-corp-main
+  namespace: taurus-ai-corp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: taurus-ai-corp-main
+  template:
+    metadata:
+      labels:
+        app: taurus-ai-corp-main
+    spec:
+      containers:
+      - name: main-website
+        image: taurus-ai-corp/main:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: DOMAIN
+          valueFrom:
+            configMapKeyRef:
+              name: taurus-ai-corp-config
+              key: main_domain
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bizflow-platform
+  namespace: taurus-ai-corp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bizflow-platform
+  template:
+    metadata:
+      labels:
+        app: bizflow-platform
+    spec:
+      containers:
+      - name: bizflow-backend
+        image: taurus-ai-corp/bizflow:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: PLATFORM_TYPE
+          value: "bizflow"
+        - name: SUBDOMAIN
+          valueFrom:
+            configMapKeyRef:
+              name: taurus-ai-corp-config
+              key: bizflow_subdomain
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: taurus-ai-corp-config
+              key: database_url
+        - name: REDIS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: taurus-ai-corp-config
+              key: redis_url
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neovibe-studio
+  namespace: taurus-ai-corp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: neovibe-studio
+  template:
+    metadata:
+      labels:
+        app: neovibe-studio
+    spec:
+      containers:
+      - name: neovibe-frontend
+        image: taurus-ai-corp/neovibe:latest
+        ports:
+        - containerPort: 3001
+        env:
+        - name: PLATFORM_TYPE
+          value: "neovibe"
+        - name: SUBDOMAIN
+          valueFrom:
+            configMapKeyRef:
+              name: taurus-ai-corp-config
+              key: neovibe_subdomain
+        - name: WEBFLOW_CLIENT_ID
+          valueFrom:
+            configMapKeyRef:
+              name: taurus-ai-corp-config
+              key: webflow_client_id
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry-server
+  namespace: taurus-ai-corp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: registry-server
+  template:
+    metadata:
+      labels:
+        app: registry-server
+    spec:
+      containers:
+      - name: registry
+        image: taurus-ai-corp/registry:latest
+        ports:
+        - containerPort: 8001
+        env:
+        - name: REDIS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: taurus-ai-corp-config
+              key: redis_url
+        - name: MAX_CONCURRENT_AGENTS
+          valueFrom:
+            configMapKeyRef:
+              name: taurus-ai-corp-config
+              key: max_concurrent_agents
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "125m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taurus-ai-corp-main-service
+  namespace: taurus-ai-corp
+spec:
+  selector:
+    app: taurus-ai-corp-main
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bizflow-platform-service
+  namespace: taurus-ai-corp
+spec:
+  selector:
+    app: bizflow-platform
+  ports:
+  - port: 80
+    targetPort: 8000
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: neovibe-studio-service
+  namespace: taurus-ai-corp
+spec:
+  selector:
+    app: neovibe-studio
+  ports:
+  - port: 80
+    targetPort: 3001
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-server-service
+  namespace: taurus-ai-corp
+spec:
+  selector:
+    app: registry-server
+  ports:
+  - port: 80
+    targetPort: 8001
+  type: LoadBalancer
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: taurus-ai-corp-ingress
+  namespace: taurus-ai-corp
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - taurusai.io
+    - bizflow.taurusai.io
+    - neovibe.taurusai.io
+    secretName: taurus-ai-corp-tls
+  rules:
+  - host: taurusai.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: taurus-ai-corp-main-service
+            port:
+              number: 80
+  - host: bizflow.taurusai.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bizflow-platform-service
+            port:
+              number: 80
+  - host: neovibe.taurusai.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: neovibe-studio-service
+            port:
+              number: 80

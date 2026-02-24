@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizFlow™ Blog - Anti-Boring Marketing Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F5;
+            line-height: 1.6;
+        }
+        .content-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid #E5E5E5;
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 1rem;
+        }
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .category-filter {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .category-filter:hover {
+            border-color: #FF6B00;
+            background-color: rgba(255, 107, 0, 0.1);
+        }
+        .category-filter.active {
+            background-color: #FF6B00;
+            color: white;
+            border-color: #FF6B00;
+        }
+        .article-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .tag {
+            background: rgba(255, 107, 0, 0.1);
+            color: #FF6B00;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-weight: 600;
+        }
+        .search-input {
+            background: white;
+            border: 2px solid #E5E5E5;
+            transition: border-color 0.3s ease;
+        }
+        .search-input:focus {
+            border-color: #FF6B00;
+            outline: none;
+        }
+        .trending-indicator {
+            background: linear-gradient(135deg, #FF6B00, #E66000);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        .newsletter-form {
+            background: linear-gradient(135deg, #FF6B00, #E66000);
+        }
+        .reading-time {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+        }
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        @media (min-width: 1024px) {
+            .blog-layout {
+                display: grid;
+                grid-template-columns: 1fr 300px;
+                gap: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="https://i.imgur.com/6yZJz5L.png" alt="BizFlow Logo" class="h-10 w-10">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-800">BizFlow™</h1>
+                    <p class="text-xs text-gray-600">Marketing Insights</p>
+                </div>
+            </div>
+            <div class="space-x-6 text-sm font-medium">
+                <a href="#" class="text-gray-600 hover:text-[#FF6B00]">Home</a>
+                <a href="#" class="text-[#FF6B00] font-bold">Blog</a>
+                <a href="#" class="text-gray-600 hover:text-[#FF6B00]">Services</a>
+                <a href="#" class="text-gray-600 hover:text-[#FF6B00]">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Anti-Boring Marketing Insights</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Proven strategies, cultural insights, and case studies from the Dubai & India marketing frontlines</p>
+            
+            <!-- Search Bar -->
+            <div class="max-w-2xl mx-auto relative">
+                <input type="text" placeholder="Search for marketing insights..." class="search-input w-full py-4 px-6 rounded-full text-gray-900" id="searchInput">
+                <button class="absolute right-2 top-2 bg-[#FF6B00] text-white p-2 rounded-full hover:bg-[#E66000] transition-colors">
+                    🔍
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="blog-layout">
+            <!-- Main Content Area -->
+            <main>
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-3 mb-8">
+                    <button class="category-filter active px-4 py-2 rounded-full" data-category="all">All Posts</button>
+                    <button class="category-filter px-4 py-2 rounded-full" data-category="dubai">Dubai Marketing</button>
+                    <button class="category-filter px-4 py-2 rounded-full" data-category="india">India Insights</button>
+                    <button class="category-filter px-4 py-2 rounded-full" data-category="cultural">Cultural Intelligence</button>
+                    <button class="category-filter px-4 py-2 rounded-full" data-category="case-studies">Case Studies</button>
+                    <button class="category-filter px-4 py-2 rounded-full" data-category="strategy">Strategy</button>
+                    <button class="category-filter px-4 py-2 rounded-full" data-category="data">Data & Analytics</button>
+                </div>
+
+                <!-- Featured Article -->
+                <div class="content-card mb-12 overflow-hidden">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=800&h=400&fit=crop" alt="Featured Article" class="w-full h-64 md:h-80 object-cover">
+                        <div class="absolute top-4 left-4">
+                            <span class="trending-indicator">🔥 TRENDING</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4">
+                            <span class="reading-time">8 min read</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <div class="flex space-x-2 mb-2">
+                                <span class="tag bg-white/20 text-white">Dubai Marketing</span>
+                                <span class="tag bg-white/20 text-white">Case Study</span>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold mb-2">How a $25K Ramadan Campaign Generated $2.8M in Revenue</h3>
+                            <p class="text-lg opacity-90 mb-3">The complete breakdown of our luxury watch client's record-breaking cultural campaign</p>
+                            <div class="flex items-center space-x-3">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Author" class="author-avatar">
+                                <div>
+                                    <p class="font-bold">Arjun Sharma</p>
+                                    <p class="text-sm opacity-75">March 15, 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Articles Grid -->
+                <div class="blog-grid" id="articlesGrid">
+                    <!-- Article 1 -->
+                    <article class="article-card content-card overflow-hidden" data-category="cultural strategy">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=240&fit=crop" alt="Article" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex space-x-2 mb-3">
+                                <span class="tag">Cultural Intelligence</span>
+                                <span class="tag">Strategy</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-900">The 7 Cultural Triggers That Drive Sales in Dubai</h3>
+                            <p class="text-gray-600 mb-4">Discover the psychological and cultural factors that influence purchasing decisions in the UAE market...</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="Author" class="w-8 h-8 rounded-full">
+                                    <span class="text-sm text-gray-500">Priya Patel</span>
+                                </div>
+                                <span class="text-sm text-gray-500">5 min read</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="article-card content-card overflow-hidden" data-category="india data">
+                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=240&fit=crop" alt="Article" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex space-x-2 mb-3">
+                                <span class="tag">India Insights</span>
+                                <span class="tag">Data & Analytics</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-900">India's Digital Marketing Landscape: 2025 Report</h3>
+                            <p class="text-gray-600 mb-4">Comprehensive analysis of consumer behavior, platform preferences, and spending patterns across Indian markets...</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="Author" class="w-8 h-8 rounded-full">
+                                    <span class="text-sm text-gray-500">Omar Al-Rashid</span>
+                                </div>
+                                <span class="text-sm text-gray-500">12 min read</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="article-card content-card overflow-hidden" data-category="case-studies">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=240&fit=crop" alt="Article" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex space-x-2 mb-3">
+                                <span class="tag">Case Studies</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-900">From 500 to 25,000 Daily Orders: Food Delivery Success</h3>
+                            <p class="text-gray-600 mb-4">How we helped a Delhi-based startup become the #1 food delivery app in 4 months...</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="Author" class="w-8 h-8 rounded-full">
+                                    <span class="text-sm text-gray-500">Arjun Sharma</span>
+                                </div>
+                                <span class="text-sm text-gray-500">7 min read</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 4 -->
+                    <article class="article-card content-card overflow-hidden" data-category="dubai strategy">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=240&fit=crop" alt="Article" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex space-x-2 mb-3">
+                                <span class="tag">Dubai Marketing</span>
+                                <span class="tag">Strategy</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-900">Instagram vs TikTok: Which Platform Wins in Dubai?</h3>
+                            <p class="text-gray-600 mb-4">Platform performance analysis based on 200+ campaigns and $50M in ad spend data...</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="Author" class="w-8 h-8 rounded-full">
+                                    <span class="text-sm text-gray-500">Priya Patel</span>
+                                </div>
+                                <span class="text-sm text-gray-500">6 min read</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 5 -->
+                    <article class="article-card content-card overflow-hidden" data-category="cultural">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=240&fit=crop" alt="Article" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex space-x-2 mb-3">
+                                <span class="tag">Cultural Intelligence</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-900">Ramadan Marketing: The Complete 2025 Playbook</h3>
+                            <p class="text-gray-600 mb-4">Your step-by-step guide to creating respectful, effective campaigns during Islam's holiest month...</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="Author" class="w-8 h-8 rounded-full">
+                                    <span class="text-sm text-gray-500">Omar Al-Rashid</span>
+                                </div>
+                                <span class="text-sm text-gray-500">9 min read</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 6 -->
+                    <article class="article-card content-card overflow-hidden" data-category="india case-studies">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=240&fit=crop" alt="Article" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex space-x-2 mb-3">
+                                <span class="tag">India Insights</span>
+                                <span class="tag">Case Studies</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-900">Mumbai Real Estate: 375% Sales Increase Case Study</h3>
+                            <p class="text-gray-600 mb-4">How cultural segmentation helped sell 45 premium units in 3 months vs. usual 12...</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="Author" class="w-8 h-8 rounded-full">
+                                    <span class="text-sm text-gray-500">Arjun Sharma</span>
+                                </div>
+                                <span class="text-sm text-gray-500">8 min read</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-12">
+                    <button class="bg-[#FF6B00] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#E66000] transition-colors">
+                        Load More Articles
+                    </button>
+                </div>
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="sidebar-sticky">
+                <!-- Newsletter Signup -->
+                <div class="newsletter-form text-white p-6 rounded-2xl mb-8">
+                    <h3 class="text-xl font-bold mb-2">Get Weekly Insights</h3>
+                    <p class="text-sm opacity-90 mb-4">Marketing strategies that actually work in Dubai & India</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Your email" class="w-full p-3 rounded-lg text-gray-900">
+                        <button type="submit" class="w-full bg-white text-[#FF6B00] font-bold py-3 rounded-lg hover:bg-gray-100 transition-colors">
+                            Subscribe Free
+                        </button>
+                    </form>
+                    <p class="text-xs opacity-75 mt-2">Join 5,000+ marketers. Unsubscribe anytime.</p>
+                </div>
+
+                <!-- Popular Articles -->
+                <div class="content-card p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900">Most Popular</h3>
+                    <div class="space-y-4">
+                        <div class="flex space-x-3">
+                            <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=80&h=80&fit=crop" alt="Popular Article" class="w-16 h-16 rounded-lg object-cover">
+                            <div>
+                                <h4 class="font-bold text-sm mb-1">5 Mistakes That Kill Dubai Campaigns</h4>
+                                <p class="text-xs text-gray-600">15,000 views</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-3">
+                            <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=80&h=80&fit=crop" alt="Popular Article" class="w-16 h-16 rounded-lg object-cover">
+                            <div>
+                                <h4 class="font-bold text-sm mb-1">India's Social Commerce Revolution</h4>
+                                <p class="text-xs text-gray-600">12,500 views</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-3">
+                            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=80&h=80&fit=crop" alt="Popular Article" class="w-16 h-16 rounded-lg object-cover">
+                            <div>
+                                <h4 class="font-bold text-sm mb-1">Cultural Triggers That Drive Sales</h4>
+                                <p class="text-xs text-gray-600">11,800 views</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="content-card p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900">Categories</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">Dubai Marketing</span>
+                            <span class="text-[#FF6B00] font-bold">24</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">India Insights</span>
+                            <span class="text-[#FF6B00] font-bold">18</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">Cultural Intelligence</span>
+                            <span class="text-[#FF6B00] font-bold">15</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">Case Studies</span>
+                            <span class="text-[#FF6B00] font-bold">12</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-700">Strategy</span>
+                            <span class="text-[#FF6B00] font-bold">10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources -->
+                <div class="content-card p-6">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900">Free Resources</h3>
+                    <div class="space-y-3">
+                        <a href="#" class="block p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <h4 class="font-bold text-sm mb-1">Dubai Marketing Calendar</h4>
+                            <p class="text-xs text-gray-600">Key dates & cultural moments</p>
+                        </a>
+                        <a href="#" class="block p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <h4 class="font-bold text-sm mb-1">ROI Calculator</h4>
+                            <p class="text-xs text-gray-600">Predict your campaign returns</p>
+                        </a>
+                        <a href="#" class="block p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <h4 class="font-bold text-sm mb-1">Cultural Mistakes Checklist</h4>
+                            <p class="text-xs text-gray-600">Avoid costly missteps</p>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="https://i.imgur.com/6yZJz5L.png" alt="BizFlow Logo" class="h-8 w-8">
+                        <h3 class="text-xl font-bold">BizFlow™</h3>
+                    </div>
+                    <p class="text-gray-400">The anti-boring marketing agency for Dubai & India markets.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="#" class="text-gray-400 hover:text-white block">About Us</a>
+                        <a href="#" class="text-gray-400 hover:text-white block">Services</a>
+                        <a href="#" class="text-gray-400 hover:text-white block">Case Studies</a>
+                        <a href="#" class="text-gray-400 hover:text-white block">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Resources</h4>
+                    <div class="space-y-2">
+                        <a href="#" class="text-gray-400 hover:text-white block">Blog</a>
+                        <a href="#" class="text-gray-400 hover:text-white block">Free Guides</a>
+                        <a href="#" class="text-gray-400 hover:text-white block">ROI Calculator</a>
+                        <a href="#" class="text-gray-400 hover:text-white block">Cultural Calendar</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <div class="space-y-2">
+                        <a href="#" class="text-gray-400 hover:text-white block">LinkedIn</a>
+                        <a href="#" class="text-gray-400 hover:text-white block">Twitter</a>
+                        <a href="#" class="text-gray-400 hover:text-white block">Instagram</a>
+                        <a href="#" class="text-gray-400 hover:text-white block">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 BizFlow™ Vibe Marketing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Category filtering
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const articles = document.querySelectorAll('.article-card');
+
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // Update active filter
+                categoryFilters.forEach(f => f.classList.remove('active'));
+                filter.classList.add('active');
+
+                const selectedCategory = filter.dataset.category;
+
+                // Filter articles
+                articles.forEach(article => {
+                    const articleCategories = article.dataset.category.split(' ');
+                    
+                    if (selectedCategory === 'all' || articleCategories.includes(selectedCategory)) {
+                        article.style.display = 'block';
+                        setTimeout(() => {
+                            article.style.opacity = '1';
+                            article.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        article.style.opacity = '0';
+                        article.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            article.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            articles.forEach(article => {
+                const title = article.querySelector('h3').textContent.toLowerCase();
+                const content = article.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        });
+
+        // Article click handling
+        articles.forEach(article => {
+            article.addEventListener('click', () => {
+                // In a real implementation, this would navigate to the full article
+                const title = article.querySelector('h3').textContent;
+                alert(`Opening article: "${title}"\n\nThis would navigate to the full article page in a real implementation.`);
+            });
+        });
+
+        // Newsletter form
+        document.querySelector('.newsletter-form form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert(`Thanks for subscribing! You'll receive our weekly insights at ${email}`);
+            e.target.reset();
+        });
+
+        // Initialize article animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        articles.forEach(article => {
+            article.style.opacity = '0';
+            article.style.transform = 'translateY(20px)';
+            article.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(article);
+        });
+    </script>
+</body>
+</html>

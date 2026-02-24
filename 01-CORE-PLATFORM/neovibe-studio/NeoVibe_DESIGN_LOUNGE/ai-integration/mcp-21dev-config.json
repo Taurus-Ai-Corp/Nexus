@@ -1,0 +1,127 @@
+{
+  "mcp": {
+    "version": "1.0.0",
+    "protocol": "wss",
+    "timeout": 30000,
+    "retryPolicy": {
+      "maxRetries": 3,
+      "backoffMs": 1000,
+      "maxBackoffMs": 10000
+    }
+  },
+  "agents": {
+    "customerSupport": {
+      "id": "support-agent-001",
+      "name": "BizFlow Support Assistant",
+      "description": "Handles customer inquiries and provides instant support",
+      "responseTime": "2-3 seconds",
+      "capabilities": [
+        "Answer product questions",
+        "Troubleshoot common issues",
+        "Guide users through features",
+        "Escalate complex issues"
+      ],
+      "contextSharing": true,
+      "fallback": "human-escalation"
+    },
+    "leadQualification": {
+      "id": "lead-qualifier-002",
+      "name": "Lead Qualification Agent",
+      "description": "Processes and qualifies inbound leads",
+      "throughput": "50-100 inquiries/day",
+      "capabilities": [
+        "Score lead quality",
+        "Extract key requirements",
+        "Schedule follow-up calls",
+        "Provide personalized demos"
+      ],
+      "scoring": {
+        "budget": { "weight": 0.3, "threshold": 10000 },
+        "timeline": { "weight": 0.25, "threshold": 30 },
+        "authority": { "weight": 0.25, "threshold": 0.7 },
+        "need": { "weight": 0.2, "threshold": 0.6 }
+      }
+    },
+    "demoScheduling": {
+      "id": "scheduler-003",
+      "name": "Demo Scheduling Agent",
+      "description": "Automates demo scheduling and calendar management",
+      "capabilities": [
+        "Check availability",
+        "Send calendar invites",
+        "Reschedule appointments",
+        "Send reminders"
+      ],
+      "integrations": [
+        "Google Calendar",
+        "Outlook Calendar",
+        "Calendly"
+      ],
+      "timezoneSupport": true
+    },
+    "documentationAssistant": {
+      "id": "docs-assistant-004",
+      "name": "Documentation Assistant",
+      "description": "Provides contextual help and documentation",
+      "capabilities": [
+        "Answer how-to questions",
+        "Provide step-by-step guides",
+        "Search documentation",
+        "Create custom tutorials"
+      ],
+      "knowledgeBase": [
+        "API documentation",
+        "User guides",
+        "Troubleshooting guides",
+        "Best practices"
+      ]
+    }
+  },
+  "integration": {
+    "21dev": {
+      "sdkVersion": "2.1.0",
+      "apiKey": "${TWENTYONE_DEV_API_KEY}",
+      "webhookUrl": "https://api.bizflow.taurusai.io/webhooks/21dev",
+      "features": [
+        "real-time-messaging",
+        "context-persistence",
+        "agent-handoff",
+        "conversation-analytics"
+      ]
+    },
+    "chatWidget": {
+      "position": "bottom-right",
+      "theme": "light",
+      "size": "compact",
+      "autoExpand": false,
+      "welcomeMessage": "Hi! I'm your BizFlow assistant. How can I help you automate your business today?",
+      "offlineMessage": "I'm currently away. Leave your details and I'll get back to you within 2 hours.",
+      "agents": [
+        "customerSupport",
+        "leadQualification",
+        "demoScheduling",
+        "documentationAssistant"
+      ]
+    }
+  },
+  "context": {
+    "businessDomains": [
+      "Financial Automation",
+      "Marketing Automation",
+      "Business Operations",
+      "Intelligence Platform",
+      "Creative Studio",
+      "Crypto Platform"
+    ],
+    "revenueTargets": {
+      "monthly": 550000,
+      "annual": 6600000,
+      "paybackPeriod": 8
+    },
+    "implementation": {
+      "timeline": "6-8 months",
+      "roiRange": "150-300%",
+      "efficiency": "90%"
+    }
+  }
+}

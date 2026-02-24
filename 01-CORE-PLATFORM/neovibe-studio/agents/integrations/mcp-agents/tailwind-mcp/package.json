@@ -1,0 +1,52 @@
+{
+  "name": "taurus-responsive-tailwind-mcp",
+  "version": "2.0.0",
+  "description": "TAURUS AI Responsive Tailwind MCP Server for Enterprise Dashboard Design",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "node test-components.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "keywords": [
+    "mcp", 
+    "tailwind", 
+    "responsive", 
+    "enterprise", 
+    "dashboard", 
+    "competitive-intelligence", 
+    "design-tokens", 
+    "glassmorphism",
+    "taurus-ai"
+  ],
+  "author": "Taurus AI Corp",
+  "license": "MIT",
+  "capabilities": {
+    "responsive_design": true,
+    "enterprise_components": true,
+    "design_tokens": true,
+    "competitive_intelligence_ui": true,
+    "glassmorphism": true,
+    "dark_mode": true,
+    "animations": true,
+    "breakpoint_optimization": true
+  }
+}
+
+
+
+
+
+
+

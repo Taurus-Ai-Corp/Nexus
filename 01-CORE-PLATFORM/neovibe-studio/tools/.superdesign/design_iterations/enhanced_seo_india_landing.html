@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Services India | Boost Google Rankings | TaurusAI.in</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        .gradient-hero {
+            background: linear-gradient(135deg, #146EF5 0%, #4F46E5 50%, #7C3AED 100%);
+        }
+        
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e5e7eb;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(20, 110, 245, 0.15);
+            border-color: #146EF5;
+        }
+        
+        .roi-calculator {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #0284c7;
+        }
+        
+        .indian-flag-gradient {
+            background: linear-gradient(to right, #FF9933 33%, #FFFFFF 33% 66%, #138808 66%);
+        }
+        
+        .gmb-highlight {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        }
+        
+        .pricing-card-popular {
+            background: linear-gradient(135deg, #146EF5 0%, #4F46E5 100%);
+            transform: scale(1.05);
+            border: 3px solid #fbbf24;
+        }
+        
+        .stats-counter {
+            background: radial-gradient(circle at center, rgba(20, 110, 245, 0.1) 0%, transparent 70%);
+        }
+        
+        .trust-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes counter {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .counter-animate {
+            animation: counter 1s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">T</span>
+                    </div>
+                    <span class="ml-3 text-xl font-bold text-gray-900">TaurusAI</span>
+                    <div class="ml-2 indian-flag-gradient text-xs px-2 py-1 rounded font-medium text-white">INDIA</div>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#services" class="text-gray-600 hover:text-blue-600 transition-colors">Services</a>
+                    <a href="#calculator" class="text-gray-600 hover:text-blue-600 transition-colors">ROI Calculator</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-blue-600 transition-colors">Pricing</a>
+                    <a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Get Free Audit</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-hero text-white py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="trust-badge inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-6">
+                        <i data-lucide="award" class="w-4 h-4 mr-2"></i>
+                        #1 SEO Agency in India | 1000+ Happy Clients
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        डोमिनेट Google<br>
+                        <span class="text-yellow-300">Dominate Google</span><br>
+                        Grow Your Business
+                    </h1>
+                    <p class="text-xl text-blue-100 mb-8 leading-relaxed">
+                        Boost your website to Page #1 on Google India. Get more customers, increase sales, and build your brand with our proven SEO strategies designed specifically for Indian businesses.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 items-start">
+                        <button onclick="openCalculator()" class="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors flex items-center shadow-lg">
+                            <i data-lucide="calculator" class="w-5 h-5 mr-2"></i>
+                            Calculate Your ROI
+                        </button>
+                        <a href="https://wa.me/919876543210" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-semibold transition-colors flex items-center">
+                            <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
+                            WhatsApp: +91 98765 43210
+                        </a>
+                    </div>
+                    <div class="mt-6 text-yellow-300 font-semibold">
+                        🎁 FREE SEO Audit Worth ₹5,000 - Limited Time!
+                    </div>
+                </div>
+                
+                <div class="relative float-animation">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                        <div class="text-center mb-6">
+                            <h3 class="text-2xl font-bold mb-2">SEO Success Stories</h3>
+                            <p class="text-blue-200">Real results for Indian businesses</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-6 mb-6">
+                            <div class="text-center stats-counter p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-yellow-300 counter-animate">+380%</div>
+                                <div class="text-blue-200 text-sm">Organic Traffic</div>
+                            </div>
+                            <div class="text-center stats-counter p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-yellow-300 counter-animate">₹12L+</div>
+                                <div class="text-blue-200 text-sm">Revenue Generated</div>
+                            </div>
+                            <div class="text-center stats-counter p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-yellow-300 counter-animate">#1</div>
+                                <div class="text-blue-200 text-sm">Google Rankings</div>
+                            </div>
+                            <div class="text-center stats-counter p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-yellow-300 counter-animate">15 Days</div>
+                                <div class="text-blue-200 text-sm">First Results</div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="text-sm text-blue-200 mb-2">Client: Mumbai Restaurant Chain</div>
+                            <div class="flex justify-center space-x-1">
+                                <span class="text-yellow-400">⭐⭐⭐⭐⭐</span>
+                                <span class="text-blue-200 text-sm ml-2">5.0 Rating</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator Modal -->
+    <div id="roiCalculator" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative">
+            <button onclick="closeCalculator()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">SEO ROI Calculator</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Website Visitors</label>
+                    <input type="number" id="visitors" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g., 5000">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Average Order Value (₹)</label>
+                    <input type="number" id="orderValue" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g., 2500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Current Conversion Rate (%)</label>
+                    <input type="number" id="conversionRate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g., 2.5" step="0.1">
+                </div>
+                
+                <button onclick="calculateROI()" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                    Calculate Potential Revenue
+                </button>
+                
+                <div id="roiResult" class="hidden bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-green-600 mb-2" id="roiAmount"></div>
+                    <div class="text-green-700 text-sm" id="roiDescription"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google My Business Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-6">
+                        <i data-lucide="map-pin" class="w-4 h-4 mr-2"></i>
+                        Local SEO Specialist
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                        Dominate Local Search with<br>
+                        <span class="text-green-600">Google My Business</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        78% of local mobile searches result in offline purchases. Get found by customers in your city with our specialized GMB optimization for Indian businesses.
+                    </p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <div class="gmb-highlight w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Complete GMB Profile Setup</h4>
+                                <p class="text-gray-600">Professional business listing with photos, hours, and contact info</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="gmb-highlight w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Review Management</h4>
+                                <p class="text-gray-600">Monitor and respond to customer reviews professionally</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="gmb-highlight w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Local Citation Building</h4>
+                                <p class="text-gray-600">List your business on JustDial, Sulekha, and 50+ Indian directories</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-green-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-green-700 transition-colors">
+                        Get GMB Audit - ₹2,500
+                    </button>
+                </div>
+                
+                <div class="relative">
+                    <div class="bg-gray-50 rounded-2xl p-8">
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-4">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mr-4">
+                                    <i data-lucide="store" class="w-6 h-6 text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Delhi Restaurant</h4>
+                                    <div class="flex items-center">
+                                        <span class="text-yellow-400">⭐⭐⭐⭐⭐</span>
+                                        <span class="text-gray-600 text-sm ml-2">4.8 (234 reviews)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-sm text-gray-600 mb-2">📍 Connaught Place, New Delhi</div>
+                            <div class="text-sm text-green-600 font-medium">🟢 Open • Closes 11 PM</div>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div class="bg-white rounded-lg p-4">
+                                <div class="text-2xl font-bold text-blue-600">+320%</div>
+                                <div class="text-xs text-gray-600">Map Views</div>
+                            </div>
+                            <div class="bg-white rounded-lg p-4">
+                                <div class="text-2xl font-bold text-green-600">+180%</div>
+                                <div class="text-xs text-gray-600">Phone Calls</div>
+                            </div>
+                            <div class="bg-white rounded-lg p-4">
+                                <div class="text-2xl font-bold text-purple-600">+250%</div>
+                                <div class="text-xs text-gray-600">Directions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Complete SEO Solutions for Indian Businesses
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    From local shops to national e-commerce brands, we help Indian businesses rank higher on Google
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="search" class="w-7 h-7 text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Technical SEO Audit</h3>
+                    <p class="text-gray-600 mb-4">
+                        Complete 150-point technical analysis designed for Indian websites and hosting conditions.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Core Web Vitals optimization</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Mobile-first indexing</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Page speed for 3G networks</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="globe" class="w-7 h-7 text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Hindi + English SEO</h3>
+                    <p class="text-gray-600 mb-4">
+                        Bilingual keyword research and content optimization for Hindi and English audiences.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Devanagari script optimization</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Voice search in Hindi</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Regional language support</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="shopping-cart" class="w-7 h-7 text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">E-commerce SEO</h3>
+                    <p class="text-gray-600 mb-4">
+                        Specialized optimization for Shopify, WooCommerce, and Indian platforms like Meesho.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Product schema markup</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Category page optimization</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Price comparison SEO</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="map-pin" class="w-7 h-7 text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Local SEO India</h3>
+                    <p class="text-gray-600 mb-4">
+                        Get found by local customers with city-specific optimization and Indian directory listings.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>JustDial & Sulekha optimization</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>City-specific landing pages</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Local competition analysis</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="trending-up" class="w-7 h-7 text-red-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Content Marketing</h3>
+                    <p class="text-gray-600 mb-4">
+                        SEO-optimized blog posts and articles that resonate with Indian audiences and culture.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Festival & event content</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Regional trend analysis</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Bollywood/Cricket tie-ins</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="shield-check" class="w-7 h-7 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Reputation Management</h3>
+                    <p class="text-gray-600 mb-4">
+                        Monitor and improve your online reputation across Indian review platforms and social media.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Google & Facebook reviews</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Brand mention monitoring</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Crisis management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    SEO Packages Designed for India
+                </h2>
+                <p class="text-xl text-gray-600">Affordable pricing with guaranteed results</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter Package -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-8">
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Startup Special</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">₹8,999</div>
+                        <p class="text-gray-600">Per month • Perfect for small businesses</p>
+                        <div class="text-sm text-green-600 font-medium mt-2">⚡ Most Popular for Startups</div>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Free SEO audit (Worth ₹5,000)
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Google My Business setup
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            50 keywords optimization
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            2 blog posts per month
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Local directory listings
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Monthly ranking report
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                        Start Growing Today
+                    </button>
+                    <div class="text-center text-sm text-gray-500 mt-2">💬 WhatsApp Support Included</div>
+                </div>
+                
+                <!-- Professional Package -->
+                <div class="pricing-card-popular text-white rounded-2xl shadow-2xl p-8 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div class="bg-yellow-400 text-gray-900 px-6 py-2 rounded-full text-sm font-bold">
+                            🏆 BEST VALUE
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-semibold mb-2">Business Growth</h3>
+                        <div class="text-4xl font-bold mb-2">₹19,999</div>
+                        <p className="text-blue-100">Per month • For growing businesses</p>
+                        <div class="text-sm text-yellow-300 font-medium mt-2">🚀 Fastest ROI Package</div>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-3"></i>
+                            Everything in Startup Special
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-3"></i>
+                            100 keywords optimization
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-3"></i>
+                            E-commerce SEO (if applicable)
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-3"></i>
+                            4 blog posts per month
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-3"></i>
+                            Advanced analytics setup
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-3"></i>
+                            Competitor analysis
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-3"></i>
+                            Weekly performance calls
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full bg-yellow-400 text-gray-900 py-3 px-6 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
+                        Scale Your Business
+                    </button>
+                    <div class="text-center text-sm text-yellow-300 mt-2">📞 Dedicated Account Manager</div>
+                </div>
+                
+                <!-- Enterprise Package -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-8">
+                    <div class="text-center mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Enterprise</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">₹49,999</div>
+                        <p class="text-gray-600">Per month • For large businesses</p>
+                        <div class="text-sm text-purple-600 font-medium mt-2">🎯 Custom Strategy</div>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Everything in Business Growth
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Unlimited keywords
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Multi-location SEO
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Custom content strategy
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Advanced link building
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            Priority support 24/7
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                        Contact for Custom Quote
+                    </button>
+                    <div class="text-center text-sm text-gray-500 mt-2">🎖️ White-glove Service</div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <div class="inline-flex items-center space-x-8 text-gray-600">
+                    <div class="flex items-center">
+                        <i data-lucide="shield-check" class="w-5 h-5 mr-2 text-green-500"></i>
+                        No Long-term Contracts
+                    </div>
+                    <div class="flex items-center">
+                        <i data-lucide="zap" class="w-5 h-5 mr-2 text-blue-500"></i>
+                        Results in 30 Days
+                    </div>
+                    <div class="flex items-center">
+                        <i data-lucide="award" class="w-5 h-5 mr-2 text-purple-500"></i>
+                        Money-back Guarantee
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 gradient-hero text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                Ready to Dominate Google India?
+            </h2>
+            <p class="text-xl text-blue-100 mb-8">
+                Join 500+ Indian businesses already ranking #1 on Google. Get your free SEO audit today!
+            </p>
+            
+            <div class="trust-badge rounded-2xl p-8 mb-8 backdrop-blur-sm">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="text-center">
+                        <div class="text-lg font-medium mb-3">Get Your Free SEO Audit</div>
+                        <a href="https://wa.me/919876543210" class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-semibold transition-colors shadow-lg">
+                            <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+                            WhatsApp: +91 98765 43210
+                        </a>
+                        <div class="text-sm text-blue-200 mt-2">Response within 30 minutes</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg font-medium mb-3">Schedule Strategy Call</div>
+                        <a href="tel:+919876543210" class="inline-flex items-center bg-white/20 hover:bg-white/30 text-white px-8 py-4 rounded-xl font-semibold transition-colors">
+                            <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
+                            Call Now
+                        </a>
+                        <div class="text-sm text-blue-200 mt-2">Free 15-minute consultation</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 text-blue-100">
+                <div class="flex items-center">
+                    <i data-lucide="clock" class="w-5 h-5 mr-2"></i>
+                    Free audit delivered in 24 hours
+                </div>
+                <div class="flex items-center">
+                    <i data-lucide="users" class="w-5 h-5 mr-2"></i>
+                    500+ happy clients across India
+                </div>
+                <div class="flex items-center">
+                    <i data-lucide="trending-up" class="w-5 h-5 mr-2"></i>
+                    Average 300% traffic increase
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">T</span>
+                        </div>
+                        <span class="ml-2 text-lg font-bold text-white">TaurusAI</span>
+                        <div class="ml-2 indian-flag-gradient text-xs px-2 py-1 rounded">IN</div>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        India's leading AI-powered SEO agency helping businesses rank #1 on Google.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">SEO Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition-colors">Local SEO India</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">E-commerce SEO</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Technical SEO</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Content Marketing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Indian Cities</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition-colors">Mumbai SEO</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Delhi SEO</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Bangalore SEO</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Pune SEO</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li>📞 WhatsApp: +91 98765 43210</li>
+                        <li>📧 Email: hello@taurusai.in</li>
+                        <li>📍 Mumbai, Maharashtra, India</li>
+                        <li>⏰ Mon-Sat: 9 AM - 7 PM IST</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 TaurusAI.in - India's #1 SEO Agency. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // ROI Calculator Functions
+        function openCalculator() {
+            document.getElementById('roiCalculator').classList.remove('hidden');
+        }
+        
+        function closeCalculator() {
+            document.getElementById('roiCalculator').classList.add('hidden');
+        }
+        
+        function calculateROI() {
+            const visitors = document.getElementById('visitors').value;
+            const orderValue = document.getElementById('orderValue').value;
+            const conversionRate = document.getElementById('conversionRate').value;
+            
+            if (visitors && orderValue && conversionRate) {
+                const currentRevenue = (visitors * (conversionRate / 100) * orderValue);
+                const projectedRevenue = (visitors * 3.8 * (conversionRate / 100) * 1.5 * orderValue); // 3.8x traffic, 1.5x conversion
+                const additionalRevenue = projectedRevenue - currentRevenue;
+                
+                document.getElementById('roiAmount').textContent = `₹${additionalRevenue.toLocaleString('en-IN')} / month`;
+                document.getElementById('roiDescription').textContent = `Potential additional monthly revenue with our SEO optimization`;
+                document.getElementById('roiResult').classList.remove('hidden');
+            }
+        }
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Counter animation
+        const observerOptions = {
+            threshold: 0.5,
+            triggerOnce: true
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('counter-animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.stats-counter').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

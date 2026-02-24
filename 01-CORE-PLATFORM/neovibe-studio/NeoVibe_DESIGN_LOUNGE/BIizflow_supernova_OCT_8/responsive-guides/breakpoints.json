@@ -1,0 +1,48 @@
+{
+  "breakpoints": {
+    "xs": {
+      "min": "320px",
+      "max": "767px",
+      "description": "Mobile devices",
+      "optimization": "Touch-first interactions, simplified layouts, stacked content"
+    },
+    "sm": {
+      "min": "768px",
+      "max": "1023px",
+      "description": "Tablets and small laptops",
+      "optimization": "Balanced layout, moderate feature density"
+    },
+    "md": {
+      "min": "1024px",
+      "max": "1439px",
+      "description": "Standard laptops and desktops",
+      "optimization": "Full feature set, optimal information density"
+    },
+    "lg": {
+      "min": "1440px",
+      "max": "1920px",
+      "description": "Large screens and wide monitors",
+      "optimization": "Enhanced spacing, multi-column layouts"
+    },
+    "xl": {
+      "min": "1920px",
+      "max": "2560px",
+      "description": "Ultra-wide displays",
+      "optimization": "Maximum content width, premium layouts"
+    }
+  },
+  "containers": {
+    "xs": "100%",
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "2xl": "1400px"
+  },
+  "guidelines": {
+    "mobile_first": "Design for mobile (320px) and scale up",
+    "touch_targets": "Minimum 44px touch targets on mobile",
+    "typography_scale": "Reduce font sizes by 10-20% on mobile",
+    "spacing_adjustment": "Reduce margins/padding by 20-30% on mobile"
+  }
+}

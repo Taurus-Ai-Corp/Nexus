@@ -1,0 +1,20 @@
+{
+  "name": "Chart Container",
+  "type": "div",
+  "classes": [
+    "chart-container"
+  ],
+  "children": [
+    {
+      "type": "h3",
+      "text": "{{title}}"
+    },
+    {
+      "type": "div",
+      "classes": [
+        "chart-placeholder"
+      ],
+      "text": "Chart will be rendered here"
+    }
+  ]
+}

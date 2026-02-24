@@ -1,0 +1,61 @@
+{
+  "core_brand_message": "Neural Commerce Systems - Where AI meets Business Growth",
+  "segment_positioning": {
+    "accessible_growth_focused": {
+      "target": "SMB B2B companies (10-100 employees)",
+      "message": "Affordable AI automation that grows with your business",
+      "pricing": "Growth-friendly tiers starting at $500/month",
+      "positioning": "Your AI growth partner",
+      "communication_style": "Friendly, approachable, educational"
+    },
+    "enterprise_grade_orchestration": {
+      "target": "Enterprise B2B companies (500+ employees)",
+      "message": "Enterprise-grade AI orchestration for market leaders",
+      "pricing": "Custom enterprise solutions",
+      "positioning": "The AI transformation authority",
+      "communication_style": "Professional, sophisticated, results-focused"
+    },
+    "broader_b2b_a2c": {
+      "target": "All B2B sectors + A2C (Anyone-to-Customer) markets",
+      "message": "Universal AI platform for any business model",
+      "pricing": "Flexible solutions for every business type",
+      "positioning": "The universal business AI platform",
+      "communication_style": "Adaptable, comprehensive, solution-oriented"
+    }
+  },
+  "unified_value_propositions": [
+    "AI-powered workflow optimization that adapts to your business",
+    "From startup to enterprise - one platform that scales",
+    "Immediate ROI with long-term platform growth",
+    "No-code AI automation for any business model"
+  ],
+  "brand_assets": [
+    {
+      "asset_type": "logo_variations",
+      "variations": [
+        "Neural Commerce Systems - Growth Edition (SMB)",
+        "Neural Commerce Systems - Enterprise Edition",
+        "Neural Commerce Systems - Universal Platform"
+      ],
+      "usage": "Adapt logo based on target audience"
+    },
+    {
+      "asset_type": "messaging_templates",
+      "templates": [
+        "SMB Messaging: 'AI that grows with you'",
+        "Enterprise Messaging: 'Enterprise-grade AI orchestration'",
+        "Universal Messaging: 'AI for every business model'"
+      ],
+      "usage": "Website, email, sales materials adaptation"
+    },
+    {
+      "asset_type": "case_studies",
+      "studies": [
+        "SMB Success: 300% growth with affordable AI",
+        "Enterprise Success: $2M savings through orchestration",
+        "Universal Success: Cross-industry transformation"
+      ],
+      "usage": "Segment-specific social proof"
+    }
+  ]
+}

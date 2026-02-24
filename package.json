@@ -1,0 +1,60 @@
+{
+  "name": "bizflow-neovibe-platform",
+  "version": "1.0.0",
+  "description": "AI-powered marketing automation and creative design platform",
+  "private": true,
+  "workspaces": [
+    "01-CORE-PLATFORM/bizflow-frontend",
+    "01-CORE-PLATFORM/neovibe-studio"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:neovibe\"",
+    "dev:backend": "cd 01-CORE-PLATFORM/bizflow-backend && uvicorn main:app --reload --port 8000",
+    "dev:frontend": "cd 01-CORE-PLATFORM/bizflow-frontend && npm run dev",
+    "dev:neovibe": "cd 01-CORE-PLATFORM/neovibe-studio && npm run dev",
+    "build": "npm run build:frontend && npm run build:neovibe",
+    "build:frontend": "cd 01-CORE-PLATFORM/bizflow-frontend && npm run build",
+    "build:neovibe": "cd 01-CORE-PLATFORM/neovibe-studio && npm run build",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd 01-CORE-PLATFORM/bizflow-backend && pytest",
+    "test:frontend": "cd 01-CORE-PLATFORM/bizflow-frontend && npm test",
+    "lint": "npm run lint:frontend && npm run lint:neovibe",
+    "lint:frontend": "cd 01-CORE-PLATFORM/bizflow-frontend && npm run lint",
+    "lint:neovibe": "cd 01-CORE-PLATFORM/neovibe-studio && npm run lint",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "db:migrate": "cd 05-DATABASES/supabase && supabase db push",
+    "db:reset": "cd 05-DATABASES/supabase && supabase db reset",
+    "orchestrator:start": "python 02-AGENTS/orchestration/master_orchestrator.py",
+    "n8n:export": "docker exec bizflow-n8n n8n export:workflow --all --output=/home/node/workflows/",
+    "n8n:import": "docker exec bizflow-n8n n8n import:workflow --input=/home/node/workflows/"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taurusai/bizflow-neovibe-platform.git"
+  },
+  "keywords": [
+    "ai",
+    "marketing",
+    "automation",
+    "agents",
+    "bizflow",
+    "neovibe",
+    "mcp",
+    "agentuity"
+  ],
+  "author": "TAURUS AI CORP",
+  "license": "PROPRIETARY"
+}

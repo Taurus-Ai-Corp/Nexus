@@ -1,0 +1,184 @@
+{
+  "website_analysis": {
+    "title": "WARP - Webflow HTML Website Template",
+    "url": "https://warp-webflow-template.webflow.io/",
+    "extracted_at": "2025-09-20T09:49:00Z",
+    "analysis_type": "complete_content_extraction",
+    "content_format": "structured_json",
+    "tokens_used": 12000
+  },
+  "company_info": {
+    "name": "WARP Studio",
+    "tagline": "We Don't Just Design for the Present — We Craft Experiences for the Future",
+    "description": "From Concept to Creation — Beautiful design has the power to captivate audiences.",
+    "focus_area": "Design, Marketing, Concept Development, Branding"
+  },
+  "navigation": {
+    "main_links": [
+      {"name": "HOME", "url": "/"},
+      {"name": "ABOUT", "url": "/about"},
+      {"name": "WORKS", "url": "/works"},
+      {"name": "SERVICES", "url": "/services"},
+      {"name": "BLOG", "url": "/blog"},
+      {"name": "CONTACT", "url": "/contact"}
+    ]
+  },
+  "content_sections": [
+    {
+      "section_id": "hero",
+      "heading": "WARP® STUDIO",
+      "subheading": "From Concept to Creation — Beautiful design has the power to captivate audiences.",
+      "gallery_images": [
+        {
+          "description": "Man skating with neon background",
+          "url": "https://cdn.prod.website-files.com/68711b2b9332a934a2b42342/687cbe7ce1fe8d45c86e80aa_Orange_gradient.webp"
+        },
+        {
+          "description": "Woman with neon blue background",
+          "url": "https://cdn.prod.website-files.com/68711b2b9332a934a2b42342/687cf1dba22945ac811c0c1a_1753015059832-2.webp"
+        },
+        {
+          "description": "Car with light background",
+          "url": "https://cdn.prod.website-files.com/68711b2b9332a934a2b42342/687cbe71216fcb9d157da3b9_Future.webp"
+        },
+        {
+          "description": "Man lying on concrete",
+          "url": "https://cdn.prod.website-files.com/68711b2b9332a934a2b42342/687cbe038d6eb8bbcf7a5074_Concret.webp"
+        },
+        {
+          "description": "Bike with dark background",
+          "url": "https://cdn.prod.website-files.com/68711b2b9332a934a2b42342/687cf4d796472d7e54a7a709_KrateWork2.webp"
+        },
+        {
+          "description": "Backpack with light background",
+          "url": "https://cdn.prod.website-files.com/68711b2b9332a934a2b42342/687cf409ab424fc85061beec_1753014837852-2.webp"
+        }
+      ]
+    },
+    {
+      "section_id": "about",
+      "heading": "We Don't Just Design for the Present — We Craft Experiences for the Future.",
+      "content": "Specializing in creating visually captivating designs that leave a lasting impression by transforming your ideas into stunning visuals. Crafting unique and immersive brand narratives that captivate audiences across digital platforms."
+    },
+    {
+      "section_id": "works",
+      "heading": "Works",
+      "categories": [
+        {
+          "name": "Sport",
+          "cta": "View Work"
+        },
+        {
+          "name": "Modern",
+          "cta": "View Work"
+        },
+        {
+          "name": "Future",
+          "cta": "View Work"
+        }
+      ]
+    },
+    {
+      "section_id": "services",
+      "heading": "Services",
+      "services": [
+        {
+          "name": "Design",
+          "description": "We create user-focused designs that bring your brand's vision to life.",
+          "cta": "Learn More",
+          "link": "/services/design"
+        },
+        {
+          "name": "Marketing",
+          "description": "Our marketing solutions drive growth and elevate your brand's presence.",
+          "cta": "Learn More",
+          "link": "/services/marketing"
+        },
+        {
+          "name": "Concept",
+          "description": "We develop innovative ideas that form the foundation of standout projects.",
+          "cta": "Learn More",
+          "link": "/services/concept"
+        },
+        {
+          "name": "Branding",
+          "description": "Our branding expertise transforms concepts into memorable identities.",
+          "cta": "Learn More",
+          "link": "/services/branding"
+        }
+      ]
+    },
+    {
+      "section_id": "statistics",
+      "heading": "Every number tells a story. And we're here to help you make sense of it.",
+      "subheading": "We don't just design—we drive results. Our creative strategies are built to grow your business by increasing visibility, engagement, and revenue.",
+      "metrics": [
+        {
+          "name": "LOYAL CLIENTS",
+          "value": "99+"
+        },
+        {
+          "name": "PROJECTS COMPLETED",
+          "value": "99+"
+        },
+        {
+          "name": "TEAM MEMBERS",
+          "value": "99+"
+        }
+      ]
+    },
+    {
+      "section_id": "gallery",
+      "images": [
+        {
+          "description": "Man walking on a sunset background",
+          "url": "https://cdn.prod.website-files.com/68711b2b9332a934a2b42342/687cf7105b273fec7fd698b5_1753015140492.webp"
+        }
+      ]
+    },
+    {
+      "section_id": "contact",
+      "heading": "Say Hello!",
+      "cta": "Contact"
+    }
+  ],
+  "footer": {
+    "tagline": "Beautiful design has the power to captivate audiences.",
+    "utilities": [
+      {"name": "Style Guide", "url": "/style-guide"},
+      {"name": "Instructions", "url": "/instructions"},
+      {"name": "Licenses", "url": "/licenses"},
+      {"name": "Changelog", "url": "/changelog"}
+    ],
+    "social_links": ["Follow Us"],
+    "copyright": "© 2025 WARP. All Rights Reserved.",
+    "powered_by": "Webflow",
+    "built_by": "Rick Mummery"
+  },
+  "technical_details": {
+    "platform": "Webflow",
+    "template_type": "HTML Website Template",
+    "design_style": "Modern, Minimalist, High-contrast",
+    "color_scheme": "Dark theme with neon accents",
+    "typography": "Sans-serif, modern",
+    "animations": "Smooth transitions, parallax effects",
+    "responsive": true
+  },
+  "business_analysis": {
+    "company_type": "Design Studio",
+    "specialization": "Visual Design, Marketing, Branding, Concept Development",
+    "target_market": "Businesses seeking modern, visually striking digital presence",
+    "value_proposition": "Creating captivating designs that transform ideas into stunning visuals",
+    "key_metrics": {
+      "loyal_clients": "99+",
+      "projects_completed": "99+",
+      "team_members": "99+"
+    },
+    "competitive_advantages": [
+      "Future-focused design approach",
+      "Results-driven creative strategies",
+      "Comprehensive service offering",
+      "Strong visual storytelling"
+    ]
+  }
+}

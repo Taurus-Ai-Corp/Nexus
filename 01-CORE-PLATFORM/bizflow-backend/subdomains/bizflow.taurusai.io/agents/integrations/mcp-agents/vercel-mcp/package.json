@@ -1,0 +1,22 @@
+{
+  "name": "vercel-mcp",
+  "version": "1.0.0",
+  "description": "Vercel MCP server for deploying Vibe Marketing portfolio",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.4",
+    "axios": "^1.6.0",
+    "form-data": "^4.0.0"
+  },
+  "keywords": ["mcp", "vercel", "deployment", "vibe-marketing"],
+  "author": "Taurus AI Corp",
+  "license": "MIT"
+}
+
+
+
+

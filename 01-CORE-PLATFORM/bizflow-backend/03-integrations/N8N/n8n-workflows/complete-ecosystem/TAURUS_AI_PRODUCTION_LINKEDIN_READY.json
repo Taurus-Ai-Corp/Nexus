@@ -1,0 +1,231 @@
+{
+  "name": "🏰 TAURUS AI - LinkedIn Production Ready",
+  "meta": {
+    "instanceId": "taurus-ai-production",
+    "organization": "TAURUS AI CORP",
+    "version": "2.0.0",
+    "production_ready": true,
+    "openrouter_configured": true
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "taurus-linkedin-production",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [120, 260],
+      "id": "webhook-taurus-linkedin",
+      "name": "🏰 TAURUS AI Webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "# 🏰 TAURUS AI CORP. - LinkedIn Content Master Agent\n\nYou are the LinkedIn Content Master Agent for TAURUS AI CORP - transforming business insights into viral LinkedIn content.\n\n## YOUR MISSION\nCreate high-performing LinkedIn posts that establish TAURUS AI CORP as the leader in AI-powered business automation.\n\n## BRAND VOICE - TAURUS AI CORP\n- **Authoritative**: Industry expertise in AI automation\n- **Innovative**: Cutting-edge solutions and insights\n- **Results-Focused**: Data-driven, measurable outcomes\n- **Accessible**: Complex AI made simple for businesses\n- **Global**: Multi-cultural intelligence and sensitivity\n\n## CONTENT FOCUS AREAS\n1. **AI Business Automation**: Success stories, case studies\n2. **Small Business Empowerment**: Leveling the playing field\n3. **Marketing Revolution**: AI-powered strategies\n4. **Cultural Intelligence**: Global business insights\n5. **Technology Trends**: Future of business automation\n\n## OUTPUT FORMAT\n**OPTIMIZED LINKEDIN POST:**\n[Ready-to-publish content with TAURUS AI branding]\n\n**ALTERNATIVE HOOKS (3):**\nHook 1: [Attention-grabbing opener]\nHook 2: [Question/curiosity hook]\nHook 3: [Contrarian/surprising angle]\n\n**HASHTAG STRATEGY:**\n#AIAutomation #BusinessIntelligence #TaurusAI #MarketingAutomation #SmallBusiness #Innovation\n\n**ENGAGEMENT OPTIMIZATION:**\n- CTA for comments/engagement\n- Industry-specific pain points\n- Data-driven insights\n- Visual content suggestions\n\nDate = {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [400, 260],
+      "id": "taurus-ai-agent",
+      "name": "🏰 TAURUS AI LinkedIn Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list", 
+          "value": "anthropic/claude-3-sonnet"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [400, 440],
+      "id": "openrouter-model",
+      "name": "OpenRouter Claude 3 Sonnet",
+      "credentials": {
+        "openRouterApi": {
+          "apiKey": "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"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Research Agent - Advanced market research for TAURUS AI LinkedIn content",
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            },
+            {
+              "name": "Content-Type", 
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": {
+          "model": "llama-3.1-sonar-small-128k-online",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a market research analyst for TAURUS AI CORP, focusing on AI automation trends for small businesses."
+            },
+            {
+              "role": "user",
+              "content": "Research latest trends in AI business automation and small business adoption. Focus on: market statistics, success metrics, competitive landscape, and opportunities for TAURUS AI positioning."
+            }
+          ],
+          "max_tokens": 1000,
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [200, 440],
+      "id": "perplexity-research",
+      "name": "🔍 TAURUS AI Research Tool"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Hook Generator - Creates viral LinkedIn hooks from proven database",
+        "text": "Generate 3 viral LinkedIn hooks for this content topic, focusing on AI automation and small business transformation. Use proven engagement patterns.",
+        "options": {
+          "systemMessage": "You are the Hook Generator for TAURUS AI CORP. Generate 3 different viral LinkedIn hooks using these proven patterns:\n\n1. **Statistical Hook**: Start with surprising statistics about AI adoption\n2. **Question Hook**: Pose thought-provoking questions about business automation\n3. **Contrarian Hook**: Challenge common beliefs about AI in business\n\nEach hook should:\n- Be 2-3 sentences maximum\n- Focus on TAURUS AI's value proposition\n- Appeal to small business owners\n- Drive engagement and comments\n\nExamples:\n- '94% of small businesses fail at AI adoption. Here's why TAURUS AI clients succeed...'\n- 'What if I told you AI automation could replace your entire marketing team for $99/month?'\n- 'Everyone says AI is too complex for small business. We just proved them wrong.'"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [600, 440],
+      "id": "hook-generator",
+      "name": "🎯 TAURUS AI Hook Generator"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-3-sonnet-20240229"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [600, 620],
+      "id": "anthropic-hook-model",
+      "name": "Anthropic Hook Model",
+      "credentials": {
+        "anthropicApi": {
+          "apiKey": "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"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [800, 260],
+      "id": "webhook-response",
+      "name": "🚀 TAURUS AI Response"
+    }
+  ],
+  "connections": {
+    "🏰 TAURUS AI Webhook": {
+      "main": [
+        [
+          {
+            "node": "🏰 TAURUS AI LinkedIn Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🏰 TAURUS AI LinkedIn Agent": {
+      "main": [
+        [
+          {
+            "node": "🚀 TAURUS AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Claude 3 Sonnet": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "🏰 TAURUS AI LinkedIn Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 TAURUS AI Research Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "🏰 TAURUS AI LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎯 TAURUS AI Hook Generator": {
+      "ai_tool": [
+        [
+          {
+            "node": "🏰 TAURUS AI LinkedIn Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Hook Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "🎯 TAURUS AI Hook Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "id": "taurus-ai-production",
+      "name": "TAURUS AI Production"
+    },
+    {
+      "id": "linkedin-ready",
+      "name": "LinkedIn Ready"
+    },
+    {
+      "id": "openrouter-configured",
+      "name": "OpenRouter Configured"
+    }
+  ]
+}

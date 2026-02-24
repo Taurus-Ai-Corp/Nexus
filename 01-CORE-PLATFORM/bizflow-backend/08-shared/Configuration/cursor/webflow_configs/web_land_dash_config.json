@@ -1,0 +1,20 @@
+{
+  "project_name": "web_land_dash",
+  "site_id": null,
+  "collection_ids": {
+    "dashboards": "",
+    "widgets": "",
+    "users": "",
+    "analytics": ""
+  },
+  "webhook_endpoints": {
+    "form_submission": "https://api.weblanddash.com/webhooks/webflow/form",
+    "item_created": "https://api.weblanddash.com/webhooks/webflow/item-created"
+  },
+  "custom_fields": {
+    "dashboard_type": "analytics",
+    "integration_version": "1.0"
+  },
+  "auto_publish": true,
+  "draft_mode": false
+}

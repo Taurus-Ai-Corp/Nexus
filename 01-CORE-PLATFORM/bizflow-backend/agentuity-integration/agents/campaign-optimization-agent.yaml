@@ -1,0 +1,341 @@
+# Campaign Optimization Agent
+# Purpose: Real-time campaign performance optimization and ROI maximization
+
+agent:
+  name: "Campaign Optimization Agent"
+  version: "1.0.0"
+  description: "AI-powered campaign optimization for maximum ROI and performance"
+
+  # Core Capabilities
+  capabilities:
+    - "Real-time performance monitoring"
+    - "A/B testing automation"
+    - "ROI optimization"
+    - "Conversion tracking"
+    - "Budget allocation optimization"
+    - "Channel performance analysis"
+
+  # MCP Server Integrations
+  mcp_integrations:
+    design_tokens:
+      purpose: "Performance-based design optimization"
+      functions:
+        - "Track design element performance"
+        - "Optimize color and typography based on engagement"
+        - "A/B test visual variations"
+        - "Generate performance-optimized designs"
+      integration_type: "Performance-driven design tokens"
+    
+    components:
+      purpose: "Component performance optimization"
+      functions:
+        - "Track component engagement rates"
+        - "Optimize component variations"
+        - "Generate high-performing component versions"
+        - "A/B test component layouts"
+      integration_type: "Component performance analytics"
+
+  # Input Schema
+  input_schema:
+    type: "object"
+    properties:
+      campaign_data:
+        type: "object"
+        properties:
+          campaign_id:
+            type: "string"
+          campaign_name:
+            type: "string"
+          start_date:
+            type: "string"
+            format: "date"
+          end_date:
+            type: "string"
+            format: "date"
+          budget:
+            type: "number"
+          target_metrics:
+            type: "object"
+            properties:
+              reach:
+                type: "number"
+              engagement_rate:
+                type: "number"
+              conversion_rate:
+                type: "number"
+              cost_per_lead:
+                type: "number"
+              roi_target:
+                type: "number"
+      
+      performance_data:
+        type: "object"
+        properties:
+          current_metrics:
+            type: "object"
+            properties:
+              impressions:
+                type: "number"
+              clicks:
+                type: "number"
+              conversions:
+                type: "number"
+              cost:
+                type: "number"
+              engagement_rate:
+                type: "number"
+              conversion_rate:
+                type: "number"
+              cost_per_lead:
+                type: "number"
+              roi:
+                type: "number"
+          
+          channel_performance:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                channel:
+                  type: "string"
+                performance_score:
+                  type: "number"
+                cost_efficiency:
+                  type: "number"
+                conversion_rate:
+                  type: "number"
+                engagement_rate:
+                  type: "number"
+          
+          content_performance:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                content_id:
+                  type: "string"
+                content_type:
+                  type: "string"
+                performance_score:
+                  type: "number"
+                engagement_rate:
+                  type: "number"
+                conversion_rate:
+                  type: "number"
+                cost_per_engagement:
+                  type: "number"
+
+  # Output Schema
+  output_schema:
+    type: "object"
+    properties:
+      optimization_recommendations:
+        type: "object"
+        properties:
+          budget_reallocation:
+            type: "object"
+            properties:
+              recommended_changes:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    channel:
+                      type: "string"
+                    current_budget:
+                      type: "number"
+                    recommended_budget:
+                      type: "number"
+                    reason:
+                      type: "string"
+              expected_impact:
+                type: "object"
+                properties:
+                  roi_improvement:
+                    type: "number"
+                  cost_reduction:
+                    type: "number"
+                  conversion_increase:
+                    type: "number"
+          
+          content_optimization:
+            type: "object"
+            properties:
+              high_performing_content:
+                type: "array"
+                items:
+                  type: "string"
+              content_to_scale:
+                type: "array"
+                items:
+                  type: "string"
+              content_to_pause:
+                type: "array"
+                items:
+                  type: "string"
+              new_content_recommendations:
+                type: "array"
+                items:
+                  type: "string"
+          
+          targeting_optimization:
+            type: "object"
+            properties:
+              audience_refinements:
+                type: "array"
+                items:
+                  type: "string"
+              demographic_adjustments:
+                type: "array"
+                items:
+                  type: "string"
+              behavioral_targeting:
+                type: "array"
+                items:
+                  type: "string"
+              geographic_optimization:
+                type: "array"
+                items:
+                  type: "string"
+      
+      performance_forecast:
+        type: "object"
+        properties:
+          projected_metrics:
+            type: "object"
+            properties:
+              reach:
+                type: "number"
+              engagement_rate:
+                type: "number"
+              conversion_rate:
+                type: "number"
+              cost_per_lead:
+                type: "number"
+              roi:
+                type: "number"
+              total_revenue:
+                type: "number"
+          
+          confidence_level:
+            type: "number"
+            description: "Confidence level of projections (0-100%)"
+          
+          risk_factors:
+            type: "array"
+            items:
+              type: "string"
+      
+      automated_actions:
+        type: "object"
+        properties:
+          immediate_actions:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                action_type:
+                  type: "string"
+                description:
+                  type: "string"
+                expected_impact:
+                  type: "string"
+                implementation_time:
+                  type: "string"
+          
+          scheduled_actions:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                action_type:
+                  type: "string"
+                scheduled_time:
+                  type: "string"
+                description:
+                  type: "string"
+                expected_impact:
+                  type: "string"
+
+  # Business Logic
+  optimization_workflow:
+    step_1_analysis:
+      - "Analyze current performance metrics"
+      - "Compare against industry benchmarks"
+      - "Identify performance gaps and opportunities"
+      - "Calculate ROI and efficiency metrics"
+    
+    step_2_optimization:
+      - "Generate budget reallocation recommendations"
+      - "Identify high-performing content to scale"
+      - "Recommend targeting refinements"
+      - "Suggest A/B testing opportunities"
+    
+    step_3_automation:
+      - "Implement automated optimizations"
+      - "Set up performance alerts"
+      - "Schedule optimization actions"
+      - "Monitor real-time performance changes"
+    
+    step_4_reporting:
+      - "Generate optimization reports"
+      - "Track improvement metrics"
+      - "Provide actionable insights"
+      - "Update performance forecasts"
+
+  # Performance Metrics
+  success_metrics:
+    roi_improvement:
+      target: "25% increase"
+      description: "Average ROI improvement from optimizations"
+    cost_efficiency:
+      target: "30% cost reduction"
+      description: "Reduction in cost per lead/acquisition"
+    conversion_rate:
+      target: "23% (vs 8% industry average)"
+      description: "Campaign conversion rate"
+    optimization_speed:
+      target: "Real-time"
+      description: "Speed of optimization implementation"
+    client_satisfaction:
+      target: "9.5/10"
+      description: "Client satisfaction with optimization results"
+
+  # Revenue Impact
+  revenue_impact:
+    q1_target: "$500K"
+    q2_target: "$750K"
+    q3_target: "$1M"
+    q4_target: "$1.2M"
+    roi_contribution: "70% of total campaign success"
+    cost_savings: "$100K per month in optimization costs"
+
+  # Integration Points
+  integration_points:
+    cultural_intelligence_agent:
+      data_flow: "Cultural insights → Performance benchmarks and optimization targets"
+    content_creation_agent:
+      data_flow: "Performance data → Content optimization recommendations"
+    lead_generation_agent:
+      data_flow: "Conversion data → Lead nurturing optimization"
+    client_communication_agent:
+      data_flow: "Performance reports → Client updates and recommendations"
+
+  # Example Use Cases
+  example_use_cases:
+    - "Swiss watch brand: 574% ROI through real-time optimization"
+    - "Luxury fashion: 89% story completion rate optimization"
+    - "Tech startup: 45% cost per lead reduction"
+    - "Healthcare brand: 67% higher local engagement"
+    - "Financial services: 340% client LTV increase"
+
+  # Automation Rules
+  automation_rules:
+    - "Auto-pause underperforming campaigns when ROI drops below 200%"
+    - "Scale high-performing content automatically"
+    - "Reallocate budget to best-performing channels"
+    - "Send alerts when performance drops below targets"
+    - "Generate daily optimization reports"
+    - "Implement A/B tests automatically"
+    - "Optimize targeting based on conversion data"
+    - "Adjust bids based on real-time performance"

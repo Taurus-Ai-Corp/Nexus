@@ -1,0 +1,232 @@
+{
+  "timestamp": "2025-09-14T10:33:12.382196",
+  "total_keys_tested": 6,
+  "valid_keys": 4,
+  "invalid_keys": 2,
+  "error_keys": 0,
+  "timeout_keys": 0,
+  "results": [
+    {
+      "key_name": "PERPLEXITY_API_KEY",
+      "status": "valid",
+      "response_time": 3.043287992477417,
+      "error_message": null,
+      "test_data": {
+        "id": "e174aafc-42bf-429d-9121-6016ed973c7f",
+        "model": "sonar",
+        "created": 1757860392,
+        "usage": {
+          "prompt_tokens": 1,
+          "completion_tokens": 5,
+          "total_tokens": 6,
+          "search_context_size": "low",
+          "cost": {
+            "input_tokens_cost": 0.0,
+            "output_tokens_cost": 0.0,
+            "request_cost": 0.005,
+            "total_cost": 0.005
+          }
+        },
+        "citations": [
+          "https://www.merriam-webster.com/dictionary/test",
+          "https://fast.com",
+          "https://implicit.harvard.edu/implicit/takeatest.html",
+          "https://speed.cloudflare.com",
+          "https://gfiber.com/speedtest/",
+          "https://www.speedtest.net",
+          "https://zoom.us/test",
+          "https://englishtest.duolingo.com/applicants"
+        ],
+        "search_results": [
+          {
+            "title": "TEST Definition & Meaning - Merriam-Webster",
+            "url": "https://www.merriam-webster.com/dictionary/test",
+            "date": "2024-09-23",
+            "last_updated": "2024-11-19",
+            "snippet": "1. a : a means of testing: such as (1) : something (such as a series of questions or exercises) for measuring the skill, knowledge, intelligence, capacities, ..."
+          },
+          {
+            "title": "Fast.com: Internet Speed Test",
+            "url": "https://fast.com",
+            "date": "2005-10-01",
+            "last_updated": "2025-09-12",
+            "snippet": "How fast is your download speed? In seconds, FAST.com's simple Internet speed test will estimate your ISP speed."
+          },
+          {
+            "title": "Take a Test",
+            "url": "https://implicit.harvard.edu/implicit/takeatest.html",
+            "date": null,
+            "last_updated": "2025-09-12",
+            "snippet": "Select an Implicit Association Test (IAT) from a list of possible topics. We'll also ask you (optionally) to report your attitudes or beliefs about these ..."
+          },
+          {
+            "title": "Internet Speed Test - Measure Network Performance | Cloudflare",
+            "url": "https://speed.cloudflare.com",
+            "date": null,
+            "last_updated": null,
+            "snippet": "Test your Internet connection. Check your network performance with our Internet speed test. Powered by Cloudflare's global edge network."
+          },
+          {
+            "title": "Internet Speed Test | Check Broadband Speed | Google Fiber",
+            "url": "https://gfiber.com/speedtest/",
+            "date": "2025-08-08",
+            "last_updated": "2025-09-14",
+            "snippet": "Test your current internet speed, and find out how fast your broadband wi-fi handles uploads and downloads. See Google Fiber plan options for faster ..."
+          },
+          {
+            "title": "Speedtest by Ookla - The Global Broadband Speed Test",
+            "url": "https://www.speedtest.net",
+            "date": "2020-09-01",
+            "last_updated": "2025-09-14",
+            "snippet": "Speedtest is better with the app. Download the Speedtest app for more metrics, video testing, mobile coverage maps, and more. Get it on Google Play."
+          },
+          {
+            "title": "Join a Test Meeting | Zoom",
+            "url": "https://zoom.us/test",
+            "date": "2025-01-01",
+            "last_updated": "2025-09-14",
+            "snippet": "Preview your next Zoom Meeting using out test meeting tool to check your settings and display."
+          },
+          {
+            "title": "Test your English online - Duolingo English Test",
+            "url": "https://englishtest.duolingo.com/applicants",
+            "date": "2000-10-06",
+            "last_updated": null,
+            "snippet": "Test your English online in under 1 hour. Get results in 2 days. Accepted by top universities. No test centers, no appointments. Take the test at home ..."
+          }
+        ],
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "length",
+            "message": {
+              "role": "assistant",
+              "content": "The word **\"tes"
+            },
+            "delta": {
+              "role": "assistant",
+              "content": ""
+            }
+          }
+        ]
+      }
+    },
+    {
+      "key_name": "FIRECRAWL_API_KEY",
+      "status": "valid",
+      "response_time": 3.135629177093506,
+      "error_message": null,
+      "test_data": {
+        "success": true,
+        "data": {
+          "content": "# Example Domain\n\nThis domain is for use in illustrative examples in documents. You may use this\ndomain in literature without prior coordination or asking for permission.\n\n[More information...](https://www.iana.org/domains/example)",
+          "markdown": "# Example Domain\n\nThis domain is for use in illustrative examples in documents. You may use this\ndomain in literature without prior coordination or asking for permission.\n\n[More information...](https://www.iana.org/domains/example)",
+          "linksOnPage": [
+            "https://www.iana.org/domains/example"
+          ],
+          "metadata": {
+            "title": "Example Domain",
+            "viewport": "width=device-width, initial-scale=1",
+            "scrapeId": "1d1a837b-39d6-4305-a583-aed04121812e",
+            "sourceURL": "https://example.com",
+            "url": "https://example.com/",
+            "contentType": "text/html",
+            "proxyUsed": "basic",
+            "cacheState": "miss",
+            "creditsUsed": 1,
+            "pageStatusCode": 200
+          }
+        },
+        "returnCode": 200
+      }
+    },
+    {
+      "key_name": "ANTHROPIC_API_KEY",
+      "status": "valid",
+      "response_time": 0.4471259117126465,
+      "error_message": null,
+      "test_data": {
+        "id": "msg_01HhrkToTqwnd2ganmSu9pb7",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-3-haiku-20240307",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hello! How can I assist you today?"
+          }
+        ],
+        "stop_reason": "max_tokens",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 8,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 10,
+          "service_tier": "standard"
+        }
+      }
+    },
+    {
+      "key_name": "OPENAI_API_KEY",
+      "status": "invalid",
+      "response_time": 0.2591891288757324,
+      "error_message": "HTTP 401: {\n    \"error\": {\n        \"message\": \"Incorrect API key provided: cNBq6io0********************************w/8=. You can find your API key at https://platform.openai.com/account/api-keys.\",\n        \"type\": \"invalid_request_error\",\n        \"param\": null,\n        \"code\": \"invalid_api_key\"\n    }\n}\n",
+      "test_data": null
+    },
+    {
+      "key_name": "FIGMA_ACCESS_TOKEN",
+      "status": "invalid",
+      "response_time": 0.5641698837280273,
+      "error_message": "HTTP 403: {\"status\":403,\"err\":\"Invalid scope(s): file_dev_resources:read, file_content:read, file_metadata:read, file_versions:read, library_assets:read, library_content:read, projects:read, webhooks:read. This endpoint requires the current_user:read scope\"}",
+      "test_data": null
+    },
+    {
+      "key_name": "GITHUB_PERSONAL_ACCESS_TOKEN",
+      "status": "valid",
+      "response_time": 0.2575249671936035,
+      "error_message": null,
+      "test_data": {
+        "login": "Taurus-ai",
+        "id": 201033261,
+        "node_id": "U_kgDOC_uGLQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/201033261?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Taurus-ai",
+        "html_url": "https://github.com/Taurus-ai",
+        "followers_url": "https://api.github.com/users/Taurus-ai/followers",
+        "following_url": "https://api.github.com/users/Taurus-ai/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Taurus-ai/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Taurus-ai/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Taurus-ai/subscriptions",
+        "organizations_url": "https://api.github.com/users/Taurus-ai/orgs",
+        "repos_url": "https://api.github.com/users/Taurus-ai/repos",
+        "events_url": "https://api.github.com/users/Taurus-ai/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Taurus-ai/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false,
+        "name": null,
+        "company": null,
+        "blog": "",
+        "location": null,
+        "email": null,
+        "hireable": null,
+        "bio": null,
+        "twitter_username": null,
+        "notification_email": null,
+        "public_repos": 0,
+        "public_gists": 0,
+        "followers": 0,
+        "following": 0,
+        "created_at": "2025-02-27T02:16:35Z",
+        "updated_at": "2025-08-27T19:45:14Z"
+      }
+    }
+  ]
+}

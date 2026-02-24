@@ -1,0 +1,164 @@
+{
+  "components": {
+    "NavigationHeader": {
+      "template": "nav",
+      "classes": "glass-effect p-4 mb-6",
+      "props": {
+        "title": "string",
+        "subtitle": "string",
+        "status": "string",
+        "lastUpdated": "string"
+      },
+      "variants": {
+        "default": {
+          "background": "glass-effect",
+          "padding": "p-4 mb-6"
+        },
+        "compact": {
+          "background": "glass-effect",
+          "padding": "p-2 mb-4"
+        }
+      }
+    },
+    "MetricCard": {
+      "template": "div",
+      "classes": "metric-card bg-white bg-opacity-10 rounded-lg p-6 text-center",
+      "props": {
+        "value": "number|string",
+        "label": "string",
+        "growth": "number",
+        "icon": "string",
+        "format": "currency|percentage|number"
+      },
+      "animations": {
+        "hover": {
+          "transform": "translateY(-5px)",
+          "boxShadow": "0 20px 40px rgba(0,0,0,0.1)"
+        }
+      }
+    },
+    "GlassPanel": {
+      "template": "section",
+      "classes": "glass-effect rounded-lg p-6",
+      "props": {
+        "title": "string",
+        "icon": "string",
+        "iconColor": "string"
+      },
+      "variants": {
+        "default": "glass-effect rounded-lg p-6",
+        "compact": "glass-effect rounded-lg p-4",
+        "expanded": "glass-effect rounded-lg p-8"
+      }
+    },
+    "SocialPlatformCard": {
+      "template": "div",
+      "classes": "bg-white bg-opacity-10 rounded-lg p-4 text-center hover:bg-opacity-20 transition-all cursor-pointer",
+      "props": {
+        "name": "string",
+        "icon": "string",
+        "status": "string",
+        "color": "string"
+      },
+      "states": {
+        "connected": {
+          "statusColor": "text-green-400",
+          "opacity": "opacity-100"
+        },
+        "disconnected": {
+          "statusColor": "text-red-400",
+          "opacity": "opacity-50"
+        },
+        "pending": {
+          "statusColor": "text-yellow-400",
+          "opacity": "opacity-75"
+        }
+      }
+    },
+    "MarketCard": {
+      "template": "div",
+      "classes": "bg-white bg-opacity-10 rounded-lg p-6 text-center",
+      "props": {
+        "name": "string",
+        "flag": "string",
+        "opportunities": "number",
+        "growth": "string",
+        "priority": "high|medium|low"
+      },
+      "variants": {
+        "high": {
+          "border": "border-green-400",
+          "glow": "shadow-green-400/20"
+        },
+        "medium": {
+          "border": "border-yellow-400",
+          "glow": "shadow-yellow-400/20"
+        },
+        "low": {
+          "border": "border-gray-400",
+          "glow": "shadow-gray-400/20"
+        }
+      }
+    },
+    "QuickActionButton": {
+      "template": "button",
+      "classes": "w-full py-2 px-4 rounded-lg transition-colors",
+      "props": {
+        "text": "string",
+        "icon": "string",
+        "variant": "primary|secondary|success"
+      },
+      "variants": {
+        "primary": "bg-purple-600 hover:bg-purple-700 text-white",
+        "secondary": "bg-blue-600 hover:bg-blue-700 text-white",
+        "success": "bg-green-600 hover:bg-green-700 text-white"
+      }
+    }
+  },
+  "layouts": {
+    "Dashboard": {
+      "structure": [
+        "NavigationHeader",
+        "MetricsGrid",
+        "ContentSection",
+        "LeadSection",
+        "MarketSection",
+        "SocialSection",
+        "Footer"
+      ],
+      "grid": {
+        "MetricsGrid": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6",
+        "ContentSection": "grid grid-cols-1 lg:grid-cols-2 gap-6",
+        "LeadSection": "grid grid-cols-1 lg:grid-cols-3 gap-6",
+        "MarketSection": "grid grid-cols-1 lg:grid-cols-4 gap-6",
+        "SocialSection": "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4"
+      }
+    }
+  },
+  "animations": {
+    "fadeIn": {
+      "keyframes": {
+        "0%": { "opacity": 0, "transform": "translateY(20px)" },
+        "100%": { "opacity": 1, "transform": "translateY(0)" }
+      },
+      "duration": "0.6s",
+      "easing": "ease-out"
+    },
+    "pulse": {
+      "keyframes": {
+        "0%, 100%": { "opacity": 1 },
+        "50%": { "opacity": 0.5 }
+      },
+      "duration": "2s",
+      "iterations": "infinite"
+    },
+    "cardHover": {
+      "properties": {
+        "transform": "translateY(-5px)",
+        "boxShadow": "0 20px 40px rgba(0,0,0,0.1)"
+      },
+      "duration": "0.3s",
+      "easing": "ease"
+    }
+  }
+}

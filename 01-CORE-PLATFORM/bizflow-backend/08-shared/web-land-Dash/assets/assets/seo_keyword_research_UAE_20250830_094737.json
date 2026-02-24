@@ -1,0 +1,1099 @@
+{
+  "research_date": "2025-08-30T09:47:34.971454",
+  "target_market": "UAE",
+  "total_keywords_researched": 22,
+  "keyword_categories": {
+    "primary_services": {
+      "category": "primary_services",
+      "market": "UAE",
+      "keywords": [
+        {
+          "keyword": "digital marketing automation",
+          "search_volume": 1500,
+          "competition": "high",
+          "cpc": 1.42,
+          "difficulty": 25,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 79,
+            "month_2": 80,
+            "month_3": 100,
+            "month_4": 80,
+            "month_5": 117,
+            "month_6": 96,
+            "month_7": 127,
+            "month_8": 78,
+            "month_9": 102,
+            "month_10": 109,
+            "month_11": 122,
+            "month_12": 84
+          },
+          "related_keywords": [
+            "digital marketing automation UAE",
+            "best digital marketing automation",
+            "affordable digital marketing automation"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "AI marketing services",
+          "search_volume": 1500,
+          "competition": "low",
+          "cpc": 2.73,
+          "difficulty": 60,
+          "intent": "transactional",
+          "trends": {
+            "month_1": 102,
+            "month_2": 96,
+            "month_3": 77,
+            "month_4": 95,
+            "month_5": 93,
+            "month_6": 118,
+            "month_7": 72,
+            "month_8": 94,
+            "month_9": 107,
+            "month_10": 81,
+            "month_11": 111,
+            "month_12": 112
+          },
+          "related_keywords": [
+            "AI marketing services UAE",
+            "best AI marketing services",
+            "affordable AI marketing services"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "social media management",
+          "search_volume": 1000,
+          "competition": "low",
+          "cpc": 1.71,
+          "difficulty": 49,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 99,
+            "month_2": 128,
+            "month_3": 93,
+            "month_4": 105,
+            "month_5": 116,
+            "month_6": 110,
+            "month_7": 110,
+            "month_8": 70,
+            "month_9": 94,
+            "month_10": 96,
+            "month_11": 84,
+            "month_12": 116
+          },
+          "related_keywords": [
+            "social media management UAE",
+            "best social media management",
+            "affordable social media management"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "content marketing automation",
+          "search_volume": 1500,
+          "competition": "low",
+          "cpc": 2.71,
+          "difficulty": 72,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 109,
+            "month_2": 77,
+            "month_3": 107,
+            "month_4": 77,
+            "month_5": 86,
+            "month_6": 110,
+            "month_7": 92,
+            "month_8": 76,
+            "month_9": 123,
+            "month_10": 129,
+            "month_11": 122,
+            "month_12": 112
+          },
+          "related_keywords": [
+            "content marketing automation UAE",
+            "best content marketing automation",
+            "affordable content marketing automation"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "lead generation services",
+          "search_volume": 1000,
+          "competition": "low",
+          "cpc": 1.99,
+          "difficulty": 74,
+          "intent": "transactional",
+          "trends": {
+            "month_1": 108,
+            "month_2": 111,
+            "month_3": 78,
+            "month_4": 91,
+            "month_5": 124,
+            "month_6": 124,
+            "month_7": 87,
+            "month_8": 100,
+            "month_9": 94,
+            "month_10": 99,
+            "month_11": 102,
+            "month_12": 111
+          },
+          "related_keywords": [
+            "lead generation services UAE",
+            "best lead generation services",
+            "affordable lead generation services"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "marketing cost reduction",
+          "search_volume": 1000,
+          "competition": "low",
+          "cpc": 3.63,
+          "difficulty": 73,
+          "intent": "transactional",
+          "trends": {
+            "month_1": 125,
+            "month_2": 111,
+            "month_3": 74,
+            "month_4": 129,
+            "month_5": 72,
+            "month_6": 71,
+            "month_7": 118,
+            "month_8": 113,
+            "month_9": 116,
+            "month_10": 82,
+            "month_11": 117,
+            "month_12": 130
+          },
+          "related_keywords": [
+            "marketing cost reduction UAE",
+            "best marketing cost reduction",
+            "affordable marketing cost reduction"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "multi-cultural marketing",
+          "search_volume": 1000,
+          "competition": "medium",
+          "cpc": 3.71,
+          "difficulty": 32,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 115,
+            "month_2": 127,
+            "month_3": 120,
+            "month_4": 94,
+            "month_5": 104,
+            "month_6": 107,
+            "month_7": 71,
+            "month_8": 93,
+            "month_9": 125,
+            "month_10": 73,
+            "month_11": 118,
+            "month_12": 126
+          },
+          "related_keywords": [
+            "multi-cultural marketing UAE",
+            "best multi-cultural marketing",
+            "affordable multi-cultural marketing"
+          ],
+          "local_relevance": 50
+        }
+      ],
+      "total_keywords": 7,
+      "avg_search_volume": 1214.2857142857142,
+      "high_opportunity_keywords": [
+        {
+          "keyword": "digital marketing automation",
+          "search_volume": 1500,
+          "competition": "high",
+          "cpc": 1.42,
+          "difficulty": 25,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 79,
+            "month_2": 80,
+            "month_3": 100,
+            "month_4": 80,
+            "month_5": 117,
+            "month_6": 96,
+            "month_7": 127,
+            "month_8": 78,
+            "month_9": 102,
+            "month_10": 109,
+            "month_11": 122,
+            "month_12": 84
+          },
+          "related_keywords": [
+            "digital marketing automation UAE",
+            "best digital marketing automation",
+            "affordable digital marketing automation"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "social media management",
+          "search_volume": 1000,
+          "competition": "low",
+          "cpc": 1.71,
+          "difficulty": 49,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 99,
+            "month_2": 128,
+            "month_3": 93,
+            "month_4": 105,
+            "month_5": 116,
+            "month_6": 110,
+            "month_7": 110,
+            "month_8": 70,
+            "month_9": 94,
+            "month_10": 96,
+            "month_11": 84,
+            "month_12": 116
+          },
+          "related_keywords": [
+            "social media management UAE",
+            "best social media management",
+            "affordable social media management"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "multi-cultural marketing",
+          "search_volume": 1000,
+          "competition": "medium",
+          "cpc": 3.71,
+          "difficulty": 32,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 115,
+            "month_2": 127,
+            "month_3": 120,
+            "month_4": 94,
+            "month_5": 104,
+            "month_6": 107,
+            "month_7": 71,
+            "month_8": 93,
+            "month_9": 125,
+            "month_10": 73,
+            "month_11": 118,
+            "month_12": 126
+          },
+          "related_keywords": [
+            "multi-cultural marketing UAE",
+            "best multi-cultural marketing",
+            "affordable multi-cultural marketing"
+          ],
+          "local_relevance": 50
+        }
+      ]
+    },
+    "location_based": {
+      "category": "location_based",
+      "market": "UAE",
+      "keywords": [
+        {
+          "keyword": "digital marketing agency Dubai",
+          "search_volume": 1300,
+          "competition": "high",
+          "cpc": 3.17,
+          "difficulty": 63,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 96,
+            "month_2": 102,
+            "month_3": 101,
+            "month_4": 90,
+            "month_5": 114,
+            "month_6": 86,
+            "month_7": 84,
+            "month_8": 111,
+            "month_9": 81,
+            "month_10": 88,
+            "month_11": 127,
+            "month_12": 106
+          },
+          "related_keywords": [
+            "digital marketing agency Dubai UAE",
+            "best digital marketing agency Dubai",
+            "affordable digital marketing agency Dubai"
+          ],
+          "local_relevance": 70
+        },
+        {
+          "keyword": "marketing automation UAE",
+          "search_volume": 1500,
+          "competition": "high",
+          "cpc": 4.63,
+          "difficulty": 21,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 130,
+            "month_2": 106,
+            "month_3": 121,
+            "month_4": 82,
+            "month_5": 109,
+            "month_6": 127,
+            "month_7": 75,
+            "month_8": 128,
+            "month_9": 102,
+            "month_10": 79,
+            "month_11": 110,
+            "month_12": 104
+          },
+          "related_keywords": [
+            "marketing automation UAE UAE",
+            "best marketing automation UAE",
+            "affordable marketing automation UAE"
+          ],
+          "local_relevance": 100
+        },
+        {
+          "keyword": "social media marketing Abu Dhabi",
+          "search_volume": 1300,
+          "competition": "medium",
+          "cpc": 3.88,
+          "difficulty": 75,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 117,
+            "month_2": 119,
+            "month_3": 110,
+            "month_4": 98,
+            "month_5": 96,
+            "month_6": 88,
+            "month_7": 92,
+            "month_8": 102,
+            "month_9": 92,
+            "month_10": 72,
+            "month_11": 70,
+            "month_12": 112
+          },
+          "related_keywords": [
+            "social media marketing Abu Dhabi UAE",
+            "best social media marketing Abu Dhabi",
+            "affordable social media marketing Abu Dhabi"
+          ],
+          "local_relevance": 70
+        },
+        {
+          "keyword": "AI marketing services Emirates",
+          "search_volume": 1500,
+          "competition": "high",
+          "cpc": 3.07,
+          "difficulty": 59,
+          "intent": "transactional",
+          "trends": {
+            "month_1": 107,
+            "month_2": 113,
+            "month_3": 96,
+            "month_4": 130,
+            "month_5": 100,
+            "month_6": 84,
+            "month_7": 128,
+            "month_8": 78,
+            "month_9": 119,
+            "month_10": 117,
+            "month_11": 120,
+            "month_12": 112
+          },
+          "related_keywords": [
+            "AI marketing services Emirates UAE",
+            "best AI marketing services Emirates",
+            "affordable AI marketing services Emirates"
+          ],
+          "local_relevance": 75
+        },
+        {
+          "keyword": "content marketing Dubai",
+          "search_volume": 1300,
+          "competition": "low",
+          "cpc": 3.93,
+          "difficulty": 50,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 95,
+            "month_2": 102,
+            "month_3": 111,
+            "month_4": 115,
+            "month_5": 79,
+            "month_6": 118,
+            "month_7": 112,
+            "month_8": 94,
+            "month_9": 126,
+            "month_10": 118,
+            "month_11": 78,
+            "month_12": 100
+          },
+          "related_keywords": [
+            "content marketing Dubai UAE",
+            "best content marketing Dubai",
+            "affordable content marketing Dubai"
+          ],
+          "local_relevance": 70
+        },
+        {
+          "keyword": "lead generation UAE",
+          "search_volume": 1000,
+          "competition": "high",
+          "cpc": 3.94,
+          "difficulty": 35,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 81,
+            "month_2": 88,
+            "month_3": 126,
+            "month_4": 74,
+            "month_5": 127,
+            "month_6": 106,
+            "month_7": 105,
+            "month_8": 94,
+            "month_9": 100,
+            "month_10": 106,
+            "month_11": 78,
+            "month_12": 70
+          },
+          "related_keywords": [
+            "lead generation UAE UAE",
+            "best lead generation UAE",
+            "affordable lead generation UAE"
+          ],
+          "local_relevance": 100
+        },
+        {
+          "keyword": "marketing consultancy Dubai",
+          "search_volume": 1300,
+          "competition": "low",
+          "cpc": 2.04,
+          "difficulty": 72,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 124,
+            "month_2": 73,
+            "month_3": 114,
+            "month_4": 107,
+            "month_5": 117,
+            "month_6": 88,
+            "month_7": 101,
+            "month_8": 111,
+            "month_9": 76,
+            "month_10": 74,
+            "month_11": 85,
+            "month_12": 79
+          },
+          "related_keywords": [
+            "marketing consultancy Dubai UAE",
+            "best marketing consultancy Dubai",
+            "affordable marketing consultancy Dubai"
+          ],
+          "local_relevance": 70
+        }
+      ],
+      "total_keywords": 7,
+      "avg_search_volume": 1314.2857142857142,
+      "high_opportunity_keywords": [
+        {
+          "keyword": "marketing automation UAE",
+          "search_volume": 1500,
+          "competition": "high",
+          "cpc": 4.63,
+          "difficulty": 21,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 130,
+            "month_2": 106,
+            "month_3": 121,
+            "month_4": 82,
+            "month_5": 109,
+            "month_6": 127,
+            "month_7": 75,
+            "month_8": 128,
+            "month_9": 102,
+            "month_10": 79,
+            "month_11": 110,
+            "month_12": 104
+          },
+          "related_keywords": [
+            "marketing automation UAE UAE",
+            "best marketing automation UAE",
+            "affordable marketing automation UAE"
+          ],
+          "local_relevance": 100
+        },
+        {
+          "keyword": "lead generation UAE",
+          "search_volume": 1000,
+          "competition": "high",
+          "cpc": 3.94,
+          "difficulty": 35,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 81,
+            "month_2": 88,
+            "month_3": 126,
+            "month_4": 74,
+            "month_5": 127,
+            "month_6": 106,
+            "month_7": 105,
+            "month_8": 94,
+            "month_9": 100,
+            "month_10": 106,
+            "month_11": 78,
+            "month_12": 70
+          },
+          "related_keywords": [
+            "lead generation UAE UAE",
+            "best lead generation UAE",
+            "affordable lead generation UAE"
+          ],
+          "local_relevance": 100
+        }
+      ]
+    },
+    "long_tail": {
+      "category": "long_tail_opportunities",
+      "market": "UAE",
+      "keywords": [
+        {
+          "keyword": "90% marketing cost reduction AI",
+          "search_volume": 1500,
+          "competition": "medium",
+          "cpc": 4.14,
+          "difficulty": 41,
+          "intent": "transactional",
+          "trends": {
+            "month_1": 71,
+            "month_2": 105,
+            "month_3": 124,
+            "month_4": 130,
+            "month_5": 104,
+            "month_6": 108,
+            "month_7": 97,
+            "month_8": 111,
+            "month_9": 111,
+            "month_10": 121,
+            "month_11": 116,
+            "month_12": 75
+          },
+          "related_keywords": [
+            "90% marketing cost reduction AI UAE",
+            "best 90% marketing cost reduction AI",
+            "affordable 90% marketing cost reduction AI"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "authentic AI content generation",
+          "search_volume": 1500,
+          "competition": "high",
+          "cpc": 3.78,
+          "difficulty": 77,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 123,
+            "month_2": 87,
+            "month_3": 125,
+            "month_4": 73,
+            "month_5": 83,
+            "month_6": 73,
+            "month_7": 129,
+            "month_8": 96,
+            "month_9": 115,
+            "month_10": 113,
+            "month_11": 100,
+            "month_12": 120
+          },
+          "related_keywords": [
+            "authentic AI content generation UAE",
+            "best authentic AI content generation",
+            "affordable authentic AI content generation"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "multi-cultural marketing automation",
+          "search_volume": 1500,
+          "competition": "high",
+          "cpc": 3.77,
+          "difficulty": 73,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 108,
+            "month_2": 70,
+            "month_3": 128,
+            "month_4": 105,
+            "month_5": 113,
+            "month_6": 122,
+            "month_7": 97,
+            "month_8": 106,
+            "month_9": 87,
+            "month_10": 109,
+            "month_11": 125,
+            "month_12": 81
+          },
+          "related_keywords": [
+            "multi-cultural marketing automation UAE",
+            "best multi-cultural marketing automation",
+            "affordable multi-cultural marketing automation"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "real-time competitive intelligence",
+          "search_volume": 1000,
+          "competition": "medium",
+          "cpc": 1.88,
+          "difficulty": 73,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 105,
+            "month_2": 126,
+            "month_3": 73,
+            "month_4": 72,
+            "month_5": 126,
+            "month_6": 79,
+            "month_7": 83,
+            "month_8": 112,
+            "month_9": 82,
+            "month_10": 74,
+            "month_11": 96,
+            "month_12": 124
+          },
+          "related_keywords": [
+            "real-time competitive intelligence UAE",
+            "best real-time competitive intelligence",
+            "affordable real-time competitive intelligence"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "programmatic keyword research",
+          "search_volume": 1000,
+          "competition": "low",
+          "cpc": 2.19,
+          "difficulty": 54,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 85,
+            "month_2": 128,
+            "month_3": 76,
+            "month_4": 84,
+            "month_5": 75,
+            "month_6": 111,
+            "month_7": 118,
+            "month_8": 92,
+            "month_9": 74,
+            "month_10": 103,
+            "month_11": 71,
+            "month_12": 116
+          },
+          "related_keywords": [
+            "programmatic keyword research UAE",
+            "best programmatic keyword research",
+            "affordable programmatic keyword research"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "AI-powered lead scoring",
+          "search_volume": 1500,
+          "competition": "low",
+          "cpc": 1.46,
+          "difficulty": 29,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 81,
+            "month_2": 121,
+            "month_3": 116,
+            "month_4": 118,
+            "month_5": 90,
+            "month_6": 120,
+            "month_7": 86,
+            "month_8": 91,
+            "month_9": 103,
+            "month_10": 112,
+            "month_11": 92,
+            "month_12": 93
+          },
+          "related_keywords": [
+            "AI-powered lead scoring UAE",
+            "best AI-powered lead scoring",
+            "affordable AI-powered lead scoring"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "automated social media scheduling",
+          "search_volume": 1000,
+          "competition": "medium",
+          "cpc": 2.17,
+          "difficulty": 40,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 102,
+            "month_2": 95,
+            "month_3": 104,
+            "month_4": 85,
+            "month_5": 123,
+            "month_6": 94,
+            "month_7": 85,
+            "month_8": 70,
+            "month_9": 130,
+            "month_10": 107,
+            "month_11": 117,
+            "month_12": 107
+          },
+          "related_keywords": [
+            "automated social media scheduling UAE",
+            "best automated social media scheduling",
+            "affordable automated social media scheduling"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "cross-platform content distribution",
+          "search_volume": 1000,
+          "competition": "high",
+          "cpc": 2.58,
+          "difficulty": 59,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 96,
+            "month_2": 121,
+            "month_3": 106,
+            "month_4": 86,
+            "month_5": 117,
+            "month_6": 117,
+            "month_7": 125,
+            "month_8": 85,
+            "month_9": 118,
+            "month_10": 95,
+            "month_11": 93,
+            "month_12": 75
+          },
+          "related_keywords": [
+            "cross-platform content distribution UAE",
+            "best cross-platform content distribution",
+            "affordable cross-platform content distribution"
+          ],
+          "local_relevance": 50
+        }
+      ],
+      "total_keywords": 8,
+      "avg_search_volume": 1250.0,
+      "high_opportunity_keywords": [
+        {
+          "keyword": "90% marketing cost reduction AI",
+          "search_volume": 1500,
+          "competition": "medium",
+          "cpc": 4.14,
+          "difficulty": 41,
+          "intent": "transactional",
+          "trends": {
+            "month_1": 71,
+            "month_2": 105,
+            "month_3": 124,
+            "month_4": 130,
+            "month_5": 104,
+            "month_6": 108,
+            "month_7": 97,
+            "month_8": 111,
+            "month_9": 111,
+            "month_10": 121,
+            "month_11": 116,
+            "month_12": 75
+          },
+          "related_keywords": [
+            "90% marketing cost reduction AI UAE",
+            "best 90% marketing cost reduction AI",
+            "affordable 90% marketing cost reduction AI"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "AI-powered lead scoring",
+          "search_volume": 1500,
+          "competition": "low",
+          "cpc": 1.46,
+          "difficulty": 29,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 81,
+            "month_2": 121,
+            "month_3": 116,
+            "month_4": 118,
+            "month_5": 90,
+            "month_6": 120,
+            "month_7": 86,
+            "month_8": 91,
+            "month_9": 103,
+            "month_10": 112,
+            "month_11": 92,
+            "month_12": 93
+          },
+          "related_keywords": [
+            "AI-powered lead scoring UAE",
+            "best AI-powered lead scoring",
+            "affordable AI-powered lead scoring"
+          ],
+          "local_relevance": 50
+        },
+        {
+          "keyword": "automated social media scheduling",
+          "search_volume": 1000,
+          "competition": "medium",
+          "cpc": 2.17,
+          "difficulty": 40,
+          "intent": "navigational",
+          "trends": {
+            "month_1": 102,
+            "month_2": 95,
+            "month_3": 104,
+            "month_4": 85,
+            "month_5": 123,
+            "month_6": 94,
+            "month_7": 85,
+            "month_8": 70,
+            "month_9": 130,
+            "month_10": 107,
+            "month_11": 117,
+            "month_12": 107
+          },
+          "related_keywords": [
+            "automated social media scheduling UAE",
+            "best automated social media scheduling",
+            "affordable automated social media scheduling"
+          ],
+          "local_relevance": 50
+        }
+      ]
+    }
+  },
+  "competitive_analysis": {
+    "competitors_analyzed": [
+      "traditional_marketing_agencies",
+      "digital_marketing_companies",
+      "social_media_agencies",
+      "content_marketing_services"
+    ],
+    "competitor_keywords": {
+      "traditional_marketing_agencies": [
+        {
+          "keyword": "traditional marketing agencies UAE",
+          "search_volume": 1000,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 20
+        },
+        {
+          "keyword": "best traditional marketing agencies UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 31
+        },
+        {
+          "keyword": "affordable traditional marketing agencies UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 2
+        },
+        {
+          "keyword": "top traditional marketing agencies UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 2
+        }
+      ],
+      "digital_marketing_companies": [
+        {
+          "keyword": "digital marketing companies UAE",
+          "search_volume": 1000,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 12
+        },
+        {
+          "keyword": "best digital marketing companies UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 5
+        },
+        {
+          "keyword": "affordable digital marketing companies UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 15
+        },
+        {
+          "keyword": "top digital marketing companies UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 43
+        }
+      ],
+      "social_media_agencies": [
+        {
+          "keyword": "social media agencies UAE",
+          "search_volume": 1000,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 34
+        },
+        {
+          "keyword": "best social media agencies UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 41
+        },
+        {
+          "keyword": "affordable social media agencies UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 48
+        },
+        {
+          "keyword": "top social media agencies UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 30
+        }
+      ],
+      "content_marketing_services": [
+        {
+          "keyword": "content marketing services UAE",
+          "search_volume": 1000,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 46
+        },
+        {
+          "keyword": "best content marketing services UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 7
+        },
+        {
+          "keyword": "affordable content marketing services UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 43
+        },
+        {
+          "keyword": "top content marketing services UAE",
+          "search_volume": 300,
+          "competition": "high",
+          "our_ranking": null,
+          "competitor_ranking": 9
+        }
+      ]
+    },
+    "keyword_gaps": [
+      "AI marketing automation UAE",
+      "90% cost reduction marketing",
+      "authentic AI content generation",
+      "multi-cultural marketing UAE",
+      "real-time competitive intelligence"
+    ],
+    "opportunity_score": 85,
+    "competitive_advantages": [
+      "AI-powered automation (competitors lack this)",
+      "Multi-cultural expertise (unique positioning)",
+      "90% cost reduction (unmatched value)",
+      "Real-time intelligence (competitive moat)",
+      "Authentic content focus (anti-AI-slop)"
+    ]
+  },
+  "opportunity_keywords": [],
+  "seasonal_trends": {
+    "ramadan_keywords": [
+      "ramadan marketing campaigns UAE",
+      "islamic marketing strategies",
+      "halal marketing services",
+      "ramadan social media content"
+    ],
+    "peak_seasons": {
+      "ramadan": {
+        "months": [
+          "March-April"
+        ],
+        "volume_increase": "40%"
+      },
+      "new_year": {
+        "months": [
+          "December-January"
+        ],
+        "volume_increase": "25%"
+      },
+      "summer": {
+        "months": [
+          "June-August"
+        ],
+        "volume_increase": "15%"
+      }
+    },
+    "business_calendar": {
+      "peak_months": [
+        "September",
+        "October",
+        "November",
+        "January",
+        "February"
+      ],
+      "low_months": [
+        "June",
+        "July",
+        "August"
+      ]
+    }
+  },
+  "local_search_insights": {
+    "search_behavior": {
+      "mobile_usage": "78%",
+      "voice_search": "23%",
+      "local_search_frequency": "65%",
+      "language_preference": {
+        "english": "70%",
+        "arabic": "30%"
+      }
+    },
+    "popular_search_times": {
+      "weekdays": [
+        "9:00-11:00",
+        "14:00-16:00",
+        "20:00-22:00"
+      ],
+      "weekends": [
+        "10:00-12:00",
+        "16:00-18:00",
+        "21:00-23:00"
+      ]
+    },
+    "device_breakdown": {
+      "mobile": "65%",
+      "desktop": "30%",
+      "tablet": "5%"
+    },
+    "search_intent_distribution": {
+      "informational": "45%",
+      "commercial": "30%",
+      "transactional": "20%",
+      "navigational": "5%"
+    }
+  }
+}

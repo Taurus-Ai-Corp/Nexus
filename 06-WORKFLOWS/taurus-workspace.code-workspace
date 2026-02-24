@@ -1,0 +1,39 @@
+{
+    "folders": [
+        {
+            "name": "🏰 Taurus AI Corp. Workspace",
+            "path": "."
+        },
+        {
+            "name": "🎨 Taurus AI Agent Registry",
+            "path": "./Taurus-AI-Agent-Registry"
+        },
+        {
+            "name": "🚀 BizFlow",
+            "path": "./BizFlow"
+        }
+    ],
+    "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "terminal.integrated.cwd": "/Users/user/Documents/Taurus AI Corp./Cursor:Claude",
+        "files.exclude": {
+            "**/__pycache__": true,
+            "**/*.pyc": true,
+            "**/.DS_Store": true,
+            "**/venv": true
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.black-formatter",
+            "ms-python.flake8",
+            "ms-python.pylint",
+            "ms-python.pytest-adapter",
+            "ms-vscode.vscode-json",
+            "yzhang.markdown-all-in-one",
+            "bradlc.vscode-tailwindcss",
+            "ms-vscode.vscode-typescript-next"
+        ]
+    }
+}

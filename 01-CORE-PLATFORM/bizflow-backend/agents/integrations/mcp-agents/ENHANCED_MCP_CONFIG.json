@@ -1,0 +1,501 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "google-admin": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/google-admin-mcp/server.js"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}",
+        "GOOGLE_ACCESS_TOKEN": "${GOOGLE_ACCESS_TOKEN}",
+        "GOOGLE_REFRESH_TOKEN": "${GOOGLE_REFRESH_TOKEN}",
+        "GOOGLE_WORKSPACE_DOMAIN": "${GOOGLE_WORKSPACE_DOMAIN}"
+      }
+    },
+    "figma": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/figma-mcp/index.js"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "${FIGMA_ACCESS_TOKEN}"
+      }
+    },
+    "design-tokens": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/design-tokens-mcp/index.js"],
+      "env": {
+        "DESIGN_TOKENS_PATH": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/design-tokens-mcp/tokens"
+      }
+    },
+    "tailwind": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/tailwind-mcp/index.js"]
+    },
+    "components": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/component-library-mcp/index.js"]
+    },
+    "icons": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/icon-assets-mcp/index.js"]
+    },
+    "byterover-mcp": {
+      "url": "https://mcp.byterover.dev/mcp?machineId=1f088c57-397d-62f0-b516-5a041c4d860f"
+    },
+    
+    "_BUSINESS_AUTOMATION_CRM": {
+      "_description": "Business Automation & CRM Agents (12 agents)",
+      "_category": "business-automation"
+    },
+    "hubspot": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/hubspot/server.py"],
+      "env": {
+        "HUBSPOT_ACCESS_TOKEN": "${HUBSPOT_ACCESS_TOKEN}"
+      }
+    },
+    "salesforce": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/salesforce/server.py"],
+      "env": {
+        "SALESFORCE_ACCESS_TOKEN": "${SALESFORCE_ACCESS_TOKEN}",
+        "SALESFORCE_INSTANCE_URL": "${SALESFORCE_INSTANCE_URL}"
+      }
+    },
+    "close": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/close/server.py"],
+      "env": {
+        "CLOSE_API_KEY": "${CLOSE_API_KEY}"
+      }
+    },
+    "attio": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/attio/index.ts"],
+      "env": {
+        "ATTIO_API_KEY": "${ATTIO_API_KEY}"
+      }
+    },
+    "freshdesk": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/freshdesk/server.py"],
+      "env": {
+        "FRESHDESK_API_KEY": "${FRESHDESK_API_KEY}",
+        "FRESHDESK_DOMAIN": "${FRESHDESK_DOMAIN}"
+      }
+    },
+    "gong": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/gong/server.py"],
+      "env": {
+        "GONG_API_KEY": "${GONG_API_KEY}"
+      }
+    },
+    "affinity": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/affinity/server.py"],
+      "env": {
+        "AFFINITY_API_KEY": "${AFFINITY_API_KEY}"
+      }
+    },
+    "airtable": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/airtable/server.py"],
+      "env": {
+        "AIRTABLE_API_KEY": "${AIRTABLE_API_KEY}",
+        "AIRTABLE_BASE_ID": "${AIRTABLE_BASE_ID}"
+      }
+    },
+    "github": {
+      "command": "go",
+      "args": ["run", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/github/server.go"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "mailchimp": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/business-automation/mailchimp/server.py"],
+      "env": {
+        "MAILCHIMP_API_KEY": "${MAILCHIMP_API_KEY}"
+      }
+    },
+    
+    "_PROJECT_MANAGEMENT": {
+      "_description": "Project Management & Productivity Agents (6 agents)",
+      "_category": "project-management"
+    },
+    "asana": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/project-management/asana/server.py"],
+      "env": {
+        "ASANA_ACCESS_TOKEN": "${ASANA_ACCESS_TOKEN}"
+      }
+    },
+    "clickup": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/project-management/clickup/server.py"],
+      "env": {
+        "CLICKUP_API_TOKEN": "${CLICKUP_API_TOKEN}"
+      }
+    },
+    "linear": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/project-management/linear/server.py"],
+      "env": {
+        "LINEAR_API_KEY": "${LINEAR_API_KEY}"
+      }
+    },
+    "monday": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/project-management/monday/src/index.ts"],
+      "env": {
+        "MONDAY_API_KEY": "${MONDAY_API_KEY}"
+      }
+    },
+    "jira": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/project-management/jira/index.ts"],
+      "env": {
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}",
+        "JIRA_DOMAIN": "${JIRA_DOMAIN}"
+      }
+    },
+    "motion": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/project-management/motion/server.py"],
+      "env": {
+        "MOTION_API_KEY": "${MOTION_API_KEY}"
+      }
+    },
+    
+    "_COMMUNICATION": {
+      "_description": "Communication & Collaboration Agents (6 agents)",
+      "_category": "communication"
+    },
+    "slack": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/communication/slack/server.py"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_USER_TOKEN": "${SLACK_USER_TOKEN}"
+      }
+    },
+    "discord": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/communication/discord/server.py"],
+      "env": {
+        "DISCORD_BOT_TOKEN": "${DISCORD_BOT_TOKEN}"
+      }
+    },
+    "whatsapp": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/communication/whatsapp/src/index.ts"],
+      "env": {
+        "WHATSAPP_API_KEY": "${WHATSAPP_API_KEY}"
+      }
+    },
+    "linkedin": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/communication/linkedin/server.py"],
+      "env": {
+        "LINKEDIN_ACCESS_TOKEN": "${LINKEDIN_ACCESS_TOKEN}"
+      }
+    },
+    "gmail": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/communication/gmail/src/index.ts"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}"
+      }
+    },
+    "resend": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/communication/resend/src/index.ts"],
+      "env": {
+        "RESEND_API_KEY": "${RESEND_API_KEY}"
+      }
+    },
+    
+    "_DOCUMENTATION": {
+      "_description": "Documentation & Content Agents (8 agents)",
+      "_category": "documentation"
+    },
+    "notion": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/notion/server.py"],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}"
+      }
+    },
+    "confluence": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/confluence/server.py"],
+      "env": {
+        "CONFLUENCE_API_TOKEN": "${CONFLUENCE_API_TOKEN}",
+        "CONFLUENCE_DOMAIN": "${CONFLUENCE_DOMAIN}"
+      }
+    },
+    "google-docs": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/google_docs/server.py"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}"
+      }
+    },
+    "google-drive": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/google_drive/server.py"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}"
+      }
+    },
+    "dropbox": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/index.ts"],
+      "env": {
+        "DROPBOX_ACCESS_TOKEN": "${DROPBOX_ACCESS_TOKEN}"
+      }
+    },
+    "onedrive": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/server.py"],
+      "env": {
+        "ONEDRIVE_CLIENT_ID": "${ONEDRIVE_CLIENT_ID}",
+        "ONEDRIVE_CLIENT_SECRET": "${ONEDRIVE_CLIENT_SECRET}"
+      }
+    },
+    "wordpress": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/wordpress/src/index.ts"],
+      "env": {
+        "WORDPRESS_API_URL": "${WORDPRESS_API_URL}",
+        "WORDPRESS_USERNAME": "${WORDPRESS_USERNAME}",
+        "WORDPRESS_PASSWORD": "${WORDPRESS_PASSWORD}"
+      }
+    },
+    "markitdown": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/markitdown/server.py"]
+    },
+    
+    "_ANALYTICS": {
+      "_description": "Analytics & Data Agents (6 agents)",
+      "_category": "analytics"
+    },
+    "mixpanel": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/analytics/mixpanel/server.py"],
+      "env": {
+        "MIXPANEL_API_SECRET": "${MIXPANEL_API_SECRET}"
+      }
+    },
+    "google-sheets": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/analytics/google_sheets/server.py"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/analytics/postgres/src/index.ts"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${POSTGRES_CONNECTION_STRING}"
+      }
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/analytics/supabase/src/index.ts"],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_ANON_KEY": "${SUPABASE_ANON_KEY}"
+      }
+    },
+    "moneybird": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/analytics/moneybird/server.py"],
+      "env": {
+        "MONEYBIRD_API_TOKEN": "${MONEYBIRD_API_TOKEN}"
+      }
+    },
+    "quickbooks": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/analytics/quickbooks/server.py"],
+      "env": {
+        "QUICKBOOKS_CLIENT_ID": "${QUICKBOOKS_CLIENT_ID}",
+        "QUICKBOOKS_CLIENT_SECRET": "${QUICKBOOKS_CLIENT_SECRET}"
+      }
+    },
+    
+    "_ECOMMERCE": {
+      "_description": "E-commerce & Payments Agents (3 agents)",
+      "_category": "ecommerce"
+    },
+    "shopify": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/ecommerce/shopify/src/index.ts"],
+      "env": {
+        "SHOPIFY_ACCESS_TOKEN": "${SHOPIFY_ACCESS_TOKEN}",
+        "SHOPIFY_SHOP_DOMAIN": "${SHOPIFY_SHOP_DOMAIN}"
+      }
+    },
+    "stripe": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/ecommerce/stripe/server.py"],
+      "env": {
+        "STRIPE_SECRET_KEY": "${STRIPE_SECRET_KEY}"
+      }
+    },
+    "coinbase": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/ecommerce/coinbase/server.py"],
+      "env": {
+        "COINBASE_API_KEY": "${COINBASE_API_KEY}",
+        "COINBASE_API_SECRET": "${COINBASE_API_SECRET}"
+      }
+    },
+    
+    "_SEARCH_RESEARCH": {
+      "_description": "Search & Research Agents (6 agents)",
+      "_category": "search-research"
+    },
+    "brave-search": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/search-research/brave_search/server.py"],
+      "env": {
+        "BRAVE_SEARCH_API_KEY": "${BRAVE_SEARCH_API_KEY}"
+      }
+    },
+    "exa": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/search-research/exa/server.py"],
+      "env": {
+        "EXA_API_KEY": "${EXA_API_KEY}"
+      }
+    },
+    "tavily": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/search-research/tavily/server.py"],
+      "env": {
+        "TAVILY_API_KEY": "${TAVILY_API_KEY}"
+      }
+    },
+    "hacker-news": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/search-research/hacker_news/server.py"]
+    },
+    "google-jobs": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/search-research/google_jobs/server.py"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}"
+      }
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": ["tsx", "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/search-research/firecrawl/index.ts"],
+      "env": {
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
+      }
+    },
+    
+    "_CREATIVE_MEDIA": {
+      "_description": "Creative & Media Agents (3 agents)",
+      "_category": "creative-media"
+    },
+    "spotify": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/creative-media/spotify/server.py"],
+      "env": {
+        "SPOTIFY_CLIENT_ID": "${SPOTIFY_CLIENT_ID}",
+        "SPOTIFY_CLIENT_SECRET": "${SPOTIFY_CLIENT_SECRET}"
+      }
+    },
+    "youtube": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/creative-media/youtube/server.py"],
+      "env": {
+        "YOUTUBE_API_KEY": "${YOUTUBE_API_KEY}"
+      }
+    },
+    "heygen": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/creative-media/heygen/server.py"],
+      "env": {
+        "HEYGEN_API_KEY": "${HEYGEN_API_KEY}"
+      }
+    },
+    
+    "_AI_AUTOMATION": {
+      "_description": "AI & Automation Agents (4 agents)",
+      "_category": "ai-automation"
+    },
+    "openrouter": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/ai-automation/openrouter/server.py"],
+      "env": {
+        "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+      }
+    },
+    "mem0": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/ai-automation/mem0/server.py"],
+      "env": {
+        "MEM0_API_KEY": "${MEM0_API_KEY}"
+      }
+    },
+    "pandoc": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/ai-automation/pandoc/server.py"]
+    },
+    "report-generation": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/ai-automation/report_generation/server.py"]
+    },
+    
+    "_SCHEDULING": {
+      "_description": "Scheduling & Calendar Agents (2 agents)",
+      "_category": "scheduling"
+    },
+    "google-calendar": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/scheduling/google_calendar/server.py"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}"
+      }
+    },
+    "cal-com": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/klavis-organized/scheduling/cal_com/server.py"],
+      "env": {
+        "CALCOM_API_KEY": "${CALCOM_API_KEY}"
+      }
+    }
+  },
+  "envFile": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/master.env",
+  "_metadata": {
+    "updated_by": "Klavis MCP Agents Integration",
+    "updated_at": "2025-01-15T21:00:00.000Z",
+    "total_klavis_agents": 50,
+    "categories_created": 10,
+    "status": "organized_and_ready_for_integration"
+  }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,57 @@
+{
+  "name": "bizflow-marketing-site",
+  "version": "2.0.0",
+  "description": "AI-powered marketing site for BizFlow automation platform with advanced MCP integrations",
+  "main": "bizflow_enhanced_2.html",
+  "scripts": {
+    "build": "echo 'Static site - no build needed'",
+    "start": "echo 'Site deployed on Vercel'"
+  },
+  "keywords": [
+    "business-automation",
+    "ai-optimization",
+    "marketing-site",
+    "conversion-optimization",
+    "playwright-testing",
+    "performance-monitoring"
+  ],
+  "author": "BizFlow Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "web-vitals": "^3.5.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bizflow/marketing-site.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bizflow/marketing-site/issues"
+  },
+  "homepage": "https://bizflow.com",
+  "config": {
+    "performance": {
+      "budgets": {
+        "lcp": 2500,
+        "fid": 100,
+        "cls": 0.1
+      }
+    },
+    "testing": {
+      "browsers": ["chromium", "firefox", "webkit"],
+      "viewports": [
+        { "name": "mobile", "width": 375, "height": 667 },
+        { "name": "tablet", "width": 768, "height": 1024 },
+        { "name": "desktop", "width": 1440, "height": 900 }
+      ]
+    }
+  }
+}

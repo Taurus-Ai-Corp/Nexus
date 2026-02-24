@@ -1,0 +1,28 @@
+{
+  "name": "component-library-mcp",
+  "version": "1.0.0",
+  "description": "Component Library MCP Server for Professional UI Components",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "react": "^18.2.0",
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "keywords": ["mcp", "components", "ui", "library", "react", "vue"],
+  "author": "Taurus AI Corp",
+  "license": "MIT"
+}
+
+
+
+
+
+
+

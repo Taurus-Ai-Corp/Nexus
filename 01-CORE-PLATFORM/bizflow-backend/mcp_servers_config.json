@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "github-official": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+      }
+    },
+    "firecrawl-official": {
+      "command": "npx",
+      "args": ["firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-43d5707a1d714773a160962cb04391f2"
+      }
+    },
+    "apify-official": {
+      "command": "npx",
+      "args": ["@apify/actors-mcp-server"],
+      "env": {
+        "APIFY_API_TOKEN": "apify_api_your_token_here"
+      }
+    }
+  }
+}

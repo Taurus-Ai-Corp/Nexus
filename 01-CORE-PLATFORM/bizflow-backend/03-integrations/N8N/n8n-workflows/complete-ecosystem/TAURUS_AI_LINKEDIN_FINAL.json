@@ -1,0 +1,207 @@
+{
+  "name": "🏰 TAURUS AI - LinkedIn Master System",
+  "meta": {
+    "instanceId": "taurus-ai-production-final",
+    "organization": "TAURUS AI CORP",
+    "version": "3.0.0",
+    "production_ready": true,
+    "openrouter_working": true,
+    "all_apis_tested": true
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "taurus-ai-linkedin",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [120, 300],
+      "id": "webhook-final",
+      "name": "🚀 TAURUS AI Webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "# 🏰 TAURUS AI CORP - LinkedIn Content Master\n\nYou are the LinkedIn Content Master for TAURUS AI CORP - transforming business insights into viral LinkedIn content that establishes our authority in AI automation.\n\n## TAURUS AI BRAND VOICE:\n- **Authoritative**: Industry expertise in AI automation\n- **Results-Focused**: Data-driven, measurable outcomes  \n- **Accessible**: Complex AI made simple for businesses\n- **Innovation-Forward**: Cutting-edge solutions\n\n## CONTENT STRATEGY:\n1. **AI Business Transformation**: Success stories and case studies\n2. **Small Business Empowerment**: Leveling the playing field with enterprise tools\n3. **Marketing Revolution**: AI-powered growth strategies\n4. **Technology Trends**: Future of business automation\n\n## OUTPUT FORMAT:\n**🚀 OPTIMIZED LINKEDIN POST:**\n[Complete, ready-to-publish LinkedIn content with proper formatting]\n\n**🎯 3 ALTERNATIVE HOOKS:**\n1. [Statistical/Data-driven hook]\n2. [Question/Curiosity hook] \n3. [Contrarian/Surprising angle]\n\n**📈 ENGAGEMENT STRATEGY:**\n- Clear call-to-action\n- Industry pain points addressed\n- Data-driven insights included\n- Visual content suggestions\n\n**#️⃣ HASHTAGS:**\n#AIAutomation #BusinessIntelligence #TaurusAI #MarketingAutomation #SmallBusiness #Innovation #BusinessGrowth\n\nCreate content that positions TAURUS AI as the leader in accessible AI automation for businesses.\n\nDate: {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [400, 300],
+      "id": "main-agent",
+      "name": "🏰 TAURUS AI LinkedIn Master"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "anthropic/claude-3.5-sonnet"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [400, 500],
+      "id": "openrouter-final",
+      "name": "OpenRouter Claude 3.5 Sonnet",
+      "credentials": {
+        "openRouterApi": {
+          "apiKey": "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"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "TAURUS AI Research Engine - Provides market intelligence and trend analysis for content optimization",
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": {
+          "model": "llama-3.1-sonar-small-128k-online",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are the market research engine for TAURUS AI CORP. Provide current data, trends, and insights about AI automation adoption in small businesses. Focus on statistics, success metrics, and competitive positioning opportunities."
+            },
+            {
+              "role": "user",
+              "content": "Research the latest trends and statistics in AI business automation, particularly for small businesses. Include adoption rates, ROI metrics, common challenges, and market opportunities that TAURUS AI can address."
+            }
+          ],
+          "max_tokens": 1500,
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [200, 500],
+      "id": "research-engine",
+      "name": "🔍 TAURUS AI Research Engine"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [700, 300],
+      "id": "response-final",
+      "name": "📤 TAURUS AI Response"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "success-metrics",
+              "name": "success_metrics", 
+              "value": "={\n  \"timestamp\": \"{{ $now }}\",\n  \"workflow\": \"TAURUS AI LinkedIn Master\",\n  \"input_processed\": \"{{ $json.body.message }}\",\n  \"apis_used\": [\"OpenRouter Claude 3.5\", \"Perplexity Research\"],\n  \"status\": \"completed\",\n  \"taurus_ai_branding\": \"applied\"\n}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [550, 300],
+      "id": "metrics-tracker",
+      "name": "📊 Success Metrics"
+    }
+  ],
+  "connections": {
+    "🚀 TAURUS AI Webhook": {
+      "main": [
+        [
+          {
+            "node": "🏰 TAURUS AI LinkedIn Master",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🏰 TAURUS AI LinkedIn Master": {
+      "main": [
+        [
+          {
+            "node": "📊 Success Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Success Metrics": {
+      "main": [
+        [
+          {
+            "node": "📤 TAURUS AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Claude 3.5 Sonnet": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "🏰 TAURUS AI LinkedIn Master",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 TAURUS AI Research Engine": {
+      "ai_tool": [
+        [
+          {
+            "node": "🏰 TAURUS AI LinkedIn Master",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "id": "taurus-ai-production",
+      "name": "🏰 TAURUS AI Production"
+    },
+    {
+      "id": "linkedin-master",
+      "name": "📱 LinkedIn Master"
+    },
+    {
+      "id": "all-apis-working",
+      "name": "✅ All APIs Working"
+    }
+  ]
+}

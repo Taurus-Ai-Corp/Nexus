@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "google-admin": {
+      "command": "node",
+      "args": [
+        "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/google-admin-mcp/server.js"
+      ],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}",
+        "GOOGLE_REDIRECT_URI": "${GOOGLE_REDIRECT_URI}",
+        "GOOGLE_ACCESS_TOKEN": "${GOOGLE_ACCESS_TOKEN}",
+        "GOOGLE_REFRESH_TOKEN": "${GOOGLE_REFRESH_TOKEN}",
+        "GOOGLE_WORKSPACE_DOMAIN": "${GOOGLE_WORKSPACE_DOMAIN}"
+      }
+    }
+  }
+}
