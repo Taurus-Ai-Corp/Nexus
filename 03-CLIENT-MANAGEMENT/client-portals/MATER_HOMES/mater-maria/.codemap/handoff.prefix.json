@@ -1,0 +1,13 @@
+{
+  "file_count": 256,
+  "hubs": [
+    {
+      "path": "public/next.svg",
+      "importers": 14
+    },
+    {
+      "path": "src/app/invest/admin/actions.ts",
+      "importers": 3
+    }
+  ]
+}
