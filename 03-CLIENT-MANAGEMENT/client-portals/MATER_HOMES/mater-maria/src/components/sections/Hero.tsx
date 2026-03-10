@@ -1,138 +1,195 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronDown } from "lucide-react";
 import { HERO } from "@/lib/constants";
-import { Container } from "@/components/ui/container";
-import { GradientText } from "@/components/ui/gradient-text";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { Button } from "@/components/ui/button";
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.2, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
-  }),
-};
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const section = sectionRef.current;
+      const image = imageRef.current;
+      const overlay = overlayRef.current;
+      const content = contentRef.current;
+      if (!section || !image || !overlay || !content) return;
+
+      // Zoom-out on scroll: starts at 1.18 scale, settles to 1.0
+      gsap.fromTo(
+        image,
+        { scale: 1.18 },
+        {
+          scale: 1.0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.2,
+          },
+        }
+      );
+
+      // Overlay darkens slightly as content scrolls away
+      gsap.fromTo(
+        overlay,
+        { opacity: 0.45 },
+        {
+          opacity: 0.7,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "60% top",
+            scrub: true,
+          },
+        }
+      );
+
+      // Content fades and rises out as user scrolls
+      gsap.fromTo(
+        content,
+        { y: 0, opacity: 1 },
+        {
+          y: -60,
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "20% top",
+            end: "55% top",
+            scrub: 1,
+          },
+        }
+      );
+
+      // Entrance animation for text
+      gsap.from(content.querySelectorAll(".hero-anim"), {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power3.out",
+        delay: 0.3,
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-bg-base">
-      {/* Gradient mesh background */}
+    <section
+      ref={sectionRef}
+      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      aria-label="Hero"
+    >
+      {/* Full-screen background image with zoom */}
       <div
-        className="pointer-events-none absolute inset-0"
+        ref={imageRef}
+        className="absolute inset-0 will-change-transform"
+        style={{ transformOrigin: "center center" }}
+      >
+        <Image
+          src="/assets-2025/images/invest/hero-estate.webp"
+          alt="Mater Maria Homes estate aerial view"
+          fill
+          priority
+          quality={90}
+          className="object-cover"
+          sizes="100vw"
+        />
+      </div>
+
+      {/* Dark overlay */}
+      <div
+        ref={overlayRef}
+        className="absolute inset-0"
         style={{
-          background: `
-            radial-gradient(ellipse 600px 400px at 20% 30%, hsla(42, 70%, 55%, 0.06), transparent),
-            radial-gradient(ellipse 500px 500px at 80% 20%, hsla(160, 30%, 45%, 0.04), transparent),
-            radial-gradient(ellipse 700px 300px at 60% 80%, hsla(350, 45%, 60%, 0.04), transparent)
-          `,
+          background:
+            "linear-gradient(to bottom, rgba(10,12,18,0.45) 0%, rgba(10,12,18,0.3) 40%, rgba(10,12,18,0.6) 100%)",
         }}
       />
 
-      <Container size="md" className="relative z-10 flex flex-col items-center gap-8 pt-24 pb-16 text-center">
+      {/* Decorative gold line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-0.5"
+        style={{ background: "linear-gradient(90deg, transparent, #C9A84C 40%, #C9A84C 60%, transparent)" }}
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <div
+        ref={contentRef}
+        className="relative z-10 flex flex-col items-center gap-6 px-4 text-center"
+      >
         {/* Badge */}
-        <motion.span
-          custom={0}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="inline-block rounded-full border border-border-accent bg-accent-default/10 px-4 py-1.5 text-sm font-medium text-accent-default"
-        >
+        <span className="hero-anim inline-block rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-5 py-1.5 text-sm font-medium tracking-widest uppercase text-[#C9A84C]">
           {HERO.badge}
-        </motion.span>
+        </span>
 
-        {/* Title */}
-        <motion.h1
-          custom={1}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="font-heading text-4xl font-bold leading-tight tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-7xl"
-        >
-          Where Innovation Meets{" "}
-          <GradientText>Serenity</GradientText>
-        </motion.h1>
+        {/* Main title */}
+        <h1 className="hero-anim font-heading text-5xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[5.5rem]" style={{ textShadow: "0 2px 40px rgba(0,0,0,0.4)" }}>
+          Where Innovation<br />
+          <span style={{ background: "linear-gradient(135deg, #C9A84C, #e8d08a, #C9A84C)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            Meets Serenity
+          </span>
+        </h1>
 
-        {/* Subtitle */}
-        <motion.p
-          custom={2}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl"
-        >
-          {HERO.subtitle}
-        </motion.p>
+        {/* Sub-tagline */}
+        <p className="hero-anim max-w-xl text-base leading-relaxed text-white/80 md:text-lg" style={{ textShadow: "0 1px 20px rgba(0,0,0,0.5)" }}>
+          Kerala&apos;s first AI-powered net-zero wellness estate — where your parents don&apos;t just live, they thrive.
+        </p>
 
-        {/* CTA Buttons */}
-        <motion.div
-          custom={3}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col gap-4 sm:flex-row"
-        >
+        {/* CTA row */}
+        <div className="hero-anim flex flex-col gap-4 sm:flex-row">
           <Button
-            className="rounded-full px-8 py-3 text-base font-medium text-text-inverse"
-            style={{ background: "var(--accent-gradient)" }}
             size="lg"
+            className="rounded-full px-8 py-3 text-base font-semibold text-[#0A356A]"
+            style={{ background: "linear-gradient(135deg, #C9A84C, #e8d08a)", boxShadow: "0 4px 24px rgba(201,168,76,0.4)" }}
             aria-label={HERO.cta.primary}
           >
             {HERO.cta.primary}
           </Button>
           <Button
             variant="outline"
-            className="rounded-full px-8 py-3 text-base font-medium border-border-default text-text-primary"
             size="lg"
+            className="rounded-full px-8 py-3 text-base font-medium border-white/40 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20"
             aria-label={HERO.cta.secondary}
             asChild
           >
             <Link href="/tour">{HERO.cta.secondary}</Link>
           </Button>
-        </motion.div>
+        </div>
 
-        {/* Stats Bar */}
-        <motion.div
-          custom={4}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="mt-8 grid w-full max-w-2xl grid-cols-2 gap-6 md:grid-cols-4 md:gap-0"
-        >
+        {/* Stats bar */}
+        <div className="hero-anim mt-6 flex flex-wrap justify-center gap-8 md:gap-12">
           {HERO.stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="flex flex-col items-center gap-1 md:border-r md:border-border-default md:last:border-r-0 md:px-6"
-            >
-              <AnimatedCounter
-                target={stat.value}
-                suffix={stat.suffix}
-                className="font-heading text-3xl font-bold text-accent-default"
-              />
-              <span className="text-sm text-text-muted">{stat.label}</span>
+            <div key={stat.label} className="flex flex-col items-center gap-0.5">
+              <span className="font-heading text-3xl font-bold" style={{ color: "#C9A84C", textShadow: "0 2px 12px rgba(201,168,76,0.4)" }}>
+                {stat.value}{stat.suffix}
+              </span>
+              <span className="text-xs uppercase tracking-widest text-white/60">{stat.label}</span>
             </div>
           ))}
-        </motion.div>
+        </div>
+      </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            aria-hidden="true"
-          >
-            <ChevronDown className="h-6 w-6 text-text-muted" />
-          </motion.div>
-        </motion.div>
-      </Container>
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50" aria-hidden="true">
+        <span className="text-xs uppercase tracking-widest">Scroll</span>
+        <ChevronDown className="h-5 w-5 animate-bounce" />
+      </div>
     </section>
   );
 }

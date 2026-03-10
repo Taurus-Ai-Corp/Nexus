@@ -44,10 +44,10 @@ export const metadata: Metadata = {
     "community living ROI Kerala 150 percent",
     "luxury villa Kerala investment",
     "Ayurvedic wellness community Kerala",
-    "Mater Maria Sanctuary investment",
+    "Mater Maria Homes investment",
   ],
   openGraph: {
-    title: "Invest in Mater Maria Sanctuary | 150%+ Returns | Kerala",
+    title: "Invest in Mater Maria Homes | 150%+ Returns | Kerala",
     description:
       "AI-powered sustainable luxury living. IoT health monitoring, solar net-zero campus, smart home automation. 150%+ projected returns. Invest from ₹5L.",
     type: "website",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         url: "/assets-2025/images/invest/hero-estate.webp",
         width: 1200,
         height: 630,
-        alt: "Mater Maria Sanctuary — Kerala Investment Opportunity",
+        alt: "Mater Maria Homes — Kerala Investment Opportunity",
       },
     ],
     siteName: SITE.name,
@@ -86,7 +86,7 @@ function InvestorJsonLd() {
   const realEstateListing = {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
-    name: "Mater Maria Sanctuary — Investment Opportunity",
+    name: "Mater Maria Homes — Investment Opportunity",
     description:
       "Kerala's first AI-powered smart wellness community in Kanjirappally — 90 residences with IoT wellness monitoring, AI health assistants, fall detection sensors, smart home automation, 100% solar-powered net-zero campus, organic central kitchen, on-site hospital annexure, and Ayurvedic treatment block. Investment tiers from ₹5 Lakhs with 10% annual interest and 150%+ projected returns over 15 years. NRI-friendly with UAE, US, UK payment channels.",
     url: `https://${SITE.domain}/invest`,

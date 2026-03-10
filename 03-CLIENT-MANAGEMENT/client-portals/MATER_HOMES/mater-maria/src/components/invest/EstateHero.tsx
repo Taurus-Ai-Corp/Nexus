@@ -15,7 +15,7 @@ const SLIDES = [
     video: "/assets-2025/videos/promo-short.mp4",
     eyebrow: "The",
     title: "Mater Maria",
-    subtitle: "Sanctuary · Elangulam, Kerala",
+    subtitle: "Elangulam, Kerala",
     caption: "A compassionate haven where exceptional living standards meet spiritual nourishment.",
   },
   {

@@ -146,7 +146,7 @@ export function LeadCapture() {
         // WhatsApp redirect after 2 seconds
         const tierName = selectedTierData?.name ?? "Diamond";
         const whatsappMsg = encodeURIComponent(
-          `Hi, I'm ${data.name} and I'm interested in the ${tierName} tier investment (${selectedTierData?.investmentDisplay ?? ""}) at Mater Maria Sanctuary.`,
+          `Hi, I'm ${data.name} and I'm interested in the ${tierName} tier investment (${selectedTierData?.investmentDisplay ?? ""}) at Mater Maria Homes.`,
         );
         setTimeout(() => {
           window.open(
@@ -186,7 +186,7 @@ export function LeadCapture() {
             Begin Your Legacy
           </h2>
           <p className="mx-auto mb-10 max-w-lg text-text-secondary">
-            Join the founding patrons of Mater Maria Sanctuary. Our team will
+            Join the founding patrons of Mater Maria Homes. Our team will
             reach out within 24 hours with a personalized investment proposal.
           </p>
         </motion.div>

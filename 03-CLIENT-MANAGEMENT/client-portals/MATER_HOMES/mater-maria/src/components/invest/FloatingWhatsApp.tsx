@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
 const WHATSAPP_URL =
-  "https://wa.me/971505786471?text=Hi%20Rajeev%2C%20I%27m%20interested%20in%20investing%20in%20Mater%20Maria%20Sanctuary.%20Please%20share%20details.";
+  "https://wa.me/971505786471?text=Hi%20Rajeev%2C%20I%27m%20interested%20in%20investing%20in%20Mater%20Maria%20Homes.%20Please%20share%20details.";
 
 export function FloatingWhatsApp() {
   const [visible, setVisible] = useState(true);

@@ -27,8 +27,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Mater Maria Wellness Homes - AI-Powered Smart Living in Kottayam, Kerala",
-    template: "%s | Mater Maria Wellness Homes",
+    default: "Mater Maria Homes - AI-Powered Smart Living in Kottayam, Kerala",
+    template: "%s | Mater Maria Homes",
   },
   description:
     "Kerala's first AI-powered net-zero wellness estate. Smart homes, IoT health monitoring, organic orchards, and a happening community — open to all ages. Kanjirappally, Kottayam.",

@@ -172,6 +172,14 @@
     background-color: var(--bg-base);
     color: var(--text-primary);
   }
+  /* Global heading boldness — luxury premium feel */
+  h1, h2, h3 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  h4, h5, h6 {
+    font-weight: 700;
+  }
 }
 
 /* Shimmer animation for premium buttons */

@@ -8,14 +8,8 @@ interface BrandLogoProps {
   height?: number;
 }
 
-/**
- * Mater Maria Homes brand lockup — compact navbar variant.
- *   Row 1 : Wings SVG (centred)
- *   Row 2 : MATER MARIA HOMES — tracked gold
- *   Row 3 : LIVING REFINED — smaller, muted gold
- */
 export function BrandLogo({ className, height = 52 }: BrandLogoProps) {
-  const iconH = Math.round(height * 0.42);
+  const iconH = Math.round(height * 0.50);
   const iconW = Math.round((iconH / 125) * 227);
 
   return (
@@ -43,7 +37,7 @@ export function BrandLogo({ className, height = 52 }: BrandLogoProps) {
              c3.75-8.28,19.19-39.16,45.79-51.87
              c36.66-17.52,54.88-1.63,54.88-1.63
              S282.11,133.15,251.38,134.66Z"
-          fill="#d9c475"
+          fill="#e8d080"
         />
         <path
           d="M244.31,95.06
@@ -53,7 +47,7 @@ export function BrandLogo({ className, height = 52 }: BrandLogoProps) {
              s58.64-45.16,112.73,8.93
              c54.09-54.09,112.58-8.93,112.58-8.93
              S293.38,95.06,244.31,95.06Z"
-          fill="#c0a055"
+          fill="#C9A84C"
         />
       </svg>
 
@@ -61,12 +55,13 @@ export function BrandLogo({ className, height = 52 }: BrandLogoProps) {
       <span
         style={{
           fontFamily: 'var(--font-heading, "Didot", Georgia, serif)',
-          fontSize: Math.round(height * 0.18),
-          letterSpacing: "0.16em",
-          fontWeight: 600,
-          color: "#c0a055",
+          fontSize: Math.round(height * 0.21),
+          letterSpacing: "0.18em",
+          fontWeight: 800,
+          color: "#C9A84C",
           marginTop: Math.round(height * 0.04),
           whiteSpace: "nowrap",
+          textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 0 20px rgba(201,168,76,0.3)",
         }}
       >
         MATER MARIA HOMES
@@ -78,9 +73,10 @@ export function BrandLogo({ className, height = 52 }: BrandLogoProps) {
           fontFamily: 'var(--font-heading, "Didot", Georgia, serif)',
           fontStyle: "italic",
           fontSize: Math.round(height * 0.13),
-          letterSpacing: "0.22em",
-          fontWeight: 300,
-          color: "rgba(192,160,85,0.52)",
+          letterSpacing: "0.26em",
+          fontWeight: 500,
+          color: "rgba(201,168,76,0.90)",
+          textShadow: "0 1px 8px rgba(0,0,0,0.5)",
           marginTop: Math.round(height * 0.02),
           whiteSpace: "nowrap",
         }}

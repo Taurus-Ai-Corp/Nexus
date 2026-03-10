@@ -49,14 +49,22 @@ export function Navbar() {
       )}
       style={useBlendMode ? { mixBlendMode: "difference" } : undefined}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-8 lg:px-16">
+      {/* Top gradient scrim — always visible, ensures logo contrast over any hero image */}
+      {!scrolled && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.10) 70%, transparent 100%)" }}
+          aria-hidden="true"
+        />
+      )}
+      <nav className="relative mx-auto flex h-24 w-full max-w-screen-2xl items-center justify-between px-6 sm:px-10 lg:px-20">
         {/* Brand Logo */}
         <Link
           href="/"
           className="group transition-opacity hover:opacity-80"
           aria-label={`${SITE.shortName} - Home`}
         >
-          <BrandLogo height={44} className="text-text-primary" />
+          <BrandLogo height={68} className="text-text-primary" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -65,7 +73,12 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary hover:bg-surface"
+              className={cn(
+                "rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition-colors",
+                scrolled
+                  ? "text-text-secondary hover:text-text-primary hover:bg-surface"
+                  : "text-white/90 hover:text-white hover:bg-white/10"
+              )}
             >
               {link.label}
             </Link>

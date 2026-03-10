@@ -76,7 +76,7 @@ export function AdminDashboard({ leads }: { leads: Lead[] }) {
               Investor Analytics Dashboard
             </h1>
             <p className="mt-1 text-sm text-text-muted">
-              Mater Maria Sanctuary — Real-time lead intelligence
+              Mater Maria Homes — Real-time lead intelligence
             </p>
           </div>
           <form action={adminLogout}>

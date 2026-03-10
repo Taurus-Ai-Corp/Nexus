@@ -7,6 +7,7 @@ import { Residences } from "@/components/sections/Residences";
 import { Amenities } from "@/components/sections/Amenities";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { CTASection } from "@/components/sections/CTASection";
+import { FacilitiesSection } from "@/components/sections/FacilitiesSection";
 import { SectionDivider } from "@/components/ui/section-divider";
 import { VideoBreak } from "@/components/ui/video-break";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
@@ -53,9 +54,13 @@ export default function HomePageClient() {
         <Amenities />
       </div>
 
+      <SectionDivider variant="fade" />
+
+      <FacilitiesSection />
+
       <VideoBreak
         videoSrc="/assets-2025/videos/bg-loop-2.mp4"
-        watermarkText="SANCTUARY"
+        watermarkText="LIVING REFINED"
       />
 
       <div className="gsap-reveal">

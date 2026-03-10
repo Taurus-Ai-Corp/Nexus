@@ -10,7 +10,7 @@ import { INVESTOR_FAQ, INVESTOR_TESTIMONIALS } from "@/lib/constants";
 /*  System prompt — all investor data injected as structured context   */
 /* ------------------------------------------------------------------ */
 
-const SYSTEM_PROMPT = `You are the Mater Maria Investor Concierge — an expert AI assistant for Mater Maria Sanctuary, Kerala's first AI-powered smart wellness community in Kanjirappally, Kottayam, Kerala, India.
+const SYSTEM_PROMPT = `You are the Mater Maria Investor Concierge — an expert AI assistant for Mater Maria Homes, Kerala's first AI-powered smart wellness community in Kanjirappally, Kottayam, Kerala, India.
 
 Your role: Help potential investors (especially NRI families from UAE, US, UK, Gulf) understand investment options, ROI, and next steps. Be warm, professional, concise. Answer in 2-3 sentences max unless the question requires detail.
 
@@ -71,7 +71,7 @@ function faqFallback(message: string): string {
     return `The ${tierMatch.name} tier requires an investment of ${tierMatch.investmentDisplay} with ${tierMatch.totalReturn}% projected returns over 15 years. You get ${tierMatch.annualInterest}% annual interest for ${tierMatch.interestYears}, then escalating dividends ${tierMatch.dividendStart}. Perks include: Guest House (${tierMatch.perks.guestHouse}), Event Hall (${tierMatch.perks.eventHall}). For a detailed proposal, I'd recommend connecting with our team on WhatsApp.`;
   }
 
-  return "Thank you for your interest in Mater Maria Sanctuary! For detailed investment information, I'd recommend speaking with our Chairman Rajeev Abraham on WhatsApp (+91 96564 63073). He can provide personalized investment proposals and answer all your questions.";
+  return "Thank you for your interest in Mater Maria Homes! For detailed investment information, I'd recommend speaking with our Chairman Rajeev Abraham on WhatsApp (+91 96564 63073). He can provide personalized investment proposals and answer all your questions.";
 }
 
 /* ------------------------------------------------------------------ */

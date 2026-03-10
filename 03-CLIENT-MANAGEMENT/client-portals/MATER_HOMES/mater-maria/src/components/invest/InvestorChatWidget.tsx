@@ -135,7 +135,7 @@ export function InvestorChatWidget() {
       .join("\n");
 
     const text = encodeURIComponent(
-      `Hi, I'm interested in investing in Mater Maria Sanctuary. Here's my conversation:\n\n${summary}`,
+      `Hi, I'm interested in investing in Mater Maria Homes. Here's my conversation:\n\n${summary}`,
     );
     window.open(`${SITE.whatsapp}?text=${text}`, "_blank");
   };
@@ -215,7 +215,7 @@ export function InvestorChatWidget() {
               {messages.length === 0 && (
                 <div className="space-y-3">
                   <p className="text-center text-xs text-text-muted">
-                    Ask anything about investing in Mater Maria Sanctuary
+                    Ask anything about investing in Mater Maria Homes
                   </p>
                   {/* Starter chips */}
                   <div className="flex flex-wrap justify-center gap-2">
