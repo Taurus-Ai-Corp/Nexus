@@ -49,6 +49,16 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 
 const VIDEO_BREAK_AFTER = 3; // Insert VideoBreak after the 3rd category
 
+/** Maps each amenity category to a blurred background image */
+const CATEGORY_BG: Record<string, string> = {
+  Healthcare: "/assets-2025/images/amenities/mm-care-resident.webp",
+  Wellness: "/assets-2025/images/amenities/mm-yoga-pavilion.webp",
+  Community: "/assets-2025/images/amenities/mm-poolside-community.webp",
+  Dining: "/assets-2025/images/amenities/mm-chef-dining.webp",
+  "Smart Living": "/assets-2025/images/invest/smart-home.webp",
+  Recreation: "/assets-2025/images/amenities/mm-amphitheatre.webp",
+};
+
 export default function AmenitiesPageClient() {
   const revealRef = useGsapReveal("[data-gsap-category]", {
     y: 60,
@@ -86,6 +96,7 @@ export default function AmenitiesPageClient() {
             badge="Everything You Need"
             title="World-Class Amenities"
             subtitle="From AI health monitoring to Ayurvedic wellness and smart home automation — every amenity is designed for comfort, safety, and joy."
+            onHero
           />
         </Container>
       </ImageSlideshow>
@@ -96,6 +107,7 @@ export default function AmenitiesPageClient() {
           key={category.category}
           category={category}
           idx={idx}
+          backgroundImage={CATEGORY_BG[category.category]}
         />
       ))}
 
@@ -111,6 +123,7 @@ export default function AmenitiesPageClient() {
           key={category.category}
           category={category}
           idx={idx + VIDEO_BREAK_AFTER}
+          backgroundImage={CATEGORY_BG[category.category]}
         />
       ))}
 
@@ -155,18 +168,31 @@ export default function AmenitiesPageClient() {
 interface CategorySectionProps {
   category: (typeof AMENITIES)[number];
   idx: number;
+  backgroundImage?: string;
 }
 
-function CategorySection({ category, idx }: CategorySectionProps) {
+function CategorySection({ category, idx, backgroundImage }: CategorySectionProps) {
   const IconComp = ICON_MAP[category.icon];
   const description = AMENITY_DESCRIPTIONS[category.category] ?? "";
 
   return (
     <section
       data-gsap-category
-      className={`py-16 ${idx % 2 !== 0 ? "bg-surface/50" : ""}`}
+      className={`relative overflow-hidden py-16 ${idx % 2 !== 0 ? "bg-surface/50" : ""}`}
     >
-      <Container size="lg">
+      {/* Blurred background image — low opacity, no overlay needed */}
+      {backgroundImage && (
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={backgroundImage}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ opacity: 0.08, filter: "blur(4px)", transform: "scale(1.06)" }}
+          />
+        </div>
+      )}
+      <Container size="lg" className="relative z-10">
         <MotionDiv
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

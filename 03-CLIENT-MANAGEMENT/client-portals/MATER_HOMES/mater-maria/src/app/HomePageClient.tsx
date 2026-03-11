@@ -2,12 +2,14 @@
 
 import { Hero } from "@/components/sections/Hero";
 import { TrustBar } from "@/components/sections/TrustBar";
+import { DualCovenant } from "@/components/sections/DualCovenant";
 import { Features } from "@/components/sections/Features";
 import { Residences } from "@/components/sections/Residences";
 import { Amenities } from "@/components/sections/Amenities";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { CTASection } from "@/components/sections/CTASection";
 import { FacilitiesSection } from "@/components/sections/FacilitiesSection";
+import { MockupsShowcase } from "@/components/sections/MockupsShowcase";
 import { SectionDivider } from "@/components/ui/section-divider";
 import { VideoBreak } from "@/components/ui/video-break";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
@@ -31,6 +33,10 @@ export default function HomePageClient() {
 
       <div className="gsap-reveal">
         <TrustBar />
+      </div>
+
+      <div className="gsap-reveal">
+        <DualCovenant />
       </div>
 
       <SectionDivider variant="wave" />
@@ -65,6 +71,12 @@ export default function HomePageClient() {
 
       <div className="gsap-reveal">
         <Testimonials />
+      </div>
+
+      <SectionDivider variant="fade" />
+
+      <div className="gsap-reveal">
+        <MockupsShowcase />
       </div>
 
       <SectionDivider variant="wave" />

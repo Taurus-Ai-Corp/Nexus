@@ -227,7 +227,7 @@ export const PROPERTY_SHOWCASE = [
   {
     id: "walking-trails",
     title: "Landscaped Trails",
-    description: "Nature walks through 5+ acres of curated greenery",
+    description: "Nature walks through 8+ acres of curated greenery",
     image: "/assets-2025/images/invest/garden-pathway.webp",
   },
 ];
@@ -237,45 +237,51 @@ export const PROPERTY_SHOWCASE = [
 /* ------------------------------------------------------------------ */
 export const INVESTOR_PROMISES = [
   {
-    title: "Government-Backed Security",
-    description: "Board-supervised governance, ISO 9001 certified, AI-powered operations",
-    icon: "Shield" as const,
-    stat: null,
-    span: "large" as const,
-  },
-  {
-    title: "Total Returns",
-    description: "Over 15 years across interest + dividends",
+    title: "Total Returns Over 15 Years",
+    description: "Compound growth through 10% annual interest (years 1–4), deposit-to-share conversion, and escalating dividends from 6% to 20% — all from a single investment in Mater Maria Homes.",
     icon: "TrendingUp" as const,
     stat: { value: 153, suffix: "%", type: "number-flow" as const },
+    tag: "15-YEAR PROJECTED ROI",
     span: "small" as const,
   },
   {
-    title: "Annual Interest",
-    description: "On your deposit for years 1–4",
+    title: "Annual Interest on Deposit",
+    description: "Your deposit earns guaranteed 10% per annum for the first four years while your share capital appreciates — a rare combination of safety and growth.",
     icon: "Percent" as const,
-    stat: { value: 10, suffix: "%", type: "slot-counter" as const },
+    stat: { value: 10, suffix: "%", type: "number-flow" as const },
+    tag: "GUARANTEED ANNUAL RETURN",
     span: "small" as const,
   },
   {
-    title: "Net-Zero Estate",
-    description: "Solar powered, rainwater harvested, organic farming",
-    icon: "Leaf" as const,
-    stat: null,
+    title: "Premium Residences on Estate",
+    description: "Choose from Independent Villas, Walk-up Villas, or Executive Suites — each solar-powered, IoT-enabled, and surrounded by 8+ acres of tropical greenery.",
+    icon: "Shield" as const,
+    stat: { value: 90, suffix: "+", type: "number-flow" as const },
+    tag: "RESIDENCES AVAILABLE",
     span: "large" as const,
   },
   {
-    title: "10km to Medical College",
-    description: "Plus 24/7 on-campus nursing and emergency response",
-    icon: "HeartPulse" as const,
-    stat: null,
-    span: "medium" as const,
+    title: "Board-Supervised Governance",
+    description: "ISO 9001 certified. Led by Bishop Mar Jose Pulickal as Patron, with transparent quarterly reporting, NRI-friendly investment structure, and RERA-compliant operations.",
+    icon: "Shield" as const,
+    stat: { value: 100, suffix: "%", type: "number-flow" as const },
+    tag: "COMPLIANCE & TRANSPARENCY",
+    span: "large" as const,
   },
   {
-    title: "Connected Community",
-    description: "Yoga halls, meditation gardens, amphitheatre, resident lounges",
+    title: "Acres of Net-Zero Greenery",
+    description: "100% solar-powered estate with rainwater harvesting, rechargeable wells, organic central kitchen, tropical fruit orchards, and private fishing ponds — your investment grows greener every year.",
+    icon: "Leaf" as const,
+    stat: { value: 8, suffix: "+", type: "number-flow" as const },
+    tag: "NET-ZERO ESTATE",
+    span: "large" as const,
+  },
+  {
+    title: "World-Class Facilities Included",
+    description: "24/7 nursing, on-campus MMT Hospital Annexure, Ayurvedic Treatment Block, yoga halls, amphitheatre, luxury home theatre, and concierge — no extra charges for residents.",
     icon: "Cpu" as const,
-    stat: null,
+    stat: { value: 48, suffix: "", type: "number-flow" as const },
+    tag: "FACILITIES FOR RESIDENTS",
     span: "medium" as const,
   },
 ];
@@ -460,7 +466,7 @@ export const CURRENCIES: CurrencyConfig[] = [
 /*  Hero Stats                                                         */
 /* ------------------------------------------------------------------ */
 export const INVESTOR_HERO_STATS = [
-  { value: 5, suffix: "+", label: "Acres of Greenery" },
+  { value: 8, suffix: "+", label: "Acres of Greenery" },
   { value: 90, suffix: "", label: "Premium Residences" },
   { value: 0, suffix: "Net-Zero", label: "Carbon Footprint" },
   { value: 10, suffix: "km", label: "to Medical College" },

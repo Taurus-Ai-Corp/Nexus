@@ -450,7 +450,7 @@ function InvestmentProposalDocument({
           "Net-Zero Estate — 100% solar-powered, rainwater harvesting",
           "On-Campus Medical — 24/7 nursing, 10km to Medical College",
           "NRI-Friendly — Dedicated concierge for overseas investors",
-          "5+ Acres — Organic farming, walking trails, wellness spa",
+          "8+ Acres — Organic farming, walking trails, wellness spa",
         ].map((h) => (
           <View key={h} style={styles.highlightRow}>
             <Text style={styles.highlightIcon}>✓</Text>

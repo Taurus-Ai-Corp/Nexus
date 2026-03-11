@@ -31,7 +31,7 @@ export const HERO = {
     { value: 91, suffix: "%", label: "5-Year ROI" },
     { value: 90, suffix: "+", label: "Premium Residences" },
     { value: 24, suffix: "/7", label: "On-Campus Medical" },
-    { value: 5, suffix: "+", label: "Acres of Greenery" },
+    { value: 8, suffix: "+", label: "Acres of Greenery" },
   ],
 };
 
@@ -64,7 +64,7 @@ export const FEATURES = [
   },
   {
     title: "100% Net-Zero Estate",
-    description: "5+ acres of tropical orchards, rainwater-rechargeable wells, and 100% solar power. This isn't just a home — it's a legacy you leave for the next generation. Living well and living responsibly, together.",
+    description: "8+ acres of tropical orchards, rainwater-rechargeable wells, and 100% solar power. This isn't just a home — it's a legacy you leave for the next generation. Living well and living responsibly, together.",
     bullets: ["100% solar-powered estate", "Rainwater harvesting & rechargeable wells", "Organic central kitchen & orchards", "Ayurvedic Treatment Block & wellness spa"],
     icon: "Leaf",
   },

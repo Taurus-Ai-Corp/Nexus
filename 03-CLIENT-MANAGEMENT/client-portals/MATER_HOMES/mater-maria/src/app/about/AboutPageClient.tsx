@@ -1,13 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ChevronRight,
-  MapPin,
-  TreePine,
-  Stethoscope,
-  Mountain,
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import {
   AIHealthIcon,
   SmartLivingIcon,
@@ -22,8 +16,8 @@ import { ImageSlideshow } from "@/components/ui/image-slideshow";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { PageTransition } from "@/components/ui/page-transition";
 import { VideoBreak } from "@/components/ui/video-break";
-import { AnimatedBackground } from "@/components/ui/animated-background";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
+import { LocationAdvantage } from "@/components/sections/LocationAdvantage";
 
 const ABOUT_HERO_IMAGES = [
   "/assets-2025/images/tour/aerial/flux-aerial-01.webp",
@@ -78,13 +72,6 @@ const VALUES = [
   },
 ];
 
-const LOCATION_ADVANTAGES = [
-  { Icon: MapPin, title: "Strategic Location", desc: "Well-connected by road and rail to Kottayam, Kochi, and major cities across Kerala." },
-  { Icon: TreePine, title: "Lush Greenery", desc: "Surrounded by rubber estates, spice plantations, and pristine natural beauty." },
-  { Icon: Stethoscope, title: "Medical Access", desc: "Just 10 km from the Medical College Hospital and multiple specialty clinics." },
-  { Icon: Mountain, title: "Pleasant Climate", desc: "Year-round moderate temperatures with cool breezes from the Western Ghats." },
-];
-
 /* ------------------------------------------------------------------ */
 /*  Client Component                                                   */
 /* ------------------------------------------------------------------ */
@@ -99,13 +86,6 @@ export default function AboutPageClient() {
     y: 60,
     stagger: 0.18,
     duration: 0.9,
-    start: "top 80%",
-  });
-
-  const locationRef = useGsapReveal(".gsap-reveal", {
-    y: 60,
-    stagger: 0.1,
-    duration: 0.8,
     start: "top 80%",
   });
 
@@ -131,22 +111,14 @@ export default function AboutPageClient() {
             badge="Our Story"
             title="About Mater Maria"
             subtitle="Where technology meets nature, and neighbours become family. A happening community built for people who refuse to settle for ordinary."
+            onHero
           />
         </Container>
       </ImageSlideshow>
 
       {/* Vision / Mission */}
       <section className="relative py-16">
-        <AnimatedBackground
-          images={[
-            "/assets-2025/images/gallery/mmh-kmg-b003.webp",
-            "/assets-2025/images/gallery/wayanad-mist.webp",
-          ]}
-          opacity={0.08}
-          overlayIntensity="none"
-          className="absolute inset-0"
-        />
-        <Container size="lg" className="relative-content">
+        <Container size="lg">
           <MotionDiv
             className="grid gap-12 md:grid-cols-2"
             variants={stagger}
@@ -191,16 +163,7 @@ export default function AboutPageClient() {
 
       {/* Core Values */}
       <section className="relative py-16" ref={valuesRef as React.RefObject<HTMLElement>}>
-        <AnimatedBackground
-          images={[
-            "/assets-2025/images/amenities/mm-poolside-community.webp",
-            "/assets-2025/images/amenities/yoga-meditation.webp",
-          ]}
-          opacity={0.06}
-          overlayIntensity="none"
-          className="absolute inset-0"
-        />
-        <Container size="lg" className="relative-content">
+        <Container size="lg">
           <SectionHeading badge="What We Stand For" title="Our Core Values" />
 
           <MotionDiv
@@ -229,16 +192,7 @@ export default function AboutPageClient() {
 
       {/* Timeline */}
       <section className="relative py-16" ref={timelineRef as React.RefObject<HTMLElement>}>
-        <AnimatedBackground
-          images={[
-            "/assets-2025/images/tour/aerial/flux-aerial-01.webp",
-            "/assets-2025/images/tour/aerial/flux-aerial-02.webp",
-          ]}
-          opacity={0.05}
-          overlayIntensity="none"
-          className="absolute inset-0"
-        />
-        <Container size="md" className="relative-content">
+        <Container size="md">
           <SectionHeading badge="Our Journey" title="Milestones" />
 
           <div className="relative pl-8 md:pl-0">
@@ -286,44 +240,8 @@ export default function AboutPageClient() {
         watermarkText="MATER MARIA"
       />
 
-      {/* Kerala Advantage */}
-      <section className="py-16" ref={locationRef as React.RefObject<HTMLElement>}>
-        <Container size="lg">
-          <ScrollReveal variant="blur-in">
-            <SectionHeading
-              badge="Location"
-              title="The Kanjirappally Advantage"
-              subtitle="Nestled in the foothills of the Western Ghats, Kanjirappally offers the perfect blend of nature, accessibility, and culture."
-            />
-          </ScrollReveal>
-
-          <MotionDiv
-            className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-          >
-            {LOCATION_ADVANTAGES.map((item) => (
-              <MotionDiv
-                key={item.title}
-                variants={fadeUp}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="gsap-reveal rounded-xl border border-border-default bg-surface p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent-default/5 hover:border-accent-default/30">
-                  <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-accent-default/10 transition-colors duration-300 group-hover:bg-accent-default/20">
-                    <item.Icon className="size-6 text-accent-default" />
-                  </div>
-                  <h3 className="font-heading mb-2 text-lg font-semibold text-text-primary">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-text-secondary">{item.desc}</p>
-                </div>
-              </MotionDiv>
-            ))}
-          </MotionDiv>
-        </Container>
-      </section>
+      {/* Kerala Advantage — rich location section */}
+      <LocationAdvantage />
     </main>
     </PageTransition>
   );

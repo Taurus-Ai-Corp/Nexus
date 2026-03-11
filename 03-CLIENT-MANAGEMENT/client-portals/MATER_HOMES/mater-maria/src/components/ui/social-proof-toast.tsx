@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin } from "lucide-react";
 
 const MESSAGES = [
   { name: "Rajeev", location: "Dubai", action: "booked a site visit" },
@@ -58,8 +57,12 @@ export function SocialProofToast() {
             &times;
           </button>
           <div className="flex items-start gap-3">
-            <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent-default/15">
-              <MapPin className="size-4 text-accent-default" />
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-white/90 p-1">
+              <img
+                src="/images/mater-maria-logo.svg"
+                alt="Mater Maria"
+                className="h-8 w-8 object-contain"
+              />
             </div>
             <div>
               <p className="text-sm font-medium text-text-primary">

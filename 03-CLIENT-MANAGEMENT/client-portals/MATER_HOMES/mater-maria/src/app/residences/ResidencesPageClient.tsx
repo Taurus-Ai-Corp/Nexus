@@ -108,6 +108,7 @@ export default function ResidencesPageClient() {
             badge="Our Homes"
             title="Choose Your Perfect Residence"
             subtitle="Each residence is thoughtfully designed for comfort, safety, and independence — with the warmth of a true home."
+            onHero
           />
         </Container>
       </ImageSlideshow>

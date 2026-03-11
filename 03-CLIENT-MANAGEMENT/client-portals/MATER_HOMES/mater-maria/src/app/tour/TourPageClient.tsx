@@ -40,7 +40,7 @@ const TOUR_HIGHLIGHTS = [
     icon: TreePalm,
     title: "Organic Orchards",
     description:
-      "5+ acres of tropical fruit orchards — mango, jackfruit, coconut — with walking trails winding through the estate.",
+      "8+ acres of tropical fruit orchards — mango, jackfruit, coconut — with walking trails winding through the estate.",
   },
   {
     icon: Sun,

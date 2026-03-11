@@ -194,7 +194,7 @@ function InvestorJsonLd() {
 
 export default function InvestPage() {
   return (
-    <main id="main-content" className="bg-bg-base">
+    <main id="main-content" className="bg-[hsl(220,25%,6%)]">
       <InvestorJsonLd />
 
       {/* S1: Estate Hero — Full-viewport immersive property reveal */}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Facebook, Instagram, Youtube, Phone } from "lucide-react";
 import { SITE, FOOTER } from "@/lib/constants";
+import { BrandLogo } from "@/components/ui/brand-logo";
 import { Container } from "@/components/ui/container";
 
 
@@ -23,18 +24,9 @@ export function Footer() {
             <Link
               href="/"
               aria-label={`${SITE.shortName} - Home`}
-              className="flex items-center gap-3"
+              className="inline-flex transition-opacity hover:opacity-80"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets-2025/images/mater-maria-logo.svg"
-                alt="Mater Maria Homes"
-                className="h-10 w-auto"
-              />
-              <div className="flex flex-col leading-none">
-                <span className="font-heading text-sm font-semibold uppercase tracking-[0.18em]" style={{ color: "#c0a055" }}>Mater Maria</span>
-                <span className="font-heading text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "#1e4f92" }}>Homes</span>
-              </div>
+              <BrandLogo height={80} onDark={true} />
             </Link>
             <p className="text-sm leading-relaxed text-text-secondary">
               {SITE.tagline}

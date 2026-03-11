@@ -18,43 +18,15 @@ const STARTERS = [
   "Compare all tiers for me",
 ];
 
-/** MM double-wing logo as inline SVG — matches public/images/invest/mm-wings-logo.svg */
-function WingsLogo({ size = 40 }: { size?: number }) {
+function BrandIcon({ size = 36 }: { size?: number }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 200 120"
-      fill="none"
+    <img
+      src="/images/mater-maria-logo.svg"
+      alt="Mater Maria"
       width={size}
-      height={size * 0.6}
-    >
-      <defs>
-        <linearGradient id="chat-gold" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="hsl(42, 78%, 65%)" />
-          <stop offset="50%" stopColor="hsl(42, 72%, 55%)" />
-          <stop offset="100%" stopColor="hsl(36, 65%, 42%)" />
-        </linearGradient>
-      </defs>
-      <g transform="translate(10, 10)">
-        <path
-          d="M 0 90 L 0 10 L 22 55 L 44 10 L 66 55 L 66 90 L 56 90 L 56 40 L 44 65 L 33 65 L 22 40 L 22 90 Z"
-          fill="url(#chat-gold)"
-          opacity={0.95}
-        />
-        <path
-          d="M 114 90 L 114 10 L 136 55 L 158 10 L 180 55 L 180 90 L 170 90 L 170 40 L 158 65 L 147 65 L 136 40 L 136 90 Z"
-          fill="url(#chat-gold)"
-          opacity={0.95}
-        />
-        <path
-          d="M 55 30 Q 90 0 125 30 Q 90 15 55 30 Z"
-          fill="url(#chat-gold)"
-          opacity={0.6}
-        />
-        <line x1="90" y1="8" x2="90" y2="22" stroke="url(#chat-gold)" strokeWidth="2" opacity={0.4} />
-        <line x1="84" y1="15" x2="96" y2="15" stroke="url(#chat-gold)" strokeWidth="2" opacity={0.4} />
-      </g>
-    </svg>
+      height={size}
+      style={{ objectFit: "contain" }}
+    />
   );
 }
 
@@ -167,7 +139,7 @@ export function InvestorChatWidget() {
             }}
             aria-label="Open investor chat"
           >
-            <WingsLogo size={36} />
+            <BrandIcon size={36} />
             {/* Speech bubble badge */}
             <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full border-2 border-surface bg-accent-default">
               <MessageCircle className="size-2.5 text-white" fill="white" />
@@ -189,7 +161,7 @@ export function InvestorChatWidget() {
           >
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-border-default px-4 py-3">
-              <WingsLogo size={28} />
+              <BrandIcon size={28} />
               <div className="flex-1">
                 <p className="text-sm font-semibold text-text-primary">
                   Mater Maria Concierge

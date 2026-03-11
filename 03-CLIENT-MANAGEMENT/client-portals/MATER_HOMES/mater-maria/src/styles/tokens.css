@@ -1,18 +1,17 @@
 /* === DARK THEME === */
-:root,
 [data-theme="dark"] {
   /* Font families — Didot loaded via @font-face in globals.css */
-  --font-heading: "Didot", Georgia, "Times New Roman", serif;
-  --font-display: "Didot", Georgia, serif;
+  --font-heading: "Garabosse", "Didot", Georgia, "Times New Roman", serif;
+  --font-display: "Garabosse", "Didot", Georgia, serif;
 
   --bg-base: hsl(220, 25%, 6%);
   --bg-surface: hsl(220, 20%, 10%);
   --bg-elevated: hsl(220, 18%, 14%);
   --bg-overlay: hsla(220, 25%, 6%, 0.8);
 
-  --text-primary: hsl(40, 15%, 92%);
-  --text-secondary: hsl(220, 10%, 65%);
-  --text-muted: hsl(220, 10%, 45%);
+  --text-primary: hsl(40, 20%, 98%);
+  --text-secondary: hsl(220, 16%, 82%);
+  --text-muted: hsl(220, 12%, 62%);
   --text-inverse: hsl(220, 25%, 8%);
 
   /* Brand palette — from official Mater Maria Homes swatches */
@@ -43,10 +42,10 @@
   --border-strong: hsla(0, 0%, 100%, 0.18);
   --border-accent: hsla(42, 70%, 55%, 0.3);
 
-  --shadow-sm: 0 2px 8px hsla(0, 0%, 0%, 0.3);
-  --shadow-md: 0 8px 24px hsla(0, 0%, 0%, 0.4);
-  --shadow-lg: 0 16px 48px hsla(0, 0%, 0%, 0.5);
-  --shadow-xl: 0 24px 64px hsla(0, 0%, 0%, 0.6);
+  --shadow-sm: 0 2px 10px hsla(0, 0%, 0%, 0.4), 0 1px 3px hsla(0,0%,0%,0.3);
+  --shadow-md: 0 8px 28px hsla(0, 0%, 0%, 0.5), 0 2px 8px hsla(0,0%,0%,0.3);
+  --shadow-lg: 0 20px 56px hsla(0, 0%, 0%, 0.6), 0 4px 16px hsla(0,0%,0%,0.35);
+  --shadow-xl: 0 32px 80px hsla(0, 0%, 0%, 0.7), 0 8px 24px hsla(0,0%,0%,0.4);
 
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
@@ -77,15 +76,18 @@
 }
 
 /* === LIGHT THEME (default) === */
+:root,
 [data-theme="light"] {
-  --bg-base: hsl(40, 20%, 97%);
-  --bg-surface: hsl(0, 0%, 100%);
+  --font-heading: "Garabosse", "Didot", Georgia, "Times New Roman", serif;
+  --font-display: "Garabosse", "Didot", Georgia, serif;
+  --bg-base: hsl(40, 30%, 98%);
+  --bg-surface: hsl(40, 25%, 99%);
   --bg-elevated: hsl(0, 0%, 100%);
   --bg-overlay: hsla(0, 0%, 100%, 0.85);
 
-  --text-primary: hsl(220, 25%, 12%);
-  --text-secondary: hsl(220, 15%, 40%);
-  --text-muted: hsl(220, 10%, 60%);
+  --text-primary: hsl(220, 30%, 5%);
+  --text-secondary: hsl(220, 22%, 18%);
+  --text-muted: hsl(220, 16%, 38%);
   --text-inverse: hsl(40, 15%, 96%);
 
   --accent-300: hsl(42, 72%, 52%);

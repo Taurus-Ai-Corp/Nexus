@@ -86,6 +86,7 @@ export function GalleryPageClient() {
             badge="Visual Tour"
             title="Explore Mater Maria"
             subtitle="Browse through our campus, residences, amenities, and community life."
+            onHero
           />
         </Container>
       </ImageSlideshow>

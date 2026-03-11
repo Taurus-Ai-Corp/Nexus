@@ -64,7 +64,7 @@ export function Navbar() {
           className="group transition-opacity hover:opacity-80"
           aria-label={`${SITE.shortName} - Home`}
         >
-          <BrandLogo height={68} className="text-text-primary" />
+          <BrandLogo height={88} onDark={!scrolled} />
         </Link>
 
         {/* Desktop Navigation */}
@@ -113,7 +113,7 @@ export function Navbar() {
             <SheetContent side="right" className="bg-bg-base border-border-default w-72">
               <SheetHeader>
                 <SheetTitle>
-                  <BrandLogo height={40} className="text-text-primary" />
+                  <BrandLogo height={40} onDark={false} />
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-1 px-4 pt-4">

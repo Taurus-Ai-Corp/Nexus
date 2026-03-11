@@ -10,14 +10,18 @@ import { PostHogProvider } from "@/components/providers/PostHogProvider";
 import { GlobalWidgets } from "@/components/layout/GlobalWidgets";
 import "./globals.css";
 
-// Helvetica Neue Thin — editorial body (.ttf supported by next/font/local)
-// Didot is loaded via @font-face in globals.css; --font-heading set in tokens.css
-const helveticaThin = localFont({
-  src: "../../public/fonts/HelveticaNeue-Thin.ttf",
+// Garabosse — French Renaissance Garalde (self-hosted, OFL license)
+// 5 weights: Perle (100) → Nonpareil (300) → Mignon (400) → Gaillard (600) → Parangon (700)
+const garabosse = localFont({
+  src: [
+    { path: "../../public/fonts/garabosse/Garabosse-Perle.otf", weight: "100", style: "normal" },
+    { path: "../../public/fonts/garabosse/Garabosse-Nonpareil.otf", weight: "300", style: "normal" },
+    { path: "../../public/fonts/garabosse/Garabosse-Mignon.otf", weight: "400", style: "normal" },
+    { path: "../../public/fonts/garabosse/Garabosse-Gaillard.otf", weight: "600", style: "normal" },
+    { path: "../../public/fonts/garabosse/Garabosse-Parangon.otf", weight: "700", style: "normal" },
+  ],
   variable: "--font-body",
-  weight: "100",
   display: "swap",
-  fallback: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
 });
 
 export const viewport: Viewport = {
@@ -41,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${helveticaThin.variable} font-body antialiased`}>
+      <body className={`${garabosse.variable} font-body antialiased`}>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent-default focus:px-4 focus:py-2 focus:text-text-inverse"
