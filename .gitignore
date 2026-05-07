@@ -202,3 +202,11 @@ temp/
 .turbo
 tsconfig.tsbuildinfo
 next-env.d.ts
+
+# ===========================================
+# CLAUDE CODE — personal session state
+# ===========================================
+# settings.json (committed) shares team-wide hooks/permissions.
+# settings.local.json holds per-user permission history — keep local.
+.claude/settings.local.json
+.claude/.local/
