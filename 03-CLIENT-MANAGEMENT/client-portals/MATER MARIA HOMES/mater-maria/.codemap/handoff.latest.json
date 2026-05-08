@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-03-25T17:21:37.667028-04:00",
+  "root": "/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria",
+  "branch": "landing-page-final-gemini",
+  "base_ref": "origin/main",
+  "prefix": {
+    "file_count": 506,
+    "hubs": [
+      {
+        "path": "public/next.svg",
+        "importers": 16
+      },
+      {
+        "path": "src/app/invest/admin/actions.ts",
+        "importers": 3
+      }
+    ]
+  },
+  "delta": {
+    "changed": [
+      {
+        "path": ".gitignore",
+        "hash": "207e265ff4901f9ad9f96d8ce08530e04f9fc600815472a66d0a446096d654cd",
+        "size": 480,
+        "status": "branch"
+      },
+      {
+        "path": ".worktrees/gemini-workspace",
+        "status": "modified"
+      },
+      {
+        "path": ".worktrees/slack-integration",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/awesome-ai-apps",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/Motia",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/anthropic-cookbook",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/awesome-ai-apps",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/klavis",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/playwright-mcp",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/sim",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/stagewise",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/Motia",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/anthropic-cookbook",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/awesome-ai-apps",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/klavis",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/sim",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/stagewise",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/package-lock.json",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/assets-2025/images/mater-maria-logo-v2.svg",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/assets-2025/images/mater-maria-logo-white.svg",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/assets-2025/images/wing-icon.svg",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/brochure.html",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/images/mater-maria-logo-v2.svg",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/images/mater-maria-logo-white.svg",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/index-landing.html",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/media-approvals.html",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/preview-landing.html",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/preview-v2.html",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/privacy.html",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/robots.txt",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/sitemap.xml",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/terms.html",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/HomePageClient.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/about/AboutPageClient.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/amenities/AmenitiesPageClient.tsx",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/download/brochure/BrochurePageClient.tsx",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/download/brochure/page.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/explore/ExplorePageClient.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/explore/page.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/invest/InvestPageClient.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/layout.tsx",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/residences/ResidencesPageClient.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/robots.ts",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/sitemap.ts",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/EstateHero.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/InnovationShowcase.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/SmartEstateShowcase.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/ThreeDResidenceFlow.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/TrustGovernance.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/index.ts",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/DualCovenant.tsx",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Features.tsx",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Hero.tsx",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/LocationAdvantage.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/LocationSection.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Residences.tsx",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/seo/JsonLd.tsx",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/ui/EcosystemTicker.tsx",
+        "status": "branch"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/ui/animated-background.tsx",
+        "hash": "41f3723a8fc6b6a55937e62dd904ec1e34ddd74b8381aaecd37c7622759fd9f6",
+        "size": 10280,
+        "status": "untracked"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/ui/border-beam.tsx",
+        "status": "branch"
+      }
+    ],
+    "risk_files": [],
+    "recent_events": [],
+    "next_steps": [
+      "Run tests covering changed files before handoff."
+    ],
+    "open_questions": [
+      "Live watch state was unavailable; timeline may be incomplete."
+    ]
+  },
+  "prefix_hash": "422c4f9debb3e6cba8945c382769ec0e69b99f8c8997389200dc1bb415962305",
+  "delta_hash": "7936b0da191bbafdce4d3b57dafa7d290999944126c038165fb30deb0f21044d",
+  "combined_hash": "37cc31956eb825f08dc027f9f5f7892dc5d97912c954514965e8885bb9d9af6a",
+  "metrics": {
+    "prefix_bytes": 126,
+    "delta_bytes": 7740,
+    "total_bytes": 7866,
+    "unchanged_bytes": 0,
+    "reuse_ratio": 0,
+    "prefix_reused": false,
+    "delta_reused": false,
+    "previous_combined_hash": "63cc9597db08f696eb85abceb04c6acf28ad7ef701aa1d86c3cf23666436af4c"
+  },
+  "changed_files": [
+    ".gitignore",
+    ".worktrees/gemini-workspace",
+    ".worktrees/slack-integration",
+    "01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/awesome-ai-apps",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/Motia",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/anthropic-cookbook",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/awesome-ai-apps",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/klavis",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/playwright-mcp",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/sim",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/stagewise",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/Motia",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/anthropic-cookbook",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/awesome-ai-apps",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/klavis",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/sim",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/stagewise",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/package-lock.json",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/assets-2025/images/mater-maria-logo-v2.svg",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/assets-2025/images/mater-maria-logo-white.svg",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/assets-2025/images/wing-icon.svg",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/brochure.html",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/images/mater-maria-logo-v2.svg",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/images/mater-maria-logo-white.svg",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/index-landing.html",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/media-approvals.html",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/preview-landing.html",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/preview-v2.html",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/privacy.html",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/robots.txt",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/sitemap.xml",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/public/terms.html",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/HomePageClient.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/about/AboutPageClient.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/amenities/AmenitiesPageClient.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/download/brochure/BrochurePageClient.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/download/brochure/page.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/explore/ExplorePageClient.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/explore/page.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/invest/InvestPageClient.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/layout.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/residences/ResidencesPageClient.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/robots.ts",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/sitemap.ts",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/EstateHero.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/InnovationShowcase.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/SmartEstateShowcase.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/ThreeDResidenceFlow.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/TrustGovernance.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/invest/index.ts",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/DualCovenant.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Features.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Hero.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/LocationAdvantage.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/LocationSection.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Residences.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/seo/JsonLd.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/ui/EcosystemTicker.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/ui/animated-background.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/ui/border-beam.tsx"
+  ],
+  "risk_files": [],
+  "recent_events": [],
+  "next_steps": [
+    "Run tests covering changed files before handoff."
+  ],
+  "open_questions": [
+    "Live watch state was unavailable; timeline may be incomplete."
+  ]
+}
