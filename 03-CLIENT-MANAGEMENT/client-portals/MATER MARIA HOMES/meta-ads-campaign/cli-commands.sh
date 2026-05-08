@@ -49,7 +49,9 @@ meta ads pixel get \
 # HOUSING here, delete the campaign and recreate. See policy-compliance.md § 1.
 # VERIFY: some meta-ads CLI versions expect --special-ad-category-country flag
 #         for country-level declaration; if create call rejects, add:
-#         --special-ad-category-country '["AE","SA","QA","KW","BH","OM"]'
+#         --special-ad-category-country '["IN","US","GB","AU","NZ"]'
+#         (v3 geo pivot 2026-05-08: Kerala homebase + global Malayali diaspora;
+#          replaces prior GCC list of AE/SA/QA/KW/BH/OM)
 
 meta ads campaign create \
   --account-id "$AD_ACCOUNT_ID" \
@@ -87,7 +89,7 @@ export CAMPAIGN_ID="<paste returned campaign id here>"
 meta ads adset create \
   --account-id "$AD_ACCOUNT_ID" \
   --campaign-id "$CAMPAIGN_ID" \
-  --name "AdSet-Cold-GCC-NRI" \
+  --name "AdSet-Cold-Diaspora-Kerala" \
   --status PAUSED \
   --daily-budget 400000 \
   --optimization-goal LEAD_GENERATION \

@@ -30,7 +30,7 @@ Tone discipline: thoughtful advisor, not hawker. No "God's Own Country", no "Ker
   The numbers, simply: ₹5 lakhs to ₹30 lakhs deposited as a hybrid share-and-deposit instrument. Ten percent annual interest for years one through four. From year five your deposit converts to share capital, and dividends begin — escalating from 6% to 20% over years five through fifteen. Modeled returns of approximately 150% over the 15-year share-cycle horizon, subject to project performance and dividend declarations. Past projections do not guarantee future returns. Run the numbers yourself on the calculator — link below.
 - **CTA button:** See the projection model
 - **Visual brief:** Clean static of the animated 15-year ROI projection chart from `/invest`, framed on a tasteful neutral background with the Mater Maria wordmark. Optional carousel: slide 1 chart, slide 2 four tier cards, slide 3 architectural render of the residences.
-- **Why this works:** GCC professionals respect arithmetic. Lead with the math; the romance comes later.
+- **Why this works:** Diaspora professionals (Houston physicians, NYC engineers, London consultants) and Kerala high-net-worth investors all respect arithmetic. Lead with the math; the romance comes later.
 - **Mandatory footer (SEBI standard warning, min 10pt, on every creative):**
   > *Investment in securities market are subject to market risks. Read all the related documents carefully before investing.*
 - **Mandatory ad-copy footer (visible without "see more" expansion):**
@@ -46,7 +46,7 @@ Tone discipline: thoughtful advisor, not hawker. No "God's Own Country", no "Ker
   Mater Maria Sanctuary was conceived under the patronage of Mar Jose Pulickal and is supported by the Pravasi Apostolate under Fr. Mathew Puthumana — clergy who have walked alongside Kerala's diaspora for decades. The amphitheatre, the chapel-adjacent meditation halls, the resident lounges — these are spaces designed for a community of returnees who share a faith and a history. Ninety residences, integrated medical care, ayurvedic wellness, and an organic kitchen. Investment from ₹5 lakhs.
 - **CTA button:** Learn More
 - **Visual brief:** A respectful, well-composed still of the bishop blessing the land at the project ground-breaking, or a wide shot of the chapel-adjacent area at dawn. NOT a portrait close-up of the bishop alone — that reads transactional. Frame him within the landscape.
-- **Why this works:** For the Christian Malayali NRI segment (~30-40% of GCC Malayalees), institutional clergy backing is a durable trust signal. Use it tastefully, exactly once.
+- **Why this works:** For the Christian Malayali segment (~25-40% of diaspora Malayalees and a higher share in Kerala homebase), institutional clergy backing is a durable trust signal. Use it tastefully, exactly once.
 - **Mandatory footer (SEBI standard warning, min 10pt, on every creative):**
   > *Investment in securities market are subject to market risks. Read all the related documents carefully before investing.*
 - **Mandatory ad-copy footer (visible without "see more" expansion):**

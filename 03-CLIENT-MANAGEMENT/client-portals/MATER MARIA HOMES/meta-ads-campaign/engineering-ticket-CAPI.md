@@ -4,15 +4,15 @@
 **Estimated effort:** 4 engineer-days (3 dev + 1 QA/staging verification)
 **Owner:** TBD — engineering manager to assign (suggest: senior full-stack engineer, Next.js + Node)
 **Blocks:**
-- Mater Maria GCC paid social launch (Meta Lead/Conversion campaign — UAE/KSA/Qatar/Oman/Bahrain)
-- Mater Maria Kerala/India retargeting (lookalike from CAPI events)
+- Mater Maria diaspora + Kerala paid social launch (Meta Lead/Conversion campaign — IN/US/GB/AU/NZ per v3 geo pivot 2026-05-08; replaces prior GCC scope)
+- Mater Maria Special Ad Audience seeding (HOUSING-restricted similar-audience model, requires CAPI events as seed signal)
 - All Meta Lead Ads, brochure-download conversion campaigns, and WhatsApp click-to-chat campaigns
 
 ---
 
 ## Background
 
-Mater Maria's Meta campaign is targeting NRIs in the GCC, where roughly 40% of audience traffic arrives on iOS Safari. Browser-side Meta Pixel events on iOS are heavily degraded by ITP (Intelligent Tracking Prevention) and ETP (Enhanced Tracking Protection): third-party cookies are blocked, `_fbp` first-party cookie is capped at 7 days, and a meaningful share of pixel beacons are silently dropped. The practical impact is that Meta's optimizer sees only a fraction of real conversions, and CPL inflates 30–60% on iOS-skewed audiences while the algorithm trains on the wrong signal — it over-spends on cohorts that happen to be visible (Android) rather than cohorts that actually convert (iOS NRIs with high HNI propensity).
+Mater Maria's Meta campaign is targeting Kerala homebase + global Malayali diaspora (US/UK/AUS/NZ — v3 geo pivot 2026-05-08), where iOS Safari traffic share is even higher than under the prior GCC scope (US skews ~55% iOS, AUS ~50%, UK ~40%, IN ~25%). Browser-side Meta Pixel events on iOS are heavily degraded by ITP (Intelligent Tracking Prevention) and ETP (Enhanced Tracking Protection): third-party cookies are blocked, `_fbp` first-party cookie is capped at 7 days, and a meaningful share of pixel beacons are silently dropped. The practical impact is that Meta's optimizer sees only a fraction of real conversions, and CPL inflates 30–60% on iOS-skewed audiences while the algorithm trains on the wrong signal — it over-spends on cohorts that happen to be visible (Android) rather than cohorts that actually convert (iOS NRIs with high HNI propensity).
 
 The Mater Maria funnel also has three off-property events that the pixel literally cannot capture: WhatsApp click-to-chat (the click leaves our domain), brochure PDF download (anonymous file fetch on Vercel CDN with no DOM context), and WhatsApp business-account replies (happens on Meta's own infra, not our site). All three are stronger lead-quality signals than form-fills — a prospect who actively requests a brochure or replies on WhatsApp is dramatically more likely to convert to a 5L–30L investor than someone who fills out the lead form and goes silent. Without CAPI we are ad-spending on the weakest signal we have.
 
@@ -204,6 +204,6 @@ When the chat advances past message 3 (engaged session signal), fire `sendCapiEv
 
 - **Value attribution:** Should we send `value` (in AED) on the `Lead` event tied to the selected investor tier (5L = ~AED 22K, 30L = ~AED 132K)? This enables Meta ROAS optimization but exposes deal sizing to Meta's bidding model. Recommend: send `value` but flag it as `predicted_ltv` not actual revenue
 - **WhatsApp lead-match strategy:** When a webhook reply arrives from a phone number not in our Firestore leads collection, do we fire `WhatsAppReply` anyway (treating cold WhatsApp DMs as a separate signal) or drop the event? Default: drop, but PM may want both
-- **Geo split:** Do we want separate Pixels for the GCC campaign vs Kerala campaign so we can train two distinct lookalike models, or one shared Pixel with `country` user_data segmentation? Single Pixel is simpler; separate Pixels give better optimizer signal at the cost of two Datasets to maintain
+- **Geo split:** Under v3 (Kerala + diaspora), do we want separate Pixels per country/region (IN, US/GB/AU/NZ as one diaspora bucket, or each country separately) to train distinct Special Ad Audience models, or one shared Pixel with `country` user_data segmentation? Single Pixel is simpler; multi-Pixel gives better optimizer signal at the cost of multiple Datasets to maintain. Recommend single shared Pixel for v3 launch, split only if SAA performance varies dramatically by country in week 4+ data.
 - **Investor chat as conversion event:** Confirm with marketing whether `CompleteRegistration` on chat-engaged is the right standard event name, or if we should use a custom `ChatEngaged` event. Standard events get better optimizer treatment; custom events give cleaner reporting
 - **Consent UX gap:** Does `matermariahomes.com` currently have a DPDP/GDPR consent banner, or are we building it as part of this ticket? If absent, this ticket scope expands by ~1 engineer-day

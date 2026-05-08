@@ -2,7 +2,7 @@
 
 **Status:** Blueprint only. Nothing live. All CLI commands ship with `--status PAUSED`.
 **Scope:** Lead generation for the share-based investor program at https://matermariahomes.com/invest
-**Audience:** Malayali NRI diaspora across UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman — ages 40-65.
+**Audience (v3 — 2026-05-08 geo pivot):** Kerala homebase + global Malayali diaspora across United States, United Kingdom, Australia, New Zealand. HOUSING-mandated age range 18-65 (cannot narrow). See `audience-targeting.md` for layered targeting under HOUSING constraints.
 
 ## Campaign Objective
 
@@ -16,9 +16,9 @@ Drive qualified investor leads (Silver/Gold/Diamond/Platinum tiers, ₹5L-₹30L
 
 ## Expected Lead Volume
 
-- **Test phase target CPL:** ₹400-₹700 (Meta Lead Form), ₹900-₹1,400 (on-site /invest conversions).
-- **Week 1 leads:** 60-110 raw leads at ~₹500 blended CPL.
-- **Steady-state:** 350-650 leads/month — of which roughly 8-15% will be sales-qualified investor inquiries (28-95 SQLs).
+- **Test phase target CPL (HOUSING-mode + v3 geo blended):** ₹600-₹1,400 (Meta Lead Form), ₹1,400-₹2,800 (on-site /invest conversions). Per-country variance is wide: Kerala ~₹200-500, US ~$10-25, UK ~£6-14, AUS ~A$8-18, NZ ~NZ$8-15. See `kpi-dashboard.md` for breakdown.
+- **Week 1 leads:** 35-80 raw leads at blended ~₹900 CPL (lower volume than v2's GCC-only estimate due to HOUSING-mode audience widening + multi-currency CPM averaging).
+- **Steady-state:** 250-500 leads/month — of which roughly 8-15% will be sales-qualified investor inquiries (20-75 SQLs). US-derived leads carry highest LTV per ticket; Kerala-derived leads carry highest volume per spend.
 
 ## File Index
 
@@ -34,4 +34,4 @@ Drive qualified investor leads (Silver/Gold/Diamond/Platinum tiers, ₹5L-₹30L
 
 1. **Install and authenticate the CLI**: `pip install meta-ads`, then export `ACCESS_TOKEN` and `AD_ACCOUNT_ID` (`act_NNNN…` format). Verify the CLI flag names against the installed version and resolve every `# VERIFY:` comment in `cli-commands.sh`.
 2. **Stand up the Pixel + Conversion API** on `/invest` with events for `Lead`, `CompleteRegistration`, and `ViewContent` before going live — without server-side events the LEADS optimization will under-deliver.
-3. **Approve creative + legal**: confirm the bishop's likeness usage with the Patron's office, run all five copy variants past Rajeev Abraham, and have the Meta Lead Form questions reviewed by counsel for AED/USD/INR disclosure language.
+3. **Approve creative + legal**: confirm the bishop's likeness usage with the Patron's office, run all five copy variants past Rajeev Abraham, and have the Meta Lead Form questions reviewed by counsel for INR/USD/GBP/AUD/NZD disclosure language across the 5 target jurisdictions.

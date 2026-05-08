@@ -1,5 +1,7 @@
 # Mater Maria — Meta Ads Policy & Compliance Checklist
 
+> **2026-05-08 GEO PIVOT NOTE (read first):** This compliance doc was originally written for GCC delivery (UAE/Saudi/Qatar/Kuwait/Bahrain/Oman). Per client direction, the campaign has pivoted to **Kerala (homebase) + global Malayali diaspora across US/UK/AUS/NZ**. Sections discussing UAE-CMA Cat-5 licensing (§2 UAE), GCC-specific HOUSING radius questions (§1), GCC city-radius targeting (§1), and GCC faith-creative restrictions (§4) are NO LONGER LAUNCH-BLOCKING under v3 — retained below for reference if AE/GCC delivery resumes. **Net new launch-blockers under v3:** (a) US is the strictest HOUSING enforcement jurisdiction in the world (origin of the 2022 HUD-Meta settlement); (b) US +1 manual-sales follow-up capacity is now the PRIMARY path for ~30% of lead volume, not an edge case; (c) UK ASA financial-promotions code applies (FCA reach over cross-border investment marketing); (d) Australian ASIC promoting-securities rules apply for any return-claim creative served to AU residents.
+
 > One-stop pre-launch policy review. The current campaign blueprint (campaign-brief.md, audience-targeting.md, creative-variants.md, cli-commands.sh) **cannot ship as written** — multiple items below are launch-blocking. Sections 1, 2, and 3 are the most material risk surfaces.
 >
 > Owner column: BDM (Rajeev/Praveen) · Counsel · Eng · Creative · Client (Mater Maria board / patron office). Items flagged "BLOCKS LAUNCH" must be cleared before unpausing the campaign in `cli-commands.sh § 6`.
@@ -104,7 +106,7 @@ The lead form is paired with an automated WhatsApp follow-up on `+91 94470 80356
 - [ ] **Opt-out honor** — on receipt of `STOP`, `UNSUBSCRIBE`, `OPT OUT` (English) or equivalents, the bot must (a) immediately stop messaging, (b) store the suppression in a persistent table, (c) confirm to the user that messaging has stopped. The Firebase + Supabase write path must include a `whatsapp_opt_out_at` column.
 - [ ] **Bot-disclosure requirement** — the very first bot message must identify itself as automated. Suggested first line: *"Hi! This is the Mater Maria automated assistant. A team member will follow up personally within 24 hours. Reply STOP to opt out."*
 - [ ] **No purchased / scraped phone lists** — the bot must only message numbers that came in via the consented lead form. Period.
-- [ ] **U.S. number block (since 2025-04-01)** — Meta paused all marketing template messages to +1 numbers. If any GCC lead provides a U.S. number (snowbird NRIs occasionally do), the bot must skip outbound and route to manual sales follow-up.
+- [ ] **U.S. number routing (since 2025-04-01) — REFRAMED UNDER v3 GEO PIVOT** — Meta paused all marketing template messages to +1 numbers. Under v2 (GCC focus) `+1` was an edge case. Under v3, US is a primary target market — expect ~30% of leads to provide `+1` numbers. The bot CANNOT send outbound marketing templates to US leads; ALL `+1` leads must route to manual sales follow-up by the Mater Maria sales desk. **Sales-desk capacity planning required** — this is the primary follow-up path for ~30% of v3 lead volume, not an edge case.
 
 ### India — DPDP Act 2023
 
