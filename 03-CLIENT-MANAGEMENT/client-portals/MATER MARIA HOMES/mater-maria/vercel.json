@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/", "destination": "/index-landing.html", "permanent": false },
+    { "source": "/invest", "destination": "/index-landing.html#tiers", "permanent": true },
+    { "source": "/investors", "destination": "/index-landing.html#tiers", "permanent": true },
+    { "source": "/amenities", "destination": "/index-landing.html#lifestyle", "permanent": true },
+    { "source": "/gallery", "destination": "/index-landing.html#properties", "permanent": true },
+    { "source": "/about", "destination": "/index-landing.html#about", "permanent": true },
+    { "source": "/contact", "destination": "/index-landing.html#contact", "permanent": true }
+  ]
+}
