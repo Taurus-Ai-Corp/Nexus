@@ -14,9 +14,8 @@ export function emailTemplate(lead: LeadPayload): { subject: string; html: strin
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
     <tr><td align="center" style="padding:32px 16px">
       <table role="presentation" width="600" style="max-width:600px;background:#FFFBF5;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden">
-        <tr><td style="background:#224C98;padding:28px 24px;text-align:center;color:#fff;font-family:Georgia,serif">
-          <img src="https://matermariahomes.com/images/mater-maria-logo.svg" alt="Mater Maria Homes" width="180" height="120" style="display:block;margin:0 auto 8px;max-width:180px;height:auto;border:0;outline:none;text-decoration:none">
-          <div style="font-size:14px;letter-spacing:.2em;opacity:.85;margin-top:4px">MATER MARIA HOMES</div>
+        <tr><td style="background:#224C98;padding:24px;text-align:center;color:#fff;font-family:Georgia,serif">
+          <div style="font-size:14px;letter-spacing:.2em;opacity:.85">MATER MARIA HOMES</div>
           <div style="font-size:13px;font-style:italic;margin-top:4px;color:#C09B5E">Living Refined</div>
         </td></tr>
         <tr><td style="padding:32px 32px 8px">
