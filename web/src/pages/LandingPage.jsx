@@ -4,7 +4,8 @@ import { useTheme } from '../ThemeContext';
 import { GlowCard, MetallicButton, ScrollProgress, ThemeToggle } from '../components/luxury';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe(import.meta.env['VITE_STRIPE_PUBLISHABLE_KEY'] || '');
+const stripeKey = import.meta.env['VITE_STRIPE_PUBLISHABLE_KEY'] || '';
+const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 
 const handleCheckout = async (priceId) => {
   const apiUrl = import.meta.env['VITE_API_URL'] || '';
@@ -15,6 +16,10 @@ const handleCheckout = async (priceId) => {
   const token = localStorage.getItem('neosync_access_token');
   if (!token) {
     window.location.href = '/login?redirect=/#pricing';
+    return;
+  }
+  if (!stripeKey) {
+    alert('Stripe is not configured yet. Contact admin@taurusai.io to enable payments.');
     return;
   }
   try {
