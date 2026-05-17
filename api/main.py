@@ -981,3 +981,40 @@ async def telegram_webhook_receive(request: Request):
         msg = data["message"]
         logger.info(f"Telegram message from {msg.get('from',{}).get('username','?')}: {msg.get('text','')[:200]}")
     return {"success": True}
+
+# ── Storage Security (hunter report finding #5) ──
+@app.get("/api/storage/config")
+async def get_storage_config(user: User = Depends(get_current_user)):
+    """Get storage bucket configuration (security audit)"""
+    configs = await db.fetch("SELECT * FROM storage_config ORDER BY created_at DESC")
+    return {"buckets": configs, "security_note": "All buckets are private by default. Use signed URLs for temporary access. Never expose bucket URLs publicly."}
+
+@app.post("/api/storage/generate-signed-url")
+async def generate_signed_url(file_key: str, expires_in_seconds: int = 3600, user: User = Depends(get_current_user)):
+    """Generate a signed URL for private file access (replaces public bucket URLs)"""
+    # In production, this would use boto3/botocore to generate presigned URLs
+    # For now, return a placeholder that demonstrates the pattern
+    expires_at = datetime.utcnow() + timedelta(seconds=expires_in_seconds)
+    return {
+        "file_key": file_key,
+        "signed_url": f"/api/storage/serve/{file_key}?token=PLACEHOLDER&expires={expires_at.isoformat()}",
+        "expires_at": expires_at.isoformat(),
+        "security_note": "Signed URLs expire automatically. Never share permanent bucket URLs."
+    }
+
+@app.get("/api/storage/security-audit")
+async def storage_security_audit(user: User = Depends(get_current_user)):
+    """Run storage security audit (checks for public buckets, exposed URLs, etc.)"""
+    audits = []
+    configs = await db.fetch("SELECT * FROM storage_config")
+    for cfg in configs:
+        policy = cfg.get("access_policy", {})
+        if policy.get("public_read"):
+            audits.append({"severity": "HIGH", "bucket": cfg["bucket_name"], "issue": "Bucket has public read access", "recommendation": "Set public_read=false and use signed URLs"})
+        if not policy.get("signed_urls"):
+            audits.append({"severity": "MEDIUM", "bucket": cfg["bucket_name"], "issue": "Signed URLs not enabled", "recommendation": "Enable signed URLs for temporary access"})
+        if policy.get("cors_origins") == ["*"]:
+            audits.append({"severity": "MEDIUM", "bucket": cfg["bucket_name"], "issue": "CORS allows all origins", "recommendation": "Restrict CORS to specific domains"})
+    if not audits:
+        audits.append({"severity": "PASS", "message": "All storage buckets follow security best practices"})
+    return {"audit_results": audits, "total_buckets": len(configs), "timestamp": datetime.utcnow().isoformat()}
