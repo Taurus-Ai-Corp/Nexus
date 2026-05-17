@@ -26,3 +26,4 @@ web/.vercel/
 
 # Docker
 *.pid
+.vercel
