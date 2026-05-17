@@ -12,12 +12,25 @@ const handleCheckout = async (priceId) => {
     alert('Payments are not configured yet. Contact admin@taurusai.io for Pro access.');
     return;
   }
+  const token = localStorage.getItem('neosync_access_token');
+  if (!token) {
+    window.location.href = '/login?redirect=/#pricing';
+    return;
+  }
   try {
     const res = await fetch(`${apiUrl}/api/stripe/create-checkout-session`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify({ price_id: priceId }),
     });
+    if (!res.ok) {
+      const err = await res.json();
+      alert(`Checkout error: ${err.detail || 'Please try again or contact admin@taurusai.io'}`);
+      return;
+    }
     const { url } = await res.json();
     if (url) window.location.href = url;
   } catch {

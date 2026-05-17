@@ -42,7 +42,9 @@ const MetaCampaignPage = () => {
   const fetchCampaigns = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${apiUrl}/api/bizflow/meta-campaigns`);
+      const token = localStorage.getItem('neosync_access_token');
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res = await fetch(`${apiUrl}/api/bizflow/meta-campaigns`, { headers });
       if (res.ok) {
         const data = await res.json();
         setCampaigns(Array.isArray(data) ? data : []);
@@ -58,11 +60,24 @@ const MetaCampaignPage = () => {
 
   const fetchAdAccounts = async () => {
     try {
-      const res = await fetch(`${apiUrl}/api/meta/accounts`);
+      const token = localStorage.getItem('neosync_access_token');
+      const metaToken = localStorage.getItem('neosync_meta_token');
+      const params = metaToken ? `?access_token=${encodeURIComponent(metaToken)}` : '';
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res = await fetch(`${apiUrl}/api/meta/adaccounts${params}`, { headers });
       if (res.ok) {
         const data = await res.json();
-        setAdAccounts(data.accounts || []);
-        setMetaConnected(true);
+        if (data.data && Array.isArray(data.data)) {
+          setAdAccounts(data.data);
+          setMetaConnected(true);
+        } else if (data.accounts && Array.isArray(data.accounts)) {
+          setAdAccounts(data.accounts);
+          setMetaConnected(true);
+        } else {
+          setAdAccounts([]);
+        }
+      } else {
+        setAdAccounts([]);
       }
     } catch {
       setAdAccounts([]);
@@ -76,15 +91,53 @@ const MetaCampaignPage = () => {
 
   const handleConnectMeta = () => {
     setMetaLoading(true);
-    window.location.href = `${apiUrl}/api/auth/meta/authorize`;
+    const width = 600, height = 700;
+    const left = (window.screen.width - width) / 2;
+    const top = (window.screen.height - height) / 2;
+    const popup = window.open(
+      `${apiUrl}/api/auth/meta/authorize`,
+      'meta-oauth',
+      `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`
+    );
+    if (!popup) {
+      alert('Please allow popups for this site to connect Meta.');
+      setMetaLoading(false);
+      return;
+    }
+    const handleMessage = (event) => {
+      if (!event.origin.includes(new URL(apiUrl).hostname)) return;
+      const data = event.data;
+      if (data.error) {
+        alert(`Meta connection failed: ${data.error}`);
+      } else if (data.success) {
+        localStorage.setItem('neosync_meta_token', data.access_token);
+        localStorage.setItem('neosync_meta_accounts', JSON.stringify(data.ad_accounts));
+        localStorage.setItem('neosync_meta_ig', JSON.stringify(data.instagram_account));
+        setMetaConnected(true);
+        fetchAdAccounts();
+      }
+      setMetaLoading(false);
+      window.removeEventListener('message', handleMessage);
+    };
+    window.addEventListener('message', handleMessage);
+    const checkClosed = setInterval(() => {
+      if (popup.closed) {
+        clearInterval(checkClosed);
+        setMetaLoading(false);
+        window.removeEventListener('message', handleMessage);
+      }
+    }, 500);
   };
 
   const handleCreateCampaign = async () => {
     if (!newCampaign.name || !newCampaign.budget_daily) return;
     try {
+      const token = localStorage.getItem('neosync_access_token');
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers.Authorization = `Bearer ${token}`;
       const res = await fetch(`${apiUrl}/api/bizflow/meta-campaigns`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           name: newCampaign.name,
           objective: newCampaign.objective,
@@ -113,7 +166,9 @@ const MetaCampaignPage = () => {
   const handleToggleCampaign = async (id, currentStatus) => {
     const action = currentStatus === 'active' ? 'pause' : 'resume';
     try {
-      const res = await fetch(`${apiUrl}/api/campaigns/${id}/${action}`, { method: 'POST' });
+      const token = localStorage.getItem('neosync_access_token');
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res = await fetch(`${apiUrl}/api/campaigns/${id}/${action}`, { method: 'POST', headers });
       if (res.ok) {
         await fetchCampaigns();
       }
@@ -124,7 +179,9 @@ const MetaCampaignPage = () => {
 
   const handleDeleteCampaign = async (id) => {
     try {
-      const res = await fetch(`${apiUrl}/api/campaigns/${id}`, { method: 'DELETE' });
+      const token = localStorage.getItem('neosync_access_token');
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res = await fetch(`${apiUrl}/api/campaigns/${id}`, { method: 'DELETE', headers });
       if (res.ok) {
         setCampaigns(prev => prev.filter(c => c.id !== id));
       }

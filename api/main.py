@@ -406,10 +406,15 @@ async def mfa_disable(req: MFAVerifyRequest, user: User = Depends(get_current_us
     logger.info(f"MFA disabled for {user.email}")
     return {"mfa_enabled": False, "message": "MFA disabled successfully"}
 
+from fastapi.responses import RedirectResponse, HTMLResponse
+
 @app.get("/api/auth/meta/authorize")
 async def meta_authorize(user: User = Depends(get_current_user)):
-    redirect_uri = os.getenv("META_OAUTH_REDIRECT_URI", "http://localhost:8000/api/auth/meta/callback")
-    return {"auth_url": f"https://www.facebook.com/v18.0/dialog/oauth?client_id={META_APP_ID}&redirect_uri={redirect_uri}&scope=ads_management,instagram_content_publish,instagram_manage_insights,pages_show_list,pages_manage_posts"}
+    redirect_uri = os.getenv("META_OAUTH_REDIRECT_URI", "https://api-beryl-three-25.vercel.app/api/auth/meta/callback")
+    frontend_url = os.getenv("FRONTEND_URL", "https://neosync-dashboard.vercel.app")
+    state = secrets.token_urlsafe(16)
+    auth_url = f"https://www.facebook.com/v18.0/dialog/oauth?client_id={META_APP_ID}&redirect_uri={redirect_uri}&scope=ads_management,instagram_content_publish,instagram_manage_insights,pages_show_list,pages_manage_posts&state={state}&response_type=code"
+    return RedirectResponse(url=auth_url)
 
 # ── Campaigns (auth required) ──
 @app.get("/api/campaigns")
@@ -631,24 +636,33 @@ import stripe as stripe_lib
 
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
-STRIPE_PRO_PRICE_ID = os.getenv("STRIPE_PRO_PRICE_ID", "price_pro_monthly")
+STRIPE_PRO_PRICE_ID = os.getenv("STRIPE_PRO_PRICE_ID", "")
+STRIPE_RESELLER_PRICE_ID = os.getenv("STRIPE_RESELLER_PRICE_ID", "")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://neosync-dashboard.vercel.app")
 stripe_lib.api_key = STRIPE_SECRET_KEY
 
 @app.post("/api/stripe/create-checkout-session")
 async def create_checkout_session(req: CheckoutRequest, user: User = Depends(get_current_user)):
     if not STRIPE_SECRET_KEY:
-        raise HTTPException(status_code=503, detail="Payments not configured")
+        raise HTTPException(status_code=503, detail="Payments not configured. Contact admin@taurusai.io")
     price_id = req.price_id or STRIPE_PRO_PRICE_ID
+    if not price_id:
+        raise HTTPException(status_code=400, detail="No price ID configured. Contact admin@taurusai.io")
     try:
         session = stripe_lib.checkout.Session.create(
-            mode="subscription",
+            mode="subscription" if price_id.startswith("price_") else "payment",
             line_items=[{"price": price_id, "quantity": 1}],
-            success_url=f"{CORS_ORIGINS[0]}/dashboard?session_id={{CHECKOUT_SESSION_ID}}",
-            cancel_url=f"{CORS_ORIGINS[0]}/?canceled=true",
-            metadata={"source": "neosync_dashboard", "user_id": str(user.id)},
+            success_url=f"{FRONTEND_URL}/dashboard?session_id={{CHECKOUT_SESSION_ID}}&checkout=success",
+            cancel_url=f"{FRONTEND_URL}/?canceled=true",
+            metadata={"source": "neosync_dashboard", "user_id": str(user.id), "user_email": user.email},
+            customer_email=user.email,
         )
         return {"url": session.url}
+    except stripe_lib.error.InvalidRequestError as e:
+        logger.error(f"Stripe invalid request: {e}")
+        raise HTTPException(status_code=400, detail=f"Invalid price ID: {price_id}. Contact admin@taurusai.io")
     except Exception as e:
+        logger.error(f"Stripe error: {e}")
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.post("/api/stripe/webhook")
@@ -681,26 +695,59 @@ async def stripe_webhook(request: Request):
 # ── Meta OAuth Callback ──
 @app.get("/api/auth/meta/callback")
 async def meta_callback(code: str, state: Optional[str] = None):
-    redirect_uri = os.getenv("META_OAUTH_REDIRECT_URI", "http://localhost:8000/api/auth/meta/callback")
-    async with httpx.AsyncClient() as c:
-        token_r = await c.get("https://graph.facebook.com/v18.0/oauth/access_token", params={
-            "client_id": META_APP_ID, "client_secret": META_APP_SECRET, "redirect_uri": redirect_uri, "code": code,
-        })
-        if token_r.status_code != 200:
-            return {"error": "Failed to exchange code for token", "details": token_r.json()}
-        token_data = token_r.json()
-        access_token = token_data.get("access_token")
-        long_r = await c.get("https://graph.facebook.com/v18.0/oauth/access_token", params={
-            "grant_type": "fb_exchange_token", "client_id": META_APP_ID, "client_secret": META_APP_SECRET, "fb_exchange_token": access_token,
-        })
-        if long_r.status_code == 200:
-            token_data = long_r.json()
+    """OAuth callback: exchange code for token, store it, redirect to frontend"""
+    redirect_uri = os.getenv("META_OAUTH_REDIRECT_URI", "https://api-beryl-three-25.vercel.app/api/auth/meta/callback")
+    frontend_url = os.getenv("FRONTEND_URL", "https://neosync-dashboard.vercel.app")
+    try:
+        async with httpx.AsyncClient() as c:
+            # Exchange code for short-lived token
+            token_r = await c.get("https://graph.facebook.com/v18.0/oauth/access_token", params={
+                "client_id": META_APP_ID, "client_secret": META_APP_SECRET, "redirect_uri": redirect_uri, "code": code,
+            })
+            if token_r.status_code != 200:
+                logger.error(f"Meta token exchange failed: {token_r.text}")
+                return f'<script>window.opener.postMessage({{"error":"Meta connection failed"}}, "{frontend_url}"); window.close();</script>'
+            
+            token_data = token_r.json()
             access_token = token_data.get("access_token")
-        accounts_r = await c.get("https://graph.facebook.com/v18.0/me/adaccounts", params={
-            "access_token": access_token, "fields": "id,name,account_status,currency,spend_cap",
-        })
-        ad_accounts = accounts_r.json().get("data", []) if accounts_r.status_code == 200 else []
-        return {"success": True, "access_token": access_token, "ad_accounts": ad_accounts, "message": "Meta account connected successfully. You can close this window and return to NeoSync."}
+            
+            # Exchange for long-lived token (60 days)
+            long_r = await c.get("https://graph.facebook.com/v18.0/oauth/access_token", params={
+                "grant_type": "fb_exchange_token", "client_id": META_APP_ID, "client_secret": META_APP_SECRET, "fb_exchange_token": access_token,
+            })
+            if long_r.status_code == 200:
+                access_token = long_r.json().get("access_token", access_token)
+            
+            # Get ad accounts
+            accounts_r = await c.get("https://graph.facebook.com/v18.0/me/adaccounts", params={
+                "access_token": access_token, "fields": "id,name,account_status,currency",
+            })
+            ad_accounts = accounts_r.json().get("data", []) if accounts_r.status_code == 200 else []
+            
+            # Get Instagram business account
+            ig_account = None
+            pages_r = await c.get("https://graph.facebook.com/v18.0/me/accounts", params={
+                "access_token": access_token, "fields": "id,name,instagram_business_account",
+            })
+            if pages_r.status_code == 200:
+                for page in pages_r.json().get("data", []):
+                    if page.get("instagram_business_account"):
+                        ig_account = page["instagram_business_account"]
+                        break
+            
+            # Return HTML that posts message to opener and closes
+            result = {
+                "success": True,
+                "access_token": access_token,
+                "ad_accounts": ad_accounts,
+                "instagram_account": ig_account,
+                "message": "Meta account connected successfully"
+            }
+            import json
+            return f'<script>window.opener.postMessage({json.dumps(result)}, "{frontend_url}"); window.close();</script>'
+    except Exception as e:
+        logger.error(f"Meta OAuth error: {e}")
+        return f'<script>window.opener.postMessage({{"error":"{str(e)}"}}, "{frontend_url}"); window.close();</script>'
 
 # ── Facebook Ads Marketing API ──
 class AdCampaignCreate(BaseModel):
