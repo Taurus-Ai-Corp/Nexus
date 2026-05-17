@@ -9,7 +9,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState('employee@taurusai.io');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('employee123');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
