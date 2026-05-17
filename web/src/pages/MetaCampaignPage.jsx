@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../../ThemeContext';
-import { useAuth } from '../../AuthContext';
-import { GlowCard, MetallicButton } from '../../components/luxury';
+import { useTheme } from '../ThemeContext';
+import { useAuth } from '../AuthContext';
+import { GlowCard, MetallicButton } from '../components/luxury';
 
 const OBJECTIVES = [
   { value: 'sales', label: 'Sales / Conversions', icon: '💰', color: '#4ade80' },
