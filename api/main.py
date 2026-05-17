@@ -1,6 +1,6 @@
 # NeoSync™ Social Suite Dashboard API
 # TAURUS AI CORP - FZCO | Three-Tier AI Routing | PostgreSQL + pgvector
-# Version: 3.1.0 — MFA (TOTP) + Security Hardened
+# Version: 3.2.0 — MFA + WhatsApp/Telegram + Security Hardened
 
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer
@@ -43,6 +43,10 @@ META_APP_ID = os.getenv("META_APP_ID", "")
 META_APP_SECRET = os.getenv("META_APP_SECRET", "")
 IG_ACCESS_TOKEN = os.getenv("IG_ACCESS_TOKEN", "")
 IG_BUSINESS_ACCOUNT_ID = os.getenv("IG_BUSINESS_ACCOUNT_ID", "")
+WHATSAPP_TOKEN = os.getenv("WHATSAPP_TOKEN", "")
+WHATSAPP_PHONE_ID = os.getenv("WHATSAPP_PHONE_ID", "")
+WHATSAPP_VERIFY_TOKEN = os.getenv("WHATSAPP_VERIFY_TOKEN", "neosync_wa_webhook")
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 
 CORS_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",") if o.strip()]
 
@@ -838,4 +842,142 @@ async def meta_webhook_receive(request: Request):
             field = change.get("field")
             value = change.get("value")
             logger.info(f"Meta webhook field={field}, value={json.dumps(value)[:200]}")
+    return {"success": True}
+
+# ── WhatsApp Cloud API (competes with BotCommerce) ──
+class WhatsAppMessage(BaseModel):
+    to: str
+    message: str
+    template_name: Optional[str] = None
+    template_language: Optional[str] = "en_US"
+
+@app.get("/api/whatsapp/phone-numbers")
+async def get_whatsapp_phones(user: User = Depends(get_current_user)):
+    """List WhatsApp phone numbers registered with Meta"""
+    if not WHATSAPP_TOKEN:
+        return {"error": "WHATSAPP_TOKEN not configured"}
+    async with httpx.AsyncClient() as c:
+        r = await c.get("https://graph.facebook.com/v18.0/me/phone_numbers", params={"access_token": WHATSAPP_TOKEN})
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.post("/api/whatsapp/send")
+async def send_whatsapp(msg: WhatsAppMessage, user: User = Depends(get_current_user)):
+    """Send WhatsApp message via Cloud API"""
+    if not WHATSAPP_TOKEN or not WHATSAPP_PHONE_ID:
+        raise HTTPException(400, "WhatsApp credentials not configured")
+    async with httpx.AsyncClient() as c:
+        if msg.template_name:
+            # Template message (for conversations outside 24h window)
+            payload = {
+                "messaging_product": "whatsapp",
+                "to": msg.to,
+                "type": "template",
+                "template": {"name": msg.template_name, "language": {"code": msg.template_language}}
+            }
+        else:
+            # Text message (within 24h window)
+            payload = {
+                "messaging_product": "whatsapp",
+                "to": msg.to,
+                "type": "text",
+                "text": {"body": msg.message}
+            }
+        r = await c.post(f"https://graph.facebook.com/v18.0/{WHATSAPP_PHONE_ID}/messages", json=payload, headers={"Authorization": f"Bearer {WHATSAPP_TOKEN}"})
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/whatsapp/conversations")
+async def get_whatsapp_conversations(phone_number_id: Optional[str] = None, user: User = Depends(get_current_user)):
+    """Get WhatsApp conversation analytics"""
+    if not WHATSAPP_TOKEN:
+        raise HTTPException(400, "WhatsApp credentials not configured")
+    pid = phone_number_id or WHATSAPP_PHONE_ID
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://graph.facebook.com/v18.0/{pid}/conversations", params={"access_token": WHATSAPP_TOKEN, "fields": "conversation_type,conversation_direction,conversation_origin"})
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/whatsapp/webhook")
+async def whatsapp_webhook_verify(hub_mode: str = "", hub_verify_token: str = "", hub_challenge: str = ""):
+    if hub_mode == "subscribe" and hub_verify_token == WHATSAPP_VERIFY_TOKEN:
+        return int(hub_challenge)
+    return {"error": "Verification failed"}
+
+@app.post("/api/whatsapp/webhook")
+async def whatsapp_webhook_receive(request: Request):
+    data = await request.json()
+    logger.info(f"WhatsApp webhook received: {json.dumps(data)[:500]}")
+    for entry in data.get("entry", []):
+        for change in entry.get("changes", []):
+            value = change.get("value", {})
+            messages = value.get("messages", [])
+            statuses = value.get("statuses", [])
+            for m in messages:
+                logger.info(f"WhatsApp message from {m.get('from')}: {m.get('text',{}).get('body','')[:200]}")
+            for s in statuses:
+                logger.info(f"WhatsApp status: {s.get('id')} -> {s.get('status')}")
+    return {"success": True}
+
+# ── Telegram Bot API (competes with BotCommerce) ──
+class TelegramMessage(BaseModel):
+    chat_id: str
+    message: str
+    parse_mode: Optional[str] = None
+
+@app.get("/api/telegram/bot-info")
+async def get_telegram_bot(user: User = Depends(get_current_user)):
+    """Get Telegram bot info"""
+    if not TELEGRAM_BOT_TOKEN:
+        return {"error": "TELEGRAM_BOT_TOKEN not configured"}
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getMe")
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.post("/api/telegram/send")
+async def send_telegram(msg: TelegramMessage, user: User = Depends(get_current_user)):
+    """Send Telegram message"""
+    if not TELEGRAM_BOT_TOKEN:
+        raise HTTPException(400, "Telegram credentials not configured")
+    params = {"chat_id": msg.chat_id, "text": msg.message}
+    if msg.parse_mode:
+        params["parse_mode"] = msg.parse_mode
+    async with httpx.AsyncClient() as c:
+        r = await c.post(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage", json=params)
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/telegram/updates")
+async def get_telegram_updates(offset: Optional[int] = None, limit: int = 100, user: User = Depends(get_current_user)):
+    """Get Telegram bot updates"""
+    if not TELEGRAM_BOT_TOKEN:
+        raise HTTPException(400, "Telegram credentials not configured")
+    params = {"limit": limit}
+    if offset:
+        params["offset"] = offset
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates", params=params)
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.post("/api/telegram/webhook/set")
+async def set_telegram_webhook(url: str, user: User = Depends(get_current_user)):
+    """Set Telegram webhook URL"""
+    if not TELEGRAM_BOT_TOKEN:
+        raise HTTPException(400, "Telegram credentials not configured")
+    async with httpx.AsyncClient() as c:
+        r = await c.post(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook", json={"url": url})
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/telegram/webhook/info")
+async def get_telegram_webhook(user: User = Depends(get_current_user)):
+    """Get Telegram webhook info"""
+    if not TELEGRAM_BOT_TOKEN:
+        raise HTTPException(400, "Telegram credentials not configured")
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getWebhookInfo")
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.post("/api/telegram/webhook")
+async def telegram_webhook_receive(request: Request):
+    data = await request.json()
+    logger.info(f"Telegram webhook received: {json.dumps(data)[:500]}")
+    if "message" in data:
+        msg = data["message"]
+        logger.info(f"Telegram message from {msg.get('from',{}).get('username','?')}: {msg.get('text','')[:200]}")
     return {"success": True}
