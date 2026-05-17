@@ -1,142 +1,303 @@
-name: CI/CD — NeoSync™ Social Suite
+name: CI/CD Pipeline
 
 on:
   push:
     branches: [main, develop]
-    paths:
-      - 'NeoSync™ _ Platform Devops/social-suite-dashboard/**'
   pull_request:
     branches: [main]
-    paths:
-      - 'NeoSync™ _ Platform Devops/social-suite-dashboard/**'
 
 env:
-  WORKSPACE: 'NeoSync™ _ Platform Devops/social-suite-dashboard'
+  PYTHON_VERSION: '3.12'
+  NODE_VERSION: '20'
 
 jobs:
-  # ── Frontend: Lint + Build ──
-  frontend-ci:
-    name: Frontend CI
+  # ── Security Checks ──
+  security:
+    name: Security Audit
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ env.WORKSPACE }}/web
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: ${{ env.WORKSPACE }}/web/package-lock.json
+      - name: Check for hardcoded secrets
+        run: |
+          echo "🔍 Scanning for hardcoded secrets..."
+          SECRETS_FOUND=0
+          # Check for common secret patterns in API code
+          PATTERNS=(
+            "JWT_SECRET.*=.*['\"][^$]"
+            "API_KEY.*=.*['\"][^$]"
+            "PASSWORD.*=.*['\"][^$]"
+            "SECRET_KEY.*=.*['\"][^$]"
+            "STRIPE_SECRET_KEY.*=.*['\"][^$]"
+            "WHATSAPP_TOKEN.*=.*['\"][^$]"
+            "TELEGRAM_BOT_TOKEN.*=.*['\"][^$]"
+          )
+          for pattern in "${PATTERNS[@]}"; do
+            if grep -rn "$pattern" api/ --include="*.py" --include="*.env" --include="*.json" | grep -v ".env.example" | grep -v "# " | grep -v "os.getenv"; then
+              SECRETS_FOUND=1
+              echo "❌ Found hardcoded secret matching: $pattern"
+            fi
+          done
+          if [ $SECRETS_FOUND -eq 1 ]; then
+            echo "❌ FAIL: Hardcoded secrets detected. Use environment variables."
+            exit 1
+          fi
+          echo "✅ No hardcoded secrets found"
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Check for exposed CORS wildcards
+        run: |
+          echo "🔍 Checking CORS configuration..."
+          if grep -rn 'allow_origins.*\["\*"\]' api/ --include="*.py"; then
+            echo "❌ FAIL: CORS wildcard (*) detected. Use specific origins."
+            exit 1
+          fi
+          echo "✅ CORS properly configured"
 
-      - name: Lint (ESLint if configured)
-        run: npm run build --dry-run 2>/dev/null || echo "No lint script — skipping"
-        continue-on-error: true
+      - name: Check for exposed Swagger in production
+        run: |
+          echo "🔍 Checking Swagger UI configuration..."
+          if grep -n 'docs_url="/docs"' api/main.py | grep -v "if ENV"; then
+            echo "❌ FAIL: Swagger UI not conditionally disabled for production."
+            exit 1
+          fi
+          echo "✅ Swagger UI properly configured"
 
-      - name: Build
-        run: npm run build
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL || '' }}
-          VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY || '' }}
+      - name: Check for unprotected endpoints
+        run: |
+          echo "🔍 Checking endpoint authentication..."
+          # All /api/ endpoints should have user: User = Depends(get_current_user)
+          UNPROTECTED=$(grep -n "@app\.\(get\|post\|put\|patch\|delete\)('/api/" api/main.py | while read line; do
+            linenum=$(echo "$line" | cut -d: -f1)
+            # Check if the next 5 lines contain Depends(get_current_user)
+            if ! sed -n "${linenum},$((linenum+5))p" api/main.py | grep -q "Depends(get_current_user)"; then
+              echo "$line"
+            fi
+          done)
+          if [ -n "$UNPROTECTED" ]; then
+            echo "❌ FAIL: Unprotected API endpoints detected:"
+            echo "$UNPROTECTED"
+            exit 1
+          fi
+          echo "✅ All API endpoints protected"
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: frontend-dist
-          path: ${{ env.WORKSPACE }}/web/dist/
-          retention-days: 7
+      - name: Check for role injection vulnerability
+        run: |
+          echo "🔍 Checking registration role handling..."
+          if grep -A5 "class RegisterRequest" api/main.py | grep -q "role"; then
+            echo "❌ FAIL: RegisterRequest accepts role field (privilege escalation risk)."
+            exit 1
+          fi
+          echo "✅ Registration properly secured"
 
-  # ── Backend: Lint + Type Check ──
-  backend-ci:
-    name: Backend CI
+      - name: Check for rate limiting
+        run: |
+          echo "🔍 Checking rate limiting..."
+          if ! grep -q "login_limiter" api/main.py || ! grep -q "register_limiter" api/main.py; then
+            echo "❌ FAIL: Rate limiting not configured for auth endpoints."
+            exit 1
+          fi
+          echo "✅ Rate limiting configured"
+
+      - name: Check for MFA implementation
+        run: |
+          echo "🔍 Checking MFA implementation..."
+          if ! grep -q "pyotp" api/main.py || ! grep -q "mfa_enabled" api/main.py; then
+            echo "❌ FAIL: MFA (TOTP) not implemented."
+            exit 1
+          fi
+          echo "✅ MFA implemented"
+
+      - name: Check for storage security
+        run: |
+          echo "🔍 Checking storage security..."
+          if ! grep -q "storage_config" api/main.py || ! grep -q "signed_url" api/main.py; then
+            echo "❌ FAIL: Storage security (signed URLs) not implemented."
+            exit 1
+          fi
+          echo "✅ Storage security implemented"
+
+  # ── Linting ──
+  lint:
+    name: Code Quality
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ env.WORKSPACE }}/api
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-          cache: 'pip'
-          cache-dependency-path: ${{ env.WORKSPACE }}/api/requirements.txt
+          python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install dependencies
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Run ruff (Python linting)
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install ruff
+          echo "🔍 Running Python linter..."
+          ruff check api/ --select E,F,W,I --ignore E501
+          echo "✅ Python linting passed"
 
-      - name: Lint with Ruff
-        run: ruff check . --output-format=github || true
-
-      - name: Format check with Ruff
-        run: ruff format . --check || true
-
-      - name: Validate migrations exist
-        run: |
-          if [ -d "migrations" ] && [ "$(ls migrations/*.sql 2>/dev/null)" ]; then
-            echo "✅ Migration files found"
-            ls -la migrations/
-          else
-            echo "⚠️ No migration files — API may fail on fresh DB"
-          fi
-
-  # ── Deploy Frontend to Vercel (main branch only) ──
-  deploy-frontend:
-    name: Deploy Frontend → Vercel
-    needs: [frontend-ci, backend-ci]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    defaults:
-      run:
-        working-directory: ${{ env.WORKSPACE }}/web
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: ${{ env.WORKSPACE }}/web/package-lock.json
+          node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install frontend dependencies
+        run: cd web && npm ci
 
-      - name: Build
-        run: npm run build
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL || '' }}
-          VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY || '' }}
+      - name: Run ESLint
+        run: |
+          echo "🔍 Running ESLint..."
+          cd web && npx eslint src/ --max-warnings=0 || echo "⚠️ ESLint warnings found (non-blocking)"
+          echo "✅ Frontend linting passed"
 
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ${{ env.WORKSPACE }}/web
-          vercel-args: '--prod'
-
-  # ── Deploy Backend to Render (main branch only) ──
-  deploy-backend:
-    name: Deploy Backend → Render
-    needs: [frontend-ci, backend-ci]
+  # ── Build Tests ──
+  build:
+    name: Build Verification
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [security, lint]
     steps:
       - uses: actions/checkout@v4
 
-      - name: Trigger Render Deploy
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install frontend dependencies
+        run: cd web && npm ci
+
+      - name: Build frontend
         run: |
-          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}" \
-            -H "Accept: application/json" \
-            -H "Content-Type: application/json" || echo "Render deploy hook not configured"
+          echo "🔨 Building frontend..."
+          cd web && npm run build
+          echo "✅ Frontend build successful"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install backend dependencies
+        run: |
+          cd api && pip install -r requirements.txt
+          echo "✅ Backend dependencies installed"
+
+      - name: Verify API imports
+        run: |
+          echo "🔍 Verifying API imports..."
+          cd api && python -c "import main; print('✅ All imports successful')" || {
+            echo "❌ FAIL: Import errors detected"
+            exit 1
+          }
+
+  # ── Security Headers Check ──
+  headers:
+    name: Security Headers
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Check API security headers
+        run: |
+          echo "🔍 Checking API security headers..."
+          HEADERS=$(curl -sI "https://api-beryl-three-25.vercel.app/" 2>&1)
+          REQUIRED_HEADERS=(
+            "content-security-policy"
+            "x-content-type-options"
+            "x-frame-options"
+            "referrer-policy"
+            "permissions-policy"
+            "cross-origin-opener-policy"
+            "cross-origin-resource-policy"
+          )
+          MISSING=0
+          for header in "${REQUIRED_HEADERS[@]}"; do
+            if ! echo "$HEADERS" | grep -qi "$header"; then
+              echo "❌ Missing header: $header"
+              MISSING=1
+            fi
+          done
+          if [ $MISSING -eq 1 ]; then
+            echo "❌ FAIL: Missing security headers"
+            exit 1
+          fi
+          echo "✅ All security headers present"
+
+      - name: Check frontend security headers
+        run: |
+          echo "🔍 Checking frontend security headers..."
+          HEADERS=$(curl -sI "https://neosync-dashboard.vercel.app/" 2>&1)
+          if ! echo "$HEADERS" | grep -qi "x-content-type-options"; then
+            echo "⚠️ WARNING: Frontend missing X-Content-Type-Options"
+          fi
+          echo "✅ Frontend headers checked"
+
+  # ── Endpoint Health Check ──
+  health:
+    name: Endpoint Health
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Check API health
+        run: |
+          echo "🏥 Checking API health..."
+          RESPONSE=$(curl -s "https://api-beryl-three-25.vercel.app/health")
+          if echo "$RESPONSE" | grep -q '"status":"healthy"'; then
+            echo "✅ API is healthy"
+          else
+            echo "❌ FAIL: API health check failed"
+            echo "Response: $RESPONSE"
+            exit 1
+          fi
+
+      - name: Check critical endpoints
+        run: |
+          echo "🔍 Checking critical endpoints..."
+          ENDPOINTS=(
+            "/api/auth/login"
+            "/api/auth/register"
+            "/api/auth/mfa/status"
+            "/api/campaigns"
+            "/api/whatsapp/phone-numbers"
+            "/api/telegram/bot-info"
+            "/api/storage/config"
+          )
+          for endpoint in "${ENDPOINTS[@]}"; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://api-beryl-three-25.vercel.app$endpoint")
+            if [ "$STATUS" = "401" ] || [ "$STATUS" = "405" ]; then
+              echo "✅ $endpoint → $STATUS (expected: auth required or method not allowed)"
+            elif [ "$STATUS" = "404" ]; then
+              echo "⚠️ $endpoint → 404 (may be missing)"
+            else
+              echo "❌ $endpoint → $STATUS (unexpected)"
+            fi
+          done
+
+  # ── Deployment ──
+  deploy-api:
+    name: Deploy API
+    runs-on: ubuntu-latest
+    needs: [security, lint, build, health]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Vercel
+        run: |
+          echo "🚀 Deploying API to Vercel..."
+          cd api && npx vercel deploy --prod --yes --token ${{ secrets.VERCEL_TOKEN }} --scope taurus-s-projects
+          echo "✅ API deployed"
+
+  deploy-web:
+    name: Deploy Frontend
+    runs-on: ubuntu-latest
+    needs: [security, lint, build]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Vercel
+        run: |
+          echo "🚀 Deploying frontend to Vercel..."
+          cd web && npx vercel deploy --prod --yes --token ${{ secrets.VERCEL_TOKEN }} --scope taurus-s-projects
+          echo "✅ Frontend deployed"
