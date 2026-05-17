@@ -215,7 +215,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="NeoSync™ Social Suite Dashboard API",
-    version="3.0.0",
+    version="3.2.0",
     lifespan=lifespan,
     docs_url="/docs" if ENV == "development" else None,
     redoc_url="/redoc" if ENV == "development" else None,
@@ -247,7 +247,7 @@ async def add_security_headers(request: Request, call_next):
 # ── Health (public) ──
 @app.get("/")
 def root():
-    return {"message": "NeoSync™ Social Suite Dashboard API — TAURUS AI CORP - FZCO", "version": "3.0.0"}
+    return {"message": "NeoSync™ Social Suite Dashboard API — TAURUS AI CORP - FZCO", "version": "3.2.0"}
 
 @app.get("/health")
 async def health():
