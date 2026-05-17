@@ -1,6 +1,6 @@
 # NeoSync™ Social Suite Dashboard API
 # TAURUS AI CORP - FZCO | Three-Tier AI Routing | PostgreSQL + pgvector
-# Version: 3.0.0 — Security Hardened
+# Version: 3.1.0 — MFA (TOTP) + Security Hardened
 
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer
@@ -12,6 +12,10 @@ from datetime import datetime, timedelta
 from contextlib import asynccontextmanager
 import jwt
 from passlib.context import CryptContext
+import pyotp
+import qrcode
+import base64
+import io
 import os
 import httpx
 import json
@@ -68,6 +72,7 @@ class User(BaseModel):
     id: int
     email: str
     role: str
+    mfa_enabled: bool = False
 
 class Campaign(BaseModel):
     id: Optional[int] = None
@@ -109,7 +114,22 @@ class LoginRequest(BaseModel):
 class RegisterRequest(BaseModel):
     email: str
     password: str
-    # role field intentionally removed from acceptance — server assigns "employee"
+
+class MFASetupResponse(BaseModel):
+    totp_uri: str
+    secret: str
+    qr_code_base64: str
+
+class MFAVerifyRequest(BaseModel):
+    code: str
+
+class MFAEnableRequest(BaseModel):
+    code: str
+
+class LoginMFARequest(BaseModel):
+    email: str
+    password: str
+    mfa_code: Optional[str] = None
 
 class TokenResponse(BaseModel):
     access_token: str
@@ -153,7 +173,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     user = await db.get_user_by_email(email)
     if not user:
         raise credentials_exception
-    return User(id=user["id"], email=user["email"], role=user["role"])
+    return User(id=user["id"], email=user["email"], role=user["role"], mfa_enabled=user.get("mfa_enabled", False))
 
 async def get_client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
@@ -275,10 +295,18 @@ async def login(req: LoginRequest, request: Request):
     if not user or not pwd_context.verify(req.password, user["hashed_password"]):
         logger.warning(f"Failed login attempt for {req.email} from {ip}")
         raise HTTPException(status_code=401, detail="Invalid credentials")
+    # MFA check
+    if user.get("mfa_enabled") and user.get("totp_secret"):
+        if not req.mfa_code:
+            return {"mfa_required": True, "email": user["email"], "message": "MFA code required"}
+        totp = pyotp.TOTP(user["totp_secret"])
+        if not totp.verify(req.mfa_code):
+            logger.warning(f"Invalid MFA code for {user['email']} from {ip}")
+            raise HTTPException(status_code=401, detail="Invalid MFA code")
     access = create_access_token({"sub": user["email"], "role": user["role"]})
     refresh = create_refresh_token({"sub": user["email"]})
     logger.info(f"Successful login: {user['email']} from {ip}")
-    return TokenResponse(access_token=access, refresh_token=refresh, user={"id": user["id"], "email": user["email"], "role": user["role"]})
+    return TokenResponse(access_token=access, refresh_token=refresh, user={"id": user["id"], "email": user["email"], "role": user["role"], "mfa_enabled": user.get("mfa_enabled", False)})
 
 @app.post("/api/auth/register")
 async def register(req: RegisterRequest, request: Request):
@@ -313,6 +341,66 @@ async def refresh_token_endpoint(refresh: str):
 @app.get("/api/auth/me")
 async def get_me(user: User = Depends(get_current_user)):
     return {"id": user.id, "email": user.email, "role": user.role}
+
+# ── MFA (TOTP) ──
+@app.get("/api/auth/mfa/status")
+async def mfa_status(user: User = Depends(get_current_user)):
+    db_user = await db.get_user_by_email(user.email)
+    return {"mfa_enabled": db_user.get("mfa_enabled", False) if db_user else False}
+
+@app.post("/api/auth/mfa/setup")
+async def mfa_setup(user: User = Depends(get_current_user)):
+    """Generate TOTP secret and QR code for MFA setup"""
+    db_user = await db.get_user_by_email(user.email)
+    if not db_user:
+        raise HTTPException(404, "User not found")
+    if db_user.get("mfa_enabled"):
+        raise HTTPException(400, "MFA already enabled. Disable first to re-setup.")
+    # Generate TOTP secret
+    secret = pyotp.random_base32()
+    totp = pyotp.TOTP(secret)
+    # Create URI for authenticator apps
+    issuer = "NeoSync™"
+    totp_uri = totp.provisioning_uri(name=user.email, issuer_name=issuer)
+    # Generate QR code as base64 PNG
+    qr = qrcode.QRCode(version=1, box_size=10, border=4)
+    qr.add_data(totp_uri)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    qr_base64 = base64.b64encode(buf.getvalue()).decode()
+    # Store secret temporarily (not enabled yet)
+    await db.execute("UPDATE users SET totp_secret = $1 WHERE id = $2", secret, user.id)
+    return {"totp_uri": totp_uri, "secret": secret, "qr_code_base64": qr_base64, "message": "Scan QR code with your authenticator app, then verify with /api/auth/mfa/enable"}
+
+@app.post("/api/auth/mfa/enable")
+async def mfa_enable(req: MFAEnableRequest, user: User = Depends(get_current_user)):
+    """Verify TOTP code and enable MFA"""
+    db_user = await db.get_user_by_email(user.email)
+    if not db_user or not db_user.get("totp_secret"):
+        raise HTTPException(400, "MFA not set up. Call /api/auth/mfa/setup first.")
+    if db_user.get("mfa_enabled"):
+        raise HTTPException(400, "MFA already enabled.")
+    totp = pyotp.TOTP(db_user["totp_secret"])
+    if not totp.verify(req.code):
+        raise HTTPException(401, "Invalid TOTP code")
+    await db.execute("UPDATE users SET mfa_enabled = TRUE WHERE id = $1", user.id)
+    logger.info(f"MFA enabled for {user.email}")
+    return {"mfa_enabled": True, "message": "MFA enabled successfully"}
+
+@app.post("/api/auth/mfa/disable")
+async def mfa_disable(req: MFAVerifyRequest, user: User = Depends(get_current_user)):
+    """Disable MFA (requires current TOTP code)"""
+    db_user = await db.get_user_by_email(user.email)
+    if not db_user or not db_user.get("mfa_enabled"):
+        raise HTTPException(400, "MFA is not enabled.")
+    totp = pyotp.TOTP(db_user["totp_secret"])
+    if not totp.verify(req.code):
+        raise HTTPException(401, "Invalid TOTP code")
+    await db.execute("UPDATE users SET mfa_enabled = FALSE, totp_secret = NULL WHERE id = $1", user.id)
+    logger.info(f"MFA disabled for {user.email}")
+    return {"mfa_enabled": False, "message": "MFA disabled successfully"}
 
 @app.get("/api/auth/meta/authorize")
 async def meta_authorize(user: User = Depends(get_current_user)):

@@ -25,14 +25,16 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (email, password, mfaCode) => {
     if (API_URL) {
       const res = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, mfa_code: mfaCode || null })
       });
       if (!res.ok) { const e = await res.json(); throw new Error(e.detail || 'Login failed'); }
       const data = await res.json();
+      // MFA required — return early so LoginPage can show MFA input
+      if (data.mfa_required) return data;
       localStorage.setItem('neosync_access_token', data.access_token);
       localStorage.setItem('neosync_user', JSON.stringify(data.user));
       setUser(data.user);
@@ -42,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     await new Promise(r => setTimeout(r, 600));
     const demoUser = DEMO_USERS[email.toLowerCase()];
     if (!demoUser || demoUser.password !== password) throw new Error('Invalid email or password');
-    const mockUser = { id: demoUser.id, email: demoUser.email, role: demoUser.role };
+    const mockUser = { id: demoUser.id, email: demoUser.email, role: demoUser.role, mfa_enabled: false };
     localStorage.setItem('neosync_user', JSON.stringify(mockUser));
     setUser(mockUser);
     return mockUser;
