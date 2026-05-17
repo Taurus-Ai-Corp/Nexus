@@ -43,8 +43,9 @@ const stats = [
 
 const pricingTiers = [
   { name: 'Free', price: 'Free', desc: 'Forever free, self-hosted', features: ['3 social channels', '10 scheduled posts total', '30-day analytics history', 'Basic AI routing (local only)', 'Community support'], action: 'dashboard' },
-  { name: 'Pro', price: '$49', desc: 'Per month, billed annually', features: ['Unlimited channels', 'Unlimited scheduled posts', 'Full analytics + reports', 'Three-tier AI routing', 'Priority support', 'API access'], priceId: 'price_pro_monthly', action: 'checkout', annualPrice: '$39', monthlyPrice: '$49' },
-  { name: 'Enterprise', price: 'Custom', desc: 'Dedicated deployment', features: ['Everything in Pro', 'On-premise deployment', 'SLA guarantee', 'Custom integrations', 'Dedicated support', 'Audit & compliance'], action: 'contact' },
+  { name: 'Pro', price: '$49', desc: 'Per month, billed annually', features: ['Unlimited channels', 'Unlimited scheduled posts', 'Full analytics + reports', 'Three-tier AI routing', 'Priority support', 'API access', 'WhatsApp + Telegram bots'], priceId: 'price_pro_monthly', action: 'checkout', annualPrice: '$39', monthlyPrice: '$49' },
+  { name: 'Reseller', price: '$699', desc: 'One-time, white-label license', features: ['Everything in Pro', 'White-label branding (your logo/domain)', 'Unlimited client accounts', 'Reseller dashboard', 'Revenue share program', 'Lifetime updates', 'Dedicated onboarding'], priceId: 'price_reseller_lifetime', action: 'checkout' },
+  { name: 'Enterprise', price: 'Custom', desc: 'Dedicated deployment', features: ['Everything in Reseller', 'On-premise deployment', 'SLA guarantee', 'Custom integrations', 'Dedicated support', 'Audit & compliance'], action: 'contact' },
 ];
 
 const LandingPage = () => {
@@ -222,7 +223,7 @@ const LandingPage = () => {
               <span style={{ color: annualBilling ? 'var(--text-primary)' : 'var(--text-muted)', fontSize: '0.9rem', fontWeight: annualBilling ? 600 : 400 }}>Annual <span style={{ color: 'var(--accent-start)', fontSize: '0.8rem' }}>(Save 20%)</span></span>
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, maxWidth: 960, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 24, maxWidth: 1100, margin: '0 auto' }}>
             {pricingTiers.map((tier, i) => (
               <GlowCard key={i} delay={i * 0.15} style={{ display: 'flex', flexDirection: 'column', padding: 40, ...(i === 1 ? { border: '1px solid var(--accent-start)', boxShadow: 'var(--shadow-glow)' } : {}) }}>
                 {i === 1 && <span className="badge" style={{ marginBottom: 16, alignSelf: 'flex-start' }}>Most Popular</span>}
@@ -256,6 +257,48 @@ const LandingPage = () => {
                 )}
               </GlowCard>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Competitive Comparison ── */}
+      <section style={{ padding: '96px 0', background: 'var(--bg-primary)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: 64 }}>
+            <span className="badge" style={{ marginBottom: 16, display: 'inline-block' }}>Why NeoSync™</span>
+            <h2 style={{ marginBottom: 16 }}>Built Different.<br /><span className="text-gradient">By Design.</span></h2>
+            <p style={{ color: 'var(--text-secondary)', maxWidth: 560, margin: '0 auto' }}>How we compare to typical chatbot platforms.</p>
+          </div>
+          <div style={{ maxWidth: 800, margin: '0 auto', overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+              <thead>
+                <tr style={{ borderBottom: '2px solid var(--border)' }}>
+                  <th style={{ textAlign: 'left', padding: '16px', color: 'var(--text-muted)', fontWeight: 600 }}>Feature</th>
+                  <th style={{ textAlign: 'center', padding: '16px', color: 'var(--accent-start)', fontWeight: 700 }}>NeoSync™</th>
+                  <th style={{ textAlign: 'center', padding: '16px', color: 'var(--text-muted)', fontWeight: 500 }}>Typical SaaS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Multi-Factor Auth (MFA)', '✅ TOTP', '❌ None'],
+                  ['Data Privacy', '✅ Self-hosted, zero-knowledge', '❌ Cloud-only, vendor access'],
+                  ['AI Cost', '✅ 95% reduction (3-tier routing)', '❌ Full cloud pricing'],
+                  ['Uptime SLA', '✅ Your infrastructure, your control', '⚠️ 20-30 min daily downtime reported'],
+                  ['API Access', '✅ Official WhatsApp/Telegram APIs', '⚠️ Unofficial APIs (ToS risk)'],
+                  ['NLP Commands', '✅ Natural language', '❌ Visual flow builder only'],
+                  ['Agent Orchestration', '✅ 5 AI frameworks', '❌ Single bot'],
+                  ['Vector Search', '✅ Semantic campaign search', '❌ Keyword only'],
+                  ['White-Label', '✅ $699 one-time', '✅ $699 one-time'],
+                  ['Entry Price', '✅ Free tier', '❌ $14/mo minimum'],
+                ].map(([feature, neosync, other], i) => (
+                  <tr key={i} style={{ borderBottom: '1px solid var(--border)' }}>
+                    <td style={{ padding: '14px 16px', fontWeight: 500 }}>{feature}</td>
+                    <td style={{ padding: '14px 16px', textAlign: 'center', color: 'var(--accent-start)', fontWeight: 600 }}>{neosync}</td>
+                    <td style={{ padding: '14px 16px', textAlign: 'center', color: 'var(--text-secondary)' }}>{other}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
