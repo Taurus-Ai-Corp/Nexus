@@ -1,0 +1,827 @@
+# NeoSync™ Social Suite Dashboard API
+# TAURUS AI CORP - FZCO | Three-Tier AI Routing | PostgreSQL + pgvector
+# Version: 2.0.0
+
+from fastapi import FastAPI, Depends, HTTPException, status, Request
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List, Optional
+from datetime import datetime, timedelta
+from contextlib import asynccontextmanager
+import jwt
+from passlib.context import CryptContext
+import os
+import httpx
+import json
+import logging
+
+from database import db
+from routing_engine import router, AIRoutingError
+from enhanced_nlp_engine import interpret_command as nlp_interpret
+
+# ── Config ──
+SECRET_KEY = os.getenv("JWT_SECRET", "neosync_jwt_secret_change_in_production")
+ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "30"))
+
+BIZFLOW_API_URL = os.getenv("BIZFLOW_API_URL", "http://bizflow-backend:4000")
+BIZFLOW_API_KEY = os.getenv("BIZFLOW_API_KEY", "")
+NEOVIBE_API_URL = os.getenv("NEOVIBE_API_URL", "http://neovibe-core:3001")
+NEOVIBE_API_KEY = os.getenv("NEOVIBE_API_KEY", "")
+META_APP_ID = os.getenv("META_APP_ID", "")
+META_APP_SECRET = os.getenv("META_APP_SECRET", "")
+IG_ACCESS_TOKEN = os.getenv("IG_ACCESS_TOKEN", "")
+IG_BUSINESS_ACCOUNT_ID = os.getenv("IG_BUSINESS_ACCOUNT_ID", "")
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
+
+logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO").upper())
+logger = logging.getLogger(__name__)
+
+# ── Pydantic Models ──
+class User(BaseModel):
+    id: int
+    email: str
+    role: str
+
+class Campaign(BaseModel):
+    id: Optional[int] = None
+    user_id: Optional[int] = None
+    name: str
+    objective: str = ""
+    platform: str = ""
+    status: str = "draft"
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    budget_daily: float = 0.0
+    budget_total: float = 0.0
+    targeting_json: dict = {}
+    creatives_json: list = []
+
+class Asset(BaseModel):
+    id: Optional[int] = None
+    user_id: Optional[int] = None
+    campaign_id: Optional[int] = None
+    type: str = ""
+    file_path: str = ""
+    meta_data: dict = {}
+    tags: list = []
+
+class NLPRequest(BaseModel):
+    text: str
+
+class NLPResponse(BaseModel):
+    intent: str
+    entities: dict
+    suggested_action: dict
+
+class AIRouteRequest(BaseModel):
+    task_type: str
+    prompt: str
+    system_prompt: str = ""
+    max_tokens: int = 1024
+    temperature: float = 0.7
+
+REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("JWT_REFRESH_DAYS", "7"))
+
+# ── Auth ──
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/login")
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def create_refresh_token(data: dict):
+    expire = datetime.utcnow() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+    to_encode = {**data, "exp": expire, "type": "refresh"}
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        if payload.get("type") == "refresh":
+            raise HTTPException(status_code=401, detail="Invalid token type")
+        email = payload.get("sub")
+        if not email:
+            raise HTTPException(status_code=401, detail="Invalid token")
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    user = await db.get_user_by_email(email)
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    return User(id=user["id"], email=user["email"], role=user["role"])
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+class RegisterRequest(BaseModel):
+    email: str
+    password: str
+    role: str = "employee"
+
+class TokenResponse(BaseModel):
+    access_token: str
+    refresh_token: str
+    token_type: str = "bearer"
+    user: dict
+
+# ── App ──
+async def _run_migrations():
+    """Apply pending SQL migrations on startup"""
+    import pathlib
+    migrations_dir = pathlib.Path(__file__).parent / "migrations"
+    if not migrations_dir.exists():
+        logger.warning("No migrations directory found, skipping auto-migration")
+        return
+    migration_files = sorted(migrations_dir.glob("*.sql"))
+    for mf in migration_files:
+        try:
+            sql = mf.read_text()
+            await db.execute(sql)
+            logger.info(f"Applied migration: {mf.name}")
+        except Exception as e:
+            if "already exists" in str(e).lower() or "duplicate" in str(e).lower():
+                logger.info(f"Migration {mf.name} already applied (tables exist)")
+            else:
+                logger.error(f"Failed to apply migration {mf.name}: {e}")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await db.init()
+    await _run_migrations()
+    # Seed default users
+    if not await db.get_user_by_email("employee@taurusai.io"):
+        await db.create_user("employee@taurusai.io", pwd_context.hash("employee123"), "employee")
+    if not await db.get_user_by_email("admin@taurusai.io"):
+        await db.create_user("admin@taurusai.io", pwd_context.hash("admin123"), "admin")
+    logger.info("NeoSync™ API started — PostgreSQL + migrations initialized")
+    yield
+    await db.close()
+
+app = FastAPI(title="NeoSync™ Social Suite Dashboard API", version="2.0.0", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ── Health ──
+@app.get("/")
+def root():
+    return {"message": "NeoSync™ Social Suite Dashboard API — TAURUS AI CORP - FZCO", "version": "2.0.0"}
+
+@app.get("/health")
+async def health():
+    services = {}
+    try:
+        await db.fetch("SELECT 1")
+        services["postgres"] = "healthy"
+    except:
+        services["postgres"] = "unhealthy"
+    services["ollama"] = "configured" if os.getenv("OLLAMA_BASE_URL") else "not_configured"
+    services["openrouter"] = "configured" if os.getenv("OPENROUTER_API_KEY") else "not_configured"
+    services["huggingface"] = "configured" if os.getenv("HUGGINGFACE_API_KEY") else "not_configured"
+    return {"status": "healthy", "timestamp": datetime.utcnow().isoformat(), "services": services}
+
+@app.get("/health/models")
+async def model_health():
+    """Check all 3 AI tiers"""
+    tiers = {}
+    # Tier 1: Ollama
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as c:
+            r = await c.get(f"{os.getenv('OLLAMA_BASE_URL', 'http://localhost:11434')}/api/tags")
+            tiers["ollama"] = {"status": "healthy", "models": [m["name"] for m in r.json().get("models", [])]}
+    except Exception as e:
+        tiers["ollama"] = {"status": "unhealthy", "error": str(e)}
+    # Tier 2: OpenRouter
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as c:
+            r = await c.get("https://openrouter.ai/api/v1/key", headers={"Authorization": f"Bearer {os.getenv('OPENROUTER_API_KEY', '')}"})
+            tiers["openrouter"] = {"status": "healthy" if r.status_code == 200 else "unhealthy", "data": r.json() if r.status_code == 200 else None}
+    except Exception as e:
+        tiers["openrouter"] = {"status": "unhealthy", "error": str(e)}
+    # Tier 3: HuggingFace
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as c:
+            r = await c.get("https://huggingface.co/api/whoami-v2", headers={"Authorization": f"Bearer {os.getenv('HUGGINGFACE_API_KEY', '')}"})
+            tiers["huggingface"] = {"status": "healthy" if r.status_code == 200 else "unhealthy"}
+    except Exception as e:
+        tiers["huggingface"] = {"status": "unhealthy", "error": str(e)}
+    return tiers
+
+@app.get("/health/ai/routes")
+async def ai_routes():
+    return {"available_models": router.get_available_models(), "routing_table": {k: list(v.keys()) for k, v in router.ROUTING_TABLE.items()}}
+
+# ── Auth ──
+@app.post("/api/auth/login")
+async def login(req: LoginRequest):
+    user = await db.get_user_by_email(req.email)
+    if not user or not pwd_context.verify(req.password, user["hashed_password"]):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    access = create_access_token({"sub": user["email"], "role": user["role"]})
+    refresh = create_refresh_token({"sub": user["email"]})
+    return TokenResponse(access_token=access, refresh_token=refresh, user={"id": user["id"], "email": user["email"], "role": user["role"]})
+
+@app.post("/api/auth/register")
+async def register(req: RegisterRequest):
+    existing = await db.get_user_by_email(req.email)
+    if existing:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    user = await db.create_user(req.email, pwd_context.hash(req.password), req.role)
+    access = create_access_token({"sub": user["email"], "role": user["role"]})
+    refresh = create_refresh_token({"sub": user["email"]})
+    return TokenResponse(access_token=access, refresh_token=refresh, user={"id": user["id"], "email": user["email"], "role": user["role"]})
+
+@app.post("/api/auth/refresh")
+async def refresh_token(refresh: str):
+    try:
+        payload = jwt.decode(refresh, SECRET_KEY, algorithms=[ALGORITHM])
+        if payload.get("type") != "refresh":
+            raise HTTPException(status_code=401, detail="Invalid token type")
+        email = payload.get("sub")
+        user = await db.get_user_by_email(email)
+        if not user:
+            raise HTTPException(status_code=401, detail="User not found")
+        access = create_access_token({"sub": user["email"], "role": user["role"]})
+        return {"access_token": access, "token_type": "bearer"}
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Invalid refresh token")
+
+@app.get("/api/auth/me")
+async def get_me(user: User = Depends(get_current_user)):
+    return {"id": user.id, "email": user.email, "role": user.role}
+
+@app.get("/api/auth/meta/authorize")
+async def meta_authorize():
+    redirect_uri = os.getenv("META_OAUTH_REDIRECT_URI", "http://localhost:8000/api/auth/meta/callback")
+    return {"auth_url": f"https://www.facebook.com/v18.0/dialog/oauth?client_id={META_APP_ID}&redirect_uri={redirect_uri}&scope=ads_management,instagram_content_publish,instagram_manage_insights,pages_show_list,pages_manage_posts"}
+
+# ── Campaigns ──
+@app.get("/api/campaigns")
+async def list_campaigns(platform: Optional[str] = None, status: Optional[str] = None):
+    return await db.get_campaigns(platform=platform, status=status)
+
+@app.post("/api/campaigns")
+async def create_campaign(campaign: Campaign):
+    data = campaign.model_dump()
+    data["start_date"] = data.get("start_date") or datetime.utcnow()
+    data["end_date"] = data.get("end_date") or (datetime.utcnow() + timedelta(days=30))
+    result = await db.create_campaign(data)
+    return result
+
+@app.get("/api/campaigns/{cid}")
+async def get_campaign(cid: int):
+    result = await db.get_campaign_by_id(cid)
+    if not result:
+        raise HTTPException(404, "Campaign not found")
+    return result
+
+@app.patch("/api/campaigns/{cid}")
+async def update_campaign(cid: int, updates: dict):
+    result = await db.update_campaign(cid, updates)
+    if not result:
+        raise HTTPException(404, "Campaign not found")
+    return result
+
+@app.post("/api/campaigns/{cid}/pause")
+async def pause_campaign(cid: int):
+    return await db.update_campaign(cid, {"status": "paused"}) or HTTPException(404, "Not found")
+
+@app.post("/api/campaigns/{cid}/resume")
+async def resume_campaign(cid: int):
+    return await db.update_campaign(cid, {"status": "active"}) or HTTPException(404, "Not found")
+
+# ── Assets ──
+@app.get("/api/assets")
+async def list_assets(skip: int = 0, limit: int = 10):
+    return await db.get_assets(skip=skip, limit=limit)
+
+@app.post("/api/assets")
+async def create_asset(asset: Asset):
+    return await db.create_asset(asset.model_dump())
+
+# ── NLP — Three-Tier AI Routing ──
+@app.post("/api/nlp/interpret")
+async def interpret_command(req: NLPRequest):
+    """Rule-based NLP (instant, no AI cost)"""
+    return nlp_interpret(req.text)
+
+@app.post("/api/nlp/iterate")
+async def nlp_iterate(req: NLPRequest):
+    """Three-tier AI routing: Local → Cloud → HF"""
+    try:
+        result = await router.route("nlp_iterate", req.text, system_prompt="You are an NLP interpreter for a social media management dashboard. Parse natural language commands into structured JSON with intent, entities, and suggested_action fields.")
+        return result
+    except AIRoutingError as e:
+        return {"error": str(e), "fallback": nlp_interpret(req.text)}
+
+@app.post("/api/ai/route")
+async def ai_route(req: AIRouteRequest):
+    """Generic AI routing endpoint — specify any task type"""
+    try:
+        result = await router.route(req.task_type, req.prompt, req.system_prompt, max_tokens=req.max_tokens, temperature=req.temperature)
+        return result
+    except AIRoutingError as e:
+        raise HTTPException(502, str(e))
+
+@app.post("/api/ai/generate-content")
+async def generate_content(req: AIRouteRequest):
+    """AI content generation with 3-tier routing"""
+    try:
+        result = await router.route("content_generation", req.prompt, req.system_prompt or "Write engaging social media content.", max_tokens=req.max_tokens, temperature=req.temperature)
+        return result
+    except AIRoutingError as e:
+        raise HTTPException(502, str(e))
+
+@app.post("/api/ai/embed")
+async def embed_texts(texts: List[str]):
+    """Generate embeddings via 3-tier routing"""
+    try:
+        result = await router.route("embeddings", json.dumps(texts))
+        return result
+    except AIRoutingError as e:
+        raise HTTPException(502, str(e))
+
+# ── Meta Business Suite ──
+@app.get("/api/meta/accounts")
+async def get_meta_accounts():
+    if not IG_ACCESS_TOKEN:
+        return {"error": "IG_ACCESS_TOKEN not configured"}
+    async with httpx.AsyncClient() as c:
+        r = await c.get("https://graph.facebook.com/v18.0/me/accounts", params={"access_token": IG_ACCESS_TOKEN})
+        return r.json()
+
+@app.post("/api/meta/instagram/publish")
+async def publish_instagram(caption: str, media_url: str, media_type: str = "IMAGE"):
+    if not IG_ACCESS_TOKEN or not IG_BUSINESS_ACCOUNT_ID:
+        raise HTTPException(400, "IG credentials not configured")
+    async with httpx.AsyncClient() as c:
+        create_r = await c.post(f"https://graph.facebook.com/v18.0/{IG_BUSINESS_ACCOUNT_ID}/media", params={"image_url": media_url if media_type == "IMAGE" else None, "video_url": media_url if media_type == "VIDEO" else None, "caption": caption, "media_type": media_type, "access_token": IG_ACCESS_TOKEN})
+        if create_r.status_code != 200:
+            return {"error": "Failed to create container", "details": create_r.json()}
+        creation_id = create_r.json().get("id")
+        publish_r = await c.post(f"https://graph.facebook.com/v18.0/{IG_BUSINESS_ACCOUNT_ID}/media_publish", params={"creation_id": creation_id, "access_token": IG_ACCESS_TOKEN})
+        return publish_r.json()
+
+@app.get("/api/meta/instagram/insights")
+async def get_ig_insights(metric: str = "impressions,reach,profile_views", period: str = "day"):
+    if not IG_ACCESS_TOKEN or not IG_BUSINESS_ACCOUNT_ID:
+        raise HTTPException(400, "IG credentials not configured")
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://graph.facebook.com/v18.0/{IG_BUSINESS_ACCOUNT_ID}/insights", params={"metric": metric, "period": period, "access_token": IG_ACCESS_TOKEN})
+        return r.json()
+
+# ── BizFlow Connector ──
+@app.get("/api/bizflow/clients")
+async def list_bizflow_clients():
+    try:
+        async with httpx.AsyncClient() as c:
+            r = await c.get(f"{BIZFLOW_API_URL}/api/clients", headers={"Authorization": f"Bearer {BIZFLOW_API_KEY}"})
+            return r.json()
+    except Exception as e:
+        return {"error": str(e), "clients": []}
+
+@app.post("/api/bizflow/meta-campaigns")
+async def create_meta_campaign(campaign: Campaign):
+    campaign.platform = "meta"
+    result = await db.create_campaign(campaign.model_dump())
+    # Sync to BizFlow (non-blocking)
+    try:
+        async with httpx.AsyncClient() as c:
+            await c.post(f"{BIZFLOW_API_URL}/api/campaigns", json=result, headers={"Authorization": f"Bearer {BIZFLOW_API_KEY}"})
+    except:
+        pass
+    return result
+
+@app.get("/api/bizflow/meta-campaigns")
+async def list_meta_campaigns():
+    return await db.get_campaigns(platform="meta")
+
+# ── NeoVibe Connector ──
+@app.post("/api/neovibe/instagram-campaigns")
+async def create_ig_campaign(campaign: Campaign):
+    campaign.platform = "instagram"
+    result = await db.create_campaign(campaign.model_dump())
+    try:
+        async with httpx.AsyncClient() as c:
+            await c.post(f"{NEOVIBE_API_URL}/api/campaigns", json=result, headers={"Authorization": f"Bearer {NEOVIBE_API_KEY}"})
+    except:
+        pass
+    return result
+
+@app.get("/api/neovibe/instagram-campaigns")
+async def list_ig_campaigns():
+    return await db.get_campaigns(platform="instagram")
+
+@app.get("/api/neovibe/analytics")
+async def get_neovibe_analytics(time_range: str = "7d"):
+    try:
+        async with httpx.AsyncClient() as c:
+            r = await c.get(f"{NEOVIBE_API_URL}/api/analytics", params={"range": time_range}, headers={"Authorization": f"Bearer {NEOVIBE_API_KEY}"})
+            return r.json()
+    except Exception as e:
+        return {"error": str(e), "analytics": {}}
+
+# ── Agent Orchestration ──
+@app.post("/api/agents/orchestrate")
+async def orchestrate_agent(req: dict):
+    """Orchestrate agents via 3-tier AI routing"""
+    task_desc = req.get("task_description", "")
+    platform = req.get("platform", "bizflow")
+    agent_type = req.get("agent_type", "orchestrator")
+    priority = req.get("priority", "medium")
+
+    # Record session
+    session = await db.create_agent_session({"agent_type": agent_type, "platform": platform, "task_description": task_desc, "priority": priority, "input_data": req})
+
+    # Use AI to plan the orchestration
+    try:
+        plan = await router.route("agent_orchestration", f"Plan agent orchestration: platform={platform}, type={agent_type}, task={task_desc}, priority={priority}", system_prompt="You are an agent orchestration planner. Return a JSON execution plan with steps, estimated duration, and required tools.")
+        await db.update_agent_session(session["id"], {"status": "planned", "output_data": {"plan": plan}})
+        return {"status": "orchestrated", "session_id": session["id"], "plan": plan}
+    except AIRoutingError as e:
+        return {"status": "orchestrated", "session_id": session["id"], "plan": {"error": str(e), "fallback": "manual execution required"}}
+
+@app.post("/api/agents/claude-code")
+async def trigger_claude_code(task: dict):
+    return {"status": "queued", "agent": "claude-code", "task": task, "timestamp": datetime.utcnow().isoformat()}
+
+@app.post("/api/agents/opencode")
+async def trigger_opencode(task: dict):
+    return {"status": "queued", "agent": "opencode", "task": task, "timestamp": datetime.utcnow().isoformat()}
+
+# ── Analytics ──
+@app.get("/api/analytics/campaigns")
+async def get_campaign_analytics(time_range: str = "7d", platform: Optional[str] = None):
+    campaigns = await db.get_campaigns(platform=platform)
+    analytics = []
+    for c in campaigns:
+        metrics = await db.get_analytics(campaign_id=c["id"], time_range=time_range)
+        analytics.append({"campaign_id": c["id"], "name": c["name"], "platform": c["platform"], "status": c["status"], "metrics": metrics})
+    return {"time_range": time_range, "analytics": analytics}
+
+@app.post("/api/analytics/record")
+async def record_analytics(campaign_id: int, metric_name: str, metric_value: float, platform: str = ""):
+    await db.record_analytics(campaign_id, metric_name, metric_value, platform)
+    return {"status": "recorded"}
+
+# ── Stripe Payments ──
+import stripe as stripe_lib
+
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
+STRIPE_PRO_PRICE_ID = os.getenv("STRIPE_PRO_PRICE_ID", "price_pro_monthly")
+
+stripe_lib.api_key = STRIPE_SECRET_KEY
+
+class CheckoutRequest(BaseModel):
+    price_id: Optional[str] = None
+
+@app.post("/api/stripe/create-checkout-session")
+async def create_checkout_session(req: CheckoutRequest):
+    if not STRIPE_SECRET_KEY:
+        raise HTTPException(status_code=503, detail="Payments not configured")
+    price_id = req.price_id or STRIPE_PRO_PRICE_ID
+    try:
+        session = stripe_lib.checkout.Session.create(
+            mode="subscription",
+            line_items=[{"price": price_id, "quantity": 1}],
+            success_url=f"{CORS_ORIGINS[0]}/dashboard?session_id={{CHECKOUT_SESSION_ID}}",
+            cancel_url=f"{CORS_ORIGINS[0]}/?canceled=true",
+            metadata={"source": "neosync_dashboard"},
+        )
+        return {"url": session.url}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/api/stripe/webhook")
+async def stripe_webhook(request: Request):
+    if not STRIPE_WEBHOOK_SECRET:
+        raise HTTPException(status_code=503, detail="Webhook not configured")
+    payload = await request.body()
+    sig_header = request.headers.get("stripe-signature", "")
+    try:
+        event = stripe_lib.Webhook.construct_event(payload, sig_header, STRIPE_WEBHOOK_SECRET)
+        event_type = event["type"]
+        data = event["data"]["object"]
+        logger.info(f"Stripe webhook received: {event_type}")
+
+        if event_type == "checkout.session.completed":
+            customer_email = data.get("customer_email", "")
+            subscription_id = data.get("subscription", "")
+            logger.info(f"Checkout completed: {customer_email} -> {subscription_id}")
+            # TODO: Upgrade user to Pro in database
+
+        elif event_type == "invoice.payment_succeeded":
+            subscription_id = data.get("subscription", "")
+            logger.info(f"Payment succeeded for subscription: {subscription_id}")
+
+        elif event_type == "customer.subscription.deleted":
+            subscription_id = data.get("id", "")
+            logger.info(f"Subscription cancelled: {subscription_id}")
+            # TODO: Downgrade user to Starter in database
+
+        return {"received": True}
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid payload")
+    except stripe_lib.error.SignatureVerificationError:
+        raise HTTPException(status_code=400, detail="Invalid signature")
+
+# ── Meta OAuth Callback ──
+@app.get("/api/auth/meta/callback")
+async def meta_callback(code: str, state: Optional[str] = None):
+    """Handle Facebook OAuth callback and exchange code for access token"""
+    redirect_uri = os.getenv("META_OAUTH_REDIRECT_URI", "http://localhost:8000/api/auth/meta/callback")
+    async with httpx.AsyncClient() as c:
+        token_r = await c.get("https://graph.facebook.com/v18.0/oauth/access_token", params={
+            "client_id": META_APP_ID,
+            "client_secret": META_APP_SECRET,
+            "redirect_uri": redirect_uri,
+            "code": code,
+        })
+        if token_r.status_code != 200:
+            return {"error": "Failed to exchange code for token", "details": token_r.json()}
+        token_data = token_r.json()
+        access_token = token_data.get("access_token")
+        # Get long-lived token
+        long_r = await c.get("https://graph.facebook.com/v18.0/oauth/access_token", params={
+            "grant_type": "fb_exchange_token",
+            "client_id": META_APP_ID,
+            "client_secret": META_APP_SECRET,
+            "fb_exchange_token": access_token,
+        })
+        if long_r.status_code == 200:
+            token_data = long_r.json()
+            access_token = token_data.get("access_token")
+        # Get ad accounts
+        accounts_r = await c.get("https://graph.facebook.com/v18.0/me/adaccounts", params={
+            "access_token": access_token,
+            "fields": "id,name,account_status,currency,spend_cap",
+        })
+        ad_accounts = accounts_r.json().get("data", []) if accounts_r.status_code == 200 else []
+        return {"success": True, "access_token": access_token, "ad_accounts": ad_accounts, "message": "Meta account connected successfully. You can close this window and return to NeoSync."}
+
+# ── Facebook Ads Marketing API ──
+class MetaAdAccountRequest(BaseModel):
+    access_token: str = ""
+
+class AdCampaignCreate(BaseModel):
+    ad_account_id: str
+    name: str
+    objective: str = "OUTCOME_LEADS"
+    status: str = "PAUSED"
+    budget_daily: float = 30.0
+    targeting: dict = {}
+
+class AdSetCreate(BaseModel):
+    campaign_id: str
+    name: str
+    budget_daily: float = 30.0
+    targeting: dict = {}
+    optimization_goal: str = "LINK_CLICKS"
+    billing_event: str = "IMPRESSIONS"
+    bid_amount: float = 100
+
+class AdCreativeCreate(BaseModel):
+    adset_id: str
+    name: str
+    title: str = ""
+    body: str = ""
+    image_url: str = ""
+    link_url: str = ""
+    call_to_action_type: str = "LEARN_MORE"
+
+@app.get("/api/meta/adaccounts")
+async def get_ad_accounts(access_token: Optional[str] = None):
+    """List all Facebook Ad Accounts for the authenticated user"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    async with httpx.AsyncClient() as c:
+        r = await c.get("https://graph.facebook.com/v18.0/me/adaccounts", params={
+            "access_token": token,
+            "fields": "id,name,account_status,currency,spend_cap,balance",
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/meta/adaccounts/{ad_account_id}/campaigns")
+async def get_ad_campaigns(ad_account_id: str, access_token: Optional[str] = None):
+    """List all campaigns for a Facebook Ad Account"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://graph.facebook.com/v18.0/act_{ad_account_id}/campaigns", params={
+            "access_token": token,
+            "fields": "id,name,status,objective,created_time,updated_time,buying_type,smart_promotion_type",
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.post("/api/meta/adaccounts/{ad_account_id}/campaigns")
+async def create_ad_campaign(ad_account_id: str, campaign: AdCampaignCreate, access_token: Optional[str] = None):
+    """Create a new Facebook Ad Campaign"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    async with httpx.AsyncClient() as c:
+        r = await c.post(f"https://graph.facebook.com/v18.0/act_{ad_account_id}/campaigns", params={
+            "access_token": token,
+            "name": campaign.name,
+            "objective": campaign.objective,
+            "status": campaign.status,
+            "special_ad_categories": "NONE",
+        })
+        result = r.json()
+        if r.status_code == 200 and "id" in result:
+            # Set daily budget via special ad campaign budget
+            await c.post(f"https://graph.facebook.com/v18.0/{result['id']}", params={
+                "access_token": token,
+                "daily_budget": int(campaign.budget_daily * 100),
+            })
+        return result if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/meta/campaigns/{campaign_id}/adsets")
+async def get_adsets(campaign_id: str, access_token: Optional[str] = None):
+    """List all adsets for a campaign"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://graph.facebook.com/v18.0/{campaign_id}/adsets", params={
+            "access_token": token,
+            "fields": "id,name,status,bid_amount,budget_remaining,daily_budget,lifetime_budget,targeting,optimization_goal,billing_event",
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.post("/api/meta/campaigns/{campaign_id}/adsets")
+async def create_adset(campaign_id: str, adset: AdSetCreate, access_token: Optional[str] = None):
+    """Create a new adset within a campaign"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    targeting = adset.targeting or {"geo_locations": {"countries": ["US"]}, "age_min": 25, "age_max": 50}
+    async with httpx.AsyncClient() as c:
+        r = await c.post(f"https://graph.facebook.com/v18.0/{campaign_id}/adsets", params={
+            "access_token": token,
+            "name": adset.name,
+            "campaign_id": campaign_id,
+            "daily_budget": int(adset.budget_daily * 100),
+            "optimization_goal": adset.optimization_goal,
+            "billing_event": adset.billing_event,
+            "bid_amount": int(adset.bid_amount * 100),
+            "targeting": json.dumps(targeting),
+            "status": "PAUSED",
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/meta/adsets/{adset_id}/ads")
+async def get_ads(adset_id: str, access_token: Optional[str] = None):
+    """List all ads within an adset"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://graph.facebook.com/v18.0/{adset_id}/ads", params={
+            "access_token": token,
+            "fields": "id,name,status,creative,effective_status,preview_shareable_link",
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.post("/api/meta/adsets/{adset_id}/ads")
+async def create_ad(adset_id: str, ad: AdCreativeCreate, access_token: Optional[str] = None):
+    """Create a new ad within an adset"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    creative_spec = {
+        "name": ad.name,
+        "object_story_spec": {
+            "link_data": {
+                "link": ad.link_url,
+                "message": ad.body,
+                "name": ad.title,
+                "image_hash": "",
+                "call_to_action": {"type": ad.call_to_action_type},
+            },
+            "page_id": "",
+        },
+    }
+    async with httpx.AsyncClient() as c:
+        r = await c.post(f"https://graph.facebook.com/v18.0/{adset_id}/ads", params={
+            "access_token": token,
+            "name": ad.name,
+            "adset_id": adset_id,
+            "creative": json.dumps(creative_spec),
+            "status": "PAUSED",
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/meta/insights/{ad_account_id}")
+async def get_ad_insights(ad_account_id: str, level: str = "campaign", access_token: Optional[str] = None):
+    """Get ad performance insights (impressions, clicks, spend, ROAS, etc.)"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    fields = "campaign_name,impressions,clicks,spend,ctr,cpc,cpm,actions,reach,frequency,conversions,roas"
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://graph.facebook.com/v18.0/act_{ad_account_id}/insights", params={
+            "access_token": token,
+            "level": level,
+            "fields": fields,
+            "time_range": json.dumps({"since": "2026-01-01", "until": "2026-12-31"}),
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/meta/insights/{ad_account_id}/realtime")
+async def get_realtime_insights(ad_account_id: str, access_token: Optional[str] = None):
+    """Get real-time ad performance data"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://graph.facebook.com/v18.0/act_{ad_account_id}/insights", params={
+            "access_token": token,
+            "level": "ad",
+            "fields": "ad_name,impressions,clicks,spend,ctr,actions,reach",
+            "time_range": json.dumps({"since": "today", "until": "today"}),
+            "use_account_attribution_setting": "true",
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+# ── Meta Webhook Subscriptions ──
+@app.post("/api/meta/webhooks/subscribe")
+async def subscribe_meta_webhook(ad_account_id: str, callback_url: str, access_token: Optional[str] = None):
+    """Subscribe to Meta webhook for real-time ad updates"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    async with httpx.AsyncClient() as c:
+        r = await c.post(f"https://graph.facebook.com/v18.0/{ad_account_id}/subscribed_apps", params={
+            "access_token": token,
+            "callback_url": callback_url,
+            "fields": "ads,adsets,campaigns",
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.get("/api/meta/webhooks/subscriptions/{ad_account_id}")
+async def get_webhook_subscriptions(ad_account_id: str, access_token: Optional[str] = None):
+    """List current webhook subscriptions for an ad account"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    async with httpx.AsyncClient() as c:
+        r = await c.get(f"https://graph.facebook.com/v18.0/{ad_account_id}/subscribed_apps", params={
+            "access_token": token,
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+@app.delete("/api/meta/webhooks/subscribe/{ad_account_id}")
+async def unsubscribe_meta_webhook(ad_account_id: str, access_token: Optional[str] = None):
+    """Unsubscribe from Meta webhook"""
+    token = access_token or IG_ACCESS_TOKEN
+    if not token:
+        raise HTTPException(400, "No access token provided")
+    async with httpx.AsyncClient() as c:
+        r = await c.delete(f"https://graph.facebook.com/v18.0/{ad_account_id}/subscribed_apps", params={
+            "access_token": token,
+        })
+        return r.json() if r.status_code == 200 else {"error": r.json()}
+
+# ── Meta Webhook Receiver (for Facebook to call) ──
+@app.get("/api/meta/webhook")
+async def meta_webhook_verify(hub_mode: str = "", hub_verify_token: str = "", hub_challenge: str = ""):
+    """Meta webhook verification endpoint"""
+    if hub_mode == "subscribe" and hub_verify_token == os.getenv("META_WEBHOOK_VERIFY_TOKEN", "neosync_webhook_token"):
+        return int(hub_challenge)
+    return {"error": "Verification failed"}
+
+@app.post("/api/meta/webhook")
+async def meta_webhook_receive(request: Request):
+    """Receive webhook events from Meta"""
+    data = await request.json()
+    logger.info(f"Meta webhook received: {json.dumps(data)[:500]}")
+    # Process entry changes
+    for entry in data.get("entry", []):
+        for change in entry.get("changes", []):
+            field = change.get("field")
+            value = change.get("value")
+            logger.info(f"Meta webhook field={field}, value={json.dumps(value)[:200]}")
+            # TODO: Update local campaign status, sync insights, trigger notifications
+    return {"success": True}
+
+# ── Campaign DELETE ──
+@app.delete("/api/campaigns/{cid}")
+async def delete_campaign(cid: int):
+    result = await db.fetch("DELETE FROM campaigns WHERE id = $1 RETURNING *", cid)
+    if not result:
+        raise HTTPException(404, "Campaign not found")
+    return {"deleted": True, "id": cid}

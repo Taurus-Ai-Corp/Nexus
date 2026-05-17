@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+api/.venv/
+api/__pycache__/
+api/**/*.pyc
+
+# Build output
+web/dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+web/.vercel/
+
+# Docker
+*.pid
