@@ -78,7 +78,7 @@ export const RESIDENCES = [
     bathrooms: 1,
     tag: "Most Popular",
     description: "Compact luxury for independent living — smart home panel, IoT wellness sensors, and community access included.",
-    image: "/assets-2025/images/gallery/mmh-kmg-b003.webp",
+    image: "/assets-2025/images/renders/Family-time-002.png",
   },
   {
     name: "Executive Suite",
@@ -87,7 +87,7 @@ export const RESIDENCES = [
     bathrooms: 1,
     tag: "91% 5-Yr ROI",
     description: "The sweet spot — ₹40L investment with projected 91.3% ROI over 5 years and ₹1.8L annual rental yield.",
-    image: "/assets-2025/images/residences/villa-exterior.webp",
+    image: "/assets-2025/images/renders/Reception-003.png",
   },
   {
     name: "Independent Villa",
@@ -96,7 +96,7 @@ export const RESIDENCES = [
     bathrooms: 2,
     tag: "Premium",
     description: "Premium villa with private garden, balcony, and the highest long-term appreciation potential.",
-    image: "/assets-2025/images/residences/mm-villa-exterior-kerala.webp",
+    image: "/assets-2025/images/renders/Hospitality-004.png",
   },
 ];
 

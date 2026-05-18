@@ -1,0 +1,4569 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-05-11T07:07:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 301227236,
+      "lat": 42.301306,
+      "lon": -83.2735769,
+      "tags": {
+        "amenity": "cafe",
+        "url": "http://DearbornHills.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 430025466,
+      "lat": 42.4879899,
+      "lon": -83.1444354,
+      "tags": {
+        "addr:city": "Royal Oak",
+        "addr:housenumber": "300",
+        "addr:postcode": "48067",
+        "addr:state": "MI",
+        "addr:street": "South Main Street",
+        "amenity": "cafe",
+        "branch": "Royal Oak, South Main & 3rd St",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "phone": "+1 248-548-4570",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/18383/royal-oak-s-main-3rd-st-300-s-main-st-royal-oak-mi-480672614-us"
+      }
+    },
+    {
+      "type": "node",
+      "id": 430027018,
+      "lat": 42.4853808,
+      "lon": -83.1467885,
+      "tags": {
+        "addr:city": "Royal Oak",
+        "addr:housenumber": "600",
+        "addr:postcode": "48067",
+        "addr:state": "MI",
+        "addr:street": "South Washington Avenue",
+        "amenity": "cafe",
+        "name": "Five15",
+        "opening_hours": "Tu-Sa 00:00-18:00; Su 00:00-17:00",
+        "url": "http://www.five15.net"
+      }
+    },
+    {
+      "type": "node",
+      "id": 850894692,
+      "lat": 42.3303179,
+      "lon": -83.0319568,
+      "tags": {
+        "amenity": "cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1168679106,
+      "lat": 42.3038515,
+      "lon": -83.222233,
+      "tags": {
+        "amenity": "cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1262468197,
+      "lat": 42.3351162,
+      "lon": -83.0418087,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "international",
+        "name": "Europa Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1502463184,
+      "lat": 42.3051528,
+      "lon": -83.2469201,
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "22155",
+        "addr:postcode": "48124",
+        "addr:state": "MI",
+        "addr:street": "Michigan Avenue",
+        "amenity": "cafe",
+        "branch": "Dearborn, Michigan Avenue & Howar",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "phone": "+1 313-730-9281",
+        "ref": "15862",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/15862/dearborn-michigan-ave-howar-22155-michigan-ave-dearborn-mi-481242204-us"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1503605078,
+      "lat": 42.3038986,
+      "lon": -83.2517728,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "brand:wikidata": "Q4906876",
+        "cuisine": "coffee_shop",
+        "name": "Biggby Coffee",
+        "outdoor_seating": "no",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2365262180,
+      "lat": 42.3058772,
+      "lon": -83.2447334,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Cigaro"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2370921723,
+      "lat": 42.3264262,
+      "lon": -83.287895,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "brand:wikidata": "Q4906876",
+        "cuisine": "coffee_shop",
+        "name": "Biggby Coffee",
+        "ref": "341",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2379647010,
+      "lat": 42.3086569,
+      "lon": -83.1883856,
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "3550",
+        "addr:postcode": "48120",
+        "addr:state": "MI",
+        "addr:street": "Greenfield Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-Su 06:00-21:00",
+        "phone": "+1 313-240-9394",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2390716704,
+      "lat": 42.3315564,
+      "lon": -83.0757066,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "2124",
+        "addr:postcode": "48216",
+        "addr:state": "MI",
+        "addr:street": "Michigan Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "no",
+        "name": "Alba",
+        "opening_hours": "Mo-Th 07:00-17:00, Fr 07:00-18:00, Sa 08:00-18:00, Su 08:00-16:00",
+        "phone": "+1 313-462-4797",
+        "website": "https://alba-coffee.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2904499439,
+      "lat": 42.2979361,
+      "lon": -82.9910053,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2905653097,
+      "lat": 42.3170067,
+      "lon": -83.0367665,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2941061595,
+      "lat": 42.4866815,
+      "lon": -83.1463539,
+      "tags": {
+        "addr:city": "Royal Oak",
+        "addr:housenumber": "417",
+        "addr:postcode": "48067",
+        "addr:state": "MI",
+        "addr:street": "South Washington Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;ice_cream",
+        "name": "The Proving Grounds",
+        "opening_hours": "Mo-Su 07:00-18:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2941062923,
+      "lat": 42.4873369,
+      "lon": -83.1457136,
+      "tags": {
+        "addr:city": "Royal Oak",
+        "addr:housenumber": "204",
+        "addr:postcode": "48067",
+        "addr:state": "MI",
+        "addr:street": "West 4th Street",
+        "amenity": "cafe",
+        "cuisine": "organic",
+        "name": "Cacao Tree Cafe",
+        "opening_hours": "Mo-Sa 09:00-16:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2983229795,
+      "lat": 42.3311984,
+      "lon": -83.0472108,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "777",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Woodward Avenue",
+        "addr:unit": "140",
+        "amenity": "cafe",
+        "branch": "One Kennedy Square Detroit",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "operator": "Starbucks",
+        "phone": "+1 313-964-5465",
+        "ref": "1007537",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/1007537/one-kennedy-square-detroit-777-woodward-ave-ste-140-detroit-mi-48226-us"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3090114269,
+      "lat": 42.3178728,
+      "lon": -83.0390675,
+      "tags": {
+        "amenity": "cafe",
+        "internet_access": "wlan",
+        "name": "The Coffee Exchange"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3281439557,
+      "lat": 42.3514195,
+      "lon": -83.0691403,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "4474",
+        "addr:postcode": "48201",
+        "addr:state": "MI",
+        "addr:street": "3rd Street",
+        "amenity": "cafe",
+        "check_date": "2024-07-29",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "The Bottom Line Coffee House"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3308360566,
+      "lat": 42.3551662,
+      "lon": -82.9971851,
+      "tags": {
+        "amenity": "cafe",
+        "check_date": "2025-06-22",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "The Red Hook Detroit"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3353358716,
+      "lat": 42.4057657,
+      "lon": -83.2301329,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "19180",
+        "addr:postcode": "48219",
+        "addr:state": "MI",
+        "addr:street": "Grand River Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "yes",
+        "name": "Always Brewing Detroit"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3633669166,
+      "lat": 42.3503889,
+      "lon": -83.0601644,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "3965",
+        "addr:postcode": "48201",
+        "addr:state": "MI",
+        "addr:street": "Woodward Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "The Red Hook - Midtown",
+        "opening_hours": "Mo-Fr 07:00-17:00; Sa 08:00-17:00; Su 09:00-14:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3685625573,
+      "lat": 42.3918663,
+      "lon": -83.0600496,
+      "tags": {
+        "addr:city": "Hamtramck",
+        "addr:housenumber": "2287",
+        "addr:postcode": "48212",
+        "addr:street": "Holbrook Street",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Cafe 1923",
+        "website": "http://www.cafe1923.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3875115055,
+      "lat": 42.3343951,
+      "lon": -83.0453671,
+      "tags": {
+        "amenity": "cafe",
+        "name": "the Broadway"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3877100869,
+      "lat": 42.3329874,
+      "lon": -83.0489956,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1220",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Griswold Street",
+        "amenity": "cafe",
+        "internet_access": "yes",
+        "name": "Dessert Oasis Coffee Roasters",
+        "opening_hours": "6:00-22:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4119748256,
+      "lat": 42.3443597,
+      "lon": -83.0604367,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "412",
+        "addr:state": "MI",
+        "addr:street": "Peterboro Street",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Craig's Coffee",
+        "opening_hours": "Th-Fr 08:00-12:00; Sa 08:00-14:00",
+        "outdoor_seating": "no",
+        "website": "https://www.craigs.coffee/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4119748263,
+      "lat": 42.3584583,
+      "lon": -83.0709067,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "5221",
+        "addr:postcode": "48202",
+        "addr:state": "MI",
+        "addr:street": "Gullen Mall",
+        "amenity": "cafe",
+        "branch": "Wayne State Univ. Student Cent",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "phone": "+1 313-577-4678",
+        "ref": "1011440",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/1011440/wayne-state-univ-student-cent-5221-gullen-mall-detroit-mi-48202-us"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4121449545,
+      "lat": 42.3207364,
+      "lon": -83.0329446,
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "377",
+        "addr:street": "Riverside Drive East",
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "brand:wikipedia": "en:Starbucks",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store/860/ca/sodexo-caesars-windsor/377-riverside-drive-east-windsor-on-n9a-7h7"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4121449547,
+      "lat": 42.3289907,
+      "lon": -83.0397978,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "400",
+        "addr:postcode": "48243",
+        "addr:state": "MI",
+        "addr:street": "Renaissance Drive West",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "level": "3",
+        "name": "illy",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4121692994,
+      "lat": 42.3461685,
+      "lon": -83.0405233,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "2509",
+        "addr:state": "MI",
+        "addr:street": "Russell Street",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Germack",
+        "website": "https://www.germack.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4382514731,
+      "lat": 42.3202048,
+      "lon": -83.1062029,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Bella's Coffee House"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4497330682,
+      "lat": 42.3440997,
+      "lon": -83.1831974,
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "14300",
+        "addr:postcode": "48126",
+        "addr:state": "MI",
+        "addr:street": "West Warren Avenue",
+        "amenity": "cafe",
+        "check_date:opening_hours": "2022-08-27",
+        "cuisine": "middle_eastern",
+        "name": "Shatila Bakery",
+        "opening_hours": "Su-Th 07:30-23:00; Fr-Sa 07:30-24:00",
+        "shop": "bakery",
+        "website": "https://shatila.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4679409789,
+      "lat": 42.3523174,
+      "lon": -83.0441586,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "3500",
+        "addr:postcode": "48207",
+        "addr:state": "MI",
+        "addr:street": "Russell Street",
+        "amenity": "cafe",
+        "name": "Milano Bakery & Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4701462960,
+      "lat": 42.3312547,
+      "lon": -83.0460042,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "660",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Woodward Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "yes",
+        "internet_access:fee": "no",
+        "name": "Roasting Plant",
+        "opening_hours": "Mo-Su 07:00-18:00",
+        "smoking": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4944146521,
+      "lat": 42.3964096,
+      "lon": -83.0487125,
+      "tags": {
+        "addr:housenumber": "3470",
+        "addr:street": "Holbrook Street",
+        "amenity": "cafe",
+        "name": "Boostan Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4944146522,
+      "lat": 42.3986268,
+      "lon": -83.0593487,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Oloman Cafe",
+        "name:en": "Oloman Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4944827225,
+      "lat": 42.4867154,
+      "lon": -83.1468034,
+      "tags": {
+        "addr:housenumber": "418",
+        "addr:street": "South Washington Avenue",
+        "amenity": "cafe",
+        "name": "Cafe Muse",
+        "opening_hours": "Mo,We-Fr 08:30-13:30; Sa,Su 08:30-14:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4957523230,
+      "lat": 42.4604689,
+      "lon": -83.1358226,
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "165",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "West 9 Mile Road",
+        "amenity": "cafe",
+        "name": "Java Hutt"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4962249569,
+      "lat": 42.4607574,
+      "lon": -83.1436948,
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "750",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "West 9 Mile Road",
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "brand:wikidata": "Q4906876",
+        "cuisine": "coffee_shop",
+        "name": "Biggby Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4962249597,
+      "lat": 42.453211,
+      "lon": -83.1430149,
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "821",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "Livernois Street",
+        "amenity": "cafe",
+        "name": "Catfe Lounge",
+        "theme": "cat",
+        "website": "https://ferndalecatshelter.org/catfe-lounge/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4962249598,
+      "lat": 42.4531418,
+      "lon": -83.1429934,
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "817",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "Livernois Street",
+        "amenity": "cafe",
+        "contact:instagram": "https://www.instagram.com/tall.trees.cafe/",
+        "email": "hello@talltreesferndale.com",
+        "name": "Tall Trees Cafe",
+        "opening_hours": "We-Fr 11:00-16:00; Sa 10:00-17:00",
+        "website": "https://www.talltreesferndale.com/",
+        "website:menu": "https://www.talltreesferndale.com/menu"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5018858521,
+      "lat": 42.4609102,
+      "lon": -83.1128363,
+      "tags": {
+        "addr:housenumber": "1820",
+        "addr:street": "East 9 Mile Road",
+        "amenity": "cafe",
+        "name": "Detroit Fleet Food Truck Park"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5111341521,
+      "lat": 42.3443905,
+      "lon": -83.0377864,
+      "tags": {
+        "addr:housenumber": "1464",
+        "addr:street": "Gratiot Avenue",
+        "amenity": "cafe",
+        "name": "Trinosophes Cafe",
+        "opening_hours": "We-Su 10:00-15:00",
+        "phone": "+1-313-778-9258",
+        "website": "https://www.trinosophes.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5256432107,
+      "lat": 42.4057894,
+      "lon": -82.9161579,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "18051",
+        "addr:postcode": "48224",
+        "addr:state": "MI",
+        "addr:street": "Mack Avenue",
+        "amenity": "cafe",
+        "branch": "Mack & Radnor",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "phone": "+1 313-573-6060",
+        "ref": "1019763",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/1019763/mack-radnor-18051-mack-ave-detroit-mi-482241475-us"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5285414221,
+      "lat": 42.3068969,
+      "lon": -83.1887028,
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "3389",
+        "addr:postcode": "48120",
+        "addr:state": "MI",
+        "addr:street": "Greenfield Road",
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "brand:wikidata": "Q4906876",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Biggby Coffee",
+        "opening_hours": "Mo-Su 06:00-21:00",
+        "phone": "+1-313-982-1100",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5311493708,
+      "lat": 42.3678378,
+      "lon": -83.0747778,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "fixme:atp": "no ATP match, check if still exists",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5346084613,
+      "lat": 42.369806,
+      "lon": -83.0770787,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Stella Good Coffee",
+        "opening_hours": "Mo-Fr 07:00-18:30; Sa 09:00-18:30",
+        "operator": "Pure Detroit",
+        "outdoor_seating": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5796160556,
+      "lat": 42.4351646,
+      "lon": -82.9643075,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "15236",
+        "addr:state": "MI",
+        "addr:street": "East 7 Mile Road",
+        "amenity": "cafe",
+        "cuisine": "southern",
+        "name": "Lape Soul Food"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5918972091,
+      "lat": 42.4169027,
+      "lon": -83.257514,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "17336",
+        "addr:postcode": "48219",
+        "addr:state": "MI",
+        "addr:street": "Lahser Road",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Motor City Java House"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5922816018,
+      "lat": 42.355682,
+      "lon": -83.0631873,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "4750",
+        "addr:state": "MI",
+        "addr:street": "Woodward Avenue",
+        "amenity": "cafe",
+        "name": "Hannan Cafe",
+        "operator": "Detroit Cooks A Culinary Collective",
+        "phone": "+1-313-265-3166",
+        "website": "https://hannan.org/detroit-cooks-at-hannan-cafe/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5948850128,
+      "lat": 42.3327374,
+      "lon": -83.0479722,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1075",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Woodward Avenue",
+        "amenity": "cafe",
+        "name": "Avalon Bakery",
+        "opening_hours": "08:00-15:00",
+        "outdoor_seating": "yes",
+        "shop": "bakery",
+        "website": "https://avalonbreads.net/pages/avalon-woodward"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5958620985,
+      "lat": 42.3378896,
+      "lon": -83.0538867,
+      "tags": {
+        "addr:housenumber": "2233",
+        "addr:street": "Park Avenue",
+        "amenity": "cafe",
+        "cuisine": "mexican",
+        "name": "Hot Taco"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5961345266,
+      "lat": 42.3348343,
+      "lon": -83.0505896,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1514",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Washington Boulevard",
+        "amenity": "cafe",
+        "cuisine": "italian;sandwich",
+        "name": "La Pecora Nera",
+        "opening_hours": "Mo-Fr 09:00-17:00; Sa 09:00-15:00",
+        "outdoor_seating": "yes",
+        "website": "https://www.lapecoraneradetroit.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5964664877,
+      "lat": 42.340017,
+      "lon": -83.1768624,
+      "tags": {
+        "addr:housenumber": "6655",
+        "addr:street": "Schaefer Road",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Qahwah House",
+        "opening_hours": "Mo-Sa 07:00-23:00; Su 09:00-23:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5965225655,
+      "lat": 42.3273709,
+      "lon": -83.0486548,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:state": "MI",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;wine;beer;breakfast",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Cork & Grind",
+        "outdoor_seating": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6124995188,
+      "lat": 42.2789055,
+      "lon": -82.8717783,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6255159323,
+      "lat": 42.487154,
+      "lon": -83.1439702,
+      "tags": {
+        "addr:city": "Royal Oak",
+        "addr:housenumber": "401",
+        "addr:state": "MI",
+        "addr:street": "South Main Street",
+        "amenity": "cafe",
+        "check_date:opening_hours": "2024-05-26",
+        "name": "Atomic Coffee",
+        "opening_hours": "Mo-Su 07:00-22:00",
+        "website": "https://www.atomiccoffee.net/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6270559854,
+      "lat": 42.4893927,
+      "lon": -83.1440683,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Dessert Oasis Coffee Roasters"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6273773638,
+      "lat": 42.4895489,
+      "lon": -83.1444863,
+      "tags": {
+        "addr:city": "Royal Oak",
+        "addr:housenumber": "106",
+        "addr:postcode": "48067",
+        "addr:state": "MI",
+        "addr:street": "South Main Street",
+        "amenity": "cafe",
+        "disused:amenity": "amenity=cafe",
+        "name": "Bean & Leaf Cafe",
+        "note": "Closed as of 2019-03-31"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6666371630,
+      "lat": 42.2881118,
+      "lon": -83.057082,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Fattoush"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6695846256,
+      "lat": 42.2554548,
+      "lon": -82.9631513,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Presotea"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6695922199,
+      "lat": 42.3118847,
+      "lon": -82.9462462,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "brand:wikipedia": "en:Starbucks",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6696353505,
+      "lat": 42.3153989,
+      "lon": -82.9365194,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "no",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6698377825,
+      "lat": 42.2740518,
+      "lon": -83.0031488,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "brand:wikipedia": "en:Starbucks",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "note": "in Indigo",
+        "official_name": "Starbucks Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6699365053,
+      "lat": 42.2740022,
+      "lon": -83.0015258,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "no",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6720062908,
+      "lat": 42.2568715,
+      "lon": -83.0029657,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "no",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6720062930,
+      "lat": 42.2552564,
+      "lon": -83.0014601,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "brand:wikipedia": "en:Starbucks",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6815019645,
+      "lat": 42.3238243,
+      "lon": -83.1688722,
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "12921",
+        "addr:postcode": "48126",
+        "addr:state": "MI",
+        "addr:street": "Michigan Avenue",
+        "amenity": "cafe",
+        "branch": "Michigan & Oakman, Dearborn",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "phone": "+1 313-846-8150",
+        "ref": "8355",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/8355/michigan-oakman-dearborn-12921-michigan-ave-dearborn-mi-481263551-us"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6821050606,
+      "lat": 42.4870276,
+      "lon": -83.1480472,
+      "tags": {
+        "addr:city": "Royal Oak",
+        "addr:housenumber": "402",
+        "addr:postcode": "48067",
+        "addr:state": "MI",
+        "addr:street": "South Lafayette Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;sandwich",
+        "description": "Airy coffee bar offering free Wi-Fi & cafe fare, plus a co-working space with conference rooms.",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "The Office Coffee Shop",
+        "opening_hours": "Mo-Fr 07:00-18:00; Sa 08:00-18:00; Su 09:00-18:00",
+        "outdoor_seating": "no",
+        "website": "https://www.theofficecoffeeshop.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6831775716,
+      "lat": 42.4024849,
+      "lon": -83.0600967,
+      "tags": {
+        "addr:housenumber": "3030",
+        "addr:street": "Casmere Street",
+        "amenity": "cafe",
+        "level": "-1",
+        "name": "Living Zen Organics",
+        "opening_hours": "Mo-Sa 10:00-17:00",
+        "phone": "+1-734-366-7736",
+        "website": "https://www.detroitzencenter.org/living-zen-organics"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6897368485,
+      "lat": 42.3489591,
+      "lon": -83.036009,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1948",
+        "addr:postcode": "48207",
+        "addr:state": "MI",
+        "addr:street": "Division Street",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Anthology Coffee",
+        "opening_hours": "Mo-Su 09:00-16:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7012890551,
+      "lat": 42.2579315,
+      "lon": -83.2090361,
+      "tags": {
+        "addr:city": "Allen Park",
+        "addr:housenumber": "6623",
+        "addr:postcode": "48101",
+        "addr:state": "MI",
+        "addr:street": "Allen Road",
+        "amenity": "cafe",
+        "check_date:opening_hours": "2025-01-07",
+        "name": "City Coffeehouse",
+        "opening_hours": "Mo-Su 09:00-22:00",
+        "outdoor_seating": "yes",
+        "phone": "+1-313-908-4027",
+        "start_date": "1996",
+        "website": "https://city-coffeehouse.business.site/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7021063547,
+      "lat": 42.305203,
+      "lon": -82.862416,
+      "tags": {
+        "addr:city": "Lakeshore",
+        "addr:housenumber": "195",
+        "addr:province": "ON",
+        "addr:street": "Commercial Boulevard",
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "brand:wikipedia": "en:Starbucks",
+        "cuisine": "coffee_shop",
+        "internet_access": "yes",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "outdoor_seating": "yes",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7021070987,
+      "lat": 42.3062114,
+      "lon": -82.8688538,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7022580454,
+      "lat": 42.3083386,
+      "lon": -82.9654319,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Ciao Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7022630463,
+      "lat": 42.3045051,
+      "lon": -82.9808322,
+      "tags": {
+        "addr:city": "Tecumseh",
+        "addr:housenumber": "13300",
+        "addr:postcode": "N8N 4R8",
+        "addr:province": "Ontario",
+        "addr:street": "Tecumseh Road East",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-Su 05:00-23:00",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7022731614,
+      "lat": 42.2758477,
+      "lon": -83.0518062,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Anchor Coffee House"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7041092667,
+      "lat": 42.328493,
+      "lon": -82.9697949,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Riverside Pie Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7089744848,
+      "lat": 42.33166,
+      "lon": -83.0736829,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "2000",
+        "addr:postcode": "48216",
+        "addr:state": "MI",
+        "addr:street": "Michigan Avenue",
+        "amenity": "cafe",
+        "level": "1",
+        "name": "Lucky Detroit",
+        "opening_hours": "Mo-Fr 07:30-18:00; Sa 08:00-18:00; Su 10:00-16:00",
+        "website": "https://www.luckydetroit.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7089752210,
+      "lat": 42.3480988,
+      "lon": -83.0394974,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "2712",
+        "addr:state": "MI",
+        "addr:street": "Riopelle Street",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "description": "Located inside Savvy Chic",
+        "name": "Cairo Coffee",
+        "opening_hours": "Tu 09:00-16:00; We-Sa 09:00-17:00",
+        "phone": "+1-313-833-8769",
+        "website": "https://cairocoffeeblog.wordpress.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7089785877,
+      "lat": 42.4173012,
+      "lon": -83.1455994,
+      "tags": {
+        "addr:housenumber": "7410",
+        "addr:street": "West McNichols Road",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Detroit Sip",
+        "opening_hours": "Th, Fr 06:30-17:00; Sa 08:00-16:00; Su 10:00-16:00",
+        "phone": "+1-313-635-5130",
+        "website": "https://www.detroitsip.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7427201655,
+      "lat": 42.2956335,
+      "lon": -83.0279893,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7455734450,
+      "lat": 42.243512,
+      "lon": -83.0602084,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "bubble_tea",
+        "name": "Presotea",
+        "outdoor_seating": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7469222965,
+      "lat": 42.2882824,
+      "lon": -83.0836827,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7603362867,
+      "lat": 42.3450051,
+      "lon": -83.0559961,
+      "tags": {
+        "addr:housenumber": "3100",
+        "addr:street": "Woodward",
+        "addr:unit": "102",
+        "air_conditioning": "yes",
+        "amenity": "cafe",
+        "check_date": "2024-08-02",
+        "cuisine": "coffee_shop",
+        "disused:amenity": "cafe",
+        "name": "Cafe Alto",
+        "old_name": "New Order Coffee",
+        "opening_hours": "Mo-Su 08:00-17:00",
+        "outdoor_seating": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7629440001,
+      "lat": 42.3496275,
+      "lon": -83.0681502,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "4244",
+        "addr:postcode": "48201",
+        "addr:state": "MI",
+        "addr:street": "3rd Street",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Awake Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7804785075,
+      "lat": 42.219919,
+      "lon": -82.874292,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8004360676,
+      "lat": 42.3734266,
+      "lon": -83.0640231,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "2831",
+        "addr:postcode": "48211",
+        "addr:state": "MI",
+        "addr:street": "East Grand Boulevard",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "The Gathering Coffee Co.",
+        "opening_hours": "Mo-Th 07:00-16:00, Fr-Su 08:00-17:00",
+        "outdoor_seating": "yes",
+        "website": "https://www.gatheringcoffee.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8203051422,
+      "lat": 42.4680491,
+      "lon": -83.1247043,
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "1220",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "Woodward Heights Boulevard",
+        "amenity": "cafe",
+        "cuisine": "tea",
+        "diet:gluten_free": "no",
+        "diet:halal": "no",
+        "diet:kosher": "no",
+        "diet:vegan": "no",
+        "diet:vegetarian": "yes",
+        "name": "Boston Tea Room",
+        "opening_hours": "Mo-Sa 12:00-19:00; Su 12:00-17:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8236542171,
+      "lat": 42.2782993,
+      "lon": -83.2155177,
+      "tags": {
+        "addr:city": "Allen Park",
+        "addr:housenumber": "23005",
+        "addr:postcode": "48101",
+        "addr:state": "MI",
+        "addr:street": "Outer Drive",
+        "amenity": "cafe",
+        "branch": "Southfield & Outer Drive, Allen P",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "phone": "+1 313-278-4249",
+        "ref": "8484",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/8484/southfield-outer-dr-allen-p-23005-outer-drive-allen-park-mi-481013149-us"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8236542184,
+      "lat": 42.2772669,
+      "lon": -83.2140559,
+      "tags": {
+        "addr:city": "Allen Park",
+        "addr:housenumber": "23190",
+        "addr:postcode": "48101",
+        "addr:state": "MI",
+        "addr:street": "West Outer Drive",
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "brand:wikidata": "Q4906876",
+        "cuisine": "coffee_shop",
+        "name": "Biggby Coffee",
+        "takeaway": "yes",
+        "website": "https://www.facebook.com/biggbystore630/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8301810322,
+      "lat": 42.3251804,
+      "lon": -83.1762745,
+      "tags": {
+        "addr:housenumber": "5125",
+        "addr:street": "Schaefer Road",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;tea",
+        "name": "Romantica Cafe",
+        "outdoor_seating": "no",
+        "phone": "+1-313-429-3166"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8365340859,
+      "lat": 42.4008873,
+      "lon": -83.0005925,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "10533",
+        "addr:postcode": "48213",
+        "addr:state": "MI",
+        "addr:street": "Gratiot Avenue",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "no",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-Sa 05:30-19:00; Su 06:00-19:00",
+        "outdoor_seating": "no",
+        "phone": "+1 313-923-8900",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8446631172,
+      "lat": 42.3247047,
+      "lon": -83.0128657,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Taloola Cafe",
+        "website": "https://taloolacafe.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8450021362,
+      "lat": 42.322083,
+      "lon": -83.0163935,
+      "tags": {
+        "amenity": "cafe",
+        "check_date": "2023-09-06",
+        "cuisine": "coffee_shop",
+        "name": "Anchor Coffee House",
+        "opening_hours": "09:00-15:00",
+        "website": "https://www.anchorcoffeehouse.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8495369793,
+      "lat": 42.4771733,
+      "lon": -83.0648026,
+      "tags": {
+        "addr:city": "Warren",
+        "addr:housenumber": "25100",
+        "addr:postcode": "48091-1325",
+        "addr:state": "MI",
+        "addr:street": "Ryan Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 00:00-24:00; Fr-Su 00:00-24:00",
+        "phone": "+1 586-756-6300",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8497555235,
+      "lat": 42.2528179,
+      "lon": -83.1878689,
+      "tags": {
+        "addr:city": "Lincoln Park",
+        "addr:housenumber": "1727",
+        "addr:postcode": "48146-2261",
+        "addr:state": "MI",
+        "addr:street": "Southfield Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "no",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-20:00; Fr-Su 06:00-20:00",
+        "phone": "+1 313-928-0138",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8503890187,
+      "lat": 42.2040662,
+      "lon": -83.1496764,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "The Coffee Lounge"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8538006623,
+      "lat": 42.4911288,
+      "lon": -83.1071533,
+      "tags": {
+        "addr:city": "Madison Heights",
+        "addr:housenumber": "222",
+        "addr:postcode": "48071",
+        "addr:state": "MI",
+        "addr:street": "West 11 Mile Road",
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "brand:wikidata": "Q4906876",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Biggby Coffee",
+        "opening_hours": "Mo-Sa 06:00-20:00; Su 07:00-20:00",
+        "phone": "+1 248 291 5932",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8541859563,
+      "lat": 42.459316,
+      "lon": -83.1823692,
+      "tags": {
+        "addr:city": "Oak Park",
+        "addr:housenumber": "22211",
+        "addr:postcode": "48237-2855",
+        "addr:state": "MI",
+        "addr:street": "Coolidge Highway",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "no",
+        "name": "Tim Hortons",
+        "phone": "+1 248-399-1367",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8613880980,
+      "lat": 42.2457479,
+      "lon": -83.2703168,
+      "tags": {
+        "addr:city": "Taylor",
+        "addr:housenumber": "8460",
+        "addr:postcode": "48180-2373",
+        "addr:state": "MI",
+        "addr:street": "Telegraph Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-22:00; Fr-Su 06:00-22:00",
+        "phone": "+1 313-295-8484",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8619205144,
+      "lat": 42.3996485,
+      "lon": -83.2779879,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "fixme:atp": "no ATP match, check if still exists",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8641781698,
+      "lat": 42.2598051,
+      "lon": -83.2072362,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "brand:wikidata": "Q4906876",
+        "cuisine": "coffee_shop",
+        "name": "Biggby Coffee",
+        "outdoor_seating": "no",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8691224298,
+      "lat": 42.344096,
+      "lon": -83.1576426,
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "10005",
+        "addr:postcode": "48126",
+        "addr:state": "MI",
+        "addr:street": "West Warren Avenue",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "no",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 00:00-24:00; Fr-Su 00:00-24:00",
+        "phone": "+1 313-406-5420",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8735099410,
+      "lat": 42.3045741,
+      "lon": -83.2490549,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "bubble_tea",
+        "name": "Bubbleology",
+        "outdoor_seating": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8842132357,
+      "lat": 42.3317707,
+      "lon": -83.0394233,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "546",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "East Larned Street",
+        "amenity": "cafe",
+        "name": "Minnie's Rhythm Caf\u00e9"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8842502795,
+      "lat": 42.4504556,
+      "lon": -83.1428705,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Ashe Supply Co."
+      }
+    },
+    {
+      "type": "node",
+      "id": 8847040001,
+      "lat": 42.4460627,
+      "lon": -83.1207135,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1327",
+        "addr:postcode": "48203",
+        "addr:state": "MI",
+        "addr:street": "8 Mile Road West",
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "contact:website": "https://www.starbucks.com/store-locator/store/1006701/woodward-and-8-mile-1327-w-8-mile-rd-detroit-mi-482031021-us",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "outdoor_seating": "no",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8850917667,
+      "lat": 42.355874,
+      "lon": -82.9978855,
+      "tags": {
+        "addr:housenumber": "1464",
+        "addr:street": "Van Dyke",
+        "amenity": "cafe",
+        "cuisine": "international",
+        "name": "Snack Camp",
+        "website": "https://www.facebook.com/snackcampdetroit/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8872108353,
+      "lat": 42.3056282,
+      "lon": -83.0607727,
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "2161",
+        "addr:postcode": "N9B 1K1",
+        "addr:province": "Ontario",
+        "addr:street": "Wyandotte Street West",
+        "amenity": "cafe",
+        "cuisine": "bubble_tea",
+        "name": "Prestotea"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9135474539,
+      "lat": 42.380408,
+      "lon": -83.0836572,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Caf\u00e9 Sonshine (by CDC)"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9216903716,
+      "lat": 42.2278482,
+      "lon": -83.2538357,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Delite Cafe & Deli",
+        "opening_hours": "Mo-Fr 07:00-20:00; Sa,Su 09:00-19:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9225651874,
+      "lat": 42.4696861,
+      "lon": -83.1039983,
+      "tags": {
+        "addr:city": "Hazel Park",
+        "addr:housenumber": "24110",
+        "addr:postcode": "48030",
+        "addr:state": "MI",
+        "addr:street": "John R Road",
+        "amenity": "cafe",
+        "name": "Doug's Delight"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9240650313,
+      "lat": 42.2467717,
+      "lon": -83.0628887,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Salute Cafe + Bar",
+        "website": "https://salutelasalle.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9353565134,
+      "lat": 42.3318519,
+      "lon": -83.0505623,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1114",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Washington Boulevard",
+        "amenity": "cafe",
+        "branch": "Westin Book Cadillac Lobby",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "phone": "+1 313-442-1604",
+        "ref": "1019893",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/1019893/westin-book-cadillac-lobby-1114-washington-blvd-detroit-mi-48226-us"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9537266081,
+      "lat": 42.3293019,
+      "lon": -83.0482787,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "607",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Shelby Street",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Coffee Down Under",
+        "opening_hours": "Su-Tu 08:00-16:00; We-Th 08:00-12:00; Fr-Sa 08:00-13:00",
+        "phone": "+1 313-444-6626",
+        "website": "https://www.coffeedownunder.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9537408438,
+      "lat": 42.3287462,
+      "lon": -83.0488919,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "243",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "West Congress Street",
+        "amenity": "cafe",
+        "branch": "Marquette Building Detroit",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "opening_hours": "Mo-Su 07:00-17:00",
+        "phone": "+1 313-512-5900",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/1030267/marquette-building-detroit-243-w-congress-st-detroit-mi-48226-us"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9673474711,
+      "lat": 42.3292402,
+      "lon": -83.1825837,
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "14339",
+        "addr:postcode": "48126",
+        "addr:state": "MI",
+        "addr:street": "Ford Road",
+        "amenity": "cafe",
+        "amenity_1": "bakery",
+        "cuisine": "middle_eastern",
+        "name": "Manaeesh Cafe / Cheesecake",
+        "phone": "+1-313-584-5999",
+        "source:addr": "https://www.yelp.com/biz/manaeesh-caf%C3%A9-dearborn",
+        "website": "https://www.yelp.com/biz/manaeesh-caf%C3%A9-dearborn"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9678967996,
+      "lat": 42.3409008,
+      "lon": -83.177138,
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "6831",
+        "addr:state": "MI",
+        "addr:street": "Schaefer Road",
+        "amenity": "cafe",
+        "name": "Ananas Cafe - Dearborn",
+        "website": "https://ananascafedearborn.com/41780"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9681172505,
+      "lat": 42.339892,
+      "lon": -83.0201797,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "The Red Hook"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9742304213,
+      "lat": 42.3469139,
+      "lon": -83.0380309,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1533",
+        "addr:state": "MI",
+        "addr:street": "Winder Street",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Bea\u2019s Detroit -Cafe",
+        "opening_hours": "Sa 8:00-17:00; Su 10:00-17:00",
+        "website": "https://www.beasdetroit.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9850353826,
+      "lat": 42.4764511,
+      "lon": -83.1455374,
+      "tags": {
+        "addr:city": "Royal Oak",
+        "addr:housenumber": "25070",
+        "addr:postcode": "48067",
+        "addr:state": "MI",
+        "addr:street": "Woodward Avenue",
+        "air_conditioning": "yes",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Royal Oak Roast",
+        "opening_hours": "Mo-Su 07:00-19:00",
+        "outdoor_seating": "yes",
+        "phone": "+1 248-535-9770",
+        "website": "https://www.drinkroast.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9905898368,
+      "lat": 42.306247,
+      "lon": -83.2446334,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Qargo Coffee",
+        "organic": "yes",
+        "outdoor_seating": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9920101632,
+      "lat": 42.3354581,
+      "lon": -83.051429,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "313",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Park Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;french",
+        "name": "Statler Market",
+        "opening_hours": "Mo-Fr 07:00-18:00; Sa 10:00-17:00",
+        "phone": "+1-313-463-7111",
+        "website": "https://statlerdetroit.com/detroit-statler-detroit-market"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9995453521,
+      "lat": 42.4428072,
+      "lon": -83.2660949,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "22565",
+        "addr:postcode": "48219",
+        "addr:state": "MI",
+        "addr:street": "8 Mile Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "fixme:atp": "no ATP match, check if still exists",
+        "name": "Tim Hortons",
+        "outdoor_seating": "no",
+        "phone": "+1 313-592-9000",
+        "takeaway": "yes",
+        "website": "https://www.timhortons.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10117646170,
+      "lat": 42.310625,
+      "lon": -83.0106268,
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "1464",
+        "addr:province": "Ontario",
+        "addr:street": "Ottawa Street",
+        "amenity": "cafe",
+        "name": "Caf\u00e9 Amor & Art"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10215409097,
+      "lat": 42.3174864,
+      "lon": -83.0399622,
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "98",
+        "addr:province": "ON",
+        "addr:street": "University Avenue West",
+        "amenity": "cafe",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "internet_access:ssid": "Serratore Guest",
+        "name": "Serratore Bistro-Caf\u00e9",
+        "outdoor_seating": "no",
+        "phone": "+1 519-253-9998"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10290156558,
+      "lat": 42.3297355,
+      "lon": -83.0458996,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Peet's Coffee",
+        "brand:wikidata": "Q1094101",
+        "cuisine": "coffee_shop",
+        "name": "Peet's Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10293494835,
+      "lat": 42.3128945,
+      "lon": -83.0230603,
+      "tags": {
+        "addr:housenumber": "770",
+        "addr:street": "Erie Street",
+        "amenity": "cafe",
+        "check_date": "2025-07-16",
+        "check_date:opening_hours": "2025-07-16",
+        "name": "Gina's Cafe",
+        "opening_hours:signed": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10299385830,
+      "lat": 42.4476881,
+      "lon": -83.0848587,
+      "tags": {
+        "addr:city": "Hazel Park",
+        "addr:housenumber": "1825",
+        "addr:postcode": "48030-1740",
+        "addr:state": "MI",
+        "addr:street": "East 8 Mile Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-19:00; Fr-Su 06:00-19:00",
+        "phone": "+1 248-951-2950",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10631321201,
+      "lat": 42.2746999,
+      "lon": -83.0023638,
+      "tags": {
+        "amenity": "cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10739125577,
+      "lat": 42.3163352,
+      "lon": -83.0380786,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "check_date": "2023-05-15",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10840541238,
+      "lat": 42.3347446,
+      "lon": -83.048208,
+      "tags": {
+        "addr:housenumber": "1413",
+        "amenity": "cafe",
+        "name": "Madcap",
+        "opening_hours": "Mo-We, Su 08:00-16:00; Th-Sa 07:00-19:00",
+        "website": "https://www.madcap.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10880880894,
+      "lat": 42.3215842,
+      "lon": -82.9999885,
+      "tags": {
+        "addr:housenumber": "1012",
+        "addr:postcode": "N8Y 2P8",
+        "addr:street": "Drouillard Road",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Chance Coffee",
+        "website": "https://chancecoffee.ca/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10935072947,
+      "lat": 42.3057817,
+      "lon": -83.2448252,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "bubble_tea",
+        "name": "Kung Fu Tea"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10947609923,
+      "lat": 42.2840957,
+      "lon": -83.2345682,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Dellah Coffee & Brunch House"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11047093101,
+      "lat": 42.3775172,
+      "lon": -83.1005096,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "9321",
+        "addr:postcode": "48206",
+        "addr:state": "MI",
+        "addr:street": "Rosa Parks Boulevard",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "denomination": "african_methodist_episcopal",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "internet_access:ssid": "congregation-guest",
+        "name": "The Congregation",
+        "opening_hours": "Tu-Fr 08:00-21:00; Sa 09:00-21:00; Su 09:00-18:00",
+        "outdoor_seating": "yes",
+        "phone": "+1-313-307-5518",
+        "website": "https://thecongregationdetroit.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11118356388,
+      "lat": 42.3532624,
+      "lon": -83.0555651,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "brand:wikidata": "Q4906876",
+        "cuisine": "coffee_shop",
+        "name": "Biggby Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11139532166,
+      "lat": 42.4780091,
+      "lon": -82.8894546,
+      "tags": {
+        "addr:city": "Saint Clair Shores",
+        "addr:housenumber": "25107",
+        "addr:postcode": "48081",
+        "addr:state": "MI",
+        "addr:street": "Jefferson Avenue",
+        "amenity": "cafe",
+        "craft": "coffee_roaster",
+        "cuisine": "coffee_shop",
+        "name": "New Order Coffee Roasters",
+        "opening_hours": "Mo-Fr 07:00-15:00; Sa-Su 08:00-15:00",
+        "phone": "+1 586-944-2121",
+        "website": "https://www.newordercoffee.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11173085756,
+      "lat": 42.3226641,
+      "lon": -83.01359,
+      "tags": {
+        "amenity": "cafe",
+        "check_date": "2023-09-06",
+        "name": "Ortona",
+        "opening_hours": "09:30-12:30"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11368809675,
+      "lat": 42.2932959,
+      "lon": -82.9761357,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Backroad Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11368809681,
+      "lat": 42.3042306,
+      "lon": -82.9862423,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11511598158,
+      "lat": 42.2003126,
+      "lon": -83.2557835,
+      "tags": {
+        "addr:city": "Taylor",
+        "addr:housenumber": "23000",
+        "addr:postcode": "48180",
+        "addr:state": "MI",
+        "addr:street": "Eureka Road",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Hot Shot Coffee",
+        "phone": "+1-313-600-6170"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11519765169,
+      "lat": 42.3439798,
+      "lon": -83.1911578,
+      "tags": {
+        "addr:housenumber": "15010",
+        "addr:postcode": "48126",
+        "addr:street": "West Warren Avenue",
+        "amenity": "cafe",
+        "cuisine": "arab;coffee_shop",
+        "name": "Azal Cofee",
+        "website": "https://azalcoffeeusa.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11737203225,
+      "lat": 42.3328869,
+      "lon": -83.0498269,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1215",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Griswold Street",
+        "amenity": "cafe",
+        "cuisine": "italian",
+        "name": "Eatori Market",
+        "opening_hours": "10:00-22:00",
+        "phone": "+1-313-395-3030",
+        "website": "https://www.eatorimarket.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11771154022,
+      "lat": 42.3444054,
+      "lon": -83.0505592,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "2671",
+        "addr:postcode": "48201",
+        "addr:state": "MI",
+        "addr:street": "Brush Street",
+        "amenity": "cafe",
+        "name": "Brush Park Bodega",
+        "opening_hours": "Tu-Th 08:00-23:00; Fr-Sa 09:00-25:00; Su 09:00-22:00",
+        "website": "https://www.instagram.com/bodega_mkt"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11793261326,
+      "lat": 42.3814276,
+      "lon": -83.1255962,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "12041",
+        "addr:postcode": "48206",
+        "addr:state": "MI",
+        "addr:street": "Dexter Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;coffee;sandwich",
+        "email": "seana@eleoscoffee.com",
+        "name": "Eleos Coffee",
+        "opening_hours": "Tu-Sa 7:00-14:00",
+        "outdoor_seating": "no",
+        "phone": "+1-313-307-7137",
+        "smoking": "no",
+        "source": "website",
+        "website": "https://www.eleoscoffee.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12066651679,
+      "lat": 42.353327,
+      "lon": -83.0662305,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "445",
+        "addr:postcode": "48201",
+        "addr:state": "MI",
+        "addr:street": "West Forest Avenue",
+        "amenity": "cafe",
+        "internet_access": "yes",
+        "internet_access:fee": "no",
+        "name": "Sous Terre",
+        "opening_hours": "Tu-Su 08:00-23:00, Mo 08:00-17:00",
+        "outdoor_seating": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12099075981,
+      "lat": 42.3447347,
+      "lon": -83.0375326,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1492",
+        "addr:postcode": "48207",
+        "addr:state": "MI",
+        "addr:street": "Gratiot Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "La Ventana Cafe",
+        "opening_hours": "Mo-Su 07:00-19:00",
+        "outdoor_seating": "yes",
+        "phone": "+1-313-212-3005",
+        "website": "https://laventana.cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12559434573,
+      "lat": 42.3080294,
+      "lon": -83.0314347,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "drive_through": "no",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12596230684,
+      "lat": 42.4660388,
+      "lon": -82.8982458,
+      "tags": {
+        "addr:city": "Saint Clair Shores",
+        "addr:housenumber": "23415",
+        "addr:postcode": "48080",
+        "addr:state": "MI",
+        "addr:street": "Greater Mack Avenue",
+        "addr:unit": "q",
+        "amenity": "cafe",
+        "name": "Caff\u00e8 Far Bella",
+        "opening_hours": "Tu-Fr 08:00-15:00; Sa 08:00-14:00",
+        "outdoor_seating": "yes",
+        "phone": "+1 586-773-2233",
+        "website": "http://caffefarbella.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12596303056,
+      "lat": 42.4659565,
+      "lon": -82.8982997,
+      "tags": {
+        "addr:city": "Saint Clair Shores",
+        "addr:housenumber": "23411",
+        "addr:postcode": "48080",
+        "addr:state": "MI",
+        "addr:street": "Greater Mack Avenue",
+        "amenity": "cafe",
+        "name": "The Cheesecake Shoppe",
+        "phone": "+15867732090",
+        "website": "https://www.thecheesecakeshoppe.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12643981990,
+      "lat": 42.2884114,
+      "lon": -83.059282,
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "1475",
+        "addr:postcode": "N9C 2K9",
+        "addr:province": "Ontario",
+        "addr:street": "Huron Church Road",
+        "addr:unit": "4",
+        "amenity": "cafe",
+        "cuisine": "dessert",
+        "name": "D Spot Dessert Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12691489801,
+      "lat": 42.331181,
+      "lon": -83.0685139,
+      "tags": {
+        "addr:housenumber": "1611",
+        "addr:postcode": "48216",
+        "addr:street": "Michigan Avenue",
+        "amenity": "cafe",
+        "name": "Rosette Market + Cafe",
+        "opening_hours": "Mo-Su 07:00-22:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12817711474,
+      "lat": 42.203314,
+      "lon": -83.2552182,
+      "tags": {
+        "addr:city": "Taylor",
+        "addr:housenumber": "14099",
+        "addr:postcode": "48180",
+        "addr:state": "MI",
+        "addr:street": "Pardee Road",
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "outdoor_seating": "no",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12875333009,
+      "lat": 42.2592044,
+      "lon": -82.9971521,
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "350",
+        "addr:postcode": "N9G 1A3",
+        "addr:province": "Ontario",
+        "addr:street": "Cabana Road",
+        "amenity": "cafe",
+        "cuisine": "arabic_coffee",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "name": "Yemeni Corner Coffee House",
+        "opening_hours": "Fr-Sa 09:00-25:00; Su 10:00-23:00; Mo-Th 09:00-24:00",
+        "phone": "+15199150595",
+        "website": "https://www.yemenicorner.ca/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12902497436,
+      "lat": 42.2139165,
+      "lon": -83.1494031,
+      "tags": {
+        "addr:city": "Wyandotte",
+        "addr:housenumber": "2003",
+        "addr:postcode": "48192",
+        "addr:state": "MI",
+        "addr:street": "Biddle Avenue",
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "outdoor_seating": "no",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13141148004,
+      "lat": 42.2572417,
+      "lon": -83.1986924,
+      "tags": {
+        "addr:city": "Allen Park",
+        "addr:housenumber": "14800",
+        "addr:postcode": "48101",
+        "addr:state": "MI",
+        "addr:street": "Southfield Road",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Seven Brew",
+        "outdoor_seating": "no",
+        "start_date": "2025-11-10"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13145062252,
+      "lat": 42.3733763,
+      "lon": -83.081677,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "700",
+        "addr:postcode": "48202",
+        "addr:state": "MI",
+        "addr:street": "Seward Street",
+        "addr:unit": "Ste 2",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Saturn Coffee",
+        "opening_hours": "Mo-Fr 06:30-15:00; Sa-Su 08:00-15:00",
+        "outdoor_seating": "yes",
+        "website": "https://saturn-coffee.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13195700709,
+      "lat": 42.2905246,
+      "lon": -83.059365,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13200890264,
+      "lat": 42.2336011,
+      "lon": -83.2688569,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Scooter's Coffee",
+        "cuisine": "coffee_shop",
+        "name": "Scooter's Coffee",
+        "opening_hours": "Su 06:00-20:00; Mo-Fr 05:30-20:00; Sa 06:00-20:00",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13296589816,
+      "lat": 42.2568966,
+      "lon": -83.2242268,
+      "tags": {
+        "addr:housenumber": "17410",
+        "addr:street": "Ecorse Road",
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "cuisine": "coffee_shop",
+        "name": "Biggby Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13340863943,
+      "lat": 42.3511325,
+      "lon": -83.0657091,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "441",
+        "addr:postcode": "48201",
+        "addr:state": "MI",
+        "addr:street": "West Canfield Street",
+        "amenity": "cafe",
+        "name": "Cafe",
+        "outdoor_seating": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13345180153,
+      "lat": 42.240945,
+      "lon": -83.0140932,
+      "tags": {
+        "addr:city": "Lasalle",
+        "addr:housenumber": "1555",
+        "addr:postcode": "N9H2N2",
+        "addr:province": "Ontario",
+        "addr:street": "Talbot Road",
+        "amenity": "cafe",
+        "cuisine": "bubble_tea",
+        "name": "Mo\u2019Cha Bubble Tea",
+        "phone": "+1-519-966-4334"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13345180155,
+      "lat": 42.2404701,
+      "lon": -83.0127868,
+      "tags": {
+        "addr:city": "Lasalle",
+        "addr:housenumber": "1555",
+        "addr:postcode": "N9H2N2",
+        "addr:province": "Ontario",
+        "addr:street": "Talbot Road",
+        "amenity": "cafe",
+        "name": "M Chapter Boardgame Caf\u00e9",
+        "phone": "+1-519-250-9958"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13345180160,
+      "lat": 42.2383374,
+      "lon": -83.0140341,
+      "tags": {
+        "addr:city": "LaSalle",
+        "addr:housenumber": "1555",
+        "addr:postcode": "N9H2N2",
+        "addr:province": "Ontario",
+        "addr:street": "Talbot Road",
+        "amenity": "cafe",
+        "branch": "Chocolates Caf\u00e9",
+        "brand": "Leonidas",
+        "brand:wikidata": "Q80335",
+        "name": "Leonidas",
+        "phone": "+1-519-967-1717",
+        "shop": "chocolate"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13376503180,
+      "lat": 42.4608987,
+      "lon": -83.1353604,
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "22801",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "Woodward Avenue",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "description": "Serves delicious lattes, matcha, and espresso. drinks",
+        "name": "Honey Dirt Coffee Company",
+        "opening_hours": "Mo-Th off; Fr 12:00-19:00; Sa 11:00-19:00; Su 11:00-18:00",
+        "phone": "+1-313-489-2044",
+        "short_name": "Honey Dirt Coffee",
+        "website": "https://www.honeydirtcoffee.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13393186801,
+      "lat": 42.3289332,
+      "lon": -83.0546262,
+      "tags": {
+        "addr:housenumber": "600",
+        "addr:street": "West Lafayette Boulevard",
+        "amenity": "cafe",
+        "cuisine": "bagel;breakfast;coffee_shop;diner;pancake;sandwich;sausage",
+        "name": "AM Buzz Detroit",
+        "opening_hours": "Mo-Su 06:00-14:00",
+        "website": "https://ambuzzdetroit.com/",
+        "website:menu": "https://ambuzzdetroit.com/wp-content/uploads/2025/07/AM-Buzz-Menu-NEW-7-1-25-scaled.png"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13573758590,
+      "lat": 42.3552934,
+      "lon": -83.0660544,
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "4830",
+        "addr:postcode": "48201",
+        "addr:state": "MI",
+        "addr:street": "Cass Avenue",
+        "addr:unit": "A",
+        "amenity": "cafe",
+        "check_date": "2026-02-17",
+        "cuisine": "coffee_shop",
+        "currency:XBT": "yes",
+        "name": "-320\u00b0 Coffee & Creamery",
+        "opening_hours": "Mo-Fr 07:00-18:00; Sa-Su 08:00-16:00",
+        "payment:lightning": "yes",
+        "payment:lightning:operator": "square",
+        "payment:lightning_contactless": "no",
+        "payment:onchain": "no",
+        "phone": "+1-313-960-2084",
+        "website": "https://www.320cnc.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13577634312,
+      "lat": 42.4030739,
+      "lon": -82.9384985,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Morningside Cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13618291272,
+      "lat": 42.2693069,
+      "lon": -83.2461979,
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13626891442,
+      "lat": 42.3053979,
+      "lon": -83.2457091,
+      "tags": {
+        "amenity": "cafe",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Jabal Coffee House"
+      }
+    },
+    {
+      "type": "way",
+      "id": 71849943,
+      "center": {
+        "lat": 42.3317771,
+        "lon": -83.0629539
+      },
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "1236",
+        "addr:postcode": "48216",
+        "addr:state": "MI",
+        "addr:street": "Michigan Avenue",
+        "amenity": "cafe",
+        "building": "yes",
+        "cuisine": "american;bagel;breakfast;cake;coffee_shop;donut",
+        "name": "James Oliver Corktown",
+        "old_name": "The Detroit Institute of Bagels",
+        "opening_hours": "Mo-Su 07:00-15:00",
+        "phone": "+1-313-765-9505",
+        "source": "Yahoo",
+        "website": "https://www.jamesolivercoffee.com/cafe"
+      }
+    },
+    {
+      "type": "way",
+      "id": 146681945,
+      "center": {
+        "lat": 42.2026402,
+        "lon": -83.1498022
+      },
+      "tags": {
+        "addr:city": "Wyandotte",
+        "addr:housenumber": "3042",
+        "addr:postcode": "48192",
+        "addr:state": "MI",
+        "addr:street": "Biddle Avenue",
+        "amenity": "cafe",
+        "building": "yes",
+        "building:levels": "2",
+        "building:year_built": "1903",
+        "name": "James Oliver",
+        "outdoor_seating": "no",
+        "start_date": "2025"
+      }
+    },
+    {
+      "type": "way",
+      "id": 148017624,
+      "center": {
+        "lat": 42.2165246,
+        "lon": -83.1815665
+      },
+      "tags": {
+        "addr:city": "Southgate",
+        "addr:housenumber": "12554",
+        "addr:postcode": "48195",
+        "addr:state": "MI",
+        "addr:street": "Fort Street",
+        "amenity": "cafe",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "City Coffeehouse",
+        "opening_hours": "Su 09:00-21:00; Mo-Fr 07:00-21:00; Sa 08:00-21:00",
+        "outdoor_seating": "no",
+        "phone": "+1 734-225-6127",
+        "start_date": "2026-01"
+      }
+    },
+    {
+      "type": "way",
+      "id": 201798925,
+      "center": {
+        "lat": 42.3354104,
+        "lon": -83.0419647
+      },
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "541",
+        "addr:postcode": "48224",
+        "addr:state": "MI",
+        "addr:street": "Monroe Street",
+        "amenity": "cafe",
+        "building": "yes",
+        "fax": "+1-313-963-2530",
+        "name": "Astoria Pastry Shop",
+        "opening_hours": "Su-Th 08:00-22:00; Fr,Sa 08:00-23:00",
+        "phone": "+1-313-963-9603",
+        "shop": "confectionery",
+        "website": "https://www.astoriapastryshop.com/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 220233360,
+      "center": {
+        "lat": 42.2061281,
+        "lon": -83.1490118
+      },
+      "tags": {
+        "addr:city": "Wyandotte",
+        "addr:housenumber": "2702",
+        "addr:postcode": "48192",
+        "addr:state": "MI",
+        "addr:street": "Biddle Avenue",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "building:year_built": "2010",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "no",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-19:00; Fr-Su 06:00-19:00",
+        "outdoor_seating": "yes",
+        "phone": "+1 734-720-0729",
+        "takeaway": "yes",
+        "website": "https://www.timhortons.com/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 220284869,
+      "center": {
+        "lat": 42.2032283,
+        "lon": -83.1810497
+      },
+      "tags": {
+        "addr:city": "Southgate",
+        "addr:housenumber": "14440",
+        "addr:postcode": "48195",
+        "addr:state": "MI",
+        "addr:street": "Fort Street",
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "brand:wikidata": "Q4906876",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Biggby Coffee",
+        "outdoor_seating": "no",
+        "source": "Bing",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 277724098,
+      "center": {
+        "lat": 42.3124108,
+        "lon": -83.0062854
+      },
+      "tags": {
+        "air_conditioning": "yes",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "diet:vegetarian": "yes",
+        "indoor_seating": "yes",
+        "name": "Tim Hortons",
+        "outdoor_seating": "no",
+        "takeaway": "yes",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 291964693,
+      "center": {
+        "lat": 42.266687,
+        "lon": -83.0275907
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 293484520,
+      "center": {
+        "lat": 42.2978121,
+        "lon": -83.0198044
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "opening_hours": "Mo-Fr 06:00-21:00; Sa 07:00-21:00; Su 07:30-21:00",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 309654236,
+      "center": {
+        "lat": 42.3338361,
+        "lon": -83.0498748
+      },
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "200",
+        "addr:postcode": "48226",
+        "addr:state": "MI",
+        "addr:street": "Grand River Avenue",
+        "amenity": "cafe",
+        "amenity_1": "bar",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Spkr Box",
+        "website": "https://spkrbox.bar/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 314668221,
+      "center": {
+        "lat": 42.3262067,
+        "lon": -83.292445
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "commercial",
+        "cuisine": "sandwich",
+        "name": "Ananas Cafe"
+      }
+    },
+    {
+      "type": "way",
+      "id": 316896178,
+      "center": {
+        "lat": 42.4055668,
+        "lon": -83.2310339
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Elias Donuts"
+      }
+    },
+    {
+      "type": "way",
+      "id": 323369506,
+      "center": {
+        "lat": 42.341729,
+        "lon": -83.2740478
+      },
+      "tags": {
+        "addr:city": "Dearborn Heights",
+        "addr:housenumber": "7205",
+        "addr:postcode": "48127-1430",
+        "addr:state": "MI",
+        "addr:street": "North Telegraph Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-21:00; Fr-Su 06:00-21:00",
+        "phone": "+1 313-730-9810",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 351587020,
+      "center": {
+        "lat": 42.3214545,
+        "lon": -83.0923858
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "retail",
+        "cuisine": "ice_cream",
+        "name": "Mangonadas Del Barrio #2"
+      }
+    },
+    {
+      "type": "way",
+      "id": 353560248,
+      "center": {
+        "lat": 42.320564,
+        "lon": -83.095663
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "retail",
+        "cuisine": "ice_cream",
+        "name": "Never\u00eda La Michoacana"
+      }
+    },
+    {
+      "type": "way",
+      "id": 353665911,
+      "center": {
+        "lat": 42.3198295,
+        "lon": -83.0859955
+      },
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "3620",
+        "addr:postcode": "48216",
+        "addr:state": "MI",
+        "addr:street": "Porter Street",
+        "amenity": "cafe",
+        "building": "house",
+        "internet_access": "wlan",
+        "name": "The Grand Porter",
+        "opening_hours": "Mo-Su 08:00-15:00",
+        "website": "https://www.thegrandporter.com/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 360954903,
+      "center": {
+        "lat": 42.3999642,
+        "lon": -83.2954004
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "Donutown"
+      }
+    },
+    {
+      "type": "way",
+      "id": 375186844,
+      "center": {
+        "lat": 42.3190535,
+        "lon": -83.0992621
+      },
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "4746",
+        "addr:postcode": "48209",
+        "addr:state": "MI",
+        "addr:street": "West Vernor Highway",
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "El Artesano, LLC"
+      }
+    },
+    {
+      "type": "way",
+      "id": 390416578,
+      "center": {
+        "lat": 42.4909046,
+        "lon": -83.0071678
+      },
+      "tags": {
+        "addr:city": "Warren",
+        "addr:housenumber": "26807",
+        "addr:postcode": "48089-1155",
+        "addr:state": "MI",
+        "addr:street": "Hoover Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-21:00; Fr-Su 06:00-21:00",
+        "phone": "+1 586-757-2251",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 396273051,
+      "center": {
+        "lat": 42.3476343,
+        "lon": -83.0017483
+      },
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "7201",
+        "addr:postcode": "48214",
+        "addr:state": "MI",
+        "addr:street": "East Jefferson Avenue",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "fixme:atp": "no ATP match, check if still exists",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 440927914,
+      "center": {
+        "lat": 42.2873121,
+        "lon": -82.971036
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 442637257,
+      "center": {
+        "lat": 42.3018927,
+        "lon": -83.2644132
+      },
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "23440",
+        "addr:postcode": "48126",
+        "addr:state": "MI",
+        "addr:street": "Michigan Avenue",
+        "amenity": "cafe",
+        "building": "yes",
+        "building:levels": "1",
+        "cuisine": "coffee_shop",
+        "name": "Monday Coffee Club",
+        "outdoor_seating": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 452779809,
+      "center": {
+        "lat": 42.4564728,
+        "lon": -83.1311656
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "fixme:atp": "no ATP match, check if still exists",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 452779810,
+      "center": {
+        "lat": 42.455862,
+        "lon": -83.1307619
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "Caribou Coffee"
+      }
+    },
+    {
+      "type": "way",
+      "id": 453547227,
+      "center": {
+        "lat": 42.372244,
+        "lon": -83.0658109
+      },
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "6545",
+        "addr:street": "Saint Antoine Street",
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "Replay Caf\u00e9"
+      }
+    },
+    {
+      "type": "way",
+      "id": 488508889,
+      "center": {
+        "lat": 42.2501777,
+        "lon": -83.0612628
+      },
+      "tags": {
+        "addr:housenumber": "5775",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "retail",
+        "building:levels": "1",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Tim Hortons",
+        "opening_hours": "24/7",
+        "roof:levels": "0",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 490234731,
+      "center": {
+        "lat": 42.3115251,
+        "lon": -82.8964761
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 490702327,
+      "center": {
+        "lat": 42.2377644,
+        "lon": -82.9631492
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "retail",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 495014869,
+      "center": {
+        "lat": 42.2903791,
+        "lon": -83.0580958
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 506480488,
+      "center": {
+        "lat": 42.3159001,
+        "lon": -83.0450275
+      },
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "525",
+        "addr:postcode": "N9A5R4",
+        "addr:province": "ON",
+        "addr:street": "University Avenue West",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-Su 05:00-23:00",
+        "outdoor_seating": "no",
+        "phone": "+1-519-253-0012",
+        "takeaway": "yes",
+        "website": "https://timhortons.ca/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 506482209,
+      "center": {
+        "lat": 42.3100977,
+        "lon": -83.0472074
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 510577295,
+      "center": {
+        "lat": 42.230107,
+        "lon": -83.1027123
+      },
+      "tags": {
+        "addr:city": "Lasalle",
+        "addr:housenumber": "1891",
+        "addr:postcode": "N9J 2B8",
+        "addr:street": "Front Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "check_date": "2025-09-01",
+        "cuisine": "coffee_shop",
+        "internet_access": "yes",
+        "name": "Tim Hortons",
+        "opening_hours": "24/7",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 561350362,
+      "center": {
+        "lat": 42.2853415,
+        "lon": -83.0175403
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 598033215,
+      "center": {
+        "lat": 42.4739102,
+        "lon": -83.2836219
+      },
+      "tags": {
+        "addr:city": "Southfield",
+        "addr:housenumber": "25311",
+        "addr:postcode": "48033-5264",
+        "addr:state": "MI",
+        "addr:street": "Telegraph Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 08:00-19:00; Fr 08:00-19:00; Sa 08:00-18:00; Su 08:00-17:00",
+        "phone": "+1 248-350-1896",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 610865728,
+      "center": {
+        "lat": 42.4354864,
+        "lon": -82.9684342
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "Flic of the Wrist Eatery",
+        "note": "spelling is intentional",
+        "source": "mapillary"
+      }
+    },
+    {
+      "type": "way",
+      "id": 622701595,
+      "center": {
+        "lat": 42.2982262,
+        "lon": -83.0177091
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "building:levels": "1",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 636939760,
+      "center": {
+        "lat": 42.3240811,
+        "lon": -83.0087862
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 641986611,
+      "center": {
+        "lat": 42.2557848,
+        "lon": -82.9636079
+      },
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "4450",
+        "addr:province": "ON",
+        "addr:street": "Walker Road",
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "brand:wikipedia": "en:Starbucks",
+        "building": "yes",
+        "check_date": "2023-05-06",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 668015265,
+      "center": {
+        "lat": 42.4608299,
+        "lon": -83.1367365
+      },
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "220",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "West 9 Mile Road",
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "The Red Hook"
+      }
+    },
+    {
+      "type": "way",
+      "id": 671858137,
+      "center": {
+        "lat": 42.2511961,
+        "lon": -83.1788581
+      },
+      "tags": {
+        "addr:city": "Lincoln Park",
+        "addr:housenumber": "1360",
+        "addr:postcode": "48146",
+        "addr:state": "MI",
+        "addr:street": "Southfield Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 00:00-24:00; Fr-Su 00:00-24:00",
+        "outdoor_seating": "no",
+        "phone": "+1 313-383-7824",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 672180311,
+      "center": {
+        "lat": 42.3170134,
+        "lon": -83.0368232
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 678136903,
+      "center": {
+        "lat": 42.2526714,
+        "lon": -83.2165945
+      },
+      "tags": {
+        "addr:city": "Allen Park",
+        "addr:housenumber": "7706",
+        "addr:postcode": "48101",
+        "addr:state": "MI",
+        "addr:street": "Allen Road",
+        "amenity": "cafe",
+        "building": "yes",
+        "check_date:opening_hours": "2024-09-04",
+        "internet_access": "wlan",
+        "name": "Qamaria Yemeni Coffee Co.",
+        "opening_hours": "Mo-Th 07:00-22:00; Fr 07:00-23:00; Sa 08:00-23:00; Su 08:00-22:00",
+        "outdoor_seating": "no",
+        "website": "https://www.qamariacoffee.com/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 681265739,
+      "center": {
+        "lat": 42.2562823,
+        "lon": -83.2556228
+      },
+      "tags": {
+        "addr:city": "Taylor",
+        "addr:housenumber": "22400",
+        "addr:postcode": "48180",
+        "addr:state": "MI",
+        "addr:street": "Ecorse Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-18:00; Fr 06:00-18:00; Sa-Su 07:00-18:00",
+        "outdoor_seating": "no",
+        "phone": "+1 313-292-5815",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 683578045,
+      "center": {
+        "lat": 42.3074842,
+        "lon": -83.2368939
+      },
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "21203",
+        "addr:postcode": "48124-2339",
+        "addr:state": "MI",
+        "addr:street": "Michigan Avenue",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-21:00; Fr-Su 06:00-21:00",
+        "phone": "+1 313-752-2345",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 684442789,
+      "center": {
+        "lat": 42.468349,
+        "lon": -83.1287434
+      },
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "770",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "Woodward Heights",
+        "amenity": "cafe",
+        "building": "yes",
+        "check_date:opening_hours": "2025-09-14",
+        "cuisine": "coffee_shop",
+        "diet:gluten_free": "yes",
+        "diet:halal": "yes",
+        "diet:kosher": "yes",
+        "diet:vegan": "yes",
+        "diet:vegetarian": "yes",
+        "internet_access": "wlan",
+        "name": "Drifter Coffee",
+        "opening_hours": "Su 08:00-16:00; Tu-Fr 07:00-17:00; Sa 08:00-17:00",
+        "outdoor_seating": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 687664053,
+      "center": {
+        "lat": 42.3264786,
+        "lon": -83.2813082
+      },
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "24921",
+        "addr:postcode": "48128",
+        "addr:state": "MI",
+        "addr:street": "Ford Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-22:00; Fr-Su 06:00-22:00",
+        "phone": "+1 313-724-6040",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 691993894,
+      "center": {
+        "lat": 42.2537847,
+        "lon": -83.1910439
+      },
+      "tags": {
+        "addr:city": "Lincoln Park",
+        "addr:housenumber": "1845",
+        "addr:postcode": "48146",
+        "addr:state": "MI",
+        "addr:street": "Southfield Road",
+        "amenity": "cafe",
+        "branch": "Southfield Road & Dix Highway",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "phone": "+1 313-388-6408",
+        "ref": "10455",
+        "takeaway": "yes",
+        "website": "https://www.starbucks.com/store-locator/store/10455/southfield-rd-dix-hwy-1845-southfield-road-lincoln-park-mi-481462247-us"
+      }
+    },
+    {
+      "type": "way",
+      "id": 694627390,
+      "center": {
+        "lat": 42.4626382,
+        "lon": -83.0270145
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "Coney Island"
+      }
+    },
+    {
+      "type": "way",
+      "id": 696130301,
+      "center": {
+        "lat": 42.3207473,
+        "lon": -83.1798319
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "Pine Coast Caf\u00e9"
+      }
+    },
+    {
+      "type": "way",
+      "id": 696466578,
+      "center": {
+        "lat": 42.4608533,
+        "lon": -83.1049325
+      },
+      "tags": {
+        "addr:city": "Hazel Park",
+        "addr:housenumber": "41-75",
+        "addr:postcode": "48030-1701",
+        "addr:state": "MI",
+        "addr:street": "West 9 Mile Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "check_date": "2023-10-28",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 07:00-20:00; Fr-Su 07:00-20:00",
+        "phone": "+1 248-543-5896",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 700370425,
+      "center": {
+        "lat": 42.2255593,
+        "lon": -83.2301677
+      },
+      "tags": {
+        "addr:city": "Taylor",
+        "addr:housenumber": "11130",
+        "addr:postcode": "48180-4344",
+        "addr:state": "MI",
+        "addr:street": "Allen Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-20:00; Fr-Su 06:00-20:00",
+        "phone": "+1 734-287-2234",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 712136582,
+      "center": {
+        "lat": 42.2635767,
+        "lon": -82.9688159
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 712151359,
+      "center": {
+        "lat": 42.3109867,
+        "lon": -82.9455632
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 712151365,
+      "center": {
+        "lat": 42.3119626,
+        "lon": -82.9462535
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "internet_access": "yes",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "outdoor_seating": "yes",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 712333544,
+      "center": {
+        "lat": 42.3143909,
+        "lon": -82.918008
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 723919412,
+      "center": {
+        "lat": 42.2804682,
+        "lon": -83.270196
+      },
+      "tags": {
+        "addr:city": "Dearborn Heights",
+        "addr:housenumber": "4035",
+        "addr:postcode": "48125",
+        "addr:state": "MI",
+        "addr:street": "Telegraph Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-20:00; Fr-Su 06:00-20:00",
+        "phone": "+1 313-562-6900",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 750972351,
+      "center": {
+        "lat": 42.3125972,
+        "lon": -82.8706794
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 751170781,
+      "center": {
+        "lat": 42.3042629,
+        "lon": -82.9862466
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 751177334,
+      "center": {
+        "lat": 42.2810368,
+        "lon": -83.0545977
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 751183124,
+      "center": {
+        "lat": 42.2801853,
+        "lon": -83.0080014
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 751185240,
+      "center": {
+        "lat": 42.2498773,
+        "lon": -83.0602234
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "brand:wikipedia": "en:Starbucks",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 751189413,
+      "center": {
+        "lat": 42.2606387,
+        "lon": -83.0846566
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 751200271,
+      "center": {
+        "lat": 42.3332444,
+        "lon": -82.9417928
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "Higher Culture Cafe"
+      }
+    },
+    {
+      "type": "way",
+      "id": 751200277,
+      "center": {
+        "lat": 42.3335593,
+        "lon": -82.9446566
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 751756139,
+      "center": {
+        "lat": 42.2956267,
+        "lon": -83.0280221
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "building:levels": "1",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 754622597,
+      "center": {
+        "lat": 42.2132393,
+        "lon": -83.1934332
+      },
+      "tags": {
+        "addr:city": "Southgate",
+        "addr:housenumber": "13843",
+        "addr:postcode": "48195",
+        "addr:state": "MI",
+        "addr:street": "Northline Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "building:year_built": "2000",
+        "cuisine": "coffee_shop",
+        "delivery": "yes",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-22:00; Fr-Su 06:00-22:00",
+        "outdoor_seating": "no",
+        "phone": "+1 734-324-4734",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 782843556,
+      "center": {
+        "lat": 42.3205339,
+        "lon": -82.9363558
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "brand:wikipedia": "en:Tim Hortons",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 787827749,
+      "center": {
+        "lat": 42.3145789,
+        "lon": -83.0379996
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "commercial",
+        "building:levels": "1"
+      }
+    },
+    {
+      "type": "way",
+      "id": 787827769,
+      "center": {
+        "lat": 42.3176418,
+        "lon": -83.0394678
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "commercial",
+        "name": "Turbo Espresso Bar",
+        "website": "https://idrinkturbo.com/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 826275865,
+      "center": {
+        "lat": 42.3535074,
+        "lon": -83.0648632
+      },
+      "tags": {
+        "addr:city": "Detroit",
+        "addr:housenumber": "4620",
+        "addr:postcode": "48201",
+        "addr:state": "MI",
+        "addr:street": "Cass Avenue",
+        "amenity": "cafe",
+        "building": "retail",
+        "check_date": "2024-07-18",
+        "name": "Cass Cafe",
+        "phone": "+1-313-831-1400",
+        "source": "Bing",
+        "website": "https://www.casscafe.com/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 941656318,
+      "center": {
+        "lat": 42.4901682,
+        "lon": -83.1182414
+      },
+      "tags": {
+        "addr:city": "Royal Oak",
+        "addr:housenumber": "2214",
+        "addr:postcode": "48067",
+        "addr:state": "MI",
+        "addr:street": "East 11 Mile Road",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "retail",
+        "cuisine": "coffee_shop",
+        "delivery": "no",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "internet_access": "wlan",
+        "name": "Tim Hortons",
+        "opening_hours": "Mo-We 06:00-19:00; Fr-Su 06:00-19:00",
+        "phone": "+1 248-548-3391",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 977443079,
+      "center": {
+        "lat": 42.4613036,
+        "lon": -83.1137246
+      },
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "1737",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "East 9 Mile Road",
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "Chazzano Coffee Roasters"
+      }
+    },
+    {
+      "type": "way",
+      "id": 995265455,
+      "center": {
+        "lat": 42.2636708,
+        "lon": -83.2026826
+      },
+      "tags": {
+        "addr:housenumber": "5410",
+        "addr:street": "Allen Road",
+        "amenity": "cafe",
+        "building": "retail",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "internet_access": "yes",
+        "internet_access:fee": "no",
+        "name": "Qazzaz Coffee",
+        "outdoor_seating": "yes",
+        "start_date": "1965"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1194074743,
+      "center": {
+        "lat": 42.3151401,
+        "lon": -83.0383389
+      },
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "480",
+        "addr:postcode": "N9A 4K9",
+        "addr:province": "Ontario",
+        "addr:street": "Pelissier Street",
+        "amenity": "cafe",
+        "building": "yes",
+        "building:levels": "1",
+        "check_date": "2023-05-15",
+        "contact:instagram": "cafemarch21",
+        "cuisine": "korean",
+        "email": "cafemarch21@gmail.com",
+        "name": "Caf\u00e9 March 21",
+        "opening_hours": "Mo-Sa 10:00-16:00",
+        "outdoor_seating": "no",
+        "phone": "+15199193265",
+        "website": "https://www.cafemarch21.com/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1205030192,
+      "center": {
+        "lat": 42.2975294,
+        "lon": -83.2823241
+      },
+      "tags": {
+        "addr:city": "Dearborn",
+        "addr:housenumber": "25093",
+        "addr:postcode": "48124",
+        "addr:state": "MI",
+        "addr:street": "Michigan Avenue",
+        "amenity": "cafe",
+        "building": "retail",
+        "cuisine": "coffee_shop",
+        "drive_through": "yes",
+        "indoor_seating": "yes",
+        "name": "Bakri Coffee",
+        "outdoor_seating": "no",
+        "source": "microsoft/BuildingFootprints",
+        "toilets:access": "customers",
+        "website": "https://bakricoffee.com/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1258875005,
+      "center": {
+        "lat": 42.2953672,
+        "lon": -82.9417927
+      },
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "3136",
+        "addr:postcode": "N8T3E8",
+        "addr:province": "Ontario",
+        "addr:street": "Jefferson Boulevard",
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "commercial",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1295748605,
+      "center": {
+        "lat": 42.3216239,
+        "lon": -82.9998886
+      },
+      "tags": {
+        "addr:city": "Windsor",
+        "addr:housenumber": "1012",
+        "addr:postcode": "N8Y 2P8",
+        "addr:province": "ON",
+        "addr:street": "Drouillard Road",
+        "amenity": "cafe",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Chance Coffee"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1417017723,
+      "center": {
+        "lat": 42.2976472,
+        "lon": -82.9279144
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1417371173,
+      "center": {
+        "lat": 42.2963094,
+        "lon": -82.9425077
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Tim Hortons",
+        "brand:wikidata": "Q175106",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Tim Hortons",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1447413181,
+      "center": {
+        "lat": 42.2263499,
+        "lon": -83.2871613
+      },
+      "tags": {
+        "addr:housenumber": "25700",
+        "addr:street": "Goddard Road",
+        "amenity": "cafe",
+        "brand": "Biggby Coffee",
+        "building": "retail",
+        "cuisine": "coffee_shop",
+        "name": "Biggby Coffee",
+        "opening_hours": "Mo-Fr 06:00-20:00; Sa 06:00-20:00; Su 07:00-20:00",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1454503949,
+      "center": {
+        "lat": 42.2905451,
+        "lon": -83.0593157
+      },
+      "tags": {
+        "amenity": "cafe",
+        "brand": "Starbucks",
+        "brand:wikidata": "Q37158",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Starbucks",
+        "official_name": "Starbucks Coffee",
+        "takeaway": "yes"
+      }
+    }
+  ]
+}

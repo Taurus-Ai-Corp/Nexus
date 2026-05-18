@@ -589,3 +589,59 @@ html.lenis { height: auto; }
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Phase 1 Contextual Themes ─────────────────────────────────── */
+
+.theme-lifestyle {
+  background-color: #FDFBF7;
+  color: #054690;
+}
+.theme-lifestyle .text-accent {
+  color: #968217;
+}
+
+.theme-medical {
+  background-color: #FFFFFF;
+  color: #00103F;
+}
+.theme-medical .text-accent {
+  color: #00103F;
+}
+
+.theme-security {
+  background-color: #00103F;
+  color: #FFFFFF;
+}
+.theme-security .text-accent {
+  color: #FDC420;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+.theme-lifestyle .text-accent {
+  color: #968217;
+}
+
+.theme-medical {
+  background-color: #FFFFFF;
+  color: #00103F;
+}
+.theme-medical .text-accent {
+  color: #00103F;
+}
+
+.theme-security {
+  background-color: #00103F;
+  color: #FDC420;
+}
+.theme-security .text-accent {
+  color: #FDC420;
+}

@@ -44,18 +44,18 @@ export function FacilitiesSection() {
   const active = FACILITIES_CATEGORIES[activeCategory];
 
   return (
-    <section ref={sectionRef} className="py-24 bg-bg-surface" aria-labelledby="facilities-heading">
+    <section ref={sectionRef} className="theme-security py-24" aria-labelledby="facilities-heading">
       <Container>
         {/* Section header */}
         <div className="mb-14 text-center">
           <span className="inline-block rounded-full border border-border-accent bg-accent-default/10 px-4 py-1.5 text-sm font-medium text-accent-default uppercase tracking-widest mb-4">
-            World-Class Facilities
+            Infrastructure & Sustainability
           </span>
           <h2 id="facilities-heading" className="font-heading text-4xl font-bold tracking-tight text-text-primary md:text-5xl">
-            48 Amenities. One Estate.
+            Built to Last. Designed to Endure.
           </h2>
           <p className="mt-4 mx-auto max-w-2xl text-text-secondary text-lg">
-            Every need anticipated. Every comfort crafted. Mater Maria Homes is built so your loved ones never have to compromise.
+            Solar gardens, EV buggies, and structural stewardship — infrastructure that works silently so residents live effortlessly.
           </p>
         </div>
 

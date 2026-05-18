@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # Payment Processing - Zero fee alternative to Stripe
+  hyperswitch:
+    image: jeasonstudio/hyperswitch:latest
+    container_name: taurus-hyperswitch
+    ports:
+      - "8080:8080"
+    volumes:
+      - hyperswitch-data:/app/data
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=hyperswitch
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres_password
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your_jwt_secret_here_change_in_production
+    depends_on:
+      - db
+      - redis
+
+  # Billing & Metering - Open source alternative to Chargebee/Lago
+  lago:
+    image: getlago/lago:latest
+    container_name: taurus-lago
+    ports:
+      - "3000:3000"
+    environment:
+      - LAGO_URL=http://localhost:3000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=lago
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres_password
+      - REDIS_URL=redis://redis:6379
+      - ENCRYPTION_KEY=your_encryption_key_here_change_in_production
+    depends_on:
+      - db
+      - redis
+
+  # Database - PostgreSQL for all services
+  db:
+    image: postgres:15-alpine
+    container_name: taurus-postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=taurus_agency
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres_password
+    ports:
+      - "5432:5432"
+
+  # Redis - Caching layer
+  redis:
+    image: redis:7-alpine
+    container_name: taurus-redis
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+
+  # Supabase replacement - Self hosted alternative
+  # Note: For production, consider using actual Supabase self-hosted
+  # This is a placeholder for the concept
+  studio:
+    image: n8nio/n8n:latest
+    container_name: taurus-studio
+    ports:
+      - "5678:5678"
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=db
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=taurus_agency
+      - DB_POSTGRESDB_USER=postgres
+      - DB_POSTGRESDB_PASSWORD=postgres_password
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=password
+    depends_on:
+      - db
+
+volumes:
+  postgres-data:
+  redis-data:
+  hyperswitch-data:

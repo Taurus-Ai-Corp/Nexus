@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mater Maria Homes – Investor Page Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/framer-motion@11/dist/framer-motion.js"></script>
+  <style>
+    /* Tailwind’s @layer utilities need a base layer – Tailwind CDN already adds it */
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // --------------------------
+    //  CSV‑derived constant (normally you’d load this from a file)
+    // --------------------------
+    const investorTiers = [
+      {
+        tier: 'Bronze',
+        price: '₹5,00,000',
+        yield: '8% p.a.',
+        benefits: [
+          'Legal title verification',
+          'Quarterly payout',
+          'Exit after 3 years',
+        ],
+      },
+      {
+        tier: 'Silver',
+        price: '₹10,00,000',
+        yield: '9% p.a.',
+        benefits: [
+          'Legal title verification',
+          'Quarterly payout',
+          'Exit after 3 years',
+          'Priority access to new projects',
+        ],
+      },
+      {
+        tier: 'Gold',
+        price: '₹20,00,000',
+        yield: '10% p.a.',
+        benefits: [
+          'Legal title verification',
+          'Quarterly payout',
+          'Exit after 3 years',
+          'Priority access to new projects',
+          'Dedicated relationship manager',
+        ],
+      },
+    ];
+
+    // --------------------------
+    //  Simple Shadcn/UI‑like components (styled with Tailwind)
+    // --------------------------
+    const Button = ({ children, variant = 'default', className = '', onClick, disabled, type = 'button' }) => {
+      const base = 'rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
+      const variants = {
+        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        outline: 'border border-input hover:bg-accent hover:text-accent-foreground',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+      };
+      return (
+        <button
+          className={`${base} ${variants[variant] || ''} ${className}`}
+          onClick={onClick}
+          disabled={disabled}
+          type={type}
+        >
+          {children}
+        </button>
+      );
+    };
+
+    const Input = ({ id, name, value, onChange, placeholder, type = 'text', required, className = '' }) => {
+      return (
+        <input
+          id={id}
+          name={name}
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          required={required}
+          className={`flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+        />
+      );
+    };
+
+    const Label = ({ htmlFor, children, className = '' }) => (
+      <label htmlFor={htmlFor} className={`mb-2 text-sm font-medium text-muted-foreground ${className}`}>
+        {children}
+      </label>
+    );
+
+    const Select = ({ id, name, value, onChange, className = '', children }) => {
+      return (
+        <select
+          id={id}
+          name={name}
+          value={value}
+          onChange={onChange}
+          className={`flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+        >
+          {children}
+        </select>
+      );
+    };
+
+    const Card = ({ children, className = '' }) => (
+      <div className={`rounded-lg border border-input bg-background p-6 ${className}`}>{children}</div>
+    );
+    const CardHeader = ({ children, className = '' }) => <div className={className}>{children}</div>;
+    const CardTitle = ({ children, className = '' }) => <h3 className={`mb-2 text-lg font-semibold ${className}`}>{children}</h3>;
+    const CardDescription = ({ children, className = '' }) => <p className={`text-sm text-muted-foreground ${className}`}>{children}</p>;
+    const CardContent = ({ children, className = '' }) => <div className={className}>{children}</div>;
+    const CardFooter = ({ children, className = '' }) => <div className={`mt-4 flex items-center justify-end ${className}`}>{children}</div>;
+
+    // --------------------------
+    //  Investor Page Component
+    // --------------------------
+    function InvestorPage() {
+      const [formState, setFormState] = React.useState({
+        name: '',
+        email: '',
+        whatsapp: '',
+        interest: '',
+      });
+      const [status, setStatus] = React.useState('idle'); // idle | submitting | success | error
+
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormState((prev) => ({ ...prev, [name]: value }));
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus('submitting');
+        try {
+          // In a real app this would POST to /api/contact → n8n webhook
+          const res = await fetch('https://httpbin.org/status/200', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formState),
+          });
+          if (!res.ok) throw new Error('Network error');
+          setStatus('success');
+        } catch (err) {
+          setStatus('error');
+        }
+      };
+
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="min-h-screen bg-[#00103F] text-[#FDC420] transition-colors duration-800 ease-in-out"
+        >
+          {/* Hero / CTA */}
+          <section className="py-16 px-4 max-w-4xl mx-auto">
+            <h1 className="text-4xl font-bold text-center mb-8">
+              Secure a High-Yield Asset in Kerala. Secure a World-Class Future for Your Family.
+            </h1>
+
+            {/* Tier cards */}
+            <div className="grid gap-6 md:grid-cols-2">
+              {investorTiers.map((tier) => (
+                <motion.key
+                  key={tier.tier}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                >
+                  <Card className="border-[#FDC420] bg-[#00103F]/80 backdrop-blur-sm">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="text-2xl font-semibold">{tier.tier}</CardTitle>
+                      <CardDescription className="text-sm opacity-80">
+                        {tier.price} • {tier.yield}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <ul className="list-disc list-inside space-y-1 text-sm">
+                        {tier.benefits.map((b, i) => (
+                          <li key={i}>{b}</li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                    <CardFooter className="pt-4">
+                      <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={() => alert('Contact us for details')}
+                      >
+                        Learn More
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </motion.key>
+              ))}
+            </div>
+
+            {/* Lead capture form */}
+            <section className="mt-16">
+              <h2 className="text-3xl font-bold text-center mb-6">
+                Get Started – Share Your Details
+              </h2>
+              <motion.form
+                onSubmit={handleSubmit}
+                className="max-w-md mx-auto space-y-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <div>
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formState.name}
+                    onChange={handleChange}
+                    placeholder="Enter your full name"
+                    required
+                    className="w-full bg-[#00103F]/40 border-[#FDC420] text-[#FDC420] placeholder-[#FDC420]/50"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                    placeholder="you@example.com"
+                    required
+                    className="w-full bg-[#00103F]/40 border-[#FDC420] text-[#FDC420] placeholder-[#FDC420]/50"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="whatsapp">WhatsApp Number (with country code)</Label>
+                  <Input
+                    id="whatsapp"
+                    name="whatsapp"
+                    type="tel"
+                    value={formState.whatsapp}
+                    onChange={handleChange}
+                    placeholder="+91 98765 43210"
+                    required
+                    className="w-full bg-[#00103F]/40 border-[#FDC420] text-[#FDC420] placeholder-[#FDC420]/50"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="interest">Primary Interest</Label>
+                  <Select
+                    id="interest"
+                    name="interest"
+                    value={formState.interest}
+                    onChange={handleChange}
+                    className="w-full bg-[#00103F]/40 border-[#FDC420] text-[#FDC420] placeholder-[#FDC420]/50"
+                  >
+                    <option value="">Select Interest</option>
+                    <option value="nri-investor">NRI Investor</option>
+                    <option value="parent-care">Parent / Elder Care</option>
+                    <option value="lifestyle-property">Lifestyle Property</option>
+                  </Select>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={status === 'submitting'}
+                  className="w-full"
+                >
+                  {status === 'submitting' ? 'Sending...' : 'Submit Enquiry'}
+                </Button>
+
+                {status === 'success' && (
+                  <p className="mt-2 text-center text-[#FDC420]">
+                    Thank you! Our team will reach out via WhatsApp shortly.
+                  </p>
+                )}
+                {status === 'error' && (
+                  <p className="mt-2 text-center text-[#FDC420]">
+                    Oops! Something went wrong. Please try again.
+                  </p>
+                )}
+              </motion.form>
+            </section>
+          </section>
+        </motion.div>
+      );
+    }
+
+    // Render the app
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<InvestorPage />);
+  </script>
+</body>
+</html>

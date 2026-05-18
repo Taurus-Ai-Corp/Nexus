@@ -10,16 +10,32 @@ import { BrandLogo } from "@/components/ui/brand-logo";
 /* ── Slides ──────────────────────────────────────────────── */
 const SLIDES = [
   {
-    bg: "/assets-2025/images/invest/hero-estate.webp",
-    next: "/assets-2025/images/invest/hero-sunset.webp",
+    bg: "/assets-2025/images/hero-slides/Home_Banner_01.jpg",
+    next: "/assets-2025/images/hero-slides/Home_Banner_02.png",
   },
   {
-    bg: "/assets-2025/images/invest/hero-sunset.webp",
-    next: "/assets-2025/images/invest/hero-garden.webp",
+    bg: "/assets-2025/images/hero-slides/Home_Banner_02.png",
+    next: "/assets-2025/images/hero-slides/Home_Banner_03.png",
   },
   {
-    bg: "/assets-2025/images/invest/hero-garden.webp",
-    next: "/assets-2025/images/invest/hero-estate.webp",
+    bg: "/assets-2025/images/hero-slides/Home_Banner_03.png",
+    next: "/assets-2025/images/hero-slides/Home_Banner_04.jpg",
+  },
+  {
+    bg: "/assets-2025/images/hero-slides/Home_Banner_04.jpg",
+    next: "/assets-2025/images/hero-slides/Home_Banner_05.jpg",
+  },
+  {
+    bg: "/assets-2025/images/hero-slides/Home_Banner_05.jpg",
+    next: "/assets-2025/images/hero-slides/Home_Banner_07.jpg",
+  },
+  {
+    bg: "/assets-2025/images/hero-slides/Home_Banner_07.jpg",
+    next: "/assets-2025/images/hero-slides/Home_Banner_08.jpg",
+  },
+  {
+    bg: "/assets-2025/images/hero-slides/Home_Banner_08.jpg",
+    next: "/assets-2025/images/hero-slides/Home_Banner_01.jpg",
   },
 ] as const;
 
@@ -48,7 +64,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative flex min-h-screen flex-col overflow-hidden"
+      className="theme-security relative flex min-h-screen flex-col overflow-hidden"
       aria-label="Hero"
     >
       {/* ── Background slides ──────────────────────────── */}

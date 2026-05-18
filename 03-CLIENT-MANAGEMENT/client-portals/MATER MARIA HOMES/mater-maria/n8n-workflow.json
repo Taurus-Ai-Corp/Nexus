@@ -1,0 +1,128 @@
+{
+  "name": "Mater Maria Lead Funnel",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "mater-maria-lead",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{$json.body.interest}}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "NRI Investor",
+              "output": 0
+            },
+            {
+              "value2": "Parent Care",
+              "output": 1
+            },
+            {
+              "value2": "Retirement Home",
+              "output": 2
+            }
+          ]
+        }
+      },
+      "name": "Switch on Interest",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "phoneNumberId": "your-phone-number-id",
+        "recipientPhoneNumber": "={{$json.body.whatsapp}}",
+        "text": "Namaskaram {{$json.body.name}}, thank you for your interest in the NRI Investor tier at Mater Maria Homes. Here is your brochure link: [Link]"
+      },
+      "name": "WhatsApp (Investor)",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        700,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "fromEmail": "admissions@matermaria.com",
+        "toEmail": "={{$json.body.email}}",
+        "subject": "Mater Maria Homes - Your Brochure",
+        "html": "Namaskaram {{$json.body.name}},<br/><br/>Welcome to Mater Maria Homes. We have received your interest in <b>{{$json.body.interest}}</b>.<br/><br/>Best regards,<br/>The Mater Maria Team"
+      },
+      "name": "Gmail (Drip Campaign 1)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        950,
+        150
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch on Interest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch on Interest": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp (Investor)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WhatsApp (Investor)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WhatsApp (Investor)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp (Investor)": {
+      "main": [
+        [
+          {
+            "node": "Gmail (Drip Campaign 1)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

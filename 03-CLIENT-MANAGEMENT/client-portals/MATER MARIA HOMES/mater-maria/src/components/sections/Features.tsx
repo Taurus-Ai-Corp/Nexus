@@ -22,10 +22,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 /** Feature images — mapped by feature icon key to match constants.ts order */
 const featureImages: Record<string, string> = {
-  HeartPulse: "/assets-2025/images/amenities/ayurveda-spa.webp",
-  Cpu: "/assets-2025/images/residences/villa-exterior.webp",
-  Users: "/assets-2025/images/amenities/mm-amphitheatre.webp",
-  Leaf: "/assets-2025/images/amenities/mm-poolside-community.webp",
+  HeartPulse: "/assets-2025/images/renders/MMT-Hospital-001.png",
+  Cpu: "/assets-2025/images/renders/Health-Monitoring.png",
+  Users: "/assets-2025/images/renders/Medical-care002.png",
+  Leaf: "/assets-2025/images/renders/Structural-Stewardship-005.png",
 };
 
 const slideIn = (direction: "left" | "right") => ({
@@ -39,11 +39,11 @@ const slideIn = (direction: "left" | "right") => ({
 
 export function Features() {
   return (
-    <section className="bg-bg-base py-24 lg:py-32">
+    <section className="theme-medical py-24 lg:py-32">
       <Container size="lg">
         <SectionHeading
-          badge="Why Mater Maria"
-          title="A Life of Purpose & Comfort"
+          badge="Divine Sanctuary"
+          title="World-Class Medical Support"
         />
 
         <div className="flex flex-col gap-24 lg:gap-32">

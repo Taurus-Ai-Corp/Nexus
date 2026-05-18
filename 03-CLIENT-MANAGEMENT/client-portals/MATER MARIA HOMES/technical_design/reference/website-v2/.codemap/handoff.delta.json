@@ -1,0 +1,255 @@
+{
+  "changed": [
+    {
+      "path": "\"09-ASSETS/marketing/Claude Files/BizFlow\\342\\204\\242 @ Vibe Marketing Empire - Complete Portfolio.pdf\"",
+      "status": "modified"
+    },
+    {
+      "path": ".gitignore",
+      "hash": "56537ebe03160a28fdb6e59ae18f408d6f8aba609df73c45917c9358fd3bad52",
+      "size": 8,
+      "status": "untracked"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/awesome-ai-apps",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/08-shared/web-land-Dash/dashboard/dashboard/index.html",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/08-shared/web-land-Dash/web-land-Dash/landing-page/index.html",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/General Web Doc/web/taurusai-io/index.html",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/.env.example",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/Dockerfile",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/README.md",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/package-lock.json",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/package.json",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/error.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/handlers/account.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/handlers/batch-operations.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/handlers/file-operations.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/handlers/file-requests.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/handlers/files.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/handlers/index.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/handlers/sharing.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/index.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/schemas/account.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/schemas/batch-operations.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/schemas/file-operations.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/schemas/file-requests.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/schemas/files.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/schemas/index.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/schemas/sharing.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/tools.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/utils/context.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/utils/error-handling.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/utils/error-msg.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/utils/fetch-polyfill.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/utils/index.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/src/utils/path-url-handling.ts",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/dropbox/tsconfig.json",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/.env.example",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/Dockerfile",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/README.md",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/requirements.txt",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/server.py",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/tools/__init__.py",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/tools/base.py",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/tools/combined_files_and_folder.py",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/tools/files.py",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/tools/folders.py",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/tools/onedrive_explore.py",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/external-mcps/klavis-organized/documentation/onedrive/tools/sharing.py",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/ceo_command_center.html",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/Motia",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/anthropic-cookbook",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/awesome-ai-apps",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/klavis",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/playwright-mcp",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/sim",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/stagewise",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/web/b2b_audit_landing.html",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/bizflow-backend/web/neural_commerce_platform.html",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/neovibe-studio/NeoVibe_DESIGN_LOUNGE/BIizflow_supernova_OCT_8/about.html",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/neovibe-studio/NeoVibe_DESIGN_LOUNGE/BIizflow_supernova_OCT_8/blog.html",
+      "status": "modified"
+    },
+    {
+      "path": "01-CORE-PLATFORM/neovibe-studio/NeoVibe_DESIGN_LOUNGE/BIizflow_supernova_OCT_8/case-studies.html",
+      "status": "modified"
+    }
+  ],
+  "risk_files": [],
+  "recent_events": [],
+  "next_steps": [
+    "Run tests covering changed files before handoff."
+  ],
+  "open_questions": [
+    "Live watch state was unavailable; timeline may be incomplete.",
+    "Dependency graph context was unavailable; risk files may be incomplete."
+  ]
+}

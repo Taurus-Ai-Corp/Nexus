@@ -14,6 +14,7 @@ import ollama
 import openai
 import anthropic
 from anthropic import AsyncAnthropic
+from groq import AsyncGroq
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +36,7 @@ class LocalAIRouter:
         self.ollama_client = None
         self.claude_client = None
         self.openai_client = None
+        self.groq_client = None
         
         # Routing configuration
         self.mode = os.getenv("MODE", "local")
@@ -80,6 +82,10 @@ class LocalAIRouter:
             if os.getenv("OPENAI_API_KEY"):
                 self.openai_client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
                 logger.info("☁️ OpenAI client initialized")
+            
+            if os.getenv("GROQ_API_KEY"):
+                self.groq_client = AsyncGroq(api_key=os.getenv("GROQ_API_KEY"))
+                logger.info("☁️ Groq client initialized")
             
             # Check Ollama status
             await self.check_ollama_status()
@@ -131,7 +137,7 @@ class LocalAIRouter:
         if model_preference != "auto":
             if model_preference in self.local_models:
                 return f"local:{model_preference}"
-            elif model_preference in ["claude", "gpt-4", "gpt-3.5"]:
+            elif model_preference in ["claude", "gpt-4", "gpt-3.5", "groq", "llama3-70b", "llama3-8b"]:
                 if self.within_cost_budget():
                     return f"cloud:{model_preference}"
                 else:
@@ -148,6 +154,7 @@ class LocalAIRouter:
             return f"local:{routing_rule['models'][0]}"
         
         elif routing_rule["prefer"] == "cloud" and self.within_cost_budget():
+            if self.groq_client: return "cloud:groq"
             return "cloud:claude"
         
         else:
@@ -276,6 +283,29 @@ class LocalAIRouter:
                 "usage": {
                     "total_tokens": response.usage.input_tokens + response.usage.output_tokens,
                     "cost": cost
+                }
+            }
+        
+        if model == "groq" and self.groq_client:
+            response = await self.groq_client.chat.completions.create(
+                model="llama3-70b-8192",
+                messages=messages,
+                max_tokens=max_tokens,
+                temperature=temperature
+            )
+            
+            return {
+                "choices": [{
+                    "message": {
+                        "role": "assistant",
+                        "content": response.choices[0].message.content
+                    },
+                    "finish_reason": response.choices[0].finish_reason
+                }],
+                "model": f"cloud:groq",
+                "usage": {
+                    "total_tokens": response.usage.total_tokens,
+                    "cost": 0.0 # Groq is free for now or very cheap
                 }
             }
         

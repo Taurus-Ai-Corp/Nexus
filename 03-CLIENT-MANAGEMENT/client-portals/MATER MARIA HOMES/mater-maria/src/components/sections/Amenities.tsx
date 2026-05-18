@@ -197,8 +197,7 @@ function AmenityCard({
 export function Amenities() {
   return (
     <section
-      className="relative overflow-hidden py-24 lg:py-32"
-      style={{ background: "linear-gradient(180deg, hsl(220,25%,6%) 0%, hsl(220,22%,8%) 100%)" }}
+      className="theme-lifestyle relative overflow-hidden py-24 lg:py-32"
     >
       {/* ── Ambient background blobs ──────────────────────── */}
       <div

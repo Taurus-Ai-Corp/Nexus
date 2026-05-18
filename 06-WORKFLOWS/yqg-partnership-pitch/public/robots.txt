@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yqg-partnership-pitch.vercel.app/sitemap.xml

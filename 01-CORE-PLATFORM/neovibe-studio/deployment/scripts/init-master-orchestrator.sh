@@ -35,7 +35,7 @@ source venv/bin/activate
 
 # Install requirements
 pip install --upgrade pip
-pip install fastapi uvicorn asyncio python-dotenv anthropic openai requests
+pip install fastapi uvicorn asyncio python-dotenv anthropic openai requests groq
 
 print_status "Python environment ready"
 
@@ -46,6 +46,7 @@ cat > .env << 'EOF'
 # AI API Keys
 ANTHROPIC_API_KEY=your_anthropic_key_here
 OPENAI_API_KEY=your_openai_key_here
+GROQ_API_KEY=your_groq_key_here
 PERPLEXITY_API_KEY=your_perplexity_key_here
 
 # Database

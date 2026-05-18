@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "mvda-2002",
+    "title": "Motor Vehicle Dealers Act, 2002 (MVDA)",
+    "url": "https://www.ontario.ca/laws/statute/02m30",
+    "path": "data/sources/mvda-2002.md",
+    "word_count": 4,
+    "sample": "e-Laws | Ontario.ca"
+  },
+  {
+    "slug": "mvda-reg-333-08-general",
+    "title": "MVDA General Regulation 333/08",
+    "url": "https://www.ontario.ca/laws/regulation/080333",
+    "path": "data/sources/mvda-reg-333-08-general.md",
+    "word_count": 4,
+    "sample": "e-Laws | Ontario.ca"
+  },
+  {
+    "slug": "mvda-reg-332-08-code-of-ethics",
+    "title": "MVDA Code of Ethics Regulation 332/08",
+    "url": "https://www.ontario.ca/laws/regulation/080332",
+    "path": "data/sources/mvda-reg-332-08-code-of-ethics.md",
+    "word_count": 4,
+    "sample": "e-Laws | Ontario.ca"
+  },
+  {
+    "slug": "cpa-2002",
+    "title": "Consumer Protection Act, 2002 (CPA)",
+    "url": "https://www.ontario.ca/laws/statute/02c30",
+    "path": "data/sources/cpa-2002.md",
+    "word_count": 4,
+    "sample": "e-Laws | Ontario.ca"
+  },
+  {
+    "slug": "cpa-reg-17-05-general",
+    "title": "CPA General Regulation 17/05",
+    "url": "https://www.ontario.ca/laws/regulation/050017",
+    "path": "data/sources/cpa-reg-17-05-general.md",
+    "word_count": 4,
+    "sample": "e-Laws | Ontario.ca"
+  }
+]

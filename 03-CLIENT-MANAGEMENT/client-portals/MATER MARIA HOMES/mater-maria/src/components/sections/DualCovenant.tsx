@@ -44,7 +44,7 @@ export function DualCovenant() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 bg-bg-base overflow-hidden">
+    <section ref={sectionRef} className="theme-lifestyle relative py-32 overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-border-accent to-transparent opacity-20" />
       <div className="absolute -left-[20%] top-20 w-[40%] h-[40%] rounded-full bg-accent-soft opacity-[0.03] blur-[100px]" />
@@ -92,7 +92,7 @@ export function DualCovenant() {
             <div className="absolute inset-0 border border-white/10 z-20 rounded-2xl pointer-events-none" />
             
             <Image 
-              src="/assets-2025/images/invest/hero-garden.webp" 
+              src="/assets-2025/images/renders/Family-time-002.png" 
               alt="Mater Maria estate gardens with tropical landscaping and walking paths"
               fill
               className="object-cover parallax-img"

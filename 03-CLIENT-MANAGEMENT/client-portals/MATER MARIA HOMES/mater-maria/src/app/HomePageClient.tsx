@@ -4,11 +4,13 @@ import { Hero } from "@/components/sections/Hero";
 import { TrustBar } from "@/components/sections/TrustBar";
 import { DualCovenant } from "@/components/sections/DualCovenant";
 import { Features } from "@/components/sections/Features";
+import { MedicalWellnessSection } from "@/components/sections/MedicalWellnessSection";
 import { Residences } from "@/components/sections/Residences";
 import { Amenities } from "@/components/sections/Amenities";
+import { InfrastructureSection } from "@/components/sections/InfrastructureSection";
+import { FacilitiesSection } from "@/components/sections/FacilitiesSection";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { CTASection } from "@/components/sections/CTASection";
-import { FacilitiesSection } from "@/components/sections/FacilitiesSection";
 import { MockupsShowcase } from "@/components/sections/MockupsShowcase";
 import { SectionDivider } from "@/components/ui/section-divider";
 import { VideoBreak } from "@/components/ui/video-break";
@@ -45,9 +47,13 @@ export default function HomePageClient() {
         <Features />
       </div>
 
+      <div className="gsap-reveal">
+        <MedicalWellnessSection />
+      </div>
+
       <VideoBreak
         videoSrc="/assets-2025/videos/bg-loop-1.mp4"
-        watermarkText="LIVING REFINED"
+        watermarkText="DIVINE SANCTUARY"
       />
 
       <div className="gsap-reveal">
@@ -62,12 +68,20 @@ export default function HomePageClient() {
 
       <SectionDivider variant="fade" />
 
-      <FacilitiesSection />
+      <div className="gsap-reveal">
+        <InfrastructureSection />
+      </div>
 
       <VideoBreak
         videoSrc="/assets-2025/videos/bg-loop-2.mp4"
         watermarkText="LIVING REFINED"
       />
+
+      <div className="gsap-reveal">
+        <FacilitiesSection />
+      </div>
+
+      <SectionDivider variant="fade" />
 
       <div className="gsap-reveal">
         <Testimonials />

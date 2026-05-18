@@ -1,0 +1,519 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "Deepgram" [ref=e6] [cursor=pointer]:
+          - /url: https://deepgram.com
+          - img "Deepgram" [ref=e8]
+        - navigation "Main" [ref=e9]:
+          - list [ref=e11]:
+            - listitem [ref=e12]:
+              - button "Products" [ref=e13] [cursor=pointer]:
+                - text: Products
+                - img [ref=e14]
+            - listitem [ref=e16]:
+              - button "Solutions" [ref=e17] [cursor=pointer]:
+                - text: Solutions
+                - img [ref=e18]
+            - listitem [ref=e20]:
+              - button "Customers" [ref=e21] [cursor=pointer]:
+                - text: Customers
+                - img [ref=e22]
+            - listitem [ref=e24]:
+              - button "Devs" [ref=e25] [cursor=pointer]:
+                - text: Devs
+                - img [ref=e26]
+            - listitem [ref=e28]:
+              - link "Enterprise" [ref=e29] [cursor=pointer]:
+                - /url: https://deepgram.com/enterprise
+            - listitem [ref=e30]:
+              - link "Pricing" [ref=e31] [cursor=pointer]:
+                - /url: https://deepgram.com/pricing
+      - generic [ref=e32]:
+        - button "Search (Command+K)" [ref=e33] [cursor=pointer]:
+          - img [ref=e35]
+        - generic [ref=e38]:
+          - link "Contact Us" [ref=e40] [cursor=pointer]:
+            - /url: https://deepgram.com/contact-us
+            - generic [ref=e41]: Contact Us
+          - link "Log In" [ref=e44] [cursor=pointer]:
+            - /url: https://console.deepgram.com/login
+            - generic [ref=e45]: Log In
+          - link "Sign Up Free" [ref=e47] [cursor=pointer]:
+            - /url: https://console.deepgram.com/signup
+            - generic [ref=e48]: Sign Up Free
+  - generic [ref=e52]:
+    - heading "Deepgram's Voice Agent API" [level=1] [ref=e54]
+    - paragraph [ref=e56]: A single, unified conversational AI API for building enterprise-ready, cost-effective voice AI agents. Combines the simplicity developers want with the orchestration control enterprises need. No stitching together STT, TTS, and LLM orchestration. No black box limitations. Priced at $4.50/hr.
+    - generic [ref=e57]:
+      - link "Try it Free" [ref=e58] [cursor=pointer]:
+        - /url: https://playground.deepgram.com/?endpoint=agent
+        - generic [ref=e59]: Try it Free
+      - link "Start Building" [ref=e60] [cursor=pointer]:
+        - /url: https://console.deepgram.com/signup?product=agent
+        - generic [ref=e61]: Start Building
+  - tabpanel [ref=e67]:
+    - generic [ref=e68]:
+      - generic [ref=e70]:
+        - button "Click here to talk to me" [ref=e75] [cursor=pointer]
+        - generic [ref=e76]:
+          - generic [ref=e77]: Built with Deepgram APIs.
+          - generic [ref=e78]:
+            - img [ref=e79]
+            - link "Explore More Prompts" [ref=e83] [cursor=pointer]:
+              - /url: https://playground.deepgram.com/?endpoint=agent&speakModel=aura-2-odysseus-en&listenModel=nova-3&promptId=general&llmProviderType=open_ai&llmModelName=gpt4.1
+      - generic [ref=e84]:
+        - generic [ref=e87]:
+          - button "Thalia Thalia" [ref=e88] [cursor=pointer]:
+            - img "Thalia" [ref=e89]
+            - generic [ref=e90]: Thalia
+          - button "Odysseus Odysseus" [ref=e91] [cursor=pointer]:
+            - img "Odysseus" [ref=e92]
+            - generic [ref=e93]: Odysseus
+          - button "Arcas Arcas" [ref=e94] [cursor=pointer]:
+            - img "Arcas" [ref=e95]
+            - generic [ref=e96]: Arcas
+          - button "Andromeda Andromeda" [ref=e97] [cursor=pointer]:
+            - img "Andromeda" [ref=e98]
+            - generic [ref=e99]: Andromeda
+          - button "Electra Electra" [ref=e100] [cursor=pointer]:
+            - img "Electra" [ref=e101]
+            - generic [ref=e102]: Electra
+        - paragraph [ref=e106]: Hey there! Ready to see the Voice Agent in action? Just click the orb on the left to get started, then switch between voices and explore what's possible!
+  - generic [ref=e109]:
+    - generic [ref=e110]:
+      - heading "Voice Agent API features" [level=2] [ref=e113]
+      - paragraph [ref=e115]:
+        - generic [ref=e116]:
+          - text: Powered by the industry’s fastest, most performant
+          - link "speech recognition" [ref=e117] [cursor=pointer]:
+            - /url: https://deepgram.com/product/speech-to-text
+          - text: and
+          - link "voice synthesis models" [ref=e118] [cursor=pointer]:
+            - /url: https://deepgram.com/product/text-to-speech
+          - text: ", our voice agent stack delivers unparalleled performance and scale."
+    - generic [ref=e119]:
+      - generic [ref=e120]:
+        - img "icon" [ref=e123]
+        - generic [ref=e124]:
+          - heading "Unified Voice Agent API" [level=3] [ref=e126]:
+            - strong [ref=e127]: Unified Voice Agent API
+          - paragraph [ref=e128]: One API that combines speech-to-text, LLM orchestration, and text-to-speech in real time. Simplifies development by eliminating the need to stitch together multiple services.
+      - generic [ref=e129]:
+        - img "icon" [ref=e132]
+        - generic [ref=e133]:
+          - heading "Conversational control" [level=3] [ref=e135]:
+            - strong [ref=e136]: Conversational control
+          - paragraph [ref=e137]: Built-in barge-in detection, turn-taking prediction, function calling, and mid-session control ensure smooth conversations without pauses or interruptions.
+      - generic [ref=e138]:
+        - img "icon" [ref=e141]
+        - generic [ref=e142]:
+          - heading "Full model ownership" [level=3] [ref=e144]:
+            - strong [ref=e145]: Full model ownership
+          - paragraph [ref=e146]: Deepgram controls the full voice stack across STT, TTS, and runtime orchestration for optimized latency, model tuning, and tightly synchronized speech-to-speech flow.
+      - generic [ref=e147]:
+        - img "icon" [ref=e150]
+        - generic [ref=e151]:
+          - heading "Deployment flexibility" [level=3] [ref=e153]:
+            - strong [ref=e154]: Deployment flexibility
+          - paragraph [ref=e155]: Deploy fully managed, dedicated single-tenant, in VPC, or self-hosted. Supports HIPAA, GDPR, regional data residency, and isolated runtimes for enterprise compliance.
+      - generic [ref=e156]:
+        - img "icon" [ref=e159]
+        - generic [ref=e160]:
+          - heading "BYO LLM & TTS" [level=3] [ref=e162]:
+            - strong [ref=e163]: BYO LLM & TTS
+          - paragraph [ref=e164]: Easily integrate your own LLM or TTS provider while retaining Deepgram’s orchestration, streaming pipeline, and real-time responsiveness.
+      - generic [ref=e165]:
+        - img "icon" [ref=e168]
+        - generic [ref=e169]:
+          - heading "Scalable cost optimization" [level=3] [ref=e171]:
+            - strong [ref=e172]: Scalable cost optimization
+          - paragraph [ref=e173]:
+            - text: Flat-rate
+            - link "pricing" [ref=e174] [cursor=pointer]:
+              - /url: https://deepgram.com/pricing
+            - text: at $4.50/hr with Deepgram’s full stack, plus built-in rate reductions for BYOM. Optimized compute efficiency lowers TCO for large-scale deployments.
+  - generic [ref=e177]:
+    - generic [ref=e179]:
+      - heading "Powering the future of real-time Voice AI Agents" [level=2] [ref=e182]
+      - paragraph [ref=e184]: Our Voice Agent API enables real-time conversational AI agents that seamlessly handle interruptions, take complex actions, and deliver natural, responsive customer interactions without delays or rigid turn-taking.
+      - generic [ref=e185]:
+        - link "Try it Free" [ref=e186] [cursor=pointer]:
+          - /url: https://playground.deepgram.com/?endpoint=agent
+          - generic [ref=e187]: Try it Free
+        - link "Go to Demo" [ref=e188] [cursor=pointer]:
+          - /url: https://playground.deepgram.com/?endpoint=agent
+          - generic [ref=e189]: Go to Demo
+    - iframe [ref=e194]:
+      
+  - generic [ref=e199]:
+    - generic [ref=e201]:
+      - generic [ref=e203]:
+        - link "Deepgram's advanced Voice Agent API enabled us to build fast without compromising accuracy or reliability. From managing mid-sentence interruptions to enabling natural, human-like conversations. Scott Chancellor CEO of Aircall." [ref=e204] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-scott-chancellor
+          - paragraph [ref=e206]: Deepgram's advanced Voice Agent API enabled us to build fast without compromising accuracy or reliability. From managing mid-sentence interruptions to enabling natural, human-like conversations.
+          - generic [ref=e211]:
+            - generic [ref=e212]: Scott Chancellor
+            - generic [ref=e213]: CEO of Aircall.
+        - link "We believe that integrating AI voice agents from Deepgram will be one of the most impactful initiatives for our business operations over the next five years. Doug Cook CTO, Jack in the Box" [ref=e214] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-doug-cook
+          - paragraph [ref=e216]: We believe that integrating AI voice agents from Deepgram will be one of the most impactful initiatives for our business operations over the next five years.
+          - generic [ref=e221]:
+            - generic [ref=e222]: Doug Cook
+            - generic [ref=e223]: CTO, Jack in the Box
+        - link "Deepgram’s Voice Agent API stands out for its technical prowess, affordability, and flexibility, making it the smart bet for a customer service voice AI. Bill French Senior Solutions Engineer, StreamIt Stream It | Quote logo logo" [ref=e224] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-bill-french
+          - paragraph [ref=e226]: Deepgram’s Voice Agent API stands out for its technical prowess, affordability, and flexibility, making it the smart bet for a customer service voice AI.
+          - generic [ref=e229]:
+            - generic [ref=e231]:
+              - generic [ref=e232]: Bill French
+              - generic [ref=e233]: Senior Solutions Engineer, StreamIt
+            - img "Stream It | Quote logo logo" [ref=e235]
+        - link "Deepgram gives us the flexibility to bring our own models, voices, and customize behavior while controlling how we build and orchestrate our voice agents. Harshal Jethwa Engineering Manager, OpenPhone Openphone | Quote slide logo" [ref=e236] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-harshal-jethwa
+          - paragraph [ref=e238]: Deepgram gives us the flexibility to bring our own models, voices, and customize behavior while controlling how we build and orchestrate our voice agents.
+          - generic [ref=e241]:
+            - generic [ref=e243]:
+              - generic [ref=e244]: Harshal Jethwa
+              - generic [ref=e245]: Engineering Manager, OpenPhone
+            - img "Openphone | Quote slide logo" [ref=e247]
+      - generic [ref=e249]:
+        - link "Deepgram's advanced Voice Agent API enabled us to build fast without compromising accuracy or reliability. From managing mid-sentence interruptions to enabling natural, human-like conversations. Scott Chancellor CEO of Aircall." [ref=e250] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-scott-chancellor
+          - paragraph [ref=e252]: Deepgram's advanced Voice Agent API enabled us to build fast without compromising accuracy or reliability. From managing mid-sentence interruptions to enabling natural, human-like conversations.
+          - generic [ref=e257]:
+            - generic [ref=e258]: Scott Chancellor
+            - generic [ref=e259]: CEO of Aircall.
+        - link "We believe that integrating AI voice agents from Deepgram will be one of the most impactful initiatives for our business operations over the next five years. Doug Cook CTO, Jack in the Box" [ref=e260] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-doug-cook
+          - paragraph [ref=e262]: We believe that integrating AI voice agents from Deepgram will be one of the most impactful initiatives for our business operations over the next five years.
+          - generic [ref=e267]:
+            - generic [ref=e268]: Doug Cook
+            - generic [ref=e269]: CTO, Jack in the Box
+        - link "Deepgram’s Voice Agent API stands out for its technical prowess, affordability, and flexibility, making it the smart bet for a customer service voice AI. Bill French Senior Solutions Engineer, StreamIt Stream It | Quote logo logo" [ref=e270] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-bill-french
+          - paragraph [ref=e272]: Deepgram’s Voice Agent API stands out for its technical prowess, affordability, and flexibility, making it the smart bet for a customer service voice AI.
+          - generic [ref=e275]:
+            - generic [ref=e277]:
+              - generic [ref=e278]: Bill French
+              - generic [ref=e279]: Senior Solutions Engineer, StreamIt
+            - img "Stream It | Quote logo logo" [ref=e281]
+        - link "Deepgram gives us the flexibility to bring our own models, voices, and customize behavior while controlling how we build and orchestrate our voice agents. Harshal Jethwa Engineering Manager, OpenPhone Openphone | Quote slide logo" [ref=e282] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-harshal-jethwa
+          - paragraph [ref=e284]: Deepgram gives us the flexibility to bring our own models, voices, and customize behavior while controlling how we build and orchestrate our voice agents.
+          - generic [ref=e287]:
+            - generic [ref=e289]:
+              - generic [ref=e290]: Harshal Jethwa
+              - generic [ref=e291]: Engineering Manager, OpenPhone
+            - img "Openphone | Quote slide logo" [ref=e293]
+    - generic [ref=e294]:
+      - generic [ref=e296]:
+        - link "Deepgram's advanced Voice Agent API enabled us to build fast without compromising accuracy or reliability. From managing mid-sentence interruptions to enabling natural, human-like conversations. Scott Chancellor CEO of Aircall." [ref=e297] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-scott-chancellor
+          - paragraph [ref=e299]: Deepgram's advanced Voice Agent API enabled us to build fast without compromising accuracy or reliability. From managing mid-sentence interruptions to enabling natural, human-like conversations.
+          - generic [ref=e304]:
+            - generic [ref=e305]: Scott Chancellor
+            - generic [ref=e306]: CEO of Aircall.
+        - link "We believe that integrating AI voice agents from Deepgram will be one of the most impactful initiatives for our business operations over the next five years. Doug Cook CTO, Jack in the Box" [ref=e307] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-doug-cook
+          - paragraph [ref=e309]: We believe that integrating AI voice agents from Deepgram will be one of the most impactful initiatives for our business operations over the next five years.
+          - generic [ref=e314]:
+            - generic [ref=e315]: Doug Cook
+            - generic [ref=e316]: CTO, Jack in the Box
+        - link "Deepgram’s Voice Agent API stands out for its technical prowess, affordability, and flexibility, making it the smart bet for a customer service voice AI. Bill French Senior Solutions Engineer, StreamIt Stream It | Quote logo logo" [ref=e317] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-bill-french
+          - paragraph [ref=e319]: Deepgram’s Voice Agent API stands out for its technical prowess, affordability, and flexibility, making it the smart bet for a customer service voice AI.
+          - generic [ref=e322]:
+            - generic [ref=e324]:
+              - generic [ref=e325]: Bill French
+              - generic [ref=e326]: Senior Solutions Engineer, StreamIt
+            - img "Stream It | Quote logo logo" [ref=e328]
+        - link "Deepgram gives us the flexibility to bring our own models, voices, and customize behavior while controlling how we build and orchestrate our voice agents. Harshal Jethwa Engineering Manager, OpenPhone Openphone | Quote slide logo" [ref=e329] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-harshal-jethwa
+          - paragraph [ref=e331]: Deepgram gives us the flexibility to bring our own models, voices, and customize behavior while controlling how we build and orchestrate our voice agents.
+          - generic [ref=e334]:
+            - generic [ref=e336]:
+              - generic [ref=e337]: Harshal Jethwa
+              - generic [ref=e338]: Engineering Manager, OpenPhone
+            - img "Openphone | Quote slide logo" [ref=e340]
+      - generic [ref=e342]:
+        - link "Deepgram's advanced Voice Agent API enabled us to build fast without compromising accuracy or reliability. From managing mid-sentence interruptions to enabling natural, human-like conversations. Scott Chancellor CEO of Aircall." [ref=e343] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-scott-chancellor
+          - paragraph [ref=e345]: Deepgram's advanced Voice Agent API enabled us to build fast without compromising accuracy or reliability. From managing mid-sentence interruptions to enabling natural, human-like conversations.
+          - generic [ref=e350]:
+            - generic [ref=e351]: Scott Chancellor
+            - generic [ref=e352]: CEO of Aircall.
+        - link "We believe that integrating AI voice agents from Deepgram will be one of the most impactful initiatives for our business operations over the next five years. Doug Cook CTO, Jack in the Box" [ref=e353] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-doug-cook
+          - paragraph [ref=e355]: We believe that integrating AI voice agents from Deepgram will be one of the most impactful initiatives for our business operations over the next five years.
+          - generic [ref=e360]:
+            - generic [ref=e361]: Doug Cook
+            - generic [ref=e362]: CTO, Jack in the Box
+        - link "Deepgram’s Voice Agent API stands out for its technical prowess, affordability, and flexibility, making it the smart bet for a customer service voice AI. Bill French Senior Solutions Engineer, StreamIt Stream It | Quote logo logo" [ref=e363] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-bill-french
+          - paragraph [ref=e365]: Deepgram’s Voice Agent API stands out for its technical prowess, affordability, and flexibility, making it the smart bet for a customer service voice AI.
+          - generic [ref=e368]:
+            - generic [ref=e370]:
+              - generic [ref=e371]: Bill French
+              - generic [ref=e372]: Senior Solutions Engineer, StreamIt
+            - img "Stream It | Quote logo logo" [ref=e374]
+        - link "Deepgram gives us the flexibility to bring our own models, voices, and customize behavior while controlling how we build and orchestrate our voice agents. Harshal Jethwa Engineering Manager, OpenPhone Openphone | Quote slide logo" [ref=e375] [cursor=pointer]:
+          - /url: /powered-by-deepgram#quote-harshal-jethwa
+          - paragraph [ref=e377]: Deepgram gives us the flexibility to bring our own models, voices, and customize behavior while controlling how we build and orchestrate our voice agents.
+          - generic [ref=e380]:
+            - generic [ref=e382]:
+              - generic [ref=e383]: Harshal Jethwa
+              - generic [ref=e384]: Engineering Manager, OpenPhone
+            - img "Openphone | Quote slide logo" [ref=e386]
+  - generic [ref=e389]:
+    - heading "Build smarter Voice AI Agents. Explore our resources." [level=2] [ref=e394]
+    - generic [ref=e397]:
+      - button "Previous slide" [ref=e398]:
+        - img [ref=e399] [cursor=pointer]
+      - generic [ref=e402]:
+        - link "Featured Image for An Inside Look at Deepgram’s Voice Agent API Blog DG Insider An Inside Look at Deepgram’s Voice Agent API Hasan Jilani headshot Hasan Jilani June 16, 2025" [ref=e406] [cursor=pointer]:
+          - /url: /learn/voice-agent-api-generally-available
+          - generic [ref=e407]:
+            - img "Featured Image for An Inside Look at Deepgram’s Voice Agent API" [ref=e410]
+            - generic [ref=e411]:
+              - generic [ref=e412]:
+                - generic [ref=e413]:
+                  - img [ref=e414]
+                  - generic [ref=e416]: Blog
+                - generic [ref=e417]:
+                  - img [ref=e418]
+                  - generic [ref=e420]: DG Insider
+              - heading "An Inside Look at Deepgram’s Voice Agent API" [level=3] [ref=e421]
+              - generic [ref=e422]:
+                - img "Hasan Jilani headshot" [ref=e425]
+                - generic [ref=e426]:
+                  - generic [ref=e427]: Hasan Jilani
+                  - generic [ref=e428]: June 16, 2025
+        - 'link "Featured Image for Deepgram Launches Voice Agent API: World’s Only Enterprise-Ready, Real-Time, and Cost-Effective Conversational AI API Blog Announcements Deepgram Launches Voice Agent API: World’s Only Enterprise-Ready, Real-Time, and Cost-Effective Conversational AI API Praveen Rangnath headshot Praveen Rangnath June 16, 2025" [ref=e432] [cursor=pointer]':
+          - /url: /learn/deepgram-launches-voice-agent-api
+          - generic [ref=e433]:
+            - 'img "Featured Image for Deepgram Launches Voice Agent API: World’s Only Enterprise-Ready, Real-Time, and Cost-Effective Conversational AI API" [ref=e436]'
+            - generic [ref=e437]:
+              - generic [ref=e438]:
+                - generic [ref=e439]:
+                  - img [ref=e440]
+                  - generic [ref=e442]: Blog
+                - generic [ref=e443]:
+                  - img [ref=e444]
+                  - generic [ref=e446]: Announcements
+              - 'heading "Deepgram Launches Voice Agent API: World’s Only Enterprise-Ready, Real-Time, and Cost-Effective Conversational AI API" [level=3] [ref=e447]'
+              - generic [ref=e448]:
+                - img "Praveen Rangnath headshot" [ref=e451]
+                - generic [ref=e452]:
+                  - generic [ref=e453]: Praveen Rangnath
+                  - generic [ref=e454]: June 16, 2025
+        - 'link "Featured Image for Introducing “State of Voice AI 2025”: The Year of Human-like Voice AI Agents Blog Announcements Introducing “State of Voice AI 2025”: The Year of Human-like Voice AI Agents Jose Nicholas Francisco headshot Jose Nicholas Francisco March 26, 2025" [ref=e458] [cursor=pointer]':
+          - /url: /learn/state-of-voice-ai-2025
+          - generic [ref=e459]:
+            - 'img "Featured Image for Introducing “State of Voice AI 2025”: The Year of Human-like Voice AI Agents" [ref=e462]'
+            - generic [ref=e463]:
+              - generic [ref=e464]:
+                - generic [ref=e465]:
+                  - img [ref=e466]
+                  - generic [ref=e468]: Blog
+                - generic [ref=e469]:
+                  - img [ref=e470]
+                  - generic [ref=e472]: Announcements
+              - 'heading "Introducing “State of Voice AI 2025”: The Year of Human-like Voice AI Agents" [level=3] [ref=e473]'
+              - generic [ref=e474]:
+                - img "Jose Nicholas Francisco headshot" [ref=e477]
+                - generic [ref=e478]:
+                  - generic [ref=e479]: Jose Nicholas Francisco
+                  - generic [ref=e480]: March 26, 2025
+        - generic:
+          - generic:
+            - generic:
+              - link:
+                - /url: /learn/what-exactly-is-an-ai-voice-agent
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - generic: Blog
+                      - generic:
+                        - img
+                        - generic: AI Agents
+                    - heading [level=3]: What exactly is an AI Voice Agent? An In-depth Guide to Voice AI Technologies and Applications
+                    - generic:
+                      - generic:
+                        - generic: Stephen Oladele
+                        - generic: January 13, 2025
+        - generic:
+          - generic:
+            - generic:
+              - link:
+                - /url: /learn/everything-about-voice-ai-agents
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - generic: Blog
+                      - generic:
+                        - img
+                        - generic: AI Trends & News
+                    - heading [level=3]: Everything you need to know about Voice AI Agents
+                    - generic:
+                      - generic:
+                        - generic: Eteimorde Youdiowei
+                        - generic: April 01, 2024
+      - button "Next slide" [ref=e481]:
+        - img [ref=e482] [cursor=pointer]
+      - list [ref=e484]:
+        - listitem [ref=e485]:
+          - button "1" [ref=e486]
+        - listitem [ref=e487]:
+          - button "2" [ref=e488]
+        - listitem [ref=e489]:
+          - button "3" [ref=e490]
+  - generic [ref=e494]:
+    - generic [ref=e495]:
+      - heading "Start building real-time Voice AI Agents" [level=2] [ref=e503]
+      - paragraph [ref=e505]: Deploy conversational AI agents with one unified Voice Agent API, delivering natural conversations, real-time responsiveness, and full control over deployment, orchestration, and performance.
+    - generic [ref=e506]:
+      - link "Try It Free" [ref=e507] [cursor=pointer]:
+        - /url: https://console.deepgram.com/signup
+        - generic [ref=e508]: Try It Free
+      - link "View Pricing" [ref=e509] [cursor=pointer]:
+        - /url: https://deepgram.com/pricing#pricing-table-voice-agent-api
+        - generic [ref=e510]: View Pricing
+        - img [ref=e511]
+  - contentinfo [ref=e513]:
+    - generic [ref=e515]:
+      - generic [ref=e516]:
+        - generic [ref=e517]:
+          - img "Deepgram Logo" [ref=e520]
+          - generic [ref=e521]:
+            - link "Github" [ref=e522] [cursor=pointer]:
+              - /url: https://github.com/deepgram
+              - img [ref=e523]
+            - link "X" [ref=e525] [cursor=pointer]:
+              - /url: https://x.com/deepgramai
+              - img [ref=e526]
+            - link "Linkedin" [ref=e528] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/deepgram/
+              - img [ref=e529]
+            - link "Youtube" [ref=e531] [cursor=pointer]:
+              - /url: https://www.youtube.com/c/Deepgram
+              - img [ref=e532]
+            - link "Discord" [ref=e534] [cursor=pointer]:
+              - /url: https://discord.com/invite/deepgram
+              - img [ref=e535]
+            - link "Facebook" [ref=e537] [cursor=pointer]:
+              - /url: https://www.facebook.com/deepgram/
+              - img [ref=e538]
+        - generic [ref=e540]:
+          - paragraph [ref=e541]: Get news and product updates.
+          - generic [ref=e546]:
+            - textbox [ref=e549]:
+              - /placeholder: Work Email*
+            - button "Submit" [ref=e552] [cursor=pointer]
+          - paragraph [ref=e555]:
+            - text: By submitting this form, you are agreeing to our
+            - link "Privacy Policy" [ref=e556] [cursor=pointer]:
+              - /url: https://deepgram.com/privacy
+            - text: .
+      - generic [ref=e557]:
+        - generic [ref=e558]:
+          - heading "Product" [level=3] [ref=e559]
+          - generic [ref=e560]:
+            - link "Speech-to-Text API" [ref=e561] [cursor=pointer]:
+              - /url: https://deepgram.com/product/speech-to-text
+            - link "Text-to-Speech API" [ref=e562] [cursor=pointer]:
+              - /url: https://deepgram.com/product/text-to-speech
+            - link "Voice Agent API" [ref=e563] [cursor=pointer]:
+              - /url: https://deepgram.com/product/voice-agent-api
+            - link "Audio Intelligence API" [ref=e564] [cursor=pointer]:
+              - /url: https://deepgram.com/product/audio-intelligence
+        - generic [ref=e565]:
+          - heading "Customers" [level=3] [ref=e566]
+          - generic [ref=e567]:
+            - link "Customer Stories" [ref=e568] [cursor=pointer]:
+              - /url: https://deepgram.com/customers
+            - link "Partners" [ref=e569] [cursor=pointer]:
+              - /url: https://deepgram.com/partners
+            - link "Startup Program" [ref=e570] [cursor=pointer]:
+              - /url: https://deepgram.com/startup-program
+            - link "Powered by Deepgram" [ref=e571] [cursor=pointer]:
+              - /url: https://deepgram.com/powered-by-deepgram
+        - generic [ref=e572]:
+          - heading "Solutions" [level=3] [ref=e573]
+          - generic [ref=e574]:
+            - link "Contact Centers" [ref=e575] [cursor=pointer]:
+              - /url: https://deepgram.com/solutions/contact-centers
+            - link "Speech Analytics" [ref=e576] [cursor=pointer]:
+              - /url: https://deepgram.com/solutions/speech-analytics
+            - link "Conversational AI" [ref=e577] [cursor=pointer]:
+              - /url: https://deepgram.com/deepgram-for-voicebots-and-chatbots
+            - link "Podcast Transcription" [ref=e578] [cursor=pointer]:
+              - /url: https://deepgram.com/deepgram-for-podcast-transcription
+            - link "Medical Transcription" [ref=e579] [cursor=pointer]:
+              - /url: https://deepgram.com/solutions/medical-transcription
+            - link "Startup Program" [ref=e580] [cursor=pointer]:
+              - /url: https://deepgram.com/startup-program
+        - generic [ref=e581]:
+          - heading "Resources" [level=3] [ref=e582]
+          - generic [ref=e583]:
+            - link "Podcast" [ref=e584] [cursor=pointer]:
+              - /url: https://deepgram.com/podcast
+            - link "Resource Hub" [ref=e585] [cursor=pointer]:
+              - /url: https://deepgram.com/learn
+            - link "AI Glossary" [ref=e586] [cursor=pointer]:
+              - /url: https://deepgram.com/ai-glossary
+            - link "AI Voice Generator Tool" [ref=e587] [cursor=pointer]:
+              - /url: https://deepgram.com/ai-voice-generator
+            - link "Introducing Deepgram's Voice Agent API" [ref=e588] [cursor=pointer]:
+              - /url: https://deepgram.com/learn/introducing-ai-voice-agent-api
+            - link "Deepgram and Amazon Connect Integration" [ref=e589] [cursor=pointer]:
+              - /url: https://developers.deepgram.com/docs/deepgram-with-amazon-connect
+        - generic [ref=e590]:
+          - heading "Developers" [level=3] [ref=e591]
+          - generic [ref=e592]:
+            - link "Documentation" [ref=e593] [cursor=pointer]:
+              - /url: https://developers.deepgram.com/home
+            - link "Changelog" [ref=e594] [cursor=pointer]:
+              - /url: https://developers.deepgram.com/changelog
+            - link "API Playground" [ref=e595] [cursor=pointer]:
+              - /url: https://playground.deepgram.com
+            - link "Community" [ref=e596] [cursor=pointer]:
+              - /url: https://community.deepgram.com
+            - link "Self-hosted" [ref=e597] [cursor=pointer]:
+              - /url: https://developers.deepgram.com/docs/self-hosted-introduction
+            - link "Support" [ref=e598] [cursor=pointer]:
+              - /url: https://developers.deepgram.com/support
+        - generic [ref=e599]:
+          - heading "Company" [level=3] [ref=e600]
+          - generic [ref=e601]:
+            - link "About" [ref=e602] [cursor=pointer]:
+              - /url: https://deepgram.com/about
+            - link "Blog" [ref=e603] [cursor=pointer]:
+              - /url: https://deepgram.com/learn/article
+            - link "Careers" [ref=e604] [cursor=pointer]:
+              - /url: https://deepgram.com/careers
+            - link "Newsletter" [ref=e605] [cursor=pointer]:
+              - /url: https://www.aiminds.com/?ref=deepgram.com
+            - link "Customers" [ref=e606] [cursor=pointer]:
+              - /url: https://deepgram.com/customers
+            - link "Partners" [ref=e607] [cursor=pointer]:
+              - /url: https://deepgram.com/partners
+            - link "Newsroom" [ref=e608] [cursor=pointer]:
+              - /url: https://deepgram.com/company/newsroom
+      - generic [ref=e609]:
+        - link "Terms" [ref=e610] [cursor=pointer]:
+          - /url: https://deepgram.com/terms
+        - link "Privacy" [ref=e611] [cursor=pointer]:
+          - /url: https://deepgram.com/privacy
+        - generic [ref=e612]: Copyright © 2026 Deepgram
+  - alert [ref=e613]

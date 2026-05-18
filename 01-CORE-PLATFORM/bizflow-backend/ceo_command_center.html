@@ -16,7 +16,7 @@
         .grid-pattern { background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px; }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen grid-pattern" x-data="ceoCommandCenter()">
+<body class="bg-gray-900 text-white min-h-screen grid-pattern" x-data="ceoCommandCenter()" @telegram-auth.window="handleAuth($event.detail)">
     <!-- Header -->
     <header class="bg-black/50 backdrop-blur-sm border-b border-blue-500/30 sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4">
@@ -40,17 +40,28 @@
                             <span class="text-green-400 font-semibold">ALL SYSTEMS OPERATIONAL</span>
                         </div>
                     </div>
-                    <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-semibold transition-colors">
-                        <i class="fas fa-rocket mr-2"></i>Launch Campaign
-                    </button>
+                    
+                    <!-- Telegram Login Widget -->
+                    <div x-show="!authenticated" class="transition-opacity duration-300">
+                        <script async src="https://telegram.org/js/telegram-widget.js?23" 
+                                data-telegram-login="TaurusAIOpsBot" 
+                                data-size="medium" 
+                                data-onauth="onTelegramAuth(user)" 
+                                data-request-access="write"></script>
+                    </div>
+                    
+                    <div x-show="authenticated" class="flex items-center space-x-3 bg-blue-600/20 border border-blue-500/50 px-3 py-1 rounded-full">
+                        <img :src="userPhoto" class="w-8 h-8 rounded-full border border-blue-400">
+                        <span class="text-sm font-bold text-blue-400" x-text="userName"></span>
+                        <button @click="logout()" class="text-xs text-gray-400 hover:text-white ml-2 underline">Logout</button>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Dashboard -->
-    <main class="container mx-auto px-6 py-8">
-        
+    <!-- Main Dashboard (Blur if not authenticated) -->
+    <main :class="{'blur-md pointer-events-none opacity-50': !authenticated}" class="container mx-auto px-6 py-8 transition-all duration-500">
         <!-- Revenue Overview Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- Monthly Revenue -->
@@ -401,6 +412,28 @@
         </div>
     </main>
 
+    <!-- Auth Overlay -->
+    <div x-show="!authenticated" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-xl transition-opacity duration-500" x-transition>
+        <div class="bg-gray-800 border border-blue-500/50 p-10 rounded-2xl glow-blue max-w-md text-center">
+            <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+                <i class="fas fa-lock text-3xl"></i>
+            </div>
+            <h2 class="text-3xl font-bold mb-4">Secure Access Required</h2>
+            <p class="text-gray-400 mb-8">This command center is restricted to TAURUS AI CORP executives. Please authorize via Telegram to proceed.</p>
+            
+            <div class="flex justify-center mb-6">
+                <!-- Telegram Login Widget -->
+                <script async src="https://telegram.org/js/telegram-widget.js?23" 
+                        data-telegram-login="TaurusAIOpsBot" 
+                        data-size="large" 
+                        data-onauth="onTelegramAuth(user)" 
+                        data-request-access="write"></script>
+            </div>
+            
+            <p class="text-xs text-gray-500 italic">"Security is not a feature, it's a foundation."</p>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-black/50 backdrop-blur-sm border-t border-blue-500/30 mt-8">
         <div class="container mx-auto px-6 py-4">
@@ -416,42 +449,85 @@
     </footer>
 
     <script>
+        // Global auth handler for Telegram
+        function onTelegramAuth(user) {
+            console.log("Authenticated CEO:", user);
+            // Dispatch event to Alpine
+            window.dispatchEvent(new CustomEvent('telegram-auth', { detail: user }));
+            
+            // Send to backend
+            fetch('/api/auth/telegram', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(user)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.access_token) {
+                    localStorage.setItem('ceo_token', data.access_token);
+                    console.log("🛡️ Backend Session Established");
+                }
+            })
+            .catch(err => console.error("Backend Auth Failed:", err));
+        }
+
         function ceoCommandCenter() {
             return {
+                authenticated: false,
+                userName: '',
+                userPhoto: '',
+                
                 init() {
-                    // Initialize real-time updates
-                    this.startRealTimeUpdates();
+                    // Check local storage for existing session
+                    const token = localStorage.getItem('ceo_token');
+                    if (token) {
+                        // In a production app, verify the token with the backend
+                        // For now, we'll keep the UI state for the demo
+                        // this.authenticated = true;
+                    }
+                },
+
+                handleAuth(user) {
+                    this.authenticated = true;
+                    this.userName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
+                    this.userPhoto = user.photo_url || 'https://ui-avatars.com/api/?name=' + user.first_name;
+                },
+
+                logout() {
+                    localStorage.removeItem('ceo_token');
+                    this.authenticated = false;
+                    window.location.reload();
                 }
             }
         }
 
         function launchAuditCampaign() {
-            if (confirm('Launch B2B Audit Service marketing campaign?\n\nThis will:\n- Deploy lead magnets across all channels\n- Start LinkedIn outreach to manufacturing/wholesale prospects\n- Activate booking system for discovery calls\n- Begin automated nurturing sequences')) {
-                alert('🚀 B2B Audit Campaign Launched!\n\n✅ Lead magnets deployed\n✅ LinkedIn campaign active\n✅ Booking system live\n✅ Email sequences started\n\nTarget: 20 qualified discovery calls within 2 weeks');
+            if (confirm('Launch B2B Audit Service marketing campaign?')) {
+                alert('🚀 B2B Audit Campaign Launched!');
             }
         }
 
         function launchSaaSCampaign() {
-            if (confirm('Launch Neural Commerce SaaS marketing campaign?\n\nThis will:\n- Activate free trial signups\n- Deploy ROI calculator across channels\n- Start targeted B2B SaaS outreach\n- Begin conversion optimization')) {
-                alert('🧠 Neural Commerce SaaS Campaign Launched!\n\n✅ Free trials accepting signups\n✅ ROI calculator live\n✅ B2B outreach active\n✅ Conversion tracking enabled\n\nTarget: 50 trial signups within 2 weeks');
+            if (confirm('Launch Neural Commerce SaaS marketing campaign?')) {
+                alert('🧠 Neural Commerce SaaS Campaign Launched!');
             }
         }
 
         function launchPerplexityAnalysis() {
-            if (confirm('Launch Perplexity MCP competitor analysis?\n\nThis will analyze top 10 B2B automation competitors and identify market gaps for immediate exploitation.')) {
-                alert('🔍 Perplexity Analysis Launched!\n\n✅ Analyzing top 10 competitors\n✅ Identifying pricing gaps\n✅ Finding service weaknesses\n✅ Mapping market opportunities\n\nReport will be ready in 2 hours');
+            if (confirm('Launch Perplexity MCP competitor analysis?')) {
+                alert('🔍 Perplexity Analysis Launched!');
             }
         }
 
         function activateLeadMagnets() {
-            if (confirm('Deploy all lead magnets across digital channels?\n\nThis will make live:\n- B2B Workflow Efficiency Calculator\n- $50K Optimization Playbook\n- 15-Minute Health Check\n- ROI Impact Calculator')) {
-                alert('🧲 Lead Magnets Deployed!\n\n✅ All calculators live\n✅ PDF guides available\n✅ Video assessments active\n✅ Lead capture forms operational\n\nReady to generate qualified B2B leads!');
+            if (confirm('Deploy all lead magnets across digital channels?')) {
+                alert('🧲 Lead Magnets Deployed!');
             }
         }
 
         function startOutreach() {
-            if (confirm('Begin direct B2B outreach campaign?\n\nThis will:\n- Target 400 qualified B2B prospects\n- Launch LinkedIn connection campaigns\n- Send personalized email sequences\n- Schedule discovery calls')) {
-                alert('📞 B2B Outreach Campaign Started!\n\n✅ 400 prospects identified\n✅ LinkedIn campaigns active\n✅ Email sequences launched\n✅ Calendar bookings enabled\n\nTarget: 40 discovery calls booked within 10 days');
+            if (confirm('Begin direct B2B outreach campaign?')) {
+                alert('📞 B2B Outreach Campaign Started!');
             }
         }
     </script>

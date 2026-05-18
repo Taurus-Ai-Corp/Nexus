@@ -161,9 +161,9 @@ export function Residences() {
   const [walkup, executive, independent] = RESIDENCES;
 
   return (
-    <section className="bg-surface py-24 lg:py-32">
+    <section className="theme-lifestyle py-24 lg:py-32">
       <Container size="lg">
-        <SectionHeading badge="Our Homes" title="Choose Your Residence" />
+        <SectionHeading badge="Living Refined" title="Choose Your Residence" />
 
         <div className="grid gap-6 md:grid-cols-2">
           {/* Independent Villa — left */}

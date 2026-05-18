@@ -1,7 +1,7 @@
 /**
  * Gamma MCP Server
  * Provides AI-powered content generation capabilities for presentations, documents, webpages, and social posts
- * Integrates with Gamma API: https://public-api.gamma.app/v0.2/generations
+ * Integrates with Gamma API v1.0: https://public-api.gamma.app/v1.0/generations
  */
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
@@ -15,7 +15,7 @@ import axios from 'axios';
 class GammaMCPServer {
   constructor() {
     this.apiKey = process.env.GAMMA_API_KEY;
-    this.apiBaseUrl = 'https://public-api.gamma.app/v0.2';
+    this.apiBaseUrl = 'https://public-api.gamma.app/v1.0';
     
     if (!this.apiKey) {
       console.error('GAMMA_API_KEY environment variable is required');
@@ -48,20 +48,18 @@ class GammaMCPServer {
             inputSchema: {
               type: 'object',
               properties: {
-                prompt: {
+                inputText: {
                   type: 'string',
-                  description: 'The prompt describing what presentation to generate (e.g., "Create a presentation about AI trends in 2025")',
+                  description: 'The text describing what presentation to generate (e.g., "Create a presentation about AI trends in 2025"). Min 1 character.',
+                  minLength: 1,
                 },
-                title: {
+                textMode: {
                   type: 'string',
-                  description: 'Optional title for the presentation',
-                },
-                style: {
-                  type: 'string',
-                  description: 'Optional style preference (e.g., "professional", "creative", "minimalist")',
+                  enum: ['generate', 'condense', 'preserve'],
+                  description: 'How Gamma should handle the input text. "generate" = expand into full content, "condense" = summarize, "preserve" = keep as-is.',
                 },
               },
-              required: ['prompt'],
+              required: ['inputText'],
             },
           },
           {
@@ -70,20 +68,18 @@ class GammaMCPServer {
             inputSchema: {
               type: 'object',
               properties: {
-                prompt: {
+                inputText: {
                   type: 'string',
-                  description: 'The prompt describing what document to generate (e.g., "Create a business plan for a SaaS startup")',
+                  description: 'The text describing what document to generate (e.g., "Create a business plan for a SaaS startup"). Min 1 character.',
+                  minLength: 1,
                 },
-                title: {
+                textMode: {
                   type: 'string',
-                  description: 'Optional title for the document',
-                },
-                format: {
-                  type: 'string',
-                  description: 'Optional format preference (e.g., "report", "article", "proposal")',
+                  enum: ['generate', 'condense', 'preserve'],
+                  description: 'How Gamma should handle the input text. "generate" = expand into full content, "condense" = summarize, "preserve" = keep as-is.',
                 },
               },
-              required: ['prompt'],
+              required: ['inputText'],
             },
           },
           {
@@ -92,20 +88,18 @@ class GammaMCPServer {
             inputSchema: {
               type: 'object',
               properties: {
-                prompt: {
+                inputText: {
                   type: 'string',
-                  description: 'The prompt describing what webpage to generate (e.g., "Create a landing page for a tech product")',
+                  description: 'The text describing what webpage to generate (e.g., "Create a landing page for a tech product"). Min 1 character.',
+                  minLength: 1,
                 },
-                title: {
+                textMode: {
                   type: 'string',
-                  description: 'Optional title for the webpage',
-                },
-                theme: {
-                  type: 'string',
-                  description: 'Optional theme preference (e.g., "dark", "light", "modern")',
+                  enum: ['generate', 'condense', 'preserve'],
+                  description: 'How Gamma should handle the input text. "generate" = expand into full content, "condense" = summarize, "preserve" = keep as-is.',
                 },
               },
-              required: ['prompt'],
+              required: ['inputText'],
             },
           },
           {
@@ -114,20 +108,18 @@ class GammaMCPServer {
             inputSchema: {
               type: 'object',
               properties: {
-                prompt: {
+                inputText: {
                   type: 'string',
-                  description: 'The prompt describing what social post to generate (e.g., "Create a LinkedIn post about AI automation")',
+                  description: 'The text describing what social post to generate (e.g., "Create a LinkedIn post about AI automation for professionals"). Min 1 character.',
+                  minLength: 1,
                 },
-                platform: {
+                textMode: {
                   type: 'string',
-                  description: 'Target platform (e.g., "linkedin", "twitter", "instagram", "facebook")',
-                },
-                tone: {
-                  type: 'string',
-                  description: 'Optional tone preference (e.g., "professional", "casual", "engaging")',
+                  enum: ['generate', 'condense', 'preserve'],
+                  description: 'How Gamma should handle the input text. "generate" = expand into full content, "condense" = summarize, "preserve" = keep as-is.',
                 },
               },
-              required: ['prompt'],
+              required: ['inputText'],
             },
           },
           {
@@ -250,7 +242,7 @@ class GammaMCPServer {
         method,
         url: `${this.apiBaseUrl}${endpoint}`,
         headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
+          'x-api-key': this.apiKey,
           'Content-Type': 'application/json',
         },
       };
@@ -273,88 +265,80 @@ class GammaMCPServer {
   }
 
   async generatePresentation(args) {
-    const { prompt, title, style } = args;
-    
+    const { inputText, textMode = 'generate' } = args;
+
     const payload = {
-      type: 'presentation',
-      prompt: prompt,
-      ...(title && { title }),
-      ...(style && { style }),
+      inputText,
+      textMode,
     };
 
     const result = await this.makeApiRequest('/generations', 'POST', payload);
-    
+
     return {
       content: [
         {
           type: 'text',
-          text: `Presentation generated successfully!\n\nGeneration ID: ${result.id || result.generation_id}\nTitle: ${result.title || title || 'Untitled'}\nStatus: ${result.status || 'processing'}\nURL: ${result.url || 'N/A'}\n\n${result.message ? `Message: ${result.message}` : ''}`,
+          text: `Presentation generated successfully!\n\nGeneration ID: ${result.id || result.generation_id}\nTitle: ${result.title || 'Untitled'}\nStatus: ${result.status || 'processing'}\nURL: ${result.url || 'N/A'}\n\n${result.message ? `Message: ${result.message}` : ''}`,
         },
       ],
     };
   }
 
   async generateDocument(args) {
-    const { prompt, title, format } = args;
-    
+    const { inputText, textMode = 'generate' } = args;
+
     const payload = {
-      type: 'document',
-      prompt: prompt,
-      ...(title && { title }),
-      ...(format && { format }),
+      inputText,
+      textMode,
     };
 
     const result = await this.makeApiRequest('/generations', 'POST', payload);
-    
+
     return {
       content: [
         {
           type: 'text',
-          text: `Document generated successfully!\n\nGeneration ID: ${result.id || result.generation_id}\nTitle: ${result.title || title || 'Untitled'}\nStatus: ${result.status || 'processing'}\nURL: ${result.url || 'N/A'}\n\n${result.message ? `Message: ${result.message}` : ''}`,
+          text: `Document generated successfully!\n\nGeneration ID: ${result.id || result.generation_id}\nTitle: ${result.title || 'Untitled'}\nStatus: ${result.status || 'processing'}\nURL: ${result.url || 'N/A'}\n\n${result.message ? `Message: ${result.message}` : ''}`,
         },
       ],
     };
   }
 
   async generateWebpage(args) {
-    const { prompt, title, theme } = args;
-    
+    const { inputText, textMode = 'generate' } = args;
+
     const payload = {
-      type: 'webpage',
-      prompt: prompt,
-      ...(title && { title }),
-      ...(theme && { theme }),
+      inputText,
+      textMode,
     };
 
     const result = await this.makeApiRequest('/generations', 'POST', payload);
-    
+
     return {
       content: [
         {
           type: 'text',
-          text: `Webpage generated successfully!\n\nGeneration ID: ${result.id || result.generation_id}\nTitle: ${result.title || title || 'Untitled'}\nStatus: ${result.status || 'processing'}\nURL: ${result.url || 'N/A'}\n\n${result.message ? `Message: ${result.message}` : ''}`,
+          text: `Webpage generated successfully!\n\nGeneration ID: ${result.id || result.generation_id}\nTitle: ${result.title || 'Untitled'}\nStatus: ${result.status || 'processing'}\nURL: ${result.url || 'N/A'}\n\n${result.message ? `Message: ${result.message}` : ''}`,
         },
       ],
     };
   }
 
   async generateSocialPost(args) {
-    const { prompt, platform, tone } = args;
-    
+    const { inputText, textMode = 'generate' } = args;
+
     const payload = {
-      type: 'social_post',
-      prompt: prompt,
-      ...(platform && { platform }),
-      ...(tone && { tone }),
+      inputText,
+      textMode,
     };
 
     const result = await this.makeApiRequest('/generations', 'POST', payload);
-    
+
     return {
       content: [
         {
           type: 'text',
-          text: `Social post generated successfully!\n\nGeneration ID: ${result.id || result.generation_id}\nPlatform: ${platform || 'multi-platform'}\nStatus: ${result.status || 'processing'}\nContent Preview: ${result.content ? result.content.substring(0, 200) + '...' : 'N/A'}\n\n${result.message ? `Message: ${result.message}` : ''}`,
+          text: `Social post generated successfully!\n\nGeneration ID: ${result.id || result.generation_id}\nStatus: ${result.status || 'processing'}\nContent Preview: ${result.content ? result.content.substring(0, 200) + '...' : 'N/A'}\nURL: ${result.url || 'N/A'}\n\n${result.message ? `Message: ${result.message}` : ''}`,
         },
       ],
     };

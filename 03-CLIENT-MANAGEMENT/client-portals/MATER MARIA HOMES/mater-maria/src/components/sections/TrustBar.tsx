@@ -20,7 +20,7 @@ const fadeUp = {
 
 export function TrustBar() {
   return (
-    <section className="border-y border-border-subtle bg-surface py-8">
+    <section className="theme-medical border-y border-border-subtle py-8">
       <Container size="lg">
         <motion.div
           initial="hidden"
