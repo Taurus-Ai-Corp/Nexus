@@ -1,7 +1,7 @@
 {
-  "name": "bizflow-supernova",
+  "name": "nexus",
   "version": "1.0.0",
-  "description": "BizFlow AI Automation Platform - Production Website",
+  "description": "Social media management, marketing automation, and business analytics platform by Taurus AI",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +10,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "next": "14.0.4",
+    "@sentry/nextjs": "^8.0.0",
+    "next": "14.2.35",
+    "posthog-node": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@21dev/sdk": "^2.1.0",
@@ -22,7 +24,7 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "eslint": "^8.56.0",
-    "eslint-config-next": "14.0.4",
+    "eslint-config-next": "14.2.35",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32"
   },
