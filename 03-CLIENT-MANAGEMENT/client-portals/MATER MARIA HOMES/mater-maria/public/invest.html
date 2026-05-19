@@ -63,6 +63,11 @@ a{text-decoration:none;color:inherit}
 .invest-hero h1{font-family:var(--font-serif);font-size:clamp(3rem,7vw,5.5rem);font-weight:400;letter-spacing:.02em;margin-bottom:16px}
 .invest-hero h1 em{font-style:italic;color:var(--accent-gold-light)}
 .invest-hero p{font-size:clamp(16px,2vw,20px);opacity:.85;max-width:640px;line-height:1.7}
+.hero-cta{display:inline-flex;gap:16px;flex-wrap:wrap;margin-top:32px}
+.hero-cta .btn{background:#fff;color:var(--text-heading);padding:16px 36px;border-radius:100px;border:none;font-size:16px;font-weight:700;transition:background .4s,color .4s;cursor:pointer}
+.hero-cta .btn:hover{background:var(--accent-gold);color:#fff}
+.hero-cta .btn-outline{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff}
+.hero-cta .btn-outline:hover{background:rgba(255,255,255,.1);border-color:#fff;color:#fff}
 
 /* Section */
 .section{padding:var(--pad) 0}
@@ -166,11 +171,15 @@ a{text-decoration:none;color:inherit}
   <div class="container">
     <h1>Secure a <em>High-Yield Asset</em> in Kerala</h1>
     <p>Board-supervised share-deposit programmes with 10% annual interest, guest privileges, and the option to convert to personal residence. A world-class future for your family.</p>
+    <div class="hero-cta">
+      <button class="btn" onclick="document.getElementById('tiers').scrollIntoView({behavior:'smooth'})">Explore Investment Tiers</button>
+      <button class="btn btn-outline" onclick="document.getElementById('roi').scrollIntoView({behavior:'smooth'})">Calculate Your Returns</button>
+    </div>
   </div>
 </section>
 
 <!-- INVESTMENT TIERS -->
-<section class="section">
+<section class="section" id="tiers">
   <div class="container">
     <span class="tag">Investment Plan | Choose Your Tier</span>
     <h2>Choose Your <em>Tier</em></h2>
@@ -229,7 +238,7 @@ a{text-decoration:none;color:inherit}
 </section>
 
 <!-- ROI CALCULATOR -->
-<section class="section section-beige">
+<section class="section section-beige" id="roi">
   <div class="container">
     <span class="tag">Interactive Tool</span>
     <h2>ROI <em>Calculator</em></h2>
