@@ -600,15 +600,16 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 .t-list{list-style:none;text-align:left;margin-bottom:28px}
 .t-list li{font-size:16px;line-height:2.2;color:var(--text-muted-dark);padding-left:22px;position:relative}
 .t-list li::before{content:'✓';position:absolute;left:0;color:var(--accent-gold);font-weight:700}
-.coord-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap}
-.coord-pill .cc-name{color:var(--text-muted-dark)}
-.coord-pill .cc-phone{color:var(--accent-gold);font-weight:600;white-space:nowrap}
-.coord-pill-dark{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:var(--bg-dark);border:1px solid var(--border-dark);border-radius:12px;font-size:13px;color:#fff;white-space:nowrap;transition:transform .3s,border-color .3s}
-.coord-pill-dark:hover{transform:translateY(-2px);border-color:rgba(192,155,94,.4)}
-.coord-pill-dark strong{font-weight:600;margin-right:4px}
-.coord-pill-dark .cc-name{color:var(--text-muted);font-size:12px}
-.coord-pill-dark .cc-phone{color:var(--accent-gold);font-weight:600;font-size:12px;margin-left:4px}
-@media(max-width:480px){.coord-pill-dark{padding:8px 12px;font-size:11px;border-radius:8px}.coord-pill-dark strong{font-size:11px}.coord-pill-dark .cc-name{font-size:10px}.coord-pill-dark .cc-phone{font-size:10px}}
+.coord-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.coord-card{background:var(--bg-dark);border:1px solid var(--border-dark);border-radius:12px;padding:14px 12px;text-align:center;transition:transform .3s,border-color .3s;cursor:pointer;position:relative;overflow:hidden}
+.coord-card:hover{transform:translateY(-2px);border-color:rgba(192,155,94,.4)}
+.coord-card .cc-flag{font-size:20px;margin-bottom:6px;display:block}
+.coord-card .cc-country{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+.coord-card .cc-phone{font-size:12px;color:var(--accent-gold);font-weight:600;text-decoration:none;display:block}
+.coord-card .cc-name{position:absolute;top:0;left:0;right:0;background:var(--bg-dark);border-bottom:1px solid var(--border-dark);padding:8px 12px;font-size:12px;color:var(--text-muted);transform:translateY(-100%);transition:transform .3s;z-index:2}
+.coord-card:hover .cc-name{transform:translateY(0)}
+@media(max-width:900px){.coord-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.coord-grid{grid-template-columns:repeat(2,1fr);gap:8px}.coord-card{padding:12px 10px}.coord-card .cc-flag{font-size:18px}.coord-card .cc-country{font-size:12px}.coord-card .cc-phone{font-size:11px}}
 
 .hero-carousel-card{flex:0 0 auto;width:min(85vw,520px);scroll-snap-align:start;border-radius:16px;overflow:hidden}
 .hero-carousel-img{width:100%;height:320px;object-fit:cover;display:block}
@@ -1253,27 +1254,27 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
 
 </main>
 
-<!-- COUNTRY COORDINATORS — Dark card layout -->
-<section class="coordinators-strip" style="background:var(--bg-body);padding:48px 0 40px">
+<!-- COUNTRY COORDINATORS — Compact grid -->
+<section class="coordinators-strip" style="background:var(--bg-body);padding:32px 0 28px">
   <div class="container">
-    <h4 style="text-align:center;margin-bottom:28px;color:var(--text-heading);font-family:var(--font-helv);font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase">Global Country Coordinators</h4>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
-      <div class="coord-pill-dark"><span style="font-size:16px">🇦🇺</span><strong>Australia</strong><span class="cc-name">Vipin Augustine</span><a href="tel:+61415934654" class="cc-phone">+61 415 934 654</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇦🇺</span><strong>Australia</strong><span class="cc-name">Aneesh James</span><a href="tel:+61432896323" class="cc-phone">+61 432 896 323</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇨🇦</span><strong>Canada</strong><span class="cc-name">Jacob Antony</span><a href="tel:+14038708524" class="cc-phone">+1 403 870 8524</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇩🇪</span><strong>Germany</strong><span class="cc-name">Roy Joseph</span><a href="tel:+393517552646" class="cc-phone">+39 351 755 2646</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇮🇳</span><strong>India</strong><span class="cc-name">Fr. Mathew Puthumana</span><a href="tel:+919447080356" class="cc-phone">+91 94470 80356</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇮🇳</span><strong>India</strong><span class="cc-name">Thomas Abraham</span><a href="tel:+917356927730" class="cc-phone">+91 73569 27730</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇮🇳</span><strong>India</strong><span class="cc-name">Paul Jose</span><a href="tel:+91940939936" class="cc-phone">+91 94093 9936</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇮🇹</span><strong>Italy</strong><span class="cc-name">Tomy George</span><a href="tel:+393283688700" class="cc-phone">+39 328 368 8700</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇮🇱</span><strong>Israel</strong><span class="cc-name">Beena Joseph</span><a href="tel:+972556800609" class="cc-phone">+972 55 680 0609</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇮🇪</span><strong>Ireland</strong><span class="cc-name">Ashwin Tomy</span><a href="tel:+353892620965" class="cc-phone">+353 89 262 0965</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇰🇼</span><strong>Kuwait</strong><span class="cc-name">Nixon George</span><a href="tel:+96566899495" class="cc-phone">+965 6689 9495</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇸🇦</span><strong>Saudi Arabia</strong><span class="cc-name">Denny Joseph</span><a href="tel:+966506467103" class="cc-phone">+966 50 646 7103</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇴🇲</span><strong>Oman</strong><span class="cc-name">Jobin George</span><a href="tel:+919847043715" class="cc-phone">+91 98470 43715</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇬🇧</span><strong>United Kingdom</strong><span class="cc-name">Sony Chacko</span><a href="tel:+447723306974" class="cc-phone">+44 7723 306 974</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇦🇪</span><strong>UAE</strong><span class="cc-name">Rajeev Abraham</span><a href="tel:+971505786471" class="cc-phone">+971 50 578 6471</a></div>
-      <div class="coord-pill-dark"><span style="font-size:16px">🇦🇪</span><strong>UAE</strong><span class="cc-name">Binoj Kurian</span><a href="tel:+971558828941" class="cc-phone">+971 55 882 8941</a></div>
+    <h4 style="text-align:center;margin-bottom:20px;color:var(--text-heading);font-family:var(--font-helv);font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase">Global Country Coordinators</h4>
+    <div class="coord-grid">
+      <a class="coord-card" href="tel:+61415934654"><span class="cc-name">Vipin Augustine</span><span class="cc-flag">🇦🇺</span><span class="cc-country">Australia</span><span class="cc-phone">+61 415 934 654</span></a>
+      <a class="coord-card" href="tel:+61432896323"><span class="cc-name">Aneesh James</span><span class="cc-flag">🇦🇺</span><span class="cc-country">Australia</span><span class="cc-phone">+61 432 896 323</span></a>
+      <a class="coord-card" href="tel:+14038708524"><span class="cc-name">Jacob Antony</span><span class="cc-flag">🇨🇦</span><span class="cc-country">Canada</span><span class="cc-phone">+1 403 870 8524</span></a>
+      <a class="coord-card" href="tel:+393517552646"><span class="cc-name">Roy Joseph</span><span class="cc-flag">🇩🇪</span><span class="cc-country">Germany</span><span class="cc-phone">+39 351 755 2646</span></a>
+      <a class="coord-card" href="tel:+919447080356"><span class="cc-name">Fr. Mathew Puthumana</span><span class="cc-flag">🇮🇳</span><span class="cc-country">India</span><span class="cc-phone">+91 94470 80356</span></a>
+      <a class="coord-card" href="tel:+917356927730"><span class="cc-name">Thomas Abraham</span><span class="cc-flag">🇮🇳</span><span class="cc-country">India</span><span class="cc-phone">+91 73569 27730</span></a>
+      <a class="coord-card" href="tel:+91940939936"><span class="cc-name">Paul Jose</span><span class="cc-flag">🇮🇳</span><span class="cc-country">India</span><span class="cc-phone">+91 94093 9936</span></a>
+      <a class="coord-card" href="tel:+393283688700"><span class="cc-name">Tomy George</span><span class="cc-flag">🇮🇹</span><span class="cc-country">Italy</span><span class="cc-phone">+39 328 368 8700</span></a>
+      <a class="coord-card" href="tel:+972556800609"><span class="cc-name">Beena Joseph</span><span class="cc-flag">🇮🇱</span><span class="cc-country">Israel</span><span class="cc-phone">+972 55 680 0609</span></a>
+      <a class="coord-card" href="tel:+353892620965"><span class="cc-name">Ashwin Tomy</span><span class="cc-flag">🇮🇪</span><span class="cc-country">Ireland</span><span class="cc-phone">+353 89 262 0965</span></a>
+      <a class="coord-card" href="tel:+96566899495"><span class="cc-name">Nixon George</span><span class="cc-flag">🇰🇼</span><span class="cc-country">Kuwait</span><span class="cc-phone">+965 6689 9495</span></a>
+      <a class="coord-card" href="tel:+966506467103"><span class="cc-name">Denny Joseph</span><span class="cc-flag">🇸🇦</span><span class="cc-country">Saudi Arabia</span><span class="cc-phone">+966 50 646 7103</span></a>
+      <a class="coord-card" href="tel:+919847043715"><span class="cc-name">Jobin George</span><span class="cc-flag">🇴🇲</span><span class="cc-country">Oman</span><span class="cc-phone">+91 98470 43715</span></a>
+      <a class="coord-card" href="tel:+447723306974"><span class="cc-name">Sony Chacko</span><span class="cc-flag">🇬🇧</span><span class="cc-country">United Kingdom</span><span class="cc-phone">+44 7723 306 974</span></a>
+      <a class="coord-card" href="tel:+971505786471"><span class="cc-name">Rajeev Abraham</span><span class="cc-flag">🇦🇪</span><span class="cc-country">UAE</span><span class="cc-phone">+971 50 578 6471</span></a>
+      <a class="coord-card" href="tel:+971558828941"><span class="cc-name">Binoj Kurian</span><span class="cc-flag">🇦🇪</span><span class="cc-country">UAE</span><span class="cc-phone">+971 55 882 8941</span></a>
     </div>
   </div>
 </section>
