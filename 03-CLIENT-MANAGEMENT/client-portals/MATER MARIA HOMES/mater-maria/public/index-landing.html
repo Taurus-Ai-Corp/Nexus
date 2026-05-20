@@ -196,6 +196,11 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 0;background:var(--nav-black);border-bottom:1px solid transparent;transition:background .4s,border-color .4s,padding .3s,transform .3s}
 .nav.solid{background:rgba(255,251,245,.97);border-bottom-color:var(--border-light);padding:14px 0}
 .nav.hidden{transform:translateY(-100%)}
+.nav-hero{background:transparent !important;border-bottom-color:transparent !important}
+.nav-hero.solid{background:rgba(255,251,245,.97) !important;border-bottom-color:var(--border-light) !important}
+.nav-hero .nav-logo .lw{opacity:1 !important}.nav-hero .nav-logo .lc{opacity:0 !important}
+.nav-hero.solid .nav-logo .lw{opacity:0 !important}.nav-hero.solid .nav-logo .lc{opacity:1 !important}
+
 .nav .container{display:flex;align-items:center;justify-content:space-between}
 .nav-logo{position:relative;display:flex;align-items:center;width:200px;height:90px;flex-shrink:0}
 .nav-logo img{height:90px;width:auto;position:absolute;top:50%;left:0;transform:translateY(-50%);transition:opacity .4s,height .3s,filter .6s}
@@ -912,7 +917,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
 <!-- ================================================================
      NAVBAR
      ================================================================ -->
-<nav class="nav" id="nav">
+<nav class="nav nav-hero" id="nav">
   <div class="container">
     <a class="nav-logo" href="#">
       <img src="assets-2025/images/mater-maria-logo.svg" alt="Mater Maria Homes" class="lw" width="190">
@@ -925,7 +930,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
        <li><a href="#tiers">Invest</a></li>
        <li><a href="#contact">Contact</a></li>
      </ul>
-     <button class="nav-cta" onclick="document.getElementById('properties').scrollIntoView({behavior:'smooth'})">EXPLORE NOW</button>
+     <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -937,7 +942,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
   <a href="#properties" onclick="closeMobile()">Residences</a>
   <a href="#tiers" onclick="closeMobile()">Invest</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
-  <div class="mobile-menu-cta"><button class="btn btn-gold" onclick="closeMobile();document.getElementById('properties').scrollIntoView({behavior:'smooth'})">EXPLORE NOW</button></div>
+  <div class="mobile-menu-cta"><button class="btn btn-gold" onclick="closeMobile();document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button></div>
 </div>
 
 <!-- ================================================================
@@ -1340,7 +1345,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
 
 <!-- Mobile sticky CTA bar -->
     <div class="mobile-sticky-cta">
-    <button class="btn btn-gold" onclick="document.getElementById('properties').scrollIntoView({behavior:'smooth'})">EXPLORE NOW</button>
+    <button class="btn btn-gold" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
 </div>
 
 <!-- Desktop sticky CTA bar (appears after scrolling past hero) -->
@@ -1352,7 +1357,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
     </div>
     <div style="display:flex;align-items:center;gap:12px">
       <a href="tel:+919447080356" style="color:#fff;font-size:14px;font-weight:600">+91 94470 80356</a>
-      <button class="btn btn-gold" style="padding:10px 24px;font-size:14px" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">EXPLORE NOW</button>
+      <button class="btn btn-gold" style="padding:10px 24px;font-size:14px" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
     </div>
   </div>
 </div>
@@ -1402,16 +1407,21 @@ setTimeout(() => ScrollTrigger.refresh(), 1000);
 // Step 3: Navbar — scroll transition + hide/show
 const nav = document.getElementById('nav');
 let lastY = 0;
-ScrollTrigger.create({ trigger: 'body', start: 'top top', end: '10% top', scrub: true,
-  onUpdate: s => nav.classList.toggle('solid', s.progress > 0.5) });
+const heroEl = document.getElementById('hero');
+const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
+
+// Navbar: start transparent over hero, go solid after hero is scrolled past
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
+  // Toggle solid after 85% of hero height scrolled
+  nav.classList.toggle('solid', y > heroHeight * 0.85);
+  // Hide nav on scroll down (after 200px), show on scroll up
   if (y > lastY && y > 200) nav.classList.add('hidden');
   else nav.classList.remove('hidden');
   lastY = y;
   // Desktop sticky bar — show after scrolling past hero
   const dsb = document.getElementById('desktop-sticky-bar');
-  if (dsb) dsb.classList.toggle('visible', y > window.innerHeight * 0.8);
+  if (dsb) dsb.classList.toggle('visible', y > heroHeight * 0.9);
 }, { passive: true });
 
 // DRY: Infinite horizontal ticker helper (returns tween for speed modulation)
