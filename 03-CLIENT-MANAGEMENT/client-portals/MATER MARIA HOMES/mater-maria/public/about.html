@@ -88,8 +88,9 @@ a{text-decoration:none;color:inherit}
 .board-card .role{color:var(--accent-gold-light);font-size:14px;font-weight:600;margin-top:2px}
 .board-card .org{font-size:12px;color:var(--text-muted);margin-top:4px}
 .board-card .creds{font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.5}
-@media(max-width:900px){.board-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.board-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.board-grid{grid-template-columns:1fr;gap:16px}}
+@media(max-width:768px){.board-card{padding:24px 16px}}
+@media(max-width:768px){.board-card img{width:80px;height:80px}}
 
 /* Core Investors */
 .investors-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px,1fr));gap:24px;margin-top:40px}
