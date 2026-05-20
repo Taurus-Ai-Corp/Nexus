@@ -25,8 +25,8 @@
   --hover-blue: #1e4f92;
   --text-primary: #333333;
   --text-heading: #191D23;
-  --text-muted: rgba(255,255,255,0.65);
-  --text-muted-dark: rgba(25,29,35,0.55);
+  --text-muted: rgba(255,255,255,0.82);
+  --text-muted-dark: rgba(25,29,35,0.72);
   --border-light: rgba(0,0,0,0.08);
   --border-dark: rgba(255,255,255,0.1);
   --font-display: 'Inter Tight', sans-serif;
@@ -85,10 +85,9 @@ a{text-decoration:none;color:inherit}
 .board-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px 20px;text-align:center;transition:transform .4s,border-color .4s}
 .board-card:hover{transform:translateY(-4px);border-color:rgba(192,155,94,.3)}
 .board-card img{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 16px;border:3px solid var(--accent-gold)}
-.board-card .name{font-size:17px;font-weight:600;color:#fff}
-.board-card .role{color:var(--accent-gold-light);font-size:14px;font-weight:600;margin-top:2px}
-.board-card .org{font-size:12px;color:var(--text-muted);margin-top:4px}
-.board-card .creds{font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.5}
+.board-card .name{font-size:17px;font-weight:700;color:#fff}
+.board-card .role{color:var(--accent-gold-light);font-size:14px;font-weight:700;margin-top:4px}
+.board-card .org{font-size:13px;color:var(--text-muted);margin-top:6px;font-weight:500}
 @media(max-width:768px){.board-grid{grid-template-columns:1fr;gap:16px}}
 @media(max-width:768px){.board-card{padding:24px 16px}}
 @media(max-width:768px){.board-card img{width:80px;height:80px}}
@@ -112,10 +111,10 @@ a{text-decoration:none;color:inherit}
 
 /* Footer */
 .footer{background:var(--bg-dark);padding:40px 0 24px;color:var(--text-muted)}
-.footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer .container{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
 .footer a{color:var(--accent-gold-light);transition:color .3s}
 .footer a:hover{color:var(--accent-gold)}
-.footer-links{display:flex;gap:24px;list-style:none;font-size:14px}
+.footer-links{display:flex;gap:24px;list-style:none;font-size:14px;justify-content:center;flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -187,20 +186,17 @@ a{text-decoration:none;color:inherit}
         <img src="assets-2025/images/board/rajeev-abraham.png" alt="Rajeev Abraham">
         <div class="name">Rajeev Abraham</div>
         <div class="role">Chairman & Global Coordinator</div>
-        <div class="creds">M.A., B.Ed. | CFM | IOSH, OSHA & PIC Advanced<br>37 years — Dubai & Middle East infrastructure</div>
-      </div>
+              </div>
       <div class="board-card">
         <img src="assets-2025/images/board/thomas-abraham.png" alt="Thomas Abraham">
         <div class="name">Thomas Abraham</div>
         <div class="role">Managing Director</div>
-        <div class="creds">B.Sc. | PG Dip. Marketing | MBA Supply Chain<br>35 years leadership at Milma, Kerala</div>
-      </div>
+              </div>
       <div class="board-card">
         <img src="assets-2025/images/board/paul-jose.png" alt="Paul Jose">
         <div class="name">Paul Jose</div>
         <div class="role">Director of Projects</div>
-        <div class="creds">26+ years construction & project management<br>Managing Partner, Septa Group</div>
-      </div>
+              </div>
       <div class="board-card">
         <img src="assets-2025/images/board/jobin-george.png" alt="Jobin George">
         <div class="name">Jobin George</div>
