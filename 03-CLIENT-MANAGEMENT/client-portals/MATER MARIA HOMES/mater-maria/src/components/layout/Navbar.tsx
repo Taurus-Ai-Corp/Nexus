@@ -24,7 +24,7 @@ export function Navbar() {
   const { scrollY } = useScroll();
   const pathname = usePathname();
   const isInvestRoute = pathname === "/invest";
-  const useBlendMode = isInvestRoute && !scrolled;
+  const logoOnDark = !scrolled || isInvestRoute;
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 50);
@@ -47,7 +47,7 @@ export function Navbar() {
           ? "bg-bg-base/80 shadow-sm backdrop-blur-[12px] border-b border-border-subtle"
           : "bg-transparent"
       )}
-      style={useBlendMode ? { mixBlendMode: "difference" } : undefined}
+      style={undefined}
     >
       {/* Top gradient scrim — always visible, ensures logo contrast over any hero image */}
       {!scrolled && (
@@ -57,14 +57,14 @@ export function Navbar() {
           aria-hidden="true"
         />
       )}
-      <nav className="relative mx-auto flex h-24 w-full max-w-screen-2xl items-center justify-between px-6 sm:px-10 lg:px-20">
+      <nav className="relative mx-auto flex h-28 w-full max-w-screen-2xl items-center justify-between px-6 sm:px-10 lg:px-20">
         {/* Brand Logo */}
         <Link
           href="/"
           className="group transition-opacity hover:opacity-80"
           aria-label={`${SITE.shortName} - Home`}
         >
-          <BrandLogo height={88} onDark={!scrolled} />
+          <BrandLogo height={110} onDark={logoOnDark} />
         </Link>
 
         {/* Desktop Navigation */}
@@ -113,7 +113,7 @@ export function Navbar() {
             <SheetContent side="right" className="bg-bg-base border-border-default w-72">
               <SheetHeader>
                 <SheetTitle>
-                  <BrandLogo height={40} onDark={false} />
+                  <BrandLogo height={52} onDark={false} />
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-1 px-4 pt-4">

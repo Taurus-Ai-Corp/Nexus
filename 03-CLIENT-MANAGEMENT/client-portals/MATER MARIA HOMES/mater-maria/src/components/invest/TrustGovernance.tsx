@@ -202,14 +202,41 @@ export function TrustGovernance() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="trust-item-anim text-center"
+          className="trust-item-anim"
         >
-          <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-text-muted">
+          <p className="mb-2 text-center text-xs font-medium uppercase tracking-[0.2em] text-text-muted">
+            Global Country Coordinators
+          </p>
+          <h3 className="mb-10 text-center font-heading text-lg font-bold text-text-primary">
             Country Coordinators
-          </p>
-          <p className="text-sm text-text-secondary">
-            {COUNTRY_COORDINATORS.join(" · ")}
-          </p>
+          </h3>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {COUNTRY_COORDINATORS.map((coord, i) => (
+              <motion.div
+                key={`${coord.country}-${coord.name}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.4, delay: i * 0.03 }}
+                className="flex items-center gap-3 rounded-xl border border-border-default bg-surface/80 px-4 py-3 backdrop-blur-sm"
+              >
+                <span className="text-lg leading-none" aria-hidden="true">
+                  {coord.flag}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-text-primary">
+                    {coord.country}
+                  </p>
+                  <p className="truncate text-[11px] text-text-secondary">
+                    {coord.name}
+                  </p>
+                  <p className="text-[11px] font-medium text-accent-default">
+                    {coord.phone}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </Container>
     </SectionWatermark>

@@ -437,9 +437,30 @@ export const CORE_VALUES = [
   },
 ];
 
-export const COUNTRY_COORDINATORS = [
-  "Australia", "Italy", "Germany", "United Arab Emirates", "India",
-  "Oman", "Canada", "United States", "United Kingdom", "Kuwait",
+export interface CountryCoordinator {
+  flag: string;
+  country: string;
+  name: string;
+  phone: string;
+}
+
+export const COUNTRY_COORDINATORS: CountryCoordinator[] = [
+  { flag: "🇦🇺", country: "Australia", name: "Vion Augustin", phone: "+61 495 934 654" },
+  { flag: "🇦🇺", country: "Australia", name: "Aleen Jones", phone: "+61 432 898 323" },
+  { flag: "🇨🇦", country: "Canada", name: "Jacob Antony", phone: "+1 403 870 8124" },
+  { flag: "🇩🇪", country: "Germany", name: "Roy Joseph", phone: "+30 357 353 2646" },
+  { flag: "🇮🇳", country: "India", name: "Fr. Mathew Puthumana", phone: "+91 94470 80356" },
+  { flag: "🇮🇳", country: "India", name: "Thomas Abraham", phone: "+91 77359 27730" },
+  { flag: "🇮🇳", country: "India", name: "Paul Jose", phone: "+91 94009 39936" },
+  { flag: "🇮🇹", country: "Italy", name: "Tony George", phone: "+39 328 368 8700" },
+  { flag: "🇮🇱", country: "Israel", name: "Senna Joseph", phone: "+972 50 660 0600" },
+  { flag: "🇮🇪", country: "Ireland", name: "Ashish Tomy", phone: "+353 89 262 000" },
+  { flag: "🇰🇼", country: "Kuwait", name: "Ninoy George", phone: "+965 6099 8456" },
+  { flag: "🇸🇦", country: "Saudi Arabia", name: "Dennis Joseph", phone: "+966 50 646 7823" },
+  { flag: "🇴🇲", country: "Oman", name: "Jopin George", phone: "+91 96367 00000" },
+  { flag: "🇬🇧", country: "United Kingdom", name: "Sony Chacko", phone: "+44 7722 308 974" },
+  { flag: "🇦🇪", country: "UAE", name: "Rajeev Abraham", phone: "+971 50 578 6471" },
+  { flag: "🇦🇪", country: "UAE", name: "Binoj Kurian", phone: "+971 552 892 841" },
 ];
 
 /* ------------------------------------------------------------------ */
