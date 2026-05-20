@@ -24,8 +24,8 @@
 <link rel="alternate" hreflang="en-gb" href="https://matermariahomes.com/index-landing.html">
 <link rel="alternate" hreflang="en-au" href="https://matermariahomes.com/index-landing.html">
 <link rel="alternate" hreflang="en-ca" href="https://matermariahomes.com/index-landing.html">
-<link rel="icon" type="image/svg+xml" href="assets-2025/images/mater-maria-logo.svg?v=2">
-<link rel="apple-touch-icon" href="assets-2025/images/mater-maria-logo.svg?v=2">
+<link rel="icon" type="image/svg+xml" href="assets-2025/images/mater-maria-logo.svg?v=3">
+<link rel="apple-touch-icon" href="assets-2025/images/mater-maria-logo.svg?v=3">
 <meta name="theme-color" content="#1a1d23">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +45,7 @@
       "name": "Mater Maria Homes",
       "description": "Premium integrated retirement and wellness estate in Kanjirappally, Kerala. 100% solar net-zero.",
       "url": "https://matermariahomes.com/index-landing.html",
-      "logo": "https://matermariahomes.com/assets-2025/images/mater-maria-logo.svg?v=2",
+      "logo": "https://matermariahomes.com/assets-2025/images/mater-maria-logo.svg?v=3",
       "image": "https://matermariahomes.com/assets-2025/images/hero-slides/Home_Banner_01.jpg",
       "telephone": "+919447080356",
       "email": "Info@matermariahomes.com",
@@ -198,20 +198,17 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 .nav.hidden{transform:translateY(-100%)}
 .nav-hero{background:transparent !important;border-bottom-color:transparent !important}
 .nav-hero.solid{background:hsla(40,20%,97%,.85) !important;border-bottom-color:hsla(220,15%,18%,.08) !important;backdrop-filter:blur(12px) saturate(150%) !important;-webkit-backdrop-filter:blur(12px) saturate(150%) !important}
-.nav-hero .nav-logo .lw{opacity:1 !important}.nav-hero .nav-logo .lc{opacity:0 !important}
-.nav-hero.solid .nav-logo .lw{opacity:0 !important}.nav-hero.solid .nav-logo .lc{opacity:1 !important}
+.nav-hero .nav-logo img{filter:drop-shadow(0 2px 12px rgba(0,0,0,.4))}
+.nav-hero.solid .nav-logo img{filter:none}
 
 .nav .container{display:flex;align-items:center;justify-content:space-between}
-.nav-logo{position:relative;display:flex;align-items:center;width:200px;height:100px;flex-shrink:0}
-.nav-logo img{height:100px;width:auto;position:absolute;top:50%;left:0;transform:translateY(-50%);transition:opacity .4s,height .3s,filter .6s}
-.nav-logo .lw{opacity:1;filter:drop-shadow(0 2px 12px rgba(0,0,0,.4))}.nav-logo .lc{opacity:0}
-.nav.solid .nav-logo{height:82px}
-.nav.solid .nav-logo img{height:82px}
-.nav.solid .nav-logo .lw{opacity:0;filter:none}.nav.solid .nav-logo .lc{opacity:1}
-/* Logo color cycle animation — white→gold→white */
+.nav-logo{position:relative;display:flex;align-items:center;width:240px;height:130px;flex-shrink:0}
+.nav-logo img{height:130px;width:auto;position:absolute;top:50%;left:0;transform:translateY(-50%);transition:height .3s,filter .6s}
+.nav.solid .nav-logo{height:110px}
+.nav.solid .nav-logo img{height:110px}
+/* Logo color cycle animation */
 @keyframes logo-glow{0%,100%{filter:drop-shadow(0 2px 12px rgba(0,0,0,.4)) brightness(1)}33%{filter:drop-shadow(0 2px 16px rgba(192,155,94,.5)) brightness(1.15) sepia(.3) hue-rotate(-10deg)}66%{filter:drop-shadow(0 2px 14px rgba(192,155,94,.3)) brightness(1.05)}}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
-.nav:not(.solid) .nav-logo .lw{animation:logo-glow 8s ease-in-out infinite}
+.nav:not(.solid) .nav-logo img{animation:logo-glow 8s ease-in-out infinite}
 .nav-links{display:flex;gap:36px;list-style:none}
 .nav-links a{font-size:17px;font-weight:600;letter-spacing:-.2px;color:#fff;opacity:.9;transition:color .4s,opacity .3s}
 .nav-links a:hover{opacity:1}
@@ -243,7 +240,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 @media(max-width:1024px){
   /* Nav → hamburger */
   .nav-links{display:none}.hamburger{display:block}.nav-cta{display:none}
-  .nav-logo{width:180px;height:90px}.nav-logo img{height:90px}
+  .nav-logo{width:200px;height:110px}.nav-logo img{height:110px}
   .nav.solid .nav-logo{height:66px}.nav.solid .nav-logo img{height:66px}
   /* Hero */
   .hero-h1{font-size:clamp(3rem,8vw,5.5rem)}
@@ -923,8 +920,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
 <nav class="nav nav-hero" id="nav">
   <div class="container">
     <a class="nav-logo" href="#">
-      <img src="assets-2025/images/mater-maria-logo.svg?v=2" alt="Mater Maria Homes" class="lw" width="190">
-      <img src="assets-2025/images/mater-maria-logo.svg?v=2" alt="Mater Maria Homes" class="lc" width="190">
+      <img src="assets-2025/images/mater-maria-logo.svg?v=3" alt="Mater Maria Homes">
     </a>
      <ul class="nav-links">
        <li><a href="about.html">About</a></li>
@@ -1262,7 +1258,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
   <video class="footer-video" autoplay muted loop playsinline preload="metadata"><source src="assets-2025/videos/golden-water-footer.mp4" type="video/mp4"></video>
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><img src="assets-2025/images/mater-maria-logo.svg?v=2" alt="Mater Maria Homes" width="280" loading="lazy" style="filter:brightness(0) invert(1)"><p style="color:#fff">A sanctuary of 24/7 care, spiritual community, and medical excellence — where every resident lives with dignity and peace.</p></div>
+      <div class="footer-brand"><img src="assets-2025/images/mater-maria-logo.svg?v=3" alt="Mater Maria Homes" width="280" loading="lazy" style="filter:brightness(0) invert(1)"><p style="color:#fff">A sanctuary of 24/7 care, spiritual community, and medical excellence — where every resident lives with dignity and peace.</p></div>
       <div><h4>Quick Links</h4><ul><li><a href="about.html">About</a></li><li><a href="#features">Features</a></li><li><a href="#properties">Residences</a></li><li><a href="#tiers">Invest</a></li><li><a href="#contact">Contact</a></li></ul></div>
       <div><h4>Contact</h4><ul><li><a href="tel:+919447080356">+91 94470 80356</a></li><li><a href="mailto:Info@matermariahomes.com">Info@matermariahomes.com</a></li><li style="color:#fff">Kanjirappally, Kerala 686507</li></ul></div>
       <div><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li><li><a href="about.html">Governance</a></li></ul></div>
