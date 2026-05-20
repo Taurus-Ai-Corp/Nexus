@@ -197,7 +197,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 .nav.solid{background:rgba(255,251,245,.97);border-bottom-color:var(--border-light);padding:14px 0}
 .nav.hidden{transform:translateY(-100%)}
 .nav-hero{background:transparent !important;border-bottom-color:transparent !important}
-.nav-hero.solid{background:rgba(255,251,245,.97) !important;border-bottom-color:var(--border-light) !important}
+.nav-hero.solid{background:hsla(40,20%,97%,.85) !important;border-bottom-color:hsla(220,15%,18%,.08) !important;backdrop-filter:blur(12px) saturate(150%) !important;-webkit-backdrop-filter:blur(12px) saturate(150%) !important}
 .nav-hero .nav-logo .lw{opacity:1 !important}.nav-hero .nav-logo .lc{opacity:0 !important}
 .nav-hero.solid .nav-logo .lw{opacity:0 !important}.nav-hero.solid .nav-logo .lc{opacity:1 !important}
 
@@ -226,7 +226,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 .hamburger.active span:nth-child(2){opacity:0}
 .hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 .hamburger.active span{background:#fff!important}
-.mobile-menu{position:fixed;inset:0;z-index:1001;background:rgba(25,29,35,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.mobile-menu{position:fixed;inset:0;z-index:1001;background:rgba(25,29,35,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%)}
 .mobile-menu.open{opacity:1;pointer-events:auto}
 .mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:#fff;font-size:36px;cursor:pointer;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .3s;z-index:10}
 .mobile-close:hover{background:rgba(255,255,255,.1)}
@@ -461,7 +461,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 /* Buttons */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;border-radius:100px;border:none;font-size:16px;font-weight:700;letter-spacing:-.3px;transition:transform .3s,background .4s,color .4s;overflow:hidden;position:relative}
 .btn:hover{transform:translateY(-2px)}
-.btn-gold{background:var(--accent-gold);color:#fff}.btn-gold:hover{background:var(--hover-blue);color:#fff}
+.btn-gold{background:linear-gradient(135deg,#D4B77A 0%,#C09B5E 50%,#9A7A42 100%);background-size:200% 200%;color:#fff;transition:background-position .5s,transform .3s,background .4s,color .4s}.btn-gold:hover{background-position:100% 0}
 .btn-outline-w{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff}.btn-outline-w:hover{background:rgba(255,255,255,.08)}
 .btn-outline-d{background:transparent;border:1px solid var(--border-light);color:var(--text-heading)}.btn-outline-d:hover{background:rgba(0,0,0,.04)}
 .btn-arrow::after{content:'→';margin-left:4px;transition:transform .3s}.btn-arrow:hover::after{transform:translateX(4px)}
@@ -978,7 +978,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
           <div class="hero-text" style="max-width:65%;padding-right:3rem;padding-bottom:2rem;">
             <div class="hero-text-backing">
             <h1 class="hero-h1">A Board-Supervised Estate<br>for Your Parents</h1>
-            <p class="hero-h2">24/7 medical care. Catholic spiritual community.<br>NRI investment from <em>₹10 lakh</em>.</p>
+            <p class="hero-h2">24/7 medical care. Catholic spiritual community. NRI investment from <em>₹10 lakh</em>.</p>
             <p class="hero-sub">Diocese of Kanjirappally · Pravasi Apostolate</p>
             <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;justify-content:flex-end">
               <button class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
@@ -988,54 +988,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
           </div>
         </div>
       </div>
-      <!-- Text Group 2: Left-aligned, center-left -->
-      <div class="hero-text-group hero-text-group-2">
-        <div class="hero-ct-inner" style="display:flex;align-items:center;justify-content:flex-start;text-align:left;height:100%">
-          <div class="hero-text" style="max-width:60%;padding-left:3rem;">
-            <div class="hero-text-backing">
-            <h2 class="hero-h1">Where Faith Meets <em>Wellness</em></h2>
-            <p class="hero-h2">A sanctuary of <em>dignity, purpose, and joy</em> for your golden years</p>
-            <p class="hero-sub">90+ Residences · 48 World-Class Facilities · 24/7 Medical Care</p>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;justify-content:flex-start">
-              <button class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
-              <button class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('tiers').scrollIntoView({behavior:'smooth'})">INVEST NOW</button>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Text Group 3: Center-aligned, bottom-center -->
-      <div class="hero-text-group hero-text-group-3">
-        <div class="hero-ct-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;height:100%">
-          <div class="hero-text" style="max-width:800px;padding-bottom:3rem;">
-            <div class="hero-text-backing" style="text-align:center">
-            <h2 class="hero-h1" style="text-align:center">A Legacy of <em>Care</em></h2>
-            <p class="hero-h2" style="text-align:center">100% solar net-zero · <em>Hospital on campus</em></p>
-            <p class="hero-sub">Under the patronage of the Diocese of Kanjirappally</p>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;justify-content:center">
-              <button class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
-              <button class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('tiers').scrollIntoView({behavior:'smooth'})">INVEST NOW</button>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Text Group 4: Right-aligned, top-right -->
-      <div class="hero-text-group hero-text-group-4">
-        <div class="hero-ct-inner" style="display:flex;align-items:flex-start;justify-content:flex-end;text-align:right;height:100%">
-          <div class="hero-text" style="max-width:60%;padding-right:3rem;padding-top:5rem;">
-            <div class="hero-text-backing">
-            <h2 class="hero-h1">Your Home, <em>Reimagined</em></h2>
-            <p class="hero-h2">Six residence types from compact studios to <em>luxury villas</em></p>
-            <p class="hero-sub">Investment tiers from ₹10L · 10% annual interest · 153% 15-year return</p>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;justify-content:flex-end">
-              <button class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
-              <button class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('tiers').scrollIntoView({behavior:'smooth'})">INVEST NOW</button>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
   </div>
 </section>
 
@@ -1434,66 +1387,35 @@ function ticker(sel, { xPercent=-50, duration=40 } = {}) { return gsap.to(sel, {
 // Step 4: Hero marquee
 const heroTicker = ticker('.hero-ticker', { duration: 50 });
 
-// Hero slideshow crossfade + text group sync + staggered reveal
+// Hero slideshow crossfade — text stays static in position 1
 (function() {
   const heroSlides = document.querySelectorAll('.hero-slide');
-  const heroTextGroups = document.querySelectorAll('.hero-text-group');
   let hs = 0;
   const totalSlides = heroSlides.length;
 
-  // Prepare each text group: set initial hidden state + build reveal timeline
-  heroTextGroups.forEach(function(group) {
-    var h1 = group.querySelector('.hero-h1');
-    var h2 = group.querySelector('.hero-h2');
-    var sub = group.querySelector('.hero-sub');
-    var btns = group.querySelectorAll('.btn');
+  // Static text reveal for group 1 only
+  const group1 = document.querySelector('.hero-text-group-1');
+  if (group1) {
+    var h1 = group1.querySelector('.hero-h1');
+    var h2 = group1.querySelector('.hero-h2');
+    var sub = group1.querySelector('.hero-sub');
+    var btns = group1.querySelectorAll('.btn');
     if (h1) gsap.set(h1, { y: 40, opacity: 0 });
     if (h2) gsap.set(h2, { y: 30, opacity: 0 });
     if (sub) gsap.set(sub, { y: 15, opacity: 0 });
     btns.forEach(function(b) { gsap.set(b, { scale: 0.9, opacity: 0 }); });
-  });
-
-  function buildRevealTl(group) {
-    var h1 = group.querySelector('.hero-h1');
-    var h2 = group.querySelector('.hero-h2');
-    var sub = group.querySelector('.hero-sub');
-    var btns = group.querySelectorAll('.btn');
-    // Reset
-    if (h1) gsap.set(h1, { y: 40, opacity: 0 });
-    if (h2) gsap.set(h2, { y: 30, opacity: 0 });
-    if (sub) gsap.set(sub, { y: 15, opacity: 0 });
-    btns.forEach(function(b) { gsap.set(b, { scale: 0.9, opacity: 0 }); });
-    // Build
     var tl = gsap.timeline({ delay: 0.5 });
     if (h1) tl.to(h1, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' });
     if (h2) tl.to(h2, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.3');
     if (sub) tl.to(sub, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2');
     if (btns.length) tl.to(btns, { scale: 1, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power2.out' }, '-=0.1');
-    return tl;
+    group1.classList.add('on');
   }
 
   function advanceHero() {
-    // Kill previous reveal timeline
-    var prevGroup = heroTextGroups[hs % heroTextGroups.length];
-    if (prevGroup && prevGroup._tl) prevGroup._tl.kill();
-    // Fade out previous
     heroSlides[hs].classList.remove('on');
-    if (prevGroup) prevGroup.classList.remove('on');
-    // Advance
     hs = (hs + 1) % totalSlides;
-    // Fade in new
     heroSlides[hs].classList.add('on');
-    var nextGroup = heroTextGroups[hs % heroTextGroups.length];
-    if (nextGroup) {
-      nextGroup.classList.add('on');
-      nextGroup._tl = buildRevealTl(nextGroup);
-    }
-  }
-
-  // Initialize first group
-  if (heroTextGroups[0]) {
-    heroTextGroups[0].classList.add('on');
-    heroTextGroups[0]._tl = buildRevealTl(heroTextGroups[0]);
   }
   setInterval(advanceHero, 5000);
 })();
