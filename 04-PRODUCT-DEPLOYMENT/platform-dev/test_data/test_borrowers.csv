@@ -1,0 +1,21 @@
+borrower_id,name,segment,phone,language,kyc_status
+BORR_0001,Borrower 1,grocer,+917780932287,mr,verified
+BORR_0002,Borrower 2,trader,+917787716372,ta,verified
+BORR_0003,Borrower 3,grocer,+919652062880,ta,verified
+BORR_0004,Borrower 4,grocer,+918306710475,en,pending
+BORR_0005,Borrower 5,trader,+919627030329,mr,verified
+BORR_0006,Borrower 6,trader,+919253811733,te,verified
+BORR_0007,Borrower 7,grocer,+917030349564,mr,verified
+BORR_0008,Borrower 8,hotelier,+918855189739,te,verified
+BORR_0009,Borrower 9,grocer,+917099052376,en,verified
+BORR_0010,Borrower 10,grocer,+918250819632,hi,verified
+BORR_0011,Borrower 11,grocer,+919253890010,ta,verified
+BORR_0012,Borrower 12,grocer,+919627888186,en,verified
+BORR_0013,Borrower 13,trader,+918717389822,ta,pending
+BORR_0014,Borrower 14,grocer,+917599121577,hi,verified
+BORR_0015,Borrower 15,hotelier,+917200427519,hi,verified
+BORR_0016,Borrower 16,trader,+918254751707,en,pending
+BORR_0017,Borrower 17,hotelier,+918573512143,hi,verified
+BORR_0018,Borrower 18,hotelier,+917999745294,te,verified
+BORR_0019,Borrower 19,hotelier,+918958805693,hi,verified
+BORR_0020,Borrower 20,hotelier,+917389151677,ta,verified

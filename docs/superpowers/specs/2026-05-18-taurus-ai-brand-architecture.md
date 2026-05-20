@@ -81,7 +81,7 @@ TAURUS AI Corp (Parent Trust)
 | Nexus \| Social | Social media management | nexusoft.io |
 | Nexus \| Marketing | Performance marketing | nexus.market |
 
-**Note:** Replaces "NeoSync" brand — social-suite-dashboard.vercel.app to be rebranded
+**Note:** Replaces "Nexus" brand — social-suite-dashboard.vercel.app to be rebranded
 
 **Endorsement:** Explicit — "Nexus by Taurus AI"
 
@@ -197,7 +197,7 @@ Taurus-Ai-Corp/
 │   ├── noverm-devops/
 │   └── noverm-performance/
 │
-├── Nexus/ (NEW — replaces NeoSync)
+├── Nexus/ (NEW — replaces Nexus)
 │   ├── nexus-analytics/
 │   ├── nexus-social/
 │   └── nexus-marketing/
@@ -272,7 +272,7 @@ Taurus-Ai-Corp/
 
 ### Phase 1: Immediate (Week 1-2)
 - [ ] File Noverm trademark (priority)
-- [ ] Rename NeoSync → Nexus in all docs
+- [ ] Rename Nexus → Nexus in all docs
 - [ ] Update GitHub repo structure for new products
 - [ ] Create brand guidelines doc per product
 
@@ -299,7 +299,7 @@ Taurus-Ai-Corp/
 ## 9. External References
 
 - GRIDERA Brand Guidelines: q-grid.net/brand
-- NeoSync (to be rebranded): social-suite-dashboard.vercel.app
+- Nexus (to be rebranded): social-suite-dashboard.vercel.app
 - Legal Entities: `/Users/taurus_ai/Documents/TAURUS AI Corp./`
 
 ---

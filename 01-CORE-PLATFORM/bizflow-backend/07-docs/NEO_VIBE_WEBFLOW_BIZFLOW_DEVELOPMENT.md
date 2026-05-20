@@ -38,9 +38,9 @@
 
 ---
 
-### **✅ 2. BUILT NEOVIBE STUDIO ON EXISTING WEBFLOW INTEGRATION**
+### **✅ 2. BUILT Nexus STUDIO ON EXISTING WEBFLOW INTEGRATION**
 
-**Component**: `subdomains/neovibe.taurusai.io/studio/neovibe_studio_core.py`
+**Component**: `subdomains/nexus.taurusai.io/studio/nexus_studio_core.py`
 
 **What Was Built**:
 - **Visual Brand Builder Interface** using your existing Webflow credentials
@@ -114,7 +114,7 @@
 │   ├── Discovers 95,000+ existing agents
 │   ├── Routes tasks intelligently
 │   └── Monitors performance
-├── 🎨 NeoVibe Studio Core
+├── 🎨 Nexus Studio Core
 │   ├── Uses existing Webflow credentials
 │   ├── Manages brand projects
 │   └── Generates guidelines
@@ -169,7 +169,7 @@
 
 ### **API Endpoints**:
 - **Orchestrator**: `/api/agents`, `/api/execute-task`, `/api/integration-report`
-- **NeoVibe Studio**: `/api/templates`, `/api/projects`, `/api/assets/upload`
+- **Nexus Studio**: `/api/templates`, `/api/projects`, `/api/assets/upload`
 - **Intelligence Dashboard**: `/api/competitors`, `/api/alerts`, `/api/metrics`
 - **Webflow Integration**: `/api/templates/{id}/clone`, `/api/cms/collections`
 
@@ -188,8 +188,8 @@
 
 2. **🎨 Brand Development**:
    ```bash
-   cd subdomains/neovibe.taurusai.io/studio
-   python3 neovibe_studio_core.py
+   cd subdomains/nexus.taurusai.io/studio
+   python3 nexus_studio_core.py
    # Access: http://localhost:8001
    ```
 

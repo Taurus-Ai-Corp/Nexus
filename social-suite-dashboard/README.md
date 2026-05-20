@@ -1,6 +1,6 @@
 # Social Suite Dashboard – Taurus AI Corp
 
-A web-based platform for employees to manage Meta Business Suite, Instagram, BizFlow, and NeoVibe campaigns via natural language commands.
+A web-based platform for employees to manage Meta Business Suite, Instagram, BizFlow, and Nexus campaigns via natural language commands.
 
 ## 🚀 Quick Start
 

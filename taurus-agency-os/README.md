@@ -42,7 +42,7 @@ Then open **http://localhost:3000**
 ### Application Layer (Next.js 16)
 - **Frontend**: React 19 + Tailwind CSS + TypeScript
 - **Backend**: Next.js API Routes (built-in)
-- **AI Agents**: BizFlow (SEO), NeoVibe (Social), Q-Grid (PQC Audit)
+- **AI Agents**: BizFlow (SEO), Nexus (Social), Q-Grid (PQC Audit)
 
 ### Trust Layer
 - **Heiro Repo**: Immutable audit trails for all deliverables
@@ -94,13 +94,13 @@ taurus-agency-os/
 
 ### Dashboard Tabs
 1. **Overview** - Stats, recent activity
-2. **AI Agents** - Run BizFlow, NeoVibe, Q-Grid agents
+2. **AI Agents** - Run BizFlow, Nexus, Q-Grid agents
 3. **Clients** - Client management table
 4. **Audit Trail** - Heiro immutable verification
 
 ### AI Agents
 1. **BizFlow SEO Agent** - Generate SEO blog posts
-2. **NeoVibe Social Agent** - Generate social media content (Twitter, LinkedIn, Instagram, Facebook)
+2. **Nexus Social Agent** - Generate social media content (Twitter, LinkedIn, Instagram, Facebook)
 3. **Q-Grid PQC Audit** - Generate cryptographic audit trails
 
 ### Client Management

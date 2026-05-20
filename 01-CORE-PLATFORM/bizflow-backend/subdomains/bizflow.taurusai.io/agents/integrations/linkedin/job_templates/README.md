@@ -5,7 +5,7 @@ This directory contains platform-specific job posting templates for TAURUS AI CO
 ## Available Templates
 
 - **bizflow_coop_template.json** - AI Orchestration Co-op (BizFlow Platform)
-- **neovibe_coop_template.json** - Creative Marketing Co-op (NeoVibe Platform)
+- **Nexus_coop_template.json** - Creative Marketing Co-op (Nexus Platform)
 - **assetgrid_coop_template.json** - Blockchain & Crypto Co-op (AssetGrid Platform)
 - **oriongrid_coop_template.json** - RWA Blockchain Co-op (OrionGrid Platform)
 

@@ -1,8 +1,8 @@
-# BizFlow-NeoVibe Platform - Gemini 3 Continuation Prompt
+# BizFlow-Nexus Platform - Gemini 3 Continuation Prompt
 
 ## MISSION BRIEFING
 
-You are the **Master AI Orchestrator** for the BizFlow-NeoVibe Platform, an AI-powered marketing automation and creative design ecosystem targeting **$1.7M Year 1 revenue**. Your mission is to continue building this platform from its current 60% Phase 1 completion state.
+You are the **Master AI Orchestrator** for the BizFlow-Nexus Platform, an AI-powered marketing automation and creative design ecosystem targeting **$1.7M Year 1 revenue**. Your mission is to continue building this platform from its current 60% Phase 1 completion state.
 
 ---
 
@@ -10,8 +10,8 @@ You are the **Master AI Orchestrator** for the BizFlow-NeoVibe Platform, an AI-p
 
 ### Business Overview
 - **Company**: TAURUS AI CORP
-- **Platforms**: BizFlow (Agentic Intelligence) + NeoVibe (Creative Design Studio)
-- **Domains**: bizflow.taurusai.io, neovibe.taurusai.io
+- **Platforms**: BizFlow (Agentic Intelligence) + Nexus (Creative Design Studio)
+- **Domains**: bizflow.taurusai.io, nexus.taurusai.io
 - **Revenue Target**: $1.7M Year 1 ($150K Q1 → $750K Q4)
 - **Target Markets**: Dubai/UAE, India, Canada, MENA region
 
@@ -28,11 +28,11 @@ You are the **Master AI Orchestrator** for the BizFlow-NeoVibe Platform, an AI-p
 
 ### Directory Structure
 ```
-BizFlow-NeoVibe-Platform/
-├── 01-CORE-PLATFORM/           # BizFlow backend + NeoVibe studio
+BizFlow-Nexus-Platform/
+├── 01-CORE-PLATFORM/           # BizFlow backend + Nexus studio
 │   ├── bizflow-backend/        # FastAPI microservices
 │   ├── bizflow-frontend/       # Next.js dashboard
-│   ├── neovibe-studio/         # Creative design platform
+│   ├── nexus-studio/         # Creative design platform
 │   └── shared-libs/            # Common utilities
 ├── 02-AGENTS/                  # Orchestrators + MCP integrations
 │   ├── orchestration/          # Master orchestrators
@@ -96,7 +96,7 @@ BizFlow-NeoVibe-Platform/
 
 ### Phase 1 Completion (Remaining 40%)
 
-1. **NeoVibe Studio Core** (HIGH PRIORITY)
+1. **Nexus Studio Core** (HIGH PRIORITY)
    - Visual brand builder interface
    - Template library management system
    - Asset generation pipeline
@@ -221,7 +221,7 @@ See `03-CLIENT-MANAGEMENT/crm-system/hubspot-sync/hubspot_connector.py`
 
 ```bash
 # Navigate to workspace
-cd /Users/user/Documents/BizFlow-NeoVibe-Platform
+cd /Users/user/Documents/BizFlow-Nexus-Platform
 
 # Start local development stack
 docker-compose up -d
@@ -257,7 +257,7 @@ pytest tests/ -v
 ## YOUR NEXT ACTIONS
 
 1. **Review all files in `01-CORE-PLATFORM/`** to understand current implementation
-2. **Complete NeoVibe Studio** visual brand builder
+2. **Complete Nexus Studio** visual brand builder
 3. **Implement Intelligence Dashboard** with competitor monitoring
 4. **Build CRM system** with HubSpot integration
 5. **Deploy database schemas** to all three cloud providers
@@ -276,15 +276,15 @@ pytest tests/ -v
 ├── subdomains/bizflow.taurusai.io/                      # Live domain
 └── registry_server.py                                   # Registry API
 
-01-CORE-PLATFORM/neovibe-studio/
-├── Neural-commerce-System/neovibe_studio_core.py        # Core logic
-├── NeoVibe.TaurusAI.io/                                 # Live domain
-└── agents/                                              # NeoVibe agents
+01-CORE-PLATFORM/nexus-studio/
+├── Neural-commerce-System/nexus_studio_core.py        # Core logic
+├── Nexus.TaurusAI.io/                                 # Live domain
+└── agents/                                              # Nexus agents
 
 08-DOCUMENTATION/technical/
 ├── bizflow_orchestrator_prompt.md                       # Original prompt
 ├── BIZFLOW_ORCHESTRATOR_EXECUTION_REPORT.md            # Progress report
-└── NeoVibe_PROJECT_COMPLETION_SUMMARY.md               # NeoVibe status
+└── Nexus_PROJECT_COMPLETION_SUMMARY.md               # Nexus status
 ```
 
 ---

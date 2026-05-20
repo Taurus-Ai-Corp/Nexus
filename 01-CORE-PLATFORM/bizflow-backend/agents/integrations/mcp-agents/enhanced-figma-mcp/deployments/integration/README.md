@@ -6,7 +6,7 @@ Complete integration system for TAURUS AI's multi-platform ecosystem, enabling s
 ## Platform Architecture
 - **TaurusAI.io**: Corporate Authority Hub & Lead Generation
 - **BizFlow.taurusai.io**: Business Orchestration Platform ($17.8M ARR)
-- **NeoVibe.taurusai.io**: Creative Marketing Studio ($20.7M ARR)
+- **Nexus.taurusai.io**: Creative Marketing Studio ($20.7M ARR)
 
 ## Integration Components
 

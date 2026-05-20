@@ -21,7 +21,7 @@
 #### **2. 🌐 Domain Architecture Implemented**
 - **Main Domain**: `taurusai.io` (Corporate presence)
 - **AI Platform**: `bizflow.taurusai.io` (Agentic Intelligence automation)
-- **Marketing Studio**: `neovibe.taurusai.io` (Coded Vibe Marketing Studio)
+- **Marketing Studio**: `nexus.taurusai.io` (Coded Vibe Marketing Studio)
 
 #### **3. 🤖 Agent Ecosystem Unified**
 - **6 Core Agents**: Vertex AI Creative, Cognee Memory, Onlook Visual, Ollama Local AI, Vibe Marketing, Claude SEO MCP
@@ -39,7 +39,7 @@ TAURUS AI CORP. - taurusai.io (Main Corporate Domain)
 │   ├── Core AI Agents (6)
 │   ├── MCP Integrations (3)
 │   └── Business Intelligence
-└── 🎨 neovibe.taurusai.io (Coded Vibe Marketing Studio)
+└── 🎨 nexus.taurusai.io (Coded Vibe Marketing Studio)
     ├── B2B Portal
     ├── E-Commerce
     └── Marketing Automation
@@ -50,7 +50,7 @@ TAURUS AI CORP. - taurusai.io (Main Corporate Domain)
 │   │   ├── agents/ (9 AI agents)
 │   │   ├── Business-Intelligence/
 │   │   └── Documentation/
-│   └── neovibe.taurusai.io/ (Marketing Studio)
+│   └── nexus.taurusai.io/ (Marketing Studio)
 │       ├── Web-Platforms/
 │       └── Business-Intelligence/
 ├── registry/ (API & Database)
@@ -105,7 +105,7 @@ TAURUS AI CORP. - taurusai.io (Main Corporate Domain)
 - **Content Generation** - Blogs, newsletters, social media
 - **Design Automation** - AI-powered design briefs and components
 
-### **🎨 Marketing Studio (neovibe.taurusai.io)**
+### **🎨 Marketing Studio (nexus.taurusai.io)**
 - **Landing Page Creation** - Conversion-optimized designs
 - **E-commerce Platforms** - Complete workflow automation
 - **Business Dashboards** - Real-time analytics
@@ -141,7 +141,7 @@ cd BizFlow-Orchestrator
 # 2. Configure subdomains
 # - taurusai.io → Main company site
 # - bizflow.taurusai.io → AI platform
-# - neovibe.taurusai.io → Marketing studio
+# - nexus.taurusai.io → Marketing studio
 ```
 
 ### **🎯 Phase 2: Revenue Generation (Next 2 Weeks)**
@@ -151,7 +151,7 @@ cd subdomains/bizflow.taurusai.io
 python3 agents/orchestration/master_orchestrator.py
 
 # 2. Launch marketing studio
-cd subdomains/neovibe.taurusai.io
+cd subdomains/nexus.taurusai.io
 python3 Web-Platforms/webflow-integration/webflow_design_mcp.py
 ```
 
@@ -196,7 +196,7 @@ cd "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Orchestrator"
 # Deploy to the world
 # 🌐 taurusai.io - Your business presence
 # 🤖 bizflow.taurusai.io - Your AI platform
-# 🎨 neovibe.taurusai.io - Your marketing studio
+# 🎨 nexus.taurusai.io - Your marketing studio
 ```
 
 ---

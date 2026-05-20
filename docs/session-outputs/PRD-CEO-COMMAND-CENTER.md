@@ -22,7 +22,7 @@ TAURUS AI CORP (Canada Federal) — Parent Company / HQ
     ├── TAURUS AI Corp - FZCO (Dubai) — Operating Entity
     │       License #68122, IFZA Dubai
     │       │
-    │       ├── NeoVibe Platform (Luxury Design)
+    │       ├── Nexus Platform (Luxury Design)
     │       └── BizFlow Platform (Business Automation)
     │
     └── ARQ QUANTUM LLC (Wyoming, USA) — Operating Entity
@@ -76,7 +76,7 @@ TAURUS AI CORP (Canada Federal) — Parent Company / HQ
 
 | Platform | Staging | Production | Operating Entity |
 |----------|---------|------------|------------------|
-| **NeoVibe** | staging-neovibe.taurusai.io | neovibe.taurusai.io | TAURUS AI Corp - FZCO |
+| **Nexus** | staging-nexus.taurusai.io | nexus.taurusai.io | TAURUS AI Corp - FZCO |
 | **BizFlow** | staging-bizflow.taurusai.io | bizflow.taurusai.io | TAURUS AI Corp - FZCO |
 | **Q-Grid** | staging-qgrid.taurusai.io | q-grid.net | ARQ QUANTUM LLC |
 
@@ -191,14 +191,14 @@ Autonomy Level Calculation:
 /deploy <platform> <environment>
 
 Examples:
-  /deploy neovibe staging
+  /deploy nexus staging
   /deploy bizflow production
   /deploy q-grid staging
 ```
 
 ### Flow
 ```
-1. User sends /deploy neovibe staging
+1. User sends /deploy nexus staging
 2. System checks GCR score
 3. If autonomy >= 50% (staging) or >= 70% (production):
    → Auto-approve deployment
@@ -207,15 +207,15 @@ Examples:
    → Return target URL + execution ID
 4. If autonomy too low:
    → Ask for CONFIRM
-   → User replies: CONFIRM neovibe staging
+   → User replies: CONFIRM nexus staging
    → Deploy proceeds
 ```
 
 ### URLs Deployed To
 | Command | URL |
 |---------|-----|
-| `/deploy neovibe staging` | staging-neovibe.taurusai.io |
-| `/deploy neovibe production` | neovibe.taurusai.io |
+| `/deploy nexus staging` | staging-nexus.taurusai.io |
+| `/deploy nexus production` | nexus.taurusai.io |
 | `/deploy bizflow staging` | staging-bizflow.taurusai.io |
 | `/deploy bizflow production` | bizflow.taurusai.io |
 | `/deploy q-grid staging` | staging-qgrid.taurusai.io |
@@ -249,7 +249,7 @@ Send these to @TaurusAIOpsBot:
 /status      → System status
 /platforms   → List platforms + URLs
 /setgcr 90   → Set focus to 90%
-/deploy neovibe staging → Deploy NeoVibe to staging
+/deploy nexus staging → Deploy Nexus to staging
 ```
 
 ### Test Web Dashboard

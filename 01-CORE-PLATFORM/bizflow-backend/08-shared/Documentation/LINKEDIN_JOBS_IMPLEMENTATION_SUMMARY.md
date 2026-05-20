@@ -29,7 +29,7 @@ All components of the LinkedIn Job Posting Automation system have been successfu
 ### 3. ✅ Co-op Position Templates & Generators
 - **Files Created:**
   - `job_templates/bizflow_coop_template.json`
-  - `job_templates/neovibe_coop_template.json`
+  - `job_templates/nexus_coop_template.json`
   - `job_templates/assetgrid_coop_template.json`
   - `job_templates/oriongrid_coop_template.json`
   - `job_templates/README.md`
@@ -92,7 +92,7 @@ subdomains/bizflow.taurusai.io/agents/integrations/
 ├── linkedin/
 │   ├── job_templates/
 │   │   ├── bizflow_coop_template.json
-│   │   ├── neovibe_coop_template.json
+│   │   ├── nexus_coop_template.json
 │   │   ├── assetgrid_coop_template.json
 │   │   ├── oriongrid_coop_template.json
 │   │   └── README.md

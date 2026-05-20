@@ -1,4 +1,4 @@
-# Playwright MCP Integration Roadmap - BizFlow & NeoVibe
+# Playwright MCP Integration Roadmap - BizFlow & Nexus
 **Priority:** CRITICAL | **Timeline:** 30-60 Days | **Revenue Target:** $150K/month
 
 ---
@@ -261,18 +261,18 @@ npm run test -- tests/taurus-b2b-audit.spec.ts
 
 ---
 
-## Phase 2: NeoVibe Integration (Days 31-60)
+## Phase 2: Nexus Integration (Days 31-60)
 
 ### Week 5: Creative Automation Infrastructure
 
 #### Mobile-First Design Validation
-**Target Clients:** 10 from existing NeoVibe roster
+**Target Clients:** 10 from existing Nexus roster
 **Revenue:** $3K/month per client = $30K/month
 
-**File:** `agents/integrations/mcp-agents/neovibe-playwright-agent.ts`
+**File:** `agents/integrations/mcp-agents/nexus-playwright-agent.ts`
 
 ```typescript
-export class NeoVibePlaywrightAgent extends TaurusPlaywrightAgent {
+export class NexusPlaywrightAgent extends TaurusPlaywrightAgent {
   /**
    * Mobile Design Validation
    * Revenue: $1,500-$3,000 per validation
@@ -423,7 +423,7 @@ export class NeoVibePlaywrightAgent extends TaurusPlaywrightAgent {
 | Tier 3 (7+ competitors) | $5,000 | $1,500 | 2 | $13K/month |
 | **Subtotal** | | | **15** | **$37K/month** |
 
-### NeoVibe Creative Automation (Month 3-4)
+### Nexus Creative Automation (Month 3-4)
 
 | Service | Monthly Fee | Clients | Total Revenue |
 |---------|-------------|---------|---------------|
@@ -437,7 +437,7 @@ export class NeoVibePlaywrightAgent extends TaurusPlaywrightAgent {
 | Platform | Monthly Revenue | Annual Revenue |
 |----------|----------------|----------------|
 | BizFlow B2B Audits | $37K → $60K | $540K |
-| NeoVibe Creative | $56K → $75K | $810K |
+| Nexus Creative | $56K → $75K | $810K |
 | **Total** | **$93K → $135K** | **$1.35M** |
 
 **Conservative Estimate:** $100K/month by Month 4
@@ -476,11 +476,11 @@ export class NeoVibePlaywrightAgent extends TaurusPlaywrightAgent {
 - [ ] First 3 paying clients onboarded
 
 ### 🎯 Week 5-8 (Days 31-60)
-- [ ] NeoVibePlaywrightAgent class
+- [ ] NexusPlaywrightAgent class
 - [ ] Mobile design validation system
 - [ ] Social media automation (3 platforms)
 - [ ] Campaign monitoring dashboard
-- [ ] 10 NeoVibe clients converted
+- [ ] 10 Nexus clients converted
 
 ---
 
@@ -525,8 +525,8 @@ export class NeoVibePlaywrightAgent extends TaurusPlaywrightAgent {
 ### Business KPIs
 - **Month 1:** 5 BizFlow clients onboarded ($12.5K MRR)
 - **Month 2:** 15 BizFlow clients total ($37K MRR)
-- **Month 3:** 10 NeoVibe clients added ($30K MRR, $67K total)
-- **Month 4:** 25 NeoVibe clients total ($93K total MRR)
+- **Month 3:** 10 Nexus clients added ($30K MRR, $67K total)
+- **Month 4:** 25 Nexus clients total ($93K total MRR)
 - **Month 6:** 40 total clients ($135K MRR)
 
 ### Client Success KPIs
@@ -559,7 +559,7 @@ export class NeoVibePlaywrightAgent extends TaurusPlaywrightAgent {
 
 ---
 
-**Document Owner:** BizFlow & NeoVibe Technical Teams
+**Document Owner:** BizFlow & Nexus Technical Teams
 **Review Cadence:** Weekly (Fridays 3pm)
 **Success Criteria:** $100K MRR by Day 120
 **ROI Target:** 10,000%+ first year

@@ -88,9 +88,9 @@ Configure platform-specific nodes:
    - Platform: `BizFlow`
    - Template: `bizflow_coop_template.json`
 
-2. **NeoVibe Platform Node**
-   - Platform: `NeoVibe`
-   - Template: `neovibe_coop_template.json`
+2. **Nexus Platform Node**
+   - Platform: `Nexus`
+   - Template: `nexus_coop_template.json`
 
 3. **AssetGrid Platform Node**
    - Platform: `AssetGrid`
@@ -157,7 +157,7 @@ Configure platform-specific nodes:
 
 **Nodes:**
 1. **Trigger** - Manual/Schedule/Webhook
-2. **Platform Selection** - Select platform (BizFlow, NeoVibe, etc.)
+2. **Platform Selection** - Select platform (BizFlow, Nexus, etc.)
 3. **Load Template** - Load platform-specific template
 4. **Generate Description** - AI-powered description generation
 5. **Create Infographic** - Generate job posting infographic

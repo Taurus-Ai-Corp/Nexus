@@ -1,0 +1,562 @@
+- generic [active] [ref=e1]:
+  - img [ref=e3]
+  - link "Skip to content" [ref=e5] [cursor=pointer]:
+    - /url: "#content"
+  - banner:
+    - link [ref=e9] [cursor=pointer]:
+      - /url: https://palmcareseniorliving.com
+  - main [ref=e10]:
+    - generic [ref=e12]:
+      - generic [ref=e14]:
+        - region "Carousel" [ref=e16]:
+          - generic [ref=e17]:
+            - group [ref=e18]
+            - group "1 / 3" [ref=e21]
+            - group [ref=e24]
+            - group [ref=e27]
+            - group [ref=e30]
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - heading "Senior Living Reimagined" [level=3] [ref=e37]
+            - heading "Life's Just Getting Good" [level=1] [ref=e39]
+            - heading "More freedom. New friendships. Complete peace of mind. A vibrant community thoughtfully designed for your next chapter." [level=2] [ref=e41]:
+              - text: More freedom. New friendships. Complete peace of mind.
+              - text: A vibrant community thoughtfully designed for your next chapter.
+            - generic [ref=e42]:
+              - link "Come Visit Us" [ref=e44] [cursor=pointer]:
+                - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+                - generic [ref=e46]: Come Visit Us
+              - link "Get Our Brochure" [ref=e48] [cursor=pointer]:
+                - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+                - generic [ref=e50]: Get Our Brochure
+              - link "Watch Walkthrough" [ref=e52] [cursor=pointer]:
+                - /url: "#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJ0eXBlIjoidmlkZW8iLCJ2aWRlb1R5cGUiOiJ5b3V0dWJlIiwidXJsIjoiaHR0cHM6XC9cL3d3dy55b3V0dWJlLmNvbVwvZW1iZWRcL25mbWpwWVpRMDFjP2ZlYXR1cmU9b2VtYmVkIn0%3D"
+                - generic [ref=e53]:
+                  - img [ref=e55]
+                  - generic [ref=e57]: Watch Walkthrough
+          - generic [ref=e60]:
+            - heading "Now offered at revised introductory pricing valid till June 30th" [level=3] [ref=e63]
+            - generic [ref=e64]:
+              - generic [ref=e65]:
+                - heading "1 BHK" [level=4] [ref=e66]
+                - heading "Floor Area – 438 sq. ft." [level=4] [ref=e67]
+                - heading "Super built-up Area – 625 sq. ft." [level=4] [ref=e68]
+              - heading "₹47 Lakhs" [level=3] [ref=e70]
+            - generic [ref=e71]:
+              - generic [ref=e72]:
+                - heading "1 BHK Premium" [level=4] [ref=e73]
+                - heading "Floor Area – 745 sq. ft." [level=4] [ref=e74]
+                - heading "Super built-up Area – 1064 sq. ft." [level=4] [ref=e75]
+              - heading "₹63 Lakhs" [level=3] [ref=e77]
+            - generic [ref=e78]:
+              - generic [ref=e79]:
+                - heading "2 BHK" [level=4] [ref=e80]
+                - heading "Floor Area – 1,118 sq. ft." [level=4] [ref=e81]
+                - heading "Super built-up Area – 1597 sq. ft." [level=4] [ref=e82]
+              - heading "₹95 Lakhs" [level=3] [ref=e84]
+      - generic [ref=e87]:
+        - heading "Which One Are You?" [level=1] [ref=e89]
+        - heading "PalmCare is designed for independent seniors planning retirement in the next 2–5 years." [level=2] [ref=e92]
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - heading "Ready for Your Best Years Yet?" [level=2] [ref=e96]:
+              - text: Ready for
+              - text: Your Best
+              - text: Years Yet?
+            - list [ref=e98]:
+              - listitem [ref=e99]:
+                - img [ref=e101]
+                - generic [ref=e103]: Living life fully, your way
+              - listitem [ref=e104]:
+                - img [ref=e106]
+                - generic [ref=e108]: Friends who become family
+              - listitem [ref=e109]:
+                - img [ref=e111]
+                - generic [ref=e113]: Independence with a safety net
+          - generic [ref=e115]:
+            - heading "Still Working? We Get It" [level=2] [ref=e117]:
+              - text: Still Working?
+              - text: We Get It
+            - list [ref=e119]:
+              - listitem [ref=e120]:
+                - img [ref=e122]
+                - generic [ref=e124]: Keep doing what you love
+              - listitem [ref=e125]:
+                - img [ref=e127]
+                - generic [ref=e129]: Let us handle the rest
+              - listitem [ref=e130]:
+                - img [ref=e132]
+                - generic [ref=e134]: Freedom without the fuss
+          - generic [ref=e136]:
+            - heading "Missing Home from Abroad?" [level=2] [ref=e138]:
+              - text: Missing
+              - text: Home from
+              - text: Abroad?
+            - list [ref=e140]:
+              - listitem [ref=e141]:
+                - img [ref=e143]
+                - generic [ref=e145]: Safe. Trusted. Transparent.
+              - listitem [ref=e146]:
+                - img [ref=e148]
+                - generic [ref=e150]: Stay connected, stay peaceful
+              - listitem [ref=e151]:
+                - img [ref=e153]
+                - generic [ref=e155]: Independence with a safety net
+        - heading "Sound like you? Let's figure out which space fits your life best." [level=2] [ref=e158]
+        - link "Tell Us More About You" [ref=e161] [cursor=pointer]:
+          - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+          - generic [ref=e163]: Tell Us More About You
+      - generic [ref=e166]:
+        - heading "Leadership with Experience. A Team that Truly Cares." [level=1] [ref=e168]:
+          - text: Leadership with Experience.
+          - text: A Team that Truly Cares.
+        - generic [ref=e169]:
+          - generic [ref=e170]:
+            - heading "Who We Are" [level=1] [ref=e172]:
+              - text: Who
+              - text: We Are
+            - paragraph [ref=e174]: We’ve spent 13 years building space where people don’t just live they thrive. Where mornings start with yoga, not medication. Where neighbors become friends. Where you’re free to be yourself, try new things, and live on your own terms.
+          - generic [ref=e175]:
+            - heading "The Leaders Who Started It All" [level=1] [ref=e177]
+            - generic [ref=e178]:
+              - generic [ref=e179]:
+                - heading "Mr. Babu Joseph" [level=2] [ref=e182]
+                - heading "Chairman & Managing Director" [level=3] [ref=e184]
+              - generic [ref=e185]:
+                - heading "Ms. Limi Rose Tom" [level=2] [ref=e188]
+                - heading "Director & Co-Founder" [level=3] [ref=e190]
+            - heading "Thirteen years of keeping promises. Thirteen years of prioritize residents first. Every space we've built has one thing in common—people living their best lives, not just managing their days" [level=3] [ref=e192]
+        - generic [ref=e193]:
+          - generic [ref=e194]:
+            - heading "What We're Building" [level=1] [ref=e196]
+            - generic [ref=e197]:
+              - generic [ref=e198]:
+                - heading "30+" [level=1] [ref=e200]
+                - heading "Amenities" [level=2] [ref=e202]
+                - heading "Lifestyle & wellness" [level=3] [ref=e204]
+              - generic [ref=e205]:
+                - heading "6" [level=1] [ref=e207]
+                - heading "Acres" [level=2] [ref=e209]
+                - heading "of lush green living" [level=3] [ref=e211]
+              - generic [ref=e212]:
+                - heading "400" [level=1] [ref=e214]
+                - heading "Units" [level=2] [ref=e216]
+                - heading "Phase I launching" [level=3] [ref=e218]
+          - generic [ref=e219]:
+            - heading "Project Name" [level=3] [ref=e221]
+            - heading "The PalmCare Groves, Kothamangalam" [level=2] [ref=e223]
+            - heading "Location" [level=3] [ref=e228]
+            - heading "Gateway to Munnar, Ernakulam, Kerala" [level=2] [ref=e230]
+            - heading "Configurations" [level=3] [ref=e235]
+            - heading "1 BHK (438 & 745 sq.ft) | 2 BHK (1118 sq.f)" [level=2] [ref=e237]
+            - heading "Model" [level=3] [ref=e242]
+            - heading "Refundable Security Deposit (80% refundable)" [level=2] [ref=e244]
+      - generic [ref=e247]:
+        - heading "Pick Your Space" [level=1] [ref=e249]
+        - generic [ref=e250]:
+          - generic [ref=e251]:
+            - heading "The Cozy Haven" [level=2] [ref=e254]
+            - heading "1 BHK" [level=2] [ref=e256]
+            - heading "438 sq.ft" [level=2] [ref=e258]
+            - generic [ref=e259]:
+              - heading "₹45L" [level=2] [ref=e261]
+              - heading "Early Bird Offer Till March 2026" [level=4] [ref=e263]:
+                - text: Early Bird Offer
+                - text: Till March 2026
+            - link "Get your floor plan" [ref=e265] [cursor=pointer]:
+              - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+              - generic [ref=e267]: Get your floor plan
+          - generic [ref=e268]:
+            - heading "The Spacious Retreat" [level=2] [ref=e271]
+            - heading "1 BHK Premium" [level=2] [ref=e273]
+            - heading "745 sq.ft" [level=2] [ref=e275]
+            - generic [ref=e276]:
+              - heading "₹60L" [level=2] [ref=e278]
+              - heading "Early Bird Offer Till March 2026" [level=4] [ref=e280]:
+                - text: Early Bird Offer
+                - text: Till March 2026
+            - link "Get your floor plan" [ref=e282] [cursor=pointer]:
+              - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+              - generic [ref=e284]: Get your floor plan
+          - generic [ref=e285]:
+            - heading "The Family Space" [level=2] [ref=e288]
+            - heading "2 BHK" [level=2] [ref=e290]
+            - heading "1,118 sq.ft" [level=2] [ref=e292]
+            - generic [ref=e293]:
+              - heading "₹90L" [level=2] [ref=e295]
+              - heading "Early Bird Offer Till March 2026" [level=4] [ref=e297]:
+                - text: Early Bird Offer
+                - text: Till March 2026
+            - link "Get your floor plan" [ref=e299] [cursor=pointer]:
+              - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+              - generic [ref=e301]: Get your floor plan
+        - generic [ref=e302]:
+          - generic [ref=e304]:
+            - figure [ref=e305]
+            - paragraph [ref=e307]:
+              - text: Natural light in
+              - text: every room
+          - generic [ref=e309]:
+            - figure [ref=e310]
+            - paragraph [ref=e312]:
+              - text: Surrounded by greenery
+              - text: and calming spaces
+          - generic [ref=e314]:
+            - figure [ref=e315]
+            - paragraph [ref=e317]:
+              - text: Designed for people
+              - text: in their prime years
+          - generic [ref=e319]:
+            - figure [ref=e320]
+            - paragraph [ref=e322]:
+              - text: Finishes that feel premium,
+              - text: not institutional
+        - generic [ref=e323]:
+          - link "Walk Through Each space" [ref=e325] [cursor=pointer]:
+            - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+            - generic [ref=e327]: Walk Through Each space
+          - link "Download Details" [ref=e329] [cursor=pointer]:
+            - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+            - generic [ref=e331]: Download Details
+          - link "Which One's Right for You?" [ref=e333] [cursor=pointer]:
+            - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+            - generic [ref=e335]: Which One's Right for You?
+      - generic [ref=e338]:
+        - heading "A Financial Model That Actually Makes Sense" [level=1] [ref=e340]:
+          - text: A Financial Model
+          - text: That Actually Makes Sense
+        - generic [ref=e341]:
+          - generic [ref=e343]:
+            - figure [ref=e344]
+            - heading "Simple, transparent pricing" [level=2] [ref=e346]
+          - generic [ref=e348]:
+            - figure [ref=e349]
+            - heading "80% returns to you or your family" [level=2] [ref=e351]
+          - generic [ref=e353]:
+            - figure [ref=e354]
+            - heading "Fully refundable medical fund" [level=2] [ref=e356]
+          - generic [ref=e358]:
+            - figure [ref=e359]
+            - heading "Monthly costs, crystal clear" [level=2] [ref=e361]
+        - paragraph [ref=e363]: Let’s walk through this together, at your pace.
+        - link "Let's Talk Money - Honestly and Openly" [ref=e365] [cursor=pointer]:
+          - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+          - generic [ref=e367]: Let's Talk Money - Honestly and Openly
+      - generic [ref=e370]:
+        - heading "Everyday comforts for you" [level=1] [ref=e372]
+        - generic [ref=e373]:
+          - generic [ref=e374]:
+            - heading "Stay Healthy & Active" [level=2] [ref=e376]
+            - heading "Swim | Gym | Spa | Walk" [level=3] [ref=e378]
+          - generic [ref=e379]:
+            - heading "Feed Your Soul" [level=2] [ref=e381]
+            - heading "Gather | Create | Read | Celebrate" [level=3] [ref=e383]
+          - generic [ref=e384]:
+            - heading "Simple Pleasures" [level=2] [ref=e386]
+            - heading "Good Food | Great Coffee | Looking Good | Easy Shopping" [level=3] [ref=e388]
+          - generic [ref=e389]:
+            - heading "Modern Convenience" [level=2] [ref=e391]
+            - heading "Work Desk | Safe Parking Always Here to Help | Stay Connected" [level=3] [ref=e393]
+          - generic [ref=e394]:
+            - heading "Care When Needed" [level=2] [ref=e396]
+            - heading "Medical Visits | Nurses Nearby | Help is Here" [level=3] [ref=e398]
+        - link "Explore What's Waiting for You" [ref=e400] [cursor=pointer]:
+          - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+          - generic [ref=e402]: Explore What's Waiting for You
+      - generic [ref=e405]:
+        - link [ref=e407] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/NLU8dJZqqzMPKQnGA?g_st=awb
+        - generic [ref=e408]:
+          - heading "Nature & Everything You Need, Close By" [level=1] [ref=e410]
+          - heading "Kothamangalam" [level=2] [ref=e412]
+          - heading "Where Peace Meets Convenience" [level=2] [ref=e414]
+          - list [ref=e416]:
+            - listitem [ref=e417]:
+              - img [ref=e419]
+              - generic [ref=e421]: 6 lush green acres
+            - listitem [ref=e422]:
+              - img [ref=e424]
+              - generic [ref=e426]: Close to Kochi, close to Munnar
+            - listitem [ref=e427]:
+              - img [ref=e429]
+              - generic [ref=e431]: Town centre just 3 km away
+            - listitem [ref=e432]:
+              - img [ref=e434]
+              - generic [ref=e436]: Easy access to Hospitals, Shops & Places of Worship
+          - link "Come See Our Neighborhood" [ref=e438] [cursor=pointer]:
+            - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+            - generic [ref=e440]: Come See Our Neighborhood
+      - generic [ref=e443]:
+        - generic [ref=e444]:
+          - heading "Hearts Before Resumes" [level=1] [ref=e446]:
+            - text: Hearts Before
+            - text: Resumes
+          - heading "We Choose People, Not Just Staff" [level=2] [ref=e448]:
+            - text: We Choose People,
+            - text: Not Just Staff
+        - generic [ref=e449]:
+          - generic [ref=e450]:
+            - heading "Character Beyond Certificates" [level=2] [ref=e452]
+            - list [ref=e454]:
+              - listitem [ref=e455]:
+                - img [ref=e457]
+                - generic [ref=e459]: Compassion first
+              - listitem [ref=e460]:
+                - img [ref=e462]
+                - generic [ref=e464]: People who care, not just work
+              - listitem [ref=e465]:
+                - img [ref=e467]
+                - generic [ref=e469]: Kindness and respect aren't trained they're chosen
+          - generic [ref=e470]:
+            - heading "What Makes Them Different" [level=2] [ref=e472]
+            - list [ref=e474]:
+              - listitem [ref=e475]:
+                - img [ref=e477]
+                - generic [ref=e479]: Handpicked for warmth
+              - listitem [ref=e480]:
+                - img [ref=e482]
+                - generic [ref=e484]: Respect is our first language
+              - listitem [ref=e485]:
+                - img [ref=e487]
+                - generic [ref=e489]: Your comfort, our purpose
+      - generic [ref=e493]:
+        - heading "Health & Medical Support" [level=1] [ref=e495]
+        - generic [ref=e496]:
+          - generic [ref=e498]:
+            - heading "Medical Facilities On-Site" [level=2] [ref=e500]
+            - list [ref=e502]:
+              - listitem [ref=e503]:
+                - img [ref=e505]
+                - generic [ref=e507]: Medical Consulting Room
+              - listitem [ref=e508]:
+                - img [ref=e510]
+                - generic [ref=e512]: 24/7 Nursing Stations
+              - listitem [ref=e513]:
+                - img [ref=e515]
+                - generic [ref=e517]: Emergency Response System
+              - listitem [ref=e518]:
+                - img [ref=e520]
+                - generic [ref=e522]: Regular Health Check-ups
+              - listitem [ref=e523]:
+                - img [ref=e525]
+                - generic [ref=e527]: Hospital Tie-ups
+              - listitem [ref=e528]:
+                - img [ref=e530]
+                - generic [ref=e532]: Ambulance Services
+          - generic [ref=e533]:
+            - generic [ref=e534]:
+              - heading "Wellness Services" [level=2] [ref=e536]
+              - list [ref=e538]:
+                - listitem [ref=e539]:
+                  - img [ref=e541]
+                  - generic [ref=e543]: Preventive health screenings
+                - listitem [ref=e544]:
+                  - img [ref=e546]
+                  - generic [ref=e548]: Physiotherapy
+                - listitem [ref=e549]:
+                  - img [ref=e551]
+                  - generic [ref=e553]: Medicine administration
+            - generic [ref=e554]:
+              - heading "Future Care" [level=2] [ref=e556]
+              - list [ref=e558]:
+                - listitem [ref=e559]:
+                  - img [ref=e561]
+                  - generic [ref=e563]: Assisted Living Block
+                - listitem [ref=e564]:
+                  - img [ref=e566]
+                  - generic [ref=e568]: Palliative care
+                - listitem [ref=e569]:
+                  - img [ref=e571]
+                  - generic [ref=e573]: Post Operative Care
+                - listitem [ref=e574]:
+                  - img [ref=e576]
+                  - generic [ref=e578]: Recovery Short Stay
+        - link "Ask Us Anything—We're Here" [ref=e580] [cursor=pointer]:
+          - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+          - generic [ref=e582]: Ask Us Anything—We're Here
+      - generic [ref=e585]:
+        - heading "Why Choose PalmCare" [level=1] [ref=e587]
+        - generic [ref=e588]:
+          - generic [ref=e590]:
+            - img [ref=e593]
+            - heading "We've Been Doing This for 13+ Years" [level=2] [ref=e597]
+          - generic [ref=e599]:
+            - img [ref=e602]
+            - heading "No Fine Print, Just Honest Promises" [level=2] [ref=e606]
+          - generic [ref=e608]:
+            - img [ref=e611]
+            - heading "Independence First, Support Always" [level=2] [ref=e615]
+          - generic [ref=e617]:
+            - img [ref=e620]
+            - heading "We Are All About People, Not Just Properties" [level=2] [ref=e624]
+          - generic [ref=e626]:
+            - img [ref=e629]
+            - heading "80% Refundable—Your Security, Your Family's Future" [level=2] [ref=e633]
+      - generic [ref=e636]:
+        - heading "Your space is Growing" [level=1] [ref=e638]
+        - heading "6 Acres | 400 Thoughtful Units | Phase 1 - 101 Units" [level=2] [ref=e640]
+        - 'heading "Starting: April 2026 | Welcomes You: December 2028" [level=2] [ref=e642]'
+        - generic [ref=e643]:
+          - 'heading "Location: Kothamangalam, Ernakulam" [level=2] [ref=e645]'
+          - heading "Want to watch your future home take shape?" [level=2] [ref=e647]
+          - heading "Stay tuned for updates" [level=3] [ref=e649]
+          - list [ref=e651]:
+            - listitem [ref=e652]:
+              - link [ref=e653] [cursor=pointer]:
+                - /url: https://www.facebook.com/palmcareseniorliving/
+                - img [ref=e655]
+            - listitem [ref=e658]:
+              - link [ref=e659] [cursor=pointer]:
+                - /url: https://www.instagram.com/palmcareseniorliving?utm_source=qr&igsh=cTlrZHNsYmpvMnE4
+                - img [ref=e661]
+            - listitem [ref=e664]:
+              - link [ref=e665] [cursor=pointer]:
+                - /url: https://youtube.com/@palmcareseniorliving?si=V-f5GWXaM8AN_0CY
+                - img [ref=e667]
+            - listitem [ref=e670]:
+              - link [ref=e671] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/palmcare-senior-living-pvt-ltd/
+                - img [ref=e673]
+      - generic [ref=e676]:
+        - generic [ref=e679]:
+          - heading "A New Chapter Begins at PalmCare Groves..." [level=1] [ref=e681]
+          - generic [ref=e682]:
+            - paragraph [ref=e683]: We are thrilled to share that PalmCare Groves, Kothamangalam, marked a significant milestone this week. On April 15, the auspicious occasion of Vishu, we held our foundation stone laying ceremony.
+            - paragraph [ref=e684]: Just as Vishu signifies new beginnings and prosperity, this moment marks the start of our journey to create a thoughtfully designed senior living community rooted in comfort, care, and dignity. The “journey” toward building a vibrant sanctuary for our elders has truly begun.
+            - paragraph [ref=e685]: The foundation stone was laid by Mrs. Lija Gijo, Senior Living project advisor. The blessing was done by Fr. Mathew Kochupurackal, Vicar of St. George Cathedral, Kothamangalam, who also delivered the introductory address.
+            - paragraph [ref=e686]: As we lay the foundation for what lies ahead, we humbly seek the blessings and support of our patrons, well-wishers, and the wider senior community. We look forward to shaping a future where every resident can truly flourish.
+          - heading "PalmCare Groves" [level=1] [ref=e688]
+          - paragraph [ref=e690]: Let’s walk through this together, at your pace.
+          - generic [ref=e693]:
+            - figure [ref=e694]:
+              - link [ref=e696] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/01.jpeg
+            - figure [ref=e697]:
+              - link [ref=e699] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/02.jpeg
+            - figure [ref=e700]:
+              - link [ref=e702] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/03.jpeg
+            - figure [ref=e703]:
+              - link [ref=e705] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/04.jpeg
+            - figure [ref=e706]:
+              - link [ref=e708] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/05.jpeg
+            - figure [ref=e709]:
+              - link [ref=e711] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/06.jpeg
+            - figure [ref=e712]:
+              - link [ref=e714] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/07.jpeg
+            - figure [ref=e715]:
+              - link [ref=e717] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/08.jpeg
+            - figure [ref=e718]:
+              - link [ref=e720] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/09.jpeg
+            - figure [ref=e721]:
+              - link [ref=e723] [cursor=pointer]:
+                - /url: https://palmcareseniorliving.com/wp-content/uploads/2026/04/10.jpeg
+        - generic [ref=e726]:
+          - heading "Got Questions?" [level=1] [ref=e728]
+          - generic "Accordion. Open links with Enter or Space, close with Escape, and navigate with Arrow Keys" [ref=e730]:
+            - group [ref=e731]:
+              - generic "What is the business model and key terms at palmcare groves?" [ref=e732] [cursor=pointer]:
+                - generic [ref=e734]: What is the business model and key terms at palmcare groves?
+                - img [ref=e737]
+              - 'region "What is the business model and key terms at palmcare groves? The apartments are not offered under an outright sale model. Instead, they are provided under a refundable security deposit structure in accordance with a Leave and Licence Agreement. Under this model, the resident shall be entitled to receive 80% of the security deposit upon: the demise of the primary licensee; or voluntary termination of the Leave and Licence Agreement by the licensee and vacating the premises. Important Notes 80% of the interest free security deposit is refundable. Monthly service charges are applicable per person per month. Booking confirmation amount is INR 10 lakhs Medical Emergency Deposit is INR 5 Lakhs per person (Fully refundable)." [ref=e739]':
+                - 'region "What is the business model and key terms at palmcare groves? The apartments are not offered under an outright sale model. Instead, they are provided under a refundable security deposit structure in accordance with a Leave and Licence Agreement. Under this model, the resident shall be entitled to receive 80% of the security deposit upon: the demise of the primary licensee; or voluntary termination of the Leave and Licence Agreement by the licensee and vacating the premises. Important Notes 80% of the interest free security deposit is refundable. Monthly service charges are applicable per person per month. Booking confirmation amount is INR 10 lakhs Medical Emergency Deposit is INR 5 Lakhs per person (Fully refundable)." [ref=e740]':
+                  - generic [ref=e742]:
+                    - paragraph [ref=e743]: "The apartments are not offered under an outright sale model. Instead, they are provided under a refundable security deposit structure in accordance with a Leave and Licence Agreement. Under this model, the resident shall be entitled to receive 80% of the security deposit upon:"
+                    - list [ref=e744]:
+                      - listitem [ref=e745]: the demise of the primary licensee; or
+                      - listitem [ref=e746]: voluntary termination of the Leave and Licence Agreement by the licensee and vacating the premises.
+                    - paragraph [ref=e747]
+                    - paragraph [ref=e748]:
+                      - strong [ref=e749]: Important Notes
+                      - text: 80% of the interest free security deposit is refundable.
+                      - text: Monthly service charges are applicable per person per month.
+                      - text: Booking confirmation amount is INR 10 lakhs
+                      - text: Medical Emergency Deposit is INR 5 Lakhs per person (Fully refundable).
+            - group [ref=e750]:
+              - generic "What is the expertise and leadership behind palmcare groves?" [ref=e751] [cursor=pointer]:
+                - generic [ref=e753]: What is the expertise and leadership behind palmcare groves?
+                - img [ref=e756]
+            - group [ref=e758]:
+              - generic "What is the total area size of palmcare groves?" [ref=e759] [cursor=pointer]:
+                - generic [ref=e761]: What is the total area size of palmcare groves?
+                - img [ref=e764]
+            - group [ref=e766]:
+              - generic "Where is palmcare groves located?" [ref=e767] [cursor=pointer]:
+                - generic [ref=e769]: Where is palmcare groves located?
+                - img [ref=e772]
+            - group [ref=e774]:
+              - generic "What are the key amenities at palmcare groves?" [ref=e775] [cursor=pointer]:
+                - generic [ref=e777]: What are the key amenities at palmcare groves?
+                - img [ref=e780]
+            - group [ref=e782]:
+              - generic "What is the completion date of palmcare groves?" [ref=e783] [cursor=pointer]:
+                - generic [ref=e785]: What is the completion date of palmcare groves?
+                - img [ref=e788]
+            - group [ref=e790]:
+              - generic "How many apartments are there in palmcare groves?" [ref=e791] [cursor=pointer]:
+                - generic [ref=e793]: How many apartments are there in palmcare groves?
+                - img [ref=e796]
+            - group [ref=e798]:
+              - generic "What type of configurations are available at palmcare groves?" [ref=e799] [cursor=pointer]:
+                - generic [ref=e801]: What type of configurations are available at palmcare groves?
+                - img [ref=e804]
+            - group [ref=e806]:
+              - generic "What is the starting price of palmcare groves?" [ref=e807] [cursor=pointer]:
+                - generic [ref=e809]: What is the starting price of palmcare groves?
+                - img [ref=e812]
+          - link "Ask Us Anything—We're Here" [ref=e815] [cursor=pointer]:
+            - /url: "#elementor-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIyODUiLCJ0b2dnbGUiOmZhbHNlfQ%3D%3D"
+            - generic [ref=e817]: Ask Us Anything—We're Here
+  - contentinfo [ref=e819]:
+    - generic [ref=e821]:
+      - link [ref=e823] [cursor=pointer]:
+        - /url: https://wa.me/918590984731
+      - generic [ref=e824]:
+        - generic [ref=e825]:
+          - paragraph [ref=e827]: We’d Love to Hear From You.
+          - generic [ref=e828]:
+            - strong [ref=e829]: PalmCare Senior Living Pvt.Ltd.
+            - text: Kothamangalam, Ernakulam.
+            - text: "Pin: 686691"
+          - list [ref=e831]:
+            - listitem [ref=e832]:
+              - link "info@palmcareseniorliving.com" [ref=e833] [cursor=pointer]:
+                - /url: mailto:info@palmcareseniorliving.com
+                - img [ref=e835]
+                - generic [ref=e837]: info@palmcareseniorliving.com
+            - listitem [ref=e838]:
+              - link "+91 85909 84731" [ref=e839] [cursor=pointer]:
+                - /url: tel:+918590984731
+                - img [ref=e841]
+                - generic [ref=e843]: +91 85909 84731
+          - heading "Sign up for warm updates, stories from our community, and gentle reminders that your best days are still ahead." [level=3] [ref=e845]:
+            - text: Sign up for warm updates, stories from our community,
+            - text: and gentle reminders that your best days are still ahead.
+          - heading "Where every day breathes calm, and every moment finds its home." [level=3] [ref=e847]
+        - generic [ref=e848]:
+          - heading "Stay in Touch" [level=3] [ref=e850]
+          - list [ref=e852]:
+            - listitem [ref=e853]:
+              - link [ref=e854] [cursor=pointer]:
+                - /url: https://www.facebook.com/palmcareseniorliving/
+                - img [ref=e856]
+            - listitem [ref=e859]:
+              - link [ref=e860] [cursor=pointer]:
+                - /url: https://www.instagram.com/palmcareseniorliving?utm_source=qr&igsh=cTlrZHNsYmpvMnE4
+                - img [ref=e862]
+            - listitem [ref=e865]:
+              - link [ref=e866] [cursor=pointer]:
+                - /url: https://youtube.com/@palmcareseniorliving?si=V-f5GWXaM8AN_0CY
+                - img [ref=e868]
+            - listitem [ref=e871]:
+              - link [ref=e872] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/palmcare-senior-living-pvt-ltd/
+                - img [ref=e874]
+  - generic [ref=e877]: desktop

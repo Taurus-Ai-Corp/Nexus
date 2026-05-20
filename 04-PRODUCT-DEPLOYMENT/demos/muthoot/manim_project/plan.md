@@ -80,7 +80,7 @@ Show how Taurus AI's Cash-Flow AI Agent solves Muthoot FinCorp's micro-loan repa
 - Voiceover: "A 4-week pilot with 50 micro-loans validates the approach and builds the case for rollout. After pilot, flexible pricing scales with your success - either flat fee or per-loan basis."
 
 ### Scene 10: Closing (10 seconds)
-- Logos: Taurus AI (NeoVibe) + Muthoot FinCorp
+- Logos: Taurus AI (Nexus) + Muthoot FinCorp
 - Text: "Empowering Micro-businesses with AI-Driven Financial Resilience"
 - Contact: partnership@taurus.ai
 - Voiceover: "Together, we can transform micro-loan repayment from a stress point into a strength for both borrowers and lenders."

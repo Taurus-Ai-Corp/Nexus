@@ -25,7 +25,7 @@ This guide covers the complete integration of WhatsApp MCP Server into the TAURU
 ├─────────────────────────────────────────────────────────┤
 │                                                          │
 │  ┌──────────────┐      ┌──────────────┐               │
-│  │   BizFlow    │      │   NeoVibe    │               │
+│  │   BizFlow    │      │   Nexus    │               │
 │  │  Platform    │      │  Platform    │               │
 │  └──────┬───────┘      └──────┬───────┘               │
 │         │                      │                        │

@@ -9,7 +9,7 @@ Claude Desktop will then read the full reference doc from disk, execute the comm
 You are being handed off a deployment task from another Claude session. Full context and reference commands live in this file — read it first:
 
 ```
-/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant/HANDOFF-FOR-CLAUDE-DESKTOP.md
+/Users/taurus_ai/Documents/BizFlow-Nexus-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant/HANDOFF-FOR-CLAUDE-DESKTOP.md
 ```
 
 ## Your mission
@@ -30,7 +30,7 @@ Make `https://yqg-assistant.vercel.app` actually speak when a user clicks "Talk 
    - `ls /Users/taurus_ai/Desktop/NEXUS-LOCAL-VOICE-ASSISTANT/backend` — confirm the backend source is where the reference doc expects it
    - `cat /Users/taurus_ai/Desktop/NEXUS-LOCAL-VOICE-ASSISTANT/backend/.env | grep -c ^LIVEKIT_` — should return 3 (URL, KEY, SECRET)
 
-2. **Attempt Path A first** — run the local worker steps in the reference doc. Install `livekit-agents[silero,groq]`, copy the YQG files from the fork at `/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant/backend/` into the NEXUS backend, and start the worker.
+2. **Attempt Path A first** — run the local worker steps in the reference doc. Install `livekit-agents[silero,groq]`, copy the YQG files from the fork at `/Users/taurus_ai/Documents/BizFlow-Nexus-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant/backend/` into the NEXUS backend, and start the worker.
    - The worker must stay running — start it in a new iTerm window or a `tmux`/`screen` session so it persists.
    - **Stop and ask the operator before closing any open windows or terminating processes they already have running.**
 
@@ -71,7 +71,7 @@ The voice agent is considered "working" when ALL of these are true:
 
 ## Do NOT
 
-- Do not modify any file under `/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant/` without operator approval — those are the canonical fork files
+- Do not modify any file under `/Users/taurus_ai/Documents/BizFlow-Nexus-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant/` without operator approval — those are the canonical fork files
 - Do not `git commit`, `git push`, or create any new GitHub/GitLab/Fly remote without asking
 - Do not edit anything under `/Users/taurus_ai/Desktop/NEXUS-LOCAL-VOICE-ASSISTANT/backend/src/` that would affect the default `nexus-agent` worker behavior — only ADD the `yqg_worker.py`, `yqg_tools.py`, and `prompts/yqg-persona.txt` files
 - Do not change the LiveKit Cloud project (the reference doc mentions creating a new project to fix the `nexus-voice-agent-*` subdomain leak — that's a separate task for the operator, not you)

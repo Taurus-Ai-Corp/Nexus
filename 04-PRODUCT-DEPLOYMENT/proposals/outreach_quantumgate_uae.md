@@ -21,5 +21,5 @@ Would you be open to a 15-minute call this week to explore how we can accelerate
 
 Best regards,
 [Your Name]
-Taurus AI (NeoVibe by Taurus AI - License #68122, IFZA Dubai)
+Taurus AI (Nexus by Taurus AI - License #68122, IFZA Dubai)
 [Phone] | [Email]

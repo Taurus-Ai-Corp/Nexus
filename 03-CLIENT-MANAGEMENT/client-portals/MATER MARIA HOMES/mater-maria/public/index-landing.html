@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mater Maria Homes — Compassionate Care Meets the Quiet Comfort of Belonging</title>
-<meta name="description" content="Kerala's premier AI-powered wellness estate. 90+ premium residences, 48 world-class facilities, 24/7 on-campus medical care. Investment tiers from ₹10 Lakhs.">
+<meta name="description" content="Kerala's premier AI-powered wellness estate. 100+ premium residences, 48 world-class facilities, 24/7 on-campus medical care. Investment tiers from ₹10 Lakhs.">
 <meta property="og:title" content="Mater Maria Homes — Compassionate Care Meets the Quiet Comfort of Belonging">
 <meta property="og:description" content="Wellness estate in Kanjirappally, Kerala. 6 residence types, Silver/Gold/Platinum tiers from ₹10L. 153% projected 15-year returns.">
 <meta property="og:type" content="website">
@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Mater Maria Homes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mater Maria Homes — Compassionate Care Meets the Quiet Comfort of Belonging">
-<meta name="twitter:description" content="Kerala's premier wellness estate. 90+ residences, 24/7 medical, net-zero solar. Invest from ₹10L.">
+<meta name="twitter:description" content="Kerala's premier wellness estate. 100+ residences, 24/7 medical, net-zero solar. Invest from ₹10L.">
 <meta name="twitter:image" content="https://matermariahomes.com/assets-2025/images/hero-slides/Home_Banner_01.jpg">
 <link rel="canonical" href="https://matermariahomes.com/">
 <link rel="alternate" hreflang="en-in" href="https://matermariahomes.com/index-landing.html">
@@ -301,8 +301,8 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
   /* Features */
   .features-grid{grid-template-columns:1fr 1fr;gap:16px}
   /* Properties */
-  .prop{flex-direction:row;gap:12px}
-  .prop h3{font-size:clamp(1.2rem,3vw,1.8rem)}
+  .prop{flex-direction:row;gap:10px;padding:16px 0}
+  .prop h3{font-size:clamp(1.1rem,3vw,1.5rem)}
   /* Location, Timeline, Tiers */
   .loc-grid{grid-template-columns:1fr}
   .tl-items{grid-template-columns:1fr}
@@ -398,9 +398,10 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
   .faq-q h3{font-size:16px}
   .faq-a p{font-size:15px}
   /* Properties */
-  .prop-counter{font-size:11px}
-  .prop-tag{font-size:10px;padding:3px 10px}
-  .prop h3{font-size:clamp(1rem,3vw,1.4rem)}
+  .prop-counter{font-size:10px}
+  .prop-tag{font-size:10px;padding:2px 8px}
+  .prop-yr{font-size:10px;padding:2px 8px}
+  .prop h3{font-size:clamp(1rem,3vw,1.3rem)}
   /* Floor plans */
   .fp-tabs{justify-content:center}
   .fp-tab{padding:8px 16px;font-size:13px}
@@ -499,11 +500,12 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 /* ================================================================
    TRUST TICKER — Logo/Badge Strip [Step 6]
    ================================================================ */
-.trust-ticker{background:var(--bg-dark);padding:24px 0;overflow:hidden;border-top:1px solid var(--border-dark);border-bottom:1px solid var(--border-dark)}
-.trust-ticker-inner{display:flex;white-space:nowrap;will-change:transform;align-items:center}
-.trust-ticker-item{display:flex;align-items:center;gap:10px;padding:0 40px;font-family:var(--font-mono);font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
-@media(max-width:480px){.trust-ticker-item{padding:0 20px;font-size:12px}}
+.trust-ticker{background:var(--bg-dark);padding:20px 0;overflow:hidden;border-top:1px solid var(--border-dark);border-bottom:1px solid var(--border-dark)}
+.trust-ticker-inner{display:flex;white-space:nowrap;will-change:transform;align-items:center;width:max-content;animation:marquee 35s linear infinite}
+.trust-ticker-item{display:flex;align-items:center;gap:10px;padding:0 40px;font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+@media(max-width:480px){.trust-ticker-item{padding:0 20px;font-size:11px}}
 .trust-ticker-item .dot{color:var(--accent-gold-light);font-size:8px}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 /* ================================================================
    GALLERY MOSAIC
    ================================================================ */
@@ -547,10 +549,10 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
    PROPERTIES [Step 9]
    ================================================================ */
 .properties{background:var(--bg-dark);padding:var(--pad) 0}
-.prop-list{margin-top:48px}
-.prop-meta{display:flex;gap:16px;align-items:center;margin-bottom:12px}
-.prop-tag{font-family:var(--font-helv);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-gold-light);border:1px solid rgba(192,155,94,.3);padding:4px 14px;border-radius:100px}
-.prop-yr{font-family:var(--font-helv);font-size:12px;color:var(--text-muted)}
+.prop-list{margin-top:36px}
+.prop-meta{display:flex;gap:12px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.prop-tag{font-family:var(--font-helv);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-gold-light);border:1px solid rgba(192,155,94,.2);padding:3px 12px;border-radius:100px}
+.prop-yr{font-family:var(--font-helv);font-size:11px;color:rgba(255,255,255,.45);background:rgba(255,255,255,.06);padding:3px 12px;border-radius:100px}
 .prop h3{font-family:var(--font-helv);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:500;letter-spacing:-1px;color:#fff;margin-bottom:0}
 .prop-spec{font-family:var(--font-mono);font-size:12px;letter-spacing:.05em;color:var(--text-muted);background:rgba(255,255,255,.06);padding:6px 14px;border-radius:100px}
 /* ================================================================
@@ -729,7 +731,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 /* ================================================================
    PROPERTIES ACCORDION OVERRIDES
    ================================================================ */
-.prop{border-top:1px dashed rgba(255,255,255,.3);padding:28px 0;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.prop{border-top:1px solid rgba(255,255,255,.15);padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .prop:last-child{border-bottom:1px dashed rgba(255,255,255,.3)}
 .prop-loc,.prop-specs,.prop-img{display:none}
 .prop-counter{font-family:var(--font-helv);font-size:13px;color:var(--text-muted);letter-spacing:.05em;margin-left:auto;white-space:nowrap}
@@ -1034,6 +1036,12 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
     <span class="trust-ticker-item" style="font-family:var(--font-helv);color:#fff"><span class="dot">●</span> 24/7 Medical Facilities</span>
     <span class="trust-ticker-item" style="font-family:var(--font-helv);color:#fff"><span class="dot">●</span> AI-Powered Smart Homes</span>
     <span class="trust-ticker-item" style="font-family:var(--font-helv);color:#fff"><span class="dot">●</span> Diocese of Kanjirappally</span>
+    <span class="trust-ticker-item" style="font-family:var(--font-helv);color:#fff"><span class="dot">●</span> 24/7 Medical Facilities</span>
+    <span class="trust-ticker-item" style="font-family:var(--font-helv);color:#fff"><span class="dot">●</span> AI-Powered Smart Homes</span>
+    <span class="trust-ticker-item" style="font-family:var(--font-helv);color:#fff"><span class="dot">●</span> Diocese of Kanjirappally</span>
+    <span class="trust-ticker-item" style="font-family:var(--font-helv);color:#fff"><span class="dot">●</span> 24/7 Medical Facilities</span>
+    <span class="trust-ticker-item" style="font-family:var(--font-helv);color:#fff"><span class="dot">●</span> AI-Powered Smart Homes</span>
+    <span class="trust-ticker-item" style="font-family:var(--font-helv);color:#fff"><span class="dot">●</span> Diocese of Kanjirappally</span>
   </div>
 </section>
 
@@ -1041,7 +1049,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
 <section class="counters" id="counters-section" style="background:var(--bg-dark)">
   <div class="container">
     <div class="counters-grid">
-      <div class="counter"><div class="counter-val">90<span class="a">+</span></div><div class="counter-lbl" style="color:rgba(255,255,255,.65)">Premium Residences</div></div>
+      <div class="counter"><div class="counter-val">100<span class="a">+</span></div><div class="counter-lbl" style="color:rgba(255,255,255,.65)">Premium Residences</div></div>
       <div class="counter"><div class="counter-val">48</div><div class="counter-lbl" style="color:rgba(255,255,255,.65)">World-Class Facilities</div></div>
       <div class="counter"><div class="counter-val">8<span class="a">+</span></div><div class="counter-lbl" style="color:rgba(255,255,255,.65)">Acres of Greenery</div></div>
       <div class="counter"><div class="counter-val">7<span class="a">+</span></div><div class="counter-lbl" style="color:rgba(255,255,255,.65)">Nearby Hospitals</div></div>
@@ -1096,10 +1104,10 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
   <div class="container">
     <h2 class="split-heading" style="font-size:clamp(2.2rem,4.5vw,3.5rem);font-weight:500;letter-spacing:-2px;color:#fff;max-width:620px">Residence <em style="font-family:var(--font-serif);font-style:italic;color:var(--accent-gold-light)">Types.</em></h2>
     <div class="prop-list">
-      <div class="prop" data-hover="assets-2025/images/properties/studio-wellness-suite.png" data-gallery="assets-2025/images/properties/studio-wellness-suite.png" data-name="Studio Wellness Suite"><div><div class="prop-meta"><span class="prop-tag">Studio Wellness Suite</span><span class="prop-yr">Ready 2026</span></div><h3>Studio Wellness Suite</h3><div class="prop-loc">Kanjirappally, Kottayam, Kerala</div><div class="prop-specs"><span class="prop-spec">Studio</span><span class="prop-spec">1 Bath</span><span class="prop-spec">450-550 sqft</span></div></div><span class="prop-counter">01 / 04</span><button class="prop-expand" aria-label="View gallery">+</button><img class="prop-hover-img" src="assets-2025/images/properties/studio-wellness-suite.png" alt="Studio Wellness Suite preview" loading="lazy"></div>
-      <div class="prop" data-hover="assets-2025/images/properties/deluxe-1bhk-apartment.png" data-gallery="assets-2025/images/properties/deluxe-1bhk-apartment.png" data-name="Deluxe 1BHK Apartment"><div><div class="prop-meta"><span class="prop-tag">Deluxe 1BHK Apartment</span><span class="prop-yr">Ready 2026</span></div><h3>Deluxe 1BHK Apartment</h3><div class="prop-loc">Kanjirappally, Kottayam, Kerala</div><div class="prop-specs"><span class="prop-spec">1 Bed</span><span class="prop-spec">2 Baths</span><span class="prop-spec">750-850 sqft</span></div></div><span class="prop-counter">02 / 04</span><button class="prop-expand" aria-label="View gallery">+</button><img class="prop-hover-img" src="assets-2025/images/properties/deluxe-1bhk-apartment.png" alt="Deluxe 1BHK Apartment preview" loading="lazy"></div>
-      <div class="prop" data-hover="assets-2025/images/properties/premium-2bhk-residence.png" data-gallery="assets-2025/images/properties/premium-2bhk-residence.png" data-name="Premium 2BHK Wellness Residence"><div><div class="prop-meta"><span class="prop-tag">Premium 2BHK Wellness Residence</span><span class="prop-yr">Ready 2027</span></div><h3>Premium 2BHK Wellness Residence</h3><div class="prop-loc">Kanjirappally, Kottayam, Kerala</div><div class="prop-specs"><span class="prop-spec">2 Beds</span><span class="prop-spec">2 Baths</span><span class="prop-spec">1,100-1,300 sqft</span></div></div><span class="prop-counter">03 / 04</span><button class="prop-expand" aria-label="View gallery">+</button><img class="prop-hover-img" src="assets-2025/images/properties/premium-2bhk-residence.png" alt="Premium 2BHK Wellness Residence preview" loading="lazy"></div>
-      <div class="prop" data-hover="assets-2025/images/properties/assisted-wellness-residence.png" data-gallery="assets-2025/images/properties/assisted-wellness-residence.png" data-name="Assisted Wellness Residence"><div><div class="prop-meta"><span class="prop-tag">Assisted Wellness Residence</span><span class="prop-yr">Ready 2027</span></div><h3>Assisted Wellness Residence</h3><div class="prop-loc">Kanjirappally, Kottayam, Kerala</div><div class="prop-specs"><span class="prop-spec">1-2 Beds</span><span class="prop-spec">2 Baths</span><span class="prop-spec">800-1,000 sqft (with care facilities)</span></div></div><span class="prop-counter">04 / 04</span><button class="prop-expand" aria-label="View gallery">+</button><img class="prop-hover-img" src="assets-2025/images/properties/assisted-wellness-residence.png" alt="Assisted Wellness Residence preview" loading="lazy"></div>
+      <div class="prop" data-hover="assets-2025/images/properties/studio-wellness-suite.png" data-gallery="assets-2025/images/properties/studio-wellness-suite.png" data-name="Studio Wellness Suite"><div><div class="prop-meta"><span class="prop-tag">Studio Wellness Suite</span><span class="prop-yr">Phase 1</span></div><h3>Studio Wellness Suite</h3><div class="prop-loc">Kanjirappally, Kottayam, Kerala</div><div class="prop-specs"><span class="prop-spec">Studio</span><span class="prop-spec">1 Bath</span><span class="prop-spec">450-550 sqft</span></div></div><span class="prop-counter">01 / 04</span><button class="prop-expand" aria-label="View gallery">+</button><img class="prop-hover-img" src="assets-2025/images/properties/studio-wellness-suite.png" alt="Studio Wellness Suite preview" loading="lazy"></div>
+      <div class="prop" data-hover="assets-2025/images/properties/deluxe-1bhk-apartment.png" data-gallery="assets-2025/images/properties/deluxe-1bhk-apartment.png" data-name="Deluxe 1BHK Apartment"><div><div class="prop-meta"><span class="prop-tag">Deluxe 1BHK Apartment</span><span class="prop-yr">Phase 1</span></div><h3>Deluxe 1BHK Apartment</h3><div class="prop-loc">Kanjirappally, Kottayam, Kerala</div><div class="prop-specs"><span class="prop-spec">1 Bed</span><span class="prop-spec">2 Baths</span><span class="prop-spec">750-850 sqft</span></div></div><span class="prop-counter">02 / 04</span><button class="prop-expand" aria-label="View gallery">+</button><img class="prop-hover-img" src="assets-2025/images/properties/deluxe-1bhk-apartment.png" alt="Deluxe 1BHK Apartment preview" loading="lazy"></div>
+      <div class="prop" data-hover="assets-2025/images/properties/premium-2bhk-residence.png" data-gallery="assets-2025/images/properties/premium-2bhk-residence.png" data-name="Premium 2BHK Wellness Residence"><div><div class="prop-meta"><span class="prop-tag">Premium 2BHK Wellness Residence</span><span class="prop-yr">Phase 2</span></div><h3>Premium 2BHK Wellness Residence</h3><div class="prop-loc">Kanjirappally, Kottayam, Kerala</div><div class="prop-specs"><span class="prop-spec">2 Beds</span><span class="prop-spec">2 Baths</span><span class="prop-spec">1,100-1,300 sqft</span></div></div><span class="prop-counter">03 / 04</span><button class="prop-expand" aria-label="View gallery">+</button><img class="prop-hover-img" src="assets-2025/images/properties/premium-2bhk-residence.png" alt="Premium 2BHK Wellness Residence preview" loading="lazy"></div>
+      <div class="prop" data-hover="assets-2025/images/properties/assisted-wellness-residence.png" data-gallery="assets-2025/images/properties/assisted-wellness-residence.png" data-name="Assisted Wellness Residence"><div><div class="prop-meta"><span class="prop-tag">Assisted Wellness Residence</span><span class="prop-yr">Phase 2</span></div><h3>Assisted Wellness Residence</h3><div class="prop-loc">Kanjirappally, Kottayam, Kerala</div><div class="prop-specs"><span class="prop-spec">1-2 Beds</span><span class="prop-spec">2 Baths</span><span class="prop-spec">800-1,000 sqft (with care facilities)</span></div></div><span class="prop-counter">04 / 04</span><button class="prop-expand" aria-label="View gallery">+</button><img class="prop-hover-img" src="assets-2025/images/properties/assisted-wellness-residence.png" alt="Assisted Wellness Residence preview" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -1580,17 +1588,8 @@ revealGroup('.loc-card', { y: 40 });
 revealGroup('.vm-cell', { y: 40, gap: 0.1 });
 
 
-// Step 6: Trust ticker (returns tween for speed modulation)
-const trustTicker = ticker('#trust-ticker', { duration: 35 });
-
-// UPGRADE 5: Scroll-speed-linked marquee — capped on mobile
-if (!isMobile) {
-  lenis.on('scroll', function(e) {
-    var velocity = e.velocity || 0;
-    var boost = 1 + Math.min(Math.abs(velocity) * 0.003, 2);
-    gsap.to(trustTicker, { timeScale: boost, duration: 0.3, overwrite: true });
-  });
-}
+// Step 6: Trust ticker — now CSS-powered for seamless looping
+// GSAP ticker removed; animation handled by CSS @keyframes marquee
 
 // Scroll progress bar
 const progressBar = document.getElementById('scroll-progress');

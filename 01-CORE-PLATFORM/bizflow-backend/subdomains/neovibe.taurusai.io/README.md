@@ -1,4 +1,4 @@
-# 🎨 NEOVIBE.TAURUSAI.IO - Coded Vibe Marketing Studio
+# 🎨 Nexus.TAURUSAI.IO - Coded Vibe Marketing Studio
 
 ## 🚀 **B2B PORTAL & E-COMMERCE MARKETING AUTOMATION**
 
@@ -25,7 +25,7 @@ The marketing studio of TAURUS AI CORP. featuring **Web-Platforms** for B2B port
 ## 🏗️ **PLATFORM ARCHITECTURE**
 
 ```
-neovibe.taurusai.io/
+Nexus.taurusai.io/
 ├── Web-Platforms/            # All web-based platforms
 │   ├── landing-pages/        # Landing page generator
 │   ├── dashboards/           # Business dashboards
@@ -41,7 +41,7 @@ neovibe.taurusai.io/
 
 ### **1. Launch Marketing Studio**
 ```bash
-cd subdomains/neovibe.taurusai.io
+cd subdomains/Nexus.taurusai.io
 python3 Web-Platforms/webflow-integration/webflow_design_mcp.py
 ```
 
@@ -151,7 +151,7 @@ result = await design_ai.generate_design_system({
 ### **Development**
 ```bash
 # Set up environment
-cd subdomains/neovibe.taurusai.io
+cd subdomains/Nexus.taurusai.io
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -164,7 +164,7 @@ python3 Web-Platforms/webflow-integration/webflow_design_mcp.py
 ```bash
 # Deploy to production
 cd deployment/scripts
-./deploy-neovibe.sh
+./deploy-Nexus.sh
 ```
 
 ---

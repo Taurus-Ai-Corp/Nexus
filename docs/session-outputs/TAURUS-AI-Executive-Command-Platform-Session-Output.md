@@ -22,7 +22,7 @@
 ### Operating Entity (UAE)
 - **Legal Name:** TAURUS AI Corp - FZCO
 - **License:** #68122, IFZA Dubai
-- **Role:** Operating entity for NeoVibe and BizFlow platforms
+- **Role:** Operating entity for Nexus and BizFlow platforms
 
 ### US Operating Entity (Wyoming)
 - **Legal Name:** ARQ Quantum LLC
@@ -42,7 +42,7 @@ TAURUS AI CORP (Canada Federal) — Parent Company / HQ
     ├── TAURUS AI Corp - FZCO (Dubai) — Operating Entity
     │       License #68122, IFZA Dubai
     │       │
-    │       ├── NeoVibe Platform (Luxury Design)
+    │       ├── Nexus Platform (Luxury Design)
     │       └── BizFlow Platform (Business Automation)
     │
     └── ARQ QUANTUM LLC (Wyoming, USA) — Operating Entity
@@ -55,7 +55,7 @@ TAURUS AI CORP (Canada Federal) — Parent Company / HQ
 | Entity | Jurisdiction | Purpose |
 |--------|--------------|---------|
 | **Taurus AI Corp.** | Canada (Federal) | Parent company, intellectual property holding, global contracts |
-| **TAURUS AI Corp - FZCO** | Dubai (UAE) | NeoVibe, BizFlow platforms; Middle East/Asia market |
+| **TAURUS AI Corp - FZCO** | Dubai (UAE) | Nexus, BizFlow platforms; Middle East/Asia market |
 | **ARQ Quantum LLC** | Wyoming (USA) | Q-Grid platform, PQC services, North American market |
 
 ---
@@ -93,7 +93,7 @@ The user wanted to build a **state-of-the-art authentication and executive comma
 - Implement "Biometric-State Dependent Autonomy" using GCR-Pulse bio-foundry data
 - Create "Immutable Governance via Hedera HCS" for audit trails
 - Integrate with HEDERA workspace at `/Users/taurus_ai/Documents/HEDERA/hedera-orchestrator`
-- The user has multiple platforms (NeoVibe, Q-Grid, BizFlow) that need to use this security layer
+- The user has multiple platforms (Nexus, Q-Grid, BizFlow) that need to use this security layer
 
 ---
 
@@ -619,7 +619,7 @@ tail -20 /tmp/taurus-unified.log
 
 ## File Structure
 
-### BizFlow-NeoVibe-Platform (Primary Development):
+### BizFlow-Nexus-Platform (Primary Development):
 
 ```
 01-CORE-PLATFORM/bizflow-backend/

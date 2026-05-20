@@ -2,7 +2,7 @@
 
 ## Overview
 
-The WhatsApp Communication Agent provides enterprise-level WhatsApp automation capabilities for TAURUS AI CORP's BizFlow and NeoVibe platforms. It enables automated customer support, lead management, sales pipeline updates, financial services automation, and client service delivery through WhatsApp messaging.
+The WhatsApp Communication Agent provides enterprise-level WhatsApp automation capabilities for TAURUS AI CORP's BizFlow and Nexus platforms. It enables automated customer support, lead management, sales pipeline updates, financial services automation, and client service delivery through WhatsApp messaging.
 
 ## Features
 

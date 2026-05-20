@@ -1,4 +1,4 @@
-# BizFlow-NeoVibe Platform
+# BizFlow-Nexus Platform
 
 ## GWS Bridge (Google Workspace CLI)
 
@@ -12,21 +12,21 @@
 
 ## Workspace Hierarchy (Google Drive)
 
-- Root: `TAURUS AI — Workspace` → Platform folders (NeoVibe, Q-Grid, BizFlow) → Client folders
+- Root: `TAURUS AI — Workspace` → Platform folders (Nexus, Q-Grid, BizFlow) → Client folders
 - Each client gets 5 subfolders: Contracts & Invoices, Project Documentation, Assets & Media, Reports & Analytics, Proposals & Upsells
-- Each platform gets its own Client Tracker sheet (e.g., "NeoVibe — Client Tracker")
+- Each platform gets its own Client Tracker sheet (e.g., "Nexus — Client Tracker")
 - Cross-platform ops sheets live in `_Operations/` folder
 
 ## Corporate vs. Operating Brand
 
 - Legal docs (invoices, contracts, NDAs): header = "TAURUS AI CORP - FZCO" (License #68122, IFZA Dubai)
-- Client-facing (marketing, SaaS, proposals): brand = "NeoVibe by Taurus AI" / "Q-Grid" / "BizFlow"
+- Client-facing (marketing, SaaS, proposals): brand = "Nexus by Taurus AI" / "Q-Grid" / "BizFlow"
 - NEVER mix — government/legal uses FZCO entity, customer-facing uses operating brand
 
 ## NotebookLM Integration (`/notebook` command)
 
 - `/notebook` — status, active notebook, sources, artifacts
-- `/notebook new "Title"` or `/notebook new --client "Name" --platform NeoVibe`
+- `/notebook new "Title"` or `/notebook new --client "Name" --platform Nexus`
 - `/notebook ask "question"` — chat with active notebook
 - `/notebook source add <url|file>` — auto-detects YouTube, web URL, or local file
 - `/notebook source add-yt "query"` — YouTube search + ingest
@@ -40,7 +40,7 @@
 
 ## Research Pipeline (NotebookLM + Drive)
 
-- `/research "topic" --from drive --client "Name" --platform NeoVibe` — full pipeline
+- `/research "topic" --from drive --client "Name" --platform Nexus` — full pipeline
 - `/research "topic" --from youtube` — YouTube-only research (original flow)
 - `/research "topic" --from both` — combined internal + external research
 - One notebook per client (accumulates sources). Naming: `"Platform — Client Name"`
@@ -54,10 +54,10 @@
 ## Client Workspace Protocol
 
 Before creating any client workspace, always ask:
-1. Which platform? (NeoVibe / Q-Grid / BizFlow / other)
+1. Which platform? (Nexus / Q-Grid / BizFlow / other)
 2. Client industry/type?
 3. Engagement type? (project / retainer / hybrid)
-4. BDM assignment? (Praveen Varkey for NeoVibe Kerala market)
+4. BDM assignment? (Praveen Varkey for Nexus Kerala market)
 5. Phase? (prospect / onboarding / active / upsell)
 
 ## AI/ML Stack

@@ -18,7 +18,7 @@ Complete guide for posting co-op positions to LinkedIn using the TAURUS AI autom
 The LinkedIn Jobs Posting system provides end-to-end automation for creating and posting co-op positions across all TAURUS platforms:
 
 - **BizFlow** - AI Orchestration co-op positions
-- **NeoVibe** - Creative Marketing co-op positions
+- **Nexus** - Creative Marketing co-op positions
 - **AssetGrid** - Blockchain & Crypto co-op positions
 - **OrionGrid** - RWA Blockchain co-op positions
 
@@ -149,7 +149,7 @@ result = await build_coop_position(
 )
 ```
 
-### NeoVibe Co-op Positions
+### Nexus Co-op Positions
 
 **Target Audience:** Marketing, Communications, Design students
 
@@ -162,7 +162,7 @@ result = await build_coop_position(
 **Example:**
 ```python
 result = await build_coop_position(
-    platform="NeoVibe",
+    platform="Nexus",
     customizations={
         "duration": "4 months",
         "workLocationType": "REMOTE"
@@ -477,7 +477,7 @@ async def post_coop_position(platform: str):
     }
 
 # Run for all platforms
-platforms = ["BizFlow", "NeoVibe", "AssetGrid", "OrionGrid"]
+platforms = ["BizFlow", "Nexus", "AssetGrid", "OrionGrid"]
 results = await asyncio.gather(*[
     post_coop_position(p) for p in platforms
 ])

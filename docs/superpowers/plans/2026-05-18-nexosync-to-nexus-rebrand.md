@@ -1,10 +1,10 @@
-# NeoSync → Nexus Rebrand Implementation Plan
+# Nexus → Nexus Rebrand Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Rebrand the live NeoSync product (social-suite-dashboard.vercel.app) to Nexus, updating all references, configs, and documentation.
+**Goal:** Rebrand the live Nexus product (social-suite-dashboard.vercel.app) to Nexus, updating all references, configs, and documentation.
 
-**Architecture:** Rename the product from NeoSync to Nexus across: Next.js app configs, environment variables, package.json, Vercel deployment, GitHub repo, and all internal documentation references.
+**Architecture:** Rename the product from Nexus to Nexus across: Next.js app configs, environment variables, package.json, Vercel deployment, GitHub repo, and all internal documentation references.
 
 **Tech Stack:** Next.js 16, Tailwind v4, Vercel, GitHub Actions
 
@@ -13,13 +13,13 @@
 ## Task 1: Update Next.js App Configuration
 
 **Files:**
-- Modify: `01-CORE-PLATFORM/bizflow-backend/frontend/neovibe-studio/src/app/layout.tsx:1-20`
-- Modify: `01-CORE-PLATFORM/bizflow-backend/frontend/neovibe-studio/package.json`
-- Modify: `01-CORE-PLATFORM/bizflow-backend/frontend/neovibe-studio/.env.example`
+- Modify: `01-CORE-PLATFORM/bizflow-backend/frontend/nexus-studio/src/app/layout.tsx:1-20`
+- Modify: `01-CORE-PLATFORM/bizflow-backend/frontend/nexus-studio/package.json`
+- Modify: `01-CORE-PLATFORM/bizflow-backend/frontend/nexus-studio/.env.example`
 
 - [ ] **Step 1: Backup current configs**
 
-Run: `cd /Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform && git add -A && git status`
+Run: `cd /Users/taurus_ai/Documents/BizFlow-Nexus-Platform && git add -A && git status`
 
 - [ ] **Step 2: Update package.json name**
 
@@ -72,7 +72,7 @@ git checkout -b feat/nexosync-to-nexus-rebrand
 
 Run:
 ```bash
-gh api repos/Taurus-Ai-Corp/NeoSync --method PATCH --field name=Nexus --field description="Social media management, marketing automation, and business analytics by Taurus AI"
+gh api repos/Taurus-Ai-Corp/Nexus --method PATCH --field name=Nexus --field description="Social media management, marketing automation, and business analytics by Taurus AI"
 ```
 
 Expected: `{"name": "Nexus", ...}`
@@ -80,7 +80,7 @@ Expected: `{"name": "Nexus", ...}`
 - [ ] **Step 2: Update local git remote**
 
 ```bash
-cd 01-CORE-PLATFORM/bizflow-backend/frontend/neovibe-studio
+cd 01-CORE-PLATFORM/bizflow-backend/frontend/nexus-studio
 git remote set-url origin https://github.com/Taurus-Ai-Corp/Nexus.git
 ```
 
@@ -88,7 +88,7 @@ git remote set-url origin https://github.com/Taurus-Ai-Corp/Nexus.git
 
 ```bash
 git add package.json .env.example src/app/layout.tsx
-git commit -m "feat(rebrand): NeoSync → Nexus
+git commit -m "feat(rebrand): Nexus → Nexus
 - Update package.json name to 'nexus'
 - Add Nexus env var prefix (NEXUS_*)
 - Update layout metadata
@@ -143,31 +143,31 @@ git push origin feat/nexosync-to-nexus-rebrand
 **Files:**
 - Modify: `FINAL_PLATFORM_SUMMARY.md`
 - Modify: `PLATFORM_COMPLETION_SUMMARY.md`
-- Modify: `NeoSync™ _ Platform Devops/` directory rename
+- Modify: `Nexus™ _ Platform Devops/` directory rename
 
-- [ ] **Step 1: Rename NeoSync directory**
+- [ ] **Step 1: Rename Nexus directory**
 
 ```bash
-mv "NeoSync™ _ Platform Devops" "Nexus _ Platform Devops"
+mv "Nexus™ _ Platform Devops" "Nexus _ Platform Devops"
 ```
 
 - [ ] **Step 2: Update platform summary docs**
 
 In `FINAL_PLATFORM_SUMMARY.md` and `PLATFORM_COMPLETION_SUMMARY.md`:
-- Replace "NeoSync" → "Nexus"
-- Replace "neovibe-studio" → "nexus"
+- Replace "Nexus" → "Nexus"
+- Replace "nexus-studio" → "nexus"
 - Update description to reflect new brand
 
 - [ ] **Step 3: Update CLAUDE.md references**
 
-In `/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/CLAUDE.md`:
-- Update any NeoSync references to Nexus
+In `/Users/taurus_ai/Documents/BizFlow-Nexus-Platform/CLAUDE.md`:
+- Update any Nexus references to Nexus
 
 - [ ] **Step 4: Commit documentation changes**
 
 ```bash
 git add -A
-git commit -m "docs: update all NeoSync references to Nexus
+git commit -m "docs: update all Nexus references to Nexus
 Co-Authored-By: E.Fdz <admin@taurusai.io>
 Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
 ```
@@ -177,26 +177,26 @@ Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
 ## Task 5: Update Memory/Agent Files
 
 **Files:**
-- Modify: `~/.claude/projects/-Users-taurus-ai-Documents-BizFlow-NeoVibe-Platform/memory/MEMORY.md`
-- Modify: `~/.claude/agents/neovibe-freelance.md`
+- Modify: `~/.claude/projects/-Users-taurus-ai-Documents-BizFlow-Nexus-Platform/memory/MEMORY.md`
+- Modify: `~/.claude/agents/nexus-freelance.md`
 
 - [ ] **Step 1: Update memory file**
 
 In MEMORY.md:
-- Find "NeoSync" → Replace with "Nexus"
+- Find "Nexus" → Replace with "Nexus"
 - Update description to reflect rebrand
 
 - [ ] **Step 2: Rename agent file**
 
 ```bash
-mv ~/.claude/agents/neovibe-freelance.md ~/.claude/agents/nexus-freelance.md
+mv ~/.claude/agents/nexus-freelance.md ~/.claude/agents/nexus-freelance.md
 ```
 
 - [ ] **Step 3: Update agent content**
 
 In the renamed file, update:
-- Name: "neovibe-freelance" → "nexus-freelance"
-- All NeoSync references → Nexus
+- Name: "nexus-freelance" → "nexus-freelance"
+- All Nexus references → Nexus
 
 ---
 
@@ -225,7 +225,7 @@ Visit: https://social-suite-dashboard.vercel.app (should redirect or show Nexus 
 
 ```bash
 git add -A
-git commit -m "feat: complete NeoSync → Nexus rebrand
+git commit -m "feat: complete Nexus → Nexus rebrand
 - All configs updated
 - GitHub repo renamed
 - Vercel project renamed
@@ -244,7 +244,7 @@ Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
 - [ ] All environment variables use NEXUS_* prefix
 - [ ] Documentation updated (FINAL_PLATFORM_SUMMARY.md, CLAUDE.md, MEMORY.md)
 - [ ] Agent file renamed and updated
-- [ ] Directory renamed from "NeoSync™ _ Platform Devops" to "Nexus _ Platform Devops"
+- [ ] Directory renamed from "Nexus™ _ Platform Devops" to "Nexus _ Platform Devops"
 - [ ] Branch pushed and PR ready
 
 ---

@@ -17,7 +17,7 @@
 - ❌ **No worker process is running anywhere.** Button click → silence.
 - ❌ LiveKit project URL leaks "nexus-voice-agent" subdomain in network tab.
 
-All source in: `/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant/`
+All source in: `/Users/taurus_ai/Documents/BizFlow-Nexus-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant/`
 
 ---
 
@@ -46,7 +46,7 @@ python3 -m pip install --user -e ".[dev]" \
   "livekit-agents[silero,groq,deepgram]>=1.0"
 
 # 2. Drop in YQG persona files (copy from fork)
-FORK=/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant
+FORK=/Users/taurus_ai/Documents/BizFlow-Nexus-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant
 cp "$FORK/backend/yqg_worker.py" src/integrations/
 cp "$FORK/backend/yqg_tools.py"  src/tools/
 mkdir -p prompts && cp "$FORK/prompts/yqg-persona.txt" prompts/
@@ -85,7 +85,7 @@ cd /Users/taurus_ai/Desktop/NEXUS-LOCAL-VOICE-ASSISTANT/backend
 #   curl -L https://fly.io/install.sh | sh
 
 # Drop in YQG files (same as Path A)
-FORK=/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant
+FORK=/Users/taurus_ai/Documents/BizFlow-Nexus-Platform/03-CLIENT-MANAGEMENT/client-portals/YQG_DIGITAL/yqg-assistant
 cp "$FORK/backend/yqg_worker.py" src/integrations/
 cp "$FORK/backend/yqg_tools.py"  src/tools/
 cp "$FORK/backend/fly.yqg-worker.toml" .

@@ -48,7 +48,7 @@ TAURUS AI Ecosystem
 │   └── Canva Design Agent
 ├── Workflows
 │   ├── Cross-Platform Workflows
-│   └── NeoVibe Integration
+│   └── Nexus Integration
 └── Command Integration
     ├── DMA Command (Auto-detection)
     └── IQ Command (Platform recommendation)
@@ -251,9 +251,9 @@ result = await workflows.gamma_to_canva_workflow(
 )
 ```
 
-### NeoVibe Integration
+### Nexus Integration
 
-**Location**: `agents/specialized/gamma-canva-workflows/neovibe_integration.py`
+**Location**: `agents/specialized/gamma-canva-workflows/nexus_integration.py`
 
 **Capabilities**:
 - Client campaign creation
@@ -263,9 +263,9 @@ result = await workflows.gamma_to_canva_workflow(
 
 **Example**:
 ```python
-from agents.specialized.gamma_canva_workflows.neovibe_integration import NeoVibeIntegration
+from agents.specialized.gamma_canva_workflows.nexus_integration import NexusIntegration
 
-integration = NeoVibeIntegration(gamma_agent, canva_agent)
+integration = NexusIntegration(gamma_agent, canva_agent)
 
 # Create client campaign
 campaign = await integration.create_client_campaign(
@@ -437,6 +437,6 @@ For issues or questions:
   - Canva MCP server (8 tools)
   - Specialized agents
   - Cross-platform workflows
-  - NeoVibe integration
+  - Nexus integration
   - DMA/IQ command integration
 

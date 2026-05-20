@@ -19,7 +19,7 @@ export function RecentActivity() {
     setTimeout(() => {
       setActivities([
         { id: '1', agentType: 'BizFlow', taskType: 'SEO Blog Generation', status: 'completed', createdAt: new Date().toISOString() },
-        { id: '2', agentType: 'NeoVibe', taskType: 'Social Content', status: 'completed', createdAt: new Date(Date.now() - 3600000).toISOString() },
+        { id: '2', agentType: 'Nexus', taskType: 'Social Content', status: 'completed', createdAt: new Date(Date.now() - 3600000).toISOString() },
         { id: '3', agentType: 'Q-Grid', taskType: 'PQC Audit', status: 'completed', createdAt: new Date(Date.now() - 7200000).toISOString() },
         { id: '4', agentType: 'BizFlow', taskType: 'Competitive Analysis', status: 'pending', createdAt: new Date(Date.now() - 10800000).toISOString() },
       ]);

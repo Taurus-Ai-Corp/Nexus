@@ -1,6 +1,6 @@
 # NEOFLOW™ Workspace
 
-This workspace combines BizFlow and NeoVibe platforms to create the future product: NEOFLOW™, an enhanced changefinder and all-in-one solution.
+This workspace combines BizFlow and Nexus platforms to create the future product: NEOFLOW™, an enhanced changefinder and all-in-one solution.
 
 ## Directory Structure
 
@@ -8,7 +8,7 @@ This workspace combines BizFlow and NeoVibe platforms to create the future produ
   - `platform/` - Main platform components (symlink to 01-CORE-PLATFORM)
   - `gemini/` - Gemini workspace resources (symlink to .worktrees/gemini-workspace)
 - `creative/` - Creative assets and design resources
-  - `assets/` - NeoVibe creative assets (symlink to taurus-neovibe-creative)
+  - `assets/` - Nexus creative assets (symlink to taurus-nexus-creative)
 - `workflows/` - Workflow definitions and automation
   - `main/` - Main workflows (symlink to 06-WORKFLOWS)
 - `api/` - API routes and integration points
@@ -21,4 +21,4 @@ This workspace combines BizFlow and NeoVibe platforms to create the future produ
 
 ## Purpose
 
-This workspace serves as the central hub for the NEOFLOW™ product development, combining the best of BizFlow's operational efficiency with NeoVibe's creative innovation. All resources are linked rather than duplicated to ensure consistency and reduce maintenance overhead.
+This workspace serves as the central hub for the NEOFLOW™ product development, combining the best of BizFlow's operational efficiency with Nexus's creative innovation. All resources are linked rather than duplicated to ensure consistency and reduce maintenance overhead.

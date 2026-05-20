@@ -1,7 +1,7 @@
 # Client Management System Enhancement Implementation Plan
 
 ## Overview
-This document outlines the implementation plan for completing the client management system components as part of the BizFlow-NeoVibe Platform Phase 2.
+This document outlines the implementation plan for completing the client management system components as part of the BizFlow-Nexus Platform Phase 2.
 
 ## Priority Areas
 

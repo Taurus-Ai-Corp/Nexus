@@ -150,7 +150,7 @@ whatsapp_agent = {
 }
 ```
 
-### **NeoVibe Studio Integration**:
+### **Nexus Studio Integration**:
 ```python
 # Send brand updates via WhatsApp
 await whatsapp_agent.send_message(

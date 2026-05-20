@@ -1,26 +1,26 @@
 {
-  "name": "bizflow-neovibe-platform",
+  "name": "bizflow-nexus-platform",
   "version": "1.0.0",
   "description": "AI-powered marketing automation and creative design platform",
   "private": true,
   "workspaces": [
     "01-CORE-PLATFORM/bizflow-frontend",
-    "01-CORE-PLATFORM/neovibe-studio"
+    "01-CORE-PLATFORM/nexus-studio"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:neovibe\"",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:nexus\"",
     "dev:backend": "cd 01-CORE-PLATFORM/bizflow-backend && uvicorn main:app --reload --port 8000",
     "dev:frontend": "cd 01-CORE-PLATFORM/bizflow-frontend && npm run dev",
-    "dev:neovibe": "cd 01-CORE-PLATFORM/neovibe-studio && npm run dev",
-    "build": "npm run build:frontend && npm run build:neovibe",
+    "dev:nexus": "cd 01-CORE-PLATFORM/nexus-studio && npm run dev",
+    "build": "npm run build:frontend && npm run build:nexus",
     "build:frontend": "cd 01-CORE-PLATFORM/bizflow-frontend && npm run build",
-    "build:neovibe": "cd 01-CORE-PLATFORM/neovibe-studio && npm run build",
+    "build:nexus": "cd 01-CORE-PLATFORM/nexus-studio && npm run build",
     "test": "npm run test:backend && npm run test:frontend",
     "test:backend": "cd 01-CORE-PLATFORM/bizflow-backend && pytest",
     "test:frontend": "cd 01-CORE-PLATFORM/bizflow-frontend && npm test",
-    "lint": "npm run lint:frontend && npm run lint:neovibe",
+    "lint": "npm run lint:frontend && npm run lint:nexus",
     "lint:frontend": "cd 01-CORE-PLATFORM/bizflow-frontend && npm run lint",
-    "lint:neovibe": "cd 01-CORE-PLATFORM/neovibe-studio && npm run lint",
+    "lint:nexus": "cd 01-CORE-PLATFORM/nexus-studio && npm run lint",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f",
@@ -44,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/taurusai/bizflow-neovibe-platform.git"
+    "url": "git+https://github.com/taurusai/bizflow-nexus-platform.git"
   },
   "keywords": [
     "ai",
@@ -52,7 +52,7 @@
     "automation",
     "agents",
     "bizflow",
-    "neovibe",
+    "nexus",
     "mcp",
     "agentuity"
   ],

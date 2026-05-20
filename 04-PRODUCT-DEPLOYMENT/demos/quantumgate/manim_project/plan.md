@@ -66,7 +66,7 @@ Show how Taurus AI's PQC Assessment Engine complements QuantumGate's CDT to solv
 - Voiceover: "Pilot with 2-3 ADGM/DIFC fintechs proves our reports meet regulator requirements. Let's discuss how we can help QuantumGate's clients achieve PQC compliance today - not tomorrow."
 
 ### Scene 8: Closing (10 seconds)
-- Logos: Taurus AI (NeoVibe) + QuantumGate + ATRC
+- Logos: Taurus AI (Nexus) + QuantumGate + ATRC
 - Text: "Accelerating UAE's Quantum-Secure Future"
 - Contact: partnership@taurus.ai
 - Voiceover: "Together, we can ensure UAE's financial sector is quantum-ready well before the 2026 deadline."

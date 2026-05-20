@@ -67,7 +67,7 @@ This document provides instructions for requesting LinkedIn Jobs Posting API acc
 **Required Information:**
 - Company Name: TAURUS AI CORP
 - Use Case: Multi-platform co-op position automation for TAURUS AI platforms
-- Platforms: BizFlow AI, NeoVibe Creative, AssetGrid Crypto, OrionGrid RWA
+- Platforms: BizFlow AI, Nexus Creative, AssetGrid Crypto, OrionGrid RWA
 - Expected Volume: 10-20 job postings per month across all platforms
 - Integration Type: Automated job posting via API for co-op/internship positions
 
@@ -75,7 +75,7 @@ This document provides instructions for requesting LinkedIn Jobs Posting API acc
 
 **Application Details:**
 - **Use Case Description:**
-  "TAURUS AI CORP operates multiple business platforms (BizFlow AI Orchestration, NeoVibe Creative Studio, AssetGrid Crypto Platform, and OrionGrid RWA Platform) and requires automated job posting capabilities for co-op and internship positions. We need to programmatically create, update, and manage job postings across these platforms with consistent branding and optimized content."
+  "TAURUS AI CORP operates multiple business platforms (BizFlow AI Orchestration, Nexus Creative Studio, AssetGrid Crypto Platform, and OrionGrid RWA Platform) and requires automated job posting capabilities for co-op and internship positions. We need to programmatically create, update, and manage job postings across these platforms with consistent branding and optimized content."
 
 - **Technical Requirements:**
   - Jobs Posting API access

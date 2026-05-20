@@ -34,5 +34,5 @@
 
 ---
 
-*Taurus AI (NeoVibe by Taurus AI - License #68122, IFZA Dubai)*  
+*Taurus AI (Nexus by Taurus AI - License #68122, IFZA Dubai)*  
 *Built for UAE's quantum-secure future*

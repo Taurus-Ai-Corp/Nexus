@@ -10,7 +10,7 @@
 TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/
 ├── 01-CORE-BUSINESS/           # Essential for both modules
 ├── 02-AUTOMATION-MODULE/       # BizFlow-focused agents
-├── 03-MARKETING-MODULE/        # NeoVibe-focused agents
+├── 03-MARKETING-MODULE/        # Nexus-focused agents
 ├── 04-SHARED-INTELLIGENCE/     # Cross-platform agents
 └── 05-UTILITIES/               # Support tools
 ```
@@ -36,7 +36,7 @@ TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/
 ## 🎯 **REORGANIZATION MAPPING**
 
 ### **01-CORE-BUSINESS/** (12 agents)
-**Essential agents used by both BizFlow and NeoVibe:**
+**Essential agents used by both BizFlow and Nexus:**
 - **crm-hubspot/** ← business-automation/hubspot/
 - **communication-slack/** ← communication/slack/
 - **project-asana/** ← project-management/asana/
@@ -69,7 +69,7 @@ TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/
 - **accounting-moneybird/** ← analytics/moneybird/
 
 ### **03-MARKETING-MODULE/** (14 agents)
-**NeoVibe-focused marketing agents:**
+**Nexus-focused marketing agents:**
 - **ecommerce-shopify/** ← ecommerce/shopify/
 - **payments-stripe/** ← ecommerce/stripe/
 - **crypto-coinbase/** ← ecommerce/coinbase/

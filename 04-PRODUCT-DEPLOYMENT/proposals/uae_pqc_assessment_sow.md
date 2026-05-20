@@ -1,7 +1,7 @@
 # Pilot Engagement Agreement: UAE PQC Compliance Assessment
 
 **Parties:**
-- **Taurus AI** (operating as NeoVibe by Taurus AI, License #68122, IFZA Dubai)
+- **Taurus AI** (operating as Nexus by Taurus AI, License #68122, IFZA Dubai)
 - **[Client Name]** ([Entity Type], licensed by [ADGM/DFSA/CBUAE], UAE)
 
 **Effective Date:** [Date]
@@ -75,4 +75,4 @@ Title: [Title - e.g., CISO, CTO, Head of Risk]
 Date: _________________________
 
 ---
-*Pilot conducted under Taurus AI's NeoVibe operating brand. Legal entity: TAURUS AI CORP - FZCO (License #68122, IFZA Dubai)*
+*Pilot conducted under Taurus AI's Nexus operating brand. Legal entity: TAURUS AI CORP - FZCO (License #68122, IFZA Dubai)*

@@ -200,7 +200,7 @@ POST /api/smart-orchestrate
 
 ### **API Key Management:**
 - ✅ **Encrypted Storage**: All keys secured in .env.production
-- ✅ **Anthropic APIs**: BizFlow + NeoVibe configured
+- ✅ **Anthropic APIs**: BizFlow + Nexus configured
 - ✅ **Perplexity**: Market research capabilities active
 - ✅ **OpenAI**: Content enhancement ready
 - ✅ **Platform Integrations**: ClickUp, Webflow, GitHub, etc.

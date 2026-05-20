@@ -1,7 +1,7 @@
 # Client Management System Documentation Index
 
 ## Overview
-This index provides access to all documentation related to the Client Management System within the BizFlow-NeoVibe Platform.
+This index provides access to all documentation related to the Client Management System within the BizFlow-Nexus Platform.
 
 ## Documentation Structure
 

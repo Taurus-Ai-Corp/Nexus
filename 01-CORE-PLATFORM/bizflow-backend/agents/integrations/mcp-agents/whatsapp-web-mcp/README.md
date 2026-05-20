@@ -152,7 +152,7 @@ Get QR code for WhatsApp authentication (if not authenticated).
 - Integrated with HubSpot CRM
 - Business Intelligence analytics
 
-### NeoVibe Platform
+### Nexus Platform
 - Marketing automation workflows
 - Client communication channels
 - Lead nurturing sequences

@@ -17,7 +17,7 @@ This is the production-ready deployment package for TaurusAI.io - TAURUS AI Corp
 
 ## Platform Ecosystem
 - **BizFlow**: $17.8M ARR Target
-- **NeoVibe**: $20.7M ARR Target  
+- **Nexus**: $20.7M ARR Target  
 - **TaurusAI.io**: Authority Hub & Lead Gen
 
 ## Deployment

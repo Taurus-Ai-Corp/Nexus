@@ -11,7 +11,7 @@
 ## 📊 **MIGRATION PROGRESS**
 
 ### **✅ 01-CORE-BUSINESS/** (5 agents migrated)
-**Essential agents used by both BizFlow and NeoVibe:**
+**Essential agents used by both BizFlow and Nexus:**
 - ✅ **crm-hubspot/** ← business-automation/hubspot/
 - ✅ **communication-slack/** ← communication/slack/
 - ✅ **project-asana/** ← project-management/asana/
@@ -28,7 +28,7 @@
 - ✅ **boards-monday/** ← project-management/monday/
 
 ### **✅ 03-MARKETING-MODULE/** (3 agents migrated)
-**NeoVibe-focused marketing agents:**
+**Nexus-focused marketing agents:**
 - ✅ **ecommerce-shopify/** ← ecommerce/shopify/
 - ✅ **payments-stripe/** ← ecommerce/stripe/
 - ✅ **content-youtube/** ← creative-media/youtube/
@@ -80,7 +80,7 @@
 1. **Clear Business Separation** - Distinct categories for different use cases
 2. **Scalable Architecture** - Easy to add new agents to appropriate categories
 3. **Improved Organization** - Logical grouping by business function
-4. **Cross-Platform Ready** - Structure supports both BizFlow and NeoVibe
+4. **Cross-Platform Ready** - Structure supports both BizFlow and Nexus
 
 ### **🔄 Coming Next:**
 1. **Unified MCP Configuration** - Single configuration file for all agents

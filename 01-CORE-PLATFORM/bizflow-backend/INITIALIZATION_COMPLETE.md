@@ -50,7 +50,7 @@
 ### **🌐 Platform Architecture:**
 - **Main Domain**: taurusai.io
 - **AI Platform**: bizflow.taurusai.io
-- **Marketing Studio**: neovibe.taurusai.io
+- **Marketing Studio**: nexus.taurusai.io
 
 ---
 

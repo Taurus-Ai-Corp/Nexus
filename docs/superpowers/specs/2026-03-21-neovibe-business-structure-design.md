@@ -1,4 +1,4 @@
-# NeoVibe by Taurus AI — Business Structure Design Specification
+# Nexus by Taurus AI — Business Structure Design Specification
 
 **Date:** 2026-03-21
 **Author:** TAURUS AI Corp Strategy Team (Effin Fernandez + Claude Opus 4.6)
@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary
 
-This document defines the complete business structure for **NeoVibe by Taurus AI** — an AI-powered digital marketing enterprise operating under **TAURUS AI CORP - FZCO** (IFZA Dubai Silicon Oasis). NeoVibe targets Kerala/India SMEs with enterprise-grade digital marketing at 90% lower cost than traditional agencies, leveraging multi-agent AI automation for delivery.
+This document defines the complete business structure for **Nexus by Taurus AI** — an AI-powered digital marketing enterprise operating under **TAURUS AI CORP - FZCO** (IFZA Dubai Silicon Oasis). Nexus targets Kerala/India SMEs with enterprise-grade digital marketing at 90% lower cost than traditional agencies, leveraging multi-agent AI automation for delivery.
 
 ### Key Decisions
 
@@ -39,11 +39,11 @@ TAURUS AI CORP - FZCO
 ├── UBO: Effin Fernandez (Canadian, 100%)
 │
 ├── Licensed Activities:
-│   ├── Marketing Management (7320002) ← covers NeoVibe
+│   ├── Marketing Management (7320002) ← covers Nexus
 │   ├── AI Developing Services (7220010) ← covers platform
 │   └── Home Furniture Trading (4759001)
 │
-├── Trade Name: "NeoVibe by Taurus AI"
+├── Trade Name: "Nexus by Taurus AI"
 │   └── Registration: ~AED 2,000 (IFZA trade name application)
 │
 └── Financial Year: Jul 31, 2025 – Dec 31, 2026
@@ -60,7 +60,7 @@ TAURUS AI CORP - FZCO
         ┌───────────┴───────────────┐
         │                           │
 ┌───────▼────────┐         ┌───────▼────────────────┐
-│  Q-GRID / PQC  │         │  NeoVibe by Taurus AI  │
+│  Q-GRID / PQC  │         │  Nexus by Taurus AI  │
 │  Division      │         │  Digital Marketing Div  │
 │                │         │                         │
 │  (Existing     │         │  Praveen Varkey — BDM   │
@@ -70,7 +70,7 @@ TAURUS AI CORP - FZCO
 
 ### 2.3 Trade Name Registration Process
 
-1. Apply to IFZA for trade name "NeoVibe by Taurus AI"
+1. Apply to IFZA for trade name "Nexus by Taurus AI"
 2. IFZA verifies name availability (not under DET Name Protocols per T&C clause 8)
 3. Receive trade name certificate
 4. Use on marketing materials, invoices, contracts alongside legal name
@@ -90,7 +90,7 @@ TAURUS AI CORP - FZCO
 | Visa | Employee visa under TAURUS AI CORP - FZCO |
 | Base salary | AED 3,000/month (minimum for visa approval) |
 | Commission | 25% of project revenue he brings, paid on collection |
-| Profit share | 5-10% of NeoVibe division annual net profit, vesting over 24 months with 6-month cliff |
+| Profit share | 5-10% of Nexus division annual net profit, vesting over 24 months with 6-month cliff |
 | Probation | 6 months |
 | Non-compete | 12 months post-termination, UAE + India digital marketing |
 | IP assignment | All work product belongs to TAURUS AI CORP - FZCO |
@@ -185,11 +185,11 @@ TAURUS AI CORP - FZCO
 
 ## 5. Pricing & Revenue Model
 
-### 5.1 NeoVibe Service Menu (Kerala Market — Validated Rates)
+### 5.1 Nexus Service Menu (Kerala Market — Validated Rates)
 
 #### Project-Based (One-Time)
 
-| Service | NeoVibe Price (INR) | AI Cost | Gross Margin |
+| Service | Nexus Price (INR) | AI Cost | Gross Margin |
 |---------|-------------------|---------|-------------|
 | Logo Design | 10,000–25,000 | ~200 | ~98% |
 | Brand Identity Package | 35,000–80,000 | ~1,000 | ~97% |
@@ -201,7 +201,7 @@ TAURUS AI CORP - FZCO
 
 #### Monthly Retainers (Recurring — Primary Revenue)
 
-| Service | NeoVibe Price/mo (INR) | AI Cost/mo | Monthly Margin |
+| Service | Nexus Price/mo (INR) | AI Cost/mo | Monthly Margin |
 |---------|----------------------|-----------|---------------|
 | Social Media (3 platforms) | 12,000–25,000 | ~800 | ~93% |
 | SEO (10 keywords, local) | 10,000–20,000 | ~500 | ~95% |
@@ -214,10 +214,10 @@ TAURUS AI CORP - FZCO
 
 | Package | Includes | Price (INR) | Payment Terms |
 |---------|----------|------------|--------------|
-| NeoVibe Starter | Logo + Website + 3mo Social Media | 55,000 | 50/25/25 milestones |
-| NeoVibe Growth | Branding + Website + SEO + Social (6mo) | 1,50,000 | 50K upfront + 20K/mo x 5 |
-| NeoVibe Premium | Full stack (12mo) | 4,00,000–6,00,000 | 1L upfront + monthly retainer |
-| NeoVibe Enterprise | Custom web app + full marketing + dedicated AI | 8,00,000+ | Quarterly billing |
+| Nexus Starter | Logo + Website + 3mo Social Media | 55,000 | 50/25/25 milestones |
+| Nexus Growth | Branding + Website + SEO + Social (6mo) | 1,50,000 | 50K upfront + 20K/mo x 5 |
+| Nexus Premium | Full stack (12mo) | 4,00,000–6,00,000 | 1L upfront + monthly retainer |
+| Nexus Enterprise | Custom web app + full marketing + dedicated AI | 8,00,000+ | Quarterly billing |
 
 ### 5.2 Commission Structure
 
@@ -239,7 +239,7 @@ Client Inquiry
     → Effin approves and issues formal proposal from FZCO
     → Client approval → Effin signs contract
     → Milestone-based payment schedule
-    → Delivery via NeoVibe platform
+    → Delivery via Nexus platform
     → Commission payout to Praveen on collection
 ```
 
@@ -265,7 +265,7 @@ Client Inquiry
 
 **Total monthly tool cost: ~$50-75/mo (AED 185-275)**
 
-### 6.2 NeoVibe Platform Apps (Client-Facing)
+### 6.2 Nexus Platform Apps (Client-Facing)
 
 | App | Purpose | Status |
 |-----|---------|--------|
@@ -322,7 +322,7 @@ Client Inquiry
 
 ### 7.2 Competitive Advantages
 
-| NeoVibe Advantage | vs. Kerala Agencies | vs. UAE Agencies |
+| Nexus Advantage | vs. Kerala Agencies | vs. UAE Agencies |
 |-------------------|--------------------|--------------------|
 | AI-automated delivery | 90% lower cost structure | Same quality, 80% lower price |
 | UAE entity credibility | Premium brand perception | Already in same jurisdiction |
@@ -335,7 +335,7 @@ Client Inquiry
 
 ### 7.3 Direct Competitor Threat Assessment
 
-| Competitor | Threat Level | NeoVibe Counter |
+| Competitor | Threat Level | Nexus Counter |
 |-----------|-------------|----------------|
 | Growith Agency (Kerala+UAE) | HIGH — same bridge model | No AI platform, 10-20 people, higher costs |
 | Blusteak Media (Kottayam) | MEDIUM — same geography | No AI, 50+ employees = high overhead |
@@ -373,7 +373,7 @@ Client Inquiry
 | "You're a UAE company, too expensive" | "We price for Kerala market. Our AI automation means we deliver UAE quality at Kerala prices." |
 | "I'll pay 18% extra GST" | "The 18% IGST you pay under Reverse Charge is 100% recoverable as Input Tax Credit. Net cost to you: zero." |
 | "I already have a local agency" | "Are they giving you real-time dashboards? AI-generated content? Transparent pricing? Let us do a free audit." |
-| "I need to see results first" | "NeoVibe Starter is INR 55,000 — includes logo + website + 3 months social. Low risk, high upside." |
+| "I need to see results first" | "Nexus Starter is INR 55,000 — includes logo + website + 3 months social. Low risk, high upside." |
 | "Can I talk to existing clients?" | "Our portfolio includes Mater Maria Homes (luxury retirement estate, Kerala). Happy to share the case study." |
 
 ---
@@ -434,7 +434,7 @@ Client Inquiry
 | Praveen leaves with clients | Medium | High — revenue loss | Non-compete clause; all accounts under FZCO name; NDA |
 | Visa rejection | Low | Medium — delays hiring | Backup: SHAMS freelance permit (AED 5,500) or remote contractor |
 | No clients in first 3 months | Medium | High — cash runway depleted | Existing leads (car app + law college); Mater Maria as case study; aggressive outreach |
-| Trademark squatting ("NeoVibe") | Medium | Medium — brand confusion | Register trademark in UAE (MOEC) and India (IP India) — ~AED 3,000 + INR 9,000 |
+| Trademark squatting ("Nexus") | Medium | Medium — brand confusion | Register trademark in UAE (MOEC) and India (IP India) — ~AED 3,000 + INR 9,000 |
 | UAE Economic Substance challenge | Low | Medium — license risk | Demonstrate real activity: UAE bank transactions, IFZA office use, director in UAE |
 | Client disputes / non-payment | Medium | Low-Medium | Milestone-based payments; 50% upfront on projects; retainer billed in advance |
 | AI quality issues | Low | Medium | Human review layer (Praveen + Effin) on all AI-generated content |
@@ -446,7 +446,7 @@ Client Inquiry
 
 ### Immediate (Before Operations Begin)
 
-- [ ] Register "NeoVibe by Taurus AI" trade name at IFZA
+- [ ] Register "Nexus by Taurus AI" trade name at IFZA
 - [ ] Open FZCO corporate bank account (ENBD/Mashreq)
 - [ ] Complete corporate tax registration (Bestax — AED 1,050)
 - [ ] Obtain UAE Tax Residency Certificate (TRC) from FTA
@@ -481,16 +481,16 @@ Client Inquiry
 
 These questions were identified during the brainstorming process as requiring founder decision-making at a later date:
 
-1. **Trademark Protection:** Register "NeoVibe" in UAE (MOEC) and India (IP India)?
+1. **Trademark Protection:** Register "Nexus" in UAE (MOEC) and India (IP India)?
 2. **India LLP:** When revenue justifies, set up an India entity for local invoicing?
-3. **White-Label Program:** Offer NeoVibe platform to other agencies at 30% revenue share?
+3. **White-Label Program:** Offer Nexus platform to other agencies at 30% revenue share?
 4. **Praveen Equity vs. Profit Share:** If he proves exceptional, convert to equity (requires MOA amendment)?
 5. **Person #3 Hire:** At 15+ clients, hire content/design specialist — India-based contractor or UAE visa?
 6. **Physical Office:** When does virtual IFZA desk need upgrading to physical office (visa count + substance)?
-7. **Client Portal:** Build custom branded NeoVibe client dashboard or use existing tools?
+7. **Client Portal:** Build custom branded Nexus client dashboard or use existing tools?
 8. **Professional Indemnity Insurance:** Essential before taking enterprise clients?
 9. **Canadian Tax Implications:** How does FZCO income interact with Effin's Canadian tax residency?
-10. **Mater Maria as Anchor Client:** Formalize as NeoVibe's first case study?
+10. **Mater Maria as Anchor Client:** Formalize as Nexus's first case study?
 
 ---
 
@@ -500,7 +500,7 @@ These questions were identified during the brainstorming process as requiring fo
 |-------|----------|-----------|
 | **Setup** | Week 1-2 | Trade name registration, bank account application, Bestax CT registration |
 | **HR** | Week 2-4 | Draft employment documents, process Praveen's visa, sign contracts |
-| **Launch Prep** | Week 3-4 | Set up Zoho Invoice, HubSpot CRM, NeoVibe branding materials |
+| **Launch Prep** | Week 3-4 | Set up Zoho Invoice, HubSpot CRM, Nexus branding materials |
 | **Soft Launch** | Week 4-6 | Close existing leads, create Mater Maria case study, first client onboarded |
 | **Active Sales** | Week 6-12 | Praveen's 90-day playbook execution, target 5-8 clients |
 | **Review** | Month 3 | Performance review — adjust pricing, commission, strategy as needed |

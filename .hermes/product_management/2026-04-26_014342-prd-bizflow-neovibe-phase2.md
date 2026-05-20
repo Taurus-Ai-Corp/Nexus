@@ -1,9 +1,9 @@
-# Product Requirements Document: BizFlow-NeoVibe Platform Implementation Phase 2
+# Product Requirements Document: BizFlow-Nexus Platform Implementation Phase 2
 
 ## 1. Executive Summary
 
 ### 1.1 Project Overview
-The BizFlow-NeoVibe Platform is an AI-powered marketing automation and creative design ecosystem developed by TAURUS AI CORP, targeting $1.7M in Year 1 revenue through the deployment of BizFlow (Agentic Intelligence Automation) and NeoVibe (Creative Design Studio).
+The BizFlow-Nexus Platform is an AI-powered marketing automation and creative design ecosystem developed by TAURUS AI CORP, targeting $1.7M in Year 1 revenue through the deployment of BizFlow (Agentic Intelligence Automation) and Nexus (Creative Design Studio).
 
 ### 11.2 Current Status
 - Overall Platform Completion: 60% (Phase 1)
@@ -19,7 +19,7 @@ Complete the remaining 40% of Phase 1 implementation and begin Phase 2 to achiev
 
 ### 2.1 Functional Requirements
 
-#### 2.1.1 NeoVibe Studio Core
+#### 2.1.1 Nexus Studio Core
 - Visual brand builder interface
 - Asset creation tools (50+ assets/hour capacity)
 - Design system generator with design tokens
@@ -124,7 +124,7 @@ Complete the remaining 40% of Phase 1 implementation and begin Phase 2 to achiev
 
 ### 4.1 Phase 1 Completion (Remaining 40%) - 6 Weeks
 
-#### Week 1-2: NeoVibe Studio Core
+#### Week 1-2: Nexus Studio Core
 - Implement visual brand builder interface
 - Develop asset creation tools
 - Integrate design system generator with design tokens
@@ -224,7 +224,7 @@ Complete the remaining 40% of Phase 1 implementation and begin Phase 2 to achiev
 
 ### 7.1 Development Team
 - Lead Developer: 1 (Platform architecture and core backend)
-- Frontend Developers: 2 (NeoVibe Studio interface and UX)
+- Frontend Developers: 2 (Nexus Studio interface and UX)
 - Backend Developers: 2 (API development, agent orchestration)
 - DevOps Engineer: 1 (Infrastructure, deployment, monitoring)
 - QA Engineer: 1 (Testing, automation, performance)
@@ -250,7 +250,7 @@ Complete the remaining 40% of Phase 1 implementation and begin Phase 2 to achiev
 ## 9. Acceptance Criteria
 
 ### 9.1 Minimum Viable Product (MVP)
-1. Fully functional NeoVibe Studio with asset creation capabilities
+1. Fully functional Nexus Studio with asset creation capabilities
 2. Deployed BizFlow backend with at least 4 core agents operational
 3. Active client management system with HubSpot integration
 4. Basic analytics dashboard with key performance metrics

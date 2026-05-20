@@ -19,7 +19,7 @@ Enterprise wrapper agents built on top of **Playwright MCP v0.0.44** to deliver 
 ### Target Clients (70 existing across TAURUS AI platforms)
 - **15 BizFlow clients** → 5 conversions = $25K/month
 - **12 AssetGrid clients** → 3 conversions = $12K/month
-- **25 NeoVibe clients** → 7 conversions = $28K/month
+- **25 Nexus clients** → 7 conversions = $28K/month
 - **Total Phase 1:** $65K/month MRR
 
 ---
@@ -176,14 +176,14 @@ Competitors: 5
 **One-time Revenue:** $37,500 (setup fees)
 **Recurring Revenue:** $12,000/month
 
-### Month 3-4: NeoVibe Creative Automation
+### Month 3-4: Nexus Creative Automation
 - Mobile validation: 10 clients * $3,000 = $30,000 MRR
 - Social automation: 7 clients * $2,000 = $14,000 MRR
 - **Additional MRR:** $44,000/month
 
 ### Combined Month 4+
 - **BizFlow MRR:** $12,000
-- **NeoVibe MRR:** $44,000
+- **Nexus MRR:** $44,000
 - **Total MRR:** $56,000/month
 - **Annual Run Rate:** $672,000
 

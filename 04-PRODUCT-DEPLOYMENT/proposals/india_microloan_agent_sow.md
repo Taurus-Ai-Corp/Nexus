@@ -1,7 +1,7 @@
 # Pilot Engagement Agreement: India Micro-loan Repayment AI Agent
 
 **Parties:**
-- **Taurus AI** (operating as NeoVibe by Taurus AI, License #68122, IFZA Dubai)
+- **Taurus AI** (operating as Nexus by Taurus AI, License #68122, IFZA Dubai)
 - **[Client Name]** (NBFC/MFI serving micro-business traders, hoteliers, grocers, India)
 
 **Effective Date:** [Date]
@@ -83,4 +83,4 @@ Title: [Title - e.g., Head of Retail Lending, Collections Head]
 Date: _________________________
 
 ---
-*Pilot conducted under Taurus AI's NeoVibe operating brand. Legal entity: TAURUS AI CORP - FZCO (License #68122, IFZA Dubai)*
+*Pilot conducted under Taurus AI's Nexus operating brand. Legal entity: TAURUS AI CORP - FZCO (License #68122, IFZA Dubai)*

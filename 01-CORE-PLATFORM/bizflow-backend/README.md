@@ -16,7 +16,7 @@ cd BizFlow-Orchestrator
 # 3. Access your services
 # 🌐 Main Site: https://taurusai.io
 # 🤖 AI Platform: https://bizflow.taurusai.io
-# 🎨 Marketing Studio: https://neovibe.taurusai.io
+# 🎨 Marketing Studio: https://nexus.taurusai.io
 # 📊 Registry: http://localhost:8000
 ```
 
@@ -63,7 +63,7 @@ cd BizFlow-Orchestrator
 │   ├── Core AI Agents (6)
 │   ├── MCP Integrations (3)
 │   └── Business Intelligence
-└── 🎨 neovibe.taurusai.io (Coded Vibe Marketing Studio)
+└── 🎨 nexus.taurusai.io (Coded Vibe Marketing Studio)
     ├── B2B Portal
     ├── E-Commerce
     └── Marketing Automation
@@ -71,7 +71,7 @@ cd BizFlow-Orchestrator
 📁 BizFlow-Orchestrator/ (Unified Codebase)
 ├── subdomains/
 │   ├── bizflow.taurusai.io/ (AI Platform)
-│   └── neovibe.taurusai.io/ (Marketing Studio)
+│   └── nexus.taurusai.io/ (Marketing Studio)
 ├── registry/ (API & Database)
 ├── deployment/ (DevOps)
 └── monitoring/ (Analytics)

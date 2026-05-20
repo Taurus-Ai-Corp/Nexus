@@ -1,4 +1,4 @@
-# Product Catalog – Taurus AI / NeoVibe
+# Product Catalog – Taurus AI / Nexus
 ## Nearby‑Business Websites
 - Pain: Invisible on Google Maps → missing calls/bookings
 - Offer: 1‑page, mobile‑fast site + GMB setup

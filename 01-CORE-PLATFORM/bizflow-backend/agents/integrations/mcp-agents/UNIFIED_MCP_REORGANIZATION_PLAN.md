@@ -1,7 +1,7 @@
 # 🚀 **UNIFIED MCP AGENTS REORGANIZATION PLAN**
 
 ## 🎯 **OBJECTIVE**
-Reorganize 50+ Klavis MCP agents from the current 10-category structure into a new unified 5-category structure aligned with TAURUS AI CORP's merged BizFlow + NeoVibe platform.
+Reorganize 50+ Klavis MCP agents from the current 10-category structure into a new unified 5-category structure aligned with TAURUS AI CORP's merged BizFlow + Nexus platform.
 
 ---
 
@@ -45,7 +45,7 @@ TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/
 │   ├── monitoring-mixpanel/   # Performance tracking
 │   └── reporting-quickbooks/  # Financial automation
 │
-├── 03-MARKETING-MODULE/        # NeoVibe-focused agents
+├── 03-MARKETING-MODULE/        # Nexus-focused agents
 │   ├── ecommerce-shopify/     # Online store management
 │   ├── payments-stripe/       # Payment processing
 │   ├── email-mailchimp/       # Email marketing
@@ -92,7 +92,7 @@ TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/
 - **QuickBooks** → finance-quickbooks/
 - **Supabase** → database-supabase/
 
-### **03-MARKETING-MODULE/** (NeoVibe-focused)
+### **03-MARKETING-MODULE/** (Nexus-focused)
 **From:** ecommerce/, creative-media/, communication/, search-research/
 - **Shopify** → ecommerce-shopify/
 - **Stripe** → payments-stripe/
@@ -167,7 +167,7 @@ TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/
 - **Integrated CRM**: Unified customer relationship management
 - **Business Intelligence**: Comprehensive analytics and reporting
 
-### **For NeoVibe Marketing:**
+### **For Nexus Marketing:**
 - **Complete Marketing Stack**: E-commerce, social, content, and SEO tools
 - **Creative Automation**: Video, audio, and content creation tools
 - **Performance Tracking**: Marketing-specific analytics and insights

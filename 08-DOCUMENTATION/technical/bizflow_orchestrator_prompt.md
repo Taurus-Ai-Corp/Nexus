@@ -8,7 +8,7 @@
 ```
 TAURUS AI CORP (taurusai.io) - Main Corporate Domain
 ├── BizFlow™ (bizflow.taurusai.io) - Agentic Intelligence Automation
-└── NeoVibe (neovibe.taurusai.io) - Coded Brand Vibe Marketing Studio
+└── Nexus (nexus.taurusai.io) - Coded Brand Vibe Marketing Studio
 ```
 
 ---
@@ -90,7 +90,7 @@ You are the **Master AI Orchestrator** for TAURUS AI CORP, coordinating multiple
 agentuity login taurus.ai@taas-ai.com
 agentuity create taurus-ai-corp-ecosystem
 agentuity deploy --config deployments/multi-domain-deployment.yaml
-agentuity dev --agents all --domains taurusai.io,bizflow.taurusai.io,neovibe.taurusai.io
+agentuity dev --agents all --domains taurusai.io,bizflow.taurusai.io,nexus.taurusai.io
 ```
 
 #### **Step 1.2: BizFlow™ Core Platform (bizflow.taurusai.io)**
@@ -108,7 +108,7 @@ agentuity dev --agents all --domains taurusai.io,bizflow.taurusai.io,neovibe.tau
 - [ ] **Lead Intelligence Pipeline** - Automated lead scoring and nurturing
 - [ ] **Integration Hub** - Connect external tools and platforms
 
-#### **Step 1.3: NeoVibe Studio (neovibe.taurusai.io)**
+#### **Step 1.3: Nexus Studio (nexus.taurusai.io)**
 **Design Platform Core:**
 - [ ] Visual brand builder interface
 - [ ] Template library management
@@ -192,7 +192,7 @@ agentuity dev --agents all --domains taurusai.io,bizflow.taurusai.io,neovibe.tau
 
 #### **Step 4.2: Platform-Specific Landing Pages**
 - [ ] **BizFlow™ Landing** - Focus on agentic intelligence automation
-- [ ] **NeoVibe Landing** - Emphasize creative brand development
+- [ ] **Nexus Landing** - Emphasize creative brand development
 - [ ] **Industry-Specific Pages** - E-commerce, SaaS, Local business variations
 
 ---
@@ -305,7 +305,7 @@ bizflow.taurusai.io (Agentic Platform)
 ├── WebSocket real-time updates
 └── AI agent management system
 
-neovibe.taurusai.io (Design Studio)
+nexus.taurusai.io (Design Studio)
 ├── Design tool interface
 ├── Asset management system
 ├── Client collaboration portal
@@ -322,7 +322,7 @@ neovibe.taurusai.io (Design Studio)
 
 #### **Phase 1 Complete? (Core Platform)**
 - [ ] BizFlow™ backend infrastructure operational
-- [ ] NeoVibe studio core features deployed
+- [ ] Nexus studio core features deployed
 - [ ] Real-time intelligence dashboard functional
 - [ ] Multi-domain authentication working
 - [ ] **ONLY PROCEED TO PHASE 4 AFTER THIS IS COMPLETE**
