@@ -590,12 +590,19 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 .t-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent-gold);color:#fff;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 20px;border-radius:100px;white-space:nowrap}
 .t-name{font-family:var(--font-serif);font-size:1.8rem;color:var(--text-heading);margin-top:12px;margin-bottom:4px}
 .t-amt{font-size:3.2rem;font-weight:800;letter-spacing:-2px;color:var(--accent-gold);margin-bottom:6px}
-.t-amt-fx{font:400 12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--text-muted-dark);margin-bottom:20px;letter-spacing:.02em;opacity:.78}
-.t-amt-fx .fx-pair{display:inline-block}
-.t-amt-fx .fx-pair+.fx-pair::before{content:" · ";opacity:.55;margin:0 2px}
 .t-list{list-style:none;text-align:left;margin-bottom:28px}
 .t-list li{font-size:16px;line-height:2.2;color:var(--text-muted-dark);padding-left:22px;position:relative}
 .t-list li::before{content:'✓';position:absolute;left:0;color:var(--accent-gold);font-weight:700}
+.coord-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap}
+.coord-pill .cc-name{color:var(--text-muted-dark)}
+.coord-pill .cc-phone{color:var(--accent-gold);font-weight:600;white-space:nowrap}
+.hero-carousel-card{flex:0 0 auto;width:min(85vw,520px);scroll-snap-align:start;border-radius:16px;overflow:hidden}
+.hero-carousel-img{width:100%;height:320px;object-fit:cover;display:block}
+.hero-carousel-cap{padding:20px;background:var(--bg-dark-surface)}
+.hero-carousel-cap-title{color:#fff;font-size:16px;font-weight:600}
+.hero-carousel-cap-desc{color:var(--text-muted);font-size:13px;margin-top:4px}
+
+
 .t-cta{width:100%;padding:16px;border-radius:100px;border:1px solid var(--bg-dark);background:transparent;color:var(--text-heading);font-size:15px;font-weight:700;transition:background .4s,color .4s}
 .t-cta:hover{background:var(--hover-blue);color:#fff}
 .t-card.feat .t-cta{background:var(--accent-gold);color:#fff;border-color:var(--accent-gold)}
@@ -1039,17 +1046,17 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
   <div class="container">
     <h2 style="text-align:center;color:#fff;margin-bottom:48px;font-family:var(--font-helv);font-weight:300;font-size:clamp(2rem,4vw,3rem);letter-spacing:-1.5px">More <em style="font-family:var(--font-serif);font-style:italic;color:var(--accent-gold-light)">Views.</em></h2>
     <div style="display:flex;gap:20px;overflow-x:auto;padding-bottom:20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch">
-      <div style="flex:0 0 auto;width:min(85vw,520px);scroll-snap-align:start;border-radius:16px;overflow:hidden">
-        <img src="assets-2025/images/hero-slides/Home_Banner_05.jpg" alt="Mater Maria Homes garden pathway" style="width:100%;height:320px;object-fit:cover;display:block" loading="lazy" decoding="async">
-        <div style="padding:20px;background:var(--bg-dark-surface)"><p style="color:#fff;font-size:16px;font-weight:600">Nature's Embrace</p><p style="color:var(--text-muted);font-size:13px;margin-top:4px">Ayurveda · Meditation Gardens · Organic Farm-to-Table</p></div>
+      <div class="hero-carousel-card">
+        <img src="assets-2025/images/hero-slides/Home_Banner_05.jpg" alt="Mater Maria Homes garden pathway" class="hero-carousel-img" loading="lazy" decoding="async">
+        <div class="hero-carousel-cap"><p class="hero-carousel-cap-title">Nature's Embrace</p><p class="hero-carousel-cap-desc">Ayurveda · Meditation Gardens · Organic Farm-to-Table</p></div>
       </div>
-      <div style="flex:0 0 auto;width:min(85vw,520px);scroll-snap-align:start;border-radius:16px;overflow:hidden">
-        <img src="assets-2025/images/hero-slides/Home_Banner_07.jpg" alt="Mater Maria Homes pool area" style="width:100%;height:320px;object-fit:cover;display:block" loading="lazy" decoding="async">
-        <div style="padding:20px;background:var(--bg-dark-surface)"><p style="color:#fff;font-size:16px;font-weight:600">World-Class Amenities</p><p style="color:var(--text-muted);font-size:13px;margin-top:4px">From infinity pools to 24/7 nursing — every detail perfected</p></div>
+      <div class="hero-carousel-card">
+        <img src="assets-2025/images/hero-slides/Home_Banner_07.jpg" alt="Mater Maria Homes pool area" class="hero-carousel-img" loading="lazy" decoding="async">
+        <div class="hero-carousel-cap"><p class="hero-carousel-cap-title">World-Class Amenities</p><p class="hero-carousel-cap-desc">From infinity pools to 24/7 nursing — every detail perfected</p></div>
       </div>
-      <div style="flex:0 0 auto;width:min(85vw,520px);scroll-snap-align:start;border-radius:16px;overflow:hidden">
-        <img src="assets-2025/images/hero-slides/Home_Banner_08.jpg" alt="Mater Maria Homes entrance gate" style="width:100%;height:320px;object-fit:cover;display:block" loading="lazy" decoding="async">
-        <div style="padding:20px;background:var(--bg-dark-surface)"><p style="color:#fff;font-size:16px;font-weight:600">Gateway to Serenity</p><p style="color:var(--text-muted);font-size:13px;margin-top:4px">Secure gated community · 24/7 security · Visitor management</p></div>
+      <div class="hero-carousel-card">
+        <img src="assets-2025/images/hero-slides/Home_Banner_08.jpg" alt="Mater Maria Homes entrance gate" class="hero-carousel-img" loading="lazy" decoding="async">
+        <div class="hero-carousel-cap"><p class="hero-carousel-cap-title">Gateway to Serenity</p><p class="hero-carousel-cap-desc">Secure gated community · 24/7 security · Visitor management</p></div>
       </div>
     </div>
   </div>
@@ -1297,22 +1304,22 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
   <div class="container">
     <h4 style="text-align:center;margin-bottom:24px;color:var(--text-heading);font-family:var(--font-helv);font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase">Global Country Coordinators</h4>
     <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px">
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇦🇺</span><strong>Australia</strong><span style="color:var(--text-muted-dark)">Vipin Augustine</span><a href="tel:+61415934654" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+61 415 934 654</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇦🇺</span><strong>Australia</strong><span style="color:var(--text-muted-dark)">Aneesh James</span><a href="tel:+61432896323" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+61 432 896 323</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇨🇦</span><strong>Canada</strong><span style="color:var(--text-muted-dark)">Jacob Antony</span><a href="tel:+14038708524" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+1 403 870 8524</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇩🇪</span><strong>Germany</strong><span style="color:var(--text-muted-dark)">Roy Joseph</span><a href="tel:+393517552646" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+39 351 755 2646</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇮🇳</span><strong>India</strong><span style="color:var(--text-muted-dark)">Fr. Mathew Puthumana</span><a href="tel:+919447080356" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+91 94470 80356</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇮🇳</span><strong>India</strong><span style="color:var(--text-muted-dark)">Thomas Abraham</span><a href="tel:+917356927730" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+91 73569 27730</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇮🇳</span><strong>India</strong><span style="color:var(--text-muted-dark)">Paul Jose</span><a href="tel:+91940939936" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+91 94093 9936</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇮🇹</span><strong>Italy</strong><span style="color:var(--text-muted-dark)">Tomy George</span><a href="tel:+393283688700" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+39 328 368 8700</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇮🇱</span><strong>Israel</strong><span style="color:var(--text-muted-dark)">Beena Joseph</span><a href="tel:+972556800609" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+972 55 680 0609</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇮🇪</span><strong>Ireland</strong><span style="color:var(--text-muted-dark)">Ashwin Tomy</span><a href="tel:+353892620965" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+353 89 262 0965</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇰🇼</span><strong>Kuwait</strong><span style="color:var(--text-muted-dark)">Nixon George</span><a href="tel:+96566899495" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+965 6689 9495</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇸🇦</span><strong>Saudi Arabia</strong><span style="color:var(--text-muted-dark)">Denny Joseph</span><a href="tel:+966506467103" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+966 50 646 7103</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇴🇲</span><strong>Oman</strong><span style="color:var(--text-muted-dark)">Jobin George</span><a href="tel:+919847043715" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+91 98470 43715</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇬🇧</span><strong>United Kingdom</strong><span style="color:var(--text-muted-dark)">Sony Chacko</span><a href="tel:+447723306974" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+44 7723 306 974</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇦🇪</span><strong>UAE</strong><span style="color:var(--text-muted-dark)">Rajeev Abraham</span><a href="tel:+971505786471" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+971 50 578 6471</a></div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1px solid var(--border-light);border-radius:100px;font-size:13px;color:var(--text-heading);white-space:nowrap"><span style="font-size:16px">🇦🇪</span><strong>UAE</strong><span style="color:var(--text-muted-dark)">Binoj Kurian</span><a href="tel:+971558828941" style="color:var(--accent-gold);font-weight:600;white-space:nowrap">+971 55 882 8941</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇦🇺</span><strong>Australia</strong><span class="cc-name">Vipin Augustine</span><a href="tel:+61415934654" class="cc-phone">+61 415 934 654</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇦🇺</span><strong>Australia</strong><span class="cc-name">Aneesh James</span><a href="tel:+61432896323" class="cc-phone">+61 432 896 323</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇨🇦</span><strong>Canada</strong><span class="cc-name">Jacob Antony</span><a href="tel:+14038708524" class="cc-phone">+1 403 870 8524</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇩🇪</span><strong>Germany</strong><span class="cc-name">Roy Joseph</span><a href="tel:+393517552646" class="cc-phone">+39 351 755 2646</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇮🇳</span><strong>India</strong><span class="cc-name">Fr. Mathew Puthumana</span><a href="tel:+919447080356" class="cc-phone">+91 94470 80356</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇮🇳</span><strong>India</strong><span class="cc-name">Thomas Abraham</span><a href="tel:+917356927730" class="cc-phone">+91 73569 27730</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇮🇳</span><strong>India</strong><span class="cc-name">Paul Jose</span><a href="tel:+91940939936" class="cc-phone">+91 94093 9936</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇮🇹</span><strong>Italy</strong><span class="cc-name">Tomy George</span><a href="tel:+393283688700" class="cc-phone">+39 328 368 8700</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇮🇱</span><strong>Israel</strong><span class="cc-name">Beena Joseph</span><a href="tel:+972556800609" class="cc-phone">+972 55 680 0609</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇮🇪</span><strong>Ireland</strong><span class="cc-name">Ashwin Tomy</span><a href="tel:+353892620965" class="cc-phone">+353 89 262 0965</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇰🇼</span><strong>Kuwait</strong><span class="cc-name">Nixon George</span><a href="tel:+96566899495" class="cc-phone">+965 6689 9495</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇸🇦</span><strong>Saudi Arabia</strong><span class="cc-name">Denny Joseph</span><a href="tel:+966506467103" class="cc-phone">+966 50 646 7103</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇴🇲</span><strong>Oman</strong><span class="cc-name">Jobin George</span><a href="tel:+919847043715" class="cc-phone">+91 98470 43715</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇬🇧</span><strong>United Kingdom</strong><span class="cc-name">Sony Chacko</span><a href="tel:+447723306974" class="cc-phone">+44 7723 306 974</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇦🇪</span><strong>UAE</strong><span class="cc-name">Rajeev Abraham</span><a href="tel:+971505786471" class="cc-phone">+971 50 578 6471</a></div>
+      <div class="coord-pill"><span style="font-size:16px">🇦🇪</span><strong>UAE</strong><span class="cc-name">Binoj Kurian</span><a href="tel:+971558828941" class="cc-phone">+971 55 882 8941</a></div>
     </div>
   </div>
 </section>
