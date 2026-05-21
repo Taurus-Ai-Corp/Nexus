@@ -476,6 +476,35 @@ async def create_asset(asset: Asset, user: User = Depends(get_current_user)):
     return await db.create_asset(data)
 
 # ── NLP — Three-Tier AI Routing (auth required) ──
+
+@app.post("/api/nlp/debug")
+async def debug_nlp(user: User = Depends(get_current_user)):
+    """Debug endpoint to test LLM call directly"""
+    import traceback
+    try:
+        from multi_model_router import MultiModelRouter
+        from llm_nlp_engine import LLMNLPInterpreter
+        
+        mr = MultiModelRouter()
+        models = mr.get_available_models()
+        available = [m for m in models if m.get("available")]
+        
+        nlp = LLMNLPInterpreter(router=mr, default_model="anthropic/claude-sonnet-4.6")
+        result = await nlp.interpret_command("Create an Instagram ad for a spa")
+        
+        return {
+            "status": "success",
+            "available_models": len(available),
+            "result_intent": result.get("intent"),
+            "result_model": result.get("_model_used"),
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": str(e),
+            "traceback": traceback.format_exc()[:500],
+        }
+
 @app.post("/api/nlp/interpret")
 async def interpret_command(req: NLPRequest, user: User = Depends(get_current_user)):
     """LLM-powered NLP interpretation with multi-model support"""
