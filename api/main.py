@@ -1068,8 +1068,11 @@ async def storage_security_audit(user: User = Depends(get_current_user)):
 
 
 # ── NLP Pipeline & Multi-Model Campaign Generation ──
-from nlp_pipeline_endpoints import router as nlp_router
-from customer_keys_endpoints import router as keys_router
-
-app.include_router(nlp_router)
-app.include_router(keys_router)
+# Lazy import to avoid startup crashes
+try:
+    from nlp_pipeline_endpoints import router as nlp_router
+    from customer_keys_endpoints import router as keys_router
+    app.include_router(nlp_router)
+    app.include_router(keys_router)
+except Exception as e:
+    logger.warning(f"NLP pipeline modules not loaded: {e}")
