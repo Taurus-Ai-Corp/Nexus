@@ -483,26 +483,37 @@ async def debug_nlp(user: User = Depends(get_current_user)):
     import traceback
     try:
         from multi_model_router import MultiModelRouter
-        from llm_nlp_engine import LLMNLPInterpreter
         
         mr = MultiModelRouter()
         models = mr.get_available_models()
         available = [m for m in models if m.get("available")]
         
-        nlp = LLMNLPInterpreter(router=mr, default_model="anthropic/claude-sonnet-4.6")
-        result = await nlp.interpret_command("Create an Instagram ad for a spa")
+        # Test direct LLM call
+        messages = [
+            {"role": "system", "content": "Respond with only JSON: {"test": true}"},
+            {"role": "user", "content": "Test"},
+        ]
+        llm_result = await mr.generate_text(
+            model="anthropic/claude-sonnet-4.6",
+            messages=messages,
+            temperature=0.1,
+            max_tokens=50,
+        )
         
         return {
             "status": "success",
             "available_models": len(available),
-            "result_intent": result.get("intent"),
-            "result_model": result.get("_model_used"),
+            "llm_provider": llm_result.get("provider"),
+            "llm_model": llm_result.get("model"),
+            "llm_content": llm_result.get("content", "")[:200],
+            "llm_usage": llm_result.get("usage"),
         }
     except Exception as e:
         return {
             "status": "error",
             "error": str(e),
-            "traceback": traceback.format_exc()[:500],
+            "type": type(e).__name__,
+            "traceback": traceback.format_exc()[:1000],
         }
 
 @app.post("/api/nlp/interpret")
