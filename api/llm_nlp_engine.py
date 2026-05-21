@@ -130,13 +130,18 @@ class LLMNLPInterpreter:
             
             return parsed
             
-        except json.JSONDecodeError as e:
-            logger.error(f"Failed to parse NLP response: {e}")
-            logger.error(f"Raw response: {result.get('content', '')[:500]}")
-            return self._fallback_parse(command)
-        except Exception as e:
-            logger.error(f"NLP interpretation failed: {type(e).__name__}: {e}")
-            return self._fallback_parse(command)
+            except json.JSONDecodeError as e:
+                logger.error(f"Failed to parse NLP response: {e}")
+                last_error = str(e)
+                continue
+            except Exception as e:
+                logger.warning(f"Model {model} failed: {type(e).__name__}: {e}")
+                last_error = str(e)
+                continue
+        
+        # All models failed
+        logger.error(f"All models failed, last error: {last_error}")
+        return self._fallback_parse(command)
     
     async def generate_campaign(
         self,
