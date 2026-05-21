@@ -99,7 +99,7 @@ class LLMNLPInterpreter:
         context: Optional[Dict] = None,
     ) -> Dict[str, Any]:
         """Interpret a natural language command into structured action"""
-        model = model or self.default_model  # Defaults to Ollama qwen2.5-coder
+        model = model or self.default_model  # Ollama qwen2.5-coder (falls back to OpenRouter if Ollama unavailable)
         
         messages = [
             {"role": "system", "content": NLP_SYSTEM_PROMPT},
@@ -150,7 +150,7 @@ class LLMNLPInterpreter:
         include_visuals: bool = True,
     ) -> Dict[str, Any]:
         """Generate complete campaign from brief"""
-        model = model or self.default_model  # Defaults to Ollama qwen2.5-coder
+        model = model or self.default_model  # Ollama qwen2.5-coder (falls back to OpenRouter if Ollama unavailable)
         
         messages = [
             {"role": "system", "content": CAMPAIGN_GEN_PROMPT},
