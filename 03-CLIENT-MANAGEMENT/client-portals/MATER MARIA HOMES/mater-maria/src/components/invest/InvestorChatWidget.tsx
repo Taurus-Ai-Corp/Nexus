@@ -21,7 +21,7 @@ const STARTERS = [
 function BrandIcon({ size = 36 }: { size?: number }) {
   return (
     <img
-      src="/images/mater-maria-logo.svg"
+      src="/assets-2025/images/mater-maria-logo.svg"
       alt="Mater Maria"
       width={size}
       height={size}

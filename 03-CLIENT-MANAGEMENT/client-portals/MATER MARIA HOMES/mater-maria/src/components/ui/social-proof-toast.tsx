@@ -59,7 +59,7 @@ export function SocialProofToast() {
           <div className="flex items-start gap-3">
             <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-white/90 p-1">
               <img
-                src="/images/mater-maria-logo.svg"
+                src="/assets-2025/images/mater-maria-logo.svg"
                 alt="Mater Maria"
                 className="h-8 w-8 object-contain"
               />

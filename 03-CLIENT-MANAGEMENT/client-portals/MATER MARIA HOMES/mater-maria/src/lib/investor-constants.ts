@@ -343,43 +343,31 @@ export const LEADERSHIP = [
   {
     name: "Rajeev Abraham",
     role: "Chairman & Global Coordinator",
-    credentials: "M.A., B.Ed. | CFM | IOSH, OSHA Certified",
-    bio: "37 years of global expertise in premium international educational infrastructure across Dubai and the Middle East.",
     image: "/assets-2025/images/invest/hero-estate.webp",
   },
   {
     name: "Thomas Abraham",
     role: "Managing Director",
-    credentials: "B.Sc. | PG Dip. Marketing | MBA – SCM",
-    bio: "35 years of distinguished leadership at Milma, Kerala's most respected institutional brand.",
     image: "/assets-2025/images/invest/hero-aerial.webp",
   },
   {
     name: "Paul Jose",
     role: "Director of Projects",
-    credentials: "26+ years construction & project management",
-    bio: "Managing Partner of Septa Group, delivering residential, institutional, and resort developments across Kerala.",
     image: "/assets-2025/images/invest/hero-garden.webp",
   },
   {
     name: "Jobin George",
     role: "Director – Finance",
-    credentials: "B.Com | CA (India) | CIA (USA)",
-    bio: "15+ years cross-sector expertise in forensic audits, financial analysis, and strategic financial management.",
     image: "/assets-2025/images/invest/hero-sunset.webp",
   },
   {
     name: "Charles Jose",
     role: "Director – Project Engineering",
-    credentials: "B.E. (Civil Engineering)",
-    bio: "Led complex developments across Oman, Dubai, Saudi Arabia, Mumbai, Pune, and Bangalore.",
     image: "/assets-2025/images/invest/hero-estate.webp",
   },
   {
     name: "Binoj Kurian",
     role: "Director – Risk & Compliance",
-    credentials: "ACII (UK) | ARM (USA) | Company Secretary",
-    bio: "20+ years at leading multinational insurance organizations. Head of Compliance at Mitsui Sumitomo Insurance, UAE.",
     image: "/assets-2025/images/invest/hero-aerial.webp",
   },
 ];

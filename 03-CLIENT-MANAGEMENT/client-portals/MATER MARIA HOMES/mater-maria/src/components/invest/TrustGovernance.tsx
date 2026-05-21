@@ -158,16 +158,6 @@ export function TrustGovernance() {
                     <p className="text-xs text-accent-default">{leader.role}</p>
                   </div>
                 </div>
-                {"credentials" in leader && (
-                  <p className="mb-2 text-[10px] font-medium uppercase tracking-wider text-text-muted">
-                    {leader.credentials}
-                  </p>
-                )}
-                {"bio" in leader && (
-                  <p className="text-xs leading-relaxed text-text-secondary">
-                    {leader.bio}
-                  </p>
-                )}
               </motion.div>
             ))}
           </motion.div>

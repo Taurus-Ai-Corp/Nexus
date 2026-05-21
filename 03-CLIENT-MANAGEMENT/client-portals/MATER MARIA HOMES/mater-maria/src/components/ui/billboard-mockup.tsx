@@ -136,7 +136,7 @@ export function BillboardMockup({ className }: BillboardMockupProps) {
             }}
           >
             <Image
-              src="/images/mater-maria-logo.svg"
+              src="/assets-2025/images/mater-maria-logo.svg"
               alt=""
               fill
               className="object-contain object-center"
