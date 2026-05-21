@@ -478,7 +478,20 @@ async def create_asset(asset: Asset, user: User = Depends(get_current_user)):
 # ── NLP — Three-Tier AI Routing (auth required) ──
 @app.post("/api/nlp/interpret")
 async def interpret_command(req: NLPRequest, user: User = Depends(get_current_user)):
-    return nlp_interpret(req.text)
+    """LLM-powered NLP interpretation with multi-model support"""
+    import time
+    from multi_model_router import MultiModelRouter
+    from llm_nlp_engine import LLMNLPInterpreter
+    
+    mr = MultiModelRouter()
+    model = "anthropic/claude-sonnet-4.6"  # Default model
+    nlp = LLMNLPInterpreter(router=mr, default_model=model)
+    
+    start = time.time()
+    result = await nlp.interpret_command(req.text, model=model)
+    elapsed = int((time.time() - start) * 1000)
+    
+    return {**result, "processing_time_ms": elapsed}
 
 @app.post("/api/nlp/iterate")
 async def nlp_iterate(req: NLPRequest, user: User = Depends(get_current_user)):
@@ -1067,12 +1080,9 @@ async def storage_security_audit(user: User = Depends(get_current_user)):
     return {"audit_results": audits, "total_buckets": len(configs), "timestamp": datetime.utcnow().isoformat()}
 
 
-# ── NLP Pipeline & Multi-Model Campaign Generation ──
-# Lazy import to avoid startup crashes
+# ── Customer API Key Management ──
 try:
-    from nlp_pipeline_endpoints import router as nlp_router
     from customer_keys_endpoints import router as keys_router
-    app.include_router(nlp_router)
     app.include_router(keys_router)
 except Exception as e:
-    logger.warning(f"NLP pipeline modules not loaded: {e}")
+    logger.warning(f"Customer keys router not loaded: {e}")
