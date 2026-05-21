@@ -494,7 +494,7 @@ async def debug_nlp(user: User = Depends(get_current_user)):
             {"role": "user", "content": "Test"},
         ]
         llm_result = await mr.generate_text(
-            model="anthropic/claude-sonnet-4.6",
+            model="google/gemini-2.5-flash:free",
             messages=messages,
             temperature=0.1,
             max_tokens=50,
@@ -502,7 +502,7 @@ async def debug_nlp(user: User = Depends(get_current_user)):
         
         # Now test full NLP engine step by step
         from llm_nlp_engine import LLMNLPInterpreter, NLP_SYSTEM_PROMPT
-        nlp = LLMNLPInterpreter(router=mr, default_model="anthropic/claude-sonnet-4.6")
+        nlp = LLMNLPInterpreter(router=mr, default_model="google/gemini-2.5-flash:free")
         
         # Test direct LLM call with NLP prompt
         messages = [
@@ -510,7 +510,7 @@ async def debug_nlp(user: User = Depends(get_current_user)):
             {"role": "user", "content": "Command: Create an Instagram ad for a luxury spa"},
         ]
         raw_result = await mr.generate_text(
-            model="anthropic/claude-sonnet-4.6",
+            model="google/gemini-2.5-flash:free",
             messages=messages,
             temperature=0.1,
             max_tokens=2048,
@@ -547,7 +547,7 @@ async def interpret_command(req: NLPRequest, user: User = Depends(get_current_us
     from llm_nlp_engine import LLMNLPInterpreter
     
     mr = MultiModelRouter()
-    model = "anthropic/claude-sonnet-4.6"  # Default model
+    model = "google/gemini-2.5-flash:free"  # Free tier model
     nlp = LLMNLPInterpreter(router=mr, default_model=model)
     
     start = time.time()
