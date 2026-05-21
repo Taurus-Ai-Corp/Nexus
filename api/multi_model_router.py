@@ -1,3 +1,4 @@
+import asyncio
 # Multi-Model Provider Router
 # Nexus Social Suite — Unified LLM interface for campaign generation
 # Supports: Ollama, OpenRouter, HuggingFace, Gemini, Claude, Codex
@@ -473,7 +474,7 @@ class MultiModelRouter:
             
             # Poll for completion
             for _ in range(60):  # Max 5 minutes
-                await __import__("asyncio").sleep(5)
+                import asyncio; await asyncio.sleep(5)
                 status_resp = await client.get(
                     f"https://generativelanguage.googleapis.com/v1beta/{operation_name}",
                     params={"key": self.gemini_key}
