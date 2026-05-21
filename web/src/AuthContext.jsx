@@ -8,6 +8,7 @@ const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 
 const DEMO_USERS = {
+  'admin@taurusai.io': { id: 0, email: 'admin@taurusai.io', role: 'admin', password: 'admin123' },
   'employee@taurusai.io': { id: 1, email: 'employee@taurusai.io', role: 'employee', password: 'employee123' },
   'admin@taurusai.io': { id: 0, email: 'admin@taurusai.io', role: 'admin', password: 'admin123' },
 };
