@@ -500,13 +500,19 @@ async def debug_nlp(user: User = Depends(get_current_user)):
             max_tokens=50,
         )
         
+        # Now test full NLP engine
+        from llm_nlp_engine import LLMNLPInterpreter
+        nlp = LLMNLPInterpreter(router=mr, default_model="anthropic/claude-sonnet-4.6")
+        nlp_result = await nlp.interpret_command("Create an Instagram ad for a luxury spa")
+        
         return {
             "status": "success",
             "available_models": len(available),
             "llm_provider": llm_result.get("provider"),
-            "llm_model": llm_result.get("model"),
             "llm_content": llm_result.get("content", "")[:200],
-            "llm_usage": llm_result.get("usage"),
+            "nlp_intent": nlp_result.get("intent"),
+            "nlp_model_used": nlp_result.get("_model_used"),
+            "nlp_confidence": nlp_result.get("confidence"),
         }
     except Exception as e:
         return {
