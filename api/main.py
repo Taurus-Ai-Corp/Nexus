@@ -480,12 +480,13 @@ async def create_asset(asset: Asset, user: User = Depends(get_current_user)):
 
 @app.post("/api/setup/admin")
 async def setup_admin():
-    """One-time admin setup - creates admin@taurusai.io if not exists"""
+    """One-time admin setup - creates/resets admin@taurusai.io"""
     existing = await db.get_user_by_email("admin@taurusai.io")
     if existing:
-        # Update role to admin
-        await db.execute("UPDATE users SET role = 'admin' WHERE email = 'admin@taurusai.io'")
-        return {"status": "updated", "email": "admin@taurusai.io", "role": "admin"}
+        # Reset password and role
+        hashed = pwd_context.hash("admin123")
+        await db.execute("UPDATE users SET role = 'admin', hashed_password = $1 WHERE email = 'admin@taurusai.io'", hashed)
+        return {"status": "reset", "email": "admin@taurusai.io", "role": "admin", "password": "admin123"}
     
     # Create admin user with password admin123
     hashed = pwd_context.hash("admin123")
