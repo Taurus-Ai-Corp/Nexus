@@ -439,7 +439,7 @@ export const COUNTRY_COORDINATORS: CountryCoordinator[] = [
   { flag: "🇩🇪", country: "Germany", name: "Roy Joseph", phone: "+30 357 353 2646" },
   { flag: "🇮🇳", country: "India", name: "Fr. Mathew Puthumana", phone: "+91 94470 80356" },
   { flag: "🇮🇳", country: "India", name: "Thomas Abraham", phone: "+91 77359 27730" },
-  { flag: "🇮🇳", country: "India", name: "Paul Jose", phone: "+91 94009 39936" },
+  { flag: "🇮🇳", country: "India", name: "Paul Jose", phone: "+91 9400939936" },
   { flag: "🇮🇹", country: "Italy", name: "Tony George", phone: "+39 328 368 8700" },
   { flag: "🇮🇱", country: "Israel", name: "Senna Joseph", phone: "+972 50 660 0600" },
   { flag: "🇮🇪", country: "Ireland", name: "Ashish Tomy", phone: "+353 89 262 000" },
