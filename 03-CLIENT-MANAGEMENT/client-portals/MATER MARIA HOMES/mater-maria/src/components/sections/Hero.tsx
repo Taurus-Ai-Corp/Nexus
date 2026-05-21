@@ -42,7 +42,7 @@ const SLIDES = [
 const STATS = [
   { value: "90+",  label: "Premium Residences" },
   { value: "91%",  label: "5-Year ROI" },
-  { value: "24/7", label: "On-Campus Medical" },
+  { value: "24/7", label: "AI IoT Advanced Medical" },
 ];
 
 /* ── Component ───────────────────────────────────────────── */

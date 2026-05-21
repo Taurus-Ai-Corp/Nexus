@@ -278,7 +278,7 @@ export const INVESTOR_PROMISES = [
   },
   {
     title: "World-Class Facilities Included",
-    description: "24/7 nursing, on-campus MMT Hospital Annexure, Ayurvedic Treatment Block, yoga halls, amphitheatre, luxury home theatre, and concierge — no extra charges for residents.",
+    description: "24/7 AI IoT advanced medical care, MMT Hospital Annexure, Ayurvedic Treatment Block, yoga halls, amphitheatre, luxury home theatre, and concierge — no extra charges for residents.",
     icon: "Cpu" as const,
     stat: { value: 48, suffix: "", type: "number-flow" as const },
     tag: "FACILITIES FOR RESIDENTS",

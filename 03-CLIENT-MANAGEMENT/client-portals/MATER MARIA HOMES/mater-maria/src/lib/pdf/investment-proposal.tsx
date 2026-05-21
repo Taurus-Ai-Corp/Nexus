@@ -448,7 +448,7 @@ function InvestmentProposalDocument({
           "Board-Supervised — ISO 9001 certified governance and financial transparency",
           "AI-Powered — Smart home automation, IoT health monitoring in every unit",
           "Net-Zero Estate — 100% solar-powered, rainwater harvesting",
-          "On-Campus Medical — 24/7 nursing, 10km to Medical College",
+          "AI IoT Advanced Medical — 24/7 nursing, 10km to Medical College",
           "NRI-Friendly — Dedicated concierge for overseas investors",
           "8+ Acres — Organic farming, walking trails, wellness spa",
         ].map((h) => (

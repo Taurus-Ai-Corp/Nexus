@@ -30,7 +30,7 @@ export const HERO = {
   stats: [
     { value: 91, suffix: "%", label: "5-Year ROI" },
     { value: 90, suffix: "+", label: "Premium Residences" },
-    { value: 24, suffix: "/7", label: "On-Campus Medical" },
+    { value: 24, suffix: "/7", label: "AI IoT Advanced Medical" },
     { value: 8, suffix: "+", label: "Acres of Greenery" },
   ],
 };
@@ -38,15 +38,15 @@ export const HERO = {
 export const TRUST_BADGES = [
   { label: "100% Solar Net-Zero Estate", icon: "Shield" },
   { label: "Board-Supervised · ISO 9001", icon: "BadgeCheck" },
-  { label: "On-Campus Medical — 24/7 Nursing", icon: "Heart" },
+  { label: "AI IoT Advanced Medical — 24/7 Nursing", icon: "Heart" },
   { label: "AI-Powered Smart Homes", icon: "Award" },
   { label: "NRI-Friendly Concierge", icon: "Star" },
 ];
 
 export const FEATURES = [
   {
-    title: "On-Campus Medical Care",
-    description: "Imagine never worrying about a midnight emergency again. Our on-campus MMT Hospital Annexure with 24/7 nursing, specialized care units, and a dedicated ambulance means help is always steps away — not hours.",
+    title: "AI IoT Advanced Medical Care",
+    description: "Imagine never worrying about a midnight emergency again. Our MMT Hospital Annexure with 24/7 nursing, specialized care units, and a dedicated ambulance means help is always steps away — not hours.",
     bullets: ["24/7 nursing & on-call doctors", "10 km to Medical College Hospital", "Emergency ambulance on-site", "Specialized care & pharmacy"],
     icon: "HeartPulse",
   },
