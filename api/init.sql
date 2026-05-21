@@ -132,6 +132,19 @@ CREATE TABLE IF NOT EXISTS approvals (
     reviewed_at TIMESTAMP
 );
 
+
+-- ── CUSTOMER API KEYS ──
+CREATE TABLE IF NOT EXISTS customer_api_keys (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    config JSONB NOT NULL DEFAULT '{}',
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW(),
+    UNIQUE(user_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_customer_api_keys_user_id ON customer_api_keys(user_id);
+
 -- ── SEED DATA ──
 INSERT INTO users (email, hashed_password, role) VALUES
     ('employee1@taurusai.corp', '$2b$12$LJ3m4ys3Lk4qKzKxKzKxK.KzKxKzKxKzKxKzKxKzKxKzKxKzKxKxK', 'employee')
