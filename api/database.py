@@ -178,8 +178,6 @@ class PostgresClient:
         )
 
 
-db = PostgresClient()
-
     # ── CUSTOMER API KEYS ──
     async def get_customer_api_keys(self, user_id: int) -> Optional[Dict]:
         return await self.fetchrow("SELECT * FROM customer_api_keys WHERE user_id = $1", user_id)
@@ -191,3 +189,6 @@ db = PostgresClient()
             user_id, config
         )
         return row
+
+
+db = PostgresClient()
