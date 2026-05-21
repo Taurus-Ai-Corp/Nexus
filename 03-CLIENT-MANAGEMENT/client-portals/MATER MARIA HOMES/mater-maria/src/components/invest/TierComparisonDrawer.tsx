@@ -101,7 +101,7 @@ export function TierComparisonDrawer() {
                         <th
                           key={tier.id}
                           className={`p-3 text-center font-heading text-base font-bold ${
-                            tier.id === "diamond"
+                            tier.id === "platinum"
                               ? "text-accent-default"
                               : "text-text-primary"
                           }`}
@@ -136,7 +136,7 @@ export function TierComparisonDrawer() {
                             <td
                               key={tier.id}
                               className={`p-3 text-center ${
-                                tier.id === "diamond"
+                                tier.id === "platinum"
                                   ? "bg-accent-default/[0.03]"
                                   : ""
                               }`}
@@ -165,7 +165,7 @@ export function TierComparisonDrawer() {
                         .getElementById("lead-capture")
                         ?.scrollIntoView({ behavior: "smooth" });
                     };
-                    return tier.id === "diamond" ? (
+                    return tier.id === "platinum" ? (
                       <ShimmerButton
                         key={tier.id}
                         className="w-full text-xs"

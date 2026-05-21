@@ -3,7 +3,7 @@ import { z } from "zod/v4";
 /* ------------------------------------------------------------------ */
 /*  Investment Tier Types                                              */
 /* ------------------------------------------------------------------ */
-export type TierId = "silver" | "gold" | "diamond" | "platinum";
+export type TierId = "silver" | "gold" | "platinum";
 
 export interface InvestmentTier {
   id: TierId;
@@ -28,10 +28,10 @@ export interface InvestmentTier {
 /* ------------------------------------------------------------------ */
 export const INVESTMENT_TIERS: InvestmentTier[] = [
   {
-    id: "diamond",
-    name: "Diamond",
+    id: "platinum",
+    name: "Platinum",
     investment: 30,
-    investmentDisplay: "\u20B930 Lakhs",
+    investmentDisplay: "₹30 Lakhs",
     totalReturn: 153,
     annualInterest: 10,
     interestYears: "Years 1–4",
@@ -40,23 +40,25 @@ export const INVESTMENT_TIERS: InvestmentTier[] = [
     highlights: [
       "10% annual interest on deposit",
       "Enhanced dividend participation from Year 5",
-      "Event hall — rent-free 2×/year",
-      "Guest house — 7 nights/year",
-      "Gold patron wall recognition",
-      "Direct board liaison access",
+      "Guest house — 5 days/year",
+      "30% discount on guest room rent",
+      "20% discount on family tour packages",
+      "1 day free hall usage (150 pax)/year",
+      "15% discount on wellness packages",
+      "Director Board liaison access",
       "Annual investor appreciation gala (VIP)",
     ],
     perks: {
-      eventHall: "2×/year rent-free",
-      guestHouse: "7 nights/year",
+      eventHall: "1 day/year",
+      guestHouse: "5 days/year",
       patronWall: "Gold",
     },
   },
   {
-    id: "platinum",
-    name: "Platinum",
+    id: "gold",
+    name: "Gold",
     investment: 20,
-    investmentDisplay: "\u20B920 Lakhs",
+    investmentDisplay: "₹20 Lakhs",
     totalReturn: 150,
     annualInterest: 10,
     interestYears: "Years 1–4",
@@ -65,44 +67,25 @@ export const INVESTMENT_TIERS: InvestmentTier[] = [
     highlights: [
       "10% annual interest on deposit",
       "Dividend participation from Year 5",
-      "Event hall — rent-free 1×/year",
-      "Guest house — 4 nights/year",
-      "Bronze patron wall recognition",
-      "Priority board communications",
-    ],
-    perks: {
-      eventHall: "1×/year rent-free",
-      guestHouse: "4 nights/year",
-      patronWall: "Bronze",
-    },
-  },
-  {
-    id: "gold",
-    name: "Gold",
-    investment: 10,
-    investmentDisplay: "\u20B910 Lakhs",
-    totalReturn: 150,
-    annualInterest: 10,
-    interestYears: "Years 1–4",
-    dividendStart: "From Year 5",
-    highlights: [
-      "10% annual interest on deposit",
-      "Dividend participation from Year 5",
-      "Guest house — 2 nights/year",
+      "Guest house — 3 days/year",
+      "20% discount on guest room rent",
+      "15% discount on family tour packages",
+      "1 day free hall usage (150 pax)/year",
+      "10% discount on wellness packages",
       "Quarterly financial reports",
       "Annual investor appreciation gala",
     ],
     perks: {
-      eventHall: "—",
-      guestHouse: "2 nights/year",
+      eventHall: "1 day/year",
+      guestHouse: "3 days/year",
       patronWall: "—",
     },
   },
   {
     id: "silver",
     name: "Silver",
-    investment: 5,
-    investmentDisplay: "\u20B95 Lakhs",
+    investment: 10,
+    investmentDisplay: "₹10 Lakhs",
     totalReturn: 150,
     annualInterest: 10,
     interestYears: "Years 1–4",
@@ -111,12 +94,17 @@ export const INVESTMENT_TIERS: InvestmentTier[] = [
     highlights: [
       "10% annual interest on deposit",
       "Dividend participation from Year 5",
+      "Guest house — 1 day/year",
+      "10% discount on guest room rent",
+      "10% discount on family tour packages",
+      "50% discount on hall rental (150 pax)",
+      "10% discount on wellness packages",
       "Quarterly financial reports",
       "Estate tour priority access",
     ],
     perks: {
-      eventHall: "—",
-      guestHouse: "—",
+      eventHall: "50% discount",
+      guestHouse: "1 day/year",
       patronWall: "—",
     },
   },
@@ -489,7 +477,7 @@ export const investorLeadSchema = z.object({
   email: z.email("Valid email required"),
   phone: z.string().min(8, "Valid phone number required"),
   country: z.string().min(2, "Country is required"),
-  tier: z.enum(["silver", "gold", "diamond", "platinum"]),
+  tier: z.enum(["silver", "gold", "platinum"]),
   message: z.string().optional(),
   isNRI: z.boolean().optional(),
 });
@@ -502,6 +490,6 @@ export type InvestorLeadFormData = z.infer<typeof investorLeadSchema>;
 export const INVEST_PAGE = {
   title: "Invest in Mater Maria Homes",
   description:
-    "Join the founding patrons of Kerala's premier wellness estate. Investment tiers from ₹5 Lakhs with 10% annual interest and up to 153% returns over 15 years.",
+    "Join the founding patrons of Kerala's premier wellness estate. Investment tiers from ₹10 Lakhs with 10% annual interest and up to 153% returns over 15 years.",
   ogImage: "/assets-2025/images/invest/og-invest.webp",
 };

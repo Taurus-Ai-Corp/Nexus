@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import SlotCounter from "react-slot-counter";
-import { ArrowRight, Check, Crown, Gem, Medal, Star, TrendingUp, CalendarDays, Landmark } from "lucide-react";
+import { ArrowRight, Check, Crown, Medal, Star, TrendingUp, CalendarDays, Landmark } from "lucide-react";
 import { SectionWatermark } from "@/components/ui/section-watermark";
 import { Container } from "@/components/ui/container";
 import { GhostWord } from "@/components/ui/ghost-word";
@@ -15,17 +15,10 @@ import { CurrencyToggle } from "./CurrencyToggle";
 const TIER_ICONS: Record<TierId, typeof Star> = {
   silver: Medal,
   gold: Star,
-  diamond: Gem,
   platinum: Crown,
 };
 
 const TIER_PALETTE: Record<TierId, { accent: string; glow: string; border: string; bg: string }> = {
-  diamond: {
-    accent: "#F5C842",
-    glow: "rgba(245,200,66,0.20)",
-    border: "rgba(245,200,66,0.35)",
-    bg: "rgba(245,200,66,0.06)",
-  },
   platinum: {
     accent: "#D8CBB8",
     glow: "rgba(216,203,184,0.18)",
@@ -47,7 +40,7 @@ const TIER_PALETTE: Record<TierId, { accent: string; glow: string; border: strin
 };
 
 export function InvestmentTiers() {
-  const [active, setActive] = useState<TierId>("diamond");
+  const [active, setActive] = useState<TierId>("platinum");
   const detailRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(detailRef, { once: true });
 
