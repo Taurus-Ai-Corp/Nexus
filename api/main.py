@@ -490,7 +490,7 @@ async def debug_nlp(user: User = Depends(get_current_user)):
         
         # Test direct LLM call
         messages = [
-            {"role": "system", "content": "Respond with only JSON: {"test": true}"},
+            {'role': 'system', 'content': 'Respond with only JSON: {"test": true}' },
             {"role": "user", "content": "Test"},
         ]
         llm_result = await mr.generate_text(
