@@ -477,6 +477,21 @@ async def create_asset(asset: Asset, user: User = Depends(get_current_user)):
 
 # ── NLP — Three-Tier AI Routing (auth required) ──
 
+
+@app.post("/api/setup/admin")
+async def setup_admin():
+    """One-time admin setup - creates admin@taurusai.io if not exists"""
+    existing = await db.get_user_by_email("admin@taurusai.io")
+    if existing:
+        # Update role to admin
+        await db.execute("UPDATE users SET role = 'admin' WHERE email = 'admin@taurusai.io'")
+        return {"status": "updated", "email": "admin@taurusai.io", "role": "admin"}
+    
+    # Create admin user with password admin123
+    hashed = pwd_context.hash("admin123")
+    user = await db.create_user("admin@taurusai.io", hashed, "admin")
+    return {"status": "created", "email": user["email"], "role": user["role"], "password": "admin123"}
+
 @app.post("/api/nlp/debug")
 async def debug_nlp(user: User = Depends(get_current_user)):
     """Debug endpoint to test LLM call directly"""
