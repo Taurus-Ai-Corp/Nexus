@@ -92,6 +92,24 @@ GOOGLE_GENERATIVE_AI_API_KEY=AIza...
 
 ## Heiro Chain (Replacing Hedera)
 
-- Heiro is the primary blockchain/transaction layer
-- Use for distributed ledger, audit trails, payment orchestration
-- Config via `HEIRO_` prefixed env vars
+- Heiro is the primary blockchain/transaction layer for distributed ledger, audit trails, and payment orchestration
+- **Hedera SDK** (`@hiero-ledger/sdk` v2.82.0) still used for HCS/HTS operations during transition
+- **Config**: `HEIRO_` prefixed env vars; fallback to `HEDERA_` vars for backward compatibility
+- **Networks**: mainnet for production, testnet for CI validation
+- **Key services**: HCS (consensus), HTS (token service), file service for immutable audit logs
+
+## Deploy Pipeline
+
+### Mater Maria Homes (Static Site)
+- **Location**: `03-CLIENT-MANAGEMENT/client-portals/MATER MARIA HOMES/mater-maria/`
+- **Tech**: Next.js 16.1.6 + Tailwind v4 + static HTML fallback (`public/*.html`)
+- **Vercel config**: `vercel.json` with rewrites (`/` → `/index-landing.html`), redirects (`/about` → `/about.html`), and aggressive asset caching
+- **Static shadowing**: `public/invest.html` serves at `/invest.html`, shadowing any App Router `/invest` route
+- **Active branch**: `feat/nexosync-to-nexus-rebrand` (auto-deploys to Vercel)
+- **Asset versioning**: SVGs and images use `?v=3` query param to bust cache
+
+### General Monorepo Deploy
+- **Primary**: Vercel (frontend), scoped to subdirectory per project
+- **Docker**: Oracle Cloud Free Tier for backend services (Hyperswitch, Lago, etc.)
+- **Immutable**: BSV (Bitcoin SV) for tamper-proof document storage
+- **CI**: GitHub Actions runs lint → test → build on every PR to `main`
