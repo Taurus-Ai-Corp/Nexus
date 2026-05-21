@@ -117,9 +117,7 @@ class LLMNLPInterpreter:
             # Strip markdown code blocks if present
             raw = result["content"].strip()
             if raw.startswith("```"):
-                # Remove opening code fence
-                first_newline = raw.find("
-")
+                first_newline = raw.find(chr(10))
                 if first_newline != -1:
                     raw = raw[first_newline:]
                 # Remove closing code fence
