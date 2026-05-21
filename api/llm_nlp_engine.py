@@ -110,9 +110,8 @@ class LLMNLPInterpreter:
             result = await self.router.generate_text(
                 model=model,
                 messages=messages,
-                temperature=0.1,  # Low temp for consistent parsing
+                temperature=0.1,
                 max_tokens=2048,
-                json_schema=self._get_nlp_schema(),
             )
             
             parsed = json.loads(result["content"])
@@ -124,9 +123,10 @@ class LLMNLPInterpreter:
             
         except json.JSONDecodeError as e:
             logger.error(f"Failed to parse NLP response: {e}")
+            logger.error(f"Raw response: {result.get('content', '')[:500]}")
             return self._fallback_parse(command)
         except Exception as e:
-            logger.error(f"NLP interpretation failed: {e}")
+            logger.error(f"NLP interpretation failed: {type(e).__name__}: {e}")
             return self._fallback_parse(command)
     
     async def generate_campaign(
