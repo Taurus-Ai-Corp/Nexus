@@ -27,7 +27,7 @@ const NLPCommandPanel = () => {
       if (res.ok) {
         const data = await res.json();
         setAvailableModels(data.models || []);
-        const defaultModel = data.models?.find(m => m.available)?.id || '';
+        const defaultModel = data.models?.find(m => m.available && m.provider === 'ollama')?.id || data.models?.find(m => m.available)?.id || '';
         setSelectedModel(defaultModel);
       }
     } catch (e) {
@@ -107,7 +107,7 @@ const NLPCommandPanel = () => {
       extra={
         <Space>
           <Tag color={pipelineStage === 'complete' || pipelineStage === 'launched' ? 'green' : pipelineStage === 'error' ? 'red' : 'blue'}>
-            {selectedModel ? selectedModel.split('/')[1] || selectedModel : 'No model'}
+            {selectedModel ? (selectedModel.includes('/') ? selectedModel.split('/')[1] : selectedModel) : 'Ollama (local)'}
           </Tag>
           <Button icon={<SettingOutlined />} size="small" href="/settings/models">
             Model Settings
