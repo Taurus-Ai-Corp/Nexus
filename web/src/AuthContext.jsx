@@ -18,9 +18,9 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const stored = localStorage.getItem('neosync_user');
+    const stored = localStorage.getItem('nexus_user');
     if (stored) {
-      try { setUser(JSON.parse(stored)); } catch { localStorage.removeItem('neosync_user'); }
+      try { setUser(JSON.parse(stored)); } catch { localStorage.removeItem('nexus_user'); }
     }
     setLoading(false);
   }, []);
@@ -35,8 +35,8 @@ export const AuthProvider = ({ children }) => {
       const data = await res.json();
       // MFA required — return early so LoginPage can show MFA input
       if (data.mfa_required) return data;
-      localStorage.setItem('neosync_access_token', data.access_token);
-      localStorage.setItem('neosync_user', JSON.stringify(data.user));
+      localStorage.setItem('nexus_access_token', data.access_token);
+      localStorage.setItem('nexus_user', JSON.stringify(data.user));
       setUser(data.user);
       return data.user;
     }
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     const demoUser = DEMO_USERS[email.toLowerCase()];
     if (!demoUser || demoUser.password !== password) throw new Error('Invalid email or password');
     const mockUser = { id: demoUser.id, email: demoUser.email, role: demoUser.role, mfa_enabled: false };
-    localStorage.setItem('neosync_user', JSON.stringify(mockUser));
+    localStorage.setItem('nexus_user', JSON.stringify(mockUser));
     setUser(mockUser);
     return mockUser;
   };
@@ -58,22 +58,22 @@ export const AuthProvider = ({ children }) => {
       });
       if (!res.ok) { const e = await res.json(); throw new Error(e.detail || 'Registration failed'); }
       const data = await res.json();
-      localStorage.setItem('neosync_access_token', data.access_token);
-      localStorage.setItem('neosync_user', JSON.stringify(data.user));
+      localStorage.setItem('nexus_access_token', data.access_token);
+      localStorage.setItem('nexus_user', JSON.stringify(data.user));
       setUser(data.user);
       return data.user;
     }
     await new Promise(r => setTimeout(r, 600));
     if (DEMO_USERS[email.toLowerCase()]) throw new Error('Email already registered');
     const newUser = { id: Date.now(), email, role: 'employee' };
-    localStorage.setItem('neosync_user', JSON.stringify(newUser));
+    localStorage.setItem('nexus_user', JSON.stringify(newUser));
     setUser(newUser);
     return newUser;
   };
 
   const logout = () => {
-    localStorage.removeItem('neosync_access_token');
-    localStorage.removeItem('neosync_user');
+    localStorage.removeItem('nexus_access_token');
+    localStorage.removeItem('nexus_user');
     setUser(null);
     navigate('/');
   };

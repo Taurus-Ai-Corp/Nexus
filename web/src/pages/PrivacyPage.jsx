@@ -13,7 +13,7 @@ const PrivacyPage = () => (
       <div style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>
         <section style={{ marginBottom: 40 }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', fontWeight: 600, marginBottom: 16, color: 'var(--text-primary)' }}>1. Introduction</h2>
-          <p>TAURUS AI CORP - FZCO ("we," "our," or "us") operates the NeoSync™ Social Suite Dashboard. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Service. We are committed to protecting your privacy in compliance with UAE data protection laws and international best practices.</p>
+          <p>TAURUS AI CORP - FZCO ("we," "our," or "us") operates the Nexus Social Suite Dashboard. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Service. We are committed to protecting your privacy in compliance with UAE data protection laws and international best practices.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>

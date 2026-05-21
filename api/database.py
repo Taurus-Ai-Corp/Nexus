@@ -1,4 +1,4 @@
-# PostgreSQL Database Module for NeoSync™
+# PostgreSQL Database Module for Nexus
 # TAURUS AI CORP - FZCO | Replaces GridDB
 
 import os
@@ -10,7 +10,7 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://neosync:neosync_secure_2026@localhost:5432/neosync")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://nexus:nexus_secure_2026@localhost:5432/nexus")
 
 
 class PostgresClient:

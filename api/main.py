@@ -1,4 +1,4 @@
-# NeoSync™ Social Suite Dashboard API
+# Nexus Social Suite Dashboard API
 # TAURUS AI CORP - FZCO | Three-Tier AI Routing | PostgreSQL + pgvector
 # Version: 3.2.0 — MFA + WhatsApp/Telegram + Security Hardened
 
@@ -29,7 +29,7 @@ from routing_engine import router, AIRoutingError
 from enhanced_nlp_engine import interpret_command as nlp_interpret
 
 # ── Config ──
-SECRET_KEY = os.getenv("JWT_SECRET", "neosync_jwt_secret_change_in_production")
+SECRET_KEY = os.getenv("JWT_SECRET", "nexus_jwt_secret_change_in_production")
 ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "30"))
 REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("JWT_REFRESH_DAYS", "7"))
@@ -45,10 +45,10 @@ IG_ACCESS_TOKEN = os.getenv("IG_ACCESS_TOKEN", "")
 IG_BUSINESS_ACCOUNT_ID = os.getenv("IG_BUSINESS_ACCOUNT_ID", "")
 WHATSAPP_TOKEN = os.getenv("WHATSAPP_TOKEN", "")
 WHATSAPP_PHONE_ID = os.getenv("WHATSAPP_PHONE_ID", "")
-WHATSAPP_VERIFY_TOKEN = os.getenv("WHATSAPP_VERIFY_TOKEN", "neosync_wa_webhook")
+WHATSAPP_VERIFY_TOKEN = os.getenv("WHATSAPP_VERIFY_TOKEN", "nexus_wa_webhook")
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 
-CORS_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000,https://neosync-dashboard.vercel.app").split(",") if o.strip()]
+CORS_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000,https://nexus-social.vercel.app").split(",") if o.strip()]
 
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO").upper())
 logger = logging.getLogger(__name__)
@@ -209,12 +209,12 @@ async def lifespan(app: FastAPI):
         await db.create_user("employee@taurusai.io", pwd_context.hash("employee123"), "employee")
     if not await db.get_user_by_email("admin@taurusai.io"):
         await db.create_user("admin@taurusai.io", pwd_context.hash("admin123"), "admin")
-    logger.info("NeoSync™ API v3.0.0 started — PostgreSQL + migrations + rate limiting")
+    logger.info("Nexus API v3.0.0 started — PostgreSQL + migrations + rate limiting")
     yield
     await db.close()
 
 app = FastAPI(
-    title="NeoSync™ Social Suite Dashboard API",
+    title="Nexus Social Suite Dashboard API",
     version="3.2.0",
     lifespan=lifespan,
     docs_url="/docs" if ENV == "development" else None,
@@ -247,7 +247,7 @@ async def add_security_headers(request: Request, call_next):
 # ── Health (public) ──
 @app.get("/")
 def root():
-    return {"message": "NeoSync™ Social Suite Dashboard API — TAURUS AI CORP - FZCO", "version": "3.2.0"}
+    return {"message": "Nexus Social Suite Dashboard API — TAURUS AI CORP - FZCO", "version": "3.2.0"}
 
 @app.get("/health")
 async def health():
@@ -364,7 +364,7 @@ async def mfa_setup(user: User = Depends(get_current_user)):
     secret = pyotp.random_base32()
     totp = pyotp.TOTP(secret)
     # Create URI for authenticator apps
-    issuer = "NeoSync™"
+    issuer = "Nexus"
     totp_uri = totp.provisioning_uri(name=user.email, issuer_name=issuer)
     # Generate QR code as base64 PNG
     qr = qrcode.QRCode(version=1, box_size=10, border=4)
@@ -411,7 +411,7 @@ from fastapi.responses import RedirectResponse, HTMLResponse
 @app.get("/api/auth/meta/authorize")
 async def meta_authorize(user: User = Depends(get_current_user)):
     redirect_uri = os.getenv("META_OAUTH_REDIRECT_URI", "https://api-beryl-three-25.vercel.app/api/auth/meta/callback")
-    frontend_url = os.getenv("FRONTEND_URL", "https://neosync-dashboard.vercel.app")
+    frontend_url = os.getenv("FRONTEND_URL", "https://nexus-social.vercel.app")
     state = secrets.token_urlsafe(16)
     auth_url = f"https://www.facebook.com/v18.0/dialog/oauth?client_id={META_APP_ID}&redirect_uri={redirect_uri}&scope=ads_management,instagram_content_publish,instagram_manage_insights,pages_show_list,pages_manage_posts&state={state}&response_type=code"
     return RedirectResponse(url=auth_url)
@@ -638,7 +638,7 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 STRIPE_PRO_PRICE_ID = os.getenv("STRIPE_PRO_PRICE_ID", "")
 STRIPE_RESELLER_PRICE_ID = os.getenv("STRIPE_RESELLER_PRICE_ID", "")
-FRONTEND_URL = os.getenv("FRONTEND_URL", "https://neosync-dashboard.vercel.app")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://nexus-social.vercel.app")
 stripe_lib.api_key = STRIPE_SECRET_KEY
 
 @app.post("/api/stripe/create-checkout-session")
@@ -654,7 +654,7 @@ async def create_checkout_session(req: CheckoutRequest, user: User = Depends(get
             line_items=[{"price": price_id, "quantity": 1}],
             success_url=f"{FRONTEND_URL}/dashboard?session_id={{CHECKOUT_SESSION_ID}}&checkout=success",
             cancel_url=f"{FRONTEND_URL}/?canceled=true",
-            metadata={"source": "neosync_dashboard", "user_id": str(user.id), "user_email": user.email},
+            metadata={"source": "nexus_dashboard", "user_id": str(user.id), "user_email": user.email},
             customer_email=user.email,
         )
         return {"url": session.url}
@@ -697,7 +697,7 @@ async def stripe_webhook(request: Request):
 async def meta_callback(code: str, state: Optional[str] = None):
     """OAuth callback: exchange code for token, store it, redirect to frontend"""
     redirect_uri = os.getenv("META_OAUTH_REDIRECT_URI", "https://api-beryl-three-25.vercel.app/api/auth/meta/callback")
-    frontend_url = os.getenv("FRONTEND_URL", "https://neosync-dashboard.vercel.app")
+    frontend_url = os.getenv("FRONTEND_URL", "https://nexus-social.vercel.app")
     try:
         async with httpx.AsyncClient() as c:
             # Exchange code for short-lived token
@@ -876,7 +876,7 @@ async def unsubscribe_meta_webhook(ad_account_id: str, access_token: Optional[st
 # ── Meta Webhook Receiver (for Facebook to call) ──
 @app.get("/api/meta/webhook")
 async def meta_webhook_verify(hub_mode: str = "", hub_verify_token: str = "", hub_challenge: str = ""):
-    if hub_mode == "subscribe" and hub_verify_token == os.getenv("META_WEBHOOK_VERIFY_TOKEN", "neosync_webhook_token"):
+    if hub_mode == "subscribe" and hub_verify_token == os.getenv("META_WEBHOOK_VERIFY_TOKEN", "nexus_webhook_token"):
         return int(hub_challenge)
     return {"error": "Verification failed"}
 

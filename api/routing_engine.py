@@ -1,5 +1,5 @@
 # Three-Tier AI Routing Engine
-# TAURUS AI CORP - FZCO | NeoSync™
+# TAURUS AI CORP - FZCO | Nexus
 # Routes tasks: Local Ollama → OpenRouter Cloud → HuggingFace Inference
 
 import os
@@ -218,8 +218,8 @@ class ThreeTierRouter:
         headers = {
             "Authorization": f"Bearer {OPENROUTER_API_KEY}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "https://neosync.taurusai.io",
-            "X-OpenRouter-Title": "NeoSync Social Suite",
+            "HTTP-Referer": "https://nexus.taurusai.io",
+            "X-OpenRouter-Title": "Nexus Social Suite",
         }
 
         async with httpx.AsyncClient(timeout=60.0) as client:

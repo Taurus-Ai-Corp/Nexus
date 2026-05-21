@@ -129,7 +129,7 @@ const BestTimeToPost = () => {
                   <div style={{ padding: 20, background: 'rgba(74, 222, 128, 0.1)', borderRadius: 12, border: '1px solid rgba(74, 222, 128, 0.3)' }}>
                     <p style={{ color: 'var(--accent-start)', fontWeight: 600 }}>✓ Report sent! Check your inbox.</p>
                     <a href="/dashboard" style={{ marginTop: 16, display: 'inline-block' }}>
-                      <MetallicButton>Launch NeoSync Dashboard →</MetallicButton>
+                      <MetallicButton>Launch Nexus Dashboard →</MetallicButton>
                     </a>
                   </div>
                 ) : (

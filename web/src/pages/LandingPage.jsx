@@ -13,7 +13,7 @@ const handleCheckout = async (priceId) => {
     alert('Payments are not configured yet. Contact admin@taurusai.io for Pro access.');
     return;
   }
-  const token = localStorage.getItem('neosync_access_token');
+  const token = localStorage.getItem('nexus_access_token');
   if (!token) {
     window.location.href = '/login?redirect=/#pricing';
     return;
@@ -86,7 +86,7 @@ const LandingPage = () => {
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, padding: '16px 0', transition: 'all 0.3s ease' }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <a href="/" style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', textDecoration: 'none' }}>
-            Neo<span className="text-gradient">Sync</span>™
+            Nexus<span className="text-gradient"> by Taurus AI</span>
           </a>
           <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
             {navItems.map(item => (
@@ -175,7 +175,7 @@ const LandingPage = () => {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
             {[
-              { org: 'TAURUS AI Corp', metric: '95%', detail: 'AI cost reduction with three-tier routing', quote: 'NeoSync cut our cloud AI spend from $2,400/mo to $120/mo while maintaining response quality.' },
+              { org: 'TAURUS AI Corp', metric: '95%', detail: 'AI cost reduction with three-tier routing', quote: 'Nexus cut our cloud AI spend from $2,400/mo to $120/mo while maintaining response quality.' },
               { org: 'NeoVibe Marketing', metric: '4.2hrs', detail: 'Saved per week on campaign management', quote: 'Natural language commands replaced hours of manual scheduling. "Create Instagram story for Dubai café" — done.' },
               { org: 'Q-Grid Platform', metric: '27+', label: 'services orchestrated', detail: 'Unified dashboard for all social operations', quote: 'One dashboard replaced 6 different tools. Our team finally has a single source of truth.' },
             ].map((cs, i) => (
@@ -271,7 +271,7 @@ const LandingPage = () => {
                   </MetallicButton>
                 )}
                 {tier.action === 'contact' && (
-                  <a href="mailto:admin@taurusai.io?subject=NeoSync%20Enterprise%20Inquiry"><MetallicButton variant="secondary" style={{ width: '100%' }}>Contact Sales</MetallicButton></a>
+                  <a href="mailto:admin@taurusai.io?subject=Nexus%20Enterprise%20Inquiry"><MetallicButton variant="secondary" style={{ width: '100%' }}>Contact Sales</MetallicButton></a>
                 )}
               </GlowCard>
             ))}
@@ -283,7 +283,7 @@ const LandingPage = () => {
       <section style={{ padding: '96px 0', background: 'var(--bg-primary)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <span className="badge" style={{ marginBottom: 16, display: 'inline-block' }}>Why NeoSync™</span>
+            <span className="badge" style={{ marginBottom: 16, display: 'inline-block' }}>Why Nexus™</span>
             <h2 style={{ marginBottom: 16 }}>Built Different.<br /><span className="text-gradient">By Design.</span></h2>
             <p style={{ color: 'var(--text-secondary)', maxWidth: 560, margin: '0 auto' }}>How we compare to typical chatbot platforms.</p>
           </div>
@@ -292,7 +292,7 @@ const LandingPage = () => {
               <thead>
                 <tr style={{ borderBottom: '2px solid var(--border)' }}>
                   <th style={{ textAlign: 'left', padding: '16px', color: 'var(--text-muted)', fontWeight: 600 }}>Feature</th>
-                  <th style={{ textAlign: 'center', padding: '16px', color: 'var(--accent-start)', fontWeight: 700 }}>NeoSync™</th>
+                  <th style={{ textAlign: 'center', padding: '16px', color: 'var(--accent-start)', fontWeight: 700 }}>Nexus™</th>
                   <th style={{ textAlign: 'center', padding: '16px', color: 'var(--text-muted)', fontWeight: 500 }}>Typical SaaS</th>
                 </tr>
               </thead>
@@ -326,8 +326,8 @@ const LandingPage = () => {
         <div className="gradient-mesh" />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <h2 style={{ marginBottom: 24 }}>Ready to Transform Your<br /><span className="text-gradient">Social Workflow?</span></h2>
-          <p style={{ color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto 40px', fontSize: '1.1rem' }}>Join teams using NeoSync™ to manage campaigns, generate content, and orchestrate AI agents — all from one dashboard.</p>
-          <a href="/dashboard"><MetallicButton>Launch NeoSync™ Dashboard →</MetallicButton></a>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto 40px', fontSize: '1.1rem' }}>Join teams using Nexus™ to manage campaigns, generate content, and orchestrate AI agents — all from one dashboard.</p>
+          <a href="/dashboard"><MetallicButton>Launch Nexus™ Dashboard →</MetallicButton></a>
         </div>
       </section>
 
@@ -339,7 +339,7 @@ const LandingPage = () => {
             <p className="mono" style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: 4 }}>TAURUS AI CORP - FZCO | License #68122, IFZA Dubai</p>
           </div>
           <div style={{ display: 'flex', gap: 24 }}>
-            <a href="https://github.com/taurus-ai/neosync" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>GitHub</a>
+            <a href="https://github.com/taurus-ai/nexus" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>GitHub</a>
             <a href="/terms" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Terms</a>
             <a href="/privacy" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Privacy</a>
             <a href="mailto:admin@taurusai.io" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Contact</a>

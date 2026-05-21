@@ -1,4 +1,4 @@
--- NeoSync™ Migration 003: Storage security hardening
+-- Nexus Migration 003: Storage security hardening
 -- TAURUS AI CORP - FZCO | Security Hardening v3.2.0
 -- Addresses hunter report finding: BotCommerce exposes S3 bucket publicly
 
@@ -37,5 +37,5 @@ CREATE INDEX IF NOT EXISTS idx_file_uploads_key ON file_uploads(file_key);
 
 -- Default config: all buckets private, signed URLs only
 INSERT INTO storage_config (bucket_name, bucket_type, access_policy)
-VALUES ('neosync-assets', 'private', '{"public_read": false, "signed_urls": true, "signed_url_ttl_seconds": 3600, "cors_origins": []}')
+VALUES ('nexus-assets', 'private', '{"public_read": false, "signed_urls": true, "signed_url_ttl_seconds": 3600, "cors_origins": []}')
 ON CONFLICT DO NOTHING;

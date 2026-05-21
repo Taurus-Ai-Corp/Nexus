@@ -1,4 +1,4 @@
--- NeoSync™ Migration 002: Add MFA (TOTP) support to users table
+-- Nexus Migration 002: Add MFA (TOTP) support to users table
 -- TAURUS AI CORP - FZCO | Security Hardening v3.1.0
 
 ALTER TABLE users

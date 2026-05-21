@@ -13,12 +13,12 @@ const TermsPage = () => (
       <div style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>
         <section style={{ marginBottom: 40 }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', fontWeight: 600, marginBottom: 16, color: 'var(--text-primary)' }}>1. Acceptance of Terms</h2>
-          <p>By accessing or using NeoSync™ Social Suite Dashboard ("Service"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.</p>
+          <p>By accessing or using Nexus Social Suite Dashboard ("Service"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', fontWeight: 600, marginBottom: 16, color: 'var(--text-primary)' }}>2. Description of Service</h2>
-          <p>NeoSync™ is an AI-powered social media management platform that provides campaign management, content generation, and multi-platform orchestration. The Service is provided by TAURUS AI CORP - FZCO (License #68122, IFZA Dubai).</p>
+          <p>Nexus is an AI-powered social media management platform that provides campaign management, content generation, and multi-platform orchestration. The Service is provided by TAURUS AI CORP - FZCO (License #68122, IFZA Dubai).</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>

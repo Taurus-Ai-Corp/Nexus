@@ -42,7 +42,7 @@ const MetaCampaignPage = () => {
   const fetchCampaigns = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('neosync_access_token');
+      const token = localStorage.getItem('nexus_access_token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const res = await fetch(`${apiUrl}/api/bizflow/meta-campaigns`, { headers });
       if (res.ok) {
@@ -60,8 +60,8 @@ const MetaCampaignPage = () => {
 
   const fetchAdAccounts = async () => {
     try {
-      const token = localStorage.getItem('neosync_access_token');
-      const metaToken = localStorage.getItem('neosync_meta_token');
+      const token = localStorage.getItem('nexus_access_token');
+      const metaToken = localStorage.getItem('nexus_meta_token');
       const params = metaToken ? `?access_token=${encodeURIComponent(metaToken)}` : '';
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const res = await fetch(`${apiUrl}/api/meta/adaccounts${params}`, { headers });
@@ -110,9 +110,9 @@ const MetaCampaignPage = () => {
       if (data.error) {
         alert(`Meta connection failed: ${data.error}`);
       } else if (data.success) {
-        localStorage.setItem('neosync_meta_token', data.access_token);
-        localStorage.setItem('neosync_meta_accounts', JSON.stringify(data.ad_accounts));
-        localStorage.setItem('neosync_meta_ig', JSON.stringify(data.instagram_account));
+        localStorage.setItem('nexus_meta_token', data.access_token);
+        localStorage.setItem('nexus_meta_accounts', JSON.stringify(data.ad_accounts));
+        localStorage.setItem('nexus_meta_ig', JSON.stringify(data.instagram_account));
         setMetaConnected(true);
         fetchAdAccounts();
       }
@@ -132,7 +132,7 @@ const MetaCampaignPage = () => {
   const handleCreateCampaign = async () => {
     if (!newCampaign.name || !newCampaign.budget_daily) return;
     try {
-      const token = localStorage.getItem('neosync_access_token');
+      const token = localStorage.getItem('nexus_access_token');
       const headers = { 'Content-Type': 'application/json' };
       if (token) headers.Authorization = `Bearer ${token}`;
       const res = await fetch(`${apiUrl}/api/bizflow/meta-campaigns`, {
@@ -166,7 +166,7 @@ const MetaCampaignPage = () => {
   const handleToggleCampaign = async (id, currentStatus) => {
     const action = currentStatus === 'active' ? 'pause' : 'resume';
     try {
-      const token = localStorage.getItem('neosync_access_token');
+      const token = localStorage.getItem('nexus_access_token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const res = await fetch(`${apiUrl}/api/campaigns/${id}/${action}`, { method: 'POST', headers });
       if (res.ok) {
@@ -179,7 +179,7 @@ const MetaCampaignPage = () => {
 
   const handleDeleteCampaign = async (id) => {
     try {
-      const token = localStorage.getItem('neosync_access_token');
+      const token = localStorage.getItem('nexus_access_token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const res = await fetch(`${apiUrl}/api/campaigns/${id}`, { method: 'DELETE', headers });
       if (res.ok) {

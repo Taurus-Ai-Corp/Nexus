@@ -197,7 +197,7 @@ const DashboardPage = () => {
               <div style={{ fontSize: 3, marginBottom: 16 }}>🚧</div>
               <h3 style={{ marginBottom: 12 }}>{navItems.find(n => n.key === activeNav)?.label}</h3>
               <p style={{ color: 'var(--text-secondary)', marginBottom: 24 }}>This section is being built with the luxury design system. Check back soon.</p>
-              <a href="https://neosync-dashboard.vercel.app" target="_blank" rel="noopener noreferrer">
+              <a href="https://nexus-social.vercel.app" target="_blank" rel="noopener noreferrer">
                 <MetallicButton>View Live Dashboard →</MetallicButton>
               </a>
             </GlowCard>

@@ -1,4 +1,4 @@
--- NeoSync™ Database Initialization
+-- Nexus Database Initialization
 -- PostgreSQL + pgvector + TimescaleDB
 -- TAURUS AI CORP - FZCO
 

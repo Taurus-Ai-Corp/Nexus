@@ -66,7 +66,7 @@ const StatusPage = () => {
       <Title level={5} style={{ marginTop: 24 }}>Platform Info</Title>
       <Card>
         <Text strong>Version:</Text> {health?.version || '2.0.0'}<br />
-        <Text strong>Platform:</Text> {health?.platform || 'NeoSync™ Social Suite Dashboard'}<br />
+        <Text strong>Platform:</Text> {health?.platform || 'Nexus Social Suite Dashboard'}<br />
         <Text strong>Last Updated:</Text> {health?.timestamp || new Date().toISOString()}
       </Card>
     </div>

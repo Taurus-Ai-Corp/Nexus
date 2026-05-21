@@ -1,4 +1,4 @@
--- NeoSync™ Social Suite Dashboard — Initial Schema
+-- Nexus Social Suite Dashboard — Initial Schema
 -- TAURUS AI CORP - FZCO | PostgreSQL 17 + pgvector
 -- Migration: 001_initial_schema
 
