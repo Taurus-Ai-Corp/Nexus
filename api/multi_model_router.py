@@ -33,7 +33,11 @@ class ModelCapability(Enum):
 
 # Model registry with capabilities
 MODEL_REGISTRY = {
-    # Ollama models (local/self-hosted)
+    # Ollama Cloud models (preferred for admin/employee)
+    "kimi-k2.6:cloud": {"provider": "ollama", "capabilities": [ModelCapability.TEXT, ModelCapability.CODE], "context": 131072},
+    "gemma4": {"provider": "ollama", "capabilities": [ModelCapability.TEXT], "context": 32768},
+    "nemotron-3-super": {"provider": "ollama", "capabilities": [ModelCapability.TEXT, ModelCapability.CODE], "context": 131072},
+    # Ollama local/self-hosted (fallback)
     "llama3": {"provider": "ollama", "capabilities": [ModelCapability.TEXT], "context": 8192},
     "qwen2.5-coder": {"provider": "ollama", "capabilities": [ModelCapability.TEXT, ModelCapability.CODE], "context": 32768},
     "llava": {"provider": "ollama", "capabilities": [ModelCapability.TEXT, ModelCapability.IMAGE], "context": 4096},
@@ -87,7 +91,8 @@ class MultiModelRouter:
     
     def _resolve_keys(self):
         """Resolve API keys from user config -> env -> defaults"""
-        self.ollama_url = self.api_keys.get("ollama_base_url") or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+        self.ollama_url = self.api_keys.get("ollama_base_url") or os.getenv("OLLAMA_BASE_URL", "https://ollama.com")
+        self.ollama_key = self.api_keys.get("ollama_api_key") or os.getenv("OLLAMA_API_KEY", "")
         self.openrouter_key = self.api_keys.get("openrouter_api_key") or os.getenv("OPENROUTER_API_KEY", "")
         self.huggingface_key = self.api_keys.get("huggingface_api_key") or os.getenv("HUGGINGFACE_API_KEY", "")
         self.gemini_key = self.api_keys.get("gemini_api_key") or os.getenv("GEMINI_API_KEY", "")
@@ -209,7 +214,12 @@ class MultiModelRouter:
             if json_schema:
                 payload["format"] = json_schema
             
-            resp = await client.post(f"{self.ollama_url}/api/chat", json=payload)
+            headers = {"Content-Type": "application/json"}
+            # Add Ollama Cloud API key if using ollama.com
+            if "ollama.com" in self.ollama_url and self.ollama_key:
+                headers["Authorization"] = f"Bearer {self.ollama_key}"
+            
+            resp = await client.post(f"{self.ollama_url}/api/chat", headers=headers, json=payload)
             resp.raise_for_status()
             data = resp.json()
             return {
