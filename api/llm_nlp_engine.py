@@ -76,9 +76,9 @@ Always return valid JSON."""
 
 class LLMNLPInterpreter:
     """LLM-powered NLP command interpreter with multi-model support.
-    Default model is Ollama qwen2.5-coder for admin/employee use."""
+    Default model is Ollama Cloud kimi-k2.6:cloud for admin/employee use."""
     
-    def __init__(self, router, default_model: str = "qwen2.5-coder"):
+    def __init__(self, router, default_model: str = "kimi-k2.6:cloud"):
         self.router = router
         self.default_model = default_model
     
@@ -96,10 +96,15 @@ class LLMNLPInterpreter:
             {"role": "user", "content": f"Command: {command}\n\nContext: {json.dumps(context) if context else 'None'}"},
         ]
         
-        # Try preferred model, then fallback
+        # Try preferred model, then fallback chain
         models_to_try = [preferred]
-        if preferred in ("llama3", "qwen2.5-coder", "llava"):
-            models_to_try.append("google/gemini-2.5-flash")
+        # Add Ollama Cloud fallbacks
+        if preferred in ("kimi-k2.6:cloud", "gemma4", "nemotron-3-super", "llama3", "qwen2.5-coder", "llava"):
+            cloud_fallbacks = ["kimi-k2.6:cloud", "gemma4", "nemotron-3-super"]
+            for m in cloud_fallbacks:
+                if m != preferred:
+                    models_to_try.append(m)
+            models_to_try.append("google/gemini-2.5-flash")  # OpenRouter fallback
         
         last_error = None
         for try_model in models_to_try:
