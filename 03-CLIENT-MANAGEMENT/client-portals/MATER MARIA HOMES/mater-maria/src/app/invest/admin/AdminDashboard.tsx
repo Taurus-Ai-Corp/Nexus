@@ -22,11 +22,11 @@ export interface Lead {
 /*  Mock data — replaced by Firebase/Supabase once credentials are set  */
 /* ------------------------------------------------------------------ */
 export const MOCK_LEADS: Lead[] = [
-  { id: "1", name: "George Thomas", email: "george@gmail.com", phone: "+971551234567", country: "United Arab Emirates", tier: "platinum", isNRI: true, createdAt: "2026-02-28T14:30:00Z", status: "new" },
+  { id: "1", name: "George Thomas", email: "george@gmail.com", phone: "+971551234567", country: "United Arab Emirates", tier: "diamond", isNRI: true, createdAt: "2026-02-28T14:30:00Z", status: "new" },
   { id: "2", name: "Mary Kurian", email: "mary.k@yahoo.com", phone: "+919847012345", country: "India", tier: "gold", isNRI: false, createdAt: "2026-02-28T15:45:00Z", status: "contacted" },
   { id: "3", name: "Dr. Rajan Mathew", email: "rajan.m@nhs.uk", phone: "+447891234567", country: "United Kingdom", tier: "platinum", isNRI: true, createdAt: "2026-02-27T10:00:00Z", status: "qualified" },
   { id: "4", name: "Leela Abraham", email: "leela.a@gmail.com", phone: "+919446789012", country: "India", tier: "silver", isNRI: false, createdAt: "2026-02-27T08:15:00Z", status: "new" },
-  { id: "5", name: "John Varghese", email: "john.v@outlook.com", phone: "+61423456789", country: "Australia", tier: "platinum", isNRI: true, createdAt: "2026-02-26T22:00:00Z", status: "new" },
+  { id: "5", name: "John Varghese", email: "john.v@outlook.com", phone: "+61423456789", country: "Australia", tier: "diamond", isNRI: true, createdAt: "2026-02-26T22:00:00Z", status: "new" },
   { id: "6", name: "Suja Philip", email: "suja@gmail.com", phone: "+919995123456", country: "India", tier: "gold", isNRI: false, createdAt: "2026-02-26T16:30:00Z", status: "contacted" },
 ];
 

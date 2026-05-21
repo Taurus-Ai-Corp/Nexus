@@ -63,7 +63,7 @@ export function LeadCapture() {
     resolver: zodResolver(investorLeadSchema),
     defaultValues: {
       country: "India",
-      tier: "platinum",
+      tier: "diamond",
       isNRI: false,
     },
   });

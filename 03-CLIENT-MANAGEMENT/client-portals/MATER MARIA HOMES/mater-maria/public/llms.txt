@@ -46,7 +46,7 @@ Mater Maria Homes is a premium integrated retirement and wellness estate located
 
 - /index-landing.html — Homepage (hero, about, residences, investment tiers, contact)
 - /about.html — Governance, board of directors, spiritual leadership
-- //invest — Investment tiers, ROI calculator, trust badges
+- /invest.html — Investment tiers, ROI calculator, trust badges
 - /privacy.html — Privacy policy
 - /terms.html — Terms of service
 
