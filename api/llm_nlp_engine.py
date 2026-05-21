@@ -78,7 +78,7 @@ class LLMNLPInterpreter:
     """LLM-powered NLP command interpreter with multi-model support.
     Default model is Ollama Cloud kimi-k2.6:cloud for admin/employee use."""
     
-    def __init__(self, router, default_model: str = "kimi-k2.6:cloud"):
+    def __init__(self, router, default_model: str = "kimi-k2.6"):
         self.router = router
         self.default_model = default_model
     
@@ -99,8 +99,8 @@ class LLMNLPInterpreter:
         # Try preferred model, then fallback chain
         models_to_try = [preferred]
         # Add Ollama Cloud fallbacks
-        if preferred in ("kimi-k2.6:cloud", "gemma4", "nemotron-3-super", "llama3", "qwen2.5-coder", "llava"):
-            cloud_fallbacks = ["kimi-k2.6:cloud", "gemma4", "nemotron-3-super"]
+        if preferred in ("kimi-k2.6", "gemma4:31b", "nemotron-3-super", "llama3", "qwen2.5-coder", "llava"):
+            cloud_fallbacks = ["kimi-k2.6", "gemma4:31b", "nemotron-3-super"]
             for m in cloud_fallbacks:
                 if m != preferred:
                     models_to_try.append(m)
