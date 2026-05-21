@@ -88,7 +88,7 @@ Always return valid JSON matching the campaign schema."""
 class LLMNLPInterpreter:
     """LLM-powered NLP command interpreter with multi-model support"""
     
-    def __init__(self, router: MultiModelRouter, default_model: str = "anthropic/claude-sonnet-4.6"):
+    def __init__(self, router: MultiModelRouter, default_model: str = "qwen2.5-coder"):
         self.router = router
         self.default_model = default_model
     
@@ -99,7 +99,7 @@ class LLMNLPInterpreter:
         context: Optional[Dict] = None,
     ) -> Dict[str, Any]:
         """Interpret a natural language command into structured action"""
-        model = model or self.default_model
+        model = model or self.default_model  # Defaults to Ollama qwen2.5-coder
         
         messages = [
             {"role": "system", "content": NLP_SYSTEM_PROMPT},
@@ -145,7 +145,7 @@ class LLMNLPInterpreter:
         include_visuals: bool = True,
     ) -> Dict[str, Any]:
         """Generate complete campaign from brief"""
-        model = model or self.default_model
+        model = model or self.default_model  # Defaults to Ollama qwen2.5-coder
         
         messages = [
             {"role": "system", "content": CAMPAIGN_GEN_PROMPT},
