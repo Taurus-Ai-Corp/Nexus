@@ -500,19 +500,36 @@ async def debug_nlp(user: User = Depends(get_current_user)):
             max_tokens=50,
         )
         
-        # Now test full NLP engine
-        from llm_nlp_engine import LLMNLPInterpreter
+        # Now test full NLP engine step by step
+        from llm_nlp_engine import LLMNLPInterpreter, NLP_SYSTEM_PROMPT
         nlp = LLMNLPInterpreter(router=mr, default_model="anthropic/claude-sonnet-4.6")
-        nlp_result = await nlp.interpret_command("Create an Instagram ad for a luxury spa")
+        
+        # Test direct LLM call with NLP prompt
+        messages = [
+            {"role": "system", "content": NLP_SYSTEM_PROMPT[:500]},
+            {"role": "user", "content": "Command: Create an Instagram ad for a luxury spa"},
+        ]
+        raw_result = await mr.generate_text(
+            model="anthropic/claude-sonnet-4.6",
+            messages=messages,
+            temperature=0.1,
+            max_tokens=2048,
+        )
+        
+        # Try to parse JSON
+        raw_content = raw_result.get("content", "")
+        try:
+            parsed = json.loads(raw_content)
+            parse_status = "success"
+        except json.JSONDecodeError as e:
+            parsed = None
+            parse_status = f"failed: {str(e)}"
         
         return {
             "status": "success",
             "available_models": len(available),
-            "llm_provider": llm_result.get("provider"),
-            "llm_content": llm_result.get("content", "")[:200],
-            "nlp_intent": nlp_result.get("intent"),
-            "nlp_model_used": nlp_result.get("_model_used"),
-            "nlp_confidence": nlp_result.get("confidence"),
+            "raw_llm_content": raw_content[:500],
+            "parse_status": parse_status,
         }
     except Exception as e:
         return {
