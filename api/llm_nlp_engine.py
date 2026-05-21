@@ -114,7 +114,18 @@ class LLMNLPInterpreter:
                 max_tokens=2048,
             )
             
-            parsed = json.loads(result["content"])
+            # Strip markdown code blocks if present
+            raw = result["content"].strip()
+            if raw.startswith("```"):
+                # Remove opening code fence
+                first_newline = raw.find("
+")
+                if first_newline != -1:
+                    raw = raw[first_newline:]
+                # Remove closing code fence
+                if raw.rstrip().endswith("```"):
+                    raw = raw.rstrip()[:-3].rstrip()
+            parsed = json.loads(raw)
             parsed["_model_used"] = model
             parsed["_provider"] = result.get("provider", "unknown")
             parsed["_processing_time_ms"] = result.get("usage", {}).get("total_tokens", 0)
