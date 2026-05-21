@@ -179,3 +179,15 @@ class PostgresClient:
 
 
 db = PostgresClient()
+
+    # ── CUSTOMER API KEYS ──
+    async def get_customer_api_keys(self, user_id: int) -> Optional[Dict]:
+        return await self.fetchrow("SELECT * FROM customer_api_keys WHERE user_id = $1", user_id)
+
+    async def upsert_customer_api_keys(self, user_id: int, config: str) -> Dict:
+        row = await self.fetchrow(
+            "INSERT INTO customer_api_keys (user_id, config) VALUES ($1, $2) "
+            "ON CONFLICT (user_id) DO UPDATE SET config = $2, updated_at = NOW() RETURNING *",
+            user_id, config
+        )
+        return row
