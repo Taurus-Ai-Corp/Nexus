@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import BestTimeToPost from './pages/BestTimeToPost';
+import ModelSettingsPage from './pages/ModelSettingsPage';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/best-time-to-post" element={<BestTimeToPost />} />
+          <Route path="/settings/models" element={<ProtectedRoute><ModelSettingsPage /></ProtectedRoute>} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
