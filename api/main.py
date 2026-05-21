@@ -1065,3 +1065,11 @@ async def storage_security_audit(user: User = Depends(get_current_user)):
     if not audits:
         audits.append({"severity": "PASS", "message": "All storage buckets follow security best practices"})
     return {"audit_results": audits, "total_buckets": len(configs), "timestamp": datetime.utcnow().isoformat()}
+
+
+# ── NLP Pipeline & Multi-Model Campaign Generation ──
+from nlp_pipeline_endpoints import router as nlp_router
+from customer_keys_endpoints import router as keys_router
+
+app.include_router(nlp_router)
+app.include_router(keys_router)
