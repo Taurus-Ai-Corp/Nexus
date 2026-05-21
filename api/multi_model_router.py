@@ -34,8 +34,8 @@ class ModelCapability(Enum):
 # Model registry with capabilities
 MODEL_REGISTRY = {
     # Ollama Cloud models (preferred for admin/employee)
-    "kimi-k2.6:cloud": {"provider": "ollama", "capabilities": [ModelCapability.TEXT, ModelCapability.CODE], "context": 131072},
-    "gemma4": {"provider": "ollama", "capabilities": [ModelCapability.TEXT], "context": 32768},
+    "kimi-k2.6": {"provider": "ollama", "capabilities": [ModelCapability.TEXT, ModelCapability.CODE], "context": 131072},
+    "gemma4:31b": {"provider": "ollama", "capabilities": [ModelCapability.TEXT], "context": 32768},
     "nemotron-3-super": {"provider": "ollama", "capabilities": [ModelCapability.TEXT, ModelCapability.CODE], "context": 131072},
     # Ollama local/self-hosted (fallback)
     "llama3": {"provider": "ollama", "capabilities": [ModelCapability.TEXT], "context": 8192},
