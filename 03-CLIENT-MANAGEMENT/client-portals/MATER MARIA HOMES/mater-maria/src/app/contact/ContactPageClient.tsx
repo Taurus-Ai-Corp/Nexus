@@ -56,6 +56,7 @@ const fadeUp = {
 /* ------------------------------------------------------------------ */
 export function ContactPageClient() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const formRef = useGsapReveal("[data-gsap-field]", {
     y: 40,
@@ -74,10 +75,36 @@ export function ContactPageClient() {
   });
 
   async function onSubmit(data: ContactFormData) {
-    // Replace with real API call when ready
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log("Contact form submission:", data);
-    setSubmitted(true);
+    setSubmitError(null);
+    try {
+      const payload = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        subject: "General / Residence Enquiry — Mater Maria Homes",
+        message: `Preferred Contact Method: ${data.preferredContact}\n\n${data.message}`,
+        from_name: "Mater Maria Homes Website",
+        botcheck: false,
+      };
+
+      const res = await fetch("/api/web3forms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json().catch(() => ({}));
+
+      if (!res.ok || result.error) {
+        throw new Error(result.error || "Submission failed. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+    }
   }
 
   return (
@@ -96,7 +123,7 @@ export function ContactPageClient() {
           <SectionHeading
             badge="Get in Touch"
             title="Contact Us"
-            subtitle="We would love to hear from you. Reach out to schedule a visit or ask any questions about Mater Maria."
+            subtitle="We would love to hear from you. Reach out to ask questions or request more information about Mater Maria."
           />
         </Container>
       </VideoHeroSection>
@@ -213,6 +240,13 @@ export function ContactPageClient() {
                       <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>
                     )}
                   </div>
+
+                  {/* Error banner */}
+                  {submitError && (
+                    <p className="rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                      {submitError}
+                    </p>
+                  )}
 
                   {/* Submit */}
                   <Button
