@@ -15,11 +15,20 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   // ── Internal bypass for team testing ───────────────────────────
   const bypass = request.nextUrl.searchParams.get("bypass");
-  if (bypass === "internal2026") {
-    // Allow through — strip the param so downstream sees a clean URL
-    const url = request.nextUrl.clone();
-    url.searchParams.delete("bypass");
-    return NextResponse.rewrite(url);
+  const hasBypassCookie =
+    request.cookies.get("maintenance_bypass")?.value === "internal2026";
+
+  if (bypass === "internal2026" || hasBypassCookie) {
+    const response = NextResponse.next();
+    if (bypass === "internal2026" && !hasBypassCookie) {
+      response.cookies.set("maintenance_bypass", "internal2026", {
+        maxAge: 60 * 60 * 24 * 7, // 1 week
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+      });
+    }
+    return response;
   }
 
   // ── Maintenance lockout ─────────────────────────────────────────
