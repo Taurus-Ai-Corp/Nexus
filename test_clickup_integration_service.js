@@ -2,7 +2,7 @@
  * Simple test script for ClickUpIntegrationService
  * 
  * This script tests the integration service functionality
- * for bidirectional synchronization between BizFlow CRM and ClickUp.
+ * for bidirectional synchronization between Nexus CRM and ClickUp.
  */
 
 const ClickUpIntegrationService = require('./03-CLIENT-MANAGEMENT/crm-system/src/sync/ClickUpIntegrationService');

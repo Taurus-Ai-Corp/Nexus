@@ -2,7 +2,7 @@
  * Simple test script for ClickUpMapper
  * 
  * This script tests the data mapping functionality between
- * BizFlow CRM entities and ClickUp entities.
+ * Nexus CRM entities and ClickUp entities.
  */
 
 const ClickUpMapper = require('./03-CLIENT-MANAGEMENT/crm-system/src/mapping/ClickUpMapper');
@@ -31,7 +31,7 @@ function runTests() {
   // Test reverse mapping
   console.log('\n2. Testing reverse mapping...');
   const reversedClient = ClickUpMapper.mapTaskToClient(clickUpTask);
-  console.log('✅ ClickUp task mapped back to BizFlow client successfully');
+  console.log('✅ ClickUp task mapped back to Nexus client successfully');
   console.log('   Client ID:', reversedClient.id);
   console.log('   Client name:', reversedClient.name);
   console.log('   Client email:', reversedClient.email);
