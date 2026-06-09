@@ -12,7 +12,7 @@ function runTests() {
   
   // Test client mapping
   console.log('1. Testing client mapping...');
-  const bizFlowClient = {
+  const nexusClient = {
     id: 'client-123',
     name: 'Acme Corporation',
     email: 'contact@acme.com',
@@ -22,7 +22,7 @@ function runTests() {
     status: 'active'
   };
 
-  const clickUpTask = ClickUpMapper.mapClientToTask(bizFlowClient);
+  const clickUpTask = ClickUpMapper.mapClientToTask(nexusClient);
   console.log('✅ Client mapped to ClickUp task successfully');
   console.log('   Task name:', clickUpTask.name);
   console.log('   Task status:', clickUpTask.status);
@@ -46,7 +46,7 @@ function runTests() {
   
   // Test project mapping
   console.log('\n4. Testing project mapping...');
-  const bizFlowProject = {
+  const nexusProject = {
     id: 'project-789',
     name: 'Website Redesign',
     clientId: 'client-123',
@@ -55,7 +55,7 @@ function runTests() {
     budget: 50000
   };
   
-  const clickUpList = ClickUpMapper.mapProjectToList(bizFlowProject);
+  const clickUpList = ClickUpMapper.mapProjectToList(nexusProject);
   console.log('✅ Project mapped to ClickUp list successfully');
   console.log('   List name:', clickUpList.name);
   console.log('   Custom fields count:', clickUpList.custom_fields.length);

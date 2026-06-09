@@ -22,27 +22,27 @@ async function testIntegrationService() {
     
     // Test client sync
     console.log('\n2. Testing client synchronization...');
-    const bizFlowClient = {
+    const nexusClient = {
       id: 'client-123',
       name: 'Acme Corporation',
       email: 'contact@acme.com',
       status: 'active'
     };
     
-    const clientSyncResult = await integrationService.syncClientToClickUp(bizFlowClient);
+    const clientSyncResult = await integrationService.syncClientToClickUp(nexusClient);
     console.log('✅ Client synced to ClickUp successfully');
     console.log('   ClickUp Task ID:', clientSyncResult.clickUpTaskId);
     
     // Test project sync
     console.log('\n3. Testing project synchronization...');
-    const bizFlowProject = {
+    const nexusProject = {
       id: 'project-456',
       name: 'Website Redesign',
       clientId: 'client-123',
       budget: 50000
     };
     
-    const projectSyncResult = await integrationService.syncProjectToClickUp(bizFlowProject);
+    const projectSyncResult = await integrationService.syncProjectToClickUp(nexusProject);
     console.log('✅ Project synced to ClickUp successfully');
     console.log('   ClickUp List ID:', projectSyncResult.clickUpListId);
     
