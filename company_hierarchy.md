@@ -1,8 +1,8 @@
 # Taurus AI Corp: Organization Hierarchy & Nomenclature
 
 ## 1. TIER 1: Core Revenue Platforms
-- **NEXUS by Taurus Ai:** The core ecosystem platform (formerly NeoSync), driving multi-agent workflows.
-- **NEOFLOW™:** The unified future product created by the merger of BizFlow and Nexus platforms.
+- **NEXUS by Taurus Ai:** The core ecosystem platform (formerly NeoVibe), driving multi-agent workflows.
+- **NEOFLOW™:** The unified future product merging Nexus and Q-Grid capabilities.
 - **Nexus_Social:** Social suite dashboard and 3-tier AI routing engine.
 - **Q-Grid.net / Rupee.Q-Grid.in:** Quantum Finance and Offline CBDC utilizing PQC.
 - **Comply.Q-Grid:** EU AI Act compliance platform.

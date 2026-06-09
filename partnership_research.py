@@ -87,7 +87,7 @@ def main():
             all_results['findings'][initiative] = "No specific information found"
     
     # Save results
-    with open('/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/initiative_research.json', 'w') as f:
+    with open('/Users/taurus_ai/Documents/Nexus-Platform/initiative_research.json', 'w') as f:
         json.dump(all_results, f, indent=2)
     
     print("Research complete. Results saved to initiative_research.json")

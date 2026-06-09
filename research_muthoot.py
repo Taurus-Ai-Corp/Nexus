@@ -108,7 +108,7 @@ def main():
             )
     
     # Save results to a JSON file
-    with open('/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/muthoot_research_results.json', 'w') as f:
+    with open('/Users/taurus_ai/Documents/Nexus-Platform/muthoot_research_results.json', 'w') as f:
         json.dump(results, f, indent=2)
     
     print("Research complete. Results saved to muthoot_research_results.json")

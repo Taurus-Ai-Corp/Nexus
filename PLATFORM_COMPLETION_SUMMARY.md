@@ -6,7 +6,7 @@ I have successfully enhanced the existing Social Suite Dashboard to create a com
 
 ### ✅ Dashboard Interface
 - Web-based React/Ant Design interface accessible at http://localhost:3000
-- Sidebar navigation with sections for BizFlow Campaigns, Nexus Campaigns, Agent Orchestration, and Settings
+- Sidebar navigation with sections for Meta Campaigns, Instagram Campaigns, Agent Orchestration, and Settings
 - Main content area that dynamically displays the selected platform's interface
 - Prominent NLP Command Panel for natural language interaction
 
@@ -17,20 +17,20 @@ I have successfully enhanced the existing Social Suite Dashboard to create a com
 - Context-aware intent recognition that routes commands to appropriate endpoints
 - Graceful fallback to general campaign creation for unrecognized patterns
 
-### ✅ Direct API Access to BizFlow & Nexus Systems
-**BizFlow (Meta Business Suite) Endpoints:**
-- `POST /api/bizflow/meta-campaigns` - Create Meta/Facebook campaigns with full targeting and budgeting
-- `GET /api/bizflow/meta-campaigns` - List and filter Meta campaigns by platform/status
+### ✅ Direct API Access to Nexus Systems
+**Nexus (Meta Business Suite) Endpoints:**
+- `POST /api/nexus/meta-campaigns` - Create Meta/Facebook campaigns with full targeting and budgeting
+- `GET /api/nexus/meta-campaigns` - List and filter Meta campaigns by platform/status
 
 **Nexus (Instagram) Endpoints:**
 - `POST /api/nexus/instagram-campaigns` - Create Instagram campaigns with platform-specific features
 - `GET /api/nexus/instagram-campaigns` - List and filter Instagram campaigns
 
 ### ✅ Agent & Subagent Orchestration
-- `POST /api/agents/orchestrate` - Unified endpoint for triggering BizFlow and Nexus AI agents
-- Supports specifying: platform (bizflow/nexus), agent type (seo, content, design, analytics, cultural-intelligence, etc.), task description, and priority level
+- `POST /api/agents/orchestrate` - Unified endpoint for triggering Nexus AI agents
+- Supports specifying: platform (nexus), agent type (seo, content, design, analytics, cultural-intelligence, etc.), task description, and priority level
 - Returns orchestration confirmation that integrates with your existing agent infrastructure
-- Enables employee to trigger complex workflows like: "Run a BizFlow SEO agent to analyze quantum threat mitigation strategies for UAE financial firms"
+- Enables employee to trigger complex workflows like: "Run a Nexus SEO agent to analyze quantum threat mitigation strategies for UAE financial firms"
 
 ### ✅ Complete Meta Business Suite Campaign Handling
 - Full campaign lifecycle: creation (draft), activation, pausing, resuming, completion
@@ -61,8 +61,8 @@ I have successfully enhanced the existing Social Suite Dashboard to create a com
 4. `"Pause campaign 123"`
    → Intent: `pause_campaign`, Entities: campaign_id=123
    
-5. `"Run a BizFlow SEO agent to create content about quantum threat mitigation"`
-   → Intent: `orchestrate_agent`, Entities: platform="bizflow", agent_type="seo", task_description="create content about quantum threat mitigation"
+5. `"Run a Nexus SEO agent to create content about quantum threat mitigation"`
+   → Intent: `orchestrate_agent`, Entities: platform="nexus", agent_type="seo", task_description="create content about quantum threat mitigation"
    
 6. `"Orchestrate a Nexus design agent for creating Instagram carousel ads"`
    → Intent: `orchestrate_agent`, Entities: platform="nexus", agent_type="design", task_description="creating Instagram carousel ads"
@@ -74,9 +74,9 @@ I have successfully enhanced the existing Social Suite Dashboard to create a com
 
 **Modified/Created Files:**
 - `social-suite-dashboard/api/enhanced_nlp_engine.py` - Advanced NLP with intent/entity extraction
-- `social-suite-dashboard/api/main.py` - Added BizFlow, Nexus, and agent endpoints
+- `social-suite-dashboard/api/main.py` - Added Nexus and agent endpoints
 - `social-suite-dashboard/web/src/App.jsx` - Updated navigation sidebar
-- `social-suite-dashboard/web/src/components/platforms/BizFlowPanel.jsx` - Meta campaign UI
+- `social-suite-dashboard/web/src/components/platforms/NexusPanel.jsx` - Meta campaign UI
 - `social-suite-dashboard/web/src/components/platforms/NexusPanel.jsx` - Instagram campaign UI
 - `social-suite-dashboard/web/src/components/platforms/AgentOrchestrationPanel.jsx` - Agent orchestration UI
 
@@ -102,11 +102,11 @@ The platform can be deployed via:
 
 1. **Unified Workflow**: Single platform replaces multiple tools for Meta/Instagram management
 2. **Reduced Training Time**: Natural language interface minimizes learning curve
-3. **Agent Integration**: Direct leverage of existing BizFlow/Nexus AI investments
+3. **Agent Integration**: Direct leverage of existing Nexus AI investments
 4. **Real-time Responsiveness**: Instant campaign creation and modifications
 5. **Analytics Foundation**: Structured data collection for performance optimization
 6. **Scalable Design**: Easy to extend with additional platforms (TikTok, LinkedIn, etc.) or features
 
-The social media management employee now has a powerful, intuitive platform that combines natural language command processing with direct access to your BizFlow/Nexus infrastructure, enabling efficient Meta Business Suite and Instagram campaign management while leveraging your existing AI agent capabilities.
+The social media management employee now has a powerful, intuitive platform that combines natural language command processing with direct access to your Nexus infrastructure, enabling efficient Meta Business Suite and Instagram campaign management while leveraging your existing AI agent capabilities.
 
 **Platform is ready for immediate use.**

@@ -140,7 +140,7 @@ def main():
         time.sleep(1)
     
     # Save results
-    with open('/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/targeted_muthoot_research.json', 'w') as f:
+    with open('/Users/taurus_ai/Documents/Nexus-Platform/targeted_muthoot_research.json', 'w') as f:
         json.dump(all_findings, f, indent=2)
     
     print(f"Research complete. Found {len(all_findings['findings'])} relevant items.")

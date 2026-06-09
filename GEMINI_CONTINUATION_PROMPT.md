@@ -1,8 +1,8 @@
-# BizFlow-Nexus Platform - Gemini 3 Continuation Prompt
+# Nexus-Platform - Gemini 3 Continuation Prompt
 
 ## MISSION BRIEFING
 
-You are the **Master AI Orchestrator** for the BizFlow-Nexus Platform, an AI-powered marketing automation and creative design ecosystem targeting **$1.7M Year 1 revenue**. Your mission is to continue building this platform from its current 60% Phase 1 completion state.
+You are the **Master AI Orchestrator** for the Nexus-Platform, an AI-powered marketing automation and creative design ecosystem targeting **$1.7M Year 1 revenue**. Your mission is to continue building this platform from its current 60% Phase 1 completion state.
 
 ---
 
@@ -10,8 +10,8 @@ You are the **Master AI Orchestrator** for the BizFlow-Nexus Platform, an AI-pow
 
 ### Business Overview
 - **Company**: TAURUS AI CORP
-- **Platforms**: BizFlow (Agentic Intelligence) + Nexus (Creative Design Studio)
-- **Domains**: bizflow.taurusai.io, nexus.taurusai.io
+- **Platforms**: Nexus by Taurus Ai (Creative Studio + Social Suite)
+- **Domains**: nexus.taurusai.io
 - **Revenue Target**: $1.7M Year 1 ($150K Q1 → $750K Q4)
 - **Target Markets**: Dubai/UAE, India, Canada, MENA region
 
@@ -28,10 +28,10 @@ You are the **Master AI Orchestrator** for the BizFlow-Nexus Platform, an AI-pow
 
 ### Directory Structure
 ```
-BizFlow-Nexus-Platform/
-├── 01-CORE-PLATFORM/           # BizFlow backend + Nexus studio
-│   ├── bizflow-backend/        # FastAPI microservices
-│   ├── bizflow-frontend/       # Next.js dashboard
+Nexus-Platform/
+├── 01-CORE-PLATFORM/           # Nexus backend + Creative Studio
+│   ├── nexus-backend/          # FastAPI microservices
+│   ├── nexus-frontend/         # Next.js dashboard
 │   ├── nexus-studio/         # Creative design platform
 │   └── shared-libs/            # Common utilities
 ├── 02-AGENTS/                  # Orchestrators + MCP integrations
@@ -80,15 +80,15 @@ BizFlow-Nexus-Platform/
 | Client Communication | Automated reporting, relationship mgmt | Client retention |
 
 ### Agent Configuration Files (YAML)
-- `01-CORE-PLATFORM/bizflow-backend/agentuity-integration/agents/cultural-intelligence-agent.yaml`
-- `01-CORE-PLATFORM/bizflow-backend/agentuity-integration/agents/campaign-optimization-agent.yaml`
-- `01-CORE-PLATFORM/bizflow-backend/agentuity-integration/agents/content-creation-agent.yaml`
-- `01-CORE-PLATFORM/bizflow-backend/agentuity-integration/mcp-integration-config.yaml`
+- `01-CORE-PLATFORM/nexus-backend/agentuity-integration/agents/cultural-intelligence-agent.yaml`
+- `01-CORE-PLATFORM/nexus-backend/agentuity-integration/agents/campaign-optimization-agent.yaml`
+- `01-CORE-PLATFORM/nexus-backend/agentuity-integration/agents/content-creation-agent.yaml`
+- `01-CORE-PLATFORM/nexus-backend/agentuity-integration/mcp-integration-config.yaml`
 
 ### Orchestrator Files (Python)
-- `01-CORE-PLATFORM/bizflow-backend/agents/orchestration/master_orchestrator.py`
-- `01-CORE-PLATFORM/bizflow-backend/agents/orchestration/enhanced_master_orchestrator.py`
-- `01-CORE-PLATFORM/bizflow-backend/agents/orchestration/enhanced_linkedin_orchestrator.py`
+- `01-CORE-PLATFORM/nexus-backend/agents/orchestration/master_orchestrator.py`
+- `01-CORE-PLATFORM/nexus-backend/agents/orchestration/enhanced_master_orchestrator.py`
+- `01-CORE-PLATFORM/nexus-backend/agents/orchestration/enhanced_linkedin_orchestrator.py`
 
 ---
 
@@ -221,19 +221,19 @@ See `03-CLIENT-MANAGEMENT/crm-system/hubspot-sync/hubspot_connector.py`
 
 ```bash
 # Navigate to workspace
-cd /Users/user/Documents/BizFlow-Nexus-Platform
+cd /Users/user/Documents/Nexus-Platform
 
 # Start local development stack
 docker-compose up -d
 
 # Run FastAPI backend
-cd 01-CORE-PLATFORM/bizflow-backend && uvicorn main:app --reload
+cd 01-CORE-PLATFORM/nexus-backend && uvicorn main:app --reload
 
 # Run Next.js frontend
-cd 01-CORE-PLATFORM/bizflow-frontend && npm run dev
+cd 01-CORE-PLATFORM/nexus-frontend && npm run dev
 
 # Run agent orchestrator
-python 01-CORE-PLATFORM/bizflow-backend/agents/orchestration/master_orchestrator.py
+python 01-CORE-PLATFORM/nexus-backend/agents/orchestration/master_orchestrator.py
 
 # Database migrations
 cd 05-DATABASES/supabase && supabase db push
@@ -268,12 +268,12 @@ pytest tests/ -v
 ## KEY FILES TO REVIEW FIRST
 
 ```
-01-CORE-PLATFORM/bizflow-backend/
+01-CORE-PLATFORM/nexus-backend/
 ├── agents/orchestration/master_orchestrator.py      # Main orchestrator
 ├── agents/orchestration/enhanced_master_orchestrator.py  # Enhanced version
 ├── agentuity-integration/mcp-integration-config.yaml    # MCP config
 ├── agentuity-integration/agents/                        # Agent YAMLs
-├── subdomains/bizflow.taurusai.io/                      # Live domain
+├── subdomains/nexus.taurusai.io/                        # Live domain
 └── registry_server.py                                   # Registry API
 
 01-CORE-PLATFORM/nexus-studio/
@@ -282,8 +282,8 @@ pytest tests/ -v
 └── agents/                                              # Nexus agents
 
 08-DOCUMENTATION/technical/
-├── bizflow_orchestrator_prompt.md                       # Original prompt
-├── BIZFLOW_ORCHESTRATOR_EXECUTION_REPORT.md            # Progress report
+├── nexus_orchestrator_prompt.md                         # Original prompt
+├── NEXUS_ORCHESTRATOR_EXECUTION_REPORT.md              # Progress report
 └── Nexus_PROJECT_COMPLETION_SUMMARY.md               # Nexus status
 ```
 

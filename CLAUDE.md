@@ -1,4 +1,4 @@
-# BizFlow-Nexus Platform
+# Nexus-Platform
 
 ## GWS Bridge (Google Workspace CLI)
 
@@ -12,7 +12,7 @@
 
 ## Workspace Hierarchy (Google Drive)
 
-- Root: `TAURUS AI — Workspace` → Platform folders (Nexus, Q-Grid, BizFlow) → Client folders
+- Root: `TAURUS AI — Workspace` → Platform folders (Nexus, Q-Grid) → Client folders
 - Each client gets 5 subfolders: Contracts & Invoices, Project Documentation, Assets & Media, Reports & Analytics, Proposals & Upsells
 - Each platform gets its own Client Tracker sheet (e.g., "Nexus — Client Tracker")
 - Cross-platform ops sheets live in `_Operations/` folder
@@ -20,7 +20,7 @@
 ## Corporate vs. Operating Brand
 
 - Legal docs (invoices, contracts, NDAs): header = "TAURUS AI CORP - FZCO" (License #68122, IFZA Dubai)
-- Client-facing (marketing, SaaS, proposals): brand = "Nexus by Taurus AI" / "Q-Grid" / "BizFlow"
+- Client-facing (marketing, SaaS, proposals): brand = "Nexus by Taurus AI" / "Q-Grid"
 - NEVER mix — government/legal uses FZCO entity, customer-facing uses operating brand
 
 ## NotebookLM Integration (`/notebook` command)
@@ -54,7 +54,7 @@
 ## Client Workspace Protocol
 
 Before creating any client workspace, always ask:
-1. Which platform? (Nexus / Q-Grid / BizFlow / other)
+1. Which platform? (Nexus / Q-Grid / other)
 2. Client industry/type?
 3. Engagement type? (project / retainer / hybrid)
 4. BDM assignment? (Praveen Varkey for Nexus Kerala market)
