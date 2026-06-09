@@ -1,0 +1,157 @@
+{
+  "service_status": "live",
+  "landing_page": {
+    "page_name": "B2B Workflow Audit Landing Page",
+    "url": "https://bizflow.taurusai.io/b2b-audit",
+    "conversion_elements": [
+      "Hero video",
+      "ROI calculator",
+      "Client testimonials",
+      "Book consultation CTA"
+    ],
+    "status": "deployed"
+  },
+  "lead_magnets": [
+    {
+      "magnet_name": "B2B Workflow Efficiency Calculator",
+      "type": "interactive_tool",
+      "description": "Free tool that analyzes your current workflow efficiency and identifies improvement opportunities",
+      "value_proposition": "Discover exactly where your business is losing money in operational inefficiencies",
+      "lead_capture": "Email + Company info for detailed results"
+    },
+    {
+      "magnet_name": "The $50K B2B Optimization Playbook",
+      "type": "pdf_guide",
+      "description": "Step-by-step guide showing how B2B companies saved $50K+ through workflow optimization",
+      "value_proposition": "Real case studies with exact strategies and implementation steps",
+      "lead_capture": "Email + Industry + Company size"
+    },
+    {
+      "magnet_name": "15-Minute B2B Health Check",
+      "type": "video_assessment",
+      "description": "Quick video assessment that identifies your top 3 business optimization opportunities",
+      "value_proposition": "Get personalized recommendations in just 15 minutes",
+      "lead_capture": "Email + Phone for personalized video delivery"
+    }
+  ],
+  "audit_templates": [
+    {
+      "template_name": "Manufacturing Workflow Audit",
+      "industry_focus": "Manufacturing",
+      "audit_areas": [
+        "Production Planning",
+        "Inventory Management",
+        "Quality Control",
+        "Supply Chain"
+      ],
+      "deliverables": [
+        "Current State Analysis",
+        "Efficiency Report",
+        "Optimization Roadmap",
+        "ROI Projections"
+      ],
+      "timeline_days": 14
+    },
+    {
+      "template_name": "Wholesale Operations Audit",
+      "industry_focus": "Wholesale/Distribution",
+      "audit_areas": [
+        "Order Processing",
+        "Inventory Turnover",
+        "Customer Management",
+        "Pricing Strategy"
+      ],
+      "deliverables": [
+        "Operational Assessment",
+        "Technology Gap Analysis",
+        "Process Optimization Plan",
+        "Revenue Enhancement Strategy"
+      ],
+      "timeline_days": 10
+    },
+    {
+      "template_name": "Professional Services Audit",
+      "industry_focus": "Professional Services",
+      "audit_areas": [
+        "Client Acquisition",
+        "Service Delivery",
+        "Resource Management",
+        "Billing/Collections"
+      ],
+      "deliverables": [
+        "Service Efficiency Report",
+        "Client Satisfaction Analysis",
+        "Resource Optimization Plan",
+        "Growth Strategy"
+      ],
+      "timeline_days": 12
+    }
+  ],
+  "pricing_calculator": {
+    "calculator_name": "B2B Audit Investment Calculator",
+    "pricing_factors": {
+      "company_size": {
+        "small (10-50 employees)": {
+          "base_price": 1500,
+          "multiplier": 1.0
+        },
+        "medium (51-200 employees)": {
+          "base_price": 2500,
+          "multiplier": 1.0
+        },
+        "large (201-500 employees)": {
+          "base_price": 3500,
+          "multiplier": 1.0
+        },
+        "enterprise (500+ employees)": {
+          "base_price": 5000,
+          "multiplier": 1.0
+        }
+      },
+      "audit_scope": {
+        "single_department": {
+          "additional_cost": 0,
+          "multiplier": 1.0
+        },
+        "multiple_departments": {
+          "additional_cost": 1000,
+          "multiplier": 1.2
+        },
+        "full_organization": {
+          "additional_cost": 2000,
+          "multiplier": 1.5
+        }
+      },
+      "urgency": {
+        "standard (2-3 weeks)": {
+          "multiplier": 1.0
+        },
+        "expedited (1-2 weeks)": {
+          "multiplier": 1.3
+        },
+        "rush (< 1 week)": {
+          "multiplier": 1.6
+        }
+      }
+    },
+    "roi_projections": {
+      "conservative": "200% ROI within 12 months",
+      "moderate": "400% ROI within 12 months",
+      "optimistic": "600% ROI within 12 months"
+    }
+  },
+  "booking_system": {
+    "system_name": "Neural Commerce Consultation Booking",
+    "booking_types": [
+      "Discovery Call",
+      "Audit Consultation",
+      "Strategy Session"
+    ],
+    "availability": "Monday-Friday, 9 AM - 5 PM EST",
+    "automated_features": [
+      "Calendar sync",
+      "Reminder emails",
+      "Prep materials delivery"
+    ]
+  }
+}

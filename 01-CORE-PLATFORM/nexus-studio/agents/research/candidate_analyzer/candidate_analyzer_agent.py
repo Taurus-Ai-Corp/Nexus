@@ -1,5 +1,5 @@
 """
-Candidate Analyzer Agent for BizFlow-Orchestrator
+Candidate Analyzer Agent for NEXUS Creative Studio
 Category: Research
 """
 
@@ -12,7 +12,7 @@ agent_dir = Path(__file__).parent
 sys.path.insert(0, str(agent_dir))
 
 class CandidateAnalyzerAgent:
-    """Candidate Analyzer Agent wrapper for BizFlow-Orchestrator"""
+    """Candidate Analyzer Agent wrapper for NEXUS Creative Studio"""
     
     def __init__(self):
         self.name = "candidate_analyzer"
@@ -24,7 +24,7 @@ class CandidateAnalyzerAgent:
         return [
             "Execute candidate analyzer tasks",
             "Process research related requests",
-            "Integrate with BizFlow-Orchestrator"
+            "Integrate with NEXUS Creative Studio"
         ]
     
     async def execute_task(self, task_data):

@@ -1,0 +1,499 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Vishvaloka" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img [ref=e6]
+          - generic [ref=e10]: Vishvaloka
+        - navigation [ref=e11]:
+          - link "About" [ref=e12] [cursor=pointer]:
+            - /url: /about
+          - link "Living Model" [ref=e13] [cursor=pointer]:
+            - /url: /assisted-living
+          - link "Residences" [ref=e14] [cursor=pointer]:
+            - /url: /residences
+          - link "Facilities" [ref=e15] [cursor=pointer]:
+            - /url: /facilities
+          - link "Healthcare" [ref=e16] [cursor=pointer]:
+            - /url: /healthcare
+          - link "Community" [ref=e17] [cursor=pointer]:
+            - /url: /community
+          - link "Gallery" [ref=e18] [cursor=pointer]:
+            - /url: /gallery
+          - link "Membership" [ref=e19] [cursor=pointer]:
+            - /url: /membership
+          - link "Schedule Visit" [ref=e20] [cursor=pointer]:
+            - /url: /membership
+        - button "Switch to Malayalam" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]: EN
+          - generic [ref=e23]: "|"
+          - generic [ref=e24]: മല
+    - main [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - img "Aerial view of Vishvaloka luxury retirement community" [ref=e29]
+          - generic [ref=e31]:
+            - generic [ref=e32]: India's First • Fully Refundable
+            - heading "India's First Fully Refundable Luxury Retirement Living" [level=1] [ref=e34]:
+              - text: India's First Fully Refundable
+              - text: Luxury Retirement Living
+            - paragraph [ref=e35]:
+              - text: Invest once. Live worry-free forever.
+              - text: Your ₹1 Crore stays yours — your lifestyle is on us.
+            - generic [ref=e36]:
+              - button "Book a Private Consultation" [ref=e37] [cursor=pointer]:
+                - text: Book a Private Consultation
+                - img [ref=e38]
+              - link "Chat on WhatsApp" [ref=e40] [cursor=pointer]:
+                - /url: https://wa.me/919400449611?text=Hi%2C%20I'm%20interested%20in%20Vishvaloka%20Retirement%20Living.%20Please%20share%20details.
+                - img [ref=e41]
+                - text: Chat on WhatsApp
+            - generic [ref=e44]:
+              - generic [ref=e45]:
+                - generic [ref=e46]: "50"
+                - generic [ref=e47]: Exclusive Units
+              - generic [ref=e49]:
+                - generic [ref=e50]: 6 Acres
+                - generic [ref=e51]: Premium Estate
+              - generic [ref=e53]:
+                - generic [ref=e54]: ₹0
+                - generic [ref=e55]: Monthly Expenses
+              - generic [ref=e57]:
+                - generic [ref=e58]: 100%
+                - generic [ref=e59]: Refundable
+          - generic [ref=e63]: Scroll to explore
+        - generic [ref=e65]:
+          - generic [ref=e66]:
+            - paragraph [ref=e67]: The Reality
+            - heading "Retirement Should Be Golden, Not Stressful" [level=2] [ref=e68]
+            - paragraph [ref=e69]: Yet for millions of Indian families, the golden years are shadowed by real worries.
+          - generic [ref=e70]:
+            - generic [ref=e71]:
+              - generic [ref=e72]: 💰
+              - heading "Skyrocketing Healthcare Costs" [level=3] [ref=e73]
+              - paragraph [ref=e74]: Medical expenses double every 5 years. A single surgery can wipe out a lifetime of savings.
+            - generic [ref=e75]:
+              - generic [ref=e76]: 😔
+              - heading "Loneliness & Isolation" [level=3] [ref=e77]
+              - paragraph [ref=e78]: Children move abroad for careers. Parents are left alone — with deteriorating health and no social circle.
+            - generic [ref=e79]:
+              - generic [ref=e80]: 🏠
+              - heading "Dependency & Loss of Dignity" [level=3] [ref=e81]
+              - paragraph [ref=e82]: Being dependent on children or helpers erodes the sense of self-worth and independence.
+            - generic [ref=e83]:
+              - generic [ref=e84]: 😞
+              - heading "Financial Burden on Children" [level=3] [ref=e85]
+              - paragraph [ref=e86]: Children want to help but face their own EMIs, education costs, and career pressures across continents.
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - paragraph [ref=e90]: The Vishvaloka Solution
+            - 'heading "A Revolutionary Model: Invest Once, Live Free Forever" [level=2] [ref=e91]'
+          - generic [ref=e92]:
+            - img "Happy senior couple at Vishvaloka" [ref=e94]
+            - generic [ref=e95]:
+              - generic [ref=e96]:
+                - generic [ref=e97]: "1"
+                - generic [ref=e98]:
+                  - heading "Deposit ₹1 Crore (Fully Refundable)" [level=3] [ref=e99]
+                  - paragraph [ref=e100]: This is not a purchase — it's a security deposit. Your capital is 100% protected and returned to your family.
+              - generic [ref=e101]:
+                - generic [ref=e102]: "2"
+                - generic [ref=e103]:
+                  - heading "Move Into Your Luxury Home" [level=3] [ref=e104]
+                  - paragraph [ref=e105]: 900–1000 sq ft fully furnished premium units in a 6-acre gated community with world-class amenities.
+              - generic [ref=e106]:
+                - generic [ref=e107]: "3"
+                - generic [ref=e108]:
+                  - heading "Live With Zero Monthly Expenses" [level=3] [ref=e109]
+                  - paragraph [ref=e110]: Food, healthcare, staff, maintenance, entertainment — everything covered. Forever. No hidden charges.
+              - generic [ref=e111]:
+                - generic [ref=e112]: ✨
+                - paragraph [ref=e113]:
+                  - strong [ref=e114]: How?
+                  - text: Your combined ₹50 Crore corpus generates monthly income through professional investments, covering all operational costs — so you never pay a single rupee.
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - paragraph [ref=e118]: Complete Transparency
+            - heading "Where Every Rupee Goes" [level=2] [ref=e119]
+            - paragraph [ref=e120]: We believe you deserve to see exactly how your deposit creates a self-sustaining paradise.
+          - generic [ref=e121]:
+            - generic [ref=e122]:
+              - heading "₹50 Crore Total Corpus" [level=3] [ref=e123]
+              - paragraph [ref=e124]: 50 residents × ₹1 Crore each
+              - generic [ref=e125]:
+                - generic [ref=e127]: ₹30 Cr
+                - generic [ref=e129]: ₹20 Cr
+              - generic [ref=e130]:
+                - generic [ref=e131]: Development & Infrastructure
+                - generic [ref=e133]: Income-Generating Investment
+            - generic [ref=e135]:
+              - generic [ref=e136]:
+                - heading "₹30 Crore — Development" [level=4] [ref=e138]
+                - list [ref=e139]:
+                  - listitem [ref=e140]:
+                    - generic [ref=e141]: Land Acquisition (6 acres)
+                    - generic [ref=e142]: ₹3.4 Cr
+                  - listitem [ref=e143]:
+                    - generic [ref=e144]: Construction (~70,000 sq ft)
+                    - generic [ref=e145]: ₹17.5 Cr
+                  - listitem [ref=e146]:
+                    - generic [ref=e147]: Amenities, Furnishing & Infrastructure
+                    - generic [ref=e148]: ₹9.1 Cr
+              - generic [ref=e149]:
+                - heading "₹20 Crore — SWP Investment" [level=4] [ref=e151]
+                - generic [ref=e152]:
+                  - generic [ref=e153]: ~₹0 Lakh/month
+                  - paragraph [ref=e154]: Generated through professional Systematic Withdrawal Plans
+                - paragraph [ref=e155]: "Covers: 5-star meals • Staff salaries • Healthcare • Maintenance • Utilities • Entertainment"
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - paragraph [ref=e159]: Lifestyle & Amenities
+            - heading "5-Star Living, Every Single Day" [level=2] [ref=e160]
+            - paragraph [ref=e161]: A community designed for comfort, joy, and absolute peace of mind.
+          - generic [ref=e162]:
+            - img "Vishvaloka premium amenities" [ref=e164]
+            - generic [ref=e165]:
+              - generic [ref=e166]:
+                - generic [ref=e167]: 🍽️
+                - generic [ref=e168]:
+                  - heading "5-Star Dining & Clubhouse" [level=4] [ref=e169]
+                  - paragraph [ref=e170]: Chef-prepared multi-cuisine meals, private dining for guests, and an elegant clubhouse for social gatherings.
+              - generic [ref=e171]:
+                - generic [ref=e172]: 🏥
+                - generic [ref=e173]:
+                  - heading "Healthcare & Nurse Station" [level=4] [ref=e174]
+                  - paragraph [ref=e175]: 24/7 medical support, emergency response, regular health check-ups, and hospital tie-ups.
+              - generic [ref=e176]:
+                - generic [ref=e177]: 🌿
+                - generic [ref=e178]:
+                  - heading "Landscaped Gardens & Paths" [level=4] [ref=e179]
+                  - paragraph [ref=e180]: 5.2 acres of manicured gardens, walking trails, fountains, and sit-out areas amidst tropical greenery.
+              - generic [ref=e181]:
+                - generic [ref=e182]: 🧘
+                - generic [ref=e183]:
+                  - heading "Yoga & Meditation Center" [level=4] [ref=e184]
+                  - paragraph [ref=e185]: Dedicated spaces for daily yoga sessions, meditation, and pranayama with professional instructors.
+              - generic [ref=e186]:
+                - generic [ref=e187]: 📚
+                - generic [ref=e188]:
+                  - heading "Library & Indoor Games" [level=4] [ref=e189]
+                  - paragraph [ref=e190]: Curated book collection, chess, carrom, cards, and a cozy reading lounge.
+              - generic [ref=e191]:
+                - generic [ref=e192]: 🏊
+                - generic [ref=e193]:
+                  - heading "Swimming Pool & Fitness" [level=4] [ref=e194]
+                  - paragraph [ref=e195]: Heated therapeutic pool, modern gym equipment, and guided physiotherapy sessions.
+              - generic [ref=e196]:
+                - generic [ref=e197]: 🔒
+                - generic [ref=e198]:
+                  - heading "Smart Safety Systems" [level=4] [ref=e199]
+                  - paragraph [ref=e200]: CCTV surveillance, SOS panic buttons in every room, fire safety, and 24/7 security.
+              - generic [ref=e201]:
+                - generic [ref=e202]: 🎭
+                - generic [ref=e203]:
+                  - heading "Cultural & Social Programs" [level=4] [ref=e204]
+                  - paragraph [ref=e205]: Weekly cultural events, movie screenings, festival celebrations, and community bonding activities.
+        - generic [ref=e207]:
+          - generic [ref=e208]:
+            - paragraph [ref=e209]: A Day at Vishvaloka
+            - heading "Imagine This Life" [level=2] [ref=e210]
+            - paragraph [ref=e211]: Wake up to birdsong. End your day with friends and starlit skies.
+          - generic [ref=e212]:
+            - img "Luxury retirement unit interior" [ref=e214]
+            - generic [ref=e215]:
+              - generic [ref=e216]:
+                - generic [ref=e218]: 6:00 AM
+                - generic [ref=e219]: Gentle wake-up, morning tea on your private balcony
+              - generic [ref=e220]:
+                - generic [ref=e222]: 7:00 AM
+                - generic [ref=e223]: Yoga & meditation in the lush garden pavilion
+              - generic [ref=e224]:
+                - generic [ref=e226]: 8:30 AM
+                - generic [ref=e227]: Farm-fresh breakfast — South Indian, Continental, or Ayurvedic
+              - generic [ref=e228]:
+                - generic [ref=e230]: 10:00 AM
+                - generic [ref=e231]: Library, morning walk, or wellness therapy session
+              - generic [ref=e232]:
+                - generic [ref=e234]: 12:30 PM
+                - generic [ref=e235]: Chef-prepared multi-cuisine lunch at the dining hall
+              - generic [ref=e236]:
+                - generic [ref=e238]: 2:00 PM
+                - generic [ref=e239]: Rest, hobbies, or arts & crafts workshop
+              - generic [ref=e240]:
+                - generic [ref=e242]: 4:00 PM
+                - generic [ref=e243]: Evening tea & snacks, games at the clubhouse
+              - generic [ref=e244]:
+                - generic [ref=e246]: 5:30 PM
+                - generic [ref=e247]: Therapeutic pool or garden stroll at golden hour
+              - generic [ref=e248]:
+                - generic [ref=e250]: 7:30 PM
+                - generic [ref=e251]: Gourmet dinner with community & live cultural programs
+              - generic [ref=e252]:
+                - generic [ref=e254]: 9:00 PM
+                - generic [ref=e255]: Wind down — your home, your pace, your peace
+        - generic [ref=e257]:
+          - generic [ref=e258]:
+            - paragraph [ref=e259]: Who It's For
+            - heading "Built for Those Who Truly Care" [level=2] [ref=e260]
+          - generic [ref=e261]:
+            - generic [ref=e262]:
+              - generic [ref=e263]: 🌍
+              - heading "NRIs Living Abroad" [level=3] [ref=e264]
+              - paragraph [ref=e265]: Give your parents the life they deserve — premium care, community, and safety — while you pursue your career overseas. Stay connected through our Family Portal.
+              - generic [ref=e266]: Perfect for NRI families →
+            - generic [ref=e267]:
+              - generic [ref=e268]: 👨‍👩‍👧‍👦
+              - heading "Children Buying for Parents" [level=3] [ref=e269]
+              - paragraph [ref=e270]: The most meaningful investment you can make. Secure your parents' golden years with dignity, independence, and joy — while preserving their capital.
+              - generic [ref=e271]: Gift them peace of mind →
+            - generic [ref=e272]:
+              - generic [ref=e273]: 🏡
+              - heading "Retirees Seeking Independence" [level=3] [ref=e274]
+              - paragraph [ref=e275]: You've earned this. A community of equals, world-class amenities, zero worries about bills or maintenance — and your capital stays intact for your family.
+              - generic [ref=e276]: Claim your golden years →
+        - generic [ref=e279]:
+          - generic [ref=e280]: Limited Founding Phase
+          - heading "Only 50 Exclusive Units" [level=2] [ref=e281]
+          - paragraph [ref=e282]: This isn't a mass-market project. It's a carefully curated community of 50 like-minded families who believe retirement should be celebrated, not endured.
+          - generic [ref=e283]:
+            - generic "Reserved" [ref=e284]
+            - generic "Reserved" [ref=e285]
+            - generic "Reserved" [ref=e286]
+            - generic "Reserved" [ref=e287]
+            - generic "Reserved" [ref=e288]
+            - generic "Reserved" [ref=e289]
+            - generic "Reserved" [ref=e290]
+            - generic "Reserved" [ref=e291]
+            - generic "Available" [ref=e292]
+            - generic "Available" [ref=e293]
+            - generic "Available" [ref=e294]
+            - generic "Available" [ref=e295]
+            - generic "Available" [ref=e296]
+            - generic "Available" [ref=e297]
+            - generic "Available" [ref=e298]
+            - generic "Available" [ref=e299]
+            - generic "Available" [ref=e300]
+            - generic "Available" [ref=e301]
+            - generic "Available" [ref=e302]
+            - generic "Available" [ref=e303]
+            - generic "Available" [ref=e304]
+            - generic "Available" [ref=e305]
+            - generic "Available" [ref=e306]
+            - generic "Available" [ref=e307]
+            - generic "Available" [ref=e308]
+            - generic "Available" [ref=e309]
+            - generic "Available" [ref=e310]
+            - generic "Available" [ref=e311]
+            - generic "Available" [ref=e312]
+            - generic "Available" [ref=e313]
+            - generic "Available" [ref=e314]
+            - generic "Available" [ref=e315]
+            - generic "Available" [ref=e316]
+            - generic "Available" [ref=e317]
+            - generic "Available" [ref=e318]
+            - generic "Available" [ref=e319]
+            - generic "Available" [ref=e320]
+            - generic "Available" [ref=e321]
+            - generic "Available" [ref=e322]
+            - generic "Available" [ref=e323]
+            - generic "Available" [ref=e324]
+            - generic "Available" [ref=e325]
+            - generic "Available" [ref=e326]
+            - generic "Available" [ref=e327]
+            - generic "Available" [ref=e328]
+            - generic "Available" [ref=e329]
+            - generic "Available" [ref=e330]
+            - generic "Available" [ref=e331]
+            - generic "Available" [ref=e332]
+            - generic "Available" [ref=e333]
+          - paragraph [ref=e334]: 8 units already reserved in pre-launch
+          - button "Reserve Your Unit Now" [ref=e335] [cursor=pointer]
+        - generic [ref=e337]:
+          - paragraph [ref=e338]: Community Voices
+          - heading "What Families Are Saying" [level=2] [ref=e339]
+          - generic [ref=e340]:
+            - generic [ref=e341]:
+              - generic [ref=e342]: “
+              - paragraph [ref=e343]: The refundable model was what convinced us. Our parents get premium living, and the money stays in the family. It's the best of both worlds.
+              - generic [ref=e344]:
+                - generic [ref=e345]: P
+                - generic [ref=e346]:
+                  - paragraph [ref=e347]: Priya & Rahul Menon
+                  - paragraph [ref=e348]: NRI from London, UK
+            - generic [ref=e349]:
+              - generic [ref=e350]: “
+              - paragraph [ref=e351]: We visited 12 retirement homes across India. Nothing comes close to Vishvaloka's vision — the transparency, the amenities, the dignity of the model.
+              - generic [ref=e352]:
+                - generic [ref=e353]: D
+                - generic [ref=e354]:
+                  - paragraph [ref=e355]: Dr. Suresh Nair
+                  - paragraph [ref=e356]: Retired Professor, Kochi
+            - generic [ref=e357]:
+              - generic [ref=e358]: “
+              - paragraph [ref=e359]: As a single woman, I wanted independence without isolation. Vishvaloka gives me community, safety, and the comfort of knowing my capital is preserved.
+              - generic [ref=e360]:
+                - generic [ref=e361]: L
+                - generic [ref=e362]:
+                  - paragraph [ref=e363]: Lakshmi Iyer
+                  - paragraph [ref=e364]: Retired Bank Executive, Chennai
+        - generic [ref=e367]:
+          - generic [ref=e368]:
+            - paragraph [ref=e369]: Your Golden Years Await
+            - heading "Schedule a Private Consultation" [level=2] [ref=e370]
+            - paragraph [ref=e371]: Speak with our founder directly. Get a personalized walkthrough of the community, financial model, and amenities. No pressure — just honest conversations about your family's future.
+            - generic [ref=e372]:
+              - generic [ref=e373]:
+                - generic [ref=e374]: ✓
+                - text: 100% Refundable Deposit
+              - generic [ref=e375]:
+                - generic [ref=e376]: ✓
+                - text: Zero Monthly Expenses
+              - generic [ref=e377]:
+                - generic [ref=e378]: ✓
+                - text: No Lock-in Period
+              - generic [ref=e379]:
+                - generic [ref=e380]: ✓
+                - text: Exit Anytime, Full Refund
+            - img "Vishvaloka community life" [ref=e381]
+          - generic [ref=e383]:
+            - heading "Book Your Consultation" [level=3] [ref=e384]
+            - paragraph [ref=e385]: We'll call you within 24 hours
+            - generic [ref=e386]:
+              - generic [ref=e387]: Full Name *
+              - textbox "Full Name *" [ref=e388]:
+                - /placeholder: Enter your full name
+            - generic [ref=e389]:
+              - generic [ref=e390]: Phone Number *
+              - textbox "Phone Number *" [ref=e391]:
+                - /placeholder: +91 XXXXX XXXXX
+            - generic [ref=e392]:
+              - generic [ref=e393]: City *
+              - textbox "City *" [ref=e394]:
+                - /placeholder: Your city
+            - generic [ref=e395]:
+              - generic [ref=e396]: Buying For
+              - generic [ref=e397]:
+                - generic [ref=e398] [cursor=pointer]: Self
+                - generic [ref=e399] [cursor=pointer]: Parents
+                - generic [ref=e400] [cursor=pointer]: Spouse
+                - generic [ref=e401] [cursor=pointer]: Other
+            - button "Book Private Consultation →" [ref=e402] [cursor=pointer]
+            - paragraph [ref=e403]: 🔒 Your information is confidential and never shared.
+        - generic [ref=e405]:
+          - paragraph [ref=e406]: Frequently Asked Questions
+          - heading "Everything You Need to Know" [level=2] [ref=e407]
+          - generic [ref=e408]:
+            - generic [ref=e409]:
+              - button "Is the ₹1 Crore fully refundable?" [ref=e410] [cursor=pointer]:
+                - generic [ref=e411]: Is the ₹1 Crore fully refundable?
+                - img [ref=e412]
+              - paragraph [ref=e414]: Yes. Your entire ₹1 Crore deposit is 100% refundable. It is not a purchase — it is a security deposit that guarantees your lifetime residency while preserving your capital for your family.
+            - generic [ref=e415]:
+              - button "What happens after lifetime?" [ref=e416] [cursor=pointer]:
+                - generic [ref=e417]: What happens after lifetime?
+                - img [ref=e418]
+              - paragraph [ref=e420]: Upon the resident's passing, the full ₹1 Crore is returned to the nominee or legal heir. There are no deductions. Your legacy remains intact.
+            - generic [ref=e421]:
+              - button "What about medical care?" [ref=e422] [cursor=pointer]:
+                - generic [ref=e423]: What about medical care?
+                - img [ref=e424]
+              - paragraph [ref=e426]: Vishvaloka provides 24/7 nurse station, on-call doctors, emergency response systems, and tie-ups with leading hospitals. Routine health check-ups and wellness programs are included at no extra charge.
+            - generic [ref=e427]:
+              - button "Can family visit and stay?" [ref=e428] [cursor=pointer]:
+                - generic [ref=e429]: Can family visit and stay?
+                - img [ref=e430]
+              - paragraph [ref=e432]: Absolutely. We encourage family visits. Each unit has comfortable space, and our community includes dedicated guest suites for extended family stays. There are no restrictions on visiting hours.
+            - generic [ref=e433]:
+              - button "What are the exit options?" [ref=e434] [cursor=pointer]:
+                - generic [ref=e435]: What are the exit options?
+                - img [ref=e436]
+              - paragraph [ref=e438]: Residents can exit at any time. Upon vacating the unit, the full ₹1 Crore deposit is refunded within 90 days. No lock-in period, no penalties.
+            - generic [ref=e439]:
+              - button "How is the monthly income generated?" [ref=e440] [cursor=pointer]:
+                - generic [ref=e441]: How is the monthly income generated?
+                - img [ref=e442]
+              - paragraph [ref=e444]: The ₹20 Crore corpus is invested in a diversified Systematic Withdrawal Plan (SWP) managed by professional fund managers, generating approximately ₹16 lakh per month to cover all operational expenses.
+            - generic [ref=e445]:
+              - button "What is included in \"zero monthly expenses\"?" [ref=e446] [cursor=pointer]:
+                - generic [ref=e447]: What is included in "zero monthly expenses"?
+                - img [ref=e448]
+              - paragraph [ref=e450]: Everything — 5-star quality meals (3 meals + snacks), housekeeping, laundry, security, gardening, fitness facilities, cultural programs, basic healthcare support, and all maintenance.
+        - link "Chat on WhatsApp" [ref=e451] [cursor=pointer]:
+          - /url: https://wa.me/919400449611?text=Hi%2C%20I'm%20interested%20in%20Vishvaloka%20Retirement%20Living.%20Please%20share%20details.
+          - img [ref=e452]
+    - contentinfo [ref=e455]:
+      - generic [ref=e456]:
+        - generic [ref=e457]:
+          - generic [ref=e458]:
+            - heading "Vishvaloka" [level=3] [ref=e459]
+            - paragraph [ref=e460]: A project of C R Balakrishnan Memorial Foundation. Premium assisted living for a dignified, fulfilling life.
+          - generic [ref=e461]:
+            - heading "Explore" [level=3] [ref=e462]
+            - list [ref=e463]:
+              - listitem [ref=e464]:
+                - link "About Us" [ref=e465] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e466]:
+                - link "Residences" [ref=e467] [cursor=pointer]:
+                  - /url: /residences
+              - listitem [ref=e468]:
+                - link "Facilities" [ref=e469] [cursor=pointer]:
+                  - /url: /facilities
+              - listitem [ref=e470]:
+                - link "Healthcare" [ref=e471] [cursor=pointer]:
+                  - /url: /healthcare
+          - generic [ref=e472]:
+            - heading "Community" [level=3] [ref=e473]
+            - list [ref=e474]:
+              - listitem [ref=e475]:
+                - link "Community Life" [ref=e476] [cursor=pointer]:
+                  - /url: /community
+              - listitem [ref=e477]:
+                - link "Gallery" [ref=e478] [cursor=pointer]:
+                  - /url: /gallery
+              - listitem [ref=e479]:
+                - link "Membership" [ref=e480] [cursor=pointer]:
+                  - /url: /membership
+              - listitem [ref=e481]:
+                - link "Contact Us" [ref=e482] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e483]:
+            - heading "Contact" [level=3] [ref=e484]
+            - list [ref=e485]:
+              - listitem [ref=e486]: Vishvaloka Avenue
+              - listitem [ref=e487]: Veliyanad P. O,
+              - listitem [ref=e488]: Arakkunnam Via,
+              - listitem [ref=e489]: Ernakulam Dist,
+              - listitem [ref=e490]: Kerala, India - 682313
+              - listitem [ref=e491]:
+                - link "+91 9400449611" [ref=e492] [cursor=pointer]:
+                  - /url: tel:+919400449611
+              - listitem [ref=e493]:
+                - link "living@vishvaloka.com" [ref=e494] [cursor=pointer]:
+                  - /url: mailto:living@vishvaloka.com
+            - iframe [ref=e496]:
+              - generic [ref=f1e3]: This content is blocked. Contact the site owner to fix the issue.
+            - link "View on Google Maps →" [ref=e497] [cursor=pointer]:
+              - /url: https://maps.app.goo.gl/Hq4szHeGm8y3SJqdA
+        - generic [ref=e499]:
+          - paragraph [ref=e500]: © 2026 Vishvaloka Assisted Living. All rights reserved.
+          - paragraph [ref=e501]: A project of C R Balakrishnan Memorial Foundation
+          - generic [ref=e502]:
+            - link "Privacy Policy" [ref=e503] [cursor=pointer]:
+              - /url: /privacy-policy
+            - generic [ref=e504]: "|"
+            - link "Terms & Conditions" [ref=e505] [cursor=pointer]:
+              - /url: /terms-and-conditions
+            - generic [ref=e506]: "|"
+            - link "Refund Policy" [ref=e507] [cursor=pointer]:
+              - /url: /refund-policy
+            - generic [ref=e508]: "|"
+            - link "Disclaimer" [ref=e509] [cursor=pointer]:
+              - /url: /disclaimer
+    - link "Chat on WhatsApp" [ref=e510] [cursor=pointer]:
+      - /url: https://wa.me/919400449611?text=Hi%2C%20I'm%20interested%20in%20Vishvaloka%20Living
+      - img [ref=e511]
+  - region "Notifications (F8)":
+    - list
+  - alert [ref=e513]

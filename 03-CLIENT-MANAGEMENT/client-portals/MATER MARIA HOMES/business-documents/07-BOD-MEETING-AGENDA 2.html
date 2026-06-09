@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Board Meeting Agenda — Mater Maria Homes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:#1a1a2e;background:#fff;font-size:13px;line-height:1.7}
+.page{max-width:800px;margin:0 auto;padding:48px 56px}
+.header{border-bottom:3px solid #C09B5E;padding-bottom:20px;margin-bottom:28px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start}
+.logo-area h1{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#1a1a2e;letter-spacing:-.5px}
+.logo-area .sub{font-size:11px;color:#C09B5E;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;margin-top:2px}
+.meeting-badge{background:#1a1a2e;color:#fff;padding:8px 20px;border-radius:6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;text-align:center}
+.meeting-badge .date{font-size:14px;font-weight:700;margin-top:2px;color:#C09B5E}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:20px;padding:16px;background:#f8f6f1;border-radius:8px}
+.meta-item .label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600}
+.meta-item .value{font-weight:600;font-size:13px;margin-top:2px}
+h2{font-size:16px;font-weight:700;color:#1a1a2e;margin:28px 0 16px;letter-spacing:-.3px}
+.agenda{counter-reset:agenda}
+.agenda-item{display:grid;grid-template-columns:48px 1fr 80px;gap:16px;padding:16px 0;border-bottom:1px solid #f0f0f0;align-items:start}
+.agenda-item:last-child{border-bottom:none}
+.num{width:40px;height:40px;background:#1a1a2e;color:#C09B5E;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
+.item-content h3{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+.item-content .presenter{font-size:11px;color:#C09B5E;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.item-content p{font-size:12px;color:#666;margin-top:4px}
+.duration{font-size:12px;color:#999;text-align:right;font-weight:500}
+.note-box{background:#fff3cd;border-radius:8px;padding:16px;margin:20px 0;font-size:12px;border-left:4px solid #C09B5E}
+.note-box strong{color:#1a1a2e}
+.attendees{margin:24px 0}
+.attendees h3{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#C09B5E;margin-bottom:10px}
+.att-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.att{font-size:12px;padding:6px 12px;background:#f8f6f1;border-radius:4px}
+.att .role{font-size:10px;color:#999}
+.footer{border-top:2px solid #1a1a2e;padding-top:12px;margin-top:32px;font-size:10px;color:#999;display:flex;justify-content:space-between}
+@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.page{padding:24px 32px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="header-top">
+      <div class="logo-area">
+        <h1>Mater Maria Homes</h1>
+        <div class="sub">Board of Directors Meeting</div>
+      </div>
+      <div class="meeting-badge">
+        Digital Strategy<br>Review
+        <div class="date">March 2026</div>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="meta-item"><div class="label">Date & Time</div><div class="value">[DATE] at [TIME]</div></div>
+      <div class="meta-item"><div class="label">Location</div><div class="value">[Venue / Virtual Link]</div></div>
+      <div class="meta-item"><div class="label">Chaired By</div><div class="value">Mr. Rajeev Abraham</div></div>
+    </div>
+  </div>
+
+  <h2>Meeting Agenda</h2>
+
+  <div class="agenda">
+    <div class="agenda-item">
+      <div class="num">1</div>
+      <div class="item-content">
+        <h3>Welcome & Introduction</h3>
+        <div class="presenter">Mr. Rajeev Abraham — Chairman</div>
+        <p>Opening remarks, meeting objectives, introduction of digital team members to the Board.</p>
+      </div>
+      <div class="duration">5 min</div>
+    </div>
+
+    <div class="agenda-item">
+      <div class="num">2</div>
+      <div class="item-content">
+        <h3>Digital Partner Profile — NeoVibe by Taurus AI</h3>
+        <div class="presenter">Mr. Effin Fernandez — Director, TAURUS AI CORP</div>
+        <p>Company background, capabilities, technology stack, and engagement model. Portfolio of AI-augmented web development. IFZA Dubai registered entity with international delivery capability.</p>
+      </div>
+      <div class="duration">5 min</div>
+    </div>
+
+    <div class="agenda-item">
+      <div class="num">3</div>
+      <div class="item-content">
+        <h3>Website Presentation — matermariahomes.com</h3>
+        <div class="presenter">Mr. Effin Fernandez</div>
+        <p>Live walkthrough of the Phase 1 landing page: hero section, property galleries, investment tiers, governance board, lead capture system, mobile experience. Technical highlights: SEO, security, accessibility, performance.</p>
+      </div>
+      <div class="duration">10 min</div>
+    </div>
+
+    <div class="agenda-item">
+      <div class="num">4</div>
+      <div class="item-content">
+        <h3>Brand Integration Strategy</h3>
+        <div class="presenter">Mr. Praveen Varkey</div>
+        <p>Brand identity alignment across digital and print. Logo usage, color palette, typography standards, marketing collateral consistency. Brand voice and messaging framework for all communications.</p>
+      </div>
+      <div class="duration">10 min</div>
+    </div>
+
+    <div class="agenda-item">
+      <div class="num">5</div>
+      <div class="item-content">
+        <h3>Architectural Plans & Drawings Integration</h3>
+        <div class="presenter">Mr. Paul Jose — Director / Consultant</div>
+        <p>Review of actual architectural drawings and site plans for website integration. Unit floor plans, site layout, 3D renders. Construction timeline and milestone alignment with digital roadmap.</p>
+      </div>
+      <div class="duration">10 min</div>
+    </div>
+
+    <div class="agenda-item">
+      <div class="num">6</div>
+      <div class="item-content">
+        <h3>Board Feedback — Website & Digital Direction</h3>
+        <div class="presenter">All Board Members</div>
+        <p>Structured feedback on the website. Content accuracy review. Suggestions for Phase 2 priorities. Approval of Phase 1 deliverables and go-live authorization.</p>
+      </div>
+      <div class="duration">15 min</div>
+    </div>
+
+    <div class="agenda-item">
+      <div class="num">7</div>
+      <div class="item-content">
+        <h3>Advertising Integration</h3>
+        <div class="presenter">Ms. Deepika</div>
+        <p>Paid advertising strategy: Google Ads, Facebook/Instagram campaigns, Kerala media placements. Budget allocation and expected ROI. Lead generation targets and conversion funnels.</p>
+      </div>
+      <div class="duration">10 min</div>
+    </div>
+
+    <div class="agenda-item">
+      <div class="num">8</div>
+      <div class="item-content">
+        <h3>Social Media Integration</h3>
+        <div class="presenter">[Presenter TBD]</div>
+        <p>Social media strategy: Instagram, Facebook, YouTube content plan. WhatsApp Business integration. Content calendar and posting schedule. Community management approach.</p>
+      </div>
+      <div class="duration">10 min</div>
+    </div>
+
+    <div class="agenda-item">
+      <div class="num">9</div>
+      <div class="item-content">
+        <h3>Other Business & Next Steps</h3>
+        <div class="presenter">Mr. Rajeev Abraham</div>
+        <p>Open floor for additional points. Action items assignment. Next meeting date. Phase 2 timeline confirmation.</p>
+      </div>
+      <div class="duration">10 min</div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>Total estimated duration:</strong> 85 minutes (~1.5 hours)<br>
+    <strong>Materials distributed:</strong> Website URL (matermariahomes.com), Phase 1 Completion Summary, Phase 2-3 Roadmap, Service Agreement for review.<br>
+    <strong>Decision required:</strong> Phase 1 acceptance and go-live authorization on custom domain.
+  </div>
+
+  <div class="attendees">
+    <h3>Expected Attendees</h3>
+    <div class="att-grid">
+      <div class="att"><strong>Mar Jose Pulickal</strong> <span class="role">Bishop / Patron</span></div>
+      <div class="att"><strong>Fr. Mathew Puthumana</strong> <span class="role">Director, Pravasi Apostolate</span></div>
+      <div class="att"><strong>Mr. Rajeev Abraham</strong> <span class="role">Chairman (Chair)</span></div>
+      <div class="att"><strong>Mr. Thomas Abraham</strong> <span class="role">Managing Director</span></div>
+      <div class="att"><strong>Mr. Paul Jose</strong> <span class="role">Director / Consultant</span></div>
+      <div class="att"><strong>Mr. Effin Fernandez</strong> <span class="role">NeoVibe by Taurus AI</span></div>
+      <div class="att"><strong>Mr. Praveen Varkey</strong> <span class="role">Brand / BDM</span></div>
+      <div class="att"><strong>Ms. Deepika</strong> <span class="role">Advertising</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Mater Maria Homes — Pravasi Apostolate, Diocese of Kanjirappally</div>
+    <div>Prepared by NeoVibe by Taurus AI</div>
+  </div>
+</div>
+</body>
+</html>

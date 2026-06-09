@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizFlow™ Video Testimonials</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .video-container {
+            position: relative;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .video-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 107, 0, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .play-button:hover {
+            background: rgba(255, 107, 0, 1);
+            transform: scale(1.1);
+        }
+        .video-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+        }
+        .duration-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .client-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: cover;
+        }
+        .results-badge {
+            background: #22C55E;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 90%;
+            width: 800px;
+            max-height: 90%;
+            overflow: hidden;
+            position: relative;
+        }
+        .modal-video {
+            width: 100%;
+            height: 450px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .testimonial-quote {
+            background: rgba(255, 107, 0, 0.05);
+            border-left: 4px solid #FF6B00;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+        .industry-tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .success-metric {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22C55E;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-align: center;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+    </style>
+</head>
+<body class="py-12">
+    <!-- Header -->
+    <div class="max-w-7xl mx-auto px-6 mb-12">
+        <div class="text-center">
+            <div class="flex items-center justify-center mb-6">
+                <img src="https://i.imgur.com/6yZJz5L.png" alt="BizFlow Logo" class="h-12 w-12 mr-3">
+                <h1 class="text-4xl font-bold text-gray-900">Client Success Stories</h1>
+            </div>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Real results from real businesses across Dubai and India markets</p>
+        </div>
+    </div>
+
+    <!-- Featured Testimonial -->
+    <div class="max-w-7xl mx-auto px-6 mb-16">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+                <div class="video-container h-96 lg:h-auto">
+                    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=600&h=400&fit=crop" alt="Ahmed Al-Maktoum" class="video-thumbnail">
+                    <div class="play-overlay" onclick="openModal('featured')">
+                        <div class="play-button">
+                            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="duration-badge">3:24</div>
+                    <div class="video-info">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" alt="Ahmed" class="client-avatar">
+                            <div>
+                                <h3 class="font-bold">Ahmed Al-Maktoum</h3>
+                                <p class="text-sm opacity-90">CEO, Luxury Timepieces Dubai</p>
+                            </div>
+                        </div>
+                        <span class="results-badge">$287K Revenue in 30 Days</span>
+                    </div>
+                </div>
+                <div class="p-8 flex flex-col justify-center">
+                    <div class="mb-4">
+                        <span class="industry-tag">Luxury Goods</span>
+                        <span class="industry-tag ml-2">Dubai</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">From struggling to record-breaking in 30 days</h2>
+                    <div class="testimonial-quote">
+                        "BizFlow transformed our approach completely. Their cultural intelligence framework helped us connect with Dubai's luxury market in ways we never imagined. The Ramadan campaign alone generated more revenue than our previous 6 months combined."
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mt-6">
+                        <div class="success-metric">
+                            <div class="text-2xl font-bold">574%</div>
+                            <div class="text-xs">ROI</div>
+                        </div>
+                        <div class="success-metric">
+                            <div class="text-2xl font-bold">847</div>
+                            <div class="text-xs">Leads</div>
+                        </div>
+                        <div class="success-metric">
+                            <div class="text-2xl font-bold">2.5M</div>
+                            <div class="text-xs">Reach</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonial Grid -->
+    <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">More Success Stories</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="video-container h-64">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop" alt="Priya Gupta" class="video-thumbnail">
+                    <div class="play-overlay" onclick="openModal('priya')">
+                        <div class="play-button">
+                            <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="duration-badge">2:45</div>
+                    <div class="video-info">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="Priya" class="client-avatar">
+                            <div>
+                                <h3 class="font-bold text-sm">Priya Gupta</h3>
+                                <p class="text-xs opacity-90">Founder, TechStart India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-3">
+                        <span class="industry-tag">Technology</span>
+                        <span class="industry-tag ml-2">India</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">From startup to industry leader</h3>
+                    <p class="text-gray-600 text-sm mb-4">"340% revenue growth in 6 months. BizFlow's understanding of Indian millennials was game-changing."</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">340%</div>
+                            <div class="text-xs">Growth</div>
+                        </div>
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">85%</div>
+                            <div class="text-xs">Conv Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="video-container h-64">
+                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop" alt="Vikram Singh" class="video-thumbnail">
+                    <div class="play-overlay" onclick="openModal('vikram')">
+                        <div class="play-button">
+                            <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="duration-badge">3:12</div>
+                    <div class="video-info">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="Vikram" class="client-avatar">
+                            <div>
+                                <h3 class="font-bold text-sm">Vikram Singh</h3>
+                                <p class="text-xs opacity-90">Director, Mumbai Real Estate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-3">
+                        <span class="industry-tag">Real Estate</span>
+                        <span class="industry-tag ml-2">India</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">45 units in 3 months vs usual 12</h3>
+                    <p class="text-gray-600 text-sm mb-4">"Their understanding of Mumbai's diverse communities was incredible. Targeted the right buyers perfectly."</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">375%</div>
+                            <div class="text-xs">Sales ↑</div>
+                        </div>
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">60%</div>
+                            <div class="text-xs">Faster</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="video-container h-64">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&fit=crop" alt="Layla Mahmoud" class="video-thumbnail">
+                    <div class="play-overlay" onclick="openModal('layla')">
+                        <div class="play-button">
+                            <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="duration-badge">2:18</div>
+                    <div class="video-info">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=40&h=40&fit=crop&crop=face" alt="Layla" class="client-avatar">
+                            <div>
+                                <h3 class="font-bold text-sm">Layla Mahmoud</h3>
+                                <p class="text-xs opacity-90">CMO, Emirates Fashion</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-3">
+                        <span class="industry-tag">Fashion</span>
+                        <span class="industry-tag ml-2">Dubai</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Ramadan campaign broke all records</h3>
+                    <p class="text-gray-600 text-sm mb-4">"They understood our need to resonate with both locals and expats. The results speak for themselves."</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">500%</div>
+                            <div class="text-xs">Engagement</div>
+                        </div>
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">$2.1M</div>
+                            <div class="text-xs">Revenue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="video-container h-64">
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop" alt="Rohit Sharma" class="video-thumbnail">
+                    <div class="play-overlay" onclick="openModal('rohit')">
+                        <div class="play-button">
+                            <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="duration-badge">1:56</div>
+                    <div class="video-info">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="Rohit" class="client-avatar">
+                            <div>
+                                <h3 class="font-bold text-sm">Rohit Sharma</h3>
+                                <p class="text-xs opacity-90">CEO, Delhi Food Delivery</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-3">
+                        <span class="industry-tag">Food & Beverage</span>
+                        <span class="industry-tag ml-2">India</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">500 to 25,000 daily orders</h3>
+                    <p class="text-gray-600 text-sm mb-4">"Understanding local food culture was key. Made our app essential for Delhi foodies."</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">5000%</div>
+                            <div class="text-xs">Orders ↑</div>
+                        </div>
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">#1</div>
+                            <div class="text-xs">in Delhi</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 5 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="video-container h-64">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=300&fit=crop" alt="Aisha Al-Zahra" class="video-thumbnail">
+                    <div class="play-overlay" onclick="openModal('aisha')">
+                        <div class="play-button">
+                            <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="duration-badge">2:33</div>
+                    <div class="video-info">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="Aisha" class="client-avatar">
+                            <div>
+                                <h3 class="font-bold text-sm">Aisha Al-Zahra</h3>
+                                <p class="text-xs opacity-90">Founder, Dubai Beauty Brand</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-3">
+                        <span class="industry-tag">Beauty</span>
+                        <span class="industry-tag ml-2">Dubai</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Talk of the beauty community</h3>
+                    <p class="text-gray-600 text-sm mb-4">"Their influencer strategy and cultural messaging made us the go-to brand overnight."</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">15M</div>
+                            <div class="text-xs">Impressions</div>
+                        </div>
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">24%</div>
+                            <div class="text-xs">Conv Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 6 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="video-container h-64">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=300&fit=crop" alt="Sarah Johnson" class="video-thumbnail">
+                    <div class="play-overlay" onclick="openModal('sarah')">
+                        <div class="play-button">
+                            <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="duration-badge">2:07</div>
+                    <div class="video-info">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=40&h=40&fit=crop&crop=face" alt="Sarah" class="client-avatar">
+                            <div>
+                                <h3 class="font-bold text-sm">Sarah Johnson</h3>
+                                <p class="text-xs opacity-90">Regional Manager, Global Luxury</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-3">
+                        <span class="industry-tag">Luxury Goods</span>
+                        <span class="industry-tag ml-2">MENA</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">200% of first-year targets</h3>
+                    <p class="text-gray-600 text-sm mb-4">"Helped us avoid major cultural pitfalls while establishing our European brand in the Middle East."</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">200%</div>
+                            <div class="text-xs">Target</div>
+                        </div>
+                        <div class="success-metric text-sm">
+                            <div class="font-bold">95%</div>
+                            <div class="text-xs">Recognition</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="max-w-4xl mx-auto px-6 mt-16">
+        <div class="bg-gradient-to-r from-[#FF6B00] to-[#E66000] text-white rounded-2xl p-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Join Our Success Stories?</h2>
+            <p class="text-xl mb-6">See what culturally-intelligent marketing can do for your business</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-[#FF6B00] font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
+                    Book Free Strategy Session
+                </button>
+                <button class="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-[#FF6B00] transition-colors">
+                    View All Case Studies
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Video Playback -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-video" id="modalVideo">
+                <p>🎥 Video would play here in a real implementation</p>
+            </div>
+            <div class="p-6" id="modalDetails">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const testimonialData = {
+            featured: {
+                name: "Ahmed Al-Maktoum",
+                title: "CEO, Luxury Timepieces Dubai",
+                video: "Featured testimonial video about $287K revenue success",
+                quote: "BizFlow didn't just help us market our watches - they helped us understand our customers' hearts. The cultural intelligence framework revealed insights we never knew existed. Our Ramadan campaign wasn't just advertising; it became part of Dubai's cultural conversation.",
+                metrics: {
+                    revenue: "$287K in 30 days",
+                    roi: "574% ROI",
+                    leads: "847 qualified leads",
+                    reach: "2.5M users reached"
+                }
+            },
+            priya: {
+                name: "Priya Gupta",
+                title: "Founder, TechStart India",
+                video: "Priya discussing 340% revenue growth in 6 months",
+                quote: "As a startup, every rupee matters. BizFlow's understanding of Indian millennials was incredible - they knew exactly how to position our tech product as aspirational yet accessible. The growth we achieved in 6 months typically takes 2-3 years.",
+                metrics: {
+                    growth: "340% revenue growth",
+                    conversion: "85% conversion rate increase",
+                    users: "500K+ active users",
+                    retention: "92% customer retention"
+                }
+            },
+            vikram: {
+                name: "Vikram Singh", 
+                title: "Director, Mumbai Real Estate",
+                video: "Vikram explaining the 375% sales increase",
+                quote: "Mumbai's real estate market is incredibly competitive. BizFlow's segmentation strategy helped us target the right demographics with the right messaging. Understanding cultural buying patterns was the game-changer.",
+                metrics: {
+                    sales: "375% sales increase",
+                    units: "45 units in 3 months",
+                    speed: "60% faster sales cycle",
+                    margins: "25% higher profit margins"
+                }
+            },
+            layla: {
+                name: "Layla Mahmoud",
+                title: "CMO, Emirates Fashion House", 
+                video: "Layla sharing Ramadan campaign success",
+                quote: "Fashion in Dubai requires such cultural sensitivity. BizFlow helped us create campaigns that honored traditions while showcasing modern style. Our Ramadan collection became the most successful in company history.",
+                metrics: {
+                    engagement: "500% engagement increase",
+                    revenue: "$2.1M campaign revenue", 
+                    reach: "3.2M regional reach",
+                    shares: "85K social shares"
+                }
+            },
+            rohit: {
+                name: "Rohit Sharma",
+                title: "CEO, Delhi Food Delivery",
+                video: "Rohit discussing 5000% order growth",
+                quote: "Food is deeply cultural. BizFlow understood Delhi's diverse food preferences and helped us become essential to the local food ecosystem. From 500 to 25,000 daily orders in just 4 months - incredible!",
+                metrics: {
+                    orders: "5000% order increase",
+                    ranking: "#1 food app in Delhi",
+                    restaurants: "2000+ partner restaurants",
+                    delivery: "15-minute average delivery"
+                }
+            },
+            aisha: {
+                name: "Aisha Al-Zahra",
+                title: "Founder, Dubai Beauty Brand",
+                video: "Aisha explaining beauty community success", 
+                quote: "Beauty standards vary so much across cultures. BizFlow's influencer strategy connected us with the right voices who authentically represented our brand values. We became the talk of Dubai's beauty community overnight.",
+                metrics: {
+                    impressions: "15M total impressions",
+                    conversion: "24% conversion rate",
+                    influencers: "50+ brand ambassadors",
+                    recognition: "Top 3 beauty brand in UAE"
+                }
+            },
+            sarah: {
+                name: "Sarah Johnson",
+                title: "Regional Manager, Global Luxury Brand",
+                video: "Sarah discussing market entry success",
+                quote: "Entering the Middle East market seemed daunting. BizFlow's cultural intelligence prevented costly mistakes and accelerated our success. We achieved 200% of our first-year targets while building genuine brand loyalty.",
+                metrics: {
+                    targets: "200% of year-1 targets",
+                    recognition: "95% brand recognition",
+                    stores: "12 flagship locations",
+                    satisfaction: "4.8/5 customer satisfaction"
+                }
+            }
+        };
+
+        function openModal(testimonialId) {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalDetails = document.getElementById('modalDetails');
+            const data = testimonialData[testimonialId];
+
+            modalVideo.innerHTML = `<p>🎥 ${data.video}</p>`;
+            
+            modalDetails.innerHTML = `
+                <div class="border-b border-gray-200 pb-4 mb-4">
+                    <h3 class="text-xl font-bold">${data.name}</h3>
+                    <p class="text-gray-600">${data.title}</p>
+                </div>
+                <div class="testimonial-quote">
+                    "${data.quote}"
+                </div>
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    ${Object.entries(data.metrics).map(([key, value]) => `
+                        <div class="success-metric">
+                            <div class="font-bold">${value.split(' ')[0]}</div>
+                            <div class="text-xs">${value.substring(value.indexOf(' ') + 1)}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="mt-6 text-center">
+                    <button class="bg-[#FF6B00] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#E66000] transition-colors">
+                        Get Similar Results
+                    </button>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

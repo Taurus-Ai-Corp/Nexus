@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   INVESTMENT_TIERS,
-  INVESTOR_PROMISES,
   INVESTOR_PERKS,
 } from "@/lib/investor-constants";
-import { INVESTOR_FAQ, INVESTOR_TESTIMONIALS } from "@/lib/constants";
+import { INVESTOR_FAQ } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
 /*  System prompt — all investor data injected as structured context   */

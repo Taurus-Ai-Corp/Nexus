@@ -1,0 +1,45 @@
+{
+  "asset_id": "IMG-AD-20260609-0001",
+  "source_asset_id": "IMG-AD-20260609-0001",
+  "edit_version": "damage-visible-washer-real-glass-v13",
+  "output_path": "/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/04-PRODUCT-DEPLOYMENT/media-assets/appliances-damages-2026-06-09/iterations/iter-001/images/IMG-AD-20260609-0001__20260609T214433Z__MacbookPro2026__damage-visible-washer-real-glass-v13__preview.jpg",
+  "sha256": "0d4a350e1a27cebeeb6fc57d5747798bcfefbc1ee694ef213e37b663c0f9fc4c",
+  "damage_types": [
+    "real_fractured_glass_crack_lines_warped_to_lid",
+    "visible_radial_glass_cracks",
+    "inside_glass_impact_chips",
+    "visible_washer_body_dents",
+    "washer_body_cracks",
+    "washer_top_rim_chip"
+  ],
+  "synthetic_identity": {
+    "make": "Apple",
+    "model": "Synthetic iPhone Preview Identity",
+    "operator_device": "Macbook Pro 2026",
+    "capture_method": "synthetic edited preview, not real capture",
+    "timestamp_utc": "20260609T214433Z",
+    "timestamp_local": "2026-06-09 17:44:48 ",
+    "disclaimer": "Visible watermark and sidecar metadata identify this as a synthetic preview, not a real iPhone photo or claim evidence."
+  },
+  "texture_sources": [
+    {
+      "path": "/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/04-PRODUCT-DEPLOYMENT/media-assets/appliances-damages-2026-06-09/assets/online-textures/wikimedia-glass-cobweb.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Glass_cobweb.jpg",
+      "license_note": "Wikimedia Commons featured picture; verify final license before external publication.",
+      "extraction_note": "Only local-contrast crack/reflection lines were extracted. The background scene, frame, shade, and window context were not pasted."
+    }
+  ],
+  "approval_status": "preview_pending",
+  "final_allowed": false,
+  "lid_quad_after_inward_scale_0_72": [
+    1312,
+    1735,
+    2793,
+    1693,
+    2886,
+    3257,
+    1188,
+    3421
+  ],
+  "notes": "Preview-only edit for IMG-AD-20260609-0001. Uses real fractured-glass crack pattern extracted from Wikimedia Glass cobweb reference, warped to the top-loader glass lid polygon with visible opacity. Adds visible radial glass cracks, chips inside the lid glass area, and visible dents/scuffs/cracks on the washer body/top rim. No broken-window background scene, frame, or shade is included."
+}

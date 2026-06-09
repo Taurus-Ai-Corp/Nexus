@@ -1,0 +1,26 @@
+{
+  "model_role": "judge",
+  "realism_score_0_to_10": 3,
+  "primary_issues": [
+    "Cracks read as a flat, semi-transparent 2D overlay with zero fracture depth, edge displacement, or subsurface scattering through the plastic lid.",
+    "Crack trajectories ignore lid curvature and existing reflection topology, producing a floating 'sticker' effect that breaks surface continuity.",
+    "The dark vertical dent at the right lid edge is misaligned with washer seams and lacks deformation topology; it looks like a pasted-on smear with no concave geometry or surrounding bulge.",
+    "Complete absence of believable cast shadows, ambient occlusion, displaced plastic shards, or micro-chip debris makes the damage read as pure digital graffiti rather than physical breakage.",
+    "Damage crosses arbitrary surface boundaries without respecting material thickness, structural seams, or logical failure points."
+  ],
+  "mitigation": [
+    "Rebuild cracks as depth-aware masks that follow the lid's cylindrical curvature; add irregular branching, tapering, and stress-whitening at fracture origins to simulate brittle plastic failure.",
+    "Reduce crack opacity and blend using subsurface-aware masking so cracks appear internal and dimensional rather than overlaid.",
+    "Reposition or reshape the right-edge dent to align precisely with a body seam; add concave deformation and micro-shadows to sell pressed or impacted plastic.",
+    "Paint soft ambient occlusion and directional cast shadows around all damage elements to ground them in the utility-corner lighting.",
+    "Introduce small chip debris and raised broken-edge highlights at crack terminals to simulate actual material loss and thickness."
+  ],
+  "recommended_final_edit_parameters": {
+    "lid_mask_scale": "0.88-0.96",
+    "crack_opacity": "0.18-0.32",
+    "impact_shadow_strength": "0.30-0.50",
+    "scratch_count": 4,
+    "chip_opacity": "140-190"
+  },
+  "final_verdict": "needs_more_work"
+}

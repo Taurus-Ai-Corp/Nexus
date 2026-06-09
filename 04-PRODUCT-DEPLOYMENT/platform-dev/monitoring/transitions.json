@@ -1,0 +1,74 @@
+[
+  {
+    "from_state": "idle",
+    "to_state": "data_ingestion",
+    "timestamp": "2026-05-21T07:58:26.333031",
+    "duration_ms": 0.0026226043701171875,
+    "agent_id": "pricing_agent",
+    "metadata": {},
+    "transition_hash": "57cd422a10369a9d"
+  },
+  {
+    "from_state": "data_ingestion",
+    "to_state": "cash_flow_analysis",
+    "timestamp": "2026-05-21T07:58:26.333217",
+    "duration_ms": 0.0019073486328125,
+    "agent_id": "pricing_agent",
+    "metadata": {},
+    "transition_hash": "58b05267d66c19bc"
+  },
+  {
+    "from_state": "cash_flow_analysis",
+    "to_state": "risk_assessment",
+    "timestamp": "2026-05-21T07:58:26.333226",
+    "duration_ms": 0.00095367431640625,
+    "agent_id": "pricing_agent",
+    "metadata": {},
+    "transition_hash": "c0c4587970c8b6cb"
+  },
+  {
+    "from_state": "risk_assessment",
+    "to_state": "pricing_decision",
+    "timestamp": "2026-05-21T07:58:26.333231",
+    "duration_ms": 0.00095367431640625,
+    "agent_id": "pricing_agent",
+    "metadata": {},
+    "transition_hash": "f7ce0c538343890e"
+  },
+  {
+    "from_state": "pricing_decision",
+    "to_state": "compliance_validation",
+    "timestamp": "2026-05-21T07:58:26.333236",
+    "duration_ms": 0.0021457672119140625,
+    "agent_id": "pricing_agent",
+    "metadata": {},
+    "transition_hash": "2dec1c4b2b28c30d"
+  },
+  {
+    "from_state": "compliance_validation",
+    "to_state": "decision_output",
+    "timestamp": "2026-05-21T07:58:26.333241",
+    "duration_ms": 0.00095367431640625,
+    "agent_id": "pricing_agent",
+    "metadata": {},
+    "transition_hash": "37691d1cbba3c9d2"
+  },
+  {
+    "from_state": "decision_output",
+    "to_state": "idle",
+    "timestamp": "2026-05-21T07:58:26.333245",
+    "duration_ms": 0.00095367431640625,
+    "agent_id": "pricing_agent",
+    "metadata": {},
+    "transition_hash": "63ee18e0ed2743be"
+  },
+  {
+    "from_state": "idle",
+    "to_state": "error",
+    "timestamp": "2026-05-21T07:58:26.333270",
+    "duration_ms": 0.00095367431640625,
+    "agent_id": "pricing_agent",
+    "metadata": {},
+    "transition_hash": "a2bad14787c5a7b7"
+  }
+]

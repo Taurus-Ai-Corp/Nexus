@@ -1,0 +1,38 @@
+[
+  {
+    "provider": "ollama",
+    "model": "kimi-k2.6:cloud",
+    "elapsed_sec": 37.52,
+    "response": "{\n  \"model_role\": \"judge\",\n  \"realism_score_0_to_10\": 3,\n  \"primary_issues\": [\n    \"Cracks read as a flat semi-transparent overlay with zero fracture depth, edge displacement, or broken-plastic micro-detail\",\n    \"Fracture paths ignore lid curvature and surface reflections, behaving like decals floating above the geometry\",\n    \"Dark vertical dent near the right lid edge is a misaligned paste job that fails to follow washer seam topology\",\n    \"Complete absence of believable impact shadows, displaced substrate, chip debris, or ambient occlusion under the rim\",\n    \"Damage arbitrarily crosses surface planes and boundaries without respecting edge thickness or structural logic\"\n  ],\n  \"mitigation\": [\n    \"Tighten lid mask to within 2\u20133 pixels of the rim perimeter and terminate all crack paths at the edge boundary\",\n    \"Reduce crack opacity to ~0.30 and rebuild fractures using a displacement-aware pass that follows the lid\u2019s radial curvature\",\n    \"Paint a soft, diffuse impact shadow under the lid rim at low strength instead of the current floating dark patches\",\n    \"Introduce chip geometry and white stress-highlight edges along crack paths to simulate actual broken plastic\",\n    \"Realign or remove the right-edge dent; if it cannot conform to existing panel seams, delete the element\"\n  ],\n  \"recommended_final_edit_parameters\": {\n    \"lid_mask_scale\": 0.96,\n    \"crack_opacity\": 0.30,\n    \"impact_shadow_strength\": 0.40,\n    \"scratch_count\": 4,\n    \"chip_opacity\": 210\n  },\n  \"final_verdict\": \"needs_more_work\"\n}"
+  },
+  {
+    "provider": "ollama",
+    "model": "qwen3-coder:480b-cloud",
+    "elapsed_sec": 3.48,
+    "response": "{\n  \"model_role\": \"judge\",\n  \"realism_score_0_to_10\": 3,\n  \"primary_issues\": [\n    \"Cracks appear as flat semi-transparent overlays without proper surface integration\",\n    \"Crack placement ignores lid curvature and reflection patterns\",\n    \"Dark vertical dent lacks proper edge alignment with washer seams\",\n    \"No realistic shadows, displaced material, or chipping details\",\n    \"Damage elements cross surfaces unnaturally without depth consideration\"\n  ],\n  \"mitigation\": [\n    \"Reduce crack opacity to decrease artificial overlay appearance\",\n    \"Tighten lid mask to better follow surface contours\",\n    \"Add subtle impact shadows to ground damage elements\",\n    \"Improve crack integration with surface reflections and curvature\"\n  ],\n  \"recommended_final_edit_parameters\": {\n    \"lid_mask_scale\": 0.85,\n    \"crack_opacity\": 0.45,\n    \"impact_shadow_strength\": 0.30,\n    \"scratch_count\": 2,\n    \"chip_opacity\": 180\n  },\n  \"final_verdict\": \"needs_more_work\"\n}"
+  },
+  {
+    "provider": "ollama",
+    "model": "deepseek-v3.1:671b-cloud",
+    "elapsed_sec": 23.09,
+    "response": "{\n  \"model_role\": \"judge\",\n  \"realism_score_0_to_10\": 3,\n  \"primary_issues\": [\"Cracks appear as semi-transparent overlay without depth or material interaction\", \"Damage placement ignores lid curvature and surface reflections\", \"Vertical dent lacks proper alignment with appliance seams\", \"Complete absence of realistic shadows, displaced material, or edge details\", \"Damage crosses surfaces unnaturally without proper perspective\"],\n  \"mitigation\": [\"Reduce crack opacity significantly to match real material fractures\", \"Apply tighter lid mask to constrain damage to appropriate surfaces\", \"Add subtle impact shadow around lid perimeter for depth\", \"Introduce micro-chips and edge damage at fracture points\", \"Adjust damage to follow surface curvature and reflection patterns\"],\n  \"recommended_final_edit_parameters\": {\n    \"lid_mask_scale\": \"0.85-0.95\",\n    \"crack_opacity\": \"0.15-0.25\",\n    \"impact_shadow_strength\": \"0.35-0.45\",\n    \"scratch_count\": 8,\n    \"chip_opacity\": \"45-75\"\n  },\n  \"final_verdict\": \"needs_more_work\"\n}"
+  },
+  {
+    "provider": "ollama",
+    "model": "glm-5:cloud",
+    "elapsed_sec": 24.16,
+    "response": "```json\n{\n  \"model_role\": \"judge\",\n  \"realism_score_0_to_10\": 3,\n  \"primary_issues\": [\n    \"Cracks appear as flat semi-transparent overlay with no depth or glass/plastic fracture characteristics\",\n    \"No interaction with lid curvature - cracks cross flatly without warping or perspective distortion\",\n    \"Dark vertical dent/damage near right lid edge has hard edges and no integration with surface reflections\",\n    \"Missing impact deformation - no displaced plastic, raised edges, or surface tension around damage points\",\n    \"No ambient occlusion or contact shadows where damage meets the lid surface\",\n    \"Damage crosses multiple surface planes without appropriate depth variation\",\n    \"Lighting on damage elements does not match the ambient utility room lighting direction\"\n  ],\n  \"mitigation\": [\n    \"Reduce crack opacity to 0.35-0.45 for more subtle glass fracture appearance\",\n    \"Tighten lid mask scale to 0.70-0.80 to confine damage within natural lid boundaries\",\n    \"Add softer impact shadow with strength 0.25-0.35 around damage perimeter\",\n    \"Introduce subtle chip opacity (120-160 range) for broken-edge realism at fracture terminations\",\n    \"Apply slight perspective warp to cracks to match lid curvature\",\n    \"Reduce scratch count to 2-3 and place near primary impact zone\"\n  ],\n  \"recommended_final_edit_parameters\": {\n    \"lid_mask_scale\": \"0.75\",\n    \"crack_opacity\": \"0.40\",\n    \"impact_shadow_strength\": \"0.30\",\n    \"scratch_count\": 3,\n    \"chip_opacity\": \"140\"\n  },\n  \"final_verdict\": \"needs_more_work\"\n}\n```"
+  },
+  {
+    "provider": "ollama",
+    "model": "minimax-m2.5:cloud",
+    "elapsed_sec": 8.95,
+    "response": "{\n  \"model_role\": \"judge\",\n  \"realism_score_0_to_10\": 3.5,\n  \"primary_issues\": [\n    \"Cracks appear as semi-transparent overlay rather than broken glass/plastic material\",\n    \"Crack placement lacks natural interaction with reflections, depth, or lid curvature\",\n    \"Dark vertical dent near right lid edge looks pasted on with no clean alignment to washer seams\",\n    \"No believable shadows, displaced plastic, chips, or broken-edge detail present\",\n    \"Damage crosses surfaces in an artificial manner without respecting geometry\"\n  ],\n  \"mitigation\": [\n    \"Reduce crack opacity to blend with lid surface material\",\n    \"Tighten lid mask to ensure damage conforms to actual lid boundaries\",\n    \"Add softer, more diffuse impact shadow around lid edges to create depth\",\n    \"Add displaced plastic fragments and micro-chips at crack edges\",\n    \"Apply depth-aware distortion so cracks follow lid curvature and reflection lines\",\n    \"Add subtle specular highlights along crack edges to simulate broken material\"\n  ],\n  \"recommended_final_edit_parameters\": {\n    \"lid_mask_scale\": \"0.85-0.92\",\n    \"crack_opacity\": \"0.35-0.45\",\n    \"impact_shadow_strength\": \"0.25-0.35\",\n    \"scratch_count\": 12,\n    \"chip_opacity\": \"180-200\"\n  },\n  \"final_verdict\": \"needs_more_work\"\n}"
+  },
+  {
+    "provider": "openrouter",
+    "model": "openai/gpt-4o-mini",
+    "elapsed_sec": 0.0,
+    "response": "ERROR: OPENROUTER_API_KEY missing"
+  }
+]

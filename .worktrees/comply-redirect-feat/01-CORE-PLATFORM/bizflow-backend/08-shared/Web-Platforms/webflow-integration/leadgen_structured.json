@@ -1,0 +1,349 @@
+{
+  "website_analysis": {
+    "title": "LeadGen TNC - Webflow HTML website template",
+    "url": "https://leadgen-tnc.webflow.io/",
+    "extracted_at": "2025-09-20T10:15:00Z",
+    "analysis_type": "complete_content_extraction",
+    "content_format": "structured_json",
+    "tokens_used": 12000
+  },
+  "company_info": {
+    "name": "LeadGen TNC",
+    "tagline": "Streamline Your Lead Management with LeadGen TNC",
+    "description": "Your All-in-One Solution for Effortless Lead Tracking and Conversion Optimization",
+    "focus_area": "Lead Management, CRM, Sales Optimization",
+    "value_propositions": [
+      "Scalable Solutions",
+      "Dedicated Support",
+      "No Hidden Fees"
+    ]
+  },
+  "navigation": {
+    "main_links": [
+      {"name": "Features", "url": "#features"},
+      {"name": "Works", "url": "#works"},
+      {"name": "Testimonials", "url": "#testimonials"},
+      {"name": "Benefits", "url": "#benefits"},
+      {"name": "Pricing", "url": "#pricing"},
+      {"name": "FAQ", "url": "#faq"}
+    ],
+    "secondary_links": [
+      {"name": "404", "url": "/404"},
+      {"name": "Style-Guide", "url": "/style-guide"},
+      {"name": "Change-Log", "url": "/change-log"},
+      {"name": "License", "url": "/license"}
+    ],
+    "cta": {"name": "Get Started", "url": "/signup"}
+  },
+  "content_sections": [
+    {
+      "section_id": "hero",
+      "heading": "Streamline Your Lead Management with LeadGen TNC",
+      "subheading": "Your All-in-One Solution for Effortless Lead Tracking and Conversion Optimization",
+      "badges": [
+        "Scalable Solutions",
+        "Dedicated Support",
+        "No Hidden Fees"
+      ],
+      "cta": "Get Started"
+    },
+    {
+      "section_id": "key_features",
+      "heading": "Key Features",
+      "subheading": "Take a look at some amazing features of LeadGen TNC. Generate leads effectively and drive more sales easily.",
+      "features": [
+        {
+          "name": "Automated Lead Capture",
+          "description": "Capture and organize leads effortlessly",
+          "image_url": "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631d353628d89a89f9bd273_image%2025.png"
+        },
+        {
+          "name": "Intuitive Dashboard",
+          "description": "Get real-time insights at a glance",
+          "image_url": "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631d353ebe2d2fbdd06b655_image%2026.png"
+        },
+        {
+          "name": "Customizable Workflows",
+          "description": "Tailor the system to fit your unique processes",
+          "image_url": "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631d397a1e5d3c3110fbc10_image%2027.png"
+        }
+      ]
+    },
+    {
+      "section_id": "automated_lead_capture",
+      "heading": "Automated Lead Capture",
+      "features": [
+        {
+          "name": "Real-Time Data Entry",
+          "description": "Automatically collect and input lead data from various sources, including web forms, emails, and social media.",
+          "image_url": "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631ed27e2b8d0454449f370_image%2028.png"
+        },
+        {
+          "name": "Lead Scoring",
+          "description": "Assign scores to leads based on predefined criteria, allowing you to prioritize and focus on the most promising opportunities.",
+          "image_url": "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631ed27d3230ba7d3a74d3b_image%2028-1.png"
+        },
+        {
+          "name": "Smart Forms",
+          "description": "Create dynamic and customizable forms that adapt to user behavior, ensuring a seamless and engaging data collection process.",
+          "image_url": "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631ed264725a751ce0bea04_image%2028-2.png"
+        }
+      ]
+    },
+    {
+      "section_id": "intuitive_dashboard",
+      "heading": "Intuitive Dashboard",
+      "features": [
+        {
+          "name": "Visual Analytics",
+          "description": "Gain actionable insights at a glance with visually appealing charts and graphs that represent lead progress."
+        },
+        {
+          "name": "Customizable Widgets",
+          "description": "Tailor your dashboard to display the metrics and data points most relevant to your business goals."
+        },
+        {
+          "name": "Real-Time Updates",
+          "description": "Stay informed with live updates on lead activities, ensuring you never miss a crucial interaction."
+        }
+      ]
+    },
+    {
+      "section_id": "how_it_works",
+      "heading": "How It Works",
+      "subheading": "The working process of this Lead Generator is simple and straightforward. Take a look at the following three steps to get yourself started.",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Sign Up",
+          "description": "Create your account in minutes. No IT support needed – our software is designed for simplicity."
+        },
+        {
+          "number": 2,
+          "name": "Capture Leads",
+          "description": "Leverage automated lead capture tools to gather information seamlessly. Spend more time closing deals."
+        },
+        {
+          "number": 3,
+          "name": "Monitor and Optimize",
+          "description": "Use the intuitive dashboard to monitor leads, track team performance, and optimize your strategies."
+        }
+      ]
+    },
+    {
+      "section_id": "testimonials",
+      "heading": "What Our Customers Say",
+      "subheading": "Discover the success stories and satisfaction of those who have experienced the excellence of our services. See why they choose us for their needs.",
+      "cta": "See all reviews",
+      "testimonials": [
+        {
+          "rating": 5,
+          "quote": "Pixel align arrow rotate figma main community mask bold. Distribute ipsum export ipsum auto. Prototype text project.",
+          "author": "Bessie Cooper",
+          "position": "UX Designer at xoomio"
+        },
+        {
+          "rating": 5,
+          "quote": "Since implementing The TNC SaasLand, lead management process has become incredibly efficient.",
+          "author": "Leslie Alexander",
+          "position": "UX Designer at xoomio"
+        },
+        {
+          "rating": 5,
+          "quote": "Slice content ipsum figma background link arrow horizontal. Pixel undo shadow edit align. Thumbnail move.",
+          "author": "Ronald Richards",
+          "position": "UX Designer at xoomio"
+        },
+        {
+          "rating": 5,
+          "quote": "Effect flatten boolean figma rotate asset rotate align. Vector flows mask background union reesizing component mask.",
+          "author": "Brooklyn Simmons",
+          "position": "UX Designer at xoomio"
+        },
+        {
+          "rating": 5,
+          "quote": "Pixel align arrow rotate figma main community mask bold. Distribute ipsum export ipsum auto. Prototype text project.",
+          "author": "Darlene Robertson",
+          "position": "UX Designer at xoomio"
+        }
+      ]
+    },
+    {
+      "section_id": "benefits",
+      "heading": "Unlock the Power of LeadGen TNC",
+      "subheading": "Key Benefits That Transform Your Lead Management",
+      "benefits": [
+        {
+          "name": "Save Time",
+          "description": "Eliminate manual data entry and focus on what matters – converting leads."
+        },
+        {
+          "name": "Increase Conversions",
+          "description": "Optimize your strategies based on real-time data and analytics."
+        },
+        {
+          "name": "Boost Collaboration",
+          "description": "Keep your team on the same page with built-in communication tools."
+        }
+      ]
+    },
+    {
+      "section_id": "pricing",
+      "heading": "TNC Pricing Plan",
+      "subheading": "Explore our flexible pricing plans tailored to meet your specific needs. Choose the perfect option that aligns with your requirements and budget.",
+      "plans": [
+        {
+          "name": "Basic Plan",
+          "price": "$19",
+          "features": [
+            "Automated Lead Capture",
+            "Intuitive Dashboard",
+            "Basic Analytics",
+            "Email Support",
+            "Up to 500 Leads"
+          ],
+          "cta": "Get Started"
+        },
+        {
+          "name": "Pro Plan",
+          "price": "$39",
+          "features": [
+            "Customizable Workflows",
+            "Advanced Analytics",
+            "Collaboration Tools",
+            "Priority Email Support",
+            "Up to 2,000 Leads"
+          ],
+          "cta": "Start your free trail"
+        },
+        {
+          "name": "Enterprise Plan",
+          "price": "$99",
+          "features": [
+            "Enterprise-Grade Security",
+            "API Access",
+            "Dedicated Account Manager",
+            "Unlimited Leads",
+            "24/7 Premium Support"
+          ],
+          "cta": "Contact Sales"
+        }
+      ]
+    },
+    {
+      "section_id": "faq",
+      "heading": "Frequently Asked Questions (FAQ) About LeadGen TNC",
+      "subheading": "Get quick answers to common queries about this lead generator with our FAQ section.",
+      "cta": "Need any help?",
+      "faqs": [
+        {
+          "question": "Is my data secure?",
+          "answer": "Our automated lead capture feature allows you to collect lead information seamlessly from various sources."
+        },
+        {
+          "question": "How does automated lead capture work?",
+          "answer": "Our automated lead capture feature allows you to collect lead information seamlessly from various sources."
+        },
+        {
+          "question": "Is there a money-back guarantee?",
+          "answer": "Our automated lead capture feature allows you to collect lead information seamlessly from various sources."
+        },
+        {
+          "question": "What support options are available?",
+          "answer": "Our automated lead capture feature allows you to collect lead information seamlessly from various sources."
+        },
+        {
+          "question": "Can I customize workflows to match my business processes?",
+          "answer": "Our automated lead capture feature allows you to collect lead information seamlessly from various sources."
+        },
+        {
+          "question": "What kind of analytics does TNC provide?",
+          "answer": "Our automated lead capture feature allows you to collect lead information seamlessly from various sources."
+        },
+        {
+          "question": "How do I get started with TNC?",
+          "answer": "Our automated lead capture feature allows you to collect lead information seamlessly from various sources."
+        }
+      ]
+    },
+    {
+      "section_id": "contact",
+      "heading": "Get in touch",
+      "subheading": "Contact us if you need any personalised assistence",
+      "form_fields": [
+        "Full Name*",
+        "Email*",
+        "Phone number*",
+        "Website (Optional)",
+        "Message"
+      ]
+    },
+    {
+      "section_id": "cta",
+      "heading": "Start Optimizing Your Lead Management Process Today!",
+      "subheading": "Transform your lead management process with TNC. Start your free trial now and experience the difference.",
+      "cta": "Get Started",
+      "note": "Looking forward to generate leads for you business to get potential clients or sales quickly? Subscribe to a package of LeadGen TNC now!"
+    }
+  ],
+  "footer": {
+    "sections": [
+      {
+        "heading": "Helpful Links",
+        "links": [
+          {"name": "Key Features", "url": "#key-features"},
+          {"name": "Works", "url": "#works"},
+          {"name": "Testimonials", "url": "#testimonials"},
+          {"name": "Benefits", "url": "#benefits"},
+          {"name": "Pricing Plan", "url": "#pricing-plan"}
+        ]
+      },
+      {
+        "heading": "Pages",
+        "links": [
+          {"name": "FAQ", "url": "#faq"},
+          {"name": "Contact us", "url": "#contact-us"},
+          {"name": "404 Page", "url": "/404"},
+          {"name": "Style Guide", "url": "/style-guide"},
+          {"name": "Licensing", "url": "/licensing"}
+        ]
+      }
+    ],
+    "newsletter": {
+      "heading": "Subscribe Newsletter",
+      "description": "Stay in the loop and receive valuable insights by subscribing to our newsletter."
+    },
+    "copyright": "Copyright © 2025 LeadGen TNC",
+    "credits": "Designed by TNCFlow | Powered By Webflow"
+  },
+  "technical_details": {
+    "platform": "Webflow",
+    "template_type": "HTML Website Template",
+    "image_urls": [
+      "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631d353628d89a89f9bd273_image%2025.png",
+      "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631d353ebe2d2fbdd06b655_image%2026.png",
+      "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631d397a1e5d3c3110fbc10_image%2027.png",
+      "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631ed27e2b8d0454449f370_image%2028.png",
+      "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631ed27d3230ba7d3a74d3b_image%2028-1.png",
+      "https://cdn.prod.website-files.com/6630e077388fbbe902a07ca1/6631ed264725a751ce0bea04_image%2028-2.png"
+    ],
+    "responsive_design": true,
+    "color_scheme": "Blue and white with accent colors",
+    "typography": "Modern sans-serif"
+  },
+  "business_analysis": {
+    "company_type": "SaaS (Software as a Service)",
+    "specialization": "Lead Management, CRM, Sales Automation",
+    "target_market": "Small to medium businesses seeking lead management solutions",
+    "value_proposition": "Streamlined lead management with automated capture and intuitive analytics",
+    "key_differentiators": [
+      "Automated lead capture",
+      "Intuitive dashboard",
+      "Customizable workflows",
+      "Time-saving features",
+      "Collaboration tools"
+    ],
+    "pricing_strategy": "Tiered subscription model (Basic, Pro, Enterprise)",
+    "marketing_approach": "Benefits-focused with customer testimonials and clear feature explanations"
+  }
+}

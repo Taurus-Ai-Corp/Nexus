@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { LeadPayloadSchema } from '@/lib/lead-schema';
 import { emailTemplate } from '@/lib/email-template';
 import { whatsappPayload } from '@/lib/whatsapp-payload';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
@@ -32,6 +33,35 @@ export async function POST(req: Request) {
   }
   const lead = parsed.data;
 
+  // ── Write to Supabase first (source of truth) ────────────────────
+  let supabaseId: string | null = null;
+  try {
+    const supabase = getSupabaseAdmin();
+    const { data, error } = await supabase
+      .from('investor_inquiries')
+      .insert({
+        full_name: lead.name,
+        email: lead.email,
+        phone: lead.phone,
+        unit_type: lead.tier === 'undecided' ? null : lead.tier,
+        investment_amount:
+          lead.tier === 'silver' ? 10 : lead.tier === 'gold' ? 20 : lead.tier === 'platinum' ? 30 : 0,
+        source: lead.source,
+        message: lead.message,
+        status: 'new',
+      })
+      .select('id')
+      .single();
+
+    if (error) {
+      console.error('Supabase insert error:', error);
+    } else {
+      supabaseId = data?.id ?? null;
+    }
+  } catch (err) {
+    console.error('Supabase write failed:', err);
+  }
+
   const [emailResult, whatsappResult] = await Promise.allSettled([
     sendEmail(lead),
     sendWhatsApp(lead),
@@ -41,10 +71,10 @@ export async function POST(req: Request) {
   const whatsappOk =
     whatsappResult.status === 'fulfilled' && whatsappResult.value.ok;
 
-  // Log to Edge console for postmortem; visible in `vercel logs`
   console.log(
     JSON.stringify({
       ts: new Date().toISOString(),
+      supabaseId,
       lead: { ...lead, email: redact(lead.email), phone: redact(lead.phone) },
       delivery: { email: emailOk, whatsapp: whatsappOk },
       diag: {
@@ -64,7 +94,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'both_channels_failed' }, { status: 502 });
   }
 
-  return NextResponse.json({ ok: true, email: emailOk, whatsapp: whatsappOk });
+  return NextResponse.json({ ok: true, email: emailOk, whatsapp: whatsappOk, id: supabaseId });
 }
 
 async function sendEmail(lead: ReturnType<typeof LeadPayloadSchema.parse>) {
@@ -81,7 +111,6 @@ async function sendEmail(lead: ReturnType<typeof LeadPayloadSchema.parse>) {
     body: JSON.stringify({
       from: 'Mater Maria Homes <noreply@matermariahomes.com>',
       to: [lead.email],
-      bcc: ['praveenissacs@gmail.com'],
       subject,
       html,
       attachments: [

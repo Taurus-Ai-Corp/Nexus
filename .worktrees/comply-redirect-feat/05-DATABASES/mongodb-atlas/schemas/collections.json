@@ -1,0 +1,317 @@
+{
+  "database": "bizflow",
+  "collections": [
+    {
+      "name": "cultural_insights",
+      "description": "Cultural intelligence data for market-specific optimization",
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["market", "industry", "insights", "created_at"],
+          "properties": {
+            "_id": { "bsonType": "objectId" },
+            "market": {
+              "bsonType": "string",
+              "enum": ["dubai", "india", "mena", "canada", "global"],
+              "description": "Target market region"
+            },
+            "industry": {
+              "bsonType": "string",
+              "description": "Industry vertical"
+            },
+            "insights": {
+              "bsonType": "array",
+              "items": {
+                "bsonType": "object",
+                "properties": {
+                  "type": { "bsonType": "string" },
+                  "title": { "bsonType": "string" },
+                  "description": { "bsonType": "string" },
+                  "confidence": { "bsonType": "double" },
+                  "source": { "bsonType": "string" }
+                }
+              }
+            },
+            "seasonal_factors": {
+              "bsonType": "object",
+              "properties": {
+                "current_season": { "bsonType": "string" },
+                "upcoming_events": { "bsonType": "array" },
+                "cultural_holidays": { "bsonType": "array" },
+                "peak_periods": { "bsonType": "array" }
+              }
+            },
+            "color_preferences": {
+              "bsonType": "array",
+              "items": {
+                "bsonType": "object",
+                "properties": {
+                  "color": { "bsonType": "string" },
+                  "cultural_meaning": { "bsonType": "string" },
+                  "usage_context": { "bsonType": "string" }
+                }
+              }
+            },
+            "messaging_guidelines": {
+              "bsonType": "object",
+              "properties": {
+                "tone": { "bsonType": "string" },
+                "formality_level": { "bsonType": "string" },
+                "avoid_topics": { "bsonType": "array" },
+                "preferred_topics": { "bsonType": "array" }
+              }
+            },
+            "competitor_landscape": {
+              "bsonType": "array",
+              "items": {
+                "bsonType": "object",
+                "properties": {
+                  "name": { "bsonType": "string" },
+                  "market_share": { "bsonType": "double" },
+                  "positioning": { "bsonType": "string" },
+                  "strengths": { "bsonType": "array" },
+                  "weaknesses": { "bsonType": "array" }
+                }
+              }
+            },
+            "created_at": { "bsonType": "date" },
+            "updated_at": { "bsonType": "date" },
+            "expires_at": { "bsonType": "date" }
+          }
+        }
+      },
+      "indexes": [
+        { "key": { "market": 1, "industry": 1 }, "name": "market_industry_idx" },
+        { "key": { "updated_at": -1 }, "name": "updated_at_idx" },
+        { "key": { "expires_at": 1 }, "expireAfterSeconds": 0 }
+      ]
+    },
+    {
+      "name": "content_assets",
+      "description": "Content and creative assets with performance data",
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["type", "platform", "content", "created_at"],
+          "properties": {
+            "_id": { "bsonType": "objectId" },
+            "campaign_id": { "bsonType": "string" },
+            "client_id": { "bsonType": "string" },
+            "type": {
+              "bsonType": "string",
+              "enum": ["social", "email", "web", "video", "image", "document"]
+            },
+            "platform": { "bsonType": "string" },
+            "content": {
+              "bsonType": "object",
+              "properties": {
+                "title": { "bsonType": "string" },
+                "body": { "bsonType": "string" },
+                "media_url": { "bsonType": "string" },
+                "thumbnail_url": { "bsonType": "string" },
+                "cta": { "bsonType": "string" },
+                "hashtags": { "bsonType": "array" }
+              }
+            },
+            "cultural_variants": {
+              "bsonType": "array",
+              "items": {
+                "bsonType": "object",
+                "properties": {
+                  "market": { "bsonType": "string" },
+                  "language": { "bsonType": "string" },
+                  "content": { "bsonType": "object" },
+                  "cultural_adaptations": { "bsonType": "array" }
+                }
+              }
+            },
+            "performance": {
+              "bsonType": "object",
+              "properties": {
+                "impressions": { "bsonType": "long" },
+                "engagement_rate": { "bsonType": "double" },
+                "click_rate": { "bsonType": "double" },
+                "conversion_rate": { "bsonType": "double" },
+                "sentiment_score": { "bsonType": "double" }
+              }
+            },
+            "ab_test_data": {
+              "bsonType": "object",
+              "properties": {
+                "variant_id": { "bsonType": "string" },
+                "test_group": { "bsonType": "string" },
+                "is_winner": { "bsonType": "bool" }
+              }
+            },
+            "metadata": {
+              "bsonType": "object",
+              "properties": {
+                "file_size": { "bsonType": "long" },
+                "dimensions": { "bsonType": "object" },
+                "duration": { "bsonType": "int" },
+                "format": { "bsonType": "string" }
+              }
+            },
+            "status": {
+              "bsonType": "string",
+              "enum": ["draft", "pending_review", "approved", "published", "archived"]
+            },
+            "created_at": { "bsonType": "date" },
+            "updated_at": { "bsonType": "date" },
+            "published_at": { "bsonType": "date" }
+          }
+        }
+      },
+      "indexes": [
+        { "key": { "campaign_id": 1 }, "name": "campaign_idx" },
+        { "key": { "client_id": 1 }, "name": "client_idx" },
+        { "key": { "type": 1, "platform": 1 }, "name": "type_platform_idx" },
+        { "key": { "status": 1 }, "name": "status_idx" },
+        { "key": { "content.title": "text", "content.body": "text" }, "name": "content_text_idx" }
+      ]
+    },
+    {
+      "name": "agent_logs",
+      "description": "Detailed logs from AI agent executions",
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["agent_name", "task_id", "timestamp"],
+          "properties": {
+            "_id": { "bsonType": "objectId" },
+            "agent_name": { "bsonType": "string" },
+            "task_id": { "bsonType": "string" },
+            "execution_id": { "bsonType": "string" },
+            "timestamp": { "bsonType": "date" },
+            "level": {
+              "bsonType": "string",
+              "enum": ["debug", "info", "warning", "error", "critical"]
+            },
+            "message": { "bsonType": "string" },
+            "context": {
+              "bsonType": "object",
+              "properties": {
+                "campaign_id": { "bsonType": "string" },
+                "client_id": { "bsonType": "string" },
+                "market": { "bsonType": "string" }
+              }
+            },
+            "input_data": { "bsonType": "object" },
+            "output_data": { "bsonType": "object" },
+            "error": {
+              "bsonType": "object",
+              "properties": {
+                "type": { "bsonType": "string" },
+                "message": { "bsonType": "string" },
+                "stack_trace": { "bsonType": "string" }
+              }
+            },
+            "performance": {
+              "bsonType": "object",
+              "properties": {
+                "duration_ms": { "bsonType": "int" },
+                "tokens_used": { "bsonType": "int" },
+                "api_calls": { "bsonType": "int" }
+              }
+            }
+          }
+        }
+      },
+      "indexes": [
+        { "key": { "agent_name": 1, "timestamp": -1 }, "name": "agent_timestamp_idx" },
+        { "key": { "task_id": 1 }, "name": "task_idx" },
+        { "key": { "level": 1 }, "name": "level_idx" },
+        { "key": { "timestamp": 1 }, "expireAfterSeconds": 2592000, "name": "ttl_30days_idx" }
+      ]
+    },
+    {
+      "name": "workflow_states",
+      "description": "N8N and campaign workflow state persistence",
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["workflow_id", "status", "created_at"],
+          "properties": {
+            "_id": { "bsonType": "objectId" },
+            "workflow_id": { "bsonType": "string" },
+            "workflow_name": { "bsonType": "string" },
+            "campaign_id": { "bsonType": "string" },
+            "client_id": { "bsonType": "string" },
+            "status": {
+              "bsonType": "string",
+              "enum": ["pending", "running", "paused", "completed", "failed", "cancelled"]
+            },
+            "current_step": { "bsonType": "int" },
+            "total_steps": { "bsonType": "int" },
+            "state_data": { "bsonType": "object" },
+            "checkpoints": {
+              "bsonType": "array",
+              "items": {
+                "bsonType": "object",
+                "properties": {
+                  "step": { "bsonType": "int" },
+                  "name": { "bsonType": "string" },
+                  "status": { "bsonType": "string" },
+                  "timestamp": { "bsonType": "date" },
+                  "data": { "bsonType": "object" }
+                }
+              }
+            },
+            "error_log": { "bsonType": "array" },
+            "created_at": { "bsonType": "date" },
+            "updated_at": { "bsonType": "date" },
+            "completed_at": { "bsonType": "date" }
+          }
+        }
+      },
+      "indexes": [
+        { "key": { "workflow_id": 1 }, "unique": true, "name": "workflow_id_idx" },
+        { "key": { "campaign_id": 1 }, "name": "campaign_idx" },
+        { "key": { "status": 1 }, "name": "status_idx" }
+      ]
+    },
+    {
+      "name": "hubspot_sync_queue",
+      "description": "Queue for HubSpot bidirectional sync operations",
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["operation", "entity_type", "entity_id", "created_at"],
+          "properties": {
+            "_id": { "bsonType": "objectId" },
+            "operation": {
+              "bsonType": "string",
+              "enum": ["create", "update", "delete", "sync"]
+            },
+            "direction": {
+              "bsonType": "string",
+              "enum": ["to_hubspot", "from_hubspot"]
+            },
+            "entity_type": {
+              "bsonType": "string",
+              "enum": ["contact", "company", "deal", "ticket"]
+            },
+            "entity_id": { "bsonType": "string" },
+            "hubspot_id": { "bsonType": "string" },
+            "payload": { "bsonType": "object" },
+            "status": {
+              "bsonType": "string",
+              "enum": ["pending", "processing", "completed", "failed", "retry"]
+            },
+            "retry_count": { "bsonType": "int" },
+            "max_retries": { "bsonType": "int" },
+            "error_message": { "bsonType": "string" },
+            "created_at": { "bsonType": "date" },
+            "processed_at": { "bsonType": "date" },
+            "next_retry_at": { "bsonType": "date" }
+          }
+        }
+      },
+      "indexes": [
+        { "key": { "status": 1, "created_at": 1 }, "name": "status_created_idx" },
+        { "key": { "entity_type": 1, "entity_id": 1 }, "name": "entity_idx" },
+        { "key": { "next_retry_at": 1 }, "name": "retry_idx" }
+      ]
+    }
+  ]
+}

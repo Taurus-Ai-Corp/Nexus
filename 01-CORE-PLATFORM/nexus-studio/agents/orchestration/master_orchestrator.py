@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 🏰 TAURUS AI CORP. - Master Orchestrator
-Unified coordination system for BizFlow™ Brand Vibe Orchestrator
+Unified coordination system for NEXUS Creative Studio
 """
 
 import asyncio
@@ -98,9 +98,9 @@ class OrchestrationTask:
         if self.created_at is None:
             self.created_at = datetime.now()
 
-class BizFlowMasterOrchestrator:
+class NexusOrchestrator:
     """
-    Master orchestrator for the unified BizFlow™ ecosystem
+    Master orchestrator for the unified NEXUS Creative Studio ecosystem
     Coordinates all 16 agents with intelligent routing
     """
     
@@ -263,7 +263,7 @@ class BizFlowMasterOrchestrator:
         
         # Compile campaign results
         campaign_result = {
-            "campaign_id": f"bizflow_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+            "campaign_id": f"nexus_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
             "research": results[0],
             "content": results[1],
             "visuals": results[2],
@@ -309,11 +309,11 @@ class BizFlowMasterOrchestrator:
         return await self.route_task(task)
 
 # Global orchestrator instance
-master_orchestrator = BizFlowMasterOrchestrator()
+master_orchestrator = NexusOrchestrator()
 
 async def main():
     """Main execution function"""
-    logger.info("🏰 Starting BizFlow™ Master Orchestrator")
+    logger.info("🏰 Starting NEXUS Master Orchestrator")
     
     # Display agent status
     status = master_orchestrator.get_agent_status()

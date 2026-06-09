@@ -3,7 +3,7 @@ import { z } from "zod/v4";
 /* ------------------------------------------------------------------ */
 /*  Investment Tier Types                                              */
 /* ------------------------------------------------------------------ */
-export type TierId = "silver" | "gold" | "diamond" | "platinum";
+export type TierId = "silver" | "gold" | "platinum";
 
 export interface InvestmentTier {
   id: TierId;
@@ -21,88 +21,23 @@ export interface InvestmentTier {
     guestHouse: string;
     patronWall: string;
   };
+  exitTerms: {
+    lockInYears: number;
+    noticePeriod: string;
+    payoutMethod: string;
+  };
 }
 
 /* ------------------------------------------------------------------ */
-/*  Investment Tiers — Strategic disclosure only                       */
+/*  Investment Tiers — Board-Approved Structure (May 2026)              */
+/*  Silver: ₹10L | Gold: ₹20L | Platinum: ₹30L                      */
 /* ------------------------------------------------------------------ */
 export const INVESTMENT_TIERS: InvestmentTier[] = [
   {
-    id: "diamond",
-    name: "Diamond",
-    investment: 30,
-    investmentDisplay: "\u20B930 Lakhs",
-    totalReturn: 153,
-    annualInterest: 10,
-    interestYears: "Years 1–4",
-    dividendStart: "From Year 5",
-    badge: "Premium",
-    highlights: [
-      "10% annual interest on deposit",
-      "Enhanced dividend participation from Year 5",
-      "Event hall — rent-free 2×/year",
-      "Guest house — 7 nights/year",
-      "Gold patron wall recognition",
-      "Direct board liaison access",
-      "Annual investor appreciation gala (VIP)",
-    ],
-    perks: {
-      eventHall: "2×/year rent-free",
-      guestHouse: "7 nights/year",
-      patronWall: "Gold",
-    },
-  },
-  {
-    id: "platinum",
-    name: "Platinum",
-    investment: 20,
-    investmentDisplay: "\u20B920 Lakhs",
-    totalReturn: 150,
-    annualInterest: 10,
-    interestYears: "Years 1–4",
-    dividendStart: "From Year 5",
-    badge: "Best Value",
-    highlights: [
-      "10% annual interest on deposit",
-      "Dividend participation from Year 5",
-      "Event hall — rent-free 1×/year",
-      "Guest house — 4 nights/year",
-      "Bronze patron wall recognition",
-      "Priority board communications",
-    ],
-    perks: {
-      eventHall: "1×/year rent-free",
-      guestHouse: "4 nights/year",
-      patronWall: "Bronze",
-    },
-  },
-  {
-    id: "gold",
-    name: "Gold",
-    investment: 10,
-    investmentDisplay: "\u20B910 Lakhs",
-    totalReturn: 150,
-    annualInterest: 10,
-    interestYears: "Years 1–4",
-    dividendStart: "From Year 5",
-    highlights: [
-      "10% annual interest on deposit",
-      "Dividend participation from Year 5",
-      "Guest house — 2 nights/year",
-      "Quarterly financial reports",
-      "Annual investor appreciation gala",
-    ],
-    perks: {
-      eventHall: "—",
-      guestHouse: "2 nights/year",
-      patronWall: "—",
-    },
-  },
-  {
     id: "silver",
     name: "Silver",
-    investment: 5,
-    investmentDisplay: "\u20B95 Lakhs",
+    investment: 10,
+    investmentDisplay: "₹10 Lakhs",
     totalReturn: 150,
     annualInterest: 10,
     interestYears: "Years 1–4",
@@ -110,14 +45,89 @@ export const INVESTMENT_TIERS: InvestmentTier[] = [
     badge: "Entry",
     highlights: [
       "10% annual interest on deposit",
+      "Deposit converts to share capital at Year 5 — qualifies you for dividend participation",
       "Dividend participation from Year 5",
+      "1 day free guest stay yearly",
+      "10% discount on guest room rent (in addition to free stay)",
+      "50% discount on event hall rent (150 pax capacity)",
+      "10% discount on family tour packages",
+      "10% discount on wellness package yearly",
       "Quarterly financial reports",
-      "Estate tour priority access",
     ],
     perks: {
-      eventHall: "—",
-      guestHouse: "—",
+      eventHall: "50% discount yearly",
+      guestHouse: "1 night/year",
       patronWall: "—",
+    },
+    exitTerms: {
+      lockInYears: 5,
+      noticePeriod: "6 months",
+      payoutMethod: "3 equal instalments",
+    },
+  },
+  {
+    id: "gold",
+    name: "Gold",
+    investment: 20,
+    investmentDisplay: "₹20 Lakhs",
+    totalReturn: 150,
+    annualInterest: 10,
+    interestYears: "Years 1–4",
+    dividendStart: "From Year 5",
+    badge: "Best Value",
+    highlights: [
+      "10% annual interest on deposit",
+      "Deposit converts to share capital at Year 5 — qualifies you for dividend participation",
+      "Dividend participation from Year 5",
+      "3 days free guest stay yearly",
+      "20% discount on guest room rent (in addition to free stay)",
+      "1 day free event hall usage yearly (150 pax capacity)",
+      "15% discount on family tour packages",
+      "10% discount on wellness package yearly",
+      "Quarterly financial reports",
+    ],
+    perks: {
+      eventHall: "1 day/year rent-free",
+      guestHouse: "3 nights/year",
+      patronWall: "—",
+    },
+    exitTerms: {
+      lockInYears: 5,
+      noticePeriod: "6 months",
+      payoutMethod: "3 equal instalments",
+    },
+  },
+  {
+    id: "platinum",
+    name: "Platinum",
+    investment: 30,
+    investmentDisplay: "₹30 Lakhs",
+    totalReturn: 153,
+    annualInterest: 10,
+    interestYears: "Years 1–4",
+    dividendStart: "From Year 5",
+    badge: "Premium",
+    highlights: [
+      "10% annual interest on deposit",
+      "Deposit converts to share capital at Year 5 — qualifies you for enhanced dividend participation",
+      "Enhanced dividend participation from Year 5",
+      "5 days free guest stay yearly",
+      "30% discount on guest room rent (in addition to free stay)",
+      "1 day free event hall usage yearly (150 pax capacity)",
+      "20% discount on family tour packages",
+      "15% discount on wellness package yearly",
+      "Director Board liaison access",
+      "Quarterly financial reports",
+    ],
+    perks: {
+      eventHall: "1 day/year rent-free",
+      guestHouse: "5 nights/year",
+      patronWall: "Gold",
+    },
+    exitTerms: {
+      lockInYears: 5,
+      noticePeriod: "6 months",
+      payoutMethod: "3 equal instalments",
     },
   },
 ];
@@ -287,44 +297,44 @@ export const INVESTOR_PROMISES = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Investor Perks (Section 6)                                         */
+/*  Investor Perks (Section 6) — Updated per Board Document          */
 /* ------------------------------------------------------------------ */
 export const INVESTOR_PERKS = [
   {
-    title: "Event Hall",
-    description: "150-seat venue, rent-free for qualifying tiers",
-    icon: "Theater" as const,
-    detail: "Up to 2× per year",
-  },
-  {
-    title: "Guest House",
-    description: "Premium double room for family visits",
+    title: "Guest Room Stays",
+    description: "Complimentary guest room nights for family visits every year — 1 day for Silver, 3 days for Gold, 5 days for Platinum.",
     icon: "Home" as const,
-    detail: "Up to 7 nights per year",
+    detail: "1–5 nights/year",
   },
   {
-    title: "Patron Wall",
-    description: "Your name immortalized at the estate entrance",
-    icon: "Award" as const,
-    detail: "Bronze or Gold tier",
-  },
-  {
-    title: "Board Reports",
-    description: "Quarterly financial transparency and updates",
-    icon: "FileText" as const,
-    detail: "Full investor communications",
-  },
-  {
-    title: "Estate Access",
-    description: "Priority tours and community event invitations",
+    title: "Guest Room Discount",
+    description: "Discounted rates on additional guest room bookings beyond your complimentary stay.",
     icon: "Key" as const,
-    detail: "Year-round privileges",
+    detail: "10–30% off",
   },
   {
-    title: "Annual Gala",
-    description: "Exclusive investor appreciation dinner",
+    title: "Event Hall",
+    description: "Access to the 150-capacity multi-purpose hall for family gatherings and celebrations.",
+    icon: "Theater" as const,
+    detail: "50% off to 1 day free",
+  },
+  {
+    title: "Family Tour Packages",
+    description: "Exclusive discounts on curated Kerala family tour packages for investors and their families.",
     icon: "Sparkles" as const,
-    detail: "VIP for Platinum tier",
+    detail: "10–20% off",
+  },
+  {
+    title: "Wellness Package",
+    description: "Annual discount on Ayurvedic treatments, spa therapies, and holistic wellness programmes.",
+    icon: "Award" as const,
+    detail: "10–15% off",
+  },
+  {
+    title: "Director Board Liaison",
+    description: "Direct access to the Mater Maria Director Board for Platinum-tier investors.",
+    icon: "FileText" as const,
+    detail: "Platinum exclusive",
   },
 ];
 
@@ -386,11 +396,6 @@ export const ADVISORY_BOARD = [
     role: "Vicar General",
     org: "Diocese of Kanjirappally",
   },
-  {
-    name: "Rev. Fr. Mathew Puthumana",
-    role: "Global Director, Pravasi Apostolate",
-    org: "Diocese of Kanjirappally",
-  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -437,8 +442,7 @@ export const COUNTRY_COORDINATORS: CountryCoordinator[] = [
   { flag: "🇦🇺", country: "Australia", name: "Aleen Jones", phone: "+61 432 898 323" },
   { flag: "🇨🇦", country: "Canada", name: "Jacob Antony", phone: "+1 403 870 8124" },
   { flag: "🇩🇪", country: "Germany", name: "Roy Joseph", phone: "+30 357 353 2646" },
-  { flag: "🇮🇳", country: "India", name: "Fr. Mathew Puthumana", phone: "+91 94470 80356" },
-  { flag: "🇮🇳", country: "India", name: "Thomas Abraham", phone: "+91 77359 27730" },
+  { flag: "🇮🇳", country: "India", name: "Thomas Abraham", phone: "+91 73569 27730" },
   { flag: "🇮🇳", country: "India", name: "Paul Jose", phone: "+91 9400939936" },
   { flag: "🇮🇹", country: "Italy", name: "Tony George", phone: "+39 328 368 8700" },
   { flag: "🇮🇱", country: "Israel", name: "Senna Joseph", phone: "+972 50 660 0600" },
@@ -465,10 +469,10 @@ export interface CurrencyConfig {
 }
 
 export const CURRENCIES: CurrencyConfig[] = [
-  { code: "INR", symbol: "\u20B9", label: "INR", rateFromINR: 1, locale: "en-IN" },
+  { code: "INR", symbol: "₹", label: "INR", rateFromINR: 1, locale: "en-IN" },
   { code: "USD", symbol: "$", label: "USD", rateFromINR: 0.01189, locale: "en-US" },
-  { code: "AED", symbol: "\u062F.\u0625", label: "AED", rateFromINR: 0.04367, locale: "ar-AE" },
-  { code: "GBP", symbol: "\u00A3", label: "GBP", rateFromINR: 0.00943, locale: "en-GB" },
+  { code: "AED", symbol: "د.إ", label: "AED", rateFromINR: 0.04367, locale: "ar-AE" },
+  { code: "GBP", symbol: "£", label: "GBP", rateFromINR: 0.00943, locale: "en-GB" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -478,7 +482,7 @@ export const INVESTOR_HERO_STATS = [
   { value: 8, suffix: "+", label: "Acres of Greenery" },
   { value: 90, suffix: "", label: "Premium Residences" },
   { value: 0, suffix: "Net-Zero", label: "Carbon Footprint" },
-  { value: 10, suffix: "km", label: "to Medical College" },
+  { value: 10, suffix: "km", label: "to Mary Queens Hospital" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -489,7 +493,7 @@ export const investorLeadSchema = z.object({
   email: z.email("Valid email required"),
   phone: z.string().min(8, "Valid phone number required"),
   country: z.string().min(2, "Country is required"),
-  tier: z.enum(["silver", "gold", "diamond", "platinum"]),
+  tier: z.enum(["silver", "gold", "platinum"]),
   message: z.string().optional(),
   isNRI: z.boolean().optional(),
 });
@@ -502,6 +506,6 @@ export type InvestorLeadFormData = z.infer<typeof investorLeadSchema>;
 export const INVEST_PAGE = {
   title: "Invest in Mater Maria Homes",
   description:
-    "Join the founding patrons of Kerala's premier wellness estate. Investment tiers from ₹5 Lakhs with 10% annual interest and up to 153% returns over 15 years.",
+    "Join the founding patrons of Kerala's premier wellness estate. Investment tiers from ₹10 Lakhs with 10% annual interest and up to 153% returns over 15 years.",
   ogImage: "/assets-2025/images/invest/og-invest.webp",
 };

@@ -1,5 +1,5 @@
 """
-Trend Analyzer Agent for BizFlow-Orchestrator
+Trend Analyzer Agent for NEXUS Creative Studio
 Category: Research
 """
 
@@ -12,7 +12,7 @@ agent_dir = Path(__file__).parent
 sys.path.insert(0, str(agent_dir))
 
 class TrendAnalyzerAgent:
-    """Trend Analyzer Agent wrapper for BizFlow-Orchestrator"""
+    """Trend Analyzer Agent wrapper for NEXUS Creative Studio"""
     
     def __init__(self):
         self.name = "trend_analyzer"
@@ -24,7 +24,7 @@ class TrendAnalyzerAgent:
         return [
             "Execute trend analyzer tasks",
             "Process research related requests",
-            "Integrate with BizFlow-Orchestrator"
+            "Integrate with NEXUS Creative Studio"
         ]
     
     async def execute_task(self, task_data):

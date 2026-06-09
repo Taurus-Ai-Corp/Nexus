@@ -1,4 +1,4 @@
-# BizFlow-Nexus Platform
+# Nexus Platform
 
 AI-powered marketing automation and creative design ecosystem by **TAURUS AI CORP**.
 
@@ -6,8 +6,8 @@ AI-powered marketing automation and creative design ecosystem by **TAURUS AI COR
 
 | Platform | Domain | Purpose |
 |----------|--------|---------|
-| **BizFlow** | bizflow.taurusai.io | Agentic Intelligence Automation |
-| **Nexus** | nexus.taurusai.io | Creative Design Studio |
+| **NEXUS by Taurus Ai** | nexus.taurusai.io | Social Suite Dashboard |
+| **NEXUS by Taurus Ai** | nexus.taurusai.io | Creative Studio |
 
 **Revenue Target**: $1.7M Year 1
 
@@ -15,7 +15,7 @@ AI-powered marketing automation and creative design ecosystem by **TAURUS AI COR
 
 ```bash
 # Clone and setup
-cd /Users/user/Documents/BizFlow-Nexus-Platform
+cd /Users/user/Documents/Nexus-Platform
 
 # Install dependencies
 npm install
@@ -38,8 +38,8 @@ npm run dev:frontend
 ## Directory Structure
 
 ```
-BizFlow-Nexus-Platform/
-├── 01-CORE-PLATFORM/      # BizFlow backend + Nexus studio
+Nexus-Platform/
+├── 01-CORE-PLATFORM/      # Nexus backend + Nexus studio
 ├── 02-AGENTS/             # AI orchestrators + MCP integrations
 ├── 03-CLIENT-MANAGEMENT/  # Custom CRM + HubSpot sync
 ├── 04-PRODUCT-DEPLOYMENT/ # Docker, K8s, CI/CD

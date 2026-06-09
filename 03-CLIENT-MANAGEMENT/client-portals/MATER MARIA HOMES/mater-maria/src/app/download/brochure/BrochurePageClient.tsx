@@ -31,7 +31,7 @@ const BROCHURE_SECTIONS = [
   {
     number: "04",
     title: "Location Advantage",
-    body: "Nestled in the Western Ghats foothills — 10 km to MMT Medical College, 12 km to Kanjirappally Town, 35 km to Kottayam City. Greenfield International Airport proposed just 15 km away — a future asset appreciation driver.",
+    body: "Nestled in the Western Ghats foothills — 8 km to Kanjirappally Town, 15 km to Pala, 30 km to Kottayam City. Mary Queens Mission Hospital 10 km away, Mar Sleeva Medicity 17 km, and MMT Hospital Mundakkayam 24 km. Erumely Greenfield International Airport proposed just 15 km away — a future asset appreciation driver.",
   },
 ];
 

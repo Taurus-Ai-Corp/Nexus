@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import Image from "next/image";
 import { FEATURES } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -67,10 +68,11 @@ export function Features() {
                   viewport={{ once: true, margin: "-100px" }}
                   className="flex-1"
                 >
-                  <div className="aspect-video w-full overflow-hidden rounded-2xl border border-border-subtle">
-                    <img
+                  <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-border-subtle">
+                    <Image
                       src={featureImages[feature.icon] ?? ""}
                       alt={feature.title}
+                      fill
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                     />

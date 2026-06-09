@@ -1,0 +1,28 @@
+{
+  "model_role": "judge",
+  "realism_score_0_to_10": 3.2,
+  "primary_issues": [
+    "Cracks read as flat semi-transparent decals with no edge displacement, refractive variation, or broken plastic geometry",
+    "Fracture lines ignore lid curvature and cut unnaturally across reflections and surface topology",
+    "Dark vertical dent near right lid edge is misaligned with washer seams and lacks deformation shadows or panel buckling",
+    "Zero believable contact shadows, ambient occlusion, or displaced material where damage meets the lid surface",
+    "Missing stress whitening, micro-chips, and frayed plastic edges that accompany impact fractures on white appliance lids",
+    "Damage crosses planar boundaries without respecting depth cues, creating a sticker-like composite effect"
+  ],
+  "mitigation": [
+    "Rebuild crack paths to follow the radial curvature of the lid and interrupt reflection lines naturally",
+    "Add micro-displacement, chipped edge geometry, and stress-whitened plastic along fracture lines",
+    "Introduce soft ambient occlusion and contact shadows under the lid rim and around the impact zone",
+    "Align any dent deformation to existing panel seams or replace with topology-respecting surface indentation",
+    "Tighten the lid mask to eliminate bleed onto surrounding panels and restrict damage to the lid boundary",
+    "Reduce crack opacity and layer in subtle debris or spider-webbing at the impact origin"
+  ],
+  "recommended_final_edit_parameters": {
+    "lid_mask_scale": "0.94-0.99",
+    "crack_opacity": "0.20-0.35",
+    "impact_shadow_strength": "0.35-0.50",
+    "scratch_count": 3,
+    "chip_opacity": "210-240"
+  },
+  "final_verdict": "needs_more_work"
+}

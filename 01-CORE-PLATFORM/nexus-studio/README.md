@@ -37,7 +37,7 @@
 - **Icon Assets MCP** → Professional iconography
 
 ### 🔗 **Domain Integration**
-- **Supports BizFlow**: Marketing materials for business operations
+- **Supports Nexus**: Marketing materials for business operations
 - **Supports AssetGrid**: Investment platform branding
 - **Supports India Hub**: Localized creative content
 - **Brand consistency**: Across all TAURUS AI domains

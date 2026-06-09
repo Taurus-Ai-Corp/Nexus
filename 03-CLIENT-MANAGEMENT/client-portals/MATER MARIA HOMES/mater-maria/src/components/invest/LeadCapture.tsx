@@ -28,7 +28,6 @@ import { posthog, Events } from "@/lib/posthog";
 
 // Rajeev Abraham (Chairman) — primary investor contact
 const WHATSAPP_NUMBER_UAE = "919447080356";
-const WHATSAPP_NUMBER_INDIA = "919447080356";
 const WHATSAPP_NUMBER = WHATSAPP_NUMBER_UAE; // default for WhatsApp CTA
 const WHATSAPP_DISPLAY_UAE = "+91 94470 80356";
 const WHATSAPP_DISPLAY_INDIA = "+91 94470 80356";
@@ -63,13 +62,12 @@ export function LeadCapture() {
     resolver: zodResolver(investorLeadSchema),
     defaultValues: {
       country: "India",
-      tier: "diamond",
+      tier: "platinum",
       isNRI: false,
     },
   });
 
   const selectedCountry = watch("country");
-  const selectedTier = watch("tier");
 
   // Track tier selection changes
   const handleTierChange = (tier: string) => {
@@ -144,7 +142,7 @@ export function LeadCapture() {
         });
 
         // WhatsApp redirect after 2 seconds
-        const tierName = selectedTierData?.name ?? "Diamond";
+        const tierName = selectedTierData?.name ?? "Platinum";
         const whatsappMsg = encodeURIComponent(
           `Hi, I'm ${data.name} and I'm interested in the ${tierName} tier investment (${selectedTierData?.investmentDisplay ?? ""}) at Mater Maria Homes.`,
         );
@@ -217,6 +215,7 @@ export function LeadCapture() {
             transition={{ duration: 0.6, delay: 0.2 }}
             onSubmit={handleSubmit(onSubmit)}
             className="mx-auto max-w-lg space-y-5 rounded-2xl border border-border-default bg-surface p-6 lg:p-8"
+            data-testid="lead-form"
           >
             {/* NRI badge */}
             <div className="mb-1 inline-flex items-center gap-2 rounded-full border border-accent-default/30 bg-accent-default/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent-default">
@@ -365,6 +364,7 @@ export function LeadCapture() {
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full"
+                data-testid="lead-submit"
               >
                 {isSubmitting ? (
                   <>

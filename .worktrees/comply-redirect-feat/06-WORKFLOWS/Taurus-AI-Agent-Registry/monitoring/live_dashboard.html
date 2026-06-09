@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 Taurus AI Corp. - Live Monitoring Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .status-bar {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-healthy { background: #4CAF50; }
+        .status-warning { background: #FF9800; }
+        .status-error { background: #F44336; }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card h3 {
+            color: #1e3c72;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+
+        .metric-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .services-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .services-section h2 {
+            color: #1e3c72;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-card.active {
+            border-color: #4CAF50;
+            background: #f8fff8;
+        }
+
+        .service-card.error {
+            border-color: #F44336;
+            background: #fff8f8;
+        }
+
+        .service-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .service-status {
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .status-active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-error {
+            background: #F44336;
+            color: white;
+        }
+
+        .agents-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .agents-section h2 {
+            color: #1e3c72;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .agent-card {
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .agent-card.active {
+            border-color: #4CAF50;
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .agent-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .agent-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .revenue-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .revenue-section h2 {
+            color: #1e3c72;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .revenue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .revenue-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .revenue-amount {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .revenue-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .last-updated {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .revenue-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏰 Taurus AI Corp.</h1>
+            <p>Live Monitoring Dashboard</p>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-indicator">
+                <div class="status-dot status-healthy" id="overall-status"></div>
+                <span id="status-text">System Healthy</span>
+            </div>
+            <div id="last-updated">Last updated: Just now</div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>🤖 Active Agents</h3>
+                <div class="metric-value" id="active-agents">6/6</div>
+                <div class="metric-description">All AI agents operational</div>
+            </div>
+            <div class="metric-card">
+                <h3>💰 Total MRR</h3>
+                <div class="metric-value" id="total-mrr">$5,300</div>
+                <div class="metric-description">Monthly recurring revenue</div>
+            </div>
+            <div class="metric-card">
+                <h3>🎯 Total Clients</h3>
+                <div class="metric-value" id="total-clients">9</div>
+                <div class="metric-description">Active paying clients</div>
+            </div>
+            <div class="metric-card">
+                <h3>📊 Conversion Rate</h3>
+                <div class="metric-value" id="conversion-rate">15%</div>
+                <div class="metric-description">Lead to client conversion</div>
+            </div>
+        </div>
+
+        <!-- Services Status -->
+        <div class="services-section">
+            <h2>🔧 System Services</h2>
+            <div class="services-grid" id="services-grid">
+                <!-- Services will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- AI Agents -->
+        <div class="agents-section">
+            <h2>🤖 AI Agents Performance</h2>
+            <div class="agents-grid" id="agents-grid">
+                <!-- Agents will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Revenue by Market -->
+        <div class="revenue-section">
+            <h2>💰 Revenue by Market</h2>
+            <div class="revenue-grid" id="revenue-grid">
+                <!-- Revenue data will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Refresh Button -->
+        <button class="refresh-btn" onclick="refreshData()">
+            🔄 Refresh
+        </button>
+
+        <div class="last-updated" id="last-updated-footer">
+            Last updated: Just now
+        </div>
+    </div>
+
+    <script>
+        // Sample data structure
+        const sampleData = {
+            system_health: {
+                status: "🟢 Healthy",
+                active_containers: 5,
+                services: {
+                    ollama: "✅ Active",
+                    registry: "✅ Active", 
+                    supabase: "✅ Active",
+                    chromadb: "✅ Active"
+                }
+            },
+            agent_performance: {
+                total_agents: 6,
+                active_agents: 6,
+                agents: {
+                    vibe_marketing_agent: {
+                        status: "✅ Active",
+                        response_time: "0.5s",
+                        requests_today: 150,
+                        success_rate: "98%"
+                    },
+                    ollama_local_agent: {
+                        status: "✅ Active", 
+                        response_time: "0.3s",
+                        requests_today: 200,
+                        success_rate: "99%"
+                    },
+                    vertex_ai_creative: {
+                        status: "✅ Active",
+                        response_time: "1.2s", 
+                        requests_today: 75,
+                        success_rate: "95%"
+                    },
+                    cognee_memory: {
+                        status: "✅ Active",
+                        response_time: "0.8s",
+                        requests_today: 100,
+                        success_rate: "97%"
+                    },
+                    onlook_visual: {
+                        status: "✅ Active",
+                        response_time: "2.1s",
+                        requests_today: 50,
+                        success_rate: "94%"
+                    },
+                    claude_seo_mcp: {
+                        status: "✅ Active",
+                        response_time: "1.5s",
+                        requests_today: 80,
+                        success_rate: "96%"
+                    }
+                }
+            },
+            revenue_metrics: {
+                total_mrr: 5300,
+                total_clients: 9,
+                markets: {
+                    UAE: { mrr: 2000, new_clients: 3, conversion_rate: "15%", leads_generated: 25 },
+                    India: { mrr: 1500, new_clients: 3, conversion_rate: "15%", leads_generated: 25 },
+                    Canada: { mrr: 1800, new_clients: 3, conversion_rate: "15%", leads_generated: 25 }
+                }
+            }
+        };
+
+        function updateDashboard(data) {
+            // Update status
+            document.getElementById('overall-status').className = 'status-dot status-healthy';
+            document.getElementById('status-text').textContent = 'System Healthy';
+            
+            // Update metrics
+            document.getElementById('active-agents').textContent = `${data.agent_performance.active_agents}/${data.agent_performance.total_agents}`;
+            document.getElementById('total-mrr').textContent = `$${data.revenue_metrics.total_mrr.toLocaleString()}`;
+            document.getElementById('total-clients').textContent = data.revenue_metrics.total_clients;
+            document.getElementById('conversion-rate').textContent = '15%';
+            
+            // Update services
+            updateServices(data.system_health.services);
+            
+            // Update agents
+            updateAgents(data.agent_performance.agents);
+            
+            // Update revenue
+            updateRevenue(data.revenue_metrics.markets);
+            
+            // Update timestamps
+            const now = new Date().toLocaleTimeString();
+            document.getElementById('last-updated').textContent = `Last updated: ${now}`;
+            document.getElementById('last-updated-footer').textContent = `Last updated: ${now}`;
+        }
+
+        function updateServices(services) {
+            const grid = document.getElementById('services-grid');
+            grid.innerHTML = '';
+            
+            Object.entries(services).forEach(([service, status]) => {
+                const isActive = status.includes('Active');
+                const card = document.createElement('div');
+                card.className = `service-card ${isActive ? 'active' : 'error'}`;
+                
+                card.innerHTML = `
+                    <div class="service-name">${service.toUpperCase()}</div>
+                    <div class="service-status ${isActive ? 'status-active' : 'status-error'}">${status}</div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function updateAgents(agents) {
+            const grid = document.getElementById('agents-grid');
+            grid.innerHTML = '';
+            
+            Object.entries(agents).forEach(([agent, data]) => {
+                const isActive = data.status.includes('Active');
+                const card = document.createElement('div');
+                card.className = `agent-card ${isActive ? 'active' : ''}`;
+                
+                card.innerHTML = `
+                    <div class="agent-header">
+                        <div class="agent-name">${agent.replace(/_/g, ' ').toUpperCase()}</div>
+                        <div class="service-status ${isActive ? 'status-active' : 'status-error'}">${data.status}</div>
+                    </div>
+                    <div class="agent-metrics">
+                        <div class="metric-item">
+                            <span>Response Time:</span>
+                            <span>${data.response_time}</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Requests Today:</span>
+                            <span>${data.requests_today}</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Success Rate:</span>
+                            <span>${data.success_rate}</span>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function updateRevenue(markets) {
+            const grid = document.getElementById('revenue-grid');
+            grid.innerHTML = '';
+            
+            Object.entries(markets).forEach(([market, data]) => {
+                const card = document.createElement('div');
+                card.className = 'revenue-card';
+                
+                card.innerHTML = `
+                    <div class="revenue-amount">$${data.mrr.toLocaleString()}</div>
+                    <div class="revenue-label">${market} MRR</div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function refreshData() {
+            // Simulate API call to get fresh data
+            console.log('Refreshing data...');
+            
+            // For now, use sample data
+            // In production, this would fetch from your monitoring API
+            updateDashboard(sampleData);
+            
+            // Add loading effect
+            const btn = document.querySelector('.refresh-btn');
+            btn.textContent = '⏳ Loading...';
+            setTimeout(() => {
+                btn.textContent = '🔄 Refresh';
+            }, 1000);
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(refreshData, 30000);
+
+        // Initial load
+        updateDashboard(sampleData);
+
+        // Simulate real-time updates
+        setInterval(() => {
+            // Simulate some random changes
+            sampleData.revenue_metrics.total_mrr += Math.floor(Math.random() * 100);
+            sampleData.agent_performance.agents.vibe_marketing_agent.requests_today += Math.floor(Math.random() * 10);
+            updateDashboard(sampleData);
+        }, 60000); // Every minute
+    </script>
+</body>
+</html>

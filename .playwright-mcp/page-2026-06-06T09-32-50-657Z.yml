@@ -1,0 +1,127 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "Mater Maria Homes" [ref=e4] [cursor=pointer]:
+        - /url: index-landing.html
+        - img "Mater Maria Homes" [ref=e5]
+      - list [ref=e6]:
+        - listitem [ref=e7]:
+          - link "Home" [ref=e8] [cursor=pointer]:
+            - /url: index-landing.html#about
+        - listitem [ref=e9]:
+          - link "Features" [ref=e10] [cursor=pointer]:
+            - /url: index-landing.html#features
+        - listitem [ref=e11]:
+          - link "Residences" [ref=e12] [cursor=pointer]:
+            - /url: index-landing.html#properties
+        - listitem [ref=e13]:
+          - link "Invest" [ref=e14] [cursor=pointer]:
+            - /url: invest.html
+        - listitem [ref=e15]:
+          - link "About" [ref=e16] [cursor=pointer]:
+            - /url: about.html
+        - listitem [ref=e17]:
+          - link "Contact" [ref=e18] [cursor=pointer]:
+            - /url: index-landing.html#contact
+      - button "Connect Now" [ref=e19]
+  - generic [ref=e21]:
+    - heading "About Mater Maria" [level=1] [ref=e22]:
+      - text: About
+      - emphasis [ref=e23]: Mater Maria
+    - paragraph [ref=e24]: A board-supervised wellness estate in Kanjirappally, Kerala — purpose-built for retirement, governed by faith, and designed for dignity.
+  - generic [ref=e26]:
+    - generic [ref=e27]: Spiritual & Pastoral Leadership
+    - heading "Guided by Faith" [level=2] [ref=e28]:
+      - text: Guided by
+      - emphasis [ref=e29]: Faith
+    - paragraph [ref=e30]: Under the patronage of the Diocese of Kanjirappally, Mater Maria Homes is rooted in the Catholic tradition of compassionate care and spiritual stewardship.
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - img "Bishop Mar Jose Pulickal" [ref=e33]
+        - generic [ref=e34]: His Excellency Bishop Mar Jose Pulickal
+        - generic [ref=e35]: Spiritual Patron
+        - generic [ref=e36]: Diocese of Kanjirappally
+      - generic [ref=e37]:
+        - img "Fr. Sebastian Kollamkunnel" [ref=e38]
+        - generic [ref=e39]: Rev. Fr. Sebastian Kollamkunnel
+        - generic [ref=e40]: Vicar General
+        - generic [ref=e41]: Diocese of Kanjirappally
+      - generic [ref=e42]:
+        - img "Fr. Mathew Puthumana" [ref=e43]
+        - generic [ref=e44]: Rev. Fr. Mathew Puthumana
+        - generic [ref=e45]: Global Director, Pravasi Apostolate
+        - generic [ref=e46]: Diocese of Kanjirappally
+  - generic [ref=e48]:
+    - generic [ref=e49]: Executive Board of Directors
+    - heading "Leadership with Integrity" [level=2] [ref=e50]:
+      - text: Leadership with
+      - emphasis [ref=e51]: Integrity
+    - paragraph [ref=e52]: A diverse board of professionals with decades of experience across infrastructure, supply chain, construction, and faith-based missions.
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - img "Rajeev Abraham" [ref=e55]
+        - generic [ref=e56]: Rajeev Abraham
+        - generic [ref=e57]: Chairman & Global Coordinator
+      - generic [ref=e58]:
+        - img "Thomas Abraham" [ref=e59]
+        - generic [ref=e60]: Thomas Abraham
+        - generic [ref=e61]: Managing Director
+      - generic [ref=e62]:
+        - img "Paul Jose" [ref=e63]
+        - generic [ref=e64]: Paul Jose
+        - generic [ref=e65]: Director of Projects
+      - generic [ref=e66]:
+        - img "Jobin George" [ref=e67]
+        - generic [ref=e68]: Jobin George
+        - generic [ref=e69]: Director
+      - generic [ref=e70]:
+        - img "Charles Jose" [ref=e71]
+        - generic [ref=e72]: Charles C. Jose
+        - generic [ref=e73]: Director
+      - generic [ref=e74]:
+        - img "Binoj Kurian" [ref=e75]
+        - generic [ref=e76]: Binoj Kurian
+        - generic [ref=e77]: Director
+  - generic [ref=e79]:
+    - heading "Ready to Secure Your Parents' Future?" [level=2] [ref=e80]:
+      - text: Ready to Secure
+      - emphasis [ref=e81]: Your Parents' Future
+      - text: "?"
+    - paragraph [ref=e82]: Speak with our team about residence availability, investment tiers, and how Mater Maria Homes can bring peace of mind to your family.
+    - generic [ref=e83]:
+      - link "ENQUIRE NOW" [ref=e84] [cursor=pointer]:
+        - /url: index-landing.html#contact
+      - link "VIEW INVESTMENT TIERS" [ref=e85] [cursor=pointer]:
+        - /url: index-landing.html#tiers
+    - generic [ref=e86]:
+      - generic [ref=e87]:
+        - img [ref=e88]
+        - text: +91 94470 80356
+      - generic [ref=e90]:
+        - img [ref=e91]
+        - text: Info@matermariahomes.com
+  - contentinfo [ref=e93]:
+    - generic [ref=e94]:
+      - generic [ref=e95]:
+        - img "Mater Maria Homes" [ref=e96]
+        - paragraph [ref=e97]: A sanctuary of 24/7 care, spiritual community, and medical excellence — where every resident lives with dignity and peace.
+      - generic [ref=e98]: © 2026 Mater Maria Homes. All rights reserved.
+      - list [ref=e99]:
+        - listitem [ref=e100]:
+          - link "Home" [ref=e101] [cursor=pointer]:
+            - /url: index-landing.html
+        - listitem [ref=e102]:
+          - link "Contact" [ref=e103] [cursor=pointer]:
+            - /url: index-landing.html#contact
+        - listitem [ref=e104]:
+          - link "Privacy" [ref=e105] [cursor=pointer]:
+            - /url: privacy.html
+        - listitem [ref=e106]:
+          - link "Terms" [ref=e107] [cursor=pointer]:
+            - /url: terms.html
+        - listitem [ref=e108]:
+          - link "Facebook" [ref=e109] [cursor=pointer]:
+            - /url: https://www.facebook.com/people/Mater-Maria-Homes/61589862121661/
+        - listitem [ref=e110]:
+          - link "Instagram" [ref=e111] [cursor=pointer]:
+            - /url: https://www.instagram.com/matermariahomes/

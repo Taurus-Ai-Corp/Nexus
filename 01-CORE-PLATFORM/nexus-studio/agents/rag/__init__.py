@@ -1,3 +1,3 @@
 """
-Rag Agents for BizFlow-Orchestrator
+RAG Agents for NEXUS Creative Studio
 """

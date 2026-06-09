@@ -1,0 +1,147 @@
+{
+  "website_analysis": {
+    "title": "Nava Studio - Webflow HTML website template",
+    "url": "https://nava-studio.webflow.io/",
+    "extracted_at": "2025-09-20T08:37:00Z",
+    "analysis_type": "complete_content_extraction",
+    "content_format": "markdown",
+    "tokens_used": 12000
+  },
+  "content": {
+    "main_heading": "Full-Service Digital Agency",
+    "tagline": "Transforming your digital presence with innovative web design",
+    "sections": [
+      {
+        "section": "hero",
+        "content": "Full-Service Digital Agency - Transforming your digital presence with innovative web design",
+        "location": "New York, 14:21:46"
+      },
+      {
+        "section": "about",
+        "heading": "Who we are",
+        "content": "Transforming your digital Brand with an impactful design branding to drive success. We specialize in transforming your digital brand through impactful design and strategic branding. Our creative approach ensures your brand stands out, connects, and converts.",
+        "cta": "About Us"
+      },
+      {
+        "section": "stats",
+        "heading": "Successfully Built Brands Experience That Drives Real Success",
+        "metric": "654321 Successful Projects"
+      },
+      {
+        "section": "portfolio",
+        "heading": "Our Works - Our Work Speaks Than Words",
+        "content": "Enable businesses to thrive online by delivering tailored web development solutions",
+        "cta": "View All Works"
+      },
+      {
+        "section": "services",
+        "heading": "Services We Provide - Expert Services to Drive Success",
+        "satisfaction_rate": "6543%",
+        "services": [
+          {
+            "name": "Branding",
+            "description": "We master the art of shaping a unique identity that resonates with audiences and sets a business apart.",
+            "cta": "Learn More"
+          },
+          {
+            "name": "App Design", 
+            "description": "We focus on creating user-friendly interfaces and seamless experiences for mobile and desktop applications.",
+            "cta": "Learn More"
+          },
+          {
+            "name": "Web Design",
+            "description": "Streamline processes. AI-powered HR solutions built for smarter. Adipiscing sagittis diam potenti id convallis",
+            "cta": "Learn More"
+          },
+          {
+            "name": "Development",
+            "description": "Turning design concepts into functional software through coding. It includes front-end, back-end, and full-stack d",
+            "cta": "Learn More"
+          }
+        ]
+      },
+      {
+        "section": "partners",
+        "heading": "Our Partners",
+        "content": "Nava Studio works with the industry's top platforms.",
+        "satisfaction_rate": "0% (as per reviews)"
+      },
+      {
+        "section": "testimonials",
+        "heading": "4.5/5 Client Review - 1k Satisfied Clients",
+        "subheading": "Sweet Words",
+        "testimonials": [
+          {
+            "name": "Jacob B.",
+            "role": "HR Manager Bank Central",
+            "rating": "★★★★★",
+            "quote": "The team took time to our vision and understood translated it into a design that feels intentional, and completely authentic."
+          },
+          {
+            "name": "Sarah N.",
+            "role": "Marketing Director", 
+            "rating": "★★★★★",
+            "quote": "Every design choice had a reason behind it, and it showed in the results. We've had more engagement than ever before!"
+          },
+          {
+            "name": "Alex Smith",
+            "role": "HR Manager Bank Central",
+            "rating": "★★★★★", 
+            "quote": "From the website redesign to our brand voice, they gave everything a cohesive, premium feel."
+          },
+          {
+            "name": "John Smith",
+            "role": "HR Manager Bank Central",
+            "rating": "★★★★★",
+            "quote": "What impressed me most was their strategic approach. Every design choice had a reason behind it."
+          },
+          {
+            "name": "Jackson G.",
+            "role": "HR Manager Bank Central", 
+            "rating": "★★★★★",
+            "quote": "It came with an app for system monitoring, and I enjoy using it to track our power generation, daily and weekly production."
+          }
+        ]
+      },
+      {
+        "section": "blog",
+        "heading": "Insight - Recent Articles",
+        "content": "Transforming your digital presence with innovative web design, intuitive app design, and impactful branding to drive business seccess. Enable businesses to thrive online by delivering tailored web development."
+      }
+    ]
+  },
+  "technical_details": {
+    "platform": "Webflow",
+    "template_type": "HTML website template",
+    "images": [
+      "https://cdn.prod.website-files.com/67c3581ddb64922e2ab65814/67fca4643159975066b81bc7_image.avif",
+      "https://cdn.prod.website-files.com/67c3581ddb64922e2ab65814/67fb73f6e93dc9d9b2586b30_Group%201171276911.avif",
+      "https://cdn.prod.website-files.com/67c3581ddb64922e2ab65814/67fb734d711f1499327f94b0_Group%202147225554.svg"
+    ],
+    "navigation_links": [
+      "/contract-us",
+      "/service/branding", 
+      "/service/app-design",
+      "/service/web-design-6wv2c",
+      "/service/development",
+      "/service"
+    ]
+  },
+  "business_analysis": {
+    "company_type": "Digital Agency",
+    "specialization": "Web Design, App Design, Branding, Development",
+    "target_market": "Businesses needing digital transformation",
+    "value_proposition": "Transforming digital presence with innovative design",
+    "key_metrics": {
+      "successful_projects": "654321",
+      "client_satisfaction": "4.5/5",
+      "satisfied_clients": "1k"
+    },
+    "services_offered": [
+      "Branding",
+      "App Design", 
+      "Web Design",
+      "Development"
+    ]
+  }
+}

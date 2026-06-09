@@ -1,5 +1,5 @@
 """
-Newsletter Generator Agent for BizFlow-Orchestrator
+Newsletter Generator Agent for NEXUS Creative Studio
 Category: Content
 """
 
@@ -12,7 +12,7 @@ agent_dir = Path(__file__).parent
 sys.path.insert(0, str(agent_dir))
 
 class NewsletterGeneratorAgent:
-    """Newsletter Generator Agent wrapper for BizFlow-Orchestrator"""
+    """Newsletter Generator Agent wrapper for NEXUS Creative Studio"""
     
     def __init__(self):
         self.name = "newsletter_generator"
@@ -24,7 +24,7 @@ class NewsletterGeneratorAgent:
         return [
             "Execute newsletter generator tasks",
             "Process content related requests",
-            "Integrate with BizFlow-Orchestrator"
+            "Integrate with NEXUS Creative Studio"
         ]
     
     async def execute_task(self, task_data):

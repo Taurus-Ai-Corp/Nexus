@@ -1,5 +1,5 @@
 # Enhanced NLP Engine for Social Media Management
-# Integrates with BizFlow, NeoVibe, and agent systems
+# Integrates with Nexus and agent systems
 
 import re
 import json
@@ -9,7 +9,7 @@ from typing import Dict, Any, Optional
 def interpret_command(text: str) -> Dict[str, Any]:
     """
     Enhanced NLP interpretation for social media management commands.
-    Returns intent, entities, and suggested action for BizFlow/NeoVibe/Meta/Instagram operations.
+    Returns intent, entities, and suggested action for Nexus/Meta/Instagram operations.
     """
     text_lower = text.lower().strip()
     
@@ -29,7 +29,7 @@ def interpret_command(text: str) -> Dict[str, Any]:
         response['intent'] = 'create_instagram_campaign'
         response['entities'] = _extract_instagram_entities(text)
         response['suggested_action'] = {
-            'endpoint': '/api/neovibe/instagram-campaigns',
+            'endpoint': '/api/nexus/instagram-campaigns',
             'method': 'POST',
             'payload': _build_instagram_campaign_payload(response['entities'])
         }
@@ -39,7 +39,7 @@ def interpret_command(text: str) -> Dict[str, Any]:
         response['intent'] = 'create_meta_campaign'
         response['entities'] = _extract_meta_campaign_entities(text)
         response['suggested_action'] = {
-            'endpoint': '/api/bizflow/meta-campaigns',
+            'endpoint': '/api/nexus/meta-campaigns',
             'method': 'POST',
             'payload': _build_meta_campaign_payload(response['entities'])
         }
@@ -95,8 +95,8 @@ def interpret_command(text: str) -> Dict[str, Any]:
             'payload': response['entities']
         }
     
-    # Agent Orchestration (BizFlow/NeoVibe)
-    elif any(phrase in text_lower for phrase in ['run agent', 'execute agent', 'bizflow agent', 'neovibe agent', 'orchestrate agent', 'agent']):
+    # Agent Orchestration (Nexus)
+    elif any(phrase in text_lower for phrase in ['run agent', 'execute agent', 'nexus agent', 'orchestrate agent', 'agent']):
         response['intent'] = 'orchestrate_agent'
         response['entities'] = _extract_agent_entities(text)
         response['suggested_action'] = {
@@ -298,14 +298,11 @@ def _extract_agent_entities(text: str) -> Dict[str, Any]:
     entities = {}
     
     # Agent type/platform
-    if 'bizflow' in text.lower():
-        entities['platform'] = 'bizflow'
+    if 'nexus' in text.lower():
+        entities['platform'] = 'nexus'
         entities['agent_type'] = 'seo' if 'seo' in text.lower() else 'analytics'
-    elif 'neovibe' in text.lower():
-        entities['platform'] = 'neovibe'
-        entities['agent_type'] = 'content' if 'content' in text.lower() else 'design'
     else:
-        entities['platform'] = 'bizflow'  # default
+        entities['platform'] = 'nexus'  # default
         entities['agent_type'] = 'orchestrator'
     
     # Task description

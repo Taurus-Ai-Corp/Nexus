@@ -1,3 +1,3 @@
 """
-Automation Agents for BizFlow-Orchestrator
+Automation Agents for NEXUS Creative Studio
 """

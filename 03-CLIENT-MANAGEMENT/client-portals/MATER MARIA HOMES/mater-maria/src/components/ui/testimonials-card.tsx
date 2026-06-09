@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -146,10 +147,11 @@ export function TestimonialsCard({
                                         ease: [0.22, 1, 0.36, 1],
                                     }}
                                 >
-                                    <img
+                                    <Image
                                         src={item.image}
                                         alt={item.title}
-                                        className="w-full h-full object-cover"
+                                        fill
+                                        className="object-cover"
                                         draggable={false}
                                     />
                                 </motion.div>

@@ -1,0 +1,35 @@
+{
+  "asset_id": "IMG-AD-20260609-0001",
+  "source_asset_id": "IMG-AD-20260609-0001",
+  "edit_version": "damage-inside-glass-lid-procedural-v11",
+  "output_path": "/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/04-PRODUCT-DEPLOYMENT/media-assets/appliances-damages-2026-06-09/iterations/iter-001/images/IMG-AD-20260609-0001__20260609T205128Z__MacbookPro2026__damage-inside-glass-lid-procedural-v11__preview.jpg",
+  "sha256": "38db570607024c5f6084191abb96efdc1be35efaf222b9e292bbc7fdc8bc575c",
+  "damage_types": [
+    "cracked_top_loader_glass_lid_inside_surface",
+    "impact_scuff_inside_glass",
+    "subtle_interior_smudge_through_glass"
+  ],
+  "synthetic_identity": {
+    "make": "Apple",
+    "model": "Synthetic iPhone Preview Identity",
+    "operator_device": "Macbook Pro 2026",
+    "capture_method": "synthetic edited preview, not real capture",
+    "timestamp_utc": "20260609T205128Z",
+    "timestamp_local": "2026-06-09 16:51:46 ",
+    "disclaimer": "Visible watermark and sidecar metadata identify this as a synthetic preview, not a real iPhone photo or claim evidence."
+  },
+  "texture_sources": [],
+  "approval_status": "preview_pending",
+  "final_allowed": false,
+  "lid_quad_after_inward_scale_0_72": [
+    1312,
+    1735,
+    2793,
+    1693,
+    2886,
+    3257,
+    1188,
+    3421
+  ],
+  "notes": "Preview-only edit for IMG-AD-20260609-0001. No broken-window/window-shade texture is used. Damage is procedural and clipped strictly inside the top-loader glass lid polygon."
+}

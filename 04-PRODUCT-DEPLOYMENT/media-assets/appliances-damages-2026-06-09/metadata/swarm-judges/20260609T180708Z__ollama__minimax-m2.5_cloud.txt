@@ -1,0 +1,30 @@
+```json
+{
+  "model_role": "judge",
+  "realism_score_0_to_10": 3.5,
+  "primary_issues": [
+    "Cracks appear as semi-transparent overlay rather than physical broken glass/plastic material",
+    "Crack placement lacks interaction with lid curvature, reflections, and surface depth",
+    "Dark vertical dent near right lid edge looks pasted on with poor seam alignment",
+    "No believable impact shadows or displaced plastic material around damage points",
+    "Missing chipping, broken-edge detail, and realistic fracture patterns",
+    "Damage crosses surfaces in mechanically implausible manner"
+  ],
+  "mitigation": [
+    "Reduce crack opacity to 0.4-0.5 to simulate actual material fracture rather than overlay",
+    "Tighten lid mask to 0.85-0.90 scale to ensure damage stays within lid boundaries and follows curvature",
+    "Add softer impact shadow (0.3-0.4 strength) with gaussian blur to create depth around lid edge",
+    "Add displaced plastic shards or raised edges along crack lines",
+    "Align vertical dent with existing washer seam lines for natural integration",
+    "Add subtle surface scratches near main cracks for realism"
+  ],
+  "recommended_final_edit_parameters": {
+    "lid_mask_scale": "0.85-0.90",
+    "crack_opacity": "0.40-0.50",
+    "impact_shadow_strength": "0.30-0.40",
+    "scratch_count": 8,
+    "chip_opacity": "180-200"
+  },
+  "final_verdict": "needs_more_work"
+}
+```

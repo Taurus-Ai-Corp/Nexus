@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   BedDouble,
   Bath,
@@ -121,12 +122,13 @@ export default function ResidencesPageClient() {
               <div key={r.name} data-reveal-card>
                 <GlowCard className="flex h-full flex-col">
                   {/* Residence image */}
-                  <div className="mb-6 overflow-hidden rounded-lg">
-                    <img
+                  <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
+                    <Image
                       src={r.image}
                       alt={r.name}
+                      fill
                       loading="lazy"
-                      className="aspect-video w-full object-cover transition-transform duration-700 hover:scale-105"
+                      className="object-cover transition-transform duration-700 hover:scale-105"
                     />
                   </div>
 
@@ -264,7 +266,7 @@ export default function ResidencesPageClient() {
                 Find Your Perfect Home
               </h2>
               <p className="mx-auto mb-8 max-w-lg text-text-secondary">
-                Schedule a personal tour of our residences and discover the
+                Request a virtual presentation of our residences and discover the
                 perfect space for your next chapter.
               </p>
               <Button
@@ -273,7 +275,7 @@ export default function ResidencesPageClient() {
                 size="lg"
               >
                 <Link href="/contact">
-                  Schedule a Visit <ArrowRight className="size-4" />
+                  Enquire Now <ArrowRight className="size-4" />
                 </Link>
               </Button>
             </div>

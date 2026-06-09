@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NeoVibe AI Platform — PRD, Preview, Demo, Slide Deck, Video Animation Plan</title>
+  <style>
+    :root{
+      --bg:#050816;
+      --panel:#0b1224;
+      --panel2:#111a33;
+      --ink:#e5eefc;
+      --muted:#8ea0bf;
+      --line:rgba(148,163,184,.22);
+      --cyan:#22d3ee;
+      --blue:#60a5fa;
+      --purple:#a78bfa;
+      --green:#34d399;
+      --yellow:#fbbf24;
+      --red:#fb7185;
+      --shadow:0 24px 80px rgba(0,0,0,.45);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(34,211,238,.18), transparent 34rem),
+        radial-gradient(circle at 70% 10%, rgba(167,139,250,.16), transparent 32rem),
+        radial-gradient(circle at 35% 90%, rgba(52,211,153,.10), transparent 30rem),
+        var(--bg);
+      color:var(--ink);
+      line-height:1.55;
+    }
+    a{color:var(--cyan)}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(5,8,22,.78);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      max-width:1240px; margin:0 auto; padding:14px 22px;
+      display:flex; align-items:center; justify-content:space-between; gap:18px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.2px}
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background:linear-gradient(135deg,var(--cyan),var(--purple));
+      display:grid; place-items:center; color:#020617; font-weight:950;
+      box-shadow:0 0 32px rgba(34,211,238,.32);
+    }
+    .navlinks{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .navlinks a{
+      color:var(--muted); text-decoration:none; font-size:13px; padding:8px 10px; border:1px solid transparent; border-radius:999px;
+    }
+    .navlinks a:hover{color:var(--ink); border-color:var(--line); background:rgba(255,255,255,.04)}
+    .container{max-width:1240px; margin:0 auto; padding:34px 22px 80px}
+    .hero{
+      min-height:560px; display:grid; grid-template-columns:1.1fr .9fr; gap:30px; align-items:center;
+      padding:44px 0 28px;
+    }
+    .eyebrow{
+      display:inline-flex; gap:8px; align-items:center; padding:8px 12px;
+      border:1px solid rgba(34,211,238,.35); border-radius:999px;
+      color:#bff4ff; background:rgba(34,211,238,.08); font-size:13px;
+    }
+    h1{font-size:clamp(42px,6vw,78px); line-height:.96; margin:22px 0 18px; letter-spacing:-.06em}
+    h1 span{
+      background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .lead{font-size:20px; color:#cbd5e1; max-width:760px}
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:28px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      border:none; cursor:pointer; text-decoration:none; border-radius:14px; padding:12px 16px;
+      font-weight:800; color:#020617; background:linear-gradient(135deg,var(--cyan),var(--green));
+      box-shadow:0 14px 34px rgba(34,211,238,.18);
+    }
+    .btn.secondary{background:rgba(255,255,255,.06); color:var(--ink); border:1px solid var(--line)}
+    .hero-card{
+      border:1px solid var(--line); background:linear-gradient(180deg,rgba(17,26,51,.92),rgba(11,18,36,.92));
+      border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+    }
+    .hero-card:before{
+      content:""; position:absolute; inset:-80px -80px auto auto; width:220px; height:220px;
+      background:radial-gradient(circle,rgba(34,211,238,.25),transparent 70%);
+    }
+    .metric-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px}
+    .metric{
+      background:rgba(255,255,255,.045); border:1px solid var(--line); border-radius:18px; padding:16px;
+    }
+    .metric strong{font-size:28px; display:block}
+    .metric span{color:var(--muted); font-size:13px}
+    .section{padding:54px 0}
+    .section-title{display:flex; justify-content:space-between; gap:20px; align-items:end; margin-bottom:20px}
+    h2{font-size:clamp(30px,4vw,48px); letter-spacing:-.04em; margin:0}
+    .subtitle{color:var(--muted); max-width:720px}
+    .grid{display:grid; gap:16px}
+    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{
+      background:linear-gradient(180deg,rgba(17,26,51,.9),rgba(11,18,36,.9));
+      border:1px solid var(--line); border-radius:var(--radius); padding:20px; box-shadow:0 18px 50px rgba(0,0,0,.22);
+    }
+    .card h3{margin:0 0 8px; font-size:20px}
+    .card p{color:var(--muted); margin:0}
+    .pill{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); border-radius:999px; padding:5px 9px; color:#cbd5e1; font-size:12px; background:rgba(255,255,255,.04)}
+    .pill.good{border-color:rgba(52,211,153,.35); color:#bbf7d0; background:rgba(52,211,153,.08)}
+    .pill.warn{border-color:rgba(251,191,36,.35); color:#fde68a; background:rgba(251,191,36,.08)}
+    .pill.danger{border-color:rgba(251,113,133,.35); color:#fecdd3; background:rgba(251,113,133,.08)}
+    .tagrow{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px}
+    .mock{
+      border:1px solid var(--line); border-radius:22px; background:rgba(2,6,23,.45); overflow:hidden;
+    }
+    .mock-header{
+      display:flex; gap:8px; align-items:center; padding:14px 16px; border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.035);
+    }
+    .dot{width:11px; height:11px; border-radius:99px; background:var(--red)}
+    .dot:nth-child(2){background:var(--yellow)}
+    .dot:nth-child(3){background:var(--green)}
+    .mock-body{padding:18px}
+    .dashboard{
+      display:grid; grid-template-columns:250px 1fr; gap:16px; min-height:420px;
+    }
+    .sidebar{background:rgba(255,255,255,.035); border:1px solid var(--line); border-radius:18px; padding:16px}
+    .side-item{padding:10px 12px; border-radius:12px; color:#cbd5e1; margin-bottom:8px; font-size:14px}
+    .side-item.active{background:linear-gradient(90deg,rgba(34,211,238,.18),rgba(167,139,250,.14)); color:#fff; border:1px solid rgba(34,211,238,.25)}
+    .main-panel{display:grid; gap:14px}
+    .status-row{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+    .status{background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:16px; padding:14px}
+    .status b{font-size:24px}
+    .workflow{
+      display:grid; gap:10px;
+    }
+    .flow-step{
+      display:grid; grid-template-columns:34px 1fr auto; gap:12px; align-items:center;
+      padding:13px; border:1px solid var(--line); border-radius:16px; background:rgba(255,255,255,.035);
+    }
+    .num{width:34px; height:34px; display:grid; place-items:center; border-radius:12px; background:rgba(34,211,238,.14); color:var(--cyan); font-weight:900}
+    .flow-step:hover{transform:translateY(-2px); transition:.2s ease; border-color:rgba(34,211,238,.42)}
+    .tabs{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px}
+    .tab{
+      border:1px solid var(--line); background:rgba(255,255,255,.045); color:var(--muted);
+      border-radius:999px; padding:10px 13px; cursor:pointer; font-weight:800;
+    }
+    .tab.active{background:rgba(34,211,238,.14); color:#fff; border-color:rgba(34,211,238,.45)}
+    .demo-panel{display:none; animation:fade .25s ease}
+    .demo-panel.active{display:block}
+    @keyframes fade{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+    .input-like{
+      border:1px solid var(--line); border-radius:16px; padding:14px; background:rgba(2,6,23,.42); color:#dbeafe;
+      min-height:72px; margin:12px 0;
+    }
+    .result-box{
+      border:1px solid rgba(52,211,153,.28); background:rgba(52,211,153,.07); border-radius:16px; padding:14px; margin-top:12px;
+    }
+    .result-box.warn{border-color:rgba(251,191,36,.32); background:rgba(251,191,36,.07)}
+    .result-box.danger{border-color:rgba(251,113,133,.32); background:rgba(251,113,133,.07)}
+    .mini-btn{
+      border:1px solid var(--line); background:rgba(255,255,255,.06); color:var(--ink); border-radius:12px; padding:9px 12px; cursor:pointer; font-weight:800;
+    }
+    .deck{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+    }
+    .slide{
+      min-height:240px; border:1px solid var(--line); border-radius:22px; padding:18px;
+      background:linear-gradient(145deg,rgba(17,26,51,.95),rgba(2,6,23,.72));
+      position:relative; overflow:hidden;
+    }
+    .slide:before{
+      content:""; position:absolute; right:-45px; top:-45px; width:130px; height:130px;
+      background:radial-gradient(circle,rgba(34,211,238,.24),transparent 70%);
+    }
+    .slide .n{font-size:12px; color:var(--muted)}
+    .slide h4{font-size:22px; margin:12px 0 8px}
+    .slide ul{margin:0; padding-left:18px; color:#cbd5e1}
+    .timeline{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:16px;
+    }
+    .road{
+      border:1px solid var(--line); border-radius:20px; padding:18px; background:rgba(255,255,255,.04); position:relative;
+    }
+    .road:before{
+      content:""; position:absolute; left:-18px; top:36px; width:18px; height:2px; background:var(--cyan);
+    }
+    .road:first-child:before{display:none}
+    .road strong{display:block; margin-bottom:8px}
+    .video{
+      display:grid; grid-template-columns:280px 1fr; gap:18px; align-items:stretch;
+    }
+    .stage{
+      min-height:360px; border:1px solid var(--line); border-radius:24px; background:
+        linear-gradient(135deg,rgba(34,211,238,.08),transparent 45%),
+        linear-gradient(315deg,rgba(167,139,250,.10),transparent 45%),
+        rgba(2,6,23,.55);
+      position:relative; overflow:hidden;
+    }
+    .orbit{
+      position:absolute; width:170px; height:170px; border:1px solid rgba(34,211,238,.28); border-radius:50%;
+      left:50%; top:50%; transform:translate(-50%,-50%);
+      animation:spin 12s linear infinite;
+    }
+    .orbit:before,.orbit:after{
+      content:""; position:absolute; width:18px; height:18px; border-radius:50%; background:var(--cyan);
+      box-shadow:0 0 24px rgba(34,211,238,.8);
+    }
+    .orbit:before{top:18px; left:28px}
+    .orbit:after{right:22px; bottom:34px; background:var(--purple)}
+    @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+    .stage-center{
+      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      width:150px; height:150px; border-radius:36px; display:grid; place-items:center; text-align:center;
+      background:linear-gradient(135deg,rgba(34,211,238,.20),rgba(167,139,250,.18));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 0 70px rgba(34,211,238,.14);
+      font-weight:900;
+    }
+    .story{
+      display:grid; gap:10px;
+    }
+    .story-item{
+      display:grid; grid-template-columns:64px 1fr; gap:12px; padding:12px; border:1px solid var(--line); border-radius:16px; background:rgba(255,255,255,.035);
+    }
+    .thumb{
+      height:54px; border-radius:12px; background:linear-gradient(135deg,rgba(34,211,238,.25),rgba(167,139,250,.18));
+      display:grid; place-items:center; color:#fff; font-weight:950;
+    }
+    table{width:100%; border-collapse:collapse}
+    th,td{padding:12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top}
+    th{color:#cbd5e1; font-size:13px; text-transform:uppercase; letter-spacing:.08em}
+    td{color:var(--muted)}
+    .kpi{
+      display:grid; grid-template-columns:repeat(5,1fr); gap:12px;
+    }
+    .kpi .box{border:1px solid var(--line); border-radius:18px; padding:16px; background:rgba(255,255,255,.04)}
+    .kpi b{font-size:26px; display:block}
+    .footer{
+      border-top:1px solid var(--line); padding:30px 0 0; color:var(--muted);
+    }
+    .note{
+      border-left:3px solid var(--cyan); padding:12px 14px; background:rgba(34,211,238,.06); border-radius:12px; color:#cbd5e1;
+    }
+    .hidden{display:none!important}
+    @media(max-width:900px){
+      .hero,.grid.two,.grid.three,.dashboard,.video{grid-template-columns:1fr}
+      .deck,.timeline,.kpi,.status-row{grid-template-columns:1fr 1fr}
+      .nav{align-items:flex-start; flex-direction:column}
+      .navlinks{justify-content:flex-start}
+    }
+    @media(max-width:600px){
+      .deck,.timeline,.kpi,.status-row{grid-template-columns:1fr}
+      .hero{padding-top:20px}
+      h1{font-size:42px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="nav">
+      <div class="brand"><div class="logo">N</div><div>NeoVibe AI Platform<br><span style="font-size:12px;color:var(--muted);font-weight:600">PRD + Preview + Demo Plan</span></div></div>
+      <div class="navlinks">
+        <a href="#prd">PRD</a>
+        <a href="#preview">Preview</a>
+        <a href="#demo">Demo</a>
+        <a href="#deck">Slides</a>
+        <a href="#video">Video Plan</a>
+        <a href="#roadmap">Roadmap</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">AI workflow automation for fintech, lending, documents, and synthetic media</div>
+        <h1>Turn AI models into <span>revenue workflows</span></h1>
+        <p class="lead">A product plan and interactive HTML showcase for an AI platform that combines prospecting, document intelligence, underwriting assistance, synthetic damage previews, and animated investor/demo storytelling.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#demo">Open interactive demo</a>
+          <a class="btn secondary" href="#prd">Read PRD</a>
+        </div>
+        <div class="tagrow">
+          <span class="pill">Next.js ready</span>
+          <span class="pill">n8n workflow layer</span>
+          <span class="pill">OpenRouter model layer</span>
+          <span class="pill">Static prototype only</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="mock-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:auto;color:var(--muted);font-size:13px">Live product preview</span></div>
+        <div class="mock-body">
+          <div class="dashboard">
+            <div class="sidebar">
+              <div class="side-item active">Revenue Launchpad</div>
+              <div class="side-item">Document Intelligence</div>
+              <div class="side-item">Loan Risk Assistant</div>
+              <div class="side-item">Damage Preview Studio</div>
+              <div class="side-item">Deck + Video Builder</div>
+            </div>
+            <div class="main-panel">
+              <div class="status-row">
+                <div class="status"><b>308</b><span style="color:var(--muted)">ADGM targets</span></div>
+                <div class="status"><b>980</b><span style="color:var(--muted)">DFSA entities</span></div>
+                <div class="status"><b>50</b><span style="color:var(--muted)">free loan pilot</span></div>
+                <div class="status"><b>$1,999</b><span style="color:var(--muted)">monthly package</span></div>
+              </div>
+              <div class="workflow">
+                <div class="flow-step"><div class="num">1</div><div><b>Ingest</b><br><span style="color:var(--muted)">CSV, PDF, CRM, email, loan file, image prompt</span></div><span class="pill good">Ready</span></div>
+                <div class="flow-step"><div class="num">2</div><div><b>Analyze</b><br><span style="color:var(--muted)">LLM extracts, scores, summarizes, drafts</span></div><span class="pill good">Ready</span></div>
+                <div class="flow-step"><div class="num">3</div><div><b>Act</b><br><span style="color:var(--muted)">n8n sends outreach, creates PDFs, updates CRM</span></div><span class="pill warn">Planned</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prd" class="section">
+      <div class="section-title">
+        <div>
+          <h2>PRD</h2>
+          <div class="subtitle">A practical product requirements document for the first revenue-generating version.</div>
+        </div>
+        <span class="pill">MVP scope</span>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Product name</h3>
+          <p><b>NeoVibe AI Platform</b> — AI workflow automation for regulated financial services, document-heavy operations, and synthetic media production.</p>
+          <div class="tagrow">
+            <span class="pill">B2B SaaS</span><span class="pill">AI agents</span><span class="pill">Fintech</span><span class="pill">Lending</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Core promise</h3>
+          <p>Help teams turn messy inputs into structured decisions, customer acquisition actions, and polished sales/demo assets without building custom AI infrastructure.</p>
+        </div>
+      </div>
+
+      <div class="grid three" style="margin-top:16px">
+        <div class="card">
+          <h3>Primary users</h3>
+          <p>Founders, sales teams, fintech ops teams, lending analysts, document processors, and creative producers.</p>
+        </div>
+        <div class="card">
+          <h3>Target customers</h3>
+          <p>UAE ADGM/DFSA fintechs, India micro-business lenders, SMB finance teams, and businesses needing visual damage previews.</p>
+        </div>
+        <div class="card">
+          <h3>Buying trigger</h3>
+          <p>Manual research, document review, underwriting notes, outreach, and visual content creation are slow, inconsistent, or expensive.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3>Problem statement</h3>
+        <p>Companies have valuable documents, prospect lists, loan files, and visual content needs, but most teams still rely on manual copy-paste workflows, inconsistent analyst judgment, and expensive creative production. They need an AI workflow layer that is structured, reviewable, and connected to revenue actions.</p>
+      </div>
+
+      <div class="grid two" style="margin-top:16px">
+        <div class="card">
+          <h3>MVP modules</h3>
+          <table>
+            <thead><tr><th>Module</th><th>Input</th><th>Output</th><th>Revenue use</th></tr></thead>
+            <tbody>
+              <tr><td>Revenue Launchpad</td><td>Market filters, target sectors</td><td>Prospect list, outreach drafts, follow-up tasks</td><td>UAE/India pilot acquisition</td></tr>
+              <tr><td>Document Intelligence</td><td>PDF, invoice, contract, report</td><td>Structured JSON, summary, missing fields</td><td>Ops automation</td></tr>
+              <tr><td>Loan Risk Assistant</td><td>Loan narrative, borrower notes</td><td>Risk score, flags, questions</td><td>Muthoot-style lending pilot</td></tr>
+              <tr><td>Damage Preview Studio</td><td>Product/appliance description</td><td>Realistic damage prompts, review checklist</td><td>Visual asset pipeline</td></tr>
+              <tr><td>Deck + Video Builder</td><td>PRD, demo plan, script</td><td>Slide outline, storyboard, motion notes</td><td>Sales and investor storytelling</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3>Non-goals for MVP</h3>
+          <ul>
+            <li>No production lending decision engine.</li>
+            <li>No automated regulated approval decisions.</li>
+            <li>No full video rendering pipeline yet.</li>
+            <li>No customer data training or fine-tuning in MVP.</li>
+            <li>No replacement for human review.</li>
+          </ul>
+          <div class="note" style="margin-top:14px"><b>Human-in-the-loop:</b> every AI output should be reviewable, editable, and exportable.</div>
+        </div>
+      </div>
+
+      <div class="grid three" style="margin-top:16px">
+        <div class="card">
+          <h3>Success metrics</h3>
+          <p>Time saved per workflow, number of qualified prospects, pilot conversion rate, loan file triage speed, invoice extraction accuracy, and paid conversion after free pilot.</p>
+        </div>
+        <div class="card">
+          <h3>Pricing hypothesis</h3>
+          <p>$1,999/month for managed pilot, or $0.15 per loan/document processed. Enterprise custom pricing for workflow integrations.</p>
+        </div>
+        <div class="card">
+          <h3>MVP acceptance</h3>
+          <p>Customer can upload/select input, receive structured AI output, edit it, export it, and trigger a follow-up workflow or demo asset.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="preview" class="section">
+      <div class="section-title">
+        <div>
+          <h2>Product Preview</h2>
+          <div class="subtitle">How the platform should look and feel before implementation.</div>
+        </div>
+        <span class="pill">Static preview</span>
+      </div>
+
+      <div class="mock">
+        <div class="mock-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:auto;color:var(--muted);font-size:13px">app.neovibe.ai / dashboard</span></div>
+        <div class="mock-body">
+          <div class="kpi">
+            <div class="box"><b>12</b><span style="color:var(--muted)">new prospects</span></div>
+            <div class="box"><b>84%</b><span style="color:var(--muted)">data completeness</span></div>
+            <div class="box"><b>6.8</b><span style="color:var(--muted)">risk score</span></div>
+            <div class="box"><b>18m</b><span style="color:var(--muted)">time saved</span></div>
+            <div class="box"><b>4</b><span style="color:var(--muted)">exports today</span></div>
+          </div>
+
+          <div class="grid three" style="margin-top:16px">
+            <div class="card">
+              <span class="pill good">Prospecting</span>
+              <h3 style="margin-top:14px">ADGM fintech pilot list</h3>
+              <p>Early-stage fintechs, RegLab candidates, warm intro scoring, and outreach draft generation.</p>
+            </div>
+            <div class="card">
+              <span class="pill warn">Underwriting support</span>
+              <h3 style="margin-top:14px">Loan file triage</h3>
+              <p>Extract borrower, business type, cash-flow signals, missing documents, and next questions.</p>
+            </div>
+            <div class="card">
+              <span class="pill">Creative</span>
+              <h3 style="margin-top:14px">Damage preview studio</h3>
+              <p>Generate safe synthetic damage prompt variants and realism review checklist.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="section">
+      <div class="section-title">
+        <div>
+          <h2>Hands-on Demo</h2>
+          <div class="subtitle">Clickable prototype. No backend, no implementation — simulated AI workflow states only.</div>
+        </div>
+        <span class="pill">Prototype demo</span>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="prospects">Prospect Finder</button>
+        <button class="tab" data-tab="documents">Document Intelligence</button>
+        <button class="tab" data-tab="loan">Loan Risk Assistant</button>
+        <button class="tab" data-tab="damage">Damage Preview</button>
+        <button class="tab" data-tab="assets">Deck + Video Assets</button>
+      </div>
+
+      <div class="mock">
+        <div class="mock-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:auto;color:var(--muted);font-size:13px">interactive prototype</span></div>
+        <div class="mock-body">
+
+          <div id="prospects" class="demo-panel active">
+            <h3>Revenue Launchpad: UAE fintech prospecting</h3>
+            <div class="input-like">
+              <b>Filters:</b> ADGM licensed · fintech · early-stage · cybersecurity / payments / compliance · warm intro priority
+            </div>
+            <button class="mini-btn" onclick="runDemo('prospects')">Run simulated prospect search</button>
+            <div id="prospects-result" class="result-box hidden">
+              <b>Output:</b> 12 prioritized prospects<br>
+              <span style="color:#cbd5e1">Top segments: RegLab fintechs, payments infrastructure, compliance automation, custody/security.</span><br>
+              <span class="pill good">Next action:</span> generate 3-email sequence + LinkedIn note + CRM task
+            </div>
+          </div>
+
+          <div id="documents" class="demo-panel">
+            <h3>Document Intelligence: invoice and contract extraction</h3>
+            <div class="input-like">
+              <b>Input:</b> PDF invoice / contract / report<br>
+              <b>Fields:</b> vendor, customer, invoice number, subtotal, discounts, taxes, total, due date, missing fields
+            </div>
+            <button class="mini-btn" onclick="runDemo('documents')">Run simulated extraction</button>
+            <div id="documents-result" class="result-box hidden">
+              <b>Structured JSON:</b><br>
+              <code style="color:#bfdbfe">{ "invoice": "INV-MMH-2026-002", "subtotal": 4200, "discounts": 1000, "total": 3200, "confidence": 0.97 }</code>
+            </div>
+          </div>
+
+          <div id="loan" class="demo-panel">
+            <h3>Loan Risk Assistant: micro-business lending triage</h3>
+            <div class="input-like">
+              <b>Sample borrower:</b> Hotel owner, Kerala, 3 years operating history, mixed cash flow, incomplete GST records, hotel occupancy seasonal.
+            </div>
+            <button class="mini-btn" onclick="runDemo('loan')">Run simulated risk review</button>
+            <div id="loan-result" class="result-box warn hidden">
+              <b>Risk score:</b> 6.8 / 10<br>
+              <b>Positive signals:</b> operating history, sector familiarity, repeat customers.<br>
+              <b>Concerns:</b> seasonal cash flow, incomplete GST records, working capital dependency.<br>
+              <b>Next questions:</b> last 6 months bank statements, occupancy trend, existing debt, inventory cycle.
+            </div>
+          </div>
+
+          <div id="damage" class="demo-panel">
+            <h3>Damage Preview Studio: synthetic appliance damage</h3>
+            <div class="input-like">
+              <b>Asset:</b> stainless refrigerator door, kitchen lighting, shallow dent, realistic shadow, no fire/smoke, commercial photo style.
+            </div>
+            <button class="mini-btn" onclick="runDemo('damage')">Generate simulated preview prompts</button>
+            <div id="damage-result" class="result-box hidden">
+              <b>Prompt variant:</b> “A premium stainless refrigerator in a modern kitchen, shallow cosmetic dent on lower door panel, realistic specular highlights, subtle shadow inside dent, no flames, no smoke, no structural damage, product photography.”<br>
+              <span class="pill good">Review:</span> realistic · safe · no misleading catastrophic damage
+            </div>
+          </div>
+
+          <div id="assets" class="demo-panel">
+            <h3>Deck + Video Asset Builder</h3>
+            <div class="input-like">
+              <b>Input:</b> PRD summary, customer segment, pricing hypothesis, demo screenshots, sales narrative.
+            </div>
+            <button class="mini-btn" onclick="runDemo('assets')">Build simulated deck + video plan</button>
+            <div id="assets-result" class="result-box hidden">
+              <b>Created:</b> 8-slide investor deck outline, 45-second product animation storyboard, voiceover script, motion cues.<br>
+              <span class="pill">Next:</span> convert to reveal.js slides, PDF deck, or video storyboard package.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="deck" class="section">
+      <div class="section-title">
+        <div>
+          <h2>Slide Deck Plan</h2>
+          <div class="subtitle">A concise investor/customer deck structure that can become reveal.js, HTML, PDF, or video narration.</div>
+        </div>
+        <span class="pill">8 slides</span>
+      </div>
+
+      <div class="deck">
+        <div class="slide"><span class="n">01</span><h4>Problem</h4><ul><li>Manual prospecting is slow</li><li>Documents are unstructured</li><li>Lending review is inconsistent</li></ul></div>
+        <div class="slide"><span class="n">02</span><h4>Solution</h4><ul><li>AI workflow layer</li><li>Human review</li><li>Revenue actions</li></ul></div>
+        <div class="slide"><span class="n">03</span><h4>Target Markets</h4><ul><li>UAE fintechs</li><li>India micro-lending</li><li>SMB document ops</li></ul></div>
+        <div class="slide"><span class="n">04</span><h4>Product Modules</h4><ul><li>Prospecting</li><li>Document intelligence</li><li>Risk assistant</li></ul></div>
+        <div class="slide"><span class="n">05</span><h4>Demo Flow</h4><ul><li>Input</li><li>AI analysis</li><li>Review</li><li>Export</li></ul></div>
+        <div class="slide"><span class="n">06</span><h4>Business Model</h4><ul><li>$1,999/month pilot</li><li>$0.15 per loan/doc</li><li>Enterprise integrations</li></ul></div>
+        <div class="slide"><span class="n">07</span><h4>Go-to-Market</h4><ul><li>Warm intros</li><li>Free 50-loan pilot</li><li>RegLab / accelerator targets</li></ul></div>
+        <div class="slide"><span class="n">08</span><h4>Ask</h4><ul><li>Pilot customers</li><li>Data access</li><li>Partnership intros</li></ul></div>
+      </div>
+    </section>
+
+    <section id="video" class="section">
+      <div class="section-title">
+        <div>
+          <h2>Video Animation Plan</h2>
+          <div class="subtitle">A 45-second product animation storyboard for website hero, investor deck, or sales demo.</div>
+        </div>
+        <span class="pill">Storyboard</span>
+      </div>
+
+      <div class="video">
+        <div class="stage">
+          <div class="orbit"></div>
+          <div class="stage-center">NeoVibe<br><span style="font-size:13px;color:#cbd5e1;font-weight:600">AI workflows</span></div>
+        </div>
+        <div class="story">
+          <div class="story-item"><div class="thumb">01</div><div><b>0–5s — Pain</b><br><span style="color:var(--muted)">Manual tabs, PDFs, spreadsheets, slow prospecting, inconsistent reviews.</span></div></div>
+          <div class="story-item"><div class="thumb">02</div><div><b>5–15s — Platform</b><br><span style="color:var(--muted)">Inputs flow into NeoVibe: CSV, PDF, CRM, loan notes, visual prompt briefs.</span></div></div>
+          <div class="story-item"><div class="thumb">03</div><div><b>15–30s — AI workflow</b><br><span style="color:var(--muted)">Model extracts, scores, drafts, prioritizes, and creates structured outputs.</span></div></div>
+          <div class="story-item"><div class="thumb">04</div><div><b>30–40s — Human review</b><br><span style="color:var(--muted)">User edits, approves, exports, and triggers n8n workflow actions.</span></div></div>
+          <div class="story-item"><div class="thumb">05</div><div><b>40–45s — Revenue outcome</b><br><span style="color:var(--muted)">Faster pilots, better document ops, and scalable AI-assisted revenue workflows.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section">
+      <div class="section-title">
+        <div>
+          <h2>Implementation Plan</h2>
+          <div class="subtitle">No implementation done here. This is the recommended build order when you want to execute.</div>
+        </div>
+        <span class="pill">Plan only</span>
+      </div>
+
+      <div class="timeline">
+        <div class="road"><span class="pill">Phase 1</span><strong style="margin-top:10px">Static product site</strong><span style="color:var(--muted)">Landing page, PRD page, demo prototype, slide deck page.</span></div>
+        <div class="road"><span class="pill">Phase 2</span><strong style="margin-top:10px">AI workflow backend</strong><span style="color:var(--muted)">Next.js API routes, OpenRouter calls, JSON validation, prompt templates.</span></div>
+        <div class="road"><span class="pill">Phase 3</span><strong style="margin-top:10px">n8n automation</strong><span style="color:var(--muted)">CRM updates, email drafts, PDF generation, Slack/Telegram notifications.</span></div>
+        <div class="road"><span class="pill">Phase 4</span><strong style="margin-top:10px">Customer pilots</strong><span style="color:var(--muted)">UAE fintech prospecting, India loan triage, invoice/document automation.</span></div>
+      </div>
+
+      <div class="grid three" style="margin-top:16px">
+        <div class="card">
+          <h3>Build recommendation</h3>
+          <p>Start with a static HTML preview, then convert into Next.js pages. Keep the demo simulated until backend prompts and validation are ready.</p>
+        </div>
+        <div class="card">
+          <h3>Validation recommendation</h3>
+          <p>Use 3 pilot workflows: prospecting, invoice extraction, loan triage. Measure time saved, output quality, and willingness to pay.</p>
+        </div>
+        <div class="card">
+          <h3>Sales recommendation</h3>
+          <p>Lead with the demo, not the model. Show the customer their workflow before and after AI automation.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <b>Created as a planning artifact only.</b><br>
+      This HTML file is a static PRD, preview, demo prototype, slide deck plan, and video animation storyboard. No backend, database, AI API calls, or production features are implemented.
+    </footer>
+  </main>
+
+  <script>
+    document.querySelectorAll('.tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.demo-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    function runDemo(id){
+      const result = document.getElementById(id + '-result');
+      result.classList.remove('hidden');
+      result.animate([
+        {opacity:0, transform:'translateY(10px)'},
+        {opacity:1, transform:'translateY(0)'}
+      ], {duration:260, easing:'ease-out'});
+    }
+  </script>
+</body>
+</html>

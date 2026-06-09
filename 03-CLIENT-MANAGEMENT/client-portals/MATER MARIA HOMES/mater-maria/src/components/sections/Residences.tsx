@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Maximize2, BedDouble, PlayCircle } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { RESIDENCES } from "@/lib/constants";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -68,11 +69,12 @@ function ResidenceCard({
     >
       {/* ── Image with parallax ────────────────────────────── */}
       <div className={cn("relative overflow-hidden", imageAspect)}>
-        <img
+        <Image
           src={residence.image}
           alt={`${residence.name} — ${residence.sqft} sq ft ${residence.bedrooms} residence at Mater Maria Homes`}
+          fill
           loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="object-cover"
           style={{
             transform: `translate(${imgOffset.x}px, ${imgOffset.y}px) scale(1.12)`,
             transition: hovered ? "transform 0.15s ease-out" : "transform 0.8s ease",

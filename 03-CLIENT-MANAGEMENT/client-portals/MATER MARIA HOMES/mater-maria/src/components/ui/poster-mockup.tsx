@@ -61,10 +61,11 @@ export function PosterMockup({ className }: PosterMockupProps) {
                 zIndex: i,
               }}
             >
-              <img
+              <Image
                 src={img.src}
                 alt={img.alt}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                fill
+                className="object-cover"
               />
             </div>
           ))}

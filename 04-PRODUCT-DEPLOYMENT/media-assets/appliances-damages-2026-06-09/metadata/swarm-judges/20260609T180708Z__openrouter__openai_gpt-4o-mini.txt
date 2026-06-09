@@ -1,0 +1,27 @@
+```json
+{
+  "model_role": "judge",
+  "realism_score_0_to_10": 3,
+  "primary_issues": [
+    "Cracks appear as a semi-transparent overlay rather than realistic damage.",
+    "Crack placement does not interact naturally with reflections or lid curvature.",
+    "Dark vertical damage near the lid edge looks pasted on and misaligned with seams.",
+    "Lack of believable shadows, displaced plastic, and broken-edge detail.",
+    "Damage crosses surfaces in an artificial manner."
+  ],
+  "mitigation": [
+    "Reduce crack opacity to enhance realism.",
+    "Tighten lid mask to improve alignment with the washer's structure.",
+    "Add softer impact shadows around the lid to create depth.",
+    "Incorporate details like chips and broken edges for authenticity."
+  ],
+  "recommended_final_edit_parameters": {
+    "lid_mask_scale": "0.75",
+    "crack_opacity": "0.30",
+    "impact_shadow_strength": "0.50",
+    "scratch_count": 5,
+    "chip_opacity": "150"
+  },
+  "final_verdict": "needs_more_work"
+}
+```

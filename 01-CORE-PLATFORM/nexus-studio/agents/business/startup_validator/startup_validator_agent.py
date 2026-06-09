@@ -1,5 +1,5 @@
 """
-Startup Validator Agent for BizFlow-Orchestrator
+Startup Validator Agent for NEXUS Creative Studio
 Category: Business
 """
 
@@ -12,7 +12,7 @@ agent_dir = Path(__file__).parent
 sys.path.insert(0, str(agent_dir))
 
 class StartupValidatorAgent:
-    """Startup Validator Agent wrapper for BizFlow-Orchestrator"""
+    """Startup Validator Agent wrapper for NEXUS Creative Studio"""
     
     def __init__(self):
         self.name = "startup_validator"
@@ -24,7 +24,7 @@ class StartupValidatorAgent:
         return [
             "Execute startup validator tasks",
             "Process business related requests",
-            "Integrate with BizFlow-Orchestrator"
+            "Integrate with NEXUS Creative Studio"
         ]
     
     async def execute_task(self, task_data):

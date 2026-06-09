@@ -1026,11 +1026,11 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
         <div class="hero-ct-inner" style="display:flex;align-items:flex-end;justify-content:flex-start;text-align:left;height:100%">
           <div class="hero-text" style="max-width:55%;padding-left:4rem;padding-bottom:3rem;">
             <div class="hero-text-backing">
-            <h1 class="hero-h1">An Exceptional Opportunity to Live &amp; Invest</h1>
-            <p class="hero-h3">Mater Maria Wellness Estate presents premium wellness residences with excellent ROI potential, backed by trusted care, faith-centered values, and growing demand for senior wellness living.</p>
+            <h1 class="hero-h1">A Board-Supervised Estate for Your Parents in Kerala</h1>
+            <p class="hero-h3">24/7 medical care, Catholic spiritual community, and a secure retirement future — with an accessible entry from ₹10 lakh.</p>
             <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;justify-content:flex-start">
               <button class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
-              <button class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('tiers').scrollIntoView({behavior:'smooth'})">INVEST NOW</button>
+              <a href="/invest.html" class="btn btn-outline-w" style="transition:background .4s" onmouseover="this.style.background='var(--hover-blue)'" onmouseout="this.style.background='transparent'">INVEST NOW</a>
             </div>
             </div>
           </div>
@@ -1263,7 +1263,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
         <p class="reveal-up">Whether you're securing a dignified home for your parents or exploring a faith-backed investment, our team will respond within 2 hours.</p>
         <div style="margin-top:24px;padding:20px;background:rgba(192,155,94,.08);border-radius:12px;border:1px solid rgba(192,155,94,.15)">
           <div style="font-size:13px;font-weight:700;color:var(--accent-gold);margin-bottom:4px">⚡ Phase 1 — Limited Units Available</div>
-          <div style="font-size:14px;color:var(--text-muted-dark)">Only a few residences remaining in Phase 1. Book your site visit today to secure priority pricing.</div>
+          <div style="font-size:14px;color:var(--text-muted-dark)">Only a few residences remaining in Phase 1. Enquire today to secure priority pricing.</div>
         </div>
       </div>
       <div>
@@ -1272,8 +1272,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
           <h3 style="font-family:var(--font-serif);font-size:28px;font-weight:400;color:var(--text-heading);margin-bottom:10px">Your Enquiry Has Been Received.</h3>
           <p style="font-size:14px;color:var(--text-muted-dark);line-height:1.7">Thank you for reaching out. A member of our team will be in touch within 2 hours.<br><br>For urgent queries, call <strong style="color:var(--accent-gold)">+91 94470 80356</strong>.</p>
         </div>
-        <form class="form-wrap" id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
-          <input type="hidden" name="access_key" value="a8414144-4c48-4dc3-8e47-c2b1b5f4205c">
+        <form class="form-wrap" id="contact-form" action="/api/web3forms" method="POST" novalidate>
           <input type="hidden" name="subject" value="New Enquiry — Mater Maria Homes">
           <input type="hidden" name="from_name" value="Mater Maria Homes Website">
           <input type="hidden" name="redirect" value="false">
@@ -1846,7 +1845,7 @@ function selectTier(tierName, tierAmount) {
     btn.textContent = 'SENDING...';
 
     try {
-      var res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) });
+      var res = await fetch('/api/web3forms', { method: 'POST', body: new FormData(form) });
       var data = await res.json();
       if (data.success) {
         form.style.display = 'none';

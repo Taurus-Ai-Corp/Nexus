@@ -1,0 +1,239 @@
+{
+  "testing_framework": {
+    "name": "Atlas AI Testing Suite",
+    "version": "1.0.0",
+    "framework": "playwright + jest + axe-core",
+    "last_updated": "2025-08-19"
+  },
+  "test_suites": {
+    "unit_tests": {
+      "description": "Component and utility function testing",
+      "framework": "jest + @testing-library/react",
+      "coverage_threshold": 80,
+      "tests": [
+        {
+          "name": "AnimatedCounter Component",
+          "file": "src/components/__tests__/AnimatedCounter.test.tsx",
+          "scenarios": [
+            "renders with correct initial value",
+            "animates to target value",
+            "handles different durations",
+            "formats numbers correctly"
+          ]
+        },
+        {
+          "name": "ThemeToggle Component",
+          "file": "src/components/__tests__/ThemeToggle.test.tsx",
+          "scenarios": [
+            "toggles between light and dark mode",
+            "persists theme in localStorage",
+            "applies correct CSS classes",
+            "handles initial theme from storage"
+          ]
+        },
+        {
+          "name": "Search Functionality",
+          "file": "src/components/__tests__/TemplateSearch.test.tsx",
+          "scenarios": [
+            "filters templates by search query",
+            "displays all templates when query is empty",
+            "handles fuzzy search with Fuse.js",
+            "renders search results correctly"
+          ]
+        }
+      ]
+    },
+    "integration_tests": {
+      "description": "Page and workflow integration testing",
+      "framework": "playwright",
+      "browser_coverage": ["chromium", "firefox", "webkit"],
+      "tests": [
+        {
+          "name": "Navigation Flow",
+          "file": "tests/integration/navigation.spec.ts",
+          "scenarios": [
+            "all navigation links work correctly",
+            "mobile hamburger menu functions",
+            "breadcrumb navigation is accurate",
+            "back button navigation works"
+          ]
+        },
+        {
+          "name": "Form Submissions",
+          "file": "tests/integration/forms.spec.ts",
+          "scenarios": [
+            "signup form validates required fields",
+            "contact form submits successfully",
+            "error states display correctly",
+            "success messages appear after submission"
+          ]
+        },
+        {
+          "name": "CTA Functionality",
+          "file": "tests/integration/cta.spec.ts",
+          "scenarios": [
+            "Start Free Trial buttons navigate to signup",
+            "contact CTAs open contact form",
+            "demo requests work correctly",
+            "sticky mobile CTA functions properly"
+          ]
+        }
+      ]
+    },
+    "accessibility_tests": {
+      "description": "WCAG compliance and accessibility testing",
+      "framework": "axe-core + playwright",
+      "compliance_level": "WCAG 2.1 AA",
+      "tests": [
+        {
+          "name": "Automated Accessibility Scan",
+          "file": "tests/accessibility/axe.spec.ts",
+          "scenarios": [
+            "no critical accessibility violations",
+            "all images have alt text",
+            "proper heading hierarchy",
+            "sufficient color contrast ratios"
+          ]
+        },
+        {
+          "name": "Keyboard Navigation",
+          "file": "tests/accessibility/keyboard.spec.ts",
+          "scenarios": [
+            "all interactive elements are focusable",
+            "tab order is logical",
+            "focus indicators are visible",
+            "escape key closes modals"
+          ]
+        },
+        {
+          "name": "Screen Reader Compatibility",
+          "file": "tests/accessibility/screen-reader.spec.ts",
+          "scenarios": [
+            "proper ARIA labels present",
+            "form fields have accessible names",
+            "error messages are announced",
+            "dynamic content updates are announced"
+          ]
+        }
+      ]
+    },
+    "performance_tests": {
+      "description": "Performance and Core Web Vitals testing",
+      "framework": "lighthouse + playwright",
+      "thresholds": {
+        "performance_score": 90,
+        "accessibility_score": 95,
+        "best_practices_score": 90,
+        "seo_score": 90
+      },
+      "tests": [
+        {
+          "name": "Core Web Vitals",
+          "file": "tests/performance/core-vitals.spec.ts",
+          "metrics": [
+            {"name": "First Contentful Paint", "threshold": "< 2s"},
+            {"name": "Largest Contentful Paint", "threshold": "< 4s"},
+            {"name": "First Input Delay", "threshold": "< 100ms"},
+            {"name": "Cumulative Layout Shift", "threshold": "< 0.1"}
+          ]
+        },
+        {
+          "name": "Bundle Size Analysis",
+          "file": "tests/performance/bundle-size.spec.ts",
+          "scenarios": [
+            "JavaScript bundle < 300KB",
+            "CSS bundle < 50KB",
+            "no duplicate dependencies",
+            "tree-shaking effective"
+          ]
+        },
+        {
+          "name": "Loading Performance",
+          "file": "tests/performance/loading.spec.ts",
+          "scenarios": [
+            "page loads within 3 seconds",
+            "images lazy load properly",
+            "critical CSS inlined",
+            "non-critical resources deferred"
+          ]
+        }
+      ]
+    },
+    "visual_regression_tests": {
+      "description": "Visual consistency and design system testing",
+      "framework": "playwright visual comparisons",
+      "viewports": ["desktop", "tablet", "mobile"],
+      "tests": [
+        {
+          "name": "Homepage Visual Consistency",
+          "file": "tests/visual/homepage.spec.ts",
+          "scenarios": [
+            "hero section renders correctly",
+            "stats section aligns properly",
+            "template search displays consistently",
+            "footer layout is stable"
+          ]
+        },
+        {
+          "name": "Responsive Design",
+          "file": "tests/visual/responsive.spec.ts",
+          "scenarios": [
+            "mobile navigation menu displays correctly",
+            "content reflows properly on different screens",
+            "images scale appropriately",
+            "buttons maintain proper sizing"
+          ]
+        },
+        {
+          "name": "Theme Consistency",
+          "file": "tests/visual/themes.spec.ts",
+          "scenarios": [
+            "dark theme applies correctly",
+            "light theme maintains readability",
+            "theme toggle animation works",
+            "color contrast meets standards"
+          ]
+        }
+      ]
+    }
+  },
+  "automation_commands": {
+    "run_all_tests": "npm run test",
+    "unit_tests_only": "npm run test:unit",
+    "integration_tests_only": "npm run test:integration",
+    "accessibility_tests_only": "npm run test:a11y",
+    "performance_tests_only": "npm run test:performance",
+    "visual_tests_only": "npm run test:visual",
+    "coverage_report": "npm run test:coverage",
+    "watch_mode": "npm run test:watch"
+  },
+  "ci_integration": {
+    "github_actions": {
+      "workflow_file": ".github/workflows/test.yml",
+      "triggers": ["push", "pull_request"],
+      "parallel_jobs": true,
+      "test_matrix": ["node-16", "node-18", "node-20"]
+    },
+    "quality_gates": {
+      "required_checks": [
+        "unit tests pass",
+        "integration tests pass",
+        "accessibility score > 95",
+        "performance score > 90",
+        "no visual regressions"
+      ],
+      "blocking_conditions": [
+        "critical accessibility violations",
+        "security vulnerabilities",
+        "performance regression > 20%"
+      ]
+    }
+  },
+  "reporting": {
+    "test_results": "junit format for CI integration",
+    "coverage_reports": "lcov format with HTML output",
+    "accessibility_reports": "axe-core JSON format",
+    "performance_reports": "lighthouse JSON + HTML reports",
+    "visual_diff_reports": "playwright HTML report with screenshots"
+  }
+}

@@ -611,7 +611,7 @@ class CogneeMemoryAgent(BaseAgent):
     async def process_business_intelligence_pipeline(self, pipeline_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Process complete business intelligence pipeline using Cognee
-        Specialized method for BizFlow™ business intelligence workflows
+        Specialized method for NEXUS business intelligence workflows
         """
         
         logger.info("🧠 Processing Business Intelligence Pipeline")

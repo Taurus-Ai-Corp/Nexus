@@ -1,0 +1,755 @@
+{
+  "meta": {
+    "instanceId": "atlas-ai-foundation"
+  },
+  "name": "🚀 Atlas AI - Master User Onboarding & Plan Activation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "atlas-ai-user-signup",
+        "options": {
+          "noResponseBody": false
+        },
+        "authentication": "none"
+      },
+      "id": "user-signup-webhook",
+      "name": "📥 User Signup Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "atlas-ai-user-signup",
+      "notes": "Receives user signup data from Atlas AI website form"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "userId",
+              "name": "userId",
+              "value": "={{ 'user_' + DateTime.now().toFormat('yyyyMMdd') + '_' + Math.random().toString(36).substr(2, 8) }}",
+              "type": "string"
+            },
+            {
+              "id": "signupTimestamp",
+              "name": "signupTimestamp",
+              "value": "={{ $now }}",
+              "type": "string"
+            },
+            {
+              "id": "trialEndDate",
+              "name": "trialEndDate",
+              "value": "={{ DateTime.now().plus({days: 14}).toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "accountStatus",
+              "name": "accountStatus",
+              "value": "trial",
+              "type": "string"
+            },
+            {
+              "id": "currentContactCount",
+              "name": "currentContactCount",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "currentAICampaigns",
+              "name": "currentAICampaigns",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "currentTeamMembers",
+              "name": "currentTeamMembers",
+              "value": 1,
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "id": "initialize-user-data",
+      "name": "🔧 Initialize User Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [460, 300],
+      "notes": "Generate unique user ID and initialize account data"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.selectedPlan }}",
+              "rightValue": "starter",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "starter-plan-branch",
+      "name": "🥉 Starter Plan Branch",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 200],
+      "notes": "Route to Starter plan configuration"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.selectedPlan }}",
+              "rightValue": "professional",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "professional-plan-branch",
+      "name": "🥈 Professional Plan Branch",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 300],
+      "notes": "Route to Professional plan configuration"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.selectedPlan }}",
+              "rightValue": "enterprise",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "enterprise-plan-branch",
+      "name": "🥇 Enterprise Plan Branch",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 400],
+      "notes": "Route to Enterprise plan configuration"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "planDetails",
+              "name": "planDetails",
+              "value": {
+                "planName": "Starter",
+                "monthlyPrice": 49,
+                "features": {
+                  "contactLimit": 5000,
+                  "emailAutomation": "basic",
+                  "aiCampaignsPerMonth": 10,
+                  "analyticsLevel": "standard",
+                  "supportLevel": "email",
+                  "teamMembersLimit": 2,
+                  "integrationsType": "basic",
+                  "integrationsCount": 10,
+                  "mobileAppAccess": true,
+                  "abTestingSuite": false,
+                  "customBranding": false,
+                  "leadScoring": false,
+                  "socialMediaAutomation": false,
+                  "apiAccess": false,
+                  "whiteLabelSolutions": false,
+                  "customAITraining": false,
+                  "dedicatedAccountManager": false,
+                  "advancedSecurity": false,
+                  "customReporting": false,
+                  "phoneSupport": false
+                }
+              },
+              "type": "object"
+            },
+            {
+              "id": "activatedFeatures",
+              "name": "activatedFeatures",
+              "value": [
+                "Basic Email Automation",
+                "Standard Analytics Dashboard", 
+                "Email Support",
+                "Mobile App Access",
+                "Basic Integrations (10+)"
+              ],
+              "type": "array"
+            },
+            {
+              "id": "featureCount",
+              "name": "featureCount",
+              "value": 8,
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "id": "configure-starter-plan",
+      "name": "🔧 Configure Starter Plan Features",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [900, 140],
+      "notes": "Set all Starter plan features and limitations"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "planDetails",
+              "name": "planDetails",
+              "value": {
+                "planName": "Professional",
+                "monthlyPrice": 149,
+                "features": {
+                  "contactLimit": 25000,
+                  "emailAutomation": "advanced",
+                  "aiCampaignsPerMonth": -1,
+                  "analyticsLevel": "advanced",
+                  "supportLevel": "priority",
+                  "teamMembersLimit": 10,
+                  "integrationsType": "premium",
+                  "integrationsCount": 50,
+                  "mobileAppAccess": true,
+                  "abTestingSuite": true,
+                  "customBranding": true,
+                  "leadScoring": true,
+                  "socialMediaAutomation": true,
+                  "apiAccess": false,
+                  "whiteLabelSolutions": false,
+                  "customAITraining": false,
+                  "dedicatedAccountManager": false,
+                  "advancedSecurity": false,
+                  "customReporting": false,
+                  "phoneSupport": false
+                }
+              },
+              "type": "object"
+            },
+            {
+              "id": "activatedFeatures",
+              "name": "activatedFeatures",
+              "value": [
+                "Advanced Automation Workflows",
+                "Unlimited AI Campaigns",
+                "Advanced Analytics & Reporting",
+                "Priority Support",
+                "Premium Integrations (50+)",
+                "A/B Testing Suite",
+                "Custom Branding",
+                "Lead Scoring",
+                "Social Media Automation",
+                "Mobile App Access"
+              ],
+              "type": "array"
+            },
+            {
+              "id": "featureCount",
+              "name": "featureCount",
+              "value": 11,
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "id": "configure-professional-plan",
+      "name": "🔧 Configure Professional Plan Features",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [900, 240],
+      "notes": "Set all Professional plan features and capabilities"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "planDetails",
+              "name": "planDetails",
+              "value": {
+                "planName": "Enterprise",
+                "monthlyPrice": 449,
+                "features": {
+                  "contactLimit": -1,
+                  "emailAutomation": "enterprise",
+                  "aiCampaignsPerMonth": -1,
+                  "analyticsLevel": "predictive",
+                  "supportLevel": "24_7_phone",
+                  "teamMembersLimit": -1,
+                  "integrationsType": "custom",
+                  "integrationsCount": -1,
+                  "mobileAppAccess": true,
+                  "abTestingSuite": true,
+                  "customBranding": true,
+                  "leadScoring": true,
+                  "socialMediaAutomation": true,
+                  "apiAccess": true,
+                  "whiteLabelSolutions": true,
+                  "customAITraining": true,
+                  "dedicatedAccountManager": true,
+                  "advancedSecurity": true,
+                  "customReporting": true,
+                  "phoneSupport": true
+                }
+              },
+              "type": "object"
+            },
+            {
+              "id": "activatedFeatures",
+              "name": "activatedFeatures",
+              "value": [
+                "Unlimited Contacts",
+                "Enterprise Automation Suite",
+                "Custom AI Model Training",
+                "Advanced Predictive Analytics",
+                "Dedicated Account Manager",
+                "Unlimited Team Members",
+                "Custom Integrations",
+                "White-label Solutions",
+                "Advanced Security & Compliance",
+                "Custom Reporting",
+                "API Access",
+                "24/7 Phone Support"
+              ],
+              "type": "array"
+            },
+            {
+              "id": "featureCount",
+              "name": "featureCount",
+              "value": 12,
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "id": "configure-enterprise-plan",
+      "name": "🔧 Configure Enterprise Plan Features",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [900, 340],
+      "notes": "Set all Enterprise plan features and unlimited capabilities"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "serviceAccountEmail": "{{ $vars.GOOGLE_SERVICE_EMAIL }}",
+        "privateKey": "{{ $vars.GOOGLE_PRIVATE_KEY }}",
+        "operation": "append",
+        "documentId": "{{ $vars.USERS_DATABASE_SHEET_ID }}",
+        "sheetName": "Atlas AI Users Database",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{ $('Initialize User Data').item.json.signupTimestamp }}",
+            "userId": "={{ $('Initialize User Data').item.json.userId }}",
+            "firstName": "={{ $('📥 User Signup Webhook').item.json.firstName }}",
+            "lastName": "={{ $('📥 User Signup Webhook').item.json.lastName }}",
+            "email": "={{ $('📥 User Signup Webhook').item.json.email }}",
+            "company": "={{ $('📥 User Signup Webhook').item.json.company }}",
+            "selectedPlan": "={{ $json.planDetails.planName }}",
+            "monthlyPrice": "={{ $json.planDetails.monthlyPrice }}",
+            "contactLimit": "={{ $json.planDetails.features.contactLimit }}",
+            "contactCount": "={{ $('Initialize User Data').item.json.currentContactCount }}",
+            "aiCampaignsLimit": "={{ $json.planDetails.features.aiCampaignsPerMonth }}",
+            "aiCampaignsUsed": "={{ $('Initialize User Data').item.json.currentAICampaigns }}",
+            "teamMembersLimit": "={{ $json.planDetails.features.teamMembersLimit }}",
+            "teamMembersCount": "={{ $('Initialize User Data').item.json.currentTeamMembers }}",
+            "trialEndDate": "={{ $('Initialize User Data').item.json.trialEndDate }}",
+            "accountStatus": "={{ $('Initialize User Data').item.json.accountStatus }}",
+            "signupDate": "={{ $('Initialize User Data').item.json.signupTimestamp }}",
+            "lastActivityDate": "={{ $('Initialize User Data').item.json.signupTimestamp }}",
+            "supportLevel": "={{ $json.planDetails.features.supportLevel }}",
+            "features": "={{ JSON.stringify($json.activatedFeatures) }}",
+            "totalRevenue": 0,
+            "notes": "New signup - {{ $json.planDetails.planName }} plan activated"
+          }
+        },
+        "options": {}
+      },
+      "id": "log-user-to-database",
+      "name": "📊 Log User to Database",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [1120, 240],
+      "notes": "Record complete user data in Google Sheets monitoring dashboard"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('📥 User Signup Webhook').item.json.initialContactCount || 0 }}",
+              "rightValue": "={{ $json.planDetails.features.contactLimit }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "leftValue": "={{ $json.planDetails.features.contactLimit }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "check-immediate-violation",
+      "name": "⚠️ Check Immediate Limit Violation",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1340, 240],
+      "notes": "Check if user already exceeds plan limits at signup"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "serviceAccountEmail": "{{ $vars.GOOGLE_SERVICE_EMAIL }}",
+        "privateKey": "{{ $vars.GOOGLE_PRIVATE_KEY }}",
+        "operation": "append",
+        "documentId": "{{ $vars.VIOLATIONS_SHEET_ID }}",
+        "sheetName": "Usage Violations & Alerts",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "alertTimestamp": "={{ $now }}",
+            "userId": "={{ $('Initialize User Data').item.json.userId }}",
+            "userEmail": "={{ $('📥 User Signup Webhook').item.json.email }}",
+            "userName": "={{ $('📥 User Signup Webhook').item.json.firstName }} {{ $('📥 User Signup Webhook').item.json.lastName }}",
+            "planName": "={{ $json.planDetails.planName }}",
+            "violationType": "contact",
+            "limitExceeded": "Contact limit exceeded at signup",
+            "currentUsage": "={{ $('📥 User Signup Webhook').item.json.initialContactCount || 0 }}",
+            "planLimit": "={{ $json.planDetails.features.contactLimit }}",
+            "overageAmount": "={{ ($('📥 User Signup Webhook').item.json.initialContactCount || 0) - $json.planDetails.features.contactLimit }}",
+            "overagePercentage": "={{ Math.round((($('📥 User Signup Webhook').item.json.initialContactCount || 0) / $json.planDetails.features.contactLimit - 1) * 100) }}",
+            "severity": "HIGH",
+            "adminNotified": true,
+            "userNotified": false,
+            "actionTaken": "Immediate admin alert triggered",
+            "resolvedDate": "",
+            "upgradeOffered": false,
+            "upgradeAccepted": false,
+            "notes": "User signed up with contact count exceeding plan limit"
+          }
+        },
+        "options": {}
+      },
+      "id": "log-signup-violation",
+      "name": "🚨 Log Signup Violation",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [1560, 180],
+      "notes": "Log violation if user exceeds limits at signup"
+    },
+    {
+      "parameters": {
+        "sendTo": "{{ $vars.ADMIN_EMAIL }}",
+        "subject": "🚨 URGENT: Atlas AI Signup Limit Violation - {{ $('📥 User Signup Webhook').item.json.firstName }} {{ $('📥 User Signup Webhook').item.json.lastName }}",
+        "message": "=**IMMEDIATE ATTENTION REQUIRED**\n\n🚨 **User Signup Violation Alert**\n\n**User Information:**\n- Name: {{ $('📥 User Signup Webhook').item.json.firstName }} {{ $('📥 User Signup Webhook').item.json.lastName }}\n- Email: {{ $('📥 User Signup Webhook').item.json.email }}\n- Company: {{ $('📥 User Signup Webhook').item.json.company }}\n- User ID: {{ $('Initialize User Data').item.json.userId }}\n\n**Plan & Violation Details:**\n- Selected Plan: {{ $json.planDetails.planName }} (${{ $json.planDetails.monthlyPrice }}/month)\n- Plan Contact Limit: {{ $json.planDetails.features.contactLimit.toLocaleString() }}\n- User's Contact Count: {{ ($('📥 User Signup Webhook').item.json.initialContactCount || 0).toLocaleString() }}\n- Overage: {{ (($('📥 User Signup Webhook').item.json.initialContactCount || 0) - $json.planDetails.features.contactLimit).toLocaleString() }} contacts ({{ Math.round((($('📥 User Signup Webhook').item.json.initialContactCount || 0) / $json.planDetails.features.contactLimit - 1) * 100) }}% over limit)\n\n**Severity:** HIGH - User exceeds plan capacity at signup\n\n**Recommended Actions:**\n1. 📞 Contact user immediately about plan upgrade\n2. 📈 Offer Professional or Enterprise plan\n3. 🔒 Consider temporary account restrictions\n4. 💰 Negotiate custom pricing if needed\n\n**Upgrade Options:**\n{{ $json.planDetails.planName === 'Starter' ? '• Professional Plan: 25,000 contacts ($149/month)\\n• Enterprise Plan: Unlimited contacts ($449/month)' : '' }}\n{{ $json.planDetails.planName === 'Professional' ? '• Enterprise Plan: Unlimited contacts ($449/month)' : '' }}\n\n**Quick Actions:**\n- [View User Dashboard](https://sheets.google.com/spreadsheets/d/{{ $vars.USERS_DATABASE_SHEET_ID }})\n- [Contact User](mailto:{{ $('📥 User Signup Webhook').item.json.email }}?subject=Atlas%20AI%20Plan%20Review%20Required)\n- [Upgrade Options](https://atlasai.com/admin/users/{{ $('Initialize User Data').item.json.userId }}/upgrade)\n\n**Account Details:**\n- Signup Date: {{ DateTime.fromISO($('Initialize User Data').item.json.signupTimestamp).toFormat('MMMM dd, yyyy HH:mm') }}\n- Trial End: {{ DateTime.fromISO($('Initialize User Data').item.json.trialEndDate).toFormat('MMMM dd, yyyy') }}\n- Features Activated: {{ $json.featureCount }} features\n\n---\n🤖 Atlas AI Automated Monitoring System\nAlert Generated: {{ DateTime.fromISO($now).toFormat('MMMM dd, yyyy HH:mm:ss') }}",
+        "options": {
+          "priority": "high",
+          "replyTo": "admin@atlasai.com"
+        }
+      },
+      "id": "send-admin-violation-alert",
+      "name": "📧 Send Admin Violation Alert",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1780, 160],
+      "notes": "Immediately alert admin of signup violation"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('📥 User Signup Webhook').item.json.email }}",
+        "subject": "🚀 Welcome to Atlas AI - Your {{ $json.planDetails.planName }} Plan is Active!",
+        "message": "=**Welcome to Atlas AI!**\n\nHi {{ $('📥 User Signup Webhook').item.json.firstName }},\n\nCongratulations! Your **{{ $json.planDetails.planName }} Plan** has been successfully activated and your account is ready to use.\n\n**Account Details:**\n- User ID: {{ $('Initialize User Data').item.json.userId }}\n- Plan: {{ $json.planDetails.planName }} (${{ $json.planDetails.monthlyPrice }}/month)\n- Trial Period: 14 days (ends {{ DateTime.fromISO($('Initialize User Data').item.json.trialEndDate).toFormat('MMMM dd, yyyy') }})\n- Account Status: {{ $('Initialize User Data').item.json.accountStatus | title }}\n\n**Your Activated Features ({{ $json.featureCount }} total):**\n{{ $json.activatedFeatures.map(feature => '✅ ' + feature).join('\\n') }}\n\n**Plan Specifications:**\n{{ $json.planDetails.features.contactLimit === -1 ? '📊 Unlimited contacts' : '📊 Up to ' + $json.planDetails.features.contactLimit.toLocaleString() + ' contacts' }}\n{{ $json.planDetails.features.aiCampaignsPerMonth === -1 ? '🤖 Unlimited AI campaigns per month' : '🤖 ' + $json.planDetails.features.aiCampaignsPerMonth + ' AI campaigns per month' }}\n👥 {{ $json.planDetails.features.teamMembersLimit === -1 ? 'Unlimited team members' : 'Up to ' + $json.planDetails.features.teamMembersLimit + ' team members' }}\n🔗 {{ $json.planDetails.features.integrationsCount === -1 ? 'Unlimited custom integrations' : $json.planDetails.features.integrationsCount + '+ ' + $json.planDetails.features.integrationsType + ' integrations' }}\n📱 Mobile app access included\n\n**Getting Started Guide:**\n1. 🔐 **Complete Account Setup**\n   - Verify your email address\n   - Set up your company profile\n   - Configure security settings\n\n2. 📇 **Import Your Contacts**\n   - Upload contact lists ({{ $json.planDetails.features.contactLimit === -1 ? 'unlimited' : 'up to ' + $json.planDetails.features.contactLimit.toLocaleString() }})\n   - Integrate with your existing CRM\n   - Set up contact segmentation\n\n3. 🚀 **Create Your First Campaign**\n   - Use AI-powered campaign builder\n   - Select from 60+ automation templates\n   - Set up email sequences and workflows\n\n4. 📊 **Explore Your Dashboard**\n   - View {{ $json.planDetails.features.analyticsLevel }} analytics\n   - Monitor campaign performance\n   - Track ROI and engagement metrics\n\n**Support & Resources:**\n{{ $json.planDetails.features.supportLevel === 'email' ? '📧 Email Support: support@atlasai.com' : '' }}\n{{ $json.planDetails.features.supportLevel === 'priority' ? '🎯 Priority Support: priority@atlasai.com (faster response times)' : '' }}\n{{ $json.planDetails.features.supportLevel === '24_7_phone' ? '📞 24/7 Phone Support: +1 (555) 123-4567' : '' }}\n{{ $json.planDetails.features.dedicatedAccountManager ? '👨‍💼 Dedicated Account Manager: We\\'ll assign your personal account manager within 24 hours' : '' }}\n\n**Quick Access Links:**\n- 🖥️ [Access Dashboard](https://atlasai.com/dashboard?welcome=true&userId={{ $('Initialize User Data').item.json.userId }})\n- 📚 [Documentation](https://atlasai.com/docs)\n- 🎓 [Video Tutorials](https://atlasai.com/tutorials)\n- 💬 [Community Forum](https://atlasai.com/community)\n{{ $json.planDetails.features.apiAccess ? '- 🔧 [API Documentation](https://atlasai.com/api-docs)' : '' }}\n\n**Need Help Getting Started?**\n{{ $json.planDetails.features.supportLevel === 'email' ? 'Email our support team and we\\'ll help you get set up.' : '' }}\n{{ $json.planDetails.features.supportLevel === 'priority' ? 'Our priority support team is standing by to help you succeed.' : '' }}\n{{ $json.planDetails.features.supportLevel === '24_7_phone' ? 'Call us anytime - our 24/7 support team is here to help.' : '' }}\n\n**Pro Tip:** {{ $json.planDetails.planName === 'Starter' ? 'Start with importing your top contacts and creating a simple welcome email sequence.' : $json.planDetails.planName === 'Professional' ? 'Take advantage of A/B testing and lead scoring to optimize your campaigns from day one.' : 'Schedule a call with your dedicated account manager to create a custom implementation plan.' }}\n\nWelcome to the future of AI-powered marketing automation!\n\n**The Atlas AI Team**\n\n---\n*Your trial ends on {{ DateTime.fromISO($('Initialize User Data').item.json.trialEndDate).toFormat('EEEE, MMMM dd, yyyy') }}. We'll send you a reminder 3 days before.*\n\n*This is an automated welcome message. For support, please use the contact methods above.*",
+        "options": {
+          "replyTo": "noreply@atlasai.com",
+          "priority": "normal"
+        }
+      },
+      "id": "send-welcome-email",
+      "name": "📧 Send Welcome Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1560, 300],
+      "notes": "Send comprehensive welcome email with plan-specific content"
+    },
+    {
+      "parameters": {
+        "url": "={{ $vars.ATLAS_AI_BACKEND_URL }}/api/webhooks/user-activated",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $vars.ATLAS_AI_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "userId",
+              "value": "={{ $('Initialize User Data').item.json.userId }}"
+            },
+            {
+              "name": "email",
+              "value": "={{ $('📥 User Signup Webhook').item.json.email }}"
+            },
+            {
+              "name": "planDetails",
+              "value": "={{ $json.planDetails }}"
+            },
+            {
+              "name": "activatedFeatures",
+              "value": "={{ $json.activatedFeatures }}"
+            },
+            {
+              "name": "trialEndDate",
+              "value": "={{ $('Initialize User Data').item.json.trialEndDate }}"
+            },
+            {
+              "name": "accountStatus",
+              "value": "={{ $('Initialize User Data').item.json.accountStatus }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "notify-backend-system",
+      "name": "🔗 Notify Backend System",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1780, 300],
+      "notes": "Notify Atlas AI backend to activate user account and features"
+    }
+  ],
+  "connections": {
+    "📥 User Signup Webhook": {
+      "main": [
+        [
+          {
+            "node": "🔧 Initialize User Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔧 Initialize User Data": {
+      "main": [
+        [
+          {
+            "node": "🥉 Starter Plan Branch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🥈 Professional Plan Branch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🥇 Enterprise Plan Branch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🥉 Starter Plan Branch": {
+      "main": [
+        [
+          {
+            "node": "🔧 Configure Starter Plan Features",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🥈 Professional Plan Branch": {
+      "main": [
+        [
+          {
+            "node": "🔧 Configure Professional Plan Features",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🥇 Enterprise Plan Branch": {
+      "main": [
+        [
+          {
+            "node": "🔧 Configure Enterprise Plan Features",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔧 Configure Starter Plan Features": {
+      "main": [
+        [
+          {
+            "node": "📊 Log User to Database",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔧 Configure Professional Plan Features": {
+      "main": [
+        [
+          {
+            "node": "📊 Log User to Database",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔧 Configure Enterprise Plan Features": {
+      "main": [
+        [
+          {
+            "node": "📊 Log User to Database",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Log User to Database": {
+      "main": [
+        [
+          {
+            "node": "⚠️ Check Immediate Limit Violation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⚠️ Check Immediate Limit Violation": {
+      "main": [
+        [
+          {
+            "node": "🚨 Log Signup Violation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📧 Send Welcome Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🚨 Log Signup Violation": {
+      "main": [
+        [
+          {
+            "node": "📧 Send Admin Violation Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📧 Send Admin Violation Alert": {
+      "main": [
+        [
+          {
+            "node": "📧 Send Welcome Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📧 Send Welcome Email": {
+      "main": [
+        [
+          {
+            "node": "🔗 Notify Backend System",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-06-01T00:00:00.000Z",
+      "updatedAt": "2025-06-01T00:00:00.000Z",
+      "id": "atlas-ai-onboarding",
+      "name": "Atlas AI User Onboarding"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-06-01T00:00:00.000Z",
+  "versionId": "1"
+}

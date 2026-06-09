@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice INV-MMH-2026-002 — Mater Maria Homes</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    @page { size: Letter; margin: 0.4in; }
+    html, body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: #fff; color: #1a1a2e; font-size: 12px; line-height: 1.4; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .invoice { max-width: 7.5in; margin: 0 auto; }
+    .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 10px; border-bottom: 2px solid #1a1a2e; margin-bottom: 14px; }
+    .brand h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.03em; margin-bottom: 2px; }
+    .brand p { font-size: 10px; color: #555; line-height: 1.45; }
+    .meta { text-align: right; }
+    .meta .label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin-top: 6px; }
+    .meta .label:first-child { margin-top: 0; }
+    .meta .value { font-size: 13px; font-weight: 600; }
+    .meta .status { display: inline-block; margin-top: 6px; padding: 2px 9px; border-radius: 3px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; background: #d4b77a; color: #1a1a2e; }
+    .parties { display: flex; justify-content: space-between; margin-bottom: 14px; }
+    .party { width: 49%; }
+    .party h3 { font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin-bottom: 4px; }
+    .party p { font-size: 11px; line-height: 1.45; color: #333; }
+    .party .name { font-weight: 600; font-size: 12px; color: #1a1a2e; }
+    .items { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+    .items thead th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; padding: 6px 4px; border-bottom: 1px solid #d0d0d0; }
+    .items thead th:nth-child(2) { text-align: center; width: 40px; }
+    .items thead th:last-child { text-align: right; width: 95px; }
+    .items tbody td { padding: 6px 4px; font-size: 10.5px; line-height: 1.35; border-bottom: 1px solid #ececec; vertical-align: top; }
+    .items tbody td:nth-child(2) { text-align: center; color: #666; }
+    .items tbody td:last-child { text-align: right; font-weight: 600; white-space: nowrap; }
+    .desc-title { font-weight: 600; color: #1a1a2e; display: block; margin-bottom: 1px; }
+    .desc-detail { font-size: 9.5px; color: #666; line-height: 1.35; }
+    .summary { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+    .summary-box { width: 240px; }
+    .summary-row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 11px; }
+    .summary-row.discount { color: #2e7d32; }
+    .summary-row.total { border-top: 2px solid #1a1a2e; margin-top: 5px; padding-top: 7px; font-size: 15px; font-weight: 700; }
+    .pay { background: #fafafa; border: 1px solid #e8e8e8; border-radius: 5px; padding: 10px 14px; margin-bottom: 10px; }
+    .pay h3 { font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin-bottom: 6px; }
+    .pay-grid { display: grid; grid-template-columns: auto 1fr auto 1fr; gap: 4px 14px; font-size: 10.5px; align-items: baseline; }
+    .pay-grid .k { color: #888; }
+    .pay-grid .v { font-weight: 600; font-family: "Courier New", monospace; }
+    .pay-note { margin-top: 6px; font-size: 9.5px; color: #666; }
+    .terms { font-size: 9.5px; color: #555; line-height: 1.45; margin-bottom: 8px; }
+    .terms strong { color: #333; }
+    .footer { text-align: center; font-size: 9px; color: #999; line-height: 1.5; border-top: 1px solid #e0e0e0; padding-top: 6px; }
+    .footer strong { color: #666; }
+  </style>
+</head>
+<body>
+  <div class="invoice">
+    <div class="header">
+      <div class="brand">
+        <h1>NEXUS_SOCIAL™ | by Taurus AI</h1>
+        <p>A Division of TAURUS AI CORP - FZCO &middot; IFZA Properties, DSO-IFZA, Dubai Silicon Oasis, UAE &middot; License #68122</p>
+      </div>
+      <div class="meta">
+        <div class="label">Invoice Number</div>
+        <div class="value">INV-MMH-2026-002</div>
+        <div class="label">Date</div>
+        <div class="value">28 May 2026</div>
+        <div class="label">Due Date</div>
+        <div class="value">28 June 2026</div>
+        <span class="status">Unpaid</span>
+      </div>
+    </div>
+
+    <div class="parties">
+      <div class="party">
+        <h3>Billed To</h3>
+        <p class="name">Mater Maria Wellness Homes Pvt. Ltd.</p>
+        <p>P.B. No: 22, Kanjirappally, Kottayam, Kerala 686507, India<br>
+        Attention: Rajeev Abraham, Chairman</p>
+      </div>
+      <div class="party">
+        <h3>Project</h3>
+        <p class="name">Mater Maria Homes — Phase 1</p>
+        <p>Website Development &amp; Lead Capture Pipeline<br>
+        Next.js 16 &middot; Tailwind v4 &middot; Supabase &middot; Resend &middot; Vercel<br>
+        Branch: feat/nexosync-to-nexus-rebrand</p>
+      </div>
+    </div>
+
+    <table class="items">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Qty</th>
+          <th>Amount (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="desc-title">Phase 1 — Website &amp; Landing Pages</span>
+            <span class="desc-detail">Next.js 16 multi-page site (Home, About, Residences, Amenities, Gallery, Contact, Invest). Tailwind v4 theming, dual-theme support, Framer Motion, ShadCN. Mobile-responsive (375/768/1440 breakpoints).</span>
+          </td>
+          <td>1</td>
+          <td>$2,200.00</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="desc-title">Investor Portal &amp; ROI Calculator</span>
+            <span class="desc-detail">3-tier system (Silver ₹10L / Gold ₹20L / Platinum ₹30L). 15-year ROI projection engine with animated charts. Tier cards, benefit stacking, exit terms (5-yr lock-in, 6-mo notice, 3 instalments).</span>
+          </td>
+          <td>1</td>
+          <td>$600.00</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="desc-title">Lead Capture Pipeline &amp; Database Integration</span>
+            <span class="desc-detail">Supabase investor_inquiries source of truth. Zod-validated API routes. Resend auto-responder with branded HTML + investor deck PDF. WhatsApp Business API payload, n8n forwarding, Firebase dual-write.</span>
+          </td>
+          <td>1</td>
+          <td>$500.00</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="desc-title">E2E Testing, Security &amp; Deployment Hardening</span>
+            <span class="desc-detail">60 Playwright tests (desktop/mobile). Maintenance-mode middleware with cookie bypass. Security headers (CSP, HSTS, X-Frame, Permissions-Policy). Hardcoded-password removal. Vercel production deployment.</span>
+          </td>
+          <td>1</td>
+          <td>$300.00</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="desc-title">Brand Copy, Governance &amp; Content Updates</span>
+            <span class="desc-detail">Board-directed hero rewrite. "Board-Supervised" / "Diocese-Governed" trust signals. Removed "site visit" language. Footer/logo alignment, canonical WhatsApp (+91 94470 80356), tier amounts (10L/20L/30L), exit &amp; deposit-share language.</span>
+          </td>
+          <td>1</td>
+          <td>$200.00</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="desc-title">Domain Transfer &amp; Google Workspace Re-integration</span>
+            <span class="desc-detail">Recovery &amp; transfer of MaterMariHomes.com. Workspace re-integration (admin@matermariahomes.com, MX, DKIM, SPF). Preserved 8 user mailboxes &amp; Drive assets. DNS health check.</span>
+          </td>
+          <td>1</td>
+          <td>$400.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary">
+      <div class="summary-box">
+        <div class="summary-row"><span>Subtotal</span><span>$4,200.00</span></div>
+        <div class="summary-row"><span>Tax (0% — Export of Services)</span><span>$0.00</span></div>
+        <div class="summary-row discount"><span>Founding Partner Discount</span><span>–$800.00</span></div>
+        <div class="summary-row discount"><span>Early-Adopter Partnership Discount</span><span>–$200.00</span></div>
+        <div class="summary-row total"><span>Total Due</span><span>$3,200.00</span></div>
+      </div>
+    </div>
+
+    <div class="pay">
+      <h3>Payment Instructions — WIO Bank (AED / USD Account)</h3>
+      <div class="pay-grid">
+        <span class="k">Account Holder</span><span class="v">TAURUS AI CORP - FZCO</span>
+        <span class="k">IBAN</span><span class="v">AE360860000009103349124</span>
+        <span class="k">Bank</span><span class="v">WIO Bank PJSC, Abu Dhabi, UAE</span>
+        <span class="k">SWIFT / BIC</span><span class="v">WIOBAEADXXX</span>
+        <span class="k">Account #</span><span class="v">9103349124</span>
+        <span class="k">Routing</span><span class="v">808610001</span>
+        <span class="k">Currency</span><span class="v">AED / USD</span>
+        <span class="k">Reference</span><span class="v">INV-MMH-2026-002</span>
+      </div>
+      <p class="pay-note">For USD transfers, correspondent-bank fees may apply — please select "OUR" charges option.</p>
+    </div>
+
+    <div class="terms">
+      <strong>Payment Terms:</strong> Net 30 days. Late payments subject to 1.5% monthly service charge. &nbsp;
+      <strong>Tax Note:</strong> TAURUS AI CORP - FZCO is registered in IFZA Dubai Silicon Oasis (UAE Free Zone). This invoice is exempt from UAE VAT for exported services. &nbsp;
+      <strong>Scope:</strong> Phase 1 deliverables only; Phase 2 and Phase 3 will be invoiced separately per approved roadmap.
+    </div>
+
+    <div class="footer">
+      <strong>NEXUS_SOCIAL™ | by Taurus AI</strong> &middot; TAURUS AI CORP - FZCO &middot; License #68122 &middot; IFZA Dubai<br>
+      admin@taurusai.io &middot; Project: matermariahomes.com
+    </div>
+  </div>
+</body>
+</html>

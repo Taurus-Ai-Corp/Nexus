@@ -1,10 +1,10 @@
 {
   "empire": {
-    "name": "Taurus AI Corp. - BizFlow™ Empire",
+    "name": "NEXUS by Taurus Ai - Creative Studio",
     "version": "1.0.0",
     "domains": {
       "main": "taurusai.io",
-      "platform": "bizflow.taurusai.io"
+      "platform": "nexus.taurusai.io"
     }
   },
   "agents": {

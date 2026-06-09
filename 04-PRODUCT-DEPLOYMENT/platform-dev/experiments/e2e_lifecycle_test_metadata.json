@@ -1,0 +1,28 @@
+{
+  "experiment_name": "e2e_lifecycle_test",
+  "algorithm": "PPO",
+  "total_timesteps": 5000,
+  "n_envs": 1,
+  "learning_rate": 0.0003,
+  "n_steps": 2048,
+  "batch_size": 64,
+  "n_epochs": 10,
+  "gamma": 0.99,
+  "gae_lambda": 0.95,
+  "clip_range": 0.2,
+  "ent_coef": 0.01,
+  "vf_coef": 0.5,
+  "max_grad_norm": 0.5,
+  "started_at": "2026-05-21T03:58:33.705331",
+  "metrics_history": [
+    {
+      "step": 5000,
+      "mean_reward": -16.804938392937185,
+      "best_reward": -Infinity,
+      "timestamp": "2026-05-21T03:58:33.099998"
+    }
+  ],
+  "final_best_reward": -16.804938392937185,
+  "total_episodes": 30,
+  "completed_at": "2026-05-21T03:58:33.705339"
+}

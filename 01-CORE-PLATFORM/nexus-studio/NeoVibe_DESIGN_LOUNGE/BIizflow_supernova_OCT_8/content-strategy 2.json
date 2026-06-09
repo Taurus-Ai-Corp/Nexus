@@ -1,0 +1,125 @@
+{
+  "messaging": {
+    "focus": "business-outcomes",
+    "avoid": "technology-jargon",
+    "framework": "problem-solution-results",
+    "keyThemes": [
+      "automation-efficiency",
+      "data-driven-decisions",
+      "revenue-growth",
+      "time-optimization"
+    ]
+  },
+  "valueProposition": {
+    "primary": "Automate your business processes with AI-powered intelligence",
+    "secondary": "Deploy 11 specialized AI agents for complete business automation",
+    "tertiary": "Achieve 150-300% ROI with 6-8 month implementation timeline",
+    "metrics": {
+      "efficiency": "90%",
+      "payback": "8 months",
+      "uptime": "99.9%",
+      "satisfaction": "95%"
+    }
+  },
+  "caseStudies": {
+    "structure": [
+      "challenge",
+      "solution",
+      "implementation",
+      "results",
+      "testimonial"
+    ],
+    "metrics": {
+      "roi": "150-300%",
+      "timeSaved": "40-60 hours/week",
+      "revenueIncrease": "25-40%",
+      "implementationTime": "6-8 months"
+    },
+    "industries": [
+      "Financial Services",
+      "Healthcare",
+      "E-commerce",
+      "Professional Services",
+      "Manufacturing"
+    ]
+  },
+  "trustSignals": {
+    "testimonials": {
+      "featured": 3,
+      "total": "8-10",
+      "verification": true,
+      "formats": ["text", "video", "audio"]
+    },
+    "certifications": [
+      "SOC 2 Type II",
+      "GDPR Compliant",
+      "ISO 27001",
+      "PCI DSS"
+    ],
+    "partnerships": [
+      "Microsoft Partner",
+      "Google Cloud Partner",
+      "AWS Partner",
+      "Industry Associations"
+    ],
+    "security": [
+      "End-to-end encryption",
+      "Zero-trust architecture",
+      "Regular security audits",
+      "24/7 monitoring"
+    ],
+    "metrics": {
+      "live": true,
+      "realTime": true,
+      "sources": ["internal", "third-party"],
+      "updateFrequency": "real-time"
+    }
+  },
+  "contentTypes": {
+    "blog": {
+      "categories": [
+        "AI Automation",
+        "Business Intelligence",
+        "Industry Trends",
+        "Case Studies",
+        "Best Practices"
+      ],
+      "frequency": "2-3 posts/week",
+      "length": "800-1500 words",
+      "seo": "keyword-optimized"
+    },
+    "resources": {
+      "types": [
+        "Whitepapers",
+        "E-books",
+        "Webinars",
+        "Templates",
+        "Checklists"
+      ],
+      "gated": true,
+      "leadMagnets": true
+    },
+    "social": {
+      "platforms": ["LinkedIn", "Twitter", "YouTube"],
+      "content": ["tips", "insights", "behind-scenes"],
+      "frequency": "3-5 posts/week"
+    }
+  },
+  "seo": {
+    "strategy": "topic-cluster",
+    "primaryKeyword": "AI business automation",
+    "secondaryKeywords": [
+      "workflow automation",
+      "business intelligence",
+      "predictive analytics",
+      "AI agents",
+      "process automation"
+    ],
+    "technical": {
+      "structuredData": true,
+      "openGraph": true,
+      "twitterCards": true,
+      "sitemap": "auto-generated"
+    }
+  }
+}

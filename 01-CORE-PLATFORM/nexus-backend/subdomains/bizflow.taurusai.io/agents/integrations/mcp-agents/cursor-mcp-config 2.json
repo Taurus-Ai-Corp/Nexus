@@ -1,0 +1,44 @@
+// MCP Configuration - Environment file should be at: /Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/master.env
+// MCP Configuration - Environment file should be at: /Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/master.env
+{
+  "mcp.servers": {
+    "figma": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/figma-mcp/index.js"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "your_figma_token_here"
+      }
+    },
+    "design-tokens": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/design-tokens-mcp/index.js"],
+      "env": {
+        "DESIGN_TOKENS_PATH": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/design-tokens-mcp/tokens"
+      }
+    },
+    "tailwind": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/tailwind-mcp/index.js"]
+    },
+    "components": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/component-library-mcp/index.js"]
+    },
+    "icons": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/icon-assets-mcp/index.js"]
+    },
+    "website downloader": {
+      "command": "node",
+      "args": ["/path/to/website-downloader/build/index.js"],
+      "env": {}
+    }
+  }
+}
+
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+{
+  "model_role": "judge",
+  "realism_score_0_to_10": 3,
+  "primary_issues": [
+    "Cracks appear as semi-transparent overlay without proper material breakage texture",
+    "Damage placement ignores surface curvature and reflection interactions",
+    "Vertical dent near lid edge lacks proper alignment with machine seams",
+    "Complete absence of realistic shadows, displaced material, or edge detailing",
+    "Damage crosses surfaces in an artificially flat manner"
+  ],
+  "mitigation": [
+    "Reduce crack layer opacity by 40-50% to avoid overlay appearance",
+    "Apply tighter lid mask to constrain damage to appropriate surface areas",
+    "Add subtle shadow gradient around impact points for depth illusion",
+    "Introduce micro-texturing on crack edges to simulate broken material",
+    "Align damage patterns with existing machine seams and surface geometry"
+  ],
+  "recommended_final_edit_parameters": {
+    "lid_mask_scale": "0.85-0.95",
+    "crack_opacity": "0.35-0.45",
+    "impact_shadow_strength": "0.25-0.35",
+    "scratch_count": 3,
+    "chip_opacity": "85-120"
+  },
+  "final_verdict": "needs_more_work"
+}

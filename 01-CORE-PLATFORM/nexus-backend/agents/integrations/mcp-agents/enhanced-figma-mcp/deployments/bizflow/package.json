@@ -1,0 +1,14 @@
+{
+  "name": "nexus-platform",
+  "version": "1.0.0",
+  "description": "NEXUS by Taurus Ai - Intelligent Business Orchestration Platform",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server . -p 3000 -o",
+    "build": "echo 'Static build ready'",
+    "deploy": "echo 'Ready for production deployment'"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}

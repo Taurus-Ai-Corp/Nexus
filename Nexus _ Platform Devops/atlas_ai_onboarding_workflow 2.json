@@ -1,0 +1,748 @@
+{
+  "meta": {
+    "instanceId": "atlas-ai-onboarding"
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "user-plan-selection",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Plan Selection Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "atlas-ai-plan-selection"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.selectedPlan }}",
+              "rightValue": "starter",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "starter-branch",
+      "name": "Starter Plan Branch",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.selectedPlan }}",
+              "rightValue": "professional",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "professional-branch",
+      "name": "Professional Plan Branch",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.selectedPlan }}",
+              "rightValue": "enterprise",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "enterprise-branch",
+      "name": "Enterprise Plan Branch",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "contact-limit",
+              "name": "contactLimit",
+              "value": 5000,
+              "type": "number"
+            },
+            {
+              "id": "email-automation",
+              "name": "emailAutomation",
+              "value": "basic",
+              "type": "string"
+            },
+            {
+              "id": "ai-campaigns",
+              "name": "aiCampaigns",
+              "value": 10,
+              "type": "number"
+            },
+            {
+              "id": "analytics",
+              "name": "analytics",
+              "value": "standard",
+              "type": "string"
+            },
+            {
+              "id": "support-level",
+              "name": "supportLevel",
+              "value": "email",
+              "type": "string"
+            },
+            {
+              "id": "team-members",
+              "name": "teamMembers",
+              "value": 2,
+              "type": "number"
+            },
+            {
+              "id": "integrations",
+              "name": "integrations",
+              "value": "basic_10",
+              "type": "string"
+            },
+            {
+              "id": "mobile-app",
+              "name": "mobileAppAccess",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "plan-name",
+              "name": "planName",
+              "value": "Starter",
+              "type": "string"
+            },
+            {
+              "id": "monthly-price",
+              "name": "monthlyPrice",
+              "value": 49,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "starter-config",
+      "name": "Configure Starter Features",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [680, 140]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "contact-limit",
+              "name": "contactLimit",
+              "value": 25000,
+              "type": "number"
+            },
+            {
+              "id": "email-automation",
+              "name": "emailAutomation",
+              "value": "advanced",
+              "type": "string"
+            },
+            {
+              "id": "ai-campaigns",
+              "name": "aiCampaigns",
+              "value": -1,
+              "type": "number"
+            },
+            {
+              "id": "analytics",
+              "name": "analytics",
+              "value": "advanced",
+              "type": "string"
+            },
+            {
+              "id": "support-level",
+              "name": "supportLevel",
+              "value": "priority",
+              "type": "string"
+            },
+            {
+              "id": "team-members",
+              "name": "teamMembers",
+              "value": 10,
+              "type": "number"
+            },
+            {
+              "id": "integrations",
+              "name": "integrations",
+              "value": "premium_50",
+              "type": "string"
+            },
+            {
+              "id": "ab-testing",
+              "name": "abTesting",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "custom-branding",
+              "name": "customBranding",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "lead-scoring",
+              "name": "leadScoring",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "social-media",
+              "name": "socialMediaAutomation",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "plan-name",
+              "name": "planName",
+              "value": "Professional",
+              "type": "string"
+            },
+            {
+              "id": "monthly-price",
+              "name": "monthlyPrice",
+              "value": 149,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "professional-config",
+      "name": "Configure Professional Features",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [680, 240]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "contact-limit",
+              "name": "contactLimit",
+              "value": -1,
+              "type": "number"
+            },
+            {
+              "id": "automation-suite",
+              "name": "automationSuite",
+              "value": "enterprise",
+              "type": "string"
+            },
+            {
+              "id": "ai-model-training",
+              "name": "customAIModelTraining",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "predictive-analytics",
+              "name": "predictiveAnalytics",
+              "value": "advanced",
+              "type": "string"
+            },
+            {
+              "id": "account-manager",
+              "name": "dedicatedAccountManager",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "team-members",
+              "name": "teamMembers",
+              "value": -1,
+              "type": "number"
+            },
+            {
+              "id": "custom-integrations",
+              "name": "customIntegrations",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "white-label",
+              "name": "whiteLabelSolutions",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "advanced-security",
+              "name": "advancedSecurity",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "custom-reporting",
+              "name": "customReporting",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "api-access",
+              "name": "apiAccess",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "support-level",
+              "name": "supportLevel",
+              "value": "24_7_phone",
+              "type": "string"
+            },
+            {
+              "id": "plan-name",
+              "name": "planName",
+              "value": "Enterprise",
+              "type": "string"
+            },
+            {
+              "id": "monthly-price",
+              "name": "monthlyPrice",
+              "value": 449,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "enterprise-config",
+      "name": "Configure Enterprise Features",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [680, 340]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "serviceAccountEmail": "{{ $vars.GOOGLE_SERVICE_EMAIL }}",
+        "privateKey": "{{ $vars.GOOGLE_PRIVATE_KEY }}",
+        "operation": "append",
+        "documentId": "{{ $vars.GOOGLE_SHEET_ID }}",
+        "sheetName": "Atlas AI User Onboarding",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{ $now }}",
+            "userId": "={{ $('Plan Selection Webhook').item.json.userId }}",
+            "userEmail": "={{ $('Plan Selection Webhook').item.json.userEmail }}",
+            "userName": "={{ $('Plan Selection Webhook').item.json.userName }}",
+            "selectedPlan": "={{ $json.planName }}",
+            "contactLimit": "={{ $json.contactLimit }}",
+            "monthlyPrice": "={{ $json.monthlyPrice }}",
+            "features": "={{ Object.keys($json).filter(key => typeof $json[key] === 'boolean' && $json[key] === true).join(', ') }}",
+            "status": "configured"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "userId",
+              "displayName": "User ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "userEmail",
+              "displayName": "User Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "userName",
+              "displayName": "User Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "selectedPlan",
+              "displayName": "Selected Plan",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "contactLimit",
+              "displayName": "Contact Limit",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "monthlyPrice",
+              "displayName": "Monthly Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "features",
+              "displayName": "Enabled Features",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "log-to-sheets",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [900, 240]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('Plan Selection Webhook').item.json.currentContactCount }}",
+              "rightValue": "={{ $json.contactLimit }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "leftValue": "={{ $json.contactLimit }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "check-contact-limit",
+      "name": "Check Contact Limit Exceeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1120, 240]
+    },
+    {
+      "parameters": {
+        "sendTo": "{{ $vars.ADMIN_EMAIL }}",
+        "subject": "🚨 Atlas AI Contact Limit Exceeded Alert",
+        "message": "=**CONTACT LIMIT EXCEEDED ALERT**\n\n**User Details:**\n- Name: {{ $('Plan Selection Webhook').item.json.userName }}\n- Email: {{ $('Plan Selection Webhook').item.json.userEmail }}\n- User ID: {{ $('Plan Selection Webhook').item.json.userId }}\n\n**Plan Information:**\n- Selected Plan: {{ $json.planName }}\n- Plan Limit: {{ $json.contactLimit }} contacts\n- Current Count: {{ $('Plan Selection Webhook').item.json.currentContactCount }} contacts\n- Overage: {{ $('Plan Selection Webhook').item.json.currentContactCount - $json.contactLimit }} contacts\n\n**Action Required:**\n- Contact user about plan upgrade\n- Review account for compliance\n- Consider temporary restrictions if necessary\n\n**Timestamp:** {{ $now }}\n\n---\nAtlas AI Automated Monitoring System",
+        "options": {
+          "allowUnauthorizedCerts": false,
+          "ccEmail": "",
+          "bccEmail": "",
+          "replyTo": "noreply@atlasai.com",
+          "priority": "high",
+          "attachments": "none"
+        }
+      },
+      "id": "alert-admins",
+      "name": "Send Admin Alert Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1340, 180]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "welcome-email",
+              "name": "welcomeEmailSent",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "setup-complete",
+              "name": "setupComplete",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "activation-date",
+              "name": "activationDate",
+              "value": "={{ $now }}",
+              "type": "string"
+            },
+            {
+              "id": "next-billing",
+              "name": "nextBillingDate",
+              "value": "={{ DateTime.now().plus({days: 14}).toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "finalize-setup",
+      "name": "Finalize User Setup",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Plan Selection Webhook').item.json.userEmail }}",
+        "subject": "🚀 Welcome to Atlas AI - Your {{ $json.planName }} Plan is Active!",
+        "message": "=**Welcome to Atlas AI!**\n\nHi {{ $('Plan Selection Webhook').item.json.userName }},\n\nCongratulations! Your **{{ $json.planName }} Plan** has been successfully activated.\n\n**Your Plan Features:**\n{{ $json.contactLimit === -1 ? '- Unlimited contacts' : '- Up to ' + $json.contactLimit + ' contacts' }}\n{{ $json.planName === 'Starter' ? '- Basic email automation\\n- 10 AI-generated campaigns per month\\n- Standard analytics dashboard\\n- Email support\\n- 2 team members\\n- Basic integrations (10+)\\n- Mobile app access' : '' }}\n{{ $json.planName === 'Professional' ? '- Advanced automation workflows\\n- Unlimited AI campaigns\\n- Advanced analytics & reporting\\n- Priority support\\n- 10 team members\\n- Premium integrations (50+)\\n- A/B testing suite\\n- Custom branding\\n- Lead scoring\\n- Social media automation' : '' }}\n{{ $json.planName === 'Enterprise' ? '- Enterprise automation suite\\n- Custom AI model training\\n- Advanced predictive analytics\\n- Dedicated account manager\\n- Unlimited team members\\n- Custom integrations\\n- White-label solutions\\n- Advanced security & compliance\\n- Custom reporting\\n- API access\\n- 24/7 phone support' : '' }}\n\n**Getting Started:**\n1. Log into your Atlas AI dashboard\n2. Complete your profile setup\n3. Import your contacts (limit: {{ $json.contactLimit === -1 ? 'unlimited' : $json.contactLimit }})\n4. Create your first AI-powered campaign\n\n**Need Help?**\n{{ $json.supportLevel === 'email' ? 'Email us at support@atlasai.com' : '' }}\n{{ $json.supportLevel === 'priority' ? 'Contact our priority support team at priority@atlasai.com' : '' }}\n{{ $json.supportLevel === '24_7_phone' ? 'Call our 24/7 support line at +1 (555) 123-4567' : '' }}\n\n**Your 14-day free trial** ends on {{ DateTime.fromISO($json.nextBillingDate).toFormat('MMMM dd, yyyy') }}.\n\nWelcome aboard!\n\nThe Atlas AI Team",
+        "options": {
+          "allowUnauthorizedCerts": false,
+          "ccEmail": "",
+          "bccEmail": "",
+          "replyTo": "noreply@atlasai.com",
+          "priority": "normal",
+          "attachments": "none"
+        }
+      },
+      "id": "send-welcome-email",
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1560, 300]
+    }
+  ],
+  "connections": {
+    "Plan Selection Webhook": {
+      "main": [
+        [
+          {
+            "node": "Starter Plan Branch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Professional Plan Branch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Enterprise Plan Branch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Starter Plan Branch": {
+      "main": [
+        [
+          {
+            "node": "Configure Starter Features",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Professional Plan Branch": {
+      "main": [
+        [
+          {
+            "node": "Configure Professional Features",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enterprise Plan Branch": {
+      "main": [
+        [
+          {
+            "node": "Configure Enterprise Features",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure Starter Features": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure Professional Features": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure Enterprise Features": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Check Contact Limit Exceeded",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Contact Limit Exceeded": {
+      "main": [
+        [
+          {
+            "node": "Send Admin Alert Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Finalize User Setup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Admin Alert Email": {
+      "main": [
+        [
+          {
+            "node": "Finalize User Setup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finalize User Setup": {
+      "main": [
+        [
+          {
+            "node": "Send Welcome Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "id": "atlas-ai-onboarding",
+      "name": "Atlas AI User Onboarding"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

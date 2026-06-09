@@ -214,9 +214,9 @@ async def interpret_command_api(request: NLPRequest):
 
 
 
-# --- BizFlow Endpoints ---
+# --- Meta Campaign Endpoints ---
 
-@app.post("/api/bizflow/meta-campaigns", response_model=Campaign)
+@app.post("/api/nexus/meta-campaigns", response_model=Campaign)
 async def create_meta_campaign(campaign: Campaign):
     campaign.id = len(campaigns_db) + 1
     campaign.created_at = datetime.utcnow()
@@ -224,13 +224,13 @@ async def create_meta_campaign(campaign: Campaign):
     campaigns_db.append(campaign)
     return campaign
 
-@app.get("/api/bizflow/meta-campaigns", response_model=List[Campaign])
+@app.get("/api/nexus/meta-campaigns", response_model=List[Campaign])
 async def list_meta_campaigns():
     return [c for c in campaigns_db if c.platform == "meta"]
 
-# --- NeoVibe Endpoints ---
+# --- Instagram Campaign Endpoints ---
 
-@app.post("/api/neovibe/instagram-campaigns", response_model=Campaign)
+@app.post("/api/nexus/instagram-campaigns", response_model=Campaign)
 async def create_instagram_campaign(campaign: Campaign):
     campaign.id = len(campaigns_db) + 1
     campaign.created_at = datetime.utcnow()
@@ -238,7 +238,7 @@ async def create_instagram_campaign(campaign: Campaign):
     campaigns_db.append(campaign)
     return campaign
 
-@app.get("/api/neovibe/instagram-campaigns", response_model=List[Campaign])
+@app.get("/api/nexus/instagram-campaigns", response_model=List[Campaign])
 async def list_instagram_campaigns():
     return [c for c in campaigns_db if c.platform == "instagram"]
 
@@ -247,10 +247,10 @@ async def list_instagram_campaigns():
 @app.post("/api/agents/orchestrate")
 async def orchestrate_agent(agent_request: dict):
     """
-    Orchestrate BizFlow/NeoVibe agents based on NLP interpretation
+    Orchestrate Nexus agents based on NLP interpretation
     In production, this would connect to actual agent systems like Agentuity
     """
-    platform = agent_request.get("platform", "bizflow")
+    platform = agent_request.get("platform", "nexus")
     agent_type = agent_request.get("agent_type", "orchestrator")
     task_description = agent_request.get("task_description", "")
     priority = agent_request.get("priority", "medium")

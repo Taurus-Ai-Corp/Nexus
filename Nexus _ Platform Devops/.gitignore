@@ -1,0 +1,58 @@
+# ── Secrets & Environment ──
+.env
+.env.*
+*.env
+!.env.example
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Node ──
+node_modules/
+.npm
+*.tsbuildinfo
+
+# ── Docker ──
+docker-compose.override.yml
+
+# ── IDE ──
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ── Logs ──
+*.log
+logs/
+
+# ── Database ──
+*.db
+*.sqlite3
+pgdata/
+
+# ── Build artifacts ──
+social-suite-dashboard/web/dist/
+social-suite-dashboard/web/.next/
+social-suite-dashboard/api/__pycache__/
+
+# ── Monitoring data ──
+monitoring/prometheus/data/
+monitoring/grafana/data/
+
+# ── Secrets (belt-and-suspenders) ──
+*secret*
+*credentials*
+*password*
+*token*

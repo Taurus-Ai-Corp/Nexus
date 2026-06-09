@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.4",
+    "tsx": "^4.20.5"
+  }
+}

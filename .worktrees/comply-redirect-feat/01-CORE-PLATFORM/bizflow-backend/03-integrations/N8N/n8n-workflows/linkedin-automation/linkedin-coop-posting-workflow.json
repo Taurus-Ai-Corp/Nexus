@@ -1,0 +1,253 @@
+{
+  "name": "LinkedIn Co-op Position Posting Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "manual"
+      },
+      "id": "trigger-manual",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Load platform template and customizations\nconst platform = $input.item.json.platform || 'BizFlow';\nconst customizations = $input.item.json.customizations || {};\n\nreturn {\n  json: {\n    platform,\n    customizations,\n    workflow: 'coop-posting'\n  }\n};"
+      },
+      "id": "prepare-data",
+      "name": "Prepare Job Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/api/linkedin/jobs/build-coop",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "build-coop",
+      "name": "Build Co-op Position",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/api/linkedin/jobs/generate-infographic",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ job_data: $json.job_data, platform: $json.platform }) }}",
+        "options": {}
+      },
+      "id": "generate-infographic",
+      "name": "Generate Infographic",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/api/linkedin/jobs/post",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.linkedin_format) }}",
+        "options": {}
+      },
+      "id": "post-to-linkedin",
+      "name": "Post to LinkedIn",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "share-to-company-page",
+              "leftValue": "={{ $json.success }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-success",
+      "name": "Check Posting Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/api/linkedin/posts/create",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: `We're hiring! Check out our new ${$('build-coop').item.json.platform} co-op position: ${$('post-to-linkedin').item.json.id}`, hashtags: ['hiring', 'coop', 'internship', $('build-coop').item.json.platform.toLowerCase()] }) }}",
+        "options": {}
+      },
+      "id": "share-company-page",
+      "name": "Share on Company Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1450, 200]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "notify-result",
+              "name": "result",
+              "value": "={{ { success: $json.success, job_id: $json.id, platform: $('build-coop').item.json.platform, infographic: $('generate-infographic').item.json.filepath } }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-notification",
+      "name": "Prepare Notification",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [1450, 400]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{ $env.SLACK_CHANNEL_ID }}",
+        "text": "={{ `✅ LinkedIn Co-op Position Posted\\n\\nPlatform: ${$json.platform}\\nJob ID: ${$json.job_id}\\nInfographic: ${$json.infographic}\\nStatus: ${$json.success ? 'Success' : 'Failed'}` }}",
+        "additionalFields": {}
+      },
+      "id": "notify-slack",
+      "name": "Notify Stakeholders",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [1650, 300],
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{"node": "Prepare Job Data", "type": "main", "index": 0}]]
+    },
+    "Prepare Job Data": {
+      "main": [[{"node": "Build Co-op Position", "type": "main", "index": 0}]]
+    },
+    "Build Co-op Position": {
+      "main": [[{"node": "Generate Infographic", "type": "main", "index": 0}]]
+    },
+    "Generate Infographic": {
+      "main": [[{"node": "Post to LinkedIn", "type": "main", "index": 0}]]
+    },
+    "Post to LinkedIn": {
+      "main": [[{"node": "Check Posting Success", "type": "main", "index": 0}]]
+    },
+    "Check Posting Success": {
+      "main": [
+        [{"node": "Share on Company Page", "type": "main", "index": 0}],
+        [{"node": "Prepare Notification", "type": "main", "index": 0}]
+      ]
+    },
+    "Share on Company Page": {
+      "main": [[{"node": "Prepare Notification", "type": "main", "index": 0}]]
+    },
+    "Prepare Notification": {
+      "main": [[{"node": "Notify Stakeholders", "type": "main", "index": 0}]]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-01-27T00:00:00.000Z",
+      "updatedAt": "2025-01-27T00:00:00.000Z",
+      "id": "linkedin",
+      "name": "LinkedIn"
+    },
+    {
+      "createdAt": "2025-01-27T00:00:00.000Z",
+      "updatedAt": "2025-01-27T00:00:00.000Z",
+      "id": "jobs",
+      "name": "Jobs"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-01-27T00:00:00.000Z",
+  "versionId": "1"
+}
+

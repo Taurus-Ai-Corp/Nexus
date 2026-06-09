@@ -1,3 +1,3 @@
 """
-Business Agents for BizFlow-Orchestrator
+Business Agents for NEXUS Creative Studio
 """

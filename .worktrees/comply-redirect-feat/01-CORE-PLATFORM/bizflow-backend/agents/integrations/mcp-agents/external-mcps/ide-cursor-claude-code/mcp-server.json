@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "claude-code-cursor": {
+      "command": "node",
+      "args": ["dist/server.js"],
+      "cwd": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/external-mcps/ide-cursor-claude-code",
+      "env": {
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+      }
+    }
+  }
+}

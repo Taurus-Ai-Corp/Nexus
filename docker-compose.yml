@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   # ===========================================
-  # BIZFLOW BACKEND - FastAPI
+  # NEXUS BACKEND - FastAPI
   # ===========================================
-  bizflow-backend:
+  nexus-backend:
     build:
-      context: ./01-CORE-PLATFORM/bizflow-backend
+      context: ./01-CORE-PLATFORM/nexus-backend
       dockerfile: Dockerfile
-    container_name: bizflow-backend
+    container_name: nexus-backend
     ports:
       - "8000:8000"
     environment:
@@ -20,48 +20,48 @@ services:
     depends_on:
       - redis
     volumes:
-      - ./01-CORE-PLATFORM/bizflow-backend:/app
+      - ./01-CORE-PLATFORM/nexus-backend:/app
     networks:
-      - bizflow-network
+      - nexus-network
     restart: unless-stopped
 
   # ===========================================
-  # BIZFLOW FRONTEND - Next.js
+  # NEXUS FRONTEND - Next.js
   # ===========================================
-  bizflow-frontend:
+  nexus-frontend:
     build:
-      context: ./01-CORE-PLATFORM/bizflow-frontend
+      context: ./01-CORE-PLATFORM/nexus-frontend
       dockerfile: Dockerfile
-    container_name: bizflow-frontend
+    container_name: nexus-frontend
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://bizflow-backend:8000
+      - NEXT_PUBLIC_API_URL=http://nexus-backend:8000
     depends_on:
-      - bizflow-backend
+      - nexus-backend
     volumes:
-      - ./01-CORE-PLATFORM/bizflow-frontend:/app
+      - ./01-CORE-PLATFORM/nexus-frontend:/app
       - /app/node_modules
     networks:
-      - bizflow-network
+      - nexus-network
     restart: unless-stopped
 
   # ===========================================
-  # NEOVIBE STUDIO
+  # NEXUS CREATIVE STUDIO
   # ===========================================
-  neovibe-studio:
+  nexus-studio:
     build:
-      context: ./01-CORE-PLATFORM/neovibe-studio
+      context: ./01-CORE-PLATFORM/nexus-studio
       dockerfile: Dockerfile
-    container_name: neovibe-studio
+    container_name: nexus-studio
     ports:
       - "3001:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://bizflow-backend:8000
+      - NEXT_PUBLIC_API_URL=http://nexus-backend:8000
     depends_on:
-      - bizflow-backend
+      - nexus-backend
     networks:
-      - bizflow-network
+      - nexus-network
     restart: unless-stopped
 
   # ===========================================
@@ -69,13 +69,13 @@ services:
   # ===========================================
   redis:
     image: redis:7-alpine
-    container_name: bizflow-redis
+    container_name: nexus-redis
     ports:
       - "6379:6379"
     volumes:
       - redis-data:/data
     networks:
-      - bizflow-network
+      - nexus-network
     restart: unless-stopped
     command: redis-server --appendonly yes
 
@@ -84,18 +84,18 @@ services:
   # ===========================================
   postgres:
     image: postgres:15-alpine
-    container_name: bizflow-postgres
+    container_name: nexus-postgres
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=${POSTGRES_USER:-bizflow}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-bizflow_dev}
-      - POSTGRES_DB=${POSTGRES_DB:-bizflow_dev}
+      - POSTGRES_USER=${POSTGRES_USER:-nexus}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-nexus_dev}
+      - POSTGRES_DB=${POSTGRES_DB:-nexus_dev}
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./05-DATABASES/supabase/schemas:/docker-entrypoint-initdb.d
     networks:
-      - bizflow-network
+      - nexus-network
     restart: unless-stopped
 
   # ===========================================
@@ -103,18 +103,18 @@ services:
   # ===========================================
   mongodb:
     image: mongo:7
-    container_name: bizflow-mongodb
+    container_name: nexus-mongodb
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER:-bizflow}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:-bizflow_dev}
-      - MONGO_INITDB_DATABASE=bizflow
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER:-nexus}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:-nexus_dev}
+      - MONGO_INITDB_DATABASE=nexus
     volumes:
       - mongodb-data:/data/db
       - ./05-DATABASES/mongodb-atlas/schemas:/docker-entrypoint-initdb.d
     networks:
-      - bizflow-network
+      - nexus-network
     restart: unless-stopped
 
   # ===========================================
@@ -122,13 +122,13 @@ services:
   # ===========================================
   n8n:
     image: n8nio/n8n:latest
-    container_name: bizflow-n8n
+    container_name: nexus-n8n
     ports:
       - "5678:5678"
     environment:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
-      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-bizflow_n8n}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-nexus_n8n}
       - N8N_HOST=localhost
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
@@ -137,7 +137,7 @@ services:
       - n8n-data:/home/node/.n8n
       - ./06-WORKFLOWS/n8n:/home/node/workflows
     networks:
-      - bizflow-network
+      - nexus-network
     restart: unless-stopped
 
   # ===========================================
@@ -147,22 +147,22 @@ services:
     build:
       context: ./02-AGENTS/orchestration
       dockerfile: Dockerfile
-    container_name: bizflow-orchestrator
+    container_name: nexus-orchestrator
     environment:
       - REDIS_URL=redis://redis:6379
       - DATABASE_URL=${SUPABASE_DATABASE_URL}
       - HUBSPOT_ACCESS_TOKEN=${HUBSPOT_ACCESS_TOKEN}
     depends_on:
       - redis
-      - bizflow-backend
+      - nexus-backend
     volumes:
       - ./02-AGENTS:/app/agents
     networks:
-      - bizflow-network
+      - nexus-network
     restart: unless-stopped
 
 networks:
-  bizflow-network:
+  nexus-network:
     driver: bridge
 
 volumes:

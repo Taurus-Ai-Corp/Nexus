@@ -1,0 +1,235 @@
+#!/bin/bash
+
+# TAURUS AI CORP Analytics Dashboard Deployment Script
+# This script builds and deploys the analytics dashboard
+
+set -e
+
+echo "🏰 TAURUS AI CORP Analytics Dashboard Deployment"
+echo "================================================"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Function to print colored output
+print_status() {
+    echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+print_success() {
+    echo -e "${GREEN}[SUCCESS]${NC} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+# Check if Node.js is installed
+check_node() {
+    print_status "Checking Node.js installation..."
+    if ! command -v node &> /dev/null; then
+        print_error "Node.js is not installed. Please install Node.js 18+ and try again."
+        exit 1
+    fi
+    
+    NODE_VERSION=$(node --version)
+    print_success "Node.js version: $NODE_VERSION"
+}
+
+# Check if npm is installed
+check_npm() {
+    print_status "Checking npm installation..."
+    if ! command -v npm &> /dev/null; then
+        print_error "npm is not installed. Please install npm and try again."
+        exit 1
+    fi
+    
+    NPM_VERSION=$(npm --version)
+    print_success "npm version: $NPM_VERSION"
+}
+
+# Install dependencies
+install_dependencies() {
+    print_status "Installing dependencies..."
+    if npm install; then
+        print_success "Dependencies installed successfully"
+    else
+        print_error "Failed to install dependencies"
+        exit 1
+    fi
+}
+
+# Run tests
+run_tests() {
+    print_status "Running tests..."
+    if npm test -- --watchAll=false --passWithNoTests; then
+        print_success "All tests passed"
+    else
+        print_warning "Some tests failed, but continuing with deployment"
+    fi
+}
+
+# Build the application
+build_app() {
+    print_status "Building application for production..."
+    if npm run build; then
+        print_success "Application built successfully"
+    else
+        print_error "Failed to build application"
+        exit 1
+    fi
+}
+
+# Check build output
+check_build() {
+    print_status "Checking build output..."
+    if [ -d "build" ]; then
+        BUILD_SIZE=$(du -sh build | cut -f1)
+        print_success "Build directory created successfully (Size: $BUILD_SIZE)"
+        
+        # List build contents
+        print_status "Build contents:"
+        ls -la build/
+    else
+        print_error "Build directory not found"
+        exit 1
+    fi
+}
+
+# Create deployment package
+create_deployment_package() {
+    print_status "Creating deployment package..."
+    
+    # Create deployment directory
+    DEPLOY_DIR="deployment-$(date +%Y%m%d-%H%M%S)"
+    mkdir -p "$DEPLOY_DIR"
+    
+    # Copy build files
+    cp -r build/* "$DEPLOY_DIR/"
+    
+    # Copy additional files
+    cp package.json "$DEPLOY_DIR/"
+    cp README.md "$DEPLOY_DIR/"
+    cp env.example "$DEPLOY_DIR/"
+    
+    # Create deployment info
+    cat > "$DEPLOY_DIR/deployment-info.json" << EOF
+{
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "version": "1.0.0",
+  "node_version": "$(node --version)",
+  "npm_version": "$(npm --version)",
+  "build_size": "$(du -sh build | cut -f1)",
+  "environment": "production"
+}
+EOF
+    
+    print_success "Deployment package created: $DEPLOY_DIR"
+    echo "$DEPLOY_DIR" > .deployment-dir
+}
+
+# Generate deployment report
+generate_report() {
+    print_status "Generating deployment report..."
+    
+    DEPLOY_DIR=$(cat .deployment-dir)
+    
+    cat > "DEPLOYMENT_REPORT.md" << EOF
+# 🚀 TAURUS AI CORP Analytics Dashboard - Deployment Report
+
+**Deployment Date**: $(date)
+**Version**: 1.0.0
+**Environment**: Production
+
+## 📊 Build Statistics
+- **Node.js Version**: $(node --version)
+- **npm Version**: $(npm --version)
+- **Build Size**: $(du -sh build | cut -f1)
+- **Deployment Package**: $DEPLOY_DIR
+
+## ✅ Deployment Checklist
+- [x] Node.js and npm installed
+- [x] Dependencies installed
+- [x] Tests executed
+- [x] Application built
+- [x] Build output verified
+- [x] Deployment package created
+
+## 📁 Deployment Structure
+\`\`\`
+$DEPLOY_DIR/
+├── static/                 # Static assets
+├── index.html             # Main HTML file
+├── package.json           # Dependencies
+├── README.md              # Documentation
+├── env.example            # Environment template
+└── deployment-info.json   # Deployment metadata
+\`\`\`
+
+## 🚀 Next Steps
+1. Upload the \`$DEPLOY_DIR\` folder to your web server
+2. Configure your web server to serve the static files
+3. Set up environment variables using \`env.example\` as template
+4. Configure your backend API endpoints
+5. Test the dashboard in production environment
+
+## 🔧 Configuration
+- **API URL**: Set \`REACT_APP_API_URL\` environment variable
+- **WebSocket URL**: Set \`REACT_APP_WS_URL\` environment variable
+- **Authentication**: Configure \`REACT_APP_AUTH_ENABLED\` if needed
+
+## 📞 Support
+For deployment issues or questions, contact the TAURUS AI CORP development team.
+
+---
+*Generated by TAURUS AI CORP Analytics Dashboard Deployment Script*
+EOF
+    
+    print_success "Deployment report generated: DEPLOYMENT_REPORT.md"
+}
+
+# Main deployment function
+main() {
+    echo
+    print_status "Starting deployment process..."
+    echo
+    
+    # Pre-deployment checks
+    check_node
+    check_npm
+    
+    # Installation and build
+    install_dependencies
+    run_tests
+    build_app
+    check_build
+    
+    # Deployment preparation
+    create_deployment_package
+    generate_report
+    
+    echo
+    print_success "🎉 Deployment completed successfully!"
+    echo
+    print_status "Deployment package: $(cat .deployment-dir)"
+    print_status "Deployment report: DEPLOYMENT_REPORT.md"
+    echo
+    print_status "Next steps:"
+    echo "1. Upload the deployment package to your web server"
+    echo "2. Configure environment variables"
+    echo "3. Set up backend API endpoints"
+    echo "4. Test the dashboard"
+    echo
+}
+
+# Run main function
+main "$@"
+

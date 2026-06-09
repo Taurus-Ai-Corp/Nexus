@@ -1,0 +1,31 @@
+```json
+{
+  "model_role": "judge",
+  "realism_score_0_to_10": 3,
+  "primary_issues": [
+    "Cracks appear as flat semi-transparent overlay with no depth or glass/plastic fracture characteristics",
+    "No interaction with lid curvature - cracks cross flatly without warping or perspective distortion",
+    "Dark vertical dent/damage near right lid edge has hard edges and no integration with surface reflections",
+    "Missing impact deformation - no displaced plastic, raised edges, or surface tension around damage points",
+    "No ambient occlusion or contact shadows where damage meets the lid surface",
+    "Damage crosses multiple surface planes without appropriate depth variation",
+    "Lighting on damage elements does not match the ambient utility room lighting direction"
+  ],
+  "mitigation": [
+    "Reduce crack opacity to 0.35-0.45 for more subtle glass fracture appearance",
+    "Tighten lid mask scale to 0.70-0.80 to confine damage within natural lid boundaries",
+    "Add softer impact shadow with strength 0.25-0.35 around damage perimeter",
+    "Introduce subtle chip opacity (120-160 range) for broken-edge realism at fracture terminations",
+    "Apply slight perspective warp to cracks to match lid curvature",
+    "Reduce scratch count to 2-3 and place near primary impact zone"
+  ],
+  "recommended_final_edit_parameters": {
+    "lid_mask_scale": "0.75",
+    "crack_opacity": "0.40",
+    "impact_shadow_strength": "0.30",
+    "scratch_count": 3,
+    "chip_opacity": "140"
+  },
+  "final_verdict": "needs_more_work"
+}
+```

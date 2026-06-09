@@ -1,0 +1,129 @@
+// MCP Configuration - Environment file should be at: /Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/master.env
+// MCP Configuration - Environment file should be at: /Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents/integrations/mcp-agents/master.env
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "figma": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/figma-mcp/index.js"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "your_figma_token_here"
+      }
+    },
+    "design-tokens": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/design-tokens-mcp/index.js"],
+      "env": {
+        "DESIGN_TOKENS_PATH": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/design-tokens-mcp/tokens"
+      }
+    },
+    "tailwind": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/tailwind-mcp/index.js"]
+    },
+    "components": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/component-library-mcp/index.js"]
+    },
+    "icons": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/icon-assets-mcp/index.js"]
+    },
+    "gmail": {
+      "command": "node",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/external-mcps/klavis/mcp_servers/gmail/src/index.ts"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "your_google_client_id_here",
+        "GOOGLE_CLIENT_SECRET": "your_google_client_secret_here"
+      }
+    },
+    "google-sheets": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/external-mcps/klavis/mcp_servers/google_sheets/server.py"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "your_google_client_id_here",
+        "GOOGLE_CLIENT_SECRET": "your_google_client_secret_here"
+      }
+    },
+    "slack": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/external-mcps/klavis/mcp_servers/slack/server.py"],
+      "env": {
+        "SLACK_BOT_TOKEN": "xoxb-your-slack-bot-token-here",
+        "SLACK_USER_TOKEN": "xoxp-your-slack-user-token-here"
+      }
+    },
+    "notion": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/external-mcps/klavis/mcp_servers/notion/server.py"],
+      "env": {
+        "NOTION_API_KEY": "secret_your_notion_api_key_here"
+      }
+    },
+    "hubspot": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/external-mcps/klavis/mcp_servers/hubspot/server.py"],
+      "env": {
+        "HUBSPOT_ACCESS_TOKEN": "your_hubspot_access_token_here"
+      }
+    },
+    "airtable": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/external-mcps/klavis/mcp_servers/airtable/server.py"],
+      "env": {
+        "AIRTABLE_ACCESS_TOKEN": "your_airtable_access_token_here"
+      }
+    },
+    "linear": {
+      "command": "python",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/external-mcps/klavis/mcp_servers/linear/server.py"],
+      "env": {
+        "LINEAR_API_KEY": "your_linear_api_key_here"
+      }
+    },
+    "github-klavis": {
+      "command": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/BizFlow-Vibe-Marketing-Ecosystem/mcp-agents/external-mcps/klavis/mcp_servers/github/github-mcp-server",
+      "args": [],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+      }
+    },
+    "email-mcp": {
+      "command": "python3",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/.claude/awesome-AI-Apps/mcp_ai_agents/custom_mcp_server/mcp-server.py"],
+      "env": {
+        "SENDER_NAME": "Your Name",
+        "SENDER_EMAIL": "your-email@gmail.com",
+        "SENDER_PASSKEY": "your-app-password"
+      }
+    },
+    "docs-mcp": {
+      "command": "python3",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/.claude/awesome-AI-Apps/mcp_ai_agents/docs_qna_agent/main.py"],
+      "env": {
+        "NEBIUS_API_KEY": "your_nebius_api_key_here"
+      }
+    },
+    "github-official": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+      }
+    },
+    "mcp-starter": {
+      "command": "python3",
+      "args": ["/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/.claude/awesome-AI-Apps/mcp_ai_agents/mcp_starter/main.py"],
+      "env": {
+        "GITHUB_TOKEN": "your_github_token_here"
+      }
+    }
+  }
+}

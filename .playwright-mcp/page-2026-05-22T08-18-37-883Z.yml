@@ -1,0 +1,60 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Mater Maria Homes — Back to Home" [ref=e4] [cursor=pointer]:
+      - /url: index-landing.html
+      - img "Mater Maria Homes — Back to Home" [ref=e5]
+  - main [ref=e6]:
+    - heading "Privacy Policy" [level=1] [ref=e7]
+    - paragraph [ref=e8]: "Last updated: March 2026"
+    - paragraph [ref=e10]:
+      - text: Mater Maria Homes ("we", "us"), a project of the Pravasi Apostolate, Diocese of Kanjirappally, is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information when you visit
+      - strong [ref=e11]: matermariahomes.com
+      - text: .
+    - heading "Information We Collect" [level=2] [ref=e12]
+    - paragraph [ref=e13]: "We collect information you voluntarily provide through our contact form or WhatsApp enquiries:"
+    - list [ref=e14]:
+      - listitem [ref=e15]: Name, email address, and phone number
+      - listitem [ref=e16]: Country of residence
+      - listitem [ref=e17]: Investment preferences and enquiry details
+    - heading "How We Use Your Information" [level=2] [ref=e18]
+    - paragraph [ref=e19]: Your information is used solely to respond to your enquiries, share project updates, and facilitate investor communications. We do not use your data for automated profiling or unsolicited marketing.
+    - heading "Third-Party Services" [level=2] [ref=e20]
+    - paragraph [ref=e21]: "We use the following services to operate this website:"
+    - list [ref=e22]:
+      - listitem [ref=e23]:
+        - strong [ref=e24]: Web3Forms
+        - text: — processes contact form submissions
+      - listitem [ref=e25]:
+        - strong [ref=e26]: Vercel
+        - text: — website hosting
+    - paragraph [ref=e27]: We do not sell, rent, or trade your personal data to any third party.
+    - heading "Cookies" [level=2] [ref=e28]
+    - paragraph [ref=e29]: This website uses minimal analytics cookies to understand visitor traffic. We do not use advertising or tracking cookies. You may disable cookies in your browser settings at any time.
+    - heading "Data Retention" [level=2] [ref=e30]
+    - paragraph [ref=e31]: Enquiry data is retained for up to 3 years from the date of submission, or until you request deletion — whichever comes first.
+    - heading "Your Rights" [level=2] [ref=e32]
+    - paragraph [ref=e33]:
+      - text: You may request access to, correction of, or deletion of your personal data at any time by contacting us at
+      - link "Info@matermariahomes.com" [ref=e34] [cursor=pointer]:
+        - /url: mailto:Info@matermariahomes.com
+      - text: . We will respond within 30 days.
+    - heading "Updates to This Policy" [level=2] [ref=e35]
+    - paragraph [ref=e36]: We may update this policy from time to time. Changes will be reflected on this page with an updated date.
+    - heading "Governing Law" [level=2] [ref=e37]
+    - paragraph [ref=e38]: This policy is governed by the laws of India. Any disputes shall fall under the jurisdiction of courts in Kerala.
+    - heading "Contact" [level=2] [ref=e39]
+    - paragraph [ref=e40]:
+      - text: "Email:"
+      - link "Info@matermariahomes.com" [ref=e41] [cursor=pointer]:
+        - /url: mailto:Info@matermariahomes.com
+      - text: "Phone:"
+      - link "+91 96564 63073" [ref=e42] [cursor=pointer]:
+        - /url: tel:+919656463073
+  - contentinfo [ref=e43]:
+    - generic [ref=e44]:
+      - text: © 2026 Mater Maria Homes. All rights reserved. |
+      - link "Terms of Service" [ref=e45] [cursor=pointer]:
+        - /url: terms.html
+      - text: "|"
+      - link "Back to Home" [ref=e46] [cursor=pointer]:
+        - /url: index-landing.html

@@ -12,11 +12,7 @@ export function FloatingWhatsApp() {
 
   useEffect(() => {
     const target = document.getElementById("lead-capture");
-    if (!target) {
-      // No lead-capture section (non-invest pages) — always show
-      setVisible(true);
-      return;
-    }
+    if (!target) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => setVisible(!entry!.isIntersecting),

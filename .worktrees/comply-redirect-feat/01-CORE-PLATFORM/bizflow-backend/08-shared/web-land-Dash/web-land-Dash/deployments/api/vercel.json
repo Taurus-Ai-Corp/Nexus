@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "name": "taurus-ai-api",
+  "builds": [
+    {
+      "src": "**/*.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "TAURUS_AI_API": "api.taurusai.io"
+  }
+}

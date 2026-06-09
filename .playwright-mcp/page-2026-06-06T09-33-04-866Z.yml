@@ -1,0 +1,585 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e3] [cursor=pointer]:
+    - /url: "#main"
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Mater Maria Homes" [ref=e6] [cursor=pointer]:
+        - /url: "#"
+        - img "Mater Maria Homes" [ref=e7]
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "About" [ref=e10] [cursor=pointer]:
+            - /url: about.html
+        - listitem [ref=e11]:
+          - link "Features" [ref=e12] [cursor=pointer]:
+            - /url: "#features"
+        - listitem [ref=e13]:
+          - link "Residences" [ref=e14] [cursor=pointer]:
+            - /url: "#properties"
+        - listitem [ref=e15]:
+          - link "Invest" [ref=e16] [cursor=pointer]:
+            - /url: invest.html
+        - listitem [ref=e17]:
+          - link "Contact" [ref=e18] [cursor=pointer]:
+            - /url: "#contact"
+      - button "ENQUIRE NOW" [ref=e19] [cursor=pointer]
+  - dialog:
+    - button "Close menu": ×
+    - link "About":
+      - /url: about.html
+    - link "Features":
+      - /url: "#features"
+    - link "Residences":
+      - /url: "#properties"
+    - link "Invest":
+      - /url: invest.html
+    - link "Contact":
+      - /url: "#contact"
+    - generic:
+      - button "ENQUIRE NOW"
+  - generic [ref=e20]:
+    - generic [ref=e22]:
+      - generic [ref=e23]: LIVING REFINED
+      - generic [ref=e24]: LIVING REFINED
+      - generic [ref=e25]: LIVING REFINED
+      - generic [ref=e26]: LIVING REFINED
+    - generic [ref=e27]:
+      - img "Mater Maria Homes estate aerial view" [ref=e30]
+      - img "Mater Maria Homes luxury villa exterior" [ref=e33]
+      - img "Mater Maria Homes wellness community" [ref=e36]
+      - img "Mater Maria Homes sunset view" [ref=e39]
+    - generic [ref=e45]:
+      - heading "An Exceptional Opportunity to Live & Invest" [level=1] [ref=e46]
+      - paragraph [ref=e47]: Mater Maria Wellness Estate presents premium wellness residences with excellent ROI potential, backed by trusted care, faith-centered values, and growing demand for senior wellness living.
+      - generic [ref=e48]:
+        - button "ENQUIRE NOW" [ref=e49] [cursor=pointer]
+        - button "INVEST NOW" [ref=e50] [cursor=pointer]
+  - main [ref=e51]:
+    - generic [ref=e57]:
+      - heading "Nestled within the serene landscapes of Kanjirappally, Mater Maria Homes was purposefully conceived as a retirement living experience that holds international standards of comfort in one hand, and the irreplaceable warmth of faith, family, and belonging in the other." [level=2] [ref=e58]
+      - link "Discover More" [ref=e59] [cursor=pointer]:
+        - /url: about.html
+    - generic [ref=e61]:
+      - heading "Vision & Mission" [level=2] [ref=e62]:
+        - text: Vision &
+        - emphasis [ref=e63]: Mission
+      - generic [ref=e64]:
+        - img "Family at Mater Maria Homes wellness community" [ref=e66]
+        - generic [ref=e67]:
+          - heading "Vision" [level=3] [ref=e68]
+          - paragraph [ref=e69]: To create India's most compassionate retirement community where every resident lives with dignity, purpose, and joy — surrounded by world-class care, spiritual warmth, and the beauty of Kerala's Western Ghats.
+        - generic [ref=e70]:
+          - heading "Mission" [level=3] [ref=e71]
+          - paragraph [ref=e72]: To deliver an internationally-benchmarked wellness estate that combines medical excellence, sustainable living, and faith-based stewardship — ensuring every family can entrust their loved ones with absolute confidence.
+        - img "Mater Maria Homes mission and vision" [ref=e74]
+    - generic [ref=e76]:
+      - generic [ref=e77]:
+        - generic [ref=e78]: ●
+        - text: 24/7 Medical Facilities
+      - generic [ref=e79]:
+        - generic [ref=e80]: ●
+        - text: AI-Powered Smart Homes
+      - generic [ref=e81]:
+        - generic [ref=e82]: ●
+        - text: Diocese of Kanjirappally
+      - generic [ref=e83]:
+        - generic [ref=e84]: ●
+        - text: 24/7 Medical Facilities
+      - generic [ref=e85]:
+        - generic [ref=e86]: ●
+        - text: AI-Powered Smart Homes
+      - generic [ref=e87]:
+        - generic [ref=e88]: ●
+        - text: Diocese of Kanjirappally
+      - generic [ref=e89]:
+        - generic [ref=e90]: ●
+        - text: 24/7 Medical Facilities
+      - generic [ref=e91]:
+        - generic [ref=e92]: ●
+        - text: AI-Powered Smart Homes
+      - generic [ref=e93]:
+        - generic [ref=e94]: ●
+        - text: Diocese of Kanjirappally
+      - generic [ref=e95]:
+        - generic [ref=e96]: ●
+        - text: 24/7 Medical Facilities
+      - generic [ref=e97]:
+        - generic [ref=e98]: ●
+        - text: AI-Powered Smart Homes
+      - generic [ref=e99]:
+        - generic [ref=e100]: ●
+        - text: Diocese of Kanjirappally
+    - generic [ref=e103]:
+      - generic [ref=e104]:
+        - generic [ref=e105]: 100+
+        - generic [ref=e106]: Premium Residences
+      - generic [ref=e107]:
+        - generic [ref=e108]: "48"
+        - generic [ref=e109]: World-Class Facilities
+      - generic [ref=e110]:
+        - generic [ref=e111]: 8+
+        - generic [ref=e112]: Acres of Greenery
+      - generic [ref=e113]:
+        - generic [ref=e114]: 7+
+        - generic [ref=e115]: Nearby Hospitals
+    - generic [ref=e117]:
+      - heading "World-Class Amenities." [level=2] [ref=e118]:
+        - text: World-Class
+        - emphasis [ref=e119]: Amenities.
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - img "Mater Maria Villas at sunset" [ref=e122]
+          - generic [ref=e123]: Aerial View — Mater Maria Villas at Sunset
+        - generic [ref=e124]:
+          - img "Welcome to Mater Maria reception lounge" [ref=e125]
+          - generic [ref=e126]: Welcome Mater Maria
+        - generic [ref=e127]:
+          - img "Personalised healthcare at Mater Maria" [ref=e128]
+          - generic [ref=e129]: Personalised Healthcare
+        - generic [ref=e130]:
+          - img "Mater Maria Homes main gate entrance" [ref=e131]
+          - generic [ref=e132]: Gate Entrance
+        - generic [ref=e133]:
+          - img "Luxury interior design at Mater Maria" [ref=e134]
+          - generic [ref=e135]: Luxury Interiors
+        - generic [ref=e136]:
+          - img "Ayurveda wellness spa at Mater Maria" [ref=e137]
+          - generic [ref=e138]: Wellness Spa
+        - generic [ref=e139]:
+          - img "Medical care at Mater Maria" [ref=e140]
+          - generic [ref=e141]: Medical Care
+    - generic [ref=e143]:
+      - heading "Strategic Location | Seamless Accessibility." [level=2] [ref=e144]:
+        - text: Strategic Location | Seamless
+        - emphasis [ref=e145]: Accessibility.
+      - paragraph [ref=e146]: Kanjirappally, Kottayam — at the crossroads of Kerala's finest healthcare, cultural heritage, and natural beauty.
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - heading "Nearby Hospitals" [level=3] [ref=e149]
+          - list [ref=e150]:
+            - listitem [ref=e151]:
+              - text: Mar Sleeva Medicity, Pala
+              - generic [ref=e152]: 17 km
+            - listitem [ref=e153]:
+              - text: Carmel Medical Centre, Pala
+              - generic [ref=e154]: 18 km
+            - listitem [ref=e155]:
+              - text: Marian Medical Centre, Pala
+              - generic [ref=e156]: 18 km
+            - listitem [ref=e157]:
+              - text: Thiruvalla Medical Mission
+              - generic [ref=e158]: 8 km
+            - listitem [ref=e159]:
+              - text: Mary Queens Hospital
+              - generic [ref=e160]: 8 km
+            - listitem [ref=e161]:
+              - text: Mundakkayam Medical Trust
+              - generic [ref=e162]: 24 km
+        - generic [ref=e163]:
+          - heading "Proximity to Towns & Cities" [level=3] [ref=e164]
+          - list [ref=e165]:
+            - listitem [ref=e166]:
+              - text: Ponkunnam
+              - generic [ref=e167]: 5 km
+            - listitem [ref=e168]:
+              - text: Kanjirappally
+              - generic [ref=e169]: 8 km
+            - listitem [ref=e170]:
+              - text: Pala
+              - generic [ref=e171]: 17 km
+            - listitem [ref=e172]:
+              - text: Kottayam
+              - generic [ref=e173]: 30 km
+            - listitem [ref=e174]:
+              - text: Alappuzha
+              - generic [ref=e175]: 65 km
+            - listitem [ref=e176]:
+              - text: Ernakulam (Cochin)
+              - generic [ref=e177]: 81 km
+        - generic [ref=e178]:
+          - heading "Airport & Rail" [level=3] [ref=e179]
+          - list [ref=e180]:
+            - listitem [ref=e181]:
+              - text: Cochin Intl. Airport
+              - generic [ref=e182]: 85 km
+            - listitem [ref=e183]:
+              - text: Greenfield Intl. Airport
+              - generic [ref=e184]: 15 km
+            - listitem [ref=e185]:
+              - text: Kottayam Railway Station
+              - generic [ref=e186]: 32 km
+          - paragraph [ref=e188]:
+            - strong [ref=e189]: "Tier 3 Towns:"
+            - text: Ponkunnam 5km · Kanjirappally 8km · Pala 17km
+            - strong [ref=e190]: "Tier 2 Cities:"
+            - text: Kottayam 30km · Alappuzha 65km · Ernakulam 81km
+    - generic [ref=e192]:
+      - button "Previous amenity" [ref=e193] [cursor=pointer]:
+        - img [ref=e194]
+      - generic [ref=e196]:
+        - generic [ref=e197]:
+          - img "Signature living design at Mater Maria"
+          - generic [ref=e198]: Signature Living Design
+        - generic [ref=e199]:
+          - img "Medical care at Mater Maria"
+          - generic [ref=e200]: Medical Care
+        - generic [ref=e201]:
+          - img "Smart home technology at Mater Maria"
+          - generic [ref=e202]: Smart Home
+        - generic [ref=e203]:
+          - img "Buggie transport at Mater Maria estate"
+          - generic [ref=e204]: Estate Buggie
+        - generic [ref=e205]:
+          - img "Medical campus at Mater Maria"
+          - generic [ref=e206]: Medical Campus
+        - generic [ref=e207]:
+          - img "Hospitality services at Mater Maria"
+          - generic [ref=e208]: Hospitality
+        - generic [ref=e209]:
+          - img "Health monitoring at Mater Maria"
+          - generic [ref=e210]: Health Monitoring
+      - button "Next amenity" [ref=e211] [cursor=pointer]:
+        - img [ref=e212]
+      - generic [ref=e214]:
+        - generic "Go to slide 1" [ref=e215] [cursor=pointer]
+        - generic "Go to slide 2" [ref=e216] [cursor=pointer]
+        - generic "Go to slide 3" [ref=e217] [cursor=pointer]
+        - generic "Go to slide 4" [ref=e218] [cursor=pointer]
+        - generic "Go to slide 5" [ref=e219] [cursor=pointer]
+        - generic "Go to slide 6" [ref=e220] [cursor=pointer]
+        - generic "Go to slide 7" [ref=e221] [cursor=pointer]
+    - generic [ref=e223]:
+      - heading "The Mater Maria Ecosystem" [level=2] [ref=e224]:
+        - text: The Mater Maria
+        - emphasis [ref=e225]: Ecosystem
+      - generic [ref=e226]:
+        - generic [ref=e227]:
+          - img "AI IoT Advanced Medical Care" [ref=e229]
+          - heading "AI IoT Advanced Medical" [level=3] [ref=e230]
+          - paragraph [ref=e231]: MMT Hospital Annexure, 24/7 nursing, specialized care units, and dedicated emergency ambulance.
+        - generic [ref=e232]:
+          - img "Family enjoying quality time at estate" [ref=e234]
+          - heading "Dignity Through Precision" [level=3] [ref=e235]
+          - paragraph [ref=e236]: Our commitment to operational excellence is the primary way we honour the dignity of every resident.
+        - generic [ref=e237]:
+          - img "Professional reception and management" [ref=e239]
+          - heading "Fiduciary Integrity" [level=3] [ref=e240]
+          - paragraph [ref=e241]: Radical financial transparency. Audited, ethical, and disciplined management of all resident deposits and investor capital.
+        - generic [ref=e242]:
+          - img "Compassionate professionalism at Mater Maria" [ref=e244]
+          - heading "Compassionate Professionalism" [level=3] [ref=e245]
+          - paragraph [ref=e246]: The efficiency of a global corporation with the heart of a faith-based mission.
+    - generic [ref=e248]:
+      - heading "Residence Types." [level=2] [ref=e249]:
+        - text: Residence
+        - emphasis [ref=e250]: Types.
+      - generic [ref=e251]:
+        - generic [ref=e252]:
+          - generic [ref=e253]:
+            - generic [ref=e254]:
+              - generic [ref=e255]: Studio Wellness Suite
+              - generic [ref=e256]: Phase 1
+            - heading "Studio Wellness Suite" [level=3] [ref=e257]
+          - generic [ref=e258]: 01 / 04
+          - button "View gallery" [ref=e259] [cursor=pointer]: +
+          - img "Studio Wellness Suite preview"
+        - generic [ref=e260]:
+          - generic [ref=e261]:
+            - generic [ref=e262]:
+              - generic [ref=e263]: Deluxe 1BHK Apartment
+              - generic [ref=e264]: Phase 1
+            - heading "Deluxe 1BHK Apartment" [level=3] [ref=e265]
+          - generic [ref=e266]: 02 / 04
+          - button "View gallery" [ref=e267] [cursor=pointer]: +
+          - img "Deluxe 1BHK Apartment preview"
+        - generic [ref=e268]:
+          - generic [ref=e269]:
+            - generic [ref=e270]:
+              - generic [ref=e271]: Premium 2BHK Wellness Residence
+              - generic [ref=e272]: Phase 2
+            - heading "Premium 2BHK Wellness Residence" [level=3] [ref=e273]
+          - generic [ref=e274]: 03 / 04
+          - button "View gallery" [ref=e275] [cursor=pointer]: +
+          - img "Premium 2BHK Wellness Residence preview"
+        - generic [ref=e276]:
+          - generic [ref=e277]:
+            - generic [ref=e278]:
+              - generic [ref=e279]: Assisted Wellness Residence
+              - generic [ref=e280]: Phase 2
+            - heading "Assisted Wellness Residence" [level=3] [ref=e281]
+          - generic [ref=e282]: 04 / 04
+          - button "View gallery" [ref=e283] [cursor=pointer]: +
+          - img "Assisted Wellness Residence preview"
+    - generic [ref=e285]:
+      - generic [ref=e286]:
+        - generic [ref=e287]: Investment Plan | Choose Your Tier
+        - heading "Choose Your Tier" [level=2] [ref=e288]
+        - paragraph [ref=e289]: Share-deposit programmes with predictable returns. Convert to residence or earn dividends.
+        - generic [ref=e290]: Phase 1 — Limited Units Available · Early-Bird Pricing
+      - generic [ref=e292]:
+        - generic [ref=e293]:
+          - generic [ref=e294]: Silver
+          - generic [ref=e295]: ₹10L
+          - list [ref=e296]:
+            - listitem [ref=e297]: "✓ 1st Instalment: ₹5L Share Capital"
+            - listitem [ref=e298]: "✓ 2nd Instalment (5 months): ₹2.5L Share + ₹2.5L Deposit"
+            - listitem [ref=e299]: ✓ 10% annual interest on deposit
+            - listitem [ref=e300]: ✓ 1 Day free guest room/year
+            - listitem [ref=e301]: ✓ 10% discount on guest room rent
+            - listitem [ref=e302]: ✓ 10% discount on family tour packages
+            - listitem [ref=e303]: ✓ 50% discount on hall rental (150 pax)
+            - listitem [ref=e304]: ✓ 10% discount on wellness packages
+          - button "Select Silver" [ref=e305] [cursor=pointer]
+        - generic [ref=e306]:
+          - generic [ref=e307]: Best Value
+          - generic [ref=e308]: Gold
+          - generic [ref=e309]: ₹20L
+          - list [ref=e310]:
+            - listitem [ref=e311]: "✓ 1st Instalment: ₹7L Share + ₹3L Deposit"
+            - listitem [ref=e312]: "✓ 2nd Instalment (5 months): ₹7L Share + ₹3L Deposit"
+            - listitem [ref=e313]: ✓ 10% annual interest on deposit
+            - listitem [ref=e314]: ✓ 3 Days free guest room/year
+            - listitem [ref=e315]: ✓ 20% discount on guest room rent
+            - listitem [ref=e316]: ✓ 15% discount on family tour packages
+            - listitem [ref=e317]: ✓ 1 day free hall usage (150 pax)/year
+            - listitem [ref=e318]: ✓ 10% discount on wellness packages
+          - button "Select Gold" [ref=e319] [cursor=pointer]
+        - generic [ref=e320]:
+          - generic [ref=e321]: Premium
+          - generic [ref=e322]: Platinum
+          - generic [ref=e323]: ₹30L
+          - list [ref=e324]:
+            - listitem [ref=e325]: ✓ 3 Instalments of ₹10L (5 months apart)
+            - listitem [ref=e326]: "✓ Each: ₹5L Share + ₹5L Share Capital"
+            - listitem [ref=e327]: ✓ 10% annual interest on deposit
+            - listitem [ref=e328]: ✓ 5 Days free guest room/year
+            - listitem [ref=e329]: ✓ 30% discount on guest room rent
+            - listitem [ref=e330]: ✓ 20% discount on family tour packages
+            - listitem [ref=e331]: ✓ 1 day free hall usage (150 pax)/year
+            - listitem [ref=e332]: ✓ 15% discount on wellness packages
+            - listitem [ref=e333]: ✓ Director Board liaison access
+          - button "Select Platinum" [ref=e334] [cursor=pointer]
+    - generic [ref=e337]:
+      - heading "Where Every Life Is Honoured, and Every Family Rests Easy." [level=2] [ref=e339]:
+        - text: Where Every Life Is Honoured, and Every Family
+        - emphasis [ref=e340]: Rests Easy.
+      - generic [ref=e341]:
+        - paragraph [ref=e342]: We envision a wellness community defined not merely by its walls, but by the warmth within them — a compassionate and secure haven where families can place their most precious people, confident in the knowledge that every moment of every day is devoted to their dignity, their care, and the quiet, sustaining peace of the soul.
+        - button "INVEST NOW" [ref=e343] [cursor=pointer]
+    - generic [ref=e346]:
+      - generic [ref=e347]:
+        - heading "Get In Touch" [level=2] [ref=e348]
+        - paragraph [ref=e349]: Whether you're securing a dignified home for your parents or exploring a faith-backed investment, our team will respond within 2 hours.
+        - generic [ref=e350]:
+          - generic [ref=e351]: ⚡ Phase 1 — Limited Units Available
+          - generic [ref=e352]: Only a few residences remaining in Phase 1. Book your site visit today to secure priority pricing.
+      - generic [ref=e354]:
+        - generic [ref=e356]:
+          - generic [ref=e357]: Full Name
+          - textbox "Full Name" [ref=e358]:
+            - /placeholder: Your Full Name
+        - generic [ref=e359]:
+          - generic [ref=e360]:
+            - generic [ref=e361]: Email Address
+            - textbox "Email Address" [ref=e362]
+          - generic [ref=e363]:
+            - generic [ref=e364]: Phone / WhatsApp
+            - textbox "Phone / WhatsApp" [ref=e365]:
+              - /placeholder: Phone / WhatsApp Number
+        - generic [ref=e366]:
+          - generic [ref=e367]:
+            - generic [ref=e368]: Country
+            - combobox "Country" [ref=e369]:
+              - option "Country" [selected]
+              - option "India"
+              - option "UAE"
+              - option "United States"
+              - option "Canada"
+              - option "United Kingdom"
+              - option "Australia"
+              - option "Other"
+          - generic [ref=e370]:
+            - generic [ref=e371]: Interest
+            - combobox "Interest" [ref=e372]:
+              - option "I'm interested in" [selected]
+              - option "Residence for Parents"
+              - option "Silver Tier — ₹10L"
+              - option "Gold Tier — ₹20L"
+              - option "Platinum Tier — ₹30L"
+        - generic [ref=e374]:
+          - generic [ref=e375]: Message (optional)
+          - textbox "Message (optional)" [ref=e376]:
+            - /placeholder: Tell us about your needs (optional)
+        - button "ENQUIRE NOW" [ref=e377] [cursor=pointer]
+        - paragraph [ref=e378]:
+          - text: Or call us —
+          - strong [ref=e379]: +91 94470 80356
+          - text: · Mon–Sat, 9am–6pm IST
+  - generic [ref=e381]:
+    - heading "Global Country Coordinators" [level=4] [ref=e382]
+    - generic [ref=e383]:
+      - link "🇦🇺 Australia +61 415 934 654" [ref=e384] [cursor=pointer]:
+        - /url: tel:+61415934654
+        - generic [ref=e385]: 🇦🇺
+        - generic [ref=e386]: Australia
+        - generic [ref=e387]: +61 415 934 654
+      - link "🇦🇺 Australia +61 432 896 323" [ref=e388] [cursor=pointer]:
+        - /url: tel:+61432896323
+        - generic [ref=e389]: 🇦🇺
+        - generic [ref=e390]: Australia
+        - generic [ref=e391]: +61 432 896 323
+      - link "🇨🇦 Canada +1 403 870 8524" [ref=e392] [cursor=pointer]:
+        - /url: tel:+14038708524
+        - generic [ref=e393]: 🇨🇦
+        - generic [ref=e394]: Canada
+        - generic [ref=e395]: +1 403 870 8524
+      - link "🇩🇪 Germany +39 351 755 2646" [ref=e396] [cursor=pointer]:
+        - /url: tel:+393517552646
+        - generic [ref=e397]: 🇩🇪
+        - generic [ref=e398]: Germany
+        - generic [ref=e399]: +39 351 755 2646
+      - link "🇮🇳 India +91 94470 80356" [ref=e400] [cursor=pointer]:
+        - /url: tel:+919447080356
+        - generic [ref=e401]: 🇮🇳
+        - generic [ref=e402]: India
+        - generic [ref=e403]: +91 94470 80356
+      - link "🇮🇳 India +91 73569 27730" [ref=e404] [cursor=pointer]:
+        - /url: tel:+917356927730
+        - generic [ref=e405]: 🇮🇳
+        - generic [ref=e406]: India
+        - generic [ref=e407]: +91 73569 27730
+      - link "🇮🇳 India +91 94093 9936" [ref=e408] [cursor=pointer]:
+        - /url: tel:+91940939936
+        - generic [ref=e409]: 🇮🇳
+        - generic [ref=e410]: India
+        - generic [ref=e411]: +91 94093 9936
+      - link "🇮🇹 Italy +39 328 368 8700" [ref=e412] [cursor=pointer]:
+        - /url: tel:+393283688700
+        - generic [ref=e413]: 🇮🇹
+        - generic [ref=e414]: Italy
+        - generic [ref=e415]: +39 328 368 8700
+      - link "🇮🇱 Israel +972 55 680 0609" [ref=e416] [cursor=pointer]:
+        - /url: tel:+972556800609
+        - generic [ref=e417]: 🇮🇱
+        - generic [ref=e418]: Israel
+        - generic [ref=e419]: +972 55 680 0609
+      - link "🇮🇪 Ireland +353 89 262 0965" [ref=e420] [cursor=pointer]:
+        - /url: tel:+353892620965
+        - generic [ref=e421]: 🇮🇪
+        - generic [ref=e422]: Ireland
+        - generic [ref=e423]: +353 89 262 0965
+      - link "🇰🇼 Kuwait +965 6689 9495" [ref=e424] [cursor=pointer]:
+        - /url: tel:+96566899495
+        - generic [ref=e425]: 🇰🇼
+        - generic [ref=e426]: Kuwait
+        - generic [ref=e427]: +965 6689 9495
+      - link "🇸🇦 Saudi Arabia +966 50 646 7103" [ref=e428] [cursor=pointer]:
+        - /url: tel:+966506467103
+        - generic [ref=e429]: 🇸🇦
+        - generic [ref=e430]: Saudi Arabia
+        - generic [ref=e431]: +966 50 646 7103
+      - link "🇴🇲 Oman +91 98470 43715" [ref=e432] [cursor=pointer]:
+        - /url: tel:+919847043715
+        - generic [ref=e433]: 🇴🇲
+        - generic [ref=e434]: Oman
+        - generic [ref=e435]: +91 98470 43715
+      - link "🇬🇧 United Kingdom +44 7723 306 974" [ref=e436] [cursor=pointer]:
+        - /url: tel:+447723306974
+        - generic [ref=e437]: 🇬🇧
+        - generic [ref=e438]: United Kingdom
+        - generic [ref=e439]: +44 7723 306 974
+      - link "🇦🇪 UAE +971 50 578 6471" [ref=e440] [cursor=pointer]:
+        - /url: tel:+971505786471
+        - generic [ref=e441]: 🇦🇪
+        - generic [ref=e442]: UAE
+        - generic [ref=e443]: +971 50 578 6471
+      - link "🇦🇪 UAE +971 55 882 8941" [ref=e444] [cursor=pointer]:
+        - /url: tel:+971558828941
+        - generic [ref=e445]: 🇦🇪
+        - generic [ref=e446]: UAE
+        - generic [ref=e447]: +971 55 882 8941
+      - link "🇺🇸 USA +1 (502) 889-8922" [ref=e448] [cursor=pointer]:
+        - /url: tel:+15028898922
+        - generic [ref=e449]: 🇺🇸
+        - generic [ref=e450]: USA
+        - generic [ref=e451]: +1 (502) 889-8922
+  - contentinfo [ref=e452]:
+    - generic [ref=e453]:
+      - generic [ref=e454]:
+        - generic [ref=e455]:
+          - img "Mater Maria Homes" [ref=e456]
+          - paragraph [ref=e457]: A sanctuary of 24/7 care, spiritual community, and medical excellence — where every resident lives with dignity and peace.
+        - generic [ref=e458]:
+          - heading "Quick Links" [level=4] [ref=e459]
+          - list [ref=e460]:
+            - listitem [ref=e461]:
+              - link "About" [ref=e462] [cursor=pointer]:
+                - /url: about.html
+            - listitem [ref=e463]:
+              - link "Features" [ref=e464] [cursor=pointer]:
+                - /url: "#features"
+            - listitem [ref=e465]:
+              - link "Residences" [ref=e466] [cursor=pointer]:
+                - /url: "#properties"
+            - listitem [ref=e467]:
+              - link "Invest" [ref=e468] [cursor=pointer]:
+                - /url: invest.html
+            - listitem [ref=e469]:
+              - link "Contact" [ref=e470] [cursor=pointer]:
+                - /url: "#contact"
+        - generic [ref=e471]:
+          - heading "Contact" [level=4] [ref=e472]
+          - list [ref=e473]:
+            - listitem [ref=e474]:
+              - link "+91 94470 80356" [ref=e475] [cursor=pointer]:
+                - /url: tel:+919447080356
+            - listitem [ref=e476]:
+              - link "Info@matermariahomes.com" [ref=e477] [cursor=pointer]:
+                - /url: mailto:Info@matermariahomes.com
+            - listitem [ref=e478]: Kanjirappally, Kerala 686507
+        - generic [ref=e479]:
+          - heading "Legal" [level=4] [ref=e480]
+          - list [ref=e481]:
+            - listitem [ref=e482]:
+              - link "Privacy Policy" [ref=e483] [cursor=pointer]:
+                - /url: privacy.html
+            - listitem [ref=e484]:
+              - link "Terms of Service" [ref=e485] [cursor=pointer]:
+                - /url: terms.html
+            - listitem [ref=e486]:
+              - link "Governance" [ref=e487] [cursor=pointer]:
+                - /url: about.html
+        - generic [ref=e488]:
+          - heading "Follow Us" [level=4] [ref=e489]
+          - list [ref=e490]:
+            - listitem [ref=e491]:
+              - link "Facebook" [ref=e492] [cursor=pointer]:
+                - /url: https://www.facebook.com/people/Mater-Maria-Homes/61589862121661/
+                - img [ref=e493]
+                - text: Facebook
+            - listitem [ref=e495]:
+              - link "Instagram" [ref=e496] [cursor=pointer]:
+                - /url: https://www.instagram.com/matermariahomes/
+                - img [ref=e497]
+                - text: Instagram
+      - generic [ref=e499]:
+        - generic [ref=e500]: © 2026 Mater Maria Homes. All rights reserved.
+        - generic [ref=e501]: 🇦🇺 🇨🇦 🇩🇪 🇮🇳 🇮🇹 🇮🇱 🇮🇪 🇰🇼 🇸🇦 🇴🇲 🇬🇧 🇦🇪 🇺🇸
+  - link "Chat on WhatsApp" [ref=e502] [cursor=pointer]:
+    - /url: https://wa.me/919447080356?text=Hello%2C%20I%27m%20interested%20in%20Mater%20Maria%20Homes.%20Please%20share%20more%20details.
+    - img [ref=e503]
+    - text: Chat with us
+  - generic [ref=e506]:
+    - generic [ref=e507]:
+      - generic [ref=e508]: Mater Maria Homes
+      - generic [ref=e509]: Phase 1 — Limited Units
+    - generic [ref=e510]:
+      - link "+91 94470 80356" [ref=e511] [cursor=pointer]:
+        - /url: tel:+919447080356
+      - button "ENQUIRE NOW" [ref=e512] [cursor=pointer]
+  - dialog "Image gallery":
+    - generic:
+      - button "Close gallery": ×
+      - generic:
+        - button "Previous image": ‹
+        - button "Next image": ›

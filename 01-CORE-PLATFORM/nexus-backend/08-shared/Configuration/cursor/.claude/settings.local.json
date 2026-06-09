@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp:*)",
+      "Bash(npm info:*)",
+      "Bash(git clone:*)",
+      "Bash(npm install)",
+      "Bash(pip install:*)",
+      "Bash(./setup-enhanced-mcps.sh:*)",
+      "Bash(curl:*)",
+      "Bash(lsof:*)",
+      "Bash(node:*)",
+      "WebFetch(domain:app.clickup.com)",
+      "Bash(claude mcp:*)",
+      "Bash(npm install:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)"
+    ],
+    "additionalDirectories": [
+      "/Users/user/Library"
+    ]
+  }
+}

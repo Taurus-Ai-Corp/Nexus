@@ -39,7 +39,7 @@ export function AnimatedBackground({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
-  const zoomRef = useRef(1);
+  const zoomLevel = 1 + Math.min(zoomSpeed * 4, 0.12);
 
   // Handle image slideshow
   useEffect(() => {
@@ -49,18 +49,6 @@ export function AnimatedBackground({
     }, slideInterval);
     return () => clearInterval(interval);
   }, [images, slideInterval]);
-
-  // Handle Ken Burns zoom animation
-  useEffect(() => {
-    if (images || video) {
-      const animate = () => {
-        zoomRef.current += zoomSpeed;
-        if (zoomRef.current > 1.15) zoomRef.current = 1;
-      };
-      const interval = setInterval(animate, 50);
-      return () => clearInterval(interval);
-    }
-  }, [images, video, zoomSpeed]);
 
   // Handle parallax effect
   useEffect(() => {
@@ -93,7 +81,7 @@ export function AnimatedBackground({
       <div
         className="absolute inset-0 transition-transform duration-1000 ease-out"
         style={{
-          transform: `scale(${1 + zoomRef.current * 0.1}) translate(${-mousePos.x * 10}px, ${-mousePos.y * 10}px)`,
+          transform: `scale(${zoomLevel}) translate(${-mousePos.x * 10}px, ${-mousePos.y * 10}px)`,
         }}
       >
         {/* Video background */}

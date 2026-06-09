@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.agent
-    container_name: neovibe-ai-agent
+    container_name: nexus-ai-agent
     ports:
       - "8000:8000"
     environment:
@@ -21,7 +21,7 @@ services:
       - db
       - redis
     networks:
-      - neovibe-network
+      - nexus-network
     restart: unless-stopped
 
   # Web Dashboard
@@ -29,7 +29,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dashboard
-    container_name: neovibe-dashboard
+    container_name: nexus-dashboard
     ports:
       - "3000:80"
     environment:
@@ -37,13 +37,13 @@ services:
     depends_on:
       - ai-agent
     networks:
-      - neovibe-network
+      - nexus-network
     restart: unless-stopped
 
   # PostgreSQL Database (India region compliant)
   db:
     image: postgres:16-alpine
-    container_name: neovibe-db
+    container_name: nexus-db
     ports:
       - "5432:5432"
     environment:
@@ -54,25 +54,25 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - neovibe-network
+      - nexus-network
     restart: unless-stopped
 
   # Redis Cache
   redis:
     image: redis:7-alpine
-    container_name: neovibe-redis
+    container_name: nexus-redis
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
     networks:
-      - neovibe-network
+      - nexus-network
     restart: unless-stopped
 
   # Nginx Reverse Proxy (Optional for production)
   nginx:
     image: nginx:alpine
-    container_name: neovibe-nginx
+    container_name: nexus-nginx
     ports:
       - "80:80"
       - "443:443"
@@ -83,7 +83,7 @@ services:
       - ai-agent
       - dashboard
     networks:
-      - neovibe-network
+      - nexus-network
     restart: unless-stopped
 
 volumes:
@@ -91,5 +91,5 @@ volumes:
   redis_data:
 
 networks:
-  neovibe-network:
+  nexus-network:
     driver: bridge

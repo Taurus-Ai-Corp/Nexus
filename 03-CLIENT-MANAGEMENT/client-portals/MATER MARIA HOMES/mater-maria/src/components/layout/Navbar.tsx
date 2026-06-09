@@ -91,9 +91,9 @@ export function Navbar() {
           <Button
             className="rounded-full px-5 font-medium text-text-inverse"
             style={{ background: "var(--accent-gradient)" }}
-            aria-label="Schedule a Visit"
+            aria-label="Enquire Now"
           >
-            Schedule a Visit
+            Enquire Now
           </Button>
         </div>
 
@@ -131,10 +131,10 @@ export function Navbar() {
                   <Button
                     className="w-full rounded-full font-medium text-text-inverse"
                     style={{ background: "var(--accent-gradient)" }}
-                    aria-label="Schedule a Visit"
+                    aria-label="Enquire Now"
                     onClick={() => setMobileOpen(false)}
                   >
-                    Schedule a Visit
+                    Enquire Now
                   </Button>
                 </div>
               </div>

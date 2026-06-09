@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Website Issue - AI Atlas Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-top: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .severity-high {
+            background-color: #fee;
+        }
+        
+        .severity-critical {
+            background-color: #fdd;
+        }
+        
+        .file-upload {
+            border: 2px dashed #bdc3c7;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: border-color 0.3s ease;
+        }
+        
+        .file-upload:hover {
+            border-color: #3498db;
+        }
+        
+        .file-upload input {
+            display: none;
+        }
+        
+        .file-upload-label {
+            cursor: pointer;
+            color: #3498db;
+            font-weight: 600;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+        }
+        
+        .diagnostic-info {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .diagnostic-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .auto-fill-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="header">
+                <h1>🚨 Report Website Issue</h1>
+                <p>Help us improve by reporting accessibility or functionality issues</p>
+            </div>
+            
+            <div class="diagnostic-info">
+                <h3>🔧 Automatic Diagnostics</h3>
+                <p>When you submit this report, we'll automatically run technical diagnostics on the website to help identify the issue faster.</p>
+            </div>
+            
+            <form id="reportForm" action="/submit" method="POST" enctype="multipart/form-data">
+                <!-- User Information -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="user_name">Your Name <span class="required">*</span></label>
+                        <input type="text" id="user_name" name="user_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="user_email" name="user_email" required>
+                    </div>
+                </div>
+                
+                <!-- Issue Classification -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="issue_type">Issue Type <span class="required">*</span></label>
+                        <select id="issue_type" name="issue_type" required>
+                            <option value="">Select issue type...</option>
+                            <option value="page_not_loading">Page Not Loading</option>
+                            <option value="slow_performance">Slow Performance</option>
+                            <option value="broken_functionality">Broken Functionality</option>
+                            <option value="layout_issues">Layout/Display Issues</option>
+                            <option value="form_submission">Form Submission Problems</option>
+                            <option value="mobile_issues">Mobile Device Issues</option>
+                            <option value="browser_compatibility">Browser Compatibility</option>
+                            <option value="ssl_certificate">SSL/Security Issues</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="severity">Severity Level <span class="required">*</span></label>
+                        <select id="severity" name="severity" required>
+                            <option value="">Select severity...</option>
+                            <option value="low">Low - Minor inconvenience</option>
+                            <option value="medium">Medium - Affects some functionality</option>
+                            <option value="high">High - Major functionality broken</option>
+                            <option value="critical">Critical - Website completely inaccessible</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Issue Details -->
+                <div class="form-group">
+                    <label for="subject">Issue Summary <span class="required">*</span></label>
+                    <input type="text" id="subject" name="subject" placeholder="Brief description of the issue" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="url_affected">URL Where Issue Occurs</label>
+                    <input type="text" id="url_affected" name="url_affected" placeholder="https://vc1j5apvcf.space.minimax.io/features" value="https://vc1j5apvcf.space.minimax.io/features">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Detailed Description <span class="required">*</span></label>
+                    <textarea id="description" name="description" placeholder="Please provide a detailed description of the issue you're experiencing..." required></textarea>
+                </div>
+                
+                <!-- Technical Information -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="browser_info">Browser Information 
+                            <button type="button" class="auto-fill-btn" onclick="autoFillBrowserInfo()">Auto-Fill</button>
+                        </label>
+                        <textarea id="browser_info" name="browser_info" placeholder="Browser name, version, operating system"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="device_info">Device Information
+                            <button type="button" class="auto-fill-btn" onclick="autoFillDeviceInfo()">Auto-Fill</button>
+                        </label>
+                        <textarea id="device_info" name="device_info" placeholder="Device type, screen size, touch capability"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="network_info">Network Information
+                        <button type="button" class="auto-fill-btn" onclick="autoFillNetworkInfo()">Auto-Fill</button>
+                    </label>
+                    <textarea id="network_info" name="network_info" placeholder="Connection type, speed, ISP (if known)"></textarea>
+                </div>
+                
+                <!-- Reproduction Steps -->
+                <div class="form-group">
+                    <label for="steps_to_reproduce">Steps to Reproduce</label>
+                    <textarea id="steps_to_reproduce" name="steps_to_reproduce" placeholder="1. Go to the website&#10;2. Click on...&#10;3. Expected result vs what actually happened"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expected_behavior">Expected Behavior</label>
+                        <textarea id="expected_behavior" name="expected_behavior" placeholder="What did you expect to happen?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="actual_behavior">Actual Behavior</label>
+                        <textarea id="actual_behavior" name="actual_behavior" placeholder="What actually happened instead?"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="error_messages">Error Messages</label>
+                    <textarea id="error_messages" name="error_messages" placeholder="Any error messages or codes you saw"></textarea>
+                </div>
+                
+                <!-- File Upload -->
+                <div class="form-group">
+                    <label for="attachments">Attachments (Screenshots, logs, etc.)</label>
+                    <div class="file-upload">
+                        <input type="file" id="attachments" name="attachments" multiple accept=".png,.jpg,.jpeg,.gif,.txt,.log,.json">
+                        <label for="attachments" class="file-upload-label">
+                            📎 Click to upload files or drag and drop<br>
+                            <small>Supported: PNG, JPG, GIF, TXT, LOG, JSON (Max 16MB each)</small>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additional_info">Additional Information</label>
+                    <textarea id="additional_info" name="additional_info" placeholder="Any other details that might help us resolve the issue"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">🚀 Submit Issue Report</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-fill browser information
+        function autoFillBrowserInfo() {
+            const browserInfo = `Browser: ${navigator.userAgent}\nLanguage: ${navigator.language}\nPlatform: ${navigator.platform}\nCookies Enabled: ${navigator.cookieEnabled}`;
+            document.getElementById('browser_info').value = browserInfo;
+        }
+        
+        // Auto-fill device information
+        function autoFillDeviceInfo() {
+            const deviceInfo = `Screen Resolution: ${screen.width}x${screen.height}\nViewport: ${window.innerWidth}x${window.innerHeight}\nColor Depth: ${screen.colorDepth}\nPixel Ratio: ${window.devicePixelRatio}\nTouch Support: ${'ontouchstart' in window}`;
+            document.getElementById('device_info').value = deviceInfo;
+        }
+        
+        // Auto-fill network information
+        function autoFillNetworkInfo() {
+            let networkInfo = `Online: ${navigator.onLine}\nTimezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+            
+            if ('connection' in navigator) {
+                networkInfo += `\nConnection Type: ${navigator.connection.effectiveType}\nDownlink: ${navigator.connection.downlink} Mbps\nRTT: ${navigator.connection.rtt} ms`;
+            }
+            
+            document.getElementById('network_info').value = networkInfo;
+        }
+        
+        // Form validation and styling
+        document.getElementById('severity').addEventListener('change', function() {
+            const form = document.getElementById('reportForm');
+            form.classList.remove('severity-high', 'severity-critical');
+            
+            if (this.value === 'high') {
+                form.classList.add('severity-high');
+            } else if (this.value === 'critical') {
+                form.classList.add('severity-critical');
+            }
+        });
+        
+        // File upload handling
+        document.getElementById('attachments').addEventListener('change', function() {
+            const files = this.files;
+            const label = document.querySelector('.file-upload-label');
+            
+            if (files.length > 0) {
+                let fileNames = [];
+                for (let i = 0; i < files.length; i++) {
+                    fileNames.push(files[i].name);
+                }
+                label.innerHTML = `📎 Selected files:<br><small>${fileNames.join(', ')}</small>`;
+            } else {
+                label.innerHTML = '📎 Click to upload files or drag and drop<br><small>Supported: PNG, JPG, GIF, TXT, LOG, JSON (Max 16MB each)</small>';
+            }
+        });
+        
+        // Form submission handling
+        document.getElementById('reportForm').addEventListener('submit', function() {
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.innerHTML = '⏳ Submitting Report...';
+            submitBtn.disabled = true;
+        });
+        
+        // Auto-fill current page URL if empty
+        window.addEventListener('load', function() {
+            const urlField = document.getElementById('url_affected');
+            if (!urlField.value) {
+                urlField.value = window.location.href;
+            }
+        });
+    </script>
+</body>
+</html>

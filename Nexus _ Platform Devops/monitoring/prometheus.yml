@@ -3,28 +3,28 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: 'neosync-api'
+  - job_name: 'nexus-api'
     metrics_path: '/metrics'
     static_configs:
       - targets: ['api:8000']
 
-  - job_name: 'neosync-postgres'
+  - job_name: 'nexus-postgres'
     static_configs:
       - targets: ['postgres:5432']
 
-  - job_name: 'neosync-qdrant'
+  - job_name: 'nexus-qdrant'
     static_configs:
       - targets: ['qdrant:6333']
 
-  - job_name: 'neosync-valkey'
+  - job_name: 'nexus-valkey'
     static_configs:
       - targets: ['valkey:6379']
 
-  - job_name: 'neosync-meilisearch'
+  - job_name: 'nexus-meilisearch'
     static_configs:
       - targets: ['meilisearch:7700']
 
-  - job_name: 'neosync-ollama'
+  - job_name: 'nexus-ollama'
     static_configs:
       - targets: ['ollama:11434']
 

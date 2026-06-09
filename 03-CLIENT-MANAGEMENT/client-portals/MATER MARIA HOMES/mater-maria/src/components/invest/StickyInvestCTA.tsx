@@ -7,14 +7,13 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 export function StickyInvestCTA() {
   const [visible, setVisible] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return sessionStorage.getItem("cta-dismissed") === "1";
+  });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (sessionStorage.getItem("cta-dismissed") === "1") {
-      setDismissed(true);
-      return;
-    }
 
     const hero = document.getElementById("estate-hero");
     const leadCapture = document.getElementById("lead-capture");
@@ -45,7 +44,7 @@ export function StickyInvestCTA() {
       heroObs.disconnect();
       leadObs.disconnect();
     };
-  }, [dismissed]);
+  }, []);
 
   const handleDismiss = () => {
     setDismissed(true);
@@ -68,12 +67,12 @@ export function StickyInvestCTA() {
           <div className="mx-auto flex max-w-lg items-center justify-between gap-3 px-4 py-3">
             <div className="flex items-center gap-2 text-sm">
               <span className="font-heading font-bold text-accent-default">
-                Diamond
+                Platinum
               </span>
               <span className="text-text-muted">·</span>
-              <span className="font-medium text-text-primary">₹20L</span>
+              <span className="font-medium text-text-primary">₹30L</span>
               <span className="text-text-muted">·</span>
-              <span className="text-text-secondary">150% returns</span>
+              <span className="text-text-secondary">153% returns</span>
             </div>
             <div className="flex items-center gap-2">
               <a href="#lead-capture">

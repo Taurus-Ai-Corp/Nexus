@@ -26,7 +26,7 @@ export const HERO = {
   badge: "Now Welcoming Residents",
   title: "Where Innovation Meets Serenity",
   subtitle: "A happening community in the heart of Kerala — AI healthcare, solar-powered homes, organic orchards, and neighbours who feel like family. Your parents deserve more than care. They deserve a life worth celebrating.",
-  cta: { primary: "Schedule a Visit", secondary: "Watch Video Tour" },
+  cta: { primary: "Enquire Now", secondary: "Watch Video Tour" },
   stats: [
     { value: 91, suffix: "%", label: "5-Year ROI" },
     { value: 90, suffix: "+", label: "Premium Residences" },
@@ -47,7 +47,7 @@ export const FEATURES = [
   {
     title: "AI IoT Advanced Medical Care",
     description: "Imagine never worrying about a midnight emergency again. Our MMT Hospital Annexure with 24/7 nursing, specialized care units, and a dedicated ambulance means help is always steps away — not hours.",
-    bullets: ["24/7 nursing & on-call doctors", "10 km to Medical College Hospital", "Emergency ambulance on-site", "Specialized care & pharmacy"],
+    bullets: ["24/7 nursing & on-call doctors", "10 km to Mary Queens Mission Hospital", "Emergency ambulance on-site", "Specialized care & pharmacy"],
     icon: "HeartPulse",
   },
   {
@@ -119,7 +119,7 @@ export const TESTIMONIALS = [
 export const CTA = {
   title: "They Gave You Everything. Now Give Them This.",
   subtitle: "Your parents didn't just raise you — they built you. A home at Mater Maria isn't an expense. It's the thank-you they'll feel every single morning.",
-  primary: "Schedule a Visit",
+  primary: "Enquire Now",
   secondary: "Download Brochure",
 };
 
@@ -197,12 +197,12 @@ export const FAQ_ITEMS = [
   {
     question: "What medical facilities are available?",
     answer:
-      "Our healthcare infrastructure includes 24/7 nursing staff, on-call doctors and visiting specialists, an in-house pharmacy, emergency response system, and a tie-up with the nearby Medical College Hospital just 10 km away.",
+      "Our healthcare infrastructure includes 24/7 nursing staff, on-call doctors and visiting specialists, an in-house pharmacy, emergency response system, and a tie-up with Mary Queens Mission Hospital just 10 km away.",
   },
   {
-    question: "Can I schedule a visit?",
+    question: "How can I learn more?",
     answer:
-      "Absolutely! Use our contact form, call us directly, or reach out via WhatsApp. We offer guided tours every day of the week, and our team will be happy to show you around the campus and answer all your questions.",
+      "Absolutely! Use our contact form, call us directly, or reach out via WhatsApp. Our team will be happy to walk you through our plans, share renders and videos, and answer all your questions.",
   },
   {
     question: "What is the pricing structure?",
@@ -212,7 +212,7 @@ export const FAQ_ITEMS = [
   {
     question: "Is there a trial stay option?",
     answer:
-      "Yes, we offer 7-day trial stays so you can experience life at Mater Maria firsthand. This includes access to all amenities, meals, and community activities. Contact us to book your trial stay.",
+      "Yes, we offer 7-day trial stays once construction is complete so you can experience life at Mater Maria firsthand. This includes access to all amenities, meals, and community activities. Contact us to reserve your trial stay.",
   },
 ];
 
@@ -287,8 +287,8 @@ export const INVESTOR_TESTIMONIALS = [
     flag: "🇦🇪",
     quote:
       "I've been investing in Kerala real estate for 10 years. Mater Maria is the first project that combines healthcare infrastructure with solid returns. My parents live there, and my investment grows.",
-    tier: "Diamond",
-    invested: "₹20L",
+    tier: "Platinum",
+    invested: "₹30L",
   },
   {
     name: "Susan Abraham",
@@ -296,7 +296,7 @@ export const INVESTOR_TESTIMONIALS = [
     flag: "🇺🇸",
     quote:
       "The NRI concierge team made everything seamless — from documentation to virtual tours. The 10% annual interest gives me confidence while the dividend model builds long-term wealth.",
-    tier: "Gold",
+    tier: "Silver",
     invested: "₹10L",
   },
   {
@@ -305,8 +305,8 @@ export const INVESTOR_TESTIMONIALS = [
     flag: "🇨🇦",
     quote:
       "AI-powered, ISO-certified, and net-zero. The tech infrastructure and governance gave me trust that no other real estate project in Kerala could match.",
-    tier: "Platinum",
-    invested: "₹30L",
+    tier: "Gold",
+    invested: "₹20L",
   },
 ];
 

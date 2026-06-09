@@ -13,7 +13,6 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { GlowCard } from "@/components/ui/glow-card";
 import { MotionDiv } from "@/components/ui/motion";
 import { ImageSlideshow } from "@/components/ui/image-slideshow";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { PageTransition } from "@/components/ui/page-transition";
 import { VideoBreak } from "@/components/ui/video-break";
 import { useGsapReveal } from "@/hooks/useGsapReveal";

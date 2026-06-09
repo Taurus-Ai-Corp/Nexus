@@ -1,0 +1,39 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Back to Mater Maria Homes" [ref=e4] [cursor=pointer]:
+      - /url: index-landing.html
+      - img "Mater Maria Homes" [ref=e5]
+    - heading "Download Brochure" [level=1] [ref=e6]
+    - paragraph [ref=e7]: Enter your details to receive the official Mater Maria Homes brochure.
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - generic [ref=e11]: Full Name
+      - textbox "Full Name" [ref=e12]:
+        - /placeholder: Enter your full name
+    - generic [ref=e13]:
+      - generic [ref=e14]: Email Address
+      - textbox "Email Address" [ref=e15]:
+        - /placeholder: you@example.com
+    - generic [ref=e16]:
+      - generic [ref=e17]: Phone / WhatsApp (optional)
+      - textbox "Phone / WhatsApp (optional)" [ref=e18]:
+        - /placeholder: +91 98765 43210
+    - generic [ref=e19]:
+      - generic [ref=e20]: Country
+      - combobox "Country" [ref=e21]:
+        - option "Select your country" [disabled] [selected]
+        - option "India"
+        - option "UAE"
+        - option "United States"
+        - option "Canada"
+        - option "United Kingdom"
+        - option "Australia"
+        - option "Oman"
+        - option "Kuwait"
+        - option "Qatar"
+        - option "Saudi Arabia"
+        - option "Germany"
+        - option "Italy"
+        - option "Other"
+    - button "Request Brochure" [ref=e22] [cursor=pointer]
+  - generic [ref=e23]: © 2026 Mater Maria Homes. All rights reserved.

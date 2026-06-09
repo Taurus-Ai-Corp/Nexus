@@ -1,0 +1,13 @@
+{
+  "total_agents": 5,
+  "activation_attempts": 5,
+  "successful_activations": 5,
+  "failed_activations": 0,
+  "activation_by_type": {
+    "intelligence": {
+      "success": 5,
+      "failed": 0
+    }
+  },
+  "system_health": "SystemHealth(total_agents=5, active_agents=5, error_agents=0, system_load=0.65, memory_usage=0.45, task_queue_size=0, average_response_time=1.2)"
+}

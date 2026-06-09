@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mater Maria Homes — Living Refined</title>
+<meta name="description" content="Luxury faith-inspired retirement community in Kottayam, Kerala. Where golden years meet golden living.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════ DESIGN TOKENS ═══════════════════ */
+:root {
+  --gold: #C7A036;
+  --gold-light: #E1A901;
+  --gold-pale: #F0C850;
+  --navy: #0D1D2F;
+  --navy-light: #1A3050;
+  --navy-mid: #162840;
+  --cream: #C5BAA8;
+  --cream-light: #D4CBBB;
+  --ivory: #F5F0EB;
+  --warm-bg: #B8AFA1;
+  --warm-bg-light: #C8BFB0;
+  --dark-bg: #0F1E2E;
+  --text-light: #FFFDF7;
+  --text-dark: #0D1D2F;
+  --text-muted: rgba(255,253,247,0.6);
+  --text-muted-dark: rgba(13,29,47,0.6);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --border-radius: 16px;
+}
+
+/* ═══════════════════ RESET & BASE ═══════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background: var(--warm-bg);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+ul, ol { list-style: none; }
+
+/* ═══════════════════ UTILITY ═══════════════════ */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+
+/* ═══════════════════ LOADER ═══════════════════ */
+.loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px;
+  transition: opacity 0.6s var(--ease-smooth), visibility 0.6s;
+}
+.loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-wings { width: 64px; height: 64px; animation: loaderPulse 1.5s ease-in-out infinite; }
+.loader-text {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+@keyframes loaderPulse { 0%,100% { opacity: 0.4; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1.05); } }
+
+/* ═══════════════════ NAVBAR ═══════════════════ */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 40px;
+  transition: background 0.4s, backdrop-filter 0.4s, padding 0.4s;
+}
+.navbar.scrolled {
+  background: rgba(13,29,47,0.85);
+  backdrop-filter: blur(20px);
+  padding: 14px 40px;
+}
+.nav-left, .nav-right { display: flex; align-items: center; gap: 10px; }
+.nav-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 22px;
+  border: 1px solid rgba(255,253,247,0.2);
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-light);
+  letter-spacing: 0.02em;
+  transition: background 0.3s, border-color 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.nav-pill:hover { background: rgba(255,253,247,0.08); border-color: rgba(255,253,247,0.35); }
+.nav-pill-gold {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+  font-weight: 500;
+}
+.nav-pill-gold:hover { background: var(--gold-light); border-color: var(--gold-light); }
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  position: absolute; left: 50%; transform: translateX(-50%);
+}
+.nav-logo svg { width: 40px; height: 40px; }
+.nav-logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-light);
+  letter-spacing: 0.08em;
+}
+.nav-logo-sub {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: -2px;
+}
+
+/* ═══════════════════ HERO ═══════════════════ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+  background: var(--navy);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1920&q=80') center/cover no-repeat;
+  opacity: 0.85;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(13,29,47,0.3) 0%, rgba(13,29,47,0.1) 40%, rgba(13,29,47,0.4) 100%);
+}
+.hero-title {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(80px, 18vw, 280px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255,253,247,0.15);
+  background: url('https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1920&q=80') center/cover no-repeat;
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  background-clip: text;
+  white-space: nowrap;
+  z-index: 2;
+  mix-blend-mode: lighten;
+  user-select: none;
+}
+.hero-content {
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; flex-direction: column;
+  padding: 100px 40px 40px;
+}
+.hero-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-top: 20px;
+}
+.hero-location {
+  display: flex; align-items: flex-start; gap: 10px;
+  max-width: 280px;
+}
+.hero-location svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 3px; }
+.hero-location span {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.hero-intro {
+  display: flex; align-items: flex-start; gap: 12px;
+  max-width: 300px;
+  text-align: right;
+}
+.hero-intro-icon { width: 32px; height: 32px; flex-shrink: 0; }
+.hero-intro span {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.hero-bottom {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  align-items: end;
+}
+.hero-text-box {
+  background: rgba(13,29,47,0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,253,247,0.1);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  max-width: 380px;
+}
+.hero-social {
+  display: flex; align-items: center; gap: 16px;
+  justify-self: center;
+}
+.hero-social a {
+  width: 44px; height: 44px;
+  border: 1px solid rgba(255,253,247,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-light);
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background 0.3s, border-color 0.3s;
+}
+.hero-social a:hover { background: rgba(255,253,247,0.1); border-color: var(--gold); }
+.hero-text-box-right {
+  justify-self: end;
+}
+
+/* ═══════════════════ CONCEPT SECTION ═══════════════════ */
+.concept {
+  position: relative;
+  padding: 120px 40px 160px;
+  background: var(--warm-bg);
+  overflow: hidden;
+}
+.concept-inner {
+  max-width: 1400px; margin: 0 auto;
+}
+.concept-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+}
+.concept-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.concept-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+.concept-body {
+  display: flex; flex-direction: column; justify-content: center;
+}
+.concept-text {
+  font-size: 0.95rem;
+  color: var(--text-muted-dark);
+  line-height: 1.8;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px;
+  border: 1px solid var(--text-dark);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: background 0.3s, color 0.3s;
+}
+.btn-outline:hover { background: var(--navy); color: var(--text-light); }
+.btn-outline-light {
+  border-color: rgba(255,253,247,0.3);
+  color: var(--text-light);
+}
+.btn-outline-light:hover { background: rgba(255,253,247,0.1); }
+
+/* Concept Images - Asymmetric */
+.concept-images {
+  position: relative;
+  height: 500px;
+  margin-top: 20px;
+}
+.concept-img {
+  position: absolute;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  transition: transform 0.6s var(--ease-out);
+}
+.concept-img:hover { transform: scale(1.02) rotate(-0.5deg); }
+.concept-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.concept-img-1 { width: 320px; height: 400px; top: 0; left: 5%; }
+.concept-img-2 { width: 260px; height: 240px; top: 180px; left: 25%; z-index: 2; }
+.concept-img-3 { width: 340px; height: 380px; top: 20px; right: 15%; }
+.concept-img-4 { width: 280px; height: 320px; top: 120px; right: 0; z-index: 2; }
+
+/* ═══════════════════ EXPERIENCE SECTION ═══════════════════ */
+.experience {
+  padding: 120px 40px 140px;
+  background: var(--warm-bg);
+  position: relative;
+}
+.experience-inner { max-width: 1400px; margin: 0 auto; }
+.experience-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+}
+.experience-tabs {
+  position: relative;
+}
+.tab-nav {
+  display: flex; gap: 0;
+  margin-bottom: 0;
+}
+.tab-btn {
+  position: relative;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(13,29,47,0.2);
+  background: transparent;
+  transition: background 0.3s, border-color 0.3s;
+  display: flex; align-items: center; justify-content: center;
+  margin-right: -8px;
+}
+.tab-btn::after {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--text-dark);
+  opacity: 0.3;
+  transition: opacity 0.3s, background 0.3s;
+}
+.tab-btn.active { background: var(--navy); border-color: var(--navy); }
+.tab-btn.active::after { background: var(--gold); opacity: 1; }
+.tab-btn:hover { border-color: var(--navy); }
+
+.tab-panels { margin-top: 20px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.experience-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+  padding: 40px 0;
+  border-top: 1px solid rgba(13,29,47,0.1);
+}
+.experience-card-content h4 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+.experience-card-meta {
+  display: flex; gap: 40px;
+}
+.experience-card-meta div {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.experience-card-meta .meta-label {
+  font-size: 0.75rem;
+  color: var(--text-muted-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.experience-card-meta .meta-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.experience-card-img {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(13,29,47,0.1);
+  transition: transform 0.4s var(--ease-out);
+}
+.experience-card:hover .experience-card-img { transform: scale(1.1) rotate(5deg); }
+.experience-card-img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ═══════════════════ VILLAS SECTION ═══════════════════ */
+.villas {
+  padding: 100px 0 120px;
+  background: var(--dark-bg);
+  color: var(--text-light);
+}
+.villas-inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+.villas-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+  align-items: end;
+}
+.villas-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+.villas-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 500px;
+}
+.villas-list { border-top: 1px solid rgba(255,253,247,0.1); }
+.villa-item {
+  display: grid;
+  grid-template-columns: 300px 1fr auto;
+  gap: 40px;
+  align-items: center;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(255,253,247,0.1);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.villa-item:hover { background: rgba(255,253,247,0.03); }
+.villa-name {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.villa-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 600px;
+}
+.villa-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--gold-light);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: gap 0.3s;
+}
+.villa-item:hover .villa-link { gap: 14px; }
+.villa-link svg { width: 16px; height: 16px; transition: transform 0.3s; }
+.villa-item:hover .villa-link svg { transform: translateX(4px); }
+
+/* Villa hover image reveal */
+.villa-preview {
+  position: fixed;
+  width: 300px; height: 200px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.villa-preview.visible { opacity: 1; transform: scale(1); }
+.villa-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ═══════════════════ BOOKING SECTION ═══════════════════ */
+.booking {
+  padding: 100px 40px;
+  background: var(--warm-bg);
+  text-align: center;
+}
+.booking-inner { max-width: 1000px; margin: 0 auto; }
+.booking-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 50px;
+  color: var(--text-dark);
+}
+.booking-form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+}
+.form-group { text-align: left; }
+.form-label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted-dark);
+  margin-bottom: 8px;
+}
+.form-select {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid rgba(13,29,47,0.15);
+  border-radius: 50px;
+  background: rgba(255,253,247,0.5);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230D1D2F' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+.form-select:focus { outline: none; border-color: var(--gold); }
+.btn-gold {
+  padding: 14px 36px;
+  background: var(--gold);
+  color: var(--navy);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ═══════════════════ TESTIMONIALS ═══════════════════ */
+.testimonials {
+  padding: 100px 40px 120px;
+  background: var(--warm-bg);
+  overflow: hidden;
+}
+.testimonials-inner { max-width: 1400px; margin: 0 auto; }
+.testimonial-card {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+  min-height: 380px;
+}
+.testimonial-names {
+  display: flex; flex-direction: column; gap: 0;
+  padding-right: 40px;
+}
+.testimonial-name-btn {
+  padding: 16px 0;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--text-muted-dark);
+  text-align: left;
+  border-bottom: 1px solid rgba(13,29,47,0.1);
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.testimonial-name-btn.active { color: var(--text-dark); font-weight: 500; }
+.testimonial-name-btn:hover { color: var(--text-dark); }
+.testimonial-content {
+  background: var(--gold-pale);
+  border-radius: var(--border-radius);
+  padding: 48px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  position: relative;
+}
+.testimonial-quote {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--navy);
+  flex: 1;
+}
+.testimonial-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 32px;
+}
+.testimonial-rating {
+  font-size: 0.85rem;
+  color: var(--navy);
+  font-weight: 500;
+}
+.testimonial-nav { display: flex; gap: 10px; }
+.testimonial-nav button {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.3s;
+}
+.testimonial-nav button:hover { background: var(--navy); color: var(--text-light); }
+.testimonial-nav button svg { width: 18px; height: 18px; }
+
+/* ═══════════════════ AMENITIES / DINING SECTION ═══════════════════ */
+.amenities {
+  padding: 100px 40px 120px;
+  background: var(--dark-bg);
+  color: var(--text-light);
+}
+.amenities-inner { max-width: 1400px; margin: 0 auto; }
+.amenities-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 40px;
+}
+.amenities-badge {
+  display: flex; align-items: center; gap: 12px;
+}
+.amenities-badge svg { width: 36px; height: 36px; color: var(--gold); }
+.amenities-badge-text {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.amenities-tabs {
+  display: flex; gap: 8px;
+}
+.amenity-tab {
+  padding: 10px 22px;
+  border: 1px solid rgba(255,253,247,0.2);
+  border-radius: 50px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  transition: all 0.3s;
+}
+.amenity-tab.active { background: rgba(255,253,247,0.1); color: var(--text-light); border-color: rgba(255,253,247,0.4); }
+.amenity-tab:hover { border-color: rgba(255,253,247,0.4); color: var(--text-light); }
+
+.amenities-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.amenity-panel { display: none; }
+.amenity-panel.active { display: block; }
+.amenity-image {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.amenity-image img { width: 100%; height: 100%; object-fit: cover; }
+.amenity-card-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
+.amenity-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.amenities-right {
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.amenities-right-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+.amenities-right-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════ CTA SECTION ═══════════════════ */
+.cta-section {
+  position: relative;
+  padding: 160px 40px;
+  background: var(--dark-bg);
+  text-align: center;
+  overflow: hidden;
+}
+.cta-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=1920&q=80') center/cover no-repeat;
+  opacity: 0.3;
+}
+.cta-inner {
+  position: relative; z-index: 2;
+  max-width: 800px; margin: 0 auto;
+}
+.cta-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-light);
+  margin-bottom: 40px;
+}
+.btn-outline-gold {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 40px;
+  border: 1px solid var(--gold);
+  border-radius: 50px;
+  color: var(--gold);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: background 0.3s, color 0.3s;
+}
+.btn-outline-gold:hover { background: var(--gold); color: var(--navy); }
+
+/* ═══════════════════ FOOTER ═══════════════════ */
+.footer {
+  padding: 80px 40px 40px;
+  background: var(--dark-bg);
+  color: var(--text-light);
+  border-top: 1px solid rgba(255,253,247,0.06);
+}
+.footer-inner { max-width: 1400px; margin: 0 auto; }
+.footer-main {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+.footer-nav a {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-light);
+  padding: 8px 0;
+  transition: color 0.3s;
+}
+.footer-nav a:hover { color: var(--gold); }
+.footer-contact {
+  text-align: center;
+}
+.footer-phone {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  color: var(--text-light);
+  display: block;
+  margin-bottom: 12px;
+}
+.footer-email {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  color: var(--gold);
+  display: block;
+}
+.footer-social { text-align: right; }
+.footer-social a {
+  display: block;
+  font-size: 0.95rem;
+  padding: 8px 0;
+  color: var(--text-light);
+  transition: color 0.3s;
+}
+.footer-social a:hover { color: var(--gold); }
+.footer-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,253,247,0.06);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.footer-bottom-center { text-align: center; }
+.footer-bottom-right { text-align: right; }
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 12vw, 180px);
+  font-weight: 700;
+  line-height: 0.85;
+  color: rgba(255,253,247,0.04);
+  text-align: center;
+  margin-top: 40px;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+
+/* ═══════════════════ RESPONSIVE ═══════════════════ */
+@media (max-width: 1024px) {
+  .concept-top { grid-template-columns: 1fr; gap: 40px; }
+  .concept-images { height: 400px; }
+  .concept-img-1 { width: 240px; height: 300px; }
+  .concept-img-2 { width: 200px; height: 180px; }
+  .concept-img-3 { width: 260px; height: 300px; }
+  .concept-img-4 { width: 220px; height: 260px; }
+  .experience-header { grid-template-columns: 1fr; }
+  .villas-header { grid-template-columns: 1fr; }
+  .amenities-content { grid-template-columns: 1fr; }
+  .amenities-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .booking-form { grid-template-columns: 1fr 1fr; }
+  .testimonial-card { grid-template-columns: 1fr; }
+  .testimonial-names { flex-direction: row; flex-wrap: wrap; gap: 0 16px; padding-right: 0; margin-bottom: 24px; }
+  .footer-main { grid-template-columns: 1fr; text-align: center; }
+  .footer-social { text-align: center; }
+  .footer-bottom { grid-template-columns: 1fr; text-align: center; }
+  .footer-bottom-center, .footer-bottom-right { text-align: center; }
+}
+@media (max-width: 768px) {
+  .navbar { padding: 14px 20px; }
+  .nav-left { display: none; }
+  .nav-logo { position: relative; left: 0; transform: none; }
+  .hero-content { padding: 100px 20px 30px; }
+  .hero-top { flex-direction: column; gap: 20px; }
+  .hero-intro { text-align: left; }
+  .hero-bottom { grid-template-columns: 1fr; gap: 16px; }
+  .hero-text-box-right { justify-self: start; }
+  .hero-social { justify-self: start; }
+  .concept { padding: 80px 20px 100px; }
+  .concept-images { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .concept-img { position: relative !important; width: 100% !important; height: 200px !important; top: auto !important; left: auto !important; right: auto !important; }
+  .experience { padding: 80px 20px 100px; }
+  .experience-card { grid-template-columns: 1fr; gap: 16px; }
+  .villas { padding: 60px 0 80px; }
+  .villas-inner { padding: 0 20px; }
+  .villa-item { grid-template-columns: 1fr; gap: 12px; }
+  .booking { padding: 60px 20px; }
+  .booking-form { grid-template-columns: 1fr; }
+  .testimonials { padding: 60px 20px; }
+  .amenities { padding: 60px 20px; }
+  .cta-section { padding: 100px 20px; }
+  .footer { padding: 60px 20px 30px; }
+}
+
+/* ═══════════════════ REDUCED MOTION ═══════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ LOADER ═══════════════════ -->
+<div class="loader" id="loader">
+  <svg class="loader-wings" viewBox="0 0 60 30" fill="none">
+    <defs>
+      <linearGradient id="wg" x1="0" y1="0" x2="60" y2="30" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#E1A901"/><stop offset="100%" stop-color="#C7A036"/>
+      </linearGradient>
+      <linearGradient id="wg2" x1="0" y1="0" x2="60" y2="30" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#F0C850"/><stop offset="100%" stop-color="#E1A901"/>
+      </linearGradient>
+    </defs>
+    <path d="M30 26C30 26 26 22 20 17C14 12 6 6 2 3C-1 1 -1 -1 4 0C9 1 16 5 22 10C26 13 28 15 30 18C32 15 34 13 38 10C44 5 51 1 56 0C61 -1 61 1 58 3C54 6 46 12 40 17C34 22 30 26 30 26Z" fill="url(#wg)"/>
+    <path d="M30 22C30 22 27 19 22 15C17 11 10 6 6 4C3 2 3 1 6 2C9 3 14 6 20 11C24 14 27 16 30 19C33 16 36 14 40 11C46 6 51 3 54 2C57 1 57 2 54 4C50 6 43 11 38 15C33 19 30 22 30 22Z" fill="url(#wg2)"/>
+  </svg>
+  <div class="loader-text">Mater Maria</div>
+</div>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-left">
+    <a href="#concept" class="nav-pill">About</a>
+    <a href="#villas" class="nav-pill">Residences</a>
+    <a href="#amenities" class="nav-pill">Amenities</a>
+  </div>
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 60 30" fill="none">
+      <defs>
+        <linearGradient id="nwg" x1="0" y1="0" x2="60" y2="30" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#E1A901"/><stop offset="100%" stop-color="#C7A036"/>
+        </linearGradient>
+        <linearGradient id="nwg2" x1="0" y1="0" x2="60" y2="30" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0C850"/><stop offset="100%" stop-color="#E1A901"/>
+        </linearGradient>
+      </defs>
+      <path d="M30 26C30 26 26 22 20 17C14 12 6 6 2 3C-1 1 -1 -1 4 0C9 1 16 5 22 10C26 13 28 15 30 18C32 15 34 13 38 10C44 5 51 1 56 0C61 -1 61 1 58 3C54 6 46 12 40 17C34 22 30 26 30 26Z" fill="url(#nwg)"/>
+      <path d="M30 22C30 22 27 19 22 15C17 11 10 6 6 4C3 2 3 1 6 2C9 3 14 6 20 11C24 14 27 16 30 19C33 16 36 14 40 11C46 6 51 3 54 2C57 1 57 2 54 4C50 6 43 11 38 15C33 19 30 22 30 22Z" fill="url(#nwg2)"/>
+    </svg>
+    <div>
+      <span class="nav-logo-text">Mater Maria</span>
+      <span class="nav-logo-sub">Living Refined</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="#booking" class="nav-pill">Contact Us</a>
+    <a href="#booking" class="nav-pill nav-pill-gold">Schedule Visit &rarr;</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <h1 class="hero-title">Mater Maria</h1>
+  <div class="hero-content">
+    <div class="hero-top">
+      <div class="hero-location">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#E1A901" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Kottayam, Kerala, India — Where Faith Meets Refined Living</span>
+      </div>
+      <div class="hero-intro">
+        <svg class="hero-intro-icon" viewBox="0 0 60 30" fill="none">
+          <defs>
+            <linearGradient id="hwg" x1="0" y1="0" x2="60" y2="30" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#E1A901"/><stop offset="100%" stop-color="#C7A036"/>
+            </linearGradient>
+          </defs>
+          <path d="M30 26C30 26 26 22 20 17C14 12 6 6 2 3C-1 1 -1 -1 4 0C9 1 16 5 22 10C26 13 28 15 30 18C32 15 34 13 38 10C44 5 51 1 56 0C61 -1 61 1 58 3C54 6 46 12 40 17C34 22 30 26 30 26Z" fill="url(#hwg)"/>
+        </svg>
+        <span>A faith-inspired sanctuary of minimalist luxury for golden living</span>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-text-box">
+        Nestled among the serene backwaters of Kerala, Mater Maria Homes blends timeless spirituality with world-class comfort — a place to live, not just retire.
+      </div>
+      <div class="hero-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">in</a>
+        <a href="#" aria-label="WhatsApp">w</a>
+      </div>
+      <div class="hero-text-box hero-text-box-right">
+        Every residence follows the land's natural contours, built with Kerala teak, local stone, and sustainable design that honors both tradition and modern living.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONCEPT SECTION ═══════════════════ -->
+<section class="concept" id="concept">
+  <div class="concept-inner">
+    <div class="concept-top">
+      <div class="concept-heading reveal">
+        <div class="concept-label">The Vision</div>
+        <h2 class="concept-title">Mater Maria offers quiet beauty and deep stillness — a sanctuary with soul, where refined design lives in harmony with Kerala's sacred waters.</h2>
+      </div>
+      <div class="concept-body reveal reveal-delay-1">
+        <p class="concept-text">We have a holistic philosophy which translates into creating a harmonious environment for our residents — complemented by wellness services, spiritual gathering, and a vibrant community that rejuvenates mind, body, and spirit. "He will cover you with his feathers, and under his wings you will find refuge." — Psalm 91:4</p>
+        <a href="#villas" class="btn-outline">Find Out More</a>
+      </div>
+    </div>
+    <div class="concept-images reveal">
+      <div class="concept-img concept-img-1">
+        <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e66?w=640&q=80" alt="Kerala traditional architecture" loading="lazy">
+      </div>
+      <div class="concept-img concept-img-2">
+        <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=640&q=80" alt="Kerala backwaters sunset" loading="lazy">
+      </div>
+      <div class="concept-img concept-img-3">
+        <img src="https://images.unsplash.com/photo-1609340667041-4e4e4e4e4e4e?w=640&q=80" alt="Luxury villa interior" loading="lazy">
+      </div>
+      <div class="concept-img concept-img-4">
+        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=640&q=80" alt="Luxury resort pool" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ EXPERIENCE SECTION ═══════════════════ -->
+<section class="experience" id="experience">
+  <div class="experience-inner">
+    <div class="experience-header">
+      <div class="experience-heading reveal">
+        <div class="concept-label">Experience</div>
+        <h2 class="concept-title">Where Time Becomes Memory</h2>
+      </div>
+      <div class="experience-body reveal reveal-delay-1">
+        <p class="concept-text">Step beyond the suite and indulge in unique experiences designed to elevate your stay — curated to surprise, soothe, and enchant every resident.</p>
+        <a href="#amenities" class="btn-outline">Discover All</a>
+      </div>
+    </div>
+
+    <div class="experience-tabs">
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="exp-1" aria-label="Wellness"><span></span></button>
+        <button class="tab-btn" data-tab="exp-2" aria-label="Spiritual"><span></span></button>
+        <button class="tab-btn" data-tab="exp-3" aria-label="Community"><span></span></button>
+      </div>
+      <div class="tab-panels">
+        <div class="tab-panel active" id="exp-1">
+          <div class="experience-card">
+            <div class="experience-card-content">
+              <h4>Ayurvedic wellness sessions crafted just for you in a private garden overlooking the backwaters at sunrise.</h4>
+              <div class="experience-card-meta">
+                <div><span class="meta-label">Location:</span><span class="meta-value">Garden, Poolside, Pavilion</span></div>
+                <div><span class="meta-label">Schedule:</span><span class="meta-value">6:00 am; 8:00 am; 4:00 pm</span></div>
+              </div>
+            </div>
+            <div class="experience-card-img">
+              <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=200&q=80" alt="Ayurvedic wellness" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" id="exp-2">
+          <div class="experience-card">
+            <div class="experience-card-content">
+              <h4>Morning prayer and meditation in the private chapel — a peaceful space for reflection and spiritual gathering.</h4>
+              <div class="experience-card-meta">
+                <div><span class="meta-label">Location:</span><span class="meta-value">Chapel, Prayer Garden</span></div>
+                <div><span class="meta-label">Schedule:</span><span class="meta-value">6:30 am; 5:30 pm Daily</span></div>
+              </div>
+            </div>
+            <div class="experience-card-img">
+              <img src="https://images.unsplash.com/photo-1507692049790-de58290a4334?w=200&q=80" alt="Chapel meditation" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" id="exp-3">
+          <div class="experience-card">
+            <div class="experience-card-content">
+              <h4>Community dining and cultural evenings — Kerala arts, music, and storytelling in an elegant open-air pavilion.</h4>
+              <div class="experience-card-meta">
+                <div><span class="meta-label">Location:</span><span class="meta-value">Grand Pavilion, Terrace</span></div>
+                <div><span class="meta-label">Schedule:</span><span class="meta-value">7:00 pm; Weekends</span></div>
+              </div>
+            </div>
+            <div class="experience-card-img">
+              <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&q=80" alt="Community dining" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ VILLAS SECTION ═══════════════════ -->
+<section class="villas" id="villas">
+  <div class="villas-inner">
+    <div class="villas-header reveal">
+      <h2 class="villas-title">Life Along<br>The Backwaters</h2>
+      <div>
+        <p class="villas-desc">Each residence is uniquely designed to embrace Kerala's natural beauty. From intimate studios to spacious family villas, find the home that speaks to your soul.</p>
+        <a href="#booking" class="btn-outline-light" style="margin-top:20px;">Contact Us</a>
+      </div>
+    </div>
+    <div class="villas-list">
+      <div class="villa-item" data-img="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80">
+        <div class="villa-name">Serenity Studio</div>
+        <div class="villa-desc">A peaceful haven for one or two, where morning light dances on the water and evenings are filled with sweet silence. 650 sq ft.</div>
+        <div class="villa-link">See More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="villa-item" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80">
+        <div class="villa-name">Harmony Suite</div>
+        <div class="villa-desc">A spacious retreat with private garden, designed for couples seeking comfort with two living areas and a sunlit terrace. 950 sq ft.</div>
+        <div class="villa-link">See More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="villa-item" data-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80">
+        <div class="villa-name">Tranquility Villa</div>
+        <div class="villa-desc">Our flagship residence for families — lush gardens, private pool, and endless days in the Kerala sun. 1350 sq ft.</div>
+        <div class="villa-link">See More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="villa-item" data-img="https://images.unsplash.com/photo-1602343168117-bb8bbe693f0b?w=600&q=80">
+        <div class="villa-name">Grace Penthouse</div>
+        <div class="villa-desc">Elevated living with panoramic backwater views — a penthouse where the sky meets the water and every moment feels infinite. 1600 sq ft.</div>
+        <div class="villa-link">See More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="villa-item" data-img="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80">
+        <div class="villa-name">Heritage Courtyard</div>
+        <div class="villa-desc">A place where time stands still. Traditional Kerala courtyard design with modern luxury, herbs' scent, and wind's whisper. 1100 sq ft.</div>
+        <div class="villa-link">See More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="villa-item" data-img="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80">
+        <div class="villa-name">Jubilee Garden Villa</div>
+        <div class="villa-desc">Made for families and dreamers — where the moon winks through the palms, and the night breathes lavender. 1500 sq ft.</div>
+        <div class="villa-link">See More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Villa hover preview -->
+<div class="villa-preview" id="villaPreview">
+  <img id="villaPreviewImg" src="" alt="Villa preview">
+</div>
+
+<!-- ═══════════════════ BOOKING SECTION ═══════════════════ -->
+<section class="booking" id="booking">
+  <div class="booking-inner">
+    <h2 class="booking-title reveal">Come as You Are<br>And We Will Take Care of the Rest</h2>
+    <form class="booking-form reveal reveal-delay-1" onsubmit="return false;">
+      <div class="form-group">
+        <label class="form-label">Visit Month</label>
+        <select class="form-select">
+          <option>March 2026</option>
+          <option>April 2026</option>
+          <option>May 2026</option>
+          <option>June 2026</option>
+          <option>July 2026</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Interest</label>
+        <select class="form-select">
+          <option>Serenity Studio</option>
+          <option>Harmony Suite</option>
+          <option>Tranquility Villa</option>
+          <option>Grace Penthouse</option>
+          <option>Heritage Courtyard</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Residents</label>
+        <select class="form-select">
+          <option>1 Resident</option>
+          <option>2 Residents (Couple)</option>
+          <option>Family (3-4)</option>
+          <option>Extended Family</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Budget Range</label>
+        <select class="form-select">
+          <option>₹60L - ₹80L</option>
+          <option>₹80L - ₹1.2Cr</option>
+          <option>₹1.2Cr - ₹2Cr</option>
+          <option>₹2Cr+</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-gold">Schedule Visit</button>
+    </form>
+  </div>
+</section>
+
+<!-- ═══════════════════ TESTIMONIALS ═══════════════════ -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-names">
+        <button class="testimonial-name-btn active" data-testimonial="0">The Thomas Family</button>
+        <button class="testimonial-name-btn" data-testimonial="1">Mary & Joseph Cherian</button>
+        <button class="testimonial-name-btn" data-testimonial="2">Dr. Sarah Mathew</button>
+        <button class="testimonial-name-btn" data-testimonial="3">Rev. Fr. George Kurian</button>
+      </div>
+      <div class="testimonial-content" id="testimonialContent">
+        <p class="testimonial-quote" id="testimonialQuote">"Visiting Mater Maria was like stepping into another world. Each villa tells its own story, and the backwater setting is beyond breathtaking. It's a perfect sanctuary for those looking for both comfort and spiritual peace."</p>
+        <div class="testimonial-bottom">
+          <span class="testimonial-rating" id="testimonialRating">Reviews: 9.3/10</span>
+          <div class="testimonial-nav">
+            <button id="prevTestimonial" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <button id="nextTestimonial" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ AMENITIES / DINING SECTION ═══════════════════ -->
+<section class="amenities" id="amenities">
+  <div class="amenities-inner">
+    <div class="amenities-header reveal">
+      <div class="amenities-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <div class="amenities-badge-text">5-Star<br>Living</div>
+      </div>
+      <div class="amenities-tabs">
+        <button class="amenity-tab active" data-amenity="healthcare">Healthcare</button>
+        <button class="amenity-tab" data-amenity="comfort">Comfort</button>
+        <button class="amenity-tab" data-amenity="community">Community</button>
+        <button class="amenity-tab" data-amenity="wellness">Wellness</button>
+      </div>
+    </div>
+
+    <div class="amenities-content reveal">
+      <div>
+        <div class="amenity-panel active" id="panel-healthcare">
+          <div class="amenity-image">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80" alt="Healthcare center" loading="lazy">
+          </div>
+          <p class="amenity-card-label">24/7 Medical Center</p>
+          <h4 class="amenity-card-title">On-site medical care with resident doctors, pharmacy, and emergency response — peace of mind around the clock.</h4>
+        </div>
+        <div class="amenity-panel" id="panel-comfort">
+          <div class="amenity-image">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" alt="Luxury interior" loading="lazy">
+          </div>
+          <p class="amenity-card-label">Smart Home Living</p>
+          <h4 class="amenity-card-title">Climate-controlled interiors, automated lighting, wheelchair-accessible spaces, and concierge service at your fingertips.</h4>
+        </div>
+        <div class="amenity-panel" id="panel-community">
+          <div class="amenity-image">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Community dining" loading="lazy">
+          </div>
+          <p class="amenity-card-label">Grand Pavilion</p>
+          <h4 class="amenity-card-title">A vibrant community space with a gourmet kitchen, library lounge, and open-air pavilion for cultural evenings and celebrations.</h4>
+        </div>
+        <div class="amenity-panel" id="panel-wellness">
+          <div class="amenity-image">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=800&q=80" alt="Wellness spa" loading="lazy">
+          </div>
+          <p class="amenity-card-label">Ayurveda & Yoga</p>
+          <h4 class="amenity-card-title">Traditional Kerala Ayurvedic treatments, yoga pavilion, meditation gardens, and heated therapy pool for holistic rejuvenation.</h4>
+        </div>
+      </div>
+      <div class="amenities-right">
+        <div>
+          <h3 class="amenities-right-title">Arrive Freely<br>We'll Handle<br>The Rest</h3>
+          <p class="amenities-right-text">Mater Maria Homes is more than a residence — it's a complete living ecosystem. From round-the-clock healthcare and gourmet dining to spiritual gatherings and Ayurvedic wellness, every detail is curated for a life of dignity, comfort, and joy.</p>
+          <a href="#booking" class="btn-outline-light">Read More &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA SECTION ═══════════════════ -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-inner reveal">
+    <p class="cta-label">We are waiting for you</p>
+    <h2 class="cta-title">Come Find the Place Your Soul Already Knows — a Sanctuary Shaped by Faith and Serenity</h2>
+    <a href="#booking" class="btn-outline-gold">Schedule Your Visit</a>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer" id="footer">
+  <div class="footer-inner">
+    <div class="footer-main">
+      <div class="footer-nav">
+        <a href="#concept">About Us</a>
+        <a href="#experience">Experiences</a>
+        <a href="#villas">Residences</a>
+      </div>
+      <div class="footer-contact">
+        <a href="tel:+914812222000" class="footer-phone">+91 481 222 2000</a>
+        <a href="mailto:hello@matermariahomes.com" class="footer-email">hello@matermariahomes.com</a>
+      </div>
+      <div class="footer-social">
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; Mater Maria Homes. All Rights Reserved.</div>
+      <div class="footer-bottom-center">Kottayam, Kerala, India</div>
+      <div class="footer-bottom-right">Powered by <strong>TAURUS AI Corp</strong></div>
+    </div>
+    <div class="footer-brand">Mater Maria</div>
+  </div>
+</footer>
+
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // === LOADER ===
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      document.getElementById('loader').classList.add('hidden');
+    }, 1200);
+  });
+
+  // === NAVBAR SCROLL ===
+  var navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    navbar.classList.toggle('scrolled', window.pageYOffset > 80);
+  }, { passive: true });
+
+  // === SCROLL REVEAL ===
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(function(el) { observer.observe(el); });
+
+  // === EXPERIENCE TABS ===
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var tabPanels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      tabBtns.forEach(function(b) { b.classList.remove('active'); });
+      tabPanels.forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // === AMENITY TABS ===
+  var amenityTabs = document.querySelectorAll('.amenity-tab');
+  var amenityPanels = document.querySelectorAll('.amenity-panel');
+  amenityTabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      amenityTabs.forEach(function(t) { t.classList.remove('active'); });
+      amenityPanels.forEach(function(p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.amenity).classList.add('active');
+    });
+  });
+
+  // === TESTIMONIALS ===
+  var testimonials = [
+    { quote: '"Visiting Mater Maria was like stepping into another world. Each villa tells its own story, and the backwater setting is beyond breathtaking. It\'s a perfect sanctuary for those looking for both comfort and spiritual peace."', rating: 'Reviews: 9.3/10' },
+    { quote: '"After 35 years abroad, we wanted to come home to Kerala. Mater Maria gave us everything — the church bells, the backwaters, the community, and 5-star comfort. This is where we belong."', rating: 'Reviews: 9.9/10' },
+    { quote: '"As a physician, I was impressed by the on-site medical facilities. The Ayurvedic wellness center and the spiritual atmosphere create a truly holistic living environment that I\'ve never seen elsewhere."', rating: 'Reviews: 8.8/10' },
+    { quote: '"The chapel, the morning prayers by the water, the evening gatherings — Mater Maria nurtures the soul. It\'s not just a home; it\'s a community built on faith, love, and refined living."', rating: 'Reviews: 9.7/10' }
+  ];
+  var currentTestimonial = 0;
+  var nameBtns = document.querySelectorAll('.testimonial-name-btn');
+  var quoteEl = document.getElementById('testimonialQuote');
+  var ratingEl = document.getElementById('testimonialRating');
+
+  function showTestimonial(idx) {
+    currentTestimonial = idx;
+    nameBtns.forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+    quoteEl.style.opacity = '0';
+    setTimeout(function() {
+      quoteEl.textContent = testimonials[idx].quote;
+      ratingEl.textContent = testimonials[idx].rating;
+      quoteEl.style.opacity = '1';
+    }, 200);
+  }
+  quoteEl.style.transition = 'opacity 0.3s';
+
+  nameBtns.forEach(function(btn, i) {
+    btn.addEventListener('click', function() { showTestimonial(i); });
+  });
+  document.getElementById('nextTestimonial').addEventListener('click', function() {
+    showTestimonial((currentTestimonial + 1) % testimonials.length);
+  });
+  document.getElementById('prevTestimonial').addEventListener('click', function() {
+    showTestimonial((currentTestimonial - 1 + testimonials.length) % testimonials.length);
+  });
+
+  // === VILLA HOVER PREVIEW ===
+  var preview = document.getElementById('villaPreview');
+  var previewImg = document.getElementById('villaPreviewImg');
+  var villaItems = document.querySelectorAll('.villa-item');
+
+  villaItems.forEach(function(item) {
+    item.addEventListener('mouseenter', function() {
+      previewImg.src = item.dataset.img;
+      preview.classList.add('visible');
+    });
+    item.addEventListener('mouseleave', function() {
+      preview.classList.remove('visible');
+    });
+    item.addEventListener('mousemove', function(e) {
+      preview.style.left = (e.clientX + 20) + 'px';
+      preview.style.top = (e.clientY - 100) + 'px';
+    });
+  });
+
+  // === SMOOTH SCROLL ===
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = a.getAttribute('href');
+      if (href === '#' || href.length < 2) return;
+      var target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

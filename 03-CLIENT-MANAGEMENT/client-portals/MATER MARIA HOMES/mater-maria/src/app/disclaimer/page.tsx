@@ -34,7 +34,7 @@ export default function DisclaimerPage() {
           <section>
             <h2 className="text-2xl font-semibold text-[#1a1a1a] mb-4">2. No Warranties</h2>
             <p>
-              This website is provided "as is" without any representations or warranties, 
+              This website is provided &quot;as is&quot; without any representations or warranties, 
               express or implied. We make no representations or warranties in relation to 
               this website or the information and materials provided on this website.
             </p>

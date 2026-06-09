@@ -1,0 +1,52 @@
+{
+  "website_url": "https://vc1j5apvcf.space.minimax.io/features",
+  "check_interval": 300,
+  "timeout": 30,
+  "alert_thresholds": {
+    "response_time": 5000,
+    "uptime_percentage": 99.0,
+    "consecutive_failures": 3
+  },
+  "monitoring_locations": [
+    {
+      "name": "Primary",
+      "enabled": true
+    },
+    {
+      "name": "US-East",
+      "proxy": null,
+      "enabled": true
+    },
+    {
+      "name": "EU-West", 
+      "proxy": null,
+      "enabled": true
+    },
+    {
+      "name": "Asia-Pacific",
+      "proxy": null,
+      "enabled": true
+    }
+  ],
+  "notifications": {
+    "email": {
+      "enabled": true,
+      "smtp_server": "smtp.gmail.com",
+      "smtp_port": 587,
+      "sender_email": "monitoring@yourdomain.com",
+      "sender_password": "your_app_password",
+      "recipients": [
+        "admin@yourdomain.com",
+        "devops@yourdomain.com"
+      ]
+    },
+    "webhook": {
+      "enabled": false,
+      "url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+    }
+  },
+  "ssl_check": {
+    "enabled": true,
+    "days_before_expiry_alert": 30
+  }
+}

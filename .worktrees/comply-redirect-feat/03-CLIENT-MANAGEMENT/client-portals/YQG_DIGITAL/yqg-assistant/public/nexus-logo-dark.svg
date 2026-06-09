@@ -1,0 +1,17 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagonal frame -->
+  <path d="M16 2L28.12 9V23L16 30L3.88 23V9L16 2Z" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+  <!-- Inner hex with gradient -->
+  <path d="M16 7L24.66 12V22L16 27L7.34 22V12L16 7Z" stroke="url(#g)" stroke-width="1.5" fill="none"/>
+  <!-- N letterform -->
+  <path d="M11 22V10L16 18V10M16 18L21 10V22" stroke="url(#g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Vertex accents -->
+  <circle cx="16" cy="7" r="1.5" fill="#0ff1ce"/>
+  <circle cx="16" cy="27" r="1.5" fill="#00e5ff"/>
+  <defs>
+    <linearGradient id="g" x1="7" y1="7" x2="25" y2="27" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0ff1ce"/>
+      <stop offset="1" stop-color="#00e5ff"/>
+    </linearGradient>
+  </defs>
+</svg>

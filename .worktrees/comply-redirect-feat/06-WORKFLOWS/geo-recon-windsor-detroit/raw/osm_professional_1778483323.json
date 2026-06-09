@@ -1,0 +1,30 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-05-11T07:07:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 4903830184,
+      "lat": 42.4549865,
+      "lon": -83.1230651,
+      "tags": {
+        "addr:city": "Ferndale",
+        "addr:housenumber": "1049",
+        "addr:postcode": "48220",
+        "addr:state": "MI",
+        "addr:street": "Hilton Road",
+        "amenity": "office",
+        "email": "service@waterworkplumbing.com",
+        "name": "WaterWork Plumbing",
+        "opening_hours": "Mo-Fr 08:30-17:00",
+        "phone": "+1-248-542-8022",
+        "start_date": "2006",
+        "website": "https://waterworkplumbing.com/"
+      }
+    }
+  ]
+}

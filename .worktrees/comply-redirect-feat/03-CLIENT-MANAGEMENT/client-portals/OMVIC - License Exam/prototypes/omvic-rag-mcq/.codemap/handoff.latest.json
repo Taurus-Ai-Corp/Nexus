@@ -1,0 +1,385 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T01:31:28.20333-04:00",
+  "root": "/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/03-CLIENT-MANAGEMENT/client-portals/OMVIC - License Exam/prototypes/omvic-rag-mcq",
+  "branch": "main",
+  "base_ref": "origin/main",
+  "prefix": {
+    "file_count": 27,
+    "hubs": []
+  },
+  "delta": {
+    "changed": [
+      {
+        "path": ".env.example",
+        "hash": "e97aa18ee09717574d4e6425a340989c4c0bc08fe39c1855348e92a6777f4e63",
+        "size": 230,
+        "status": "untracked"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/awesome-ai-apps",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/08-shared/web-land-Dash/webflow_integration.py",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/gamma-mcp/index.js",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/backend/auth.py",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/backend/main.py",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/ceo_command_center.html",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/requirements.txt",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/Motia",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/anthropic-cookbook",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/awesome-ai-apps",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/klavis",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/playwright-mcp",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/sim",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/stagewise",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/NeoVibe_DESIGN_LOUNGE/BIizflow_supernova_OCT_8/package.json",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/NeoVibe_DESIGN_LOUNGE/BIizflow_supernova_OCT_8/src/app/layout.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/Motia",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/anthropic-cookbook",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/awesome-ai-apps",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/klavis",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/sim",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/stagewise",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/deployment/scripts/init-master-orchestrator.sh",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/kayarattan/src/app/page.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/kayarattan/src/app/product/[id]/page.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/kayarattan/src/components/sections/Bestsellers.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/kayarattan/src/components/sections/BrandStory.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/registry/local_ai_router.py",
+        "status": "modified"
+      },
+      {
+        "path": "01-CORE-PLATFORM/neovibe-studio/requirements.txt",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/amenities/AmenitiesPageClient.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/download/brochure/BrochurePageClient.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/layout.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/robots.ts",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/sitemap.ts",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/DualCovenant.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Features.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Hero.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Residences.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/seo/JsonLd.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/ui/animated-background.tsx",
+        "status": "staged"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/lib/constants.ts",
+        "status": "staged"
+      },
+      {
+        "path": "README.md",
+        "hash": "817341228a73c9fe479965a8385a521da35450f9fb31c2b7900515fa4b462bfe",
+        "size": 1881,
+        "status": "untracked"
+      },
+      {
+        "path": "data/generated_500_mcqs.json",
+        "hash": "d3266eee2d5fc5639ec99e0b10115178747bb39410629e3559982630757a04a4",
+        "size": 273323,
+        "status": "untracked"
+      },
+      {
+        "path": "data/generated_mcqs.json",
+        "hash": "ae18b1ca14976aefa2fd9b37d4e885fca4daffac518972c75067212c8cde4ce6",
+        "size": 3159,
+        "status": "untracked"
+      },
+      {
+        "path": "data/sources.json",
+        "hash": "7f037b1e21fed1909fae32f9d9af6a502ff0aaa3bde76c340995477ad0bddd69",
+        "size": 1720,
+        "status": "untracked"
+      },
+      {
+        "path": "data/sources/cpa-2002.md",
+        "hash": "8fbb9396896527b89f7c524183ebabe2d1e0bdc6b17ebc7c0b2528cbb863dff6",
+        "size": 230001,
+        "status": "untracked"
+      },
+      {
+        "path": "data/sources/cpa-reg-17-05-general.md",
+        "hash": "83d3c8be49685e1dda86183e0d334ae02c1c1728d74b936ab67f42c916c15524",
+        "size": 215313,
+        "status": "untracked"
+      },
+      {
+        "path": "data/sources/mvda-2002.md",
+        "hash": "64b000a15658163d2c2016c26df88e9c8e801fc282f6f96834449a44d35e2981",
+        "size": 93716,
+        "status": "untracked"
+      },
+      {
+        "path": "data/sources/mvda-reg-332-08-code-of-ethics.md",
+        "hash": "257afefca8a970bc652879769ce55dd210313edc7543ba861de0249d8042007c",
+        "size": 191351,
+        "status": "untracked"
+      },
+      {
+        "path": "data/sources/mvda-reg-333-08-general.md",
+        "hash": "257afefca8a970bc652879769ce55dd210313edc7543ba861de0249d8042007c",
+        "size": 191351,
+        "status": "untracked"
+      },
+      {
+        "path": "data/sources/omvic-about.md",
+        "hash": "b7f3fe6bb92838d16e5387dd627d4048357ced9dc9e51fc6858877aad51b3da4",
+        "size": 2352,
+        "status": "untracked"
+      },
+      {
+        "path": "data/sources/omvic-registration.md",
+        "hash": "8b090b90682bf5b8dc4382e2d25653e972a4f20afa1f52bb969b64ac1a905637",
+        "size": 1437,
+        "status": "untracked"
+      },
+      {
+        "path": "deploy/hf-space/config.json",
+        "hash": "36c7e6c690532805f3e8a729fa2760c83ea929ea8961492270d67d2762adbcfc",
+        "size": 183,
+        "status": "untracked"
+      },
+      {
+        "path": "requirements.txt",
+        "hash": "6a20f9e692ea29bcff9493eb352c89ee7a64c85c14e112ecd98548589ac5de20",
+        "size": 464,
+        "status": "untracked"
+      },
+      {
+        "path": "src/app.py",
+        "hash": "d2bde3ca4410040d536648ce05c40573c7711ac22f53ab79b6817dc51a41fb4b",
+        "size": 2218,
+        "status": "untracked"
+      },
+      {
+        "path": "src/chunk_and_index.py",
+        "hash": "833cc39468e7f93bc1b38d35f4462ac2393d250260df9f2fb42e9cca5f556908",
+        "size": 1298,
+        "status": "untracked"
+      },
+      {
+        "path": "src/data/sources.json",
+        "hash": "31cc138c904824adc80dc1956cbb0a1270e70cc60f8e56c0509cc4c0727ee322",
+        "size": 1299,
+        "status": "untracked"
+      },
+      {
+        "path": "src/data/sources/cpa-2002.md",
+        "hash": "8f61409dbb0f704897d2b153a0a7cc058982d41584eb98990a90f82f4047c09b",
+        "size": 118,
+        "status": "untracked"
+      },
+      {
+        "path": "src/data/sources/cpa-reg-17-05-general.md",
+        "hash": "e1aff89fb0f126adfb0103f219aaf5fcb3333a1ba6920092ccd59b8d7beeead8",
+        "size": 115,
+        "status": "untracked"
+      }
+    ],
+    "risk_files": [],
+    "recent_events": [],
+    "next_steps": [
+      "Run tests covering changed files before handoff."
+    ],
+    "open_questions": [
+      "Live watch state was unavailable; timeline may be incomplete.",
+      "Dependency graph context was unavailable; risk files may be incomplete."
+    ]
+  },
+  "prefix_hash": "9728d0341a7320454e3ea4ddeb01a3a42e9dba1c57b8024810f3b393e71693fc",
+  "delta_hash": "2dd953978f638ecb036d87fc8729631bac5d80e8d3071029d603e4a120d9ca28",
+  "combined_hash": "5922078e369bf2f7ffef44a0c075dfe880633999555bf5e16e421d46ca85edde",
+  "metrics": {
+    "prefix_bytes": 27,
+    "delta_bytes": 7870,
+    "total_bytes": 7897,
+    "unchanged_bytes": 0,
+    "reuse_ratio": 0,
+    "prefix_reused": false,
+    "delta_reused": false
+  },
+  "changed_files": [
+    ".env.example",
+    "01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/awesome-ai-apps",
+    "01-CORE-PLATFORM/bizflow-backend/08-shared/web-land-Dash/webflow_integration.py",
+    "01-CORE-PLATFORM/bizflow-backend/agents/integrations/mcp-agents/gamma-mcp/index.js",
+    "01-CORE-PLATFORM/bizflow-backend/backend/auth.py",
+    "01-CORE-PLATFORM/bizflow-backend/backend/main.py",
+    "01-CORE-PLATFORM/bizflow-backend/ceo_command_center.html",
+    "01-CORE-PLATFORM/bizflow-backend/requirements.txt",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/Motia",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/anthropic-cookbook",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/awesome-ai-apps",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/klavis",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/playwright-mcp",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/sim",
+    "01-CORE-PLATFORM/bizflow-backend/subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/stagewise",
+    "01-CORE-PLATFORM/neovibe-studio/NeoVibe_DESIGN_LOUNGE/BIizflow_supernova_OCT_8/package.json",
+    "01-CORE-PLATFORM/neovibe-studio/NeoVibe_DESIGN_LOUNGE/BIizflow_supernova_OCT_8/src/app/layout.tsx",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/Motia",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/anthropic-cookbook",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/awesome-ai-apps",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/klavis",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/sim",
+    "01-CORE-PLATFORM/neovibe-studio/agents/integrations/mcp-agents/external-mcps/stagewise",
+    "01-CORE-PLATFORM/neovibe-studio/deployment/scripts/init-master-orchestrator.sh",
+    "01-CORE-PLATFORM/neovibe-studio/kayarattan/src/app/page.tsx",
+    "01-CORE-PLATFORM/neovibe-studio/kayarattan/src/app/product/[id]/page.tsx",
+    "01-CORE-PLATFORM/neovibe-studio/kayarattan/src/components/sections/Bestsellers.tsx",
+    "01-CORE-PLATFORM/neovibe-studio/kayarattan/src/components/sections/BrandStory.tsx",
+    "01-CORE-PLATFORM/neovibe-studio/registry/local_ai_router.py",
+    "01-CORE-PLATFORM/neovibe-studio/requirements.txt",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/amenities/AmenitiesPageClient.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/download/brochure/BrochurePageClient.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/layout.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/robots.ts",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/app/sitemap.ts",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/DualCovenant.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Features.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Hero.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/sections/Residences.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/seo/JsonLd.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/components/ui/animated-background.tsx",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER_HOMES/mater-maria/src/lib/constants.ts",
+    "README.md",
+    "data/generated_500_mcqs.json",
+    "data/generated_mcqs.json",
+    "data/sources.json",
+    "data/sources/cpa-2002.md",
+    "data/sources/cpa-reg-17-05-general.md",
+    "data/sources/mvda-2002.md",
+    "data/sources/mvda-reg-332-08-code-of-ethics.md",
+    "data/sources/mvda-reg-333-08-general.md",
+    "data/sources/omvic-about.md",
+    "data/sources/omvic-registration.md",
+    "deploy/hf-space/config.json",
+    "requirements.txt",
+    "src/app.py",
+    "src/chunk_and_index.py",
+    "src/data/sources.json",
+    "src/data/sources/cpa-2002.md",
+    "src/data/sources/cpa-reg-17-05-general.md"
+  ],
+  "risk_files": [],
+  "recent_events": [],
+  "next_steps": [
+    "Run tests covering changed files before handoff."
+  ],
+  "open_questions": [
+    "Live watch state was unavailable; timeline may be incomplete.",
+    "Dependency graph context was unavailable; risk files may be incomplete."
+  ]
+}

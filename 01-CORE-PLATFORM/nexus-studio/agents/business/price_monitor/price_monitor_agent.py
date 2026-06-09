@@ -1,5 +1,5 @@
 """
-Price Monitor Agent for BizFlow-Orchestrator
+Price Monitor Agent for NEXUS Creative Studio
 Category: Business
 """
 
@@ -12,7 +12,7 @@ agent_dir = Path(__file__).parent
 sys.path.insert(0, str(agent_dir))
 
 class PriceMonitorAgent:
-    """Price Monitor Agent wrapper for BizFlow-Orchestrator"""
+    """Price Monitor Agent wrapper for NEXUS Creative Studio"""
     
     def __init__(self):
         self.name = "price_monitor"
@@ -24,7 +24,7 @@ class PriceMonitorAgent:
         return [
             "Execute price monitor tasks",
             "Process business related requests",
-            "Integrate with BizFlow-Orchestrator"
+            "Integrate with NEXUS Creative Studio"
         ]
     
     async def execute_task(self, task_data):

@@ -19,7 +19,7 @@ export default function AboutPage() {
               Mater Maria Homes is built upon a profound respect for family and the deep-rooted traditions of Kerala. Our estate is designed to provide an unparalleled living experience for our Pravasi community and local elders.
             </p>
             <p>
-              Embracing the "Monsoon Luxury" aesthetic, our facilities harmoniously blend earthy, grounded elements with clean, modern conveniences. We prioritize a tranquil atmosphere, free from the excessive noise of city life, ensuring our residents feel at home.
+              Embracing the &quot;Monsoon Luxury&quot; aesthetic, our facilities harmoniously blend earthy, grounded elements with clean, modern conveniences. We prioritize a tranquil atmosphere, free from the excessive noise of city life, ensuring our residents feel at home.
             </p>
             <p>
               Whether it is dedicated clinical trust or community lifestyle events, our mission is to secure a world-class future for your family right here in the heart of South India.

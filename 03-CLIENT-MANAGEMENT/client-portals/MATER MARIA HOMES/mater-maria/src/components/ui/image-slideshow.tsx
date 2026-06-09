@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -151,10 +152,10 @@ export function ImageSlideshow({
             className="absolute inset-0"
             style={{ opacity: idx === 0 ? 1 : 0 }}
           >
-            <img
+            <Image
               src={src}
               alt=""
-              aria-hidden="true"
+              fill
               className={`h-full w-full object-cover ${blur ? "blur-[2px]" : ""}`}
               loading={idx === 0 ? "eager" : "lazy"}
               decoding="async"

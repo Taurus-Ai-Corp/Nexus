@@ -1,5 +1,5 @@
 """
-Social Media Manager Agent for BizFlow-Orchestrator
+Social Media Manager Agent for NEXUS Creative Studio
 Category: Content
 """
 
@@ -12,7 +12,7 @@ agent_dir = Path(__file__).parent
 sys.path.insert(0, str(agent_dir))
 
 class SocialMediaManagerAgent:
-    """Social Media Manager Agent wrapper for BizFlow-Orchestrator"""
+    """Social Media Manager Agent wrapper for NEXUS Creative Studio"""
     
     def __init__(self):
         self.name = "social_media_manager"
@@ -24,7 +24,7 @@ class SocialMediaManagerAgent:
         return [
             "Execute social media manager tasks",
             "Process content related requests",
-            "Integrate with BizFlow-Orchestrator"
+            "Integrate with NEXUS Creative Studio"
         ]
     
     async def execute_task(self, task_data):

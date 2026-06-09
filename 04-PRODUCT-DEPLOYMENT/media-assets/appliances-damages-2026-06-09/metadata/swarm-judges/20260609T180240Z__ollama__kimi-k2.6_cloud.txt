@@ -1,0 +1,27 @@
+{
+  "model_role": "judge",
+  "realism_score_0_to_10": 2,
+  "primary_issues": [
+    "Cracks render as a flat semi-transparent decal with zero edge displacement, refractive variation, or broken-plastic thickness",
+    "Fracture paths ignore lid curvature and slice across specular reflections without topological distortion",
+    "Dark vertical dent near the right lid edge is misaligned with factory seams and floats without contact shadow or ambient occlusion",
+    "Complete absence of micro-damage detail: no stress whitening, chipped plastic burrs, raised edges, or debris scatter",
+    "Damage crosses multiple planar surfaces arbitrarily with no depth falloff, perspective break, or lighting interaction"
+  ],
+  "mitigation": [
+    "Reproject crack UVs to follow lid curvature so fractures distort with topology and reflections",
+    "Add beveled edge geometry and subsurface scatter to simulate shattered white plastic rather than generic glass",
+    "Anchor the right-edge dent to the nearest panel seam and paint grounded contact shadows beneath it",
+    "Generate impact micro-fractures and displaced chip particles radiating from the impact origin",
+    "Reduce crack opacity to plastic-specific translucency and mask out crossings over seams",
+    "Add a soft diffuse shadow under the lid rim to integrate the impact zone with the utility-corner lighting"
+  ],
+  "recommended_final_edit_parameters": {
+    "lid_mask_scale": "0.92",
+    "crack_opacity": "0.35",
+    "impact_shadow_strength": "0.50",
+    "scratch_count": 4,
+    "chip_opacity": "210"
+  },
+  "final_verdict": "needs_more_work"
+}

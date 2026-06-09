@@ -63,7 +63,7 @@ export default function InvestorPage() {
           Secure a World-Class Future for Your Family.
         </h2>
         <p className="text-lg text-white/80 max-w-3xl mx-auto mb-16">
-          Invest in Kerala's premier, fully-managed senior living and heritage estate. 
+          Invest in Kerala&apos;s premier, fully-managed senior living and heritage estate. 
           Enjoy robust returns while securing a world-class, medically-supported sanctuary 
           for your loved ones.
         </p>
@@ -88,7 +88,7 @@ export default function InvestorPage() {
             Request an Investor Brochure
           </h2>
           <p className="text-[#00103F]/80 text-lg">
-            Connect with our legacy advisors to discuss which tier aligns with your family's vision.
+            Connect with our legacy advisors to discuss which tier aligns with your family&apos;s vision.
           </p>
         </div>
         <LeadCaptureForm />

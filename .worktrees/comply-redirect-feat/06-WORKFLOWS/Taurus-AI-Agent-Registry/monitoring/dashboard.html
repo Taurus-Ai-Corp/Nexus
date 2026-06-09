@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🏰 Taurus AI Corp. - Monitor</title>
+    <meta http-equiv="refresh" content="30">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .status { padding: 10px; margin: 5px; border-radius: 5px; }
+        .active { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .metric { display: inline-block; margin: 10px; padding: 15px; background: #f8f9fa; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🏰 Taurus AI Corp. - Live Monitor</h1>
+    <div id="status"></div>
+    <div id="metrics"></div>
+    <script>
+        fetch('/api/status')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status').innerHTML = JSON.stringify(data, null, 2);
+            });
+    </script>
+</body>
+</html>

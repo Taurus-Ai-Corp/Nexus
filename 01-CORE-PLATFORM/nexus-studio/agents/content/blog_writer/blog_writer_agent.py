@@ -1,5 +1,5 @@
 """
-Blog Writer Agent for BizFlow-Orchestrator
+Blog Writer Agent for NEXUS Creative Studio
 Category: Content
 """
 
@@ -12,7 +12,7 @@ agent_dir = Path(__file__).parent
 sys.path.insert(0, str(agent_dir))
 
 class BlogWriterAgent:
-    """Blog Writer Agent wrapper for BizFlow-Orchestrator"""
+    """Blog Writer Agent wrapper for NEXUS Creative Studio"""
     
     def __init__(self):
         self.name = "blog_writer"
@@ -24,7 +24,7 @@ class BlogWriterAgent:
         return [
             "Execute blog writer tasks",
             "Process content related requests",
-            "Integrate with BizFlow-Orchestrator"
+            "Integrate with NEXUS Creative Studio"
         ]
     
     async def execute_task(self, task_data):

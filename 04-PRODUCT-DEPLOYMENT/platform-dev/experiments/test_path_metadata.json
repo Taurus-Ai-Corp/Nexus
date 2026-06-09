@@ -1,0 +1,21 @@
+{
+  "experiment_name": "test_path",
+  "algorithm": "PPO",
+  "total_timesteps": 1000,
+  "n_envs": 1,
+  "learning_rate": 0.0003,
+  "n_steps": 2048,
+  "batch_size": 64,
+  "n_epochs": 10,
+  "gamma": 0.99,
+  "gae_lambda": 0.95,
+  "clip_range": 0.2,
+  "ent_coef": 0.01,
+  "vf_coef": 0.5,
+  "max_grad_norm": 0.5,
+  "started_at": "2026-05-21T03:58:03.247853",
+  "metrics_history": [],
+  "final_best_reward": -Infinity,
+  "total_episodes": 20,
+  "completed_at": "2026-05-21T03:58:03.247869"
+}

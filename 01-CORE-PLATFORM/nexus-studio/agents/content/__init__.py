@@ -1,3 +1,3 @@
 """
-Content Agents for BizFlow-Orchestrator
+Content Agents for NEXUS Creative Studio
 """

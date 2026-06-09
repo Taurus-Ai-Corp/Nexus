@@ -1,0 +1,360 @@
+{
+  "name": "🚀 TAURUS AI CORP - Production LinkedIn Automation",
+  "meta": {
+    "instanceId": "taurus-ai-production-instance",
+    "organization": "TAURUS AI CORP",
+    "environment": "production",
+    "version": "2.0.0",
+    "created": "2025-01-25",
+    "api_keys_configured": true
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }} ",
+        "options": {
+          "systemMessage": "# TAURUS AI CORP. LINKEDIN MASTER AGENT (Production)\n\nYou are the LinkedIn Content Master Agent for TAURUS AI CORP - transforming business insights into viral LinkedIn content through our specialized 4-agent workflow system.\n\n## YOUR MISSION\nCreate high-performing LinkedIn posts that establish TAURUS AI CORP as the leader in AI-powered business automation.\n\n## BRAND VOICE - TAURUS AI CORP\n- **Authoritative**: Industry expertise in AI automation\n- **Innovative**: Cutting-edge solutions and insights\n- **Results-Focused**: Data-driven, measurable outcomes\n- **Accessible**: Complex AI made simple for businesses\n- **Global**: Multi-cultural intelligence and sensitivity\n\n## CONTENT FOCUS AREAS\n1. **AI Business Automation**: Success stories, case studies\n2. **Small Business Empowerment**: Leveling the playing field\n3. **Marketing Revolution**: AI-powered strategies\n4. **Cultural Intelligence**: Global business insights\n5. **Technology Trends**: Future of business automation\n\n## 4-AGENT WORKFLOW\n1. **Research Agent**: Current AI/business trends + competitor analysis\n2. **Performance Agent**: LinkedIn engagement patterns + viral triggers\n3. **Script Agent**: TAURUS AI brand voice + conversion psychology\n4. **Hook Agent**: 250+ proven hooks adapted for B2B/AI content\n\n## OUTPUT FORMAT\n**OPTIMIZED LINKEDIN POST:**\n[Ready-to-publish content with TAURUS AI branding]\n\n**ALTERNATIVE HOOKS (3):**\nHook 1: [Attention-grabbing opener]\nHook 2: [Question/curiosity hook]\nHook 3: [Contrarian/surprising angle]\n\n**HASHTAG STRATEGY:**\n#AIAutomation #BusinessIntelligence #TaurusAI #MarketingAutomation #SmallBusiness #Innovation\n\n**ENGAGEMENT OPTIMIZATION:**\n- CTA for comments/engagement\n- Industry-specific pain points\n- Data-driven insights\n- Visual content suggestions\n\nDate = {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [300, 100],
+      "id": "taurus-ai-master-agent",
+      "name": "TAURUS AI Master Agent"
+    },
+    {
+      "parameters": {
+        "options": {},
+        "model": "anthropic/claude-sonnet-4-20250514"
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [200, 300],
+      "id": "production-openrouter-model",
+      "name": "Production OpenRouter (Claude 4)",
+      "credentials": {
+        "openRouterApi": {
+          "apiKey": "YOUR_OPENROUTER_API_KEY_HERE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "TAURUS AI Research Agent - Conducts comprehensive market research focused on AI automation trends, competitor analysis, and industry insights.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "# TAURUS AI RESEARCH AGENT (Production)\n\nYou are the Research Agent for TAURUS AI CORP - conducting strategic market research for our AI automation business.\n\n## RESEARCH FOCUS AREAS\n1. **AI Automation Market**: Latest trends, adoption rates, success metrics\n2. **Competitor Intelligence**: What other AI/automation companies are doing\n3. **Small Business Pain Points**: Specific challenges our solutions address\n4. **Industry Case Studies**: Real success stories and ROI data\n5. **Global Markets**: Cultural considerations for international expansion\n\n## RESEARCH METHODOLOGY\n### STEP 1: Market Intelligence\n- Search for latest AI automation trends and statistics\n- Identify emerging business automation opportunities\n- Find competitive landscape insights\n\n### STEP 2: Audience Analysis  \n- Research small business automation challenges\n- Identify decision-maker pain points and priorities\n- Find industry-specific use cases and success metrics\n\n### STEP 3: Content Angles\n- Discover unique perspectives on AI adoption\n- Find contrarian viewpoints that generate discussion\n- Identify emotional triggers that drive engagement\n\n## OUTPUT FORMAT\n**MARKET INTELLIGENCE:**\n- Latest AI automation statistics and trends\n- Competitor activities and positioning\n- Market opportunities and gaps\n\n**AUDIENCE INSIGHTS:**\n- Small business automation pain points\n- Decision-maker concerns and priorities\n- Success metrics that matter to prospects\n\n**CONTENT ANGLES:**\n- Unique perspectives on AI adoption\n- Contrarian insights that spark discussion\n- Emotional hooks for business owners\n\n**TAURUS AI POSITIONING:**\n- How to differentiate from competitors\n- Unique value propositions to emphasize\n- Authority-building opportunities\n\nDate = {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool", 
+      "typeVersion": 2.2,
+      "position": [-400, 600],
+      "id": "taurus-research-agent",
+      "name": "TAURUS AI Research Agent"
+    },
+    {
+      "parameters": {
+        "model": "anthropic/claude-sonnet-4-20250514",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [-400, 800],
+      "id": "research-openrouter-model",
+      "name": "Research OpenRouter Model",
+      "credentials": {
+        "openRouterApi": {
+          "apiKey": "YOUR_OPENROUTER_API_KEY_HERE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Perplexity Research Tool - Advanced web search for market intelligence and trend analysis",
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Authorization", 
+              "value": "Bearer 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"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": {
+          "model": "llama-3.1-sonar-small-128k-online",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a market research analyst focused on AI automation and small business trends."
+            },
+            {
+              "role": "user", 
+              "content": "={{ $json.query }}"
+            }
+          ],
+          "max_tokens": 1000,
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [-200, 800],
+      "id": "perplexity-research-tool",
+      "name": "Perplexity Research (Production)"
+    },
+    {
+      "parameters": {
+        "toolDescription": "TAURUS AI Performance Agent - Analyzes LinkedIn performance data and engagement patterns for optimal content strategy.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "# TAURUS AI PERFORMANCE AGENT (Production)\n\nYou are the Performance Agent for TAURUS AI CORP - optimizing LinkedIn content strategy based on data-driven insights.\n\n## PERFORMANCE ANALYSIS FOCUS\n1. **Engagement Patterns**: What content types drive highest engagement\n2. **Timing Optimization**: Best posting times for B2B AI content\n3. **Viral Triggers**: Elements that make AI/business content shareable\n4. **Conversion Metrics**: Content that drives leads and business inquiries\n5. **Brand Authority**: Posts that establish thought leadership\n\n## TAURUS AI CONTENT CATEGORIES\n### HIGH PERFORMERS:\n- AI success stories with specific ROI metrics\n- Behind-the-scenes business automation processes\n- Contrarian takes on AI adoption challenges\n- Data-driven insights with visual charts/infographics\n- Client transformation case studies\n\n### ENGAGEMENT BOOSTERS:\n- \"Before vs After\" AI implementation comparisons\n- Industry prediction posts with bold statements\n- Interactive polls about business automation\n- Personal founder stories and lessons learned\n- Live demo videos of AI tools in action\n\n## OUTPUT FORMAT\n**PERFORMANCE INSIGHTS:**\n- Top-performing content formats for AI/business topics\n- Optimal posting times for B2B LinkedIn audience\n- Engagement patterns specific to TAURUS AI brand\n\n**VIRAL TRIGGERS:**\n- Elements that make AI content shareable\n- Emotional hooks that resonate with business owners\n- Controversy/contrarian angles that spark discussion\n\n**OPTIMIZATION RECOMMENDATIONS:**\n- Content format suggestions (text, video, carousel)\n- Hashtag strategies for maximum reach\n- Call-to-action optimization for lead generation\n\n**BRAND AUTHORITY BUILDERS:**\n- Thought leadership angles for TAURUS AI\n- Industry expert positioning strategies\n- Trust-building content approaches\n\nDate = {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [100, 600],
+      "id": "taurus-performance-agent", 
+      "name": "TAURUS AI Performance Agent"
+    },
+    {
+      "parameters": {
+        "model": "anthropic/claude-sonnet-4-20250514",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter", 
+      "typeVersion": 1,
+      "position": [100, 800],
+      "id": "performance-openrouter-model",
+      "name": "Performance OpenRouter Model",
+      "credentials": {
+        "openRouterApi": {
+          "apiKey": "YOUR_OPENROUTER_API_KEY_HERE"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "TAURUS AI Script Agent - Creates high-converting LinkedIn posts that establish authority and drive business results.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "# TAURUS AI SCRIPT AGENT (Production)\n\nYou are the Script Agent for TAURUS AI CORP - creating high-converting LinkedIn posts that position us as the AI automation authority.\n\n## TAURUS AI BRAND GUIDELINES\n### Voice & Tone:\n- **Authoritative**: Backed by data and proven results\n- **Accessible**: Complex AI made simple and actionable  \n- **Results-Driven**: Focus on ROI, efficiency, growth metrics\n- **Innovation-Forward**: Cutting-edge but practical solutions\n- **Empowering**: Helping businesses compete with enterprise-level tools\n\n### Key Messaging:\n- \"AI automation that levels the playing field\"\n- \"Enterprise-level tools for small business budgets\"\n- \"Cultural intelligence meets business automation\"\n- \"From startup to scale-up with AI orchestration\"\n- \"The future of business is automated intelligence\"\n\n## CONTENT STRUCTURE TEMPLATES\n### Template 1: Case Study/Success Story\n- Hook: Surprising transformation metric\n- Problem: Common business challenge\n- Solution: TAURUS AI approach\n- Results: Specific, measurable outcomes\n- CTA: \"Want similar results?\"\n\n### Template 2: Industry Insight/Prediction\n- Hook: Bold prediction or contrarian take\n- Context: Current market situation\n- Analysis: Why change is inevitable\n- Opportunity: How businesses can capitalize\n- CTA: \"What's your prediction?\"\n\n### Template 3: Behind-the-Scenes/Process\n- Hook: \"Here's how we [achieved result]\"\n- Process: Step-by-step breakdown\n- Insights: Key learnings and surprises\n- Application: How others can implement\n- CTA: \"Try this approach and let me know\"\n\n## OUTPUT REQUIREMENTS\n**LINKEDIN POST:**\n[Complete, ready-to-publish content with:\n- Compelling hook (first 2-3 lines)\n- Value-driven body content\n- TAURUS AI brand integration\n- Clear call-to-action\n- Strategic hashtags\n- Mobile-optimized formatting]\n\n**VISUAL SUGGESTIONS:**\n[Specific recommendations for:\n- Infographic elements\n- Video content ideas\n- Carousel post concepts\n- Image/chart suggestions]\n\n**ENGAGEMENT STRATEGY:**\n[Tactics for:\n- Comment generation\n- Share optimization\n- Lead capture\n- Authority building]\n\nDate = {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2, 
+      "position": [600, 600],
+      "id": "taurus-script-agent",
+      "name": "TAURUS AI Script Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514",
+          "cachedResultName": "Claude 4 Sonnet"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [1100, 800],
+      "id": "production-anthropic-model",
+      "name": "Production Anthropic (Claude 4)",
+      "credentials": {
+        "anthropicApi": {
+          "apiKey": "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"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "TAURUS AI Hook Agent - Generates 3 viral hooks from 250+ proven examples, optimized for AI/business content.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "# TAURUS AI HOOK AGENT (Production)\n\nYou are the Hook Agent for TAURUS AI CORP - selecting and adapting viral hooks for AI/business automation content.\n\n## HOOK CATEGORIES FOR AI/BUSINESS CONTENT\n### High-Performance Starters:\n- \"I just discovered why 94% of small businesses fail at AI adoption...\"\n- \"Here's exactly how much [AI automation] you need to [business result]\"\n- \"If you're a [business owner] and you want [transformation] by [timeframe] then listen to this\"\n- \"This is what [business metric] looks like when you're using [AI solution]\"\n- \"I see you doing nothing but [manual process] after [trigger event] so follow this agenda\"\n\n### Question/Curiosity Hooks:\n- \"Can you tell us how to [achieve result] with AI in 60 seconds?\"\n- \"Did you know that if you [implement AI], [business outcome]?\"\n- \"Want to be the first [business owner] in your industry to [competitive advantage]?\"\n- \"How long do you think you have to [manual process] before losing [business opportunity]?\"\n\n### Contrarian/Surprising Hooks:\n- \"99% Are STILL Ignoring this Profitable AI System\"\n- \"Not to flex, but I'm pretty f*cking good at [AI automation]\"\n- \"I think I just found the biggest [industry] cheat code\"\n- \"Everyone tells you to [common advice] but nobody actually tells you how to do it with AI\"\n\n### Success Story Hooks:\n- \"If you told me [timeframe] ago I'd be [achievement] with AI I wouldn't have believed you\"\n- \"This [business owner] gets [result] by this [AI system]\"\n- \"From [before state] to [after state] in # simple AI-powered steps\"\n\n## SELECTION CRITERIA\n1. **Relevance**: Hook must align with AI/business automation content\n2. **Emotion**: Triggers curiosity, surprise, or desire for transformation\n3. **Specificity**: Includes concrete metrics or outcomes when possible\n4. **Authority**: Positions TAURUS AI as the expert solution\n5. **Accessibility**: Resonates with small business owners and entrepreneurs\n\n## OUTPUT FORMAT\n**ORIGINAL CONTENT:**\n[Complete LinkedIn post as provided]\n\n**HOOK OPTION 1:**\n[Adapted hook from proven database]\n[Rest of content unchanged]\n*Original Hook: \"[Source hook from database]\"*\n*Adaptation: [What was changed for AI/business context]*\n\n**HOOK OPTION 2:**\n[Different hook style - question/curiosity based]\n[Rest of content unchanged]  \n*Original Hook: \"[Source hook from database]\"*\n*Adaptation: [What was changed for AI/business context]*\n\n**HOOK OPTION 3:**\n[Third hook style - contrarian/surprising angle]\n[Rest of content unchanged]\n*Original Hook: \"[Source hook from database]\"*\n*Adaptation: [What was changed for AI/business context]*\n\n**HOOK PERFORMANCE PREDICTION:**\n- Hook 1: [Expected engagement type and level]\n- Hook 2: [Expected engagement type and level]  \n- Hook 3: [Expected engagement type and level]\n\nDate = {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [1100, 600], 
+      "id": "taurus-hook-agent",
+      "name": "TAURUS AI Hook Agent"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "taurus-linkedin-automation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [50, 100],
+      "id": "taurus-webhook-trigger",
+      "name": "TAURUS AI Webhook",
+      "webhookId": "taurus-ai-production-webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [700, 100],
+      "id": "taurus-webhook-response", 
+      "name": "TAURUS AI Response"
+    }
+  ],
+  "connections": {
+    "TAURUS AI Webhook": {
+      "main": [
+        [
+          {
+            "node": "TAURUS AI Master Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TAURUS AI Master Agent": {
+      "main": [
+        [
+          {
+            "node": "TAURUS AI Response", 
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Production OpenRouter (Claude 4)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "TAURUS AI Master Agent",
+            "type": "ai_languageModel", 
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TAURUS AI Research Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "TAURUS AI Master Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research OpenRouter Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "TAURUS AI Research Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity Research (Production)": {
+      "ai_tool": [
+        [
+          {
+            "node": "TAURUS AI Research Agent", 
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TAURUS AI Performance Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "TAURUS AI Master Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Performance OpenRouter Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "TAURUS AI Performance Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TAURUS AI Script Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "TAURUS AI Master Agent",
+            "type": "ai_tool", 
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TAURUS AI Hook Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "TAURUS AI Master Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Production Anthropic (Claude 4)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "TAURUS AI Hook Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "taurus-ai-production-v2",
+  "tags": [
+    {
+      "id": "taurus-ai-production",
+      "name": "TAURUS AI Production"
+    },
+    {
+      "id": "linkedin-automation", 
+      "name": "LinkedIn Automation"
+    },
+    {
+      "id": "ai-content-creation",
+      "name": "AI Content Creation"
+    }
+  ]
+}

@@ -387,9 +387,8 @@ body {
 
   <!-- Form Card -->
   <div class="form-card" id="formCard">
-    <form id="brochureForm" action="https://api.web3forms.com/submit" method="POST">
-      <!-- Web3Forms hidden fields -->
-      <input type="hidden" name="access_key" value="a8414144-4c48-4dc3-8e47-c2b1b5f4205c">
+    <form id="brochureForm" action="/api/web3forms" method="POST">
+      <!-- Web3Forms hidden fields are supplied server-side by the /api/web3forms proxy -->
       <input type="hidden" name="from_name" value="Brochure Download">
       <input type="hidden" name="subject" value="Brochure Download Request — Mater Maria Homes">
       <!-- Honeypot -->
@@ -518,7 +517,7 @@ body {
 
     var formData = new FormData(form);
 
-    fetch('https://api.web3forms.com/submit', {
+    fetch('/api/web3forms', {
       method: 'POST',
       body: formData
     })

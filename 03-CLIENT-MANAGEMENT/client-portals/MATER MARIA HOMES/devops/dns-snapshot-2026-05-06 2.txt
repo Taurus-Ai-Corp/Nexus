@@ -1,0 +1,81 @@
+# DNS Snapshot — matermariahomes.com
+# Captured: 2026-05-06 (BEFORE any changes)
+# Registrar at snapshot time: Squarespace Domains II LLC
+# DNS host at snapshot time: Google Cloud DNS (legacy Google Domains)
+# Snapshot taker: ____________
+#
+# PURPOSE: Rollback safety net. If anything breaks during cutover,
+# restore each record below verbatim into the DNS panel.
+#
+# HOW TO FILL: Open Squarespace dashboard
+#   → Domains → matermariahomes.com → DNS Settings
+# Copy each record's Type, Host, Value/Data, TTL, Priority (for MX) into the table below.
+# Take a screenshot too and save as: dns-snapshot-2026-05-06.png
+
+# =============================================================================
+# CURRENT NAMESERVERS (read-only — set by registrar, not editable in DNS panel)
+# =============================================================================
+ns-cloud-d1.googledomains.com
+ns-cloud-d2.googledomains.com
+ns-cloud-d3.googledomains.com
+ns-cloud-d4.googledomains.com
+
+# =============================================================================
+# LIVE-PROBE BASELINE (what dig sees right now — captured 2026-05-06 via CLI)
+# =============================================================================
+# A   matermariahomes.com.       → 35.205.106.218  (Google Cloud, Belgium)
+# A   www.matermariahomes.com.   → 35.205.106.218
+# MX  matermariahomes.com.       → 1 smtp.google.com.
+# TXT matermariahomes.com.       → "v=spf1 include:_spf.google.com include:sendgrid.net ~all"
+#
+# NOTE: dig only shows what's published to the public DNS. The Squarespace panel
+# may have additional records (DKIM, DMARC, verification TXTs, calendar SRV, etc.)
+# that aren't in the live-probe — capture EVERYTHING from the panel below.
+
+# =============================================================================
+# FULL RECORD TABLE — fill from Squarespace panel
+# =============================================================================
+# Format: TYPE | HOST | VALUE | TTL | PRIO (only for MX)
+# Use one line per record. Use @ for apex.
+
+# --- A records ---
+# A | @   | 35.205.106.218 | 3600 |
+# A | www | 35.205.106.218 | 3600 |
+
+# --- AAAA records (IPv6, may be empty) ---
+
+
+# --- CNAME records (subdomains) ---
+
+
+# --- MX records (email — DO NOT TOUCH during cutover) ---
+# MX | @ | smtp.google.com. | 3600 | 1
+
+# --- TXT records (SPF, DKIM, DMARC, verifications) ---
+# TXT | @                          | "v=spf1 include:_spf.google.com include:sendgrid.net ~all" | 3600 |
+# TXT | _dmarc                     | <fill in>                                                  | 3600 |
+# TXT | google._domainkey          | <fill in if present — Google Workspace DKIM>               | 3600 |
+# TXT | s1._domainkey or selector1 | <fill in if Brevo/SendGrid DKIM present>                   | 3600 |
+
+# --- SRV records (calendar, autodiscover — usually empty for Workspace, but check) ---
+
+
+# --- CAA records (cert authority authorization, often empty) ---
+
+
+# --- Other / unknown ---
+
+
+# =============================================================================
+# AFTER CAPTURE — record TTL changes for cutover prep
+# =============================================================================
+# Per cutover plan, lower TTL on the apex A and www CNAME/A records to 300 (5 min)
+# at least 24 hours before flipping. Record the change here:
+#
+# TTL change made at: ____________ (UTC timestamp)
+# Records changed:
+#   A @   3600 → 300
+#   A www 3600 → 300
+#
+# DO NOT lower TTL on MX or TXT records — keep them at original TTL so email
+# stays cached and resilient during the cutover window.

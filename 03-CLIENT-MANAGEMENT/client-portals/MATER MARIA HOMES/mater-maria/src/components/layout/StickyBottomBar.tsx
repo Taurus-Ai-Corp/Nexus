@@ -43,7 +43,7 @@ export function StickyBottomBar() {
                 className="inline-flex items-center gap-2 rounded-full border border-border-subtle px-4 py-2 text-xs font-medium text-text-primary transition-colors hover:border-accent-default/40 hover:bg-accent-default/5"
               >
                 <Calendar className="size-3.5" />
-                <span className="hidden sm:inline">Schedule Visit</span>
+                <span className="hidden sm:inline">Enquire Now</span>
               </a>
               <a
                 href="/invest"

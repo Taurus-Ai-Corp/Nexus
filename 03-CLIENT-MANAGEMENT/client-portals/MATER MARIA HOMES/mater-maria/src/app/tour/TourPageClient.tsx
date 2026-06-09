@@ -103,7 +103,7 @@ export function TourPageClient() {
                 href="/contact"
                 className="inline-flex items-center gap-2 rounded-full bg-accent-default px-8 py-3 font-medium text-text-inverse transition-colors hover:bg-accent-hover"
               >
-                Schedule a Visit
+                Enquire Now
               </MagneticButton>
               <MagneticButton
                 href="/invest"
@@ -206,18 +206,18 @@ export function TourPageClient() {
             <ScrollReveal variant="blur-in">
               <div className="mx-auto max-w-2xl text-center">
                 <h2 className="font-heading text-3xl font-bold text-text-primary md:text-4xl">
-                  Ready to See It in Person?
+                  Ready to Learn More?
                 </h2>
                 <p className="mt-4 text-text-secondary">
-                  Schedule a visit to walk the grounds, tour model villas, and
-                  experience the lifestyle firsthand.
+                  Connect with our team to explore renders, review floor plans,
+                  and discover the Mater Maria lifestyle.
                 </p>
                 <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
                   <Link
                     href="/contact"
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-accent-default px-8 py-3 font-medium text-text-inverse transition-all duration-300 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent-default/20"
                   >
-                    Book a Site Visit
+                    Enquire Now
                   </Link>
                   <Link
                     href="/gallery"

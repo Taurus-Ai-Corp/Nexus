@@ -1,0 +1,680 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - link "+91 84477 98333" [ref=e5] [cursor=pointer]:
+        - /url: tel:+91 84477 98333
+      - generic [ref=e6]:
+        - img [ref=e7]
+        - paragraph [ref=e8]: DISCOVER VEDAANTA LOTUS
+        - heading "GURUVAYOOR'S FIRST RETIREMENT COMMUNITY" [level=1] [ref=e9]: GURUVAYOOR'S FIRST RETIREMENT COMMUNITY
+        - generic [ref=e12]:
+          - generic [ref=e13]: Let me know more about Lotus
+          - generic [ref=e14]:
+            - generic [ref=e16]: Name*
+            - textbox "Name*" [ref=e18]
+          - generic [ref=e19]:
+            - generic [ref=e21]: Phone*
+            - textbox "Phone*" [ref=e23]
+          - generic [ref=e24]:
+            - generic [ref=e26]: Email*
+            - textbox "Email*" [ref=e28]
+          - generic [ref=e29]:
+            - generic [ref=e31]: Best time to call you*
+            - combobox "Best time to call you*" [ref=e33]:
+              - option "-None-"
+              - option "9 am - 12 pm" [selected]
+              - option "12 pm - 4 pm"
+              - option "4 pm - 7 pm"
+          - generic [ref=e34]:
+            - generic [ref=e36]: Message
+            - textbox "Message" [ref=e38]
+          - button "Submit" [ref=e42] [cursor=pointer]
+    - img [ref=e44]
+  - iframe [ref=e45]:
+    - generic [ref=f1e5]:
+      - button [ref=f1e6] [cursor=pointer]:
+        - generic:
+          - img
+      - generic [ref=f1e7]: "1"
+  - generic [ref=e49]:
+    - generic [ref=e50]:
+      - img [ref=e51]
+      - text: 75 Units
+    - generic [ref=e52]:
+      - img [ref=e53]
+      - text: 1-2 BHK
+    - generic [ref=e54]:
+      - img [ref=e55]
+      - text: 1 Bhk from 55L
+    - generic [ref=e56]:
+      - img [ref=e57]
+      - text: Handing over
+      - text: started
+  - generic [ref=e58]:
+    - generic [ref=e59]:
+      - generic [ref=e60]:
+        - heading "Experience 24/7 care, comfort & convenience like no other." [level=2] [ref=e61]
+        - paragraph [ref=e62]: Welcome to Vedaanta Lotus, Guruvayoor's premier destination for retirement apartments, located just 450 meters from the Guruvayoor temple at the south nada. Experience the epitome of comfort, elegance, and tranquility in senior living.
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - img [ref=e65]
+            - text: RESIDENTS FIRST - ALWAYS
+          - generic [ref=e66]:
+            - img [ref=e67]
+            - text: TRANSPARENT PRACTICES
+          - generic [ref=e68]:
+            - img [ref=e69]
+            - text: EMPATHY AT OUR CORE
+          - generic [ref=e70]:
+            - img [ref=e71]
+            - text: EXPERT MANAGEMENT TEAM
+          - generic [ref=e72]:
+            - img [ref=e73]
+            - text: UNMATCHED SERVICE QUALITY
+          - generic [ref=e74]:
+            - img [ref=e75]
+            - text: 100% CUSTOMER SATISFACTION
+      - img [ref=e77]
+    - generic [ref=e79]:
+      - heading "Retirement Apartments at Vedaanta Lotus" [level=2] [ref=e80]
+      - paragraph [ref=e81]: Choose from a selection of spacious and well-appointed retirement apartments, each thoughtfully designed to enhance your comfort and independence, complete with modern amenities and personalized care options.
+      - heading "Why Choose Vedaanta Lotus?" [level=2] [ref=e82]
+      - paragraph [ref=e83]: "Prime Location: Enjoy the convenience of being just 450 meters away from the Guruvayoor temple at the south nada, with easy access to essential services, cultural landmarks, and healthcare facilities."
+      - paragraph [ref=e84]: "Exceptional Amenities: Indulge in a wealth of amenities including beautifully landscaped gardens, state-of-the-art wellness centers, exquisite dining options, and a diverse array of recreational activities tailored for discerning seniors."
+      - paragraph [ref=e85]: "Personalized Care: Our dedicated staff delivers personalized care plans designed to meet your individual needs, promoting independence, well-being, and peace of mind."
+      - heading "Experience Exceptional Senior Living" [level=2] [ref=e86]
+      - paragraph [ref=e87]: Whether you seek a serene retirement retreat or a vibrant senior community, Vedaanta Lotus offers a sanctuary where you can savor a fulfilling lifestyle among like-minded individuals.
+  - generic [ref=e89]:
+    - heading "Services & Amenities" [level=2] [ref=e90]
+    - generic [ref=e91]:
+      - paragraph [ref=e92]: At Vedaanta, we understand your needs, and our mission is to make your retirement years truly fulfilling. There's no better place than Guruvayoor to experience this unique chapter of your life.
+      - generic [ref=e93]:
+        - generic [ref=e94]:
+          - img [ref=e95]
+          - generic [ref=e96]:
+            - heading "Vegetarian Cafe" [level=3] [ref=e97]
+            - paragraph [ref=e98]: Relish culinary delights prepared by our skilled chefs.
+        - generic [ref=e99]:
+          - img [ref=e100]
+          - generic [ref=e101]:
+            - heading "In-House Paramedical Team" [level=3] [ref=e102]
+            - paragraph [ref=e103]: A nurse and physiotherapist available 24/7 for your medical needs.
+        - generic [ref=e104]:
+          - img [ref=e105]
+          - generic [ref=e106]:
+            - heading "In-House Ambulance" [level=3] [ref=e107]
+            - paragraph [ref=e108]: Equipped with a dedicated driver for emergencies.
+        - generic [ref=e109]:
+          - img [ref=e110]
+          - generic [ref=e111]:
+            - heading "Activity Room and Library" [level=3] [ref=e112]
+            - paragraph [ref=e113]: Spaces for relaxation and peaceful reading.
+        - generic [ref=e114]:
+          - img [ref=e115]
+          - generic [ref=e116]:
+            - heading "Indoor Games Room" [level=3] [ref=e117]
+            - paragraph [ref=e118]: Stay mentally and socially active with a variety of games.
+        - generic [ref=e119]:
+          - img [ref=e120]
+          - generic [ref=e121]:
+            - heading "Spacious Gym" [level=3] [ref=e122]
+            - paragraph [ref=e123]: Keep your mind and body fit and fine.
+        - generic [ref=e124]:
+          - img [ref=e125]
+          - generic [ref=e126]:
+            - heading "Dedicated Resident Manager" [level=3] [ref=e127]
+            - paragraph [ref=e128]: Ready to assist with all your requirements.
+        - generic [ref=e129]:
+          - img [ref=e130]
+          - generic [ref=e131]:
+            - heading "Housekeeping Services" [level=3] [ref=e132]
+            - paragraph [ref=e133]: Your home will always be spotless and welcoming.
+        - generic [ref=e134]:
+          - img [ref=e135]
+          - generic [ref=e136]:
+            - heading "Senior-Friendly Units" [level=3] [ref=e137]
+            - paragraph [ref=e138]: Spacious 1 and 2 BHK units with senior-friendly amenities.
+  - generic [ref=e139]:
+    - heading "Why Vedaanta should be the first choice for you?" [level=2] [ref=e141]
+    - generic [ref=e142]:
+      - generic [ref=e143]:
+        - iframe [ref=e144]:
+          - generic [active] [ref=f2e1]:
+            - generic "YouTube Video Player" [ref=f2e3]
+            - generic [ref=f2e5]:
+              - generic:
+                - generic:
+                  - button "Play video" [ref=f2e10] [cursor=pointer]
+                  - button "Hide player controls" [ref=f2e12] [cursor=pointer]
+                  - generic [ref=f2e14]:
+                    - generic [ref=f2e19]:
+                      - generic [ref=f2e20]:
+                        - link "Vedaanta Lotus Retirement Community at Guruvayoor - Walkthrough Video" [ref=f2e21] [cursor=pointer]:
+                          - /url: https://www.youtube.com/watch?v=SXBQWe6V3LI
+                        - link "Vedaanta Senior Living" [ref=f2e22] [cursor=pointer]:
+                          - /url: /channel/UCxW-DqZ5gsILEYnO-EzmM3Q
+                          - generic [ref=f2e23]: Vedaanta Senior Living
+                      - generic [ref=f2e24]:
+                        - button [ref=f2e25] [cursor=pointer]
+                        - generic [ref=f2e27]:
+                          - generic: Vedaanta Senior Living
+                          - generic: 9.91K subscribers
+                    - generic [ref=f2e28]:
+                      - button "Share" [ref=f2e31] [cursor=pointer]:
+                        - generic [ref=f2e35]:
+                          - img
+                      - link "Watch on YouTube" [ref=f2e42] [cursor=pointer]:
+                        - /url: https://www.youtube.com/watch?v=SXBQWe6V3LI
+                        - generic [ref=f2e45]:
+                          - text: Watch on
+                          - img [ref=f2e47]:
+                            - generic [ref=f2e49]:
+                              - img
+        - paragraph [ref=e145]:
+          - strong [ref=e146]: "Comprehensive Walkthrough of Vedaanta Lotus: Retirement Living at Its Finest in Guruvayur"
+      - generic [ref=e147]:
+        - iframe [ref=e148]:
+          - generic [active] [ref=f3e1]:
+            - generic "YouTube Video Player" [ref=f3e3]
+            - generic [ref=f3e5]:
+              - generic:
+                - generic:
+                  - button "Play video" [ref=f3e10] [cursor=pointer]
+                  - button "Hide player controls" [ref=f3e12] [cursor=pointer]
+                  - generic [ref=f3e14]:
+                    - generic [ref=f3e19]:
+                      - generic [ref=f3e20]:
+                        - link "Guruvayoor's First Retirement Community - Vedaanta Lotus - Model Apartment" [ref=f3e21] [cursor=pointer]:
+                          - /url: https://www.youtube.com/watch?v=lxpb4mzCL2U
+                        - link "Vedaanta Senior Living" [ref=f3e22] [cursor=pointer]:
+                          - /url: /channel/UCxW-DqZ5gsILEYnO-EzmM3Q
+                          - generic [ref=f3e23]: Vedaanta Senior Living
+                      - generic [ref=f3e24]:
+                        - button [ref=f3e25] [cursor=pointer]
+                        - generic [ref=f3e27]:
+                          - generic: Vedaanta Senior Living
+                          - generic: 9.91K subscribers
+                    - generic [ref=f3e28]:
+                      - button "Share" [ref=f3e31] [cursor=pointer]:
+                        - generic [ref=f3e35]:
+                          - img
+                      - link "Watch on YouTube" [ref=f3e42] [cursor=pointer]:
+                        - /url: https://www.youtube.com/watch?v=lxpb4mzCL2U
+                        - generic [ref=f3e45]:
+                          - text: Watch on
+                          - img [ref=f3e47]:
+                            - generic [ref=f3e49]:
+                              - img
+        - paragraph [ref=e149]:
+          - strong [ref=e150]: "Your Future Retirement Home: Visit the Model Flat at Vedaanta Lotus"
+  - generic [ref=e151]:
+    - heading "Testimonial" [level=2] [ref=e153]
+    - iframe [ref=e156]:
+      - generic [active] [ref=f4e1]:
+        - generic "YouTube Video Player" [ref=f4e3]
+        - generic [ref=f4e5]:
+          - generic:
+            - generic:
+              - button "Play video" [ref=f4e10] [cursor=pointer]
+              - button "Hide player controls" [ref=f4e12] [cursor=pointer]
+              - generic [ref=f4e14]:
+                - generic [ref=f4e19]:
+                  - generic [ref=f4e20]:
+                    - link "I bought a flat at Vedaanta Lotus in Guruavyur, here's why it was the best decision" [ref=f4e21] [cursor=pointer]:
+                      - /url: https://www.youtube.com/watch?v=oHpuxFoiHZ0
+                    - link "Vedaanta Senior Living" [ref=f4e22] [cursor=pointer]:
+                      - /url: /channel/UCxW-DqZ5gsILEYnO-EzmM3Q
+                      - generic [ref=f4e23]: Vedaanta Senior Living
+                  - generic [ref=f4e24]:
+                    - button [ref=f4e25] [cursor=pointer]
+                    - generic [ref=f4e27]:
+                      - generic: Vedaanta Senior Living
+                      - generic: 9.91K subscribers
+                - generic [ref=f4e28]:
+                  - button "Share" [ref=f4e31] [cursor=pointer]:
+                    - generic [ref=f4e35]:
+                      - img
+                  - link "Watch on YouTube" [ref=f4e42] [cursor=pointer]:
+                    - /url: https://www.youtube.com/watch?v=oHpuxFoiHZ0
+                    - generic [ref=f4e45]:
+                      - text: Watch on
+                      - img [ref=f4e47]:
+                        - generic [ref=f4e49]:
+                          - img
+  - generic [ref=e158]:
+    - heading "Gallery" [level=2] [ref=e159]
+    - generic [ref=e160]:
+      - button "Previous" [ref=e161] [cursor=pointer]: ←Previous
+      - listbox [ref=e163]:
+        - link [ref=e165] [cursor=pointer]:
+          - /url: images/others/gallery-10.jpg
+          - img [ref=e166]
+        - link [ref=e168] [cursor=pointer]:
+          - /url: images/others/gallery-11.jpg
+          - img [ref=e169]
+        - link [ref=e171] [cursor=pointer]:
+          - /url: images/others/gallery-12.jpg
+          - img [ref=e172]
+        - option [ref=e173]:
+          - link [ref=e174] [cursor=pointer]:
+            - /url: images/others/gallery-1.jpg
+            - img [ref=e175]
+        - option [ref=e176]:
+          - link [ref=e177] [cursor=pointer]:
+            - /url: images/others/gallery-2.jpg
+            - img [ref=e178]
+        - option [ref=e179]:
+          - link [ref=e180] [cursor=pointer]:
+            - /url: images/others/gallery-4.jpg
+            - img [ref=e181]
+        - option [ref=e182]:
+          - link [ref=e183] [cursor=pointer]:
+            - /url: images/others/gallery-6.jpg
+            - img [ref=e184]
+        - option [ref=e185]:
+          - link [ref=e186] [cursor=pointer]:
+            - /url: images/others/gallery-8.jpg
+            - img [ref=e187]
+        - option [ref=e188]:
+          - link [ref=e189] [cursor=pointer]:
+            - /url: images/others/gallery-10.jpg
+            - img [ref=e190]
+        - option [ref=e191]:
+          - link [ref=e192] [cursor=pointer]:
+            - /url: images/others/gallery-11.jpg
+            - img [ref=e193]
+        - option [ref=e194]:
+          - link [ref=e195] [cursor=pointer]:
+            - /url: images/others/gallery-12.jpg
+            - img [ref=e196]
+        - link [ref=e198] [cursor=pointer]:
+          - /url: images/others/gallery-1.jpg
+          - img [ref=e199]
+        - link [ref=e201] [cursor=pointer]:
+          - /url: images/others/gallery-2.jpg
+          - img [ref=e202]
+        - link [ref=e204] [cursor=pointer]:
+          - /url: images/others/gallery-4.jpg
+          - img [ref=e205]
+      - button "Next" [ref=e206] [cursor=pointer]: →Next
+  - generic [ref=e208]:
+    - heading "Vedaanta In Media" [level=2] [ref=e210]
+    - generic [ref=e212]:
+      - button "Previous" [ref=e213] [cursor=pointer]: ←Previous
+      - listbox [ref=e215]:
+        - generic [ref=e216]:
+          - link [ref=e217] [cursor=pointer]:
+            - /url: https://www.deccanherald.com/brandspot/sponsored/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-2921006
+            - img [ref=e218]
+          - generic [ref=e219]:
+            - link [ref=e220] [cursor=pointer]:
+              - /url: https://www.deccanherald.com/brandspot/sponsored/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-2921006
+              - paragraph [ref=e221]: "Media: Deccan Herald"
+              - heading [level=3] [ref=e222]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e223] [cursor=pointer]:
+              - /url: https://www.deccanherald.com/brandspot/sponsored/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-2921006
+              - text: Read More
+        - generic [ref=e224]:
+          - link [ref=e225] [cursor=pointer]:
+            - /url: https://news.abplive.com/brand-wire/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-1669059
+            - img [ref=e226]
+          - generic [ref=e227]:
+            - link [ref=e228] [cursor=pointer]:
+              - /url: https://news.abplive.com/brand-wire/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-1669059
+              - paragraph [ref=e229]: "Media: abp Live"
+              - heading [level=3] [ref=e230]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e231] [cursor=pointer]:
+              - /url: https://news.abplive.com/brand-wire/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-1669059
+              - text: Read More
+        - generic [ref=e232]:
+          - link [ref=e233] [cursor=pointer]:
+            - /url: "https://edtimes.in/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette "
+            - img [ref=e234]
+          - generic [ref=e235]:
+            - link [ref=e236] [cursor=pointer]:
+              - /url: "https://edtimes.in/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette "
+              - paragraph [ref=e237]: "Media: ED Times"
+              - heading [level=3] [ref=e238]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e239] [cursor=pointer]:
+              - /url: "https://edtimes.in/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette "
+              - text: Read More
+        - 'option "Media: ThePrint Vedaanta Senior Living Launches Premium Retirement Villa Community in North Bangalore Read More" [ref=e240]':
+          - link [ref=e241] [cursor=pointer]:
+            - /url: https://theprint.in/ani-press-releases/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore/1868577/
+            - img [ref=e242]
+          - generic [ref=e243]:
+            - 'link "Media: ThePrint Vedaanta Senior Living Launches Premium Retirement Villa Community in North Bangalore" [ref=e244] [cursor=pointer]':
+              - /url: https://theprint.in/ani-press-releases/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore/1868577/
+              - paragraph [ref=e245]: "Media: ThePrint"
+              - heading "Vedaanta Senior Living Launches Premium Retirement Villa Community in North Bangalore" [level=3] [ref=e246]
+            - link "Read More" [ref=e247] [cursor=pointer]:
+              - /url: https://theprint.in/ani-press-releases/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore/1868577/
+        - 'option "Media: Business Standard Senior living has huge growth prospects as elderly share to double by 2050 Read More" [ref=e248]':
+          - link [ref=e249] [cursor=pointer]:
+            - /url: https://www.business-standard.com/industry/news/senior-living-has-huge-growth-prospects-as-elderly-share-to-double-by-2050-123111500856_1.html
+            - img [ref=e250]
+          - generic [ref=e251]:
+            - 'link "Media: Business Standard Senior living has huge growth prospects as elderly share to double by 2050" [ref=e252] [cursor=pointer]':
+              - /url: https://www.business-standard.com/industry/news/senior-living-has-huge-growth-prospects-as-elderly-share-to-double-by-2050-123111500856_1.html
+              - paragraph [ref=e253]: "Media: Business Standard"
+              - heading "Senior living has huge growth prospects as elderly share to double by 2050" [level=3] [ref=e254]
+            - link "Read More" [ref=e255] [cursor=pointer]:
+              - /url: https://www.business-standard.com/industry/news/senior-living-has-huge-growth-prospects-as-elderly-share-to-double-by-2050-123111500856_1.html
+        - 'option "Media: ThePrint Vedaanta Senior Living Launches Premium Retirement Villa Community in North Bangalore Read More" [ref=e256]':
+          - link [ref=e257] [cursor=pointer]:
+            - /url: https://www.business-standard.com/content/press-releases-ani/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore-123120200502_1.html
+            - img [ref=e258]
+          - generic [ref=e259]:
+            - 'link "Media: ThePrint Vedaanta Senior Living Launches Premium Retirement Villa Community in North Bangalore" [ref=e260] [cursor=pointer]':
+              - /url: https://www.business-standard.com/content/press-releases-ani/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore-123120200502_1.html
+              - paragraph [ref=e261]: "Media: ThePrint"
+              - heading "Vedaanta Senior Living Launches Premium Retirement Villa Community in North Bangalore" [level=3] [ref=e262]
+            - link "Read More" [ref=e263] [cursor=pointer]:
+              - /url: https://www.business-standard.com/content/press-releases-ani/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore-123120200502_1.html
+        - option [ref=e264]:
+          - link [ref=e265] [cursor=pointer]:
+            - /url: https://www.moneycontrol.com/news/business/real-estate/southern-cities-account-for-nearly-68-share-of-senior-living-housing-market-in-india-report-11743351.html
+            - img [ref=e266]
+          - generic [ref=e267]:
+            - link [ref=e268] [cursor=pointer]:
+              - /url: https://www.moneycontrol.com/news/business/real-estate/southern-cities-account-for-nearly-68-share-of-senior-living-housing-market-in-india-report-11743351.html
+              - paragraph [ref=e269]: "Media: moneycontrol"
+              - heading [level=3] [ref=e270]: "Southern cities account for nearly 68% share of senior living housing market in India: Report"
+            - link [ref=e271] [cursor=pointer]:
+              - /url: https://www.moneycontrol.com/news/business/real-estate/southern-cities-account-for-nearly-68-share-of-senior-living-housing-market-in-india-report-11743351.html
+              - text: Read More
+        - option [ref=e272]:
+          - link [ref=e273] [cursor=pointer]:
+            - /url: https://www.jll.co.in/en/trends-and-insights/research/the-rise-of-senior-living-market-in-india
+            - img [ref=e274]
+          - generic [ref=e275]:
+            - link [ref=e276] [cursor=pointer]:
+              - /url: https://www.jll.co.in/en/trends-and-insights/research/the-rise-of-senior-living-market-in-india
+              - paragraph [ref=e277]: "Media: JLL"
+              - heading [level=3] [ref=e278]: The rise of senior living market in India
+            - link [ref=e279] [cursor=pointer]:
+              - /url: https://www.jll.co.in/en/trends-and-insights/research/the-rise-of-senior-living-market-in-india
+              - text: Read More
+        - option [ref=e280]:
+          - link [ref=e281] [cursor=pointer]:
+            - /url: https://www.outlookindia.com/outlook-spotlight/my-parents-chose-to-live-in-a-retirement-community-and-they-are-very-happy-news-337865
+            - img [ref=e282]
+          - generic [ref=e283]:
+            - link [ref=e284] [cursor=pointer]:
+              - /url: https://www.outlookindia.com/outlook-spotlight/my-parents-chose-to-live-in-a-retirement-community-and-they-are-very-happy-news-337865
+              - paragraph [ref=e285]: "Media: Outlook"
+              - heading [level=3] [ref=e286]: My Parents Chose To Live In A Retirement Community And They Are Very Happy
+            - link [ref=e287] [cursor=pointer]:
+              - /url: https://www.outlookindia.com/outlook-spotlight/my-parents-chose-to-live-in-a-retirement-community-and-they-are-very-happy-news-337865
+              - text: Read More
+        - option [ref=e288]:
+          - link [ref=e289] [cursor=pointer]:
+            - /url: https://www.outlookindia.com/outlook-spotlight/my-parents-chose-to-live-in-a-retirement-community-and-they-are-very-happy-news-337865
+            - img [ref=e290]
+          - generic [ref=e291]:
+            - link [ref=e292] [cursor=pointer]:
+              - /url: https://www.outlookindia.com/outlook-spotlight/my-parents-chose-to-live-in-a-retirement-community-and-they-are-very-happy-news-337865
+              - paragraph [ref=e293]: "Media: Outlook"
+              - heading [level=3] [ref=e294]: My Parents Chose To Live In A Retirement Community And They Are Very Happy
+            - link [ref=e295] [cursor=pointer]:
+              - /url: https://www.outlookindia.com/outlook-spotlight/my-parents-chose-to-live-in-a-retirement-community-and-they-are-very-happy-news-337865
+              - text: Read More
+        - option [ref=e296]:
+          - link [ref=e297] [cursor=pointer]:
+            - /url: https://theprint.in/ani-press-releases/new-chapter-starts-in-hosur-the-together-community-offers-independent-living-for-adults-with-autism-and-special-needs/1959653/
+            - img [ref=e298]
+          - generic [ref=e299]:
+            - link [ref=e300] [cursor=pointer]:
+              - /url: https://theprint.in/ani-press-releases/new-chapter-starts-in-hosur-the-together-community-offers-independent-living-for-adults-with-autism-and-special-needs/1959653/
+              - paragraph [ref=e301]: "Media: ThePrint"
+              - heading [level=3] [ref=e302]: "New Chapter Starts in Hosur: The Together Community offers independent living for adults with autism and special needs"
+            - link [ref=e303] [cursor=pointer]:
+              - /url: https://theprint.in/ani-press-releases/new-chapter-starts-in-hosur-the-together-community-offers-independent-living-for-adults-with-autism-and-special-needs/1959653/
+              - text: Read More
+        - option [ref=e304]:
+          - link [ref=e305] [cursor=pointer]:
+            - /url: https://www.aninews.in/news/business/business/new-chapter-starts-in-hosur-the-together-community-offers-independent-living-for-adults-with-autism-and-special-needs20240208183512/
+            - img [ref=e306]
+          - generic [ref=e307]:
+            - link [ref=e308] [cursor=pointer]:
+              - /url: https://www.aninews.in/news/business/business/new-chapter-starts-in-hosur-the-together-community-offers-independent-living-for-adults-with-autism-and-special-needs20240208183512/
+              - paragraph [ref=e309]: "Media: ANI"
+              - heading [level=3] [ref=e310]: "New Chapter Starts in Hosur: The Together Community offers independent living for adults with autism and special needs"
+            - link [ref=e311] [cursor=pointer]:
+              - /url: https://www.aninews.in/news/business/business/new-chapter-starts-in-hosur-the-together-community-offers-independent-living-for-adults-with-autism-and-special-needs20240208183512/
+              - text: Read More
+        - option [ref=e312]:
+          - link [ref=e313] [cursor=pointer]:
+            - /url: https://www.business-standard.com/content/press-releases-ani/new-chapter-starts-in-hosur-the-together-community-offers-independent-living-for-adults-with-autism-and-special-needs-124020801535_1.html
+            - img [ref=e314]
+          - generic [ref=e315]:
+            - link [ref=e316] [cursor=pointer]:
+              - /url: https://www.business-standard.com/content/press-releases-ani/new-chapter-starts-in-hosur-the-together-community-offers-independent-living-for-adults-with-autism-and-special-needs-124020801535_1.html
+              - paragraph [ref=e317]: "Media: Business Standard"
+              - heading [level=3] [ref=e318]: "New Chapter Starts in Hosur: The Together Community offers independent living for adults with autism and special needs"
+            - link [ref=e319] [cursor=pointer]:
+              - /url: https://www.business-standard.com/content/press-releases-ani/new-chapter-starts-in-hosur-the-together-community-offers-independent-living-for-adults-with-autism-and-special-needs-124020801535_1.html
+              - text: Read More
+        - option [ref=e320]:
+          - link [ref=e321] [cursor=pointer]:
+            - /url: https://www.mid-day.com/brand-media/article/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven--23337982
+            - img [ref=e322]
+          - generic [ref=e323]:
+            - link [ref=e324] [cursor=pointer]:
+              - /url: https://www.mid-day.com/brand-media/article/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven--23337982
+              - paragraph [ref=e325]: "Media: mid day"
+              - heading [level=3] [ref=e326]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e327] [cursor=pointer]:
+              - /url: https://www.mid-day.com/brand-media/article/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven--23337982
+              - text: Read More
+        - option [ref=e328]:
+          - link [ref=e329] [cursor=pointer]:
+            - /url: https://zeenews.india.com/real-estate/senior-living-continues-to-see-a-rise-with-new-projects-on-unveil-2731020.html
+            - img [ref=e330]
+          - generic [ref=e331]:
+            - link [ref=e332] [cursor=pointer]:
+              - /url: https://zeenews.india.com/real-estate/senior-living-continues-to-see-a-rise-with-new-projects-on-unveil-2731020.html
+              - paragraph [ref=e333]: "Media: ZeeNews"
+              - heading [level=3] [ref=e334]: Senior Living Continues To See A Rise With New Projects On Unveil
+            - link [ref=e335] [cursor=pointer]:
+              - /url: https://zeenews.india.com/real-estate/senior-living-continues-to-see-a-rise-with-new-projects-on-unveil-2731020.html
+              - text: Read More
+        - option [ref=e336]:
+          - link [ref=e337] [cursor=pointer]:
+            - /url: https://www.financialexpress.com/business/what-is-active-retro-living-know-how-it-will-help-the-seniors-to-have-a-better-retired-life-3417612/
+            - img [ref=e338]
+          - generic [ref=e339]:
+            - link [ref=e340] [cursor=pointer]:
+              - /url: https://www.financialexpress.com/business/what-is-active-retro-living-know-how-it-will-help-the-seniors-to-have-a-better-retired-life-3417612/
+              - paragraph [ref=e341]: "Media: Financial Express"
+              - heading [level=3] [ref=e342]: What is Active Retro Living? Know how it will help the seniors to have a better-retired life
+            - link [ref=e343] [cursor=pointer]:
+              - /url: https://www.financialexpress.com/business/what-is-active-retro-living-know-how-it-will-help-the-seniors-to-have-a-better-retired-life-3417612/
+              - text: Read More
+        - option [ref=e344]:
+          - link [ref=e345] [cursor=pointer]:
+            - /url: https://www.dailypioneer.com/2024/special/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham--a-haven-for-active-retro-living.html
+            - img [ref=e346]
+          - generic [ref=e347]:
+            - link [ref=e348] [cursor=pointer]:
+              - /url: https://www.dailypioneer.com/2024/special/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham--a-haven-for-active-retro-living.html
+              - paragraph [ref=e349]: "Media: the pioneer"
+              - heading [level=3] [ref=e350]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e351] [cursor=pointer]:
+              - /url: https://www.dailypioneer.com/2024/special/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham--a-haven-for-active-retro-living.html
+              - text: Read More
+        - option [ref=e352]:
+          - link [ref=e353] [cursor=pointer]:
+            - /url: https://www.apnnews.com/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette
+            - img [ref=e354]
+          - generic [ref=e355]:
+            - link [ref=e356] [cursor=pointer]:
+              - /url: https://www.apnnews.com/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette
+              - paragraph [ref=e357]: "Media: APN News"
+              - heading [level=3] [ref=e358]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e359] [cursor=pointer]:
+              - /url: https://www.apnnews.com/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette
+              - text: Read More
+        - option [ref=e360]:
+          - link [ref=e361] [cursor=pointer]:
+            - /url: https://www.apnnews.com/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette
+            - img [ref=e362]
+          - generic [ref=e363]:
+            - link [ref=e364] [cursor=pointer]:
+              - /url: https://www.apnnews.com/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette
+              - paragraph [ref=e365]: "Media: Hindustan Times"
+              - heading [level=3] [ref=e366]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e367] [cursor=pointer]:
+              - /url: https://www.apnnews.com/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette
+              - text: Read More
+        - option [ref=e368]:
+          - link [ref=e369] [cursor=pointer]:
+            - /url: https://www.deccanherald.com/brandspot/sponsored/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-2921006
+            - img [ref=e370]
+          - generic [ref=e371]:
+            - link [ref=e372] [cursor=pointer]:
+              - /url: https://www.deccanherald.com/brandspot/sponsored/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-2921006
+              - paragraph [ref=e373]: "Media: Deccan Herald"
+              - heading [level=3] [ref=e374]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e375] [cursor=pointer]:
+              - /url: https://www.deccanherald.com/brandspot/sponsored/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-2921006
+              - text: Read More
+        - option [ref=e376]:
+          - link [ref=e377] [cursor=pointer]:
+            - /url: https://news.abplive.com/brand-wire/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-1669059
+            - img [ref=e378]
+          - generic [ref=e379]:
+            - link [ref=e380] [cursor=pointer]:
+              - /url: https://news.abplive.com/brand-wire/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-1669059
+              - paragraph [ref=e381]: "Media: abp Live"
+              - heading [level=3] [ref=e382]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e383] [cursor=pointer]:
+              - /url: https://news.abplive.com/brand-wire/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living-1669059
+              - text: Read More
+        - option [ref=e384]:
+          - link [ref=e385] [cursor=pointer]:
+            - /url: "https://edtimes.in/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette "
+            - img [ref=e386]
+          - generic [ref=e387]:
+            - link [ref=e388] [cursor=pointer]:
+              - /url: "https://edtimes.in/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette "
+              - paragraph [ref=e389]: "Media: ED Times"
+              - heading [level=3] [ref=e390]: "MJ Infrastructure and Vedaanta Senior Living Unveil Vedaanta Anugraham: A Haven for Active Retro Living"
+            - link [ref=e391] [cursor=pointer]:
+              - /url: "https://edtimes.in/mj-infrastructure-and-vedaanta-senior-living-unveil-vedaanta-anugraham-a-haven-for-active-retro-living/#google_vignette "
+              - text: Read More
+        - generic [ref=e392]:
+          - link [ref=e393] [cursor=pointer]:
+            - /url: https://theprint.in/ani-press-releases/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore/1868577/
+            - img [ref=e394]
+          - generic [ref=e395]:
+            - link [ref=e396] [cursor=pointer]:
+              - /url: https://theprint.in/ani-press-releases/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore/1868577/
+              - paragraph [ref=e397]: "Media: ThePrint"
+              - heading [level=3] [ref=e398]: Vedaanta Senior Living Launches Premium Retirement Villa Community in North Bangalore
+            - link [ref=e399] [cursor=pointer]:
+              - /url: https://theprint.in/ani-press-releases/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore/1868577/
+              - text: Read More
+        - generic [ref=e400]:
+          - link [ref=e401] [cursor=pointer]:
+            - /url: https://www.business-standard.com/industry/news/senior-living-has-huge-growth-prospects-as-elderly-share-to-double-by-2050-123111500856_1.html
+            - img [ref=e402]
+          - generic [ref=e403]:
+            - link [ref=e404] [cursor=pointer]:
+              - /url: https://www.business-standard.com/industry/news/senior-living-has-huge-growth-prospects-as-elderly-share-to-double-by-2050-123111500856_1.html
+              - paragraph [ref=e405]: "Media: Business Standard"
+              - heading [level=3] [ref=e406]: Senior living has huge growth prospects as elderly share to double by 2050
+            - link [ref=e407] [cursor=pointer]:
+              - /url: https://www.business-standard.com/industry/news/senior-living-has-huge-growth-prospects-as-elderly-share-to-double-by-2050-123111500856_1.html
+              - text: Read More
+        - generic [ref=e408]:
+          - link [ref=e409] [cursor=pointer]:
+            - /url: https://www.business-standard.com/content/press-releases-ani/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore-123120200502_1.html
+            - img [ref=e410]
+          - generic [ref=e411]:
+            - link [ref=e412] [cursor=pointer]:
+              - /url: https://www.business-standard.com/content/press-releases-ani/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore-123120200502_1.html
+              - paragraph [ref=e413]: "Media: ThePrint"
+              - heading [level=3] [ref=e414]: Vedaanta Senior Living Launches Premium Retirement Villa Community in North Bangalore
+            - link [ref=e415] [cursor=pointer]:
+              - /url: https://www.business-standard.com/content/press-releases-ani/vedaanta-senior-living-launches-premium-retirement-villa-community-in-north-bangalore-123120200502_1.html
+              - text: Read More
+      - button "Next" [ref=e416] [cursor=pointer]: →Next
+  - generic [ref=e418]:
+    - heading "Frequently Asked Questions about Vedaanta Lotus Retirement Community" [level=2] [ref=e419]
+    - generic [ref=e420]:
+      - paragraph [ref=e421]:
+        - strong [ref=e422]: 1. Where is Vedaanta Lotus located?
+      - paragraph [ref=e423]: Vedaanta Lotus is located on Chavakkad Road, Guruvayoor - 680 101, just 450 meters from the South Nada of Guruvayoor Temple.
+    - generic [ref=e424]:
+      - paragraph [ref=e425]:
+        - strong [ref=e426]: 2. How far is Vedaanta Lotus from major transportation hubs?
+      - paragraph [ref=e427]: Vedaanta Lotus is 600 meters from the bus stand, 1.5 kilometers from the railway station, and 80 kilometers from Cochin International Airport.
+    - generic [ref=e428]:
+      - paragraph [ref=e429]:
+        - strong [ref=e430]: 3. What amenities are offered at Vedaanta Lotus?
+      - paragraph [ref=e431]: Vedaanta Lotus offers a range of amenities including 24/7 healthcare, a yoga and meditation center, a gym and fitness area, a vegetarian café, concierge services, housekeeping, and round-the-clock security.
+    - generic [ref=e432]:
+      - paragraph [ref=e433]:
+        - strong [ref=e434]: 4. What types of homes are available at Vedaanta Lotus?
+      - paragraph [ref=e435]: Vedaanta Lotus offers studio apartments, one & two BHK houses designed to meet the lifestyle needs of seniors.
+    - generic [ref=e436]:
+      - paragraph [ref=e437]:
+        - strong [ref=e438]: 5. Are there dining options available within the community?
+      - paragraph [ref=e439]: Yes, there is a vegetarian café within the community offering a variety of nutritious delicacies prepared by our chefs.
+    - generic [ref=e440]:
+      - paragraph [ref=e441]:
+        - strong [ref=e442]: 6. Is there a healthcare facility available on-site?
+      - paragraph [ref=e443]: Yes, Vedaanta Lotus has an in-house medical center with a 24/7 paramedical team, including a nurse and physiotherapist, along with an ambulance service for emergencies.
+    - generic [ref=e444]:
+      - paragraph [ref=e445]:
+        - strong [ref=e446]: 7. What are the nearby healthcare facilities?
+      - paragraph [ref=e447]: Nearby healthcare facilities include an Ayurvedic Hospital (50 meters), Devaswom Hospital (700 meters), and Rajah Hospital (1.5 kilometers).
+    - generic [ref=e448]:
+      - paragraph [ref=e449]:
+        - strong [ref=e450]: 8. What activities and social programs are available for residents?
+      - paragraph [ref=e451]: Our community offers a range of activities including yoga, arts and crafts, music sessions, cultural events, and outings to local attractions.
+    - generic [ref=e452]:
+      - paragraph [ref=e453]:
+        - strong [ref=e454]: 9. What security measures ensure residents' safety?
+      - paragraph [ref=e455]: Our community has 24/7 security, CCTV surveillance, secure entry points, and emergency response systems in place.
+    - generic [ref=e456]:
+      - paragraph [ref=e457]:
+        - strong [ref=e458]: 10. What is the status of the project? Is it ready to move in?
+      - paragraph [ref=e459]: Vedaanta Lotus is currently under construction and is expected to be ready for move-in by March 2025.
+    - generic [ref=e460]:
+      - paragraph [ref=e461]:
+        - strong [ref=e462]: 11. How can I contact Vedaanta Lotus for more information?
+      - paragraph [ref=e463]: You can contact Vedaanta Lotus at +91 84477 98333 or email info@vedaanta.com for more information.
+  - generic [ref=e464]:
+    - heading "Contact Us" [level=2] [ref=e465]
+    - generic [ref=e467]:
+      - generic [ref=e468]:
+        - generic [ref=e469]:
+          - img [ref=e470]
+          - paragraph [ref=e471]: Vedaanta Lotus
+        - paragraph [ref=e472]:
+          - text: Pancharamukku Road,
+          - text: Edappully, Guruvayur,
+          - text: Kerala 680101.
+      - generic [ref=e473]:
+        - img [ref=e474]
+        - paragraph [ref=e475]: Phone
+        - paragraph [ref=e476]:
+          - link "+91 84477 98333" [ref=e477] [cursor=pointer]:
+            - /url: tel:+91 84477 98333
+      - generic [ref=e478]:
+        - img [ref=e479]
+        - paragraph [ref=e480]: Email
+        - paragraph [ref=e481]:
+          - link "info@vedaanta.com" [ref=e482] [cursor=pointer]:
+            - /url: info@vedaanta.com
+      - iframe [ref=e484]
+  - paragraph [ref=e487]:
+    - text: © 2024 Vedaanta, All Rights Reserved. Powered By
+    - link "Fynwurk" [ref=e488] [cursor=pointer]:
+      - /url: https://fynwurk.com
+  - link "Enquire Now" [ref=e490] [cursor=pointer]:
+    - /url: "#BiginWebToRecordForm278773000007413229"
+  - link:
+    - /url: tel:+91 84477 98333

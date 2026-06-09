@@ -1,0 +1,14 @@
+{
+  "model_role": "judge",
+  "realism_score_0_to_10": 3,
+  "primary_issues": ["Cracks appear as semi-transparent overlay without depth or material interaction", "Damage placement ignores lid curvature and surface reflections", "Vertical dent lacks proper alignment with appliance seams", "Complete absence of realistic shadows, displaced material, or edge details", "Damage crosses surfaces unnaturally without proper perspective"],
+  "mitigation": ["Reduce crack opacity significantly to match real material fractures", "Apply tighter lid mask to constrain damage to appropriate surfaces", "Add subtle impact shadow around lid perimeter for depth", "Introduce micro-chips and edge damage at fracture points", "Adjust damage to follow surface curvature and reflection patterns"],
+  "recommended_final_edit_parameters": {
+    "lid_mask_scale": "0.85-0.95",
+    "crack_opacity": "0.15-0.25",
+    "impact_shadow_strength": "0.35-0.45",
+    "scratch_count": 8,
+    "chip_opacity": "45-75"
+  },
+  "final_verdict": "needs_more_work"
+}

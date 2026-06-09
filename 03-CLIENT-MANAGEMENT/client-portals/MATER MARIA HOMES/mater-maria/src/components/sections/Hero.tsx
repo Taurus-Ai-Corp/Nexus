@@ -158,7 +158,7 @@ export function Hero() {
             marginTop: "10px",
           }}
         >
-          Living Refined
+          A Board-Supervised Estate for Your Parents — in Kerala
         </motion.p>
       </div>
 
@@ -204,16 +204,18 @@ export function Hero() {
             </div>
 
             {/* CTA — pill style matching reference */}
-            <button
-              className="flex items-center gap-2.5 self-start rounded-full px-7 py-3 text-sm font-semibold text-[#0A0A18] transition-all hover:scale-105"
-              style={{
-                background: "linear-gradient(135deg, #C9A84C, #e8d08a)",
-                boxShadow: "0 4px 20px rgba(201,168,76,0.4)",
-              }}
-            >
-              Schedule a Visit
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </button>
+            <Link href="/contact">
+              <button
+                className="flex items-center gap-2.5 self-start rounded-full px-7 py-3 text-sm font-semibold text-[#0A0A18] transition-all hover:scale-105"
+                style={{
+                  background: "linear-gradient(135deg, #C9A84C, #e8d08a)",
+                  boxShadow: "0 4px 20px rgba(201,168,76,0.4)",
+                }}
+              >
+                Enquire Now
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </button>
+            </Link>
           </motion.div>
 
           {/* CENTER: description + location (hidden on mobile) */}
@@ -230,7 +232,7 @@ export function Hero() {
                 lineHeight: 1.75,
               }}
             >
-              Kerala&apos;s first AI-powered net-zero wellness estate — where compassionate care meets spiritual nourishment in the heart of the Western Ghats.
+              24/7 medical care. Catholic spiritual community. NRI investment from ₹10 lakh.
             </p>
             <p
               style={{

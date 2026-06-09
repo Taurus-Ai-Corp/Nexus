@@ -1,0 +1,141 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-08-25T06:02:45.095164",
+    "total_agents": 3,
+    "total_mcps": 0
+  },
+  "agents": [
+    {
+      "name": "vertex_ai_creative",
+      "version": "1.0.0",
+      "description": "AI-powered creative content generation using Google Vertex AI Creative Studio. Generates high-quality images, text content, and optimized prompts for marketing campaigns.",
+      "capabilities": [
+        "image_generation",
+        "text_content_creation",
+        "prompt_optimization",
+        "brand_aligned_creative",
+        "marketing_asset_generation",
+        "visual_content_creation",
+        "ai_powered_design",
+        "campaign_creative_development",
+        "multimodal_content_generation"
+      ],
+      "dependencies": [
+        "google-cloud-aiplatform>=1.40.0",
+        "vertexai>=1.38.0",
+        "google-cloud-storage>=2.10.0"
+      ],
+      "api_requirements": [
+        "GOOGLE_CLOUD_PROJECT",
+        "Vertex AI API enabled",
+        "Google Cloud Storage access",
+        "Imagen API access",
+        "Gemini API access"
+      ],
+      "business_domains": [
+        "marketing",
+        "creative",
+        "advertising",
+        "branding",
+        "universal"
+      ],
+      "github_repo": "https://github.com/googlecloudplatform/vertex-ai-creative-studio",
+      "author": "Google Cloud Platform / Taurus AI Corp Integration",
+      "status": "active",
+      "last_updated": "2025-08-25 03:01:27.248984",
+      "usage_count": 0
+    },
+    {
+      "name": "cognee_memory",
+      "version": "1.0.0",
+      "description": "AI-powered cognitive memory and intelligence using Cognee framework. Provides knowledge graphs, semantic search, contextual memory, and business intelligence extraction for advanced AI workflows.",
+      "capabilities": [
+        "intelligent_memory_management",
+        "knowledge_graph_generation",
+        "semantic_search",
+        "contextual_information_retrieval",
+        "business_intelligence_extraction",
+        "cognitive_data_processing",
+        "multi_modal_memory",
+        "dynamic_knowledge_connections",
+        "insight_generation",
+        "strategic_analysis",
+        "memory_contextualization",
+        "cognitive_automation"
+      ],
+      "dependencies": [
+        "cognee>=0.1.0",
+        "pydantic>=2.0.0",
+        "asyncio"
+      ],
+      "api_requirements": [
+        "LLM provider API key (OpenAI/Anthropic/other)",
+        "Optional: Vector database access",
+        "Optional: Graph database access",
+        "Python 3.10+"
+      ],
+      "business_domains": [
+        "intelligence",
+        "memory",
+        "knowledge",
+        "analytics",
+        "marketing",
+        "universal"
+      ],
+      "github_repo": "https://github.com/topoteretes/cognee",
+      "author": "topoteretes / Taurus AI Corp Integration",
+      "status": "active",
+      "last_updated": "2025-08-25 03:14:01.049195",
+      "usage_count": 0
+    },
+    {
+      "name": "onlook_visual",
+      "version": "1.0.0",
+      "description": "AI-powered visual development agent using Onlook's visual-first approach. Creates high-converting landing pages, UI components, and marketing interfaces with Next.js and TailwindCSS.",
+      "capabilities": [
+        "landing_page_creation",
+        "ui_component_development",
+        "marketing_asset_design",
+        "interactive_prototyping",
+        "ai_powered_design_generation",
+        "visual_development",
+        "conversion_optimization",
+        "responsive_design",
+        "nextjs_development",
+        "tailwindcss_styling",
+        "react_components",
+        "typescript_support",
+        "seo_optimization",
+        "accessibility_compliance",
+        "performance_optimization"
+      ],
+      "dependencies": [
+        "nodejs>=18.0.0",
+        "npm>=8.0.0",
+        "next>=14.0.0",
+        "react>=18.0.0",
+        "tailwindcss>=3.0.0"
+      ],
+      "api_requirements": [
+        "Node.js runtime environment",
+        "npm package manager",
+        "Optional: AI provider API key for enhanced generation"
+      ],
+      "business_domains": [
+        "visual_design",
+        "ui_ux",
+        "marketing",
+        "web_development",
+        "landing_pages",
+        "universal"
+      ],
+      "github_repo": "https://github.com/onlook-dev/onlook",
+      "author": "onlook-dev / Taurus AI Corp Integration",
+      "status": "active",
+      "last_updated": "2025-08-25 06:02:45.095122",
+      "usage_count": 0
+    }
+  ],
+  "mcps": []
+}

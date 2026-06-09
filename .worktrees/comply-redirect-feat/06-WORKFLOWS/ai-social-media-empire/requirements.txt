@@ -1,0 +1,62 @@
+# AI Social Media Automation System Requirements
+# Core AI Services
+anthropic>=0.18.1
+openai>=1.12.0
+perplexityai>=0.1.0
+
+# Web Framework & API
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+
+# Database & ORM
+sqlalchemy>=2.0.23
+psycopg2-binary>=2.9.9
+alembic>=1.13.1
+
+# HTTP & API
+requests>=2.31.0
+httpx>=0.25.2
+aiohttp>=3.9.1
+
+# Data Processing
+pandas>=2.1.4
+numpy>=1.25.2
+beautifulsoup4>=4.12.2
+selenium>=4.15.2
+
+# Social Media APIs
+linkedin-api>=2.0.0
+tweepy>=4.14.0
+instagram-private-api>=1.6.0
+
+# Image Processing
+Pillow>=10.1.0
+opencv-python>=4.8.1.78
+
+# Utilities
+python-dotenv>=1.0.0
+python-dateutil>=2.8.2
+schedule>=1.2.0
+croniter>=2.0.1
+
+# Testing
+pytest>=7.4.3
+pytest-asyncio>=0.21.1
+pytest-mock>=3.12.0
+
+# Development
+black>=23.11.0
+flake8>=6.1.0
+mypy>=1.7.1
+
+# Security
+cryptography>=41.0.8
+bcrypt>=4.1.2
+
+# Monitoring & Logging
+loguru>=0.7.2
+prometheus-client>=0.19.0
+
+# MCP Integration
+mcp>=0.1.0

@@ -1,0 +1,328 @@
+{
+  "analytics": {
+    "google_analytics": {
+      "taurusai": "G-TAURUS-MAIN",
+      "bizflow": "G-BIZFLOW-001",
+      "neovibe": "G-NEOVIBE-001"
+    },
+    "hotjar": {
+      "taurusai": "HOTJAR-TAURUS",
+      "bizflow": "HOTJAR-BIZFLOW",
+      "neovibe": "HOTJAR-NEOVIBE"
+    },
+    "pixel_tracking": {
+      "facebook": "FB-PIXEL-TAURUS",
+      "linkedin": "LI-PIXEL-TAURUS",
+      "google_ads": "AW-CONVERSION-ID"
+    }
+  },
+  "cross_platform_navigation": {
+    "primary_domain": "taurusai.io",
+    "subdomains": {
+      "bizflow": "bizflow.taurusai.io",
+      "neovibe": "neovibe.taurusai.io"
+    },
+    "navigation_links": {
+      "header": [
+        {
+          "name": "Corporate Hub",
+          "url": "https://taurusai.io",
+          "description": "TAURUS AI leadership and authority"
+        },
+        {
+          "name": "BizFlow Platform",
+          "url": "https://bizflow.taurusai.io",
+          "description": "11 AI Agents • $17.8M ARR"
+        },
+        {
+          "name": "NeoVibe Studio",
+          "url": "https://neovibe.taurusai.io",
+          "description": "AI Creativity • $20.7M ARR"
+        }
+      ],
+      "footer": [
+        {
+          "section": "TAURUS AI Ecosystem",
+          "links": [
+            {
+              "name": "Corporate",
+              "url": "https://taurusai.io"
+            },
+            {
+              "name": "BizFlow",
+              "url": "https://bizflow.taurusai.io"
+            },
+            {
+              "name": "NeoVibe",
+              "url": "https://neovibe.taurusai.io"
+            }
+          ]
+        },
+        {
+          "section": "Global Presence",
+          "links": [
+            {
+              "name": "UAE Operations",
+              "url": "https://taurusai.io/uae"
+            },
+            {
+              "name": "India Development",
+              "url": "https://taurusai.io/india"
+            },
+            {
+              "name": "Canada Headquarters",
+              "url": "https://taurusai.io/canada"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "seo_optimization": {
+    "meta_tags": {
+      "taurusai": {
+        "title": "TAURUS AI Corp - Global AI Leadership | UAE, India, Canada",
+        "description": "Leading artificial intelligence solutions across three continents. Transform your business with our AI ecosystem: BizFlow ($17.8M ARR) and NeoVibe ($20.7M ARR).",
+        "keywords": "AI solutions, artificial intelligence, business automation, UAE AI, India AI, Canada AI, TAURUS AI",
+        "og_image": "https://taurusai.io/assets/taurus-ai-social.jpg"
+      },
+      "bizflow": {
+        "title": "BizFlow - 11 AI Agents for Business Orchestration | $17.8M ARR Potential",
+        "description": "Transform business operations with 11 specialized AI agents. Automated workflows, predictive analytics, and intelligent decision-making. 87% reduction in manual tasks.",
+        "keywords": "AI agents, business automation, workflow optimization, predictive analytics, enterprise AI",
+        "og_image": "https://bizflow.taurusai.io/assets/bizflow-social.jpg"
+      },
+      "neovibe": {
+        "title": "NeoVibe - AI-Powered Creative Studio | $20.7M ARR Potential",
+        "description": "Revolutionary creative marketing studio powered by AI. Transform brand experiences with intelligent design automation and future-forward creativity.",
+        "keywords": "AI creativity, creative automation, brand intelligence, marketing AI, design automation",
+        "og_image": "https://neovibe.taurusai.io/assets/neovibe-social.jpg"
+      }
+    },
+    "structured_data": {
+      "organization": {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "TAURUS AI Corp",
+        "url": "https://taurusai.io",
+        "logo": "https://taurusai.io/assets/logo.png",
+        "description": "Global leader in artificial intelligence solutions",
+        "foundingDate": "2024",
+        "founders": [
+          {
+            "@type": "Person",
+            "name": "TAURUS AI Founding Team"
+          }
+        ],
+        "address": [
+          {
+            "@type": "PostalAddress",
+            "addressCountry": "AE",
+            "addressRegion": "Dubai"
+          },
+          {
+            "@type": "PostalAddress",
+            "addressCountry": "IN",
+            "addressRegion": "Bangalore"
+          },
+          {
+            "@type": "PostalAddress",
+            "addressCountry": "CA",
+            "addressRegion": "Toronto"
+          }
+        ],
+        "sameAs": [
+          "https://linkedin.com/company/taurus-ai",
+          "https://twitter.com/taurus_ai",
+          "https://github.com/taurus-ai"
+        ]
+      }
+    }
+  },
+  "conversion_tracking": {
+    "goals": {
+      "taurusai": [
+        {
+          "name": "Platform_Visit",
+          "description": "User visits BizFlow or NeoVibe from corporate site"
+        },
+        {
+          "name": "Contact_Form",
+          "description": "Enterprise inquiry submission"
+        },
+        {
+          "name": "Demo_Request",
+          "description": "Platform demonstration request"
+        }
+      ],
+      "bizflow": [
+        {
+          "name": "Trial_Signup",
+          "description": "14-day free trial registration"
+        },
+        {
+          "name": "Pricing_View",
+          "description": "Pricing page engagement"
+        },
+        {
+          "name": "Demo_Schedule",
+          "description": "Live demo scheduling"
+        },
+        {
+          "name": "Subscription",
+          "description": "Paid plan activation"
+        }
+      ],
+      "neovibe": [
+        {
+          "name": "Portfolio_View",
+          "description": "Creative portfolio engagement"
+        },
+        {
+          "name": "Service_Inquiry",
+          "description": "Creative service consultation"
+        },
+        {
+          "name": "Project_Request",
+          "description": "Creative project submission"
+        },
+        {
+          "name": "Studio_Subscription",
+          "description": "Creative platform subscription"
+        }
+      ]
+    },
+    "attribution": {
+      "utm_parameters": {
+        "source_tracking": [
+          "google",
+          "linkedin",
+          "facebook",
+          "direct",
+          "referral"
+        ],
+        "medium_tracking": [
+          "cpc",
+          "social",
+          "email",
+          "organic",
+          "referral"
+        ],
+        "campaign_tracking": [
+          "brand_awareness",
+          "product_demo",
+          "free_trial",
+          "enterprise_sales"
+        ]
+      }
+    }
+  },
+  "lead_generation": {
+    "forms": {
+      "taurusai": {
+        "corporate_inquiry": {
+          "fields": [
+            "company",
+            "name",
+            "email",
+            "phone",
+            "industry",
+            "use_case",
+            "timeline"
+          ],
+          "integrations": [
+            "salesforce",
+            "hubspot",
+            "slack"
+          ]
+        }
+      },
+      "bizflow": {
+        "trial_signup": {
+          "fields": [
+            "name",
+            "email",
+            "company",
+            "role",
+            "team_size",
+            "current_tools"
+          ],
+          "integrations": [
+            "stripe",
+            "intercom",
+            "mixpanel"
+          ]
+        },
+        "demo_request": {
+          "fields": [
+            "name",
+            "email",
+            "company",
+            "phone",
+            "use_case",
+            "preferred_time"
+          ],
+          "integrations": [
+            "calendly",
+            "salesforce",
+            "slack"
+          ]
+        }
+      },
+      "neovibe": {
+        "project_inquiry": {
+          "fields": [
+            "name",
+            "email",
+            "company",
+            "project_type",
+            "budget",
+            "timeline",
+            "brief"
+          ],
+          "integrations": [
+            "notion",
+            "slack",
+            "stripe"
+          ]
+        }
+      }
+    }
+  },
+  "performance_monitoring": {
+    "uptime_monitoring": {
+      "urls": [
+        "https://taurusai.io",
+        "https://taurusai.io/health",
+        "https://bizflow.taurusai.io",
+        "https://bizflow.taurusai.io/health",
+        "https://neovibe.taurusai.io",
+        "https://neovibe.taurusai.io/health"
+      ],
+      "check_interval": "1 minute",
+      "alert_thresholds": {
+        "response_time": "5 seconds",
+        "uptime": "99.9%"
+      }
+    },
+    "performance_metrics": {
+      "core_web_vitals": {
+        "lcp_target": "2.5s",
+        "fid_target": "100ms",
+        "cls_target": "0.1"
+      },
+      "business_metrics": {
+        "conversion_rates": {
+          "taurusai_to_platforms": "25%",
+          "bizflow_trial_to_paid": "40%",
+          "neovibe_inquiry_to_project": "60%"
+        },
+        "arr_targets": {
+          "bizflow": "$17.8M",
+          "neovibe": "$20.7M",
+          "total_ecosystem": "$38.5M"
+        }
+      }
+    }
+  }
+}

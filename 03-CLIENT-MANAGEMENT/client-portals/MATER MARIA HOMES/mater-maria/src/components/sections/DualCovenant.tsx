@@ -66,10 +66,10 @@ export function DualCovenant() {
 
             <div className="flex flex-col gap-6 text-text-secondary text-lg leading-relaxed max-w-2xl">
               <p>
-                At Mater Maria, professional rigor and spiritual mission are inseparable. We operate under a unique "Dual-Covenant" ensuring that every decision is both technically flawless and morally grounded.
+                At Mater Maria, professional rigor and spiritual mission are inseparable. We operate under a unique &quot;Dual-Covenant&quot; ensuring that every decision is both technically flawless and morally grounded.
               </p>
               <p>
-                Guided by our Spiritual Patron, <strong>His Excellency Bishop Mar Jose Pulickal</strong>, and an executive board with decades of global corporate pedigree, we replace traditional "assisted living" with a High-Performance Wellness Ecosystem.
+                Guided by our Spiritual Patron, <strong>His Excellency Bishop Mar Jose Pulickal</strong>, and an executive board with decades of global corporate pedigree, we replace traditional &quot;assisted living&quot; with a High-Performance Wellness Ecosystem.
               </p>
             </div>
 

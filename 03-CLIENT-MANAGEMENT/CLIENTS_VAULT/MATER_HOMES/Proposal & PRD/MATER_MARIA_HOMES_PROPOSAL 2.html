@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mater Maria Homes - Platform Development Proposal | TAURUS AI Corp</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+    :root {
+      --gold-500: #C7A036;
+      --gold-400: #E1A901;
+      --gold-300: #F0C850;
+      --navy-500: #0D1D2F;
+      --navy-400: #1A3050;
+      --navy-300: #2A4570;
+      --royal-500: #4A5AB4;
+      --kerala-500: #4A7C59;
+      --cream: #F5F0EB;
+      --ivory: #FFFDF7;
+      --charcoal: #1A1A1A;
+      --text-secondary: #545454;
+      --border: #E5DDD4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--charcoal);
+      line-height: 1.7;
+      background: var(--ivory);
+      font-size: 14px;
+    }
+
+    .cover-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy-500) 0%, var(--navy-400) 40%, var(--navy-300) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 60px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-page::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 30% 20%, rgba(199,160,54,0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 80%, rgba(199,160,54,0.1) 0%, transparent 50%);
+    }
+
+    .cover-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: var(--gold-500);
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 20px rgba(199,160,54,0.3);
+    }
+
+    .cover-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--gold-300);
+      margin-top: 8px;
+      letter-spacing: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+      margin: 40px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: white;
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+      line-height: 1.3;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-500);
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 18px;
+      margin-top: 40px;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 1px;
+    }
+
+    .cover-meta {
+      margin-top: 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-meta p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      margin: 6px 0;
+    }
+
+    .cover-meta strong { color: var(--gold-400); }
+
+    .cover-scripture {
+      position: absolute;
+      bottom: 40px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      z-index: 1;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 50px;
+      background: white;
+    }
+
+    .page + .page { border-top: 3px solid var(--gold-500); }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--navy-500);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--navy-500);
+      margin-top: 45px;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold-500);
+    }
+
+    h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      color: var(--navy-400);
+      margin-top: 30px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    p { margin-bottom: 12px; color: var(--text-secondary); }
+
+    .lead { font-size: 16px; color: var(--charcoal); line-height: 1.8; }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--cream), var(--ivory));
+      border-left: 4px solid var(--gold-500);
+      padding: 20px 25px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .highlight-box.navy {
+      background: var(--navy-500);
+      color: white;
+      border-left-color: var(--gold-400);
+    }
+
+    .highlight-box.navy p { color: rgba(255,255,255,0.85); }
+    .highlight-box.navy strong { color: var(--gold-400); }
+
+    .highlight-box.green {
+      border-left-color: var(--kerala-500);
+      background: linear-gradient(135deg, #f0f7f2, var(--ivory));
+    }
+
+    .highlight-box.gold-bg {
+      background: linear-gradient(135deg, #FEF9E7, #FFF8E1);
+      border-left-color: var(--gold-400);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0 25px;
+      font-size: 13px;
+    }
+
+    thead th {
+      background: var(--navy-500);
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tbody td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) { background: var(--cream); }
+    tbody tr:hover { background: #f0ebe4; }
+
+    tbody tr.total-row {
+      font-weight: 700;
+      background: linear-gradient(135deg, #FEF9E7, #FFF8E1);
+      border-top: 2px solid var(--gold-500);
+    }
+
+    tbody tr.total-row td { color: var(--navy-500); }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-gold { background: var(--gold-500); color: var(--navy-500); }
+    .badge-navy { background: var(--navy-500); color: white; }
+    .badge-green { background: var(--kerala-500); color: white; }
+    .badge-royal { background: var(--royal-500); color: white; }
+
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    .tier-card {
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 25px 20px;
+      text-align: center;
+      position: relative;
+      background: white;
+    }
+
+    .tier-card.recommended {
+      border-color: var(--gold-500);
+      box-shadow: 0 4px 20px rgba(199,160,54,0.2);
+    }
+
+    .tier-card.recommended::before {
+      content: 'RECOMMENDED';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold-500);
+      color: var(--navy-500);
+      padding: 4px 16px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .tier-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--navy-500);
+      font-weight: 700;
+    }
+
+    .tier-price {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold-500);
+      margin: 10px 0 5px;
+    }
+
+    .tier-price small {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .tier-features {
+      text-align: left;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+
+    .tier-features li {
+      padding: 4px 0;
+      color: var(--text-secondary);
+      list-style: none;
+    }
+
+    .tier-features li::before {
+      content: '\2713';
+      color: var(--kerala-500);
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .value-item {
+      background: var(--cream);
+      padding: 18px;
+      border-radius: 8px;
+      border-top: 3px solid var(--gold-500);
+    }
+
+    .value-item .value-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .value-item .value-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy-500);
+      margin: 4px 0;
+    }
+
+    .value-item .value-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+      margin: 20px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--gold-500), var(--kerala-500), var(--royal-500));
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      padding: 15px 20px;
+      background: var(--cream);
+      border-radius: 8px;
+      border-left: 3px solid var(--gold-500);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: 20px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--gold-500);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--gold-500);
+    }
+
+    .timeline-item.week2 { border-left-color: var(--kerala-500); }
+    .timeline-item.week2::before { background: var(--kerala-500); box-shadow: 0 0 0 2px var(--kerala-500); }
+    .timeline-item.week3 { border-left-color: var(--royal-500); }
+    .timeline-item.week3::before { background: var(--royal-500); box-shadow: 0 0 0 2px var(--royal-500); }
+
+    .timeline-label { font-weight: 700; font-size: 13px; color: var(--navy-500); text-transform: uppercase; letter-spacing: 1px; }
+    .timeline-title { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--navy-500); margin: 4px 0; }
+    .timeline-desc { font-size: 13px; color: var(--text-secondary); margin: 0; }
+
+    ul, ol { margin: 10px 0 15px 20px; }
+    li { margin-bottom: 5px; color: var(--text-secondary); }
+
+    .page-footer {
+      text-align: center;
+      padding: 40px;
+      background: var(--navy-500);
+      color: white;
+    }
+
+    .page-footer p { color: rgba(255,255,255,0.6); font-size: 13px; }
+    .page-footer .company { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--gold-500); font-weight: 700; margin-bottom: 5px; }
+
+    .toc { margin: 20px 0; }
+    .toc a { color: var(--navy-500); text-decoration: none; display: block; padding: 6px 0; border-bottom: 1px dotted var(--border); font-size: 14px; }
+    .toc a:hover { color: var(--gold-500); }
+    .toc a span { float: right; color: var(--text-secondary); font-size: 12px; }
+
+    @media print {
+      body { background: white; font-size: 11px; }
+      .cover-page { min-height: 100vh; page-break-after: always; }
+      .page { padding: 40px 30px; }
+      .page + .page { border-top: none; page-break-before: always; }
+      h2 { page-break-after: avoid; }
+      table, .tier-grid, .timeline { page-break-inside: avoid; }
+      .highlight-box { break-inside: avoid; }
+    }
+
+    @media (max-width: 768px) {
+      .tier-grid { grid-template-columns: 1fr; }
+      .value-grid { grid-template-columns: 1fr; }
+      .cover-logo { font-size: 48px; }
+      .cover-title { font-size: 24px; }
+      .page { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover-page">
+    <div class="cover-logo">MATER MARIA</div>
+    <div class="cover-subtitle">L I V I N G &nbsp; R E F I N E D</div>
+    <div class="cover-divider"></div>
+    <div class="cover-title">Corporate Platform Development Proposal</div>
+    <div class="cover-badge">$3,200 USD Base + $10,500 Growth Pipeline</div>
+    <div class="cover-meta">
+      <p><strong>Prepared by:</strong> TAURUS AI Corp</p>
+      <p><strong>Date:</strong> February 24, 2026</p>
+      <p><strong>Version:</strong> 2.0</p>
+      <p><strong>Timeline:</strong> 3 Weeks (21 Calendar Days)</p>
+    </div>
+    <div class="cover-scripture">"Under His Wings You Will Find Refuge" &mdash; Psalm 91:4</div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="page">
+    <h1>Table of Contents</h1>
+    <div class="toc">
+      <a href="#executive">1. Executive Summary</a>
+      <a href="#value">2. What You Get &mdash; The $3,200 Base + $10,500 Growth</a>
+      <a href="#timeline">3. 3-Week Development Timeline</a>
+      <a href="#marketing">4. Marketing Website &mdash; 10 Pages</a>
+      <a href="#vr">5. 360&deg; VR Villa Tours</a>
+      <a href="#employee">6. Employee Management &amp; Indian Payroll</a>
+      <a href="#investor">7. Investor Portal</a>
+      <a href="#billing">8. Recurring Billing &amp; Payments</a>
+      <a href="#hosting">9. Infrastructure &amp; Hosting Tiers</a>
+      <a href="#database">10. Database Schema</a>
+      <a href="#ai">11. AI-Powered Innovation</a>
+      <a href="#pricing">12. Resident Pricing Model</a>
+      <a href="#payment">13. Payment Structure &amp; Terms</a>
+      <a href="#upsell">14. Growth Pipeline &mdash; $10,500 Add-Ons</a>
+    </div>
+  </div>
+
+  <!-- 1. EXECUTIVE SUMMARY -->
+  <div class="page" id="executive">
+    <h2>1. Executive Summary</h2>
+    <p class="lead">We propose to build a <strong>world-class corporate management platform</strong> for Mater Maria Homes &mdash; transforming the existing static website into a comprehensive digital ecosystem that generates leads, attracts investors, manages employees with full Indian compliance, and positions Mater Maria Homes as the premier luxury retirement community in Kerala.</p>
+
+    <div class="value-grid">
+      <div class="value-item">
+        <div class="value-label">Base Platform</div>
+        <div class="value-number">$3,200 <small>USD</small></div>
+        <p class="value-desc">One-time development fee (&#8377;2,68,800 INR)</p>
+      </div>
+      <div class="value-item">
+        <div class="value-label">Growth Pipeline</div>
+        <div class="value-number">$10,500 <small>USD</small></div>
+        <p class="value-desc">Add-ons over 12&ndash;18 months (&#8377;8,82,000 INR)</p>
+      </div>
+      <div class="value-item">
+        <div class="value-label">Timeline</div>
+        <div class="value-number">3 Weeks</div>
+        <p class="value-desc">21 calendar days to full deployment</p>
+      </div>
+      <div class="value-item">
+        <div class="value-label">Monthly Hosting</div>
+        <div class="value-number">~$15<small>/mo</small></div>
+        <p class="value-desc">Starting cost, upgradable as revenue grows</p>
+      </div>
+    </div>
+
+    <div class="highlight-box navy">
+      <p><strong>Architecture:</strong> Next.js 16 App Router (SSG + SSR) + FastAPI Python Backend + Supabase PostgreSQL + Razorpay Payment Ecosystem + AI Agent Integration</p>
+      <p><strong>Brand:</strong> Mater Maria V0017 &mdash; Gold (#C7A036) + Navy (#0D1D2F) + Royal Blue (#4A5AB4) + Kerala Green (#4A7C59)</p>
+    </div>
+
+    <h3>Tech Stack</h3>
+    <table>
+      <thead><tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Frontend</td><td>Next.js 16, TypeScript, Tailwind CSS 4</td><td>Marketing site + portals</td></tr>
+        <tr><td>UI Components</td><td>shadcn/ui, Framer Motion, GSAP</td><td>Brand design system + animations</td></tr>
+        <tr><td>Backend</td><td>FastAPI (Python)</td><td>APIs, integrations</td></tr>
+        <tr><td>Database</td><td>Supabase PostgreSQL</td><td>Auth + Storage + Realtime + DB</td></tr>
+        <tr style="background: #FFF9E6;"><td>VR Tours <span class="badge badge-gold">Add-on</span></td><td>Photo Sphere Viewer (Three.js)</td><td>360&deg; immersive villa tours</td></tr>
+        <tr style="background: #FFF9E6;"><td>Payments <span class="badge badge-gold">Add-on</span></td><td>Razorpay (UPI, cards, subscriptions)</td><td>Resident billing + investor payments</td></tr>
+        <tr style="background: #FFF9E6;"><td>HR &amp; Payroll <span class="badge badge-gold">Add-on</span></td><td>RazorpayX Payroll + HR Module</td><td>Salary disbursement + compliance</td></tr>
+        <tr style="background: #FFF9E6;"><td>CRM <span class="badge badge-gold">Add-on</span></td><td>HubSpot Free</td><td>Lead management + nurture</td></tr>
+        <tr style="background: #FFF9E6;"><td>Communication <span class="badge badge-gold">Add-on</span></td><td>WhatsApp (Twilio) + SendGrid</td><td>Notifications + marketing</td></tr>
+        <tr style="background: #FFF9E6;"><td>Analytics <span class="badge badge-gold">Add-on</span></td><td>GA4 + Facebook Pixel + PostHog</td><td>Traffic + conversion tracking</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. WHAT YOU GET -->
+  <div class="page" id="value">
+    <h2>2. What You Get &mdash; The $3,200 Base Platform</h2>
+    <p class="lead">Everything below is included in the $3,200 (&#8377;2,68,800) base development fee. This is your complete, production-ready website and portal system.</p>
+
+    <h3>&#10003; Included in Base &mdash; $3,200 USD / &#8377;2,68,800 INR</h3>
+    <table>
+      <thead><tr><th>Deliverable</th><th>Value to Your Business</th><th>Market Rate</th></tr></thead>
+      <tbody>
+        <tr><td>10-page Next.js marketing website (SEO-optimized)</td><td>Lead generation machine</td><td>$1,500&ndash;3,000</td></tr>
+        <tr><td>Brand design system (Mater Maria guideline)</td><td>Professional brand identity</td><td>$500&ndash;1,000</td></tr>
+        <tr><td>Investor portal (public + authenticated)</td><td>Capital raising tool</td><td>$1,000&ndash;2,000</td></tr>
+        <tr><td>Admin dashboard (KPIs, leads, residents)</td><td>Management visibility</td><td>$800&ndash;1,500</td></tr>
+        <tr><td>GST-compliant invoicing (SAC 9963)</td><td>Legal compliance</td><td>$300&ndash;500</td></tr>
+        <tr><td>Mobile-responsive + WCAG 2.1 AA accessible</td><td>70%+ mobile traffic India</td><td>$300&ndash;500</td></tr>
+        <tr><td>Supabase database (15+ tables, full schema)</td><td>Data foundation</td><td>$400&ndash;800</td></tr>
+        <tr><td>Deployment + CI/CD pipeline</td><td>Production-ready platform</td><td>$300&ndash;500</td></tr>
+        <tr class="total-row"><td><strong>BASE MARKET VALUE</strong></td><td></td><td><strong>$5,100&ndash;9,800</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 30px; color: var(--gold-500);">&#9733; Growth Pipeline Add-Ons &mdash; $10,500 USD / &#8377;8,82,000 INR</h3>
+    <p style="margin-bottom: 12px; color: var(--text-secondary);">Not included in base. Add when your business needs them &mdash; over 12&ndash;18 months.</p>
+    <table>
+      <thead><tr><th>#</th><th>Add-On Feature</th><th>Business Value</th><th>Price (USD)</th><th>Price (INR)</th></tr></thead>
+      <tbody>
+        <tr style="background: #FFF9E6;"><td>1</td><td><strong>CRM &mdash; HubSpot Integration</strong></td><td>Lead management + nurture automation</td><td>$800</td><td>&#8377;67,200</td></tr>
+        <tr style="background: #FFF9E6;"><td>2</td><td><strong>Communication &mdash; WhatsApp (Twilio) + SendGrid</strong></td><td>Notifications + marketing sequences</td><td>$1,200</td><td>&#8377;1,00,800</td></tr>
+        <tr style="background: #FFF9E6;"><td>3</td><td><strong>Analytics &mdash; GA4 + Facebook Pixel + PostHog</strong></td><td>Traffic + conversion tracking</td><td>$500</td><td>&#8377;42,000</td></tr>
+        <tr style="background: #FFF9E6;"><td>4</td><td><strong>360&deg; VR Villa Tours</strong> (Photo Sphere Viewer / Three.js)</td><td>31% faster sales conversion</td><td>$1,500</td><td>&#8377;1,26,000</td></tr>
+        <tr style="background: #FFF9E6;"><td>5</td><td><strong>Employee Management</strong> (HR + Indian Payroll Compliance)</td><td>Operational backbone &mdash; EPF, ESI, TDS, PT, LWF</td><td>$3,000</td><td>&#8377;2,52,000</td></tr>
+        <tr style="background: #FFF9E6;"><td>6</td><td><strong>Razorpay Integration</strong> (UPI, cards, subscriptions)</td><td>Revenue collection for residents + investors</td><td>$1,000</td><td>&#8377;84,000</td></tr>
+        <tr style="background: #FFF9E6;"><td>7</td><td><strong>AI Shift Scheduler</strong></td><td>AI-optimized 24/7 care rosters &mdash; labor law compliance, fatigue management</td><td>$1,500</td><td>&#8377;1,26,000</td></tr>
+        <tr style="background: #FFF9E6;"><td>8</td><td><strong>AI Compliance Bot</strong> (auto-filing)</td><td>Auto EPF/ESI/TDS filing after first payroll quarter</td><td>$1,000</td><td>&#8377;84,000</td></tr>
+        <tr class="total-row"><td></td><td><strong>GROWTH PIPELINE TOTAL</strong></td><td>Over 12&ndash;18 months</td><td><strong>$10,500</strong></td><td><strong>&#8377;8,82,000</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box gold-bg">
+      <p style="color: var(--navy-500); margin: 0;"><strong>Start with $3,200 (&#8377;2,68,800).</strong> Get a fully functional, production-ready platform on Day 21. Then grow into the $10,500 add-on pipeline over 12&ndash;18 months &mdash; only pay for features when your business actually needs them.</p>
+    </div>
+  </div>
+
+  <!-- 3. TIMELINE -->
+  <div class="page" id="timeline">
+    <h2>3. Three-Week Development Timeline</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-label"><span class="badge badge-gold">Week 1</span> Days 1&ndash;7</div>
+        <div class="timeline-title">Foundation + Marketing Website + Database</div>
+        <p class="timeline-desc">Project scaffolding, design system setup, all 10 marketing pages, 360&deg; VR tours, complete database schema (15+ tables), employee management foundation.</p>
+      </div>
+      <div class="timeline-item week2">
+        <div class="timeline-label"><span class="badge badge-green">Week 2</span> Days 8&ndash;14</div>
+        <div class="timeline-title">HR/Payroll + Investor Portal + Integrations</div>
+        <p class="timeline-desc">Full employee management with Indian payroll compliance (EPF, ESI, TDS, Kerala PT), AI agents, investor dashboard, Razorpay billing, lead capture + WhatsApp + CRM.</p>
+      </div>
+      <div class="timeline-item week3">
+        <div class="timeline-label"><span class="badge badge-royal">Week 3</span> Days 15&ndash;21</div>
+        <div class="timeline-title">Admin Dashboard + Polish + Deploy</div>
+        <p class="timeline-desc">Admin KPI dashboard, payroll processing + RazorpayX, N8N automation workflows, testing (Lighthouse 90+), Vercel Mumbai deployment, documentation + handoff.</p>
+      </div>
+    </div>
+
+    <h3>Payment Milestones (Base Platform)</h3>
+    <table>
+      <thead><tr><th>Milestone</th><th>Amount (USD)</th><th>Amount (INR)</th><th>Deliverable</th></tr></thead>
+      <tbody>
+        <tr><td>Project Start (Day 1)</td><td><strong>$1,280 (40%)</strong></td><td><strong>&#8377;1,07,520</strong></td><td>Kickoff, design system, brand setup</td></tr>
+        <tr><td>Mid-project (Day 10)</td><td><strong>$960 (30%)</strong></td><td><strong>&#8377;80,640</strong></td><td>Marketing site + investor portal</td></tr>
+        <tr><td>Final Delivery (Day 21)</td><td><strong>$960 (30%)</strong></td><td><strong>&#8377;80,640</strong></td><td>Admin dashboard + deployment + handoff</td></tr>
+        <tr class="total-row"><td><strong>TOTAL</strong></td><td><strong>$3,200</strong></td><td><strong>&#8377;2,68,800</strong></td><td>Base platform delivered</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. MARKETING WEBSITE -->
+  <div class="page" id="marketing">
+    <h2>4. Marketing Website &mdash; 10 Pages</h2>
+    <p class="lead">A stunning, immersive marketing website designed for luxury senior living &mdash; inspired by premium real estate templates, adapted for the retirement niche with senior-friendly design principles.</p>
+
+    <table>
+      <thead><tr><th>Page</th><th>Key Sections</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Homepage</strong></td><td>Hero, Why Kottayam, Residences, Amenities, VR Tour, Testimonials, Investment, Blog, Kerala Lifestyle, CTA</td><td>Convert visitors to leads</td></tr>
+        <tr><td><strong>About</strong></td><td>Vision, values, team, timeline, faith story</td><td>Build trust</td></tr>
+        <tr><td><strong>Residences</strong></td><td>3 villa types with specs, VR tour links</td><td>Showcase living options</td></tr>
+        <tr><td><strong>Amenities</strong></td><td>4 tabs: Healthcare, Comfort, Community, Wellness</td><td>Highlight premium offerings</td></tr>
+        <tr><td><strong>Wellness</strong></td><td>Ayurveda, yoga, physiotherapy, medical</td><td>Healthcare advantage</td></tr>
+        <tr><td><strong>Gallery</strong></td><td>Filterable grid + lightbox</td><td>Visual appeal</td></tr>
+        <tr><td><strong>Contact</strong></td><td>Form, WhatsApp, map, FAQ accordion</td><td>Lead capture</td></tr>
+        <tr><td><strong>Investors</strong></td><td>Project overview, timeline, ROI, prospectus</td><td>Attract capital</td></tr>
+        <tr><td><strong>Blog</strong></td><td>Article grid, categories, SEO</td><td>Content marketing</td></tr>
+        <tr><td><strong>Virtual Tour</strong></td><td>360&deg; immersive experience</td><td>Remote engagement</td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <ul>
+        <li><strong>Senior-Friendly:</strong> 18px+ base font, high contrast Gold-on-Navy, skip navigation, WCAG 2.1 AA</li>
+        <li><strong>Gentle Animations:</strong> Respects prefers-reduced-motion, fade-ups 0.6s, max parallax 30px</li>
+        <li><strong>India-Optimized:</strong> &lt;3s load on 4G, progressive images, smooth scroll desktop, native mobile</li>
+        <li><strong>Conversion-Focused:</strong> WhatsApp floating CTA, multiple lead capture points, stats counter</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5. VR TOURS -->
+  <div class="page" id="vr">
+    <h2>5. 360&deg; VR Villa Tours</h2>
+    <p class="lead">Properties with virtual tours sell 31% faster (Matterport research). We build immersive 360&deg; tours using Photo Sphere Viewer (Three.js) &mdash; premium experiences at zero licensing cost.</p>
+
+    <h3>4 Experience Tiers</h3>
+    <table>
+      <thead><tr><th>Tier</th><th>Device</th><th>Experience</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-navy">1</span></td><td>Desktop</td><td>Click + drag panorama, hotspot navigation</td></tr>
+        <tr><td><span class="badge badge-navy">2</span></td><td>Mobile Touch</td><td>Swipe to look around, pinch to zoom</td></tr>
+        <tr><td><span class="badge badge-gold">3</span></td><td>Mobile Gyroscope</td><td>Phone as viewfinder &mdash; tilt to look around</td></tr>
+        <tr><td><span class="badge badge-royal">4</span></td><td>VR Headset</td><td>Google Cardboard split-screen ($2&ndash;10 in India)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>3 Villa Tours</h3>
+    <table>
+      <thead><tr><th>Villa</th><th>Size</th><th>Rooms</th><th>Tier</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Serenity Studio</strong></td><td>650 sq.ft</td><td>3&ndash;5 rooms</td><td><span class="badge badge-green">Most Popular</span></td></tr>
+        <tr><td><strong>Harmony Suite</strong></td><td>950 sq.ft</td><td>4&ndash;6 rooms</td><td><span class="badge badge-royal">Best Value</span></td></tr>
+        <tr><td><strong>Tranquility Villa</strong></td><td>1,350 sq.ft</td><td>5&ndash;7 rooms</td><td><span class="badge badge-gold">Luxury</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box green">
+      <p style="margin: 0;"><strong>India Performance:</strong> Progressive JPEG loading (200KB &rarr; 2MB &rarr; 8MB), lazy load on &ldquo;Start Tour&rdquo; click, fallback static gallery for low-end devices. Target: &lt;3s on 4G, &lt;8s on 3G.</p>
+    </div>
+  </div>
+
+  <!-- 6. EMPLOYEE MANAGEMENT -->
+  <div class="page" id="employee">
+    <h2>6. Employee Management &amp; Indian Payroll</h2>
+    <p class="lead">Complete HR management built for Indian labor laws and Kerala state regulations &mdash; payroll calculation to statutory compliance filing.</p>
+
+    <h3>HR Portal Modules</h3>
+    <table>
+      <thead><tr><th>Module</th><th>Features</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Dashboard</strong></td><td>Headcount, payroll cost, compliance status, department breakdown</td></tr>
+        <tr><td><strong>Employee Directory</strong></td><td>Add/edit, PAN/Aadhaar/UAN storage (encrypted), bank details</td></tr>
+        <tr><td><strong>Payroll</strong></td><td>Auto-calculate with all statutory deductions (EPF, ESI, TDS, PT, LWF)</td></tr>
+        <tr><td><strong>Attendance</strong></td><td>Check-in/out, shift management, overtime calculation</td></tr>
+        <tr><td><strong>Leave Management</strong></td><td>Apply/approve, balance tracking, Kerala entitlements</td></tr>
+        <tr><td><strong>Compliance Calendar</strong></td><td>Filing deadlines with auto-alerts (15/7/1 day before)</td></tr>
+        <tr><td><strong>Shift Scheduling</strong></td><td>24/7 care facility roster management</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Indian Statutory Compliance</h3>
+    <table>
+      <thead><tr><th>Compliance</th><th>Rate</th><th>Filing</th><th>Portal</th></tr></thead>
+      <tbody>
+        <tr><td>EPF</td><td>12% + 12%</td><td>Monthly by 15th</td><td>epfindia.gov.in</td></tr>
+        <tr><td>ESI</td><td>0.75% + 3.25%</td><td>Monthly by 15th</td><td>esic.gov.in</td></tr>
+        <tr><td>TDS</td><td>Per income tax slabs</td><td>Quarterly</td><td>incometax.gov.in</td></tr>
+        <tr><td>Professional Tax</td><td>Rs 0&ndash;1,250/half-year</td><td>Half-yearly</td><td>tax.kerala.gov.in</td></tr>
+        <tr><td>LWF</td><td>Rs 50 + Rs 50/month</td><td>Bi-annual</td><td>lc.kerala.gov.in</td></tr>
+        <tr><td>Gratuity</td><td>(15/26) &times; basic &times; years</td><td>On separation</td><td>&mdash;</td></tr>
+        <tr><td>Bonus</td><td>8.33&ndash;20%</td><td>Annual</td><td>&mdash;</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Department Structure (50-person facility)</h3>
+    <table>
+      <thead><tr><th>Department</th><th>Roles</th><th>Count</th><th>Salary Range</th></tr></thead>
+      <tbody>
+        <tr><td>Nursing</td><td>Staff Nurse, Head Nurse, Aide</td><td>12</td><td>Rs 15K&ndash;45K</td></tr>
+        <tr><td>Medical</td><td>Doctor, Physiotherapist</td><td>3</td><td>Rs 30K&ndash;1L</td></tr>
+        <tr><td>Kitchen</td><td>Chef, Cook, Helper</td><td>6</td><td>Rs 10K&ndash;25K</td></tr>
+        <tr><td>Housekeeping</td><td>Supervisor, Attendant</td><td>8</td><td>Rs 10K&ndash;18K</td></tr>
+        <tr><td>Security</td><td>Guard, Supervisor</td><td>6</td><td>Rs 12K&ndash;20K</td></tr>
+        <tr><td>Wellness</td><td>Yoga, Ayurveda</td><td>3</td><td>Rs 15K&ndash;35K</td></tr>
+        <tr><td>Admin</td><td>Manager, Receptionist, Acct</td><td>5</td><td>Rs 15K&ndash;50K</td></tr>
+        <tr><td>Management</td><td>GM, HR, Marketing</td><td>4</td><td>Rs 40K&ndash;1L</td></tr>
+        <tr><td>Maintenance</td><td>Electrician, Plumber, Garden</td><td>3</td><td>Rs 12K&ndash;20K</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 7. INVESTOR PORTAL -->
+  <div class="page" id="investor">
+    <h2>7. Investor Portal</h2>
+
+    <h3>Public Page (No Login Required)</h3>
+    <ul>
+      <li>Multi-phase Kottayam development overview</li>
+      <li>Phase breakdown with animated timeline</li>
+      <li>Investment tiers and projected returns</li>
+      <li>RERA compliance badge</li>
+      <li>Prospectus PDF download</li>
+    </ul>
+
+    <h3>Authenticated Dashboard</h3>
+    <table>
+      <thead><tr><th>Section</th><th>Features</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Dashboard</strong></td><td>Animated charts, returns tracker, project timeline</td></tr>
+        <tr><td><strong>Projects</strong></td><td>Gantt chart, drone photos, milestone alerts</td></tr>
+        <tr><td><strong>Financials</strong></td><td>Quarterly PDFs, ROI projections, distributions</td></tr>
+        <tr><td><strong>Documents</strong></td><td>RERA certs, NOCs, DocuSign e-signatures</td></tr>
+        <tr><td><strong>Updates</strong></td><td>Construction galleries, WhatsApp opt-in</td></tr>
+        <tr><td><strong>Analytics</strong></td><td>Land value tracker, occupancy projections</td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <p style="margin: 0;"><strong>Investor Distribution:</strong> Razorpay Route enables automated split payments directly to investor bank accounts &mdash; transparent, auditable, and instant.</p>
+    </div>
+  </div>
+
+  <!-- 8. BILLING -->
+  <div class="page" id="billing">
+    <h2>8. Recurring Billing &amp; Payments</h2>
+
+    <h3>Payment Methods (Elderly-Friendly Priority)</h3>
+    <table>
+      <thead><tr><th>#</th><th>Method</th><th>Limit</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Paper NACH</strong></td><td>No limit</td><td>Most comfortable for elderly</td></tr>
+        <tr><td>2</td><td><strong>eNACH</strong></td><td>Rs 10 lakh</td><td>Digital bank auto-debit</td></tr>
+        <tr><td>3</td><td><strong>UPI Autopay</strong></td><td>Rs 15,000</td><td>Good for Basic tier</td></tr>
+        <tr><td>4</td><td><strong>Standing Instruction</strong></td><td>Varies</td><td>Bank-managed, familiar</td></tr>
+        <tr><td>5</td><td><strong>Post-dated Cheques</strong></td><td>Any</td><td>Still common in Kerala</td></tr>
+      </tbody>
+    </table>
+
+    <h3>GST Compliance</h3>
+    <div class="highlight-box green">
+      <p style="margin: 0;"><strong>SAC Code:</strong> 9963 (Accommodation) | <strong>Rate:</strong> 12% GST (6% CGST + 6% SGST Kerala)</p>
+      <p style="margin: 5px 0 0;"><strong>Potential Exemption:</strong> Old age homes serving 60+ at Rs 25,000/mo may qualify for GST exemption under Section 12AA.</p>
+    </div>
+  </div>
+
+  <!-- 9. HOSTING TIERS -->
+  <div class="page" id="hosting">
+    <h2>9. Infrastructure &amp; Hosting Tiers</h2>
+    <p class="lead">Ongoing hosting costs are separate from the $3,200 development fee. Start with Tier 1 and upgrade when revenue flows.</p>
+
+    <div class="tier-grid">
+      <div class="tier-card recommended">
+        <div class="tier-name">Starter</div>
+        <div class="tier-price">~$15<small>/mo</small></div>
+        <ul class="tier-features">
+          <li>Supabase Free (500MB)</li>
+          <li>Vercel Hobby (free)</li>
+          <li>Railway Hobby ($5/mo)</li>
+          <li>Razorpay Standard (2%)</li>
+          <li>RazorpayX Payroll Free</li>
+          <li>HubSpot CRM Free</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Professional</div>
+        <div class="tier-price">~$107<small>/mo</small></div>
+        <ul class="tier-features">
+          <li>Supabase Pro ($25/mo)</li>
+          <li>Vercel Pro Mumbai ($20)</li>
+          <li>Railway Pro ($20/mo)</li>
+          <li>Twilio WhatsApp ($15)</li>
+          <li>SendGrid ($15/mo)</li>
+          <li>Daily backups + realtime</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Enterprise</div>
+        <div class="tier-price">$450+<small>/mo</small></div>
+        <ul class="tier-features">
+          <li>AWS RDS Multi-AZ ($110)</li>
+          <li>AWS EC2 + ALB ($60)</li>
+          <li>CloudFront WAF ($200)</li>
+          <li>Keka HR ($50/mo)</li>
+          <li>SOC 2 compliance</li>
+          <li>DDoS protection</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. DATABASE -->
+  <div class="page" id="database">
+    <h2>10. Database Schema</h2>
+    <p class="lead">15+ purpose-built tables covering every aspect of operations.</p>
+
+    <table>
+      <thead><tr><th>Table</th><th>Purpose</th><th>Key Fields</th></tr></thead>
+      <tbody>
+        <tr><td>mm_residents</td><td>Resident profiles</td><td>room_type, tier, monthly_fee, medical_history</td></tr>
+        <tr><td>mm_family_members</td><td>Family portal access</td><td>resident_id, relationship, is_nri</td></tr>
+        <tr><td>mm_investors</td><td>Investment tracking</td><td>pan, amount, equity, razorpay_route_id</td></tr>
+        <tr><td>mm_inquiries</td><td>Lead capture</td><td>source, utm params, lead_score, hubspot_id</td></tr>
+        <tr><td>mm_project_phases</td><td>Construction progress</td><td>progress%, budget, spent, photos</td></tr>
+        <tr><td>mm_employees</td><td>Employee management</td><td>pan, aadhar, uan, esic, salary structure</td></tr>
+        <tr><td>mm_payroll_runs</td><td>Monthly payroll</td><td>gross, deductions, net, payout_id</td></tr>
+        <tr><td>mm_payslips</td><td>Individual payslips</td><td>EPF, ESI, PT, TDS, LWF breakdowns</td></tr>
+        <tr><td>mm_attendance</td><td>Attendance tracking</td><td>check_in/out, overtime, shift</td></tr>
+        <tr><td>mm_leave_balances</td><td>Leave tracking</td><td>casual, sick, earned, maternity</td></tr>
+        <tr><td>mm_leave_requests</td><td>Leave applications</td><td>type, dates, status, approved_by</td></tr>
+        <tr><td>mm_compliance</td><td>Filing calendar</td><td>type, due_date, form_number, portal</td></tr>
+        <tr><td>mm_subscriptions</td><td>Recurring billing</td><td>tier, amount, gst, razorpay_sub_id</td></tr>
+        <tr><td>mm_invoices</td><td>GST invoices</td><td>sac_code, cgst, sgst, e_invoice_irn</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 11. AI INNOVATION -->
+  <div class="page" id="ai">
+    <h2>11. AI-Powered Innovation</h2>
+    <p class="lead">Novel AI agents for senior care facility management &mdash; a differentiator no competitor in Kerala offers.</p>
+
+    <table>
+      <thead><tr><th>AI Agent</th><th>Capability</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Shift Scheduler</strong></td><td>AI-optimized 24/7 care rosters &mdash; labor law compliance, fatigue management</td><td><span class="badge badge-gold">Add-on $1,500 / &#8377;1,26,000</span></td></tr>
+        <tr><td><strong>Compliance Bot</strong> (auto-filing)</td><td>Auto EPF/ESI/TDS filing, deadline alerts 15/7/1 day before, pre-filled forms</td><td><span class="badge badge-gold">Add-on $1,000 / &#8377;84,000</span></td></tr>
+        <tr><td><strong>WhatsApp HR Bot</strong></td><td>Self-service English + Malayalam &mdash; leave balance, payslip, requests</td><td><span class="badge badge-gold">Future</span></td></tr>
+        <tr><td><strong>Attrition Predictor</strong></td><td>ML model predicts turnover risk for care staff retention</td><td><span class="badge badge-gold">Future</span></td></tr>
+        <tr><td><strong>Recruitment Screener</strong></td><td>Healthcare resume parsing, nursing certification verification</td><td><span class="badge badge-gold">Future</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box gold-bg">
+      <p style="margin: 0; color: var(--navy-500);"><strong>AI Add-ons:</strong> Shift Scheduler ($1,500) + Compliance Bot ($1,000) are part of the $10,500 Growth Pipeline. Activate after first payroll quarter when you have real operational data.</p>
+    </div>
+  </div>
+
+  <!-- 12. PRICING MODEL -->
+  <div class="page" id="pricing">
+    <h2>12. Resident Subscription Pricing Model</h2>
+
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-name">Basic</div>
+        <div class="tier-price">Rs 28,000<small>/mo</small></div>
+        <p style="font-size: 11px; color: var(--text-secondary);">Rs 25,000 + 12% GST</p>
+        <ul class="tier-features">
+          <li>Serenity Studio (650 sq.ft)</li>
+          <li>3 meals/day</li>
+          <li>Weekly housekeeping</li>
+          <li>24/7 security + WiFi</li>
+          <li>Common area access</li>
+        </ul>
+      </div>
+      <div class="tier-card recommended">
+        <div class="tier-name">Premium</div>
+        <div class="tier-price">Rs 84,000<small>/mo</small></div>
+        <p style="font-size: 11px; color: var(--text-secondary);">Rs 75,000 + 12% GST</p>
+        <ul class="tier-features">
+          <li>Harmony Suite (950 sq.ft)</li>
+          <li>All Basic features</li>
+          <li>Daily housekeeping</li>
+          <li>Weekly doctor visit</li>
+          <li>Yoga + physiotherapy</li>
+          <li>Transport + laundry</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Luxury</div>
+        <div class="tier-price">Rs 1,68,000<small>/mo</small></div>
+        <p style="font-size: 11px; color: var(--text-secondary);">Rs 1,50,000 + 12% GST</p>
+        <ul class="tier-features">
+          <li>Tranquility Villa (1,350 sq.ft)</li>
+          <li>All Premium features</li>
+          <li>Personal care assistant</li>
+          <li>24/7 nurse on-call</li>
+          <li>Ayurvedic sessions</li>
+          <li>Concierge + guest room</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. PAYMENT -->
+  <div class="page" id="payment">
+    <h2>13. Payment Structure &amp; Terms</h2>
+
+    <h3>Base Platform &mdash; $3,200 USD / &#8377;2,68,800 INR</h3>
+    <table>
+      <thead><tr><th>Milestone</th><th>USD</th><th>INR</th><th>%</th><th>Deliverable</th></tr></thead>
+      <tbody>
+        <tr><td>Kickoff (Day 1)</td><td><strong>$1,280</strong></td><td><strong>&#8377;1,07,520</strong></td><td>40%</td><td>Design system, brand, scaffolding</td></tr>
+        <tr><td>Mid-Review (Day 10)</td><td><strong>$960</strong></td><td><strong>&#8377;80,640</strong></td><td>30%</td><td>Marketing site + investor portal live</td></tr>
+        <tr><td>Final Delivery (Day 21)</td><td><strong>$960</strong></td><td><strong>&#8377;80,640</strong></td><td>30%</td><td>Admin dashboard + deployment</td></tr>
+        <tr class="total-row"><td><strong>BASE TOTAL</strong></td><td><strong>$3,200</strong></td><td><strong>&#8377;2,68,800</strong></td><td><strong>100%</strong></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Growth Pipeline Add-Ons &mdash; $10,500 USD / &#8377;8,82,000 INR</h3>
+    <p style="margin-bottom: 12px; color: var(--text-secondary);">Billed individually as each feature is activated over 12&ndash;18 months. Pay only when you need it.</p>
+
+    <h3>Delivery Includes (Base)</h3>
+    <ul>
+      <li>Complete source code (Next.js + FastAPI)</li>
+      <li>Supabase database with 15+ tables deployed</li>
+      <li>Vercel deployment (Mumbai region)</li>
+      <li>Admin guide + documentation</li>
+      <li>API documentation + deployment runbook</li>
+      <li>30 days post-launch support</li>
+    </ul>
+
+    <h3>Optional Monthly Retainer</h3>
+    <table>
+      <thead><tr><th>Service</th><th>Monthly (USD)</th><th>Monthly (INR)</th></tr></thead>
+      <tbody>
+        <tr><td>Hosting management + monitoring</td><td>$50&ndash;100/mo</td><td>&#8377;4,200&ndash;8,400/mo</td></tr>
+        <tr><td>Content updates (blog, photos)</td><td>$100&ndash;200/mo</td><td>&#8377;8,400&ndash;16,800/mo</td></tr>
+        <tr><td>Technical support</td><td>$50&ndash;100/mo</td><td>&#8377;4,200&ndash;8,400/mo</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 14. FUTURE ROADMAP -->
+  <div class="page" id="upsell">
+    <h2>14. Growth Pipeline &mdash; $10,500 Add-Ons</h2>
+    <p class="lead">The platform is built to grow. Each add-on activates when the timing is right &mdash; no re-architecture needed. Pay only for what you need, when you need it.</p>
+
+    <h3>Priority Add-Ons (Recommended Order)</h3>
+    <table>
+      <thead><tr><th>#</th><th>Feature</th><th>USD</th><th>INR</th><th>Best Timing</th></tr></thead>
+      <tbody>
+        <tr style="background: #FFF9E6;"><td>1</td><td><strong>CRM &mdash; HubSpot Integration</strong></td><td>$800</td><td>&#8377;67,200</td><td>Month 1&ndash;2</td></tr>
+        <tr style="background: #FFF9E6;"><td>2</td><td><strong>Analytics &mdash; GA4 + FB Pixel + PostHog</strong></td><td>$500</td><td>&#8377;42,000</td><td>Month 1&ndash;2</td></tr>
+        <tr style="background: #FFF9E6;"><td>3</td><td><strong>Communication &mdash; WhatsApp + SendGrid</strong></td><td>$1,200</td><td>&#8377;1,00,800</td><td>Month 2&ndash;3</td></tr>
+        <tr style="background: #FFF9E6;"><td>4</td><td><strong>Razorpay &mdash; UPI, cards, subscriptions</strong></td><td>$1,000</td><td>&#8377;84,000</td><td>Month 3&ndash;4</td></tr>
+        <tr style="background: #FFF9E6;"><td>5</td><td><strong>360&deg; VR Villa Tours</strong></td><td>$1,500</td><td>&#8377;1,26,000</td><td>Month 3&ndash;6</td></tr>
+        <tr style="background: #FFF9E6;"><td>6</td><td><strong>Employee Mgmt + Indian Payroll</strong></td><td>$3,000</td><td>&#8377;2,52,000</td><td>Month 4&ndash;8</td></tr>
+        <tr style="background: #FFF9E6;"><td>7</td><td><strong>AI Shift Scheduler</strong></td><td>$1,500</td><td>&#8377;1,26,000</td><td>Month 6&ndash;12</td></tr>
+        <tr style="background: #FFF9E6;"><td>8</td><td><strong>AI Compliance Bot</strong> (auto-filing)</td><td>$1,000</td><td>&#8377;84,000</td><td>Month 9&ndash;18</td></tr>
+        <tr class="total-row"><td></td><td><strong>GROWTH PIPELINE</strong></td><td><strong>$10,500</strong></td><td><strong>&#8377;8,82,000</strong></td><td>Over 12&ndash;18 months</td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box navy">
+      <p style="margin: 0;"><strong>Total Platform Investment:</strong> $3,200 base (&#8377;2,68,800) + $10,500 growth pipeline (&#8377;8,82,000) = <strong>$13,700 full ecosystem (&#8377;11,50,800)</strong> &mdash; built incrementally as the business grows. You decide the pace.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="company">TAURUS AI Corp</div>
+    <p>Prepared for Mater Maria Homes</p>
+    <p>Luxury Retirement Living &mdash; Kottayam, Kerala, India</p>
+    <p style="margin-top: 15px; font-family: 'Cormorant Garamond', serif; font-style: italic; color: rgba(255,255,255,0.4);">"Under His Wings You Will Find Refuge" &mdash; Psalm 91:4</p>
+    <p style="margin-top: 20px; font-size: 11px;">&copy; 2026 TAURUS AI Corp. All rights reserved. | Version 3.0 | February 24, 2026</p>
+  </div>
+
+</body>
+</html>

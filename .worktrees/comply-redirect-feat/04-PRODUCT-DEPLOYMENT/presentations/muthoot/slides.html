@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>slides</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@^5/dist/theme/night.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+<section id="taurus-ai-x-muthoot-fincorp"
+class="title-slide slide level1">
+<h1>Taurus AI x Muthoot FinCorp</h1>
+
+</section>
+<section id="ai-powered-micro-loan-repayment-optimization"
+class="title-slide slide level2">
+<h2>AI-Powered Micro-loan Repayment Optimization</h2>
+
+</section>
+<section id="why-this-matters-now" class="slide level3">
+<h3>Why This Matters Now</h3>
+<ul>
+<li>Muthoot FinCorp serves millions of micro-business traders,
+hoteliers, grocers</li>
+<li>Daily/weekly micro-loan repayments cause cash-flow stress for
+borrowers</li>
+<li>High collection costs and missed payments impact portfolio
+health</li>
+<li><strong>Pain Point</strong>: Borrowers struggle to align repayments
+with irregular cash inflows</li>
+</ul>
+</section>
+<section id="our-solution-cash-flow-ai-agent" class="slide level3">
+<h3>Our Solution: Cash-Flow AI Agent</h3>
+<ul>
+<li><strong>AI Model</strong>: Ollama qwen3-coder:latest (fine-tuned on
+synthetic repayment patterns)</li>
+<li><strong>Output</strong>: Personalized SMS/WhatsApp reminders &amp;
+repayment suggestions</li>
+<li><strong>Deployment</strong>: Docker-compose with SQLite (zero
+licensing, on-prem or cloud)</li>
+<li><strong>Integration</strong>: API or CSV exchange for borrower data
+&amp; repayment status</li>
+</ul>
+</section>
+<section id="value-proposition-for-muthoot-fincorp"
+class="slide level3">
+<h3>Value Proposition for Muthoot FinCorp</h3>
+<ol type="1">
+<li><strong>Reduce Collection Costs</strong>: Automated, timely
+reminders reduce manual follow-ups</li>
+<li><strong>Improve On-time Payments</strong>: Align reminders with
+borrower cash-flow patterns</li>
+<li><strong>Enhance Borrower Experience</strong>: Personalized,
+non-intrusive communication</li>
+<li><strong>Data-Driven Insights</strong>: Dashboard shows predicted vs
+actual payment rates</li>
+</ol>
+</section>
+<section id="pilot-proposal" class="slide level3">
+<h3>Pilot Proposal</h3>
+<ul>
+<li><strong>Target</strong>: Head of Retail Lending (via Praveen Varkey
+introduction)</li>
+<li><strong>Offer</strong>: Free pilot on 50 active micro-loans (one
+full repayment cycle)</li>
+<li><strong>Ask</strong>: Access to anonymized historical data (last 3-6
+months) for configuration</li>
+<li><strong>Outcome</strong>: Testimonial + measurable improvement in
+on-time payments &amp; reduced collection calls</li>
+</ul>
+</section>
+<section id="expected-impact" class="slide level3">
+<h3>Expected Impact</h3>
+<ul>
+<li><strong>&gt;15% reduction</strong> in collection calls</li>
+<li><strong>&gt;10% improvement</strong> in on-time micro-payments</li>
+<li><strong>Scalable</strong>: $1,999/month flat OR $0.15/active
+loan/month after pilot</li>
+</ul>
+</section>
+<section id="next-steps" class="slide level3">
+<h3>Next Steps</h3>
+<ol type="1">
+<li><strong>This Week</strong>: 15-min call to align on pilot scope
+&amp; data sharing</li>
+<li><strong>Week 2</strong>: Data provision &amp; agent configuration
+(3-5 days)</li>
+<li><strong>Week 3</strong>: Pilot launch &amp; weekly review calls</li>
+<li><strong>Week 4</strong>: Performance review &amp; paid conversion
+discussion</li>
+</ol>
+</section>
+<section class="slide level3">
+
+<p><em>Taurus AI (NeoVibe by Taurus AI - License #68122, IFZA
+Dubai)</em><br />
+<em>Empowering micro-businesses with AI-driven financial
+resilience</em></p>
+</section>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@^5/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@^5/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@^5/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

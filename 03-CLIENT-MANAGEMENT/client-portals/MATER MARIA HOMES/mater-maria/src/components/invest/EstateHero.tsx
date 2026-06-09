@@ -12,21 +12,21 @@ const PROPERTIES = [
     id: "villas",
     image: "/assets-2025/images/invest/hero-estate.webp",
     label: "Independent Villas",
-    sub: "20 units · From ₹30L",
+    sub: "20 units · From ₹80L",
     tag: "Most Exclusive",
   },
   {
     id: "walkup",
     image: "/assets-2025/images/invest/hero-sunset.webp",
     label: "Walk-up Villas",
-    sub: "50 units · From ₹10L",
+    sub: "50 units · From ₹38L",
     tag: "Best Value",
   },
   {
     id: "apartments",
     image: "/assets-2025/images/invest/hero-garden.webp",
     label: "Executive Apartments",
-    sub: "20 units · From ₹5L",
+    sub: "20 units · From ₹38L",
     tag: "Entry Tier",
   },
 ] as const;
@@ -45,7 +45,7 @@ const SLIDES = [
     badge: "Financial Returns",
     heading: "150%+\nProjected ROI",
     subheading: "Share-based model with 10% annual interest",
-    desc: "Tier-based investment from ₹5 Lakhs. 10% interest Years 1–4, escalating dividends 6%–20% Years 5–15. NRI payment channels available.",
+    desc: "Tier-based investment from ₹10 Lakhs. 10% interest Years 1–4, escalating dividends 6%–20% Years 5–15. NRI payment channels available.",
   },
   {
     id: "wellness",

@@ -23,7 +23,7 @@ const ResponsiveLine = dynamic(
 );
 
 export function ROICalculator() {
-  const [selectedTier, setSelectedTier] = useState<TierId>("diamond");
+  const [selectedTier, setSelectedTier] = useState<TierId>("platinum");
   const { formatAmount } = useCurrency();
 
   const tier = INVESTMENT_TIERS.find((t) => t.id === selectedTier)!;

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, X, ArrowRight, MessageCircle } from "lucide-react";
+import Image from "next/image";
 import { SITE } from "@/lib/constants";
 
 interface ChatMessage {
@@ -14,18 +15,18 @@ const STARTERS = [
   "How does AI health monitoring work?",
   "Tell me about the solar-powered campus",
   "What smart home features are included?",
-  "What's the Diamond tier ROI?",
+  "What's the Platinum tier ROI?",
   "Compare all tiers for me",
 ];
 
 function BrandIcon({ size = 36 }: { size?: number }) {
   return (
-    <img
+    <Image
       src="/assets-2025/images/mater-maria-logo.svg"
       alt="Mater Maria"
       width={size}
       height={size}
-      style={{ objectFit: "contain" }}
+      className="object-contain"
     />
   );
 }

@@ -1,3 +1,3 @@
 """
-Research Agents for BizFlow-Orchestrator
+Research Agents for NEXUS Creative Studio
 """

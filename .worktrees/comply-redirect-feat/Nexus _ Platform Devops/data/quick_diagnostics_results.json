@@ -1,0 +1,289 @@
+{
+  "basic_connectivity": {
+    "status_code": 200,
+    "response_time": 0.02764,
+    "content_length": 5377,
+    "server": "Tengine",
+    "headers": {
+      "Server": "Tengine",
+      "Content-Type": "text/html",
+      "Content-Length": "2222",
+      "Connection": "keep-alive",
+      "Date": "Sat, 31 May 2025 21:48:15 GMT",
+      "Vary": "Accept-Encoding",
+      "x-oss-request-id": "683B791F72F1BC3436139BA0",
+      "x-oss-cdn-auth": "success",
+      "Last-Modified": "Fri, 30 May 2025 09:46:51 GMT",
+      "x-oss-object-type": "Normal",
+      "x-oss-hash-crc64ecma": "1549010510673828247",
+      "x-oss-storage-class": "Standard",
+      "Content-MD5": "3bL8zt3N+awtWz3asoSoow==",
+      "x-oss-server-time": "3",
+      "Content-Encoding": "gzip",
+      "Via": "ens-cache30.l2us3[5,4,200-0,M], ens-cache32.l2us3[6,0], ens-cache10.us27[0,0,200-0,H], ens-cache9.us27[1,0]",
+      "Age": "160",
+      "Ali-Swift-Global-Savetime": "1748728095",
+      "X-Cache": "HIT TCP_MEM_HIT dirn:-2:-2",
+      "X-Swift-SaveTime": "Sat, 31 May 2025 21:48:15 GMT",
+      "X-Swift-CacheTime": "3600",
+      "Access-Control-Allow-Methods": "*",
+      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Origin": "*",
+      "Timing-Allow-Origin": "*",
+      "EagleId": "2ff6169d17487282559432755e"
+    }
+  },
+  "response_times": {
+    "times": [
+      35.932302474975586,
+      37.615060806274414,
+      36.43321990966797,
+      37.19615936279297,
+      30.45368194580078,
+      32.006025314331055,
+      29.077529907226562,
+      31.589984893798828,
+      113.02614212036133,
+      38.44094276428223
+    ],
+    "min": 29.077529907226562,
+    "max": 113.02614212036133,
+    "avg": 42.17710494995117,
+    "median": 36.18276119232178
+  },
+  "user_agents": {
+    "Chrome_Desktop": {
+      "status_code": 200,
+      "response_time": 31.139,
+      "success": true
+    },
+    "Firefox_Desktop": {
+      "status_code": 200,
+      "response_time": 35.814,
+      "success": true
+    },
+    "Safari_Desktop": {
+      "status_code": 200,
+      "response_time": 32.126000000000005,
+      "success": true
+    },
+    "Mobile_Chrome": {
+      "status_code": 200,
+      "response_time": 27.497,
+      "success": true
+    },
+    "Mobile_Firefox": {
+      "status_code": 200,
+      "response_time": 53.68,
+      "success": true
+    },
+    "Googlebot": {
+      "status_code": 200,
+      "response_time": 34.866,
+      "success": true
+    },
+    "curl": {
+      "status_code": 200,
+      "response_time": 30.923,
+      "success": true
+    },
+    "Empty": {
+      "status_code": 200,
+      "response_time": 35.54,
+      "success": true
+    }
+  },
+  "http_methods": {
+    "GET": {
+      "status_code": 200,
+      "success": true
+    },
+    "HEAD": {
+      "status_code": 200,
+      "success": true
+    },
+    "POST": {
+      "status_code": 405,
+      "success": true
+    },
+    "PUT": {
+      "status_code": 403,
+      "success": true
+    },
+    "DELETE": {
+      "status_code": 403,
+      "success": true
+    },
+    "OPTIONS": {
+      "status_code": 400,
+      "success": true
+    }
+  },
+  "dns_ssl": {
+    "ip_address": "47.246.22.195",
+    "ssl_subject": {
+      "commonName": "*.space.minimax.io"
+    },
+    "ssl_issuer": {
+      "countryName": "CN",
+      "organizationName": "DNSPod, Inc.",
+      "commonName": "DNSPod RSA DV"
+    },
+    "ssl_valid_until": "May 15 23:59:59 2026 GMT",
+    "tls_version": null,
+    "cipher": "TLS_AES_128_GCM_SHA256"
+  },
+  "concurrent_test": {
+    "results": [
+      {
+        "request_id": 4,
+        "status_code": 200,
+        "response_time": 31.177282333374023
+      },
+      {
+        "request_id": 8,
+        "status_code": 200,
+        "response_time": 30.03549575805664
+      },
+      {
+        "request_id": 1,
+        "status_code": 200,
+        "response_time": 36.08298301696777
+      },
+      {
+        "request_id": 2,
+        "status_code": 200,
+        "response_time": 36.478281021118164
+      },
+      {
+        "request_id": 5,
+        "status_code": 200,
+        "response_time": 35.631418228149414
+      },
+      {
+        "request_id": 3,
+        "status_code": 200,
+        "response_time": 38.8181209564209
+      },
+      {
+        "request_id": 6,
+        "status_code": 200,
+        "response_time": 37.71209716796875
+      },
+      {
+        "request_id": 0,
+        "status_code": 200,
+        "response_time": 42.447566986083984
+      },
+      {
+        "request_id": 7,
+        "status_code": 200,
+        "response_time": 39.6573543548584
+      },
+      {
+        "request_id": 10,
+        "status_code": 200,
+        "response_time": 30.39860725402832
+      },
+      {
+        "request_id": 11,
+        "status_code": 200,
+        "response_time": 32.32836723327637
+      },
+      {
+        "request_id": 17,
+        "status_code": 200,
+        "response_time": 29.796123504638672
+      },
+      {
+        "request_id": 13,
+        "status_code": 200,
+        "response_time": 34.73854064941406
+      },
+      {
+        "request_id": 9,
+        "status_code": 200,
+        "response_time": 68.36342811584473
+      },
+      {
+        "request_id": 12,
+        "status_code": 200,
+        "response_time": 38.41137886047363
+      },
+      {
+        "request_id": 14,
+        "status_code": 200,
+        "response_time": 37.175893783569336
+      },
+      {
+        "request_id": 16,
+        "status_code": 200,
+        "response_time": 46.241044998168945
+      },
+      {
+        "request_id": 15,
+        "status_code": 200,
+        "response_time": 46.881914138793945
+      },
+      {
+        "request_id": 18,
+        "status_code": 200,
+        "response_time": 44.09146308898926
+      },
+      {
+        "request_id": 19,
+        "status_code": 200,
+        "response_time": 55.42707443237305
+      }
+    ],
+    "success_rate": 100.0,
+    "potential_rate_limiting": false
+  },
+  "infrastructure": {
+    "server": "Tengine",
+    "cdn_indicators": [
+      "Alibaba Cloud CDN",
+      "Alibaba Swift CDN",
+      "Via: ens-cache30.l2us3[5,4,200-0,M], ens-cache32.l2us3[6,0], ens-cache10.us27[0,0,200-0,H], ens-cache1.us27[3,0]"
+    ],
+    "hosting_platform": "Alibaba Cloud OSS",
+    "caching_info": {
+      "cache_status": "HIT TCP_MEM_HIT dirn:-2:-2",
+      "cache_age": "167"
+    }
+  },
+  "geographic": {
+    "en-US": {
+      "status_code": 200,
+      "response_time": 39.842000000000006,
+      "content_length": 5377
+    },
+    "zh-CN": {
+      "status_code": 200,
+      "response_time": 29.802,
+      "content_length": 5377
+    },
+    "ja-JP": {
+      "status_code": 200,
+      "response_time": 30.34,
+      "content_length": 5377
+    },
+    "ko-KR": {
+      "status_code": 200,
+      "response_time": 32.744,
+      "content_length": 5377
+    },
+    "de-DE": {
+      "status_code": 200,
+      "response_time": 36.411,
+      "content_length": 5377
+    },
+    "fr-FR": {
+      "status_code": 200,
+      "response_time": 26.355,
+      "content_length": 5377
+    }
+  },
+  "timestamp": "2025-06-01T05:51:02.324421",
+  "url_tested": "https://vc1j5apvcf.space.minimax.io/features"
+}

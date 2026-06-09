@@ -2,24 +2,27 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const MESSAGES = [
-  { name: "Rajeev", location: "Dubai", action: "booked a site visit" },
+  { name: "Rajeev", location: "Dubai", action: "enquired about a residence" },
   { name: "Thomas", location: "Kuwait", action: "downloaded the investment brochure" },
   { name: "Mary", location: "Kochi", action: "requested a callback" },
   { name: "George", location: "Bahrain", action: "invested in Gold tier" },
-  { name: "Suma", location: "Bangalore", action: "scheduled a virtual tour" },
+  { name: "Suma", location: "Bangalore", action: "requested a virtual presentation" },
   { name: "Joseph", location: "Abu Dhabi", action: "enquired about Platinum tier" },
 ];
 
 export function SocialProofToast() {
   const [current, setCurrent] = useState<number | null>(null);
   const [dismissed, setDismissed] = useState(false);
+  const [minutesAgo, setMinutesAgo] = useState(1);
 
   const showNext = useCallback(() => {
     if (dismissed) return;
     const idx = Math.floor(Math.random() * MESSAGES.length);
     setCurrent(idx);
+    setMinutesAgo(Math.floor(Math.random() * 5) + 1);
     // Auto-dismiss after 4 seconds
     setTimeout(() => setCurrent(null), 4000);
   }, [dismissed]);
@@ -58,9 +61,11 @@ export function SocialProofToast() {
           </button>
           <div className="flex items-start gap-3">
             <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-white/90 p-1">
-              <img
+              <Image
                 src="/assets-2025/images/mater-maria-logo.svg"
                 alt="Mater Maria"
+                width={32}
+                height={32}
                 className="h-8 w-8 object-contain"
               />
             </div>
@@ -72,7 +77,7 @@ export function SocialProofToast() {
                 just {msg.action}
               </p>
               <p className="mt-1 text-[10px] text-text-muted/60">
-                {Math.floor(Math.random() * 5) + 1} minutes ago
+                {minutesAgo} minutes ago
               </p>
             </div>
           </div>

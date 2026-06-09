@@ -1,0 +1,177 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "Mater Maria Homes" [ref=e4] [cursor=pointer]:
+        - /url: index-landing.html
+        - img "Mater Maria Homes" [ref=e5]
+      - list [ref=e6]:
+        - listitem [ref=e7]:
+          - link "About" [ref=e8] [cursor=pointer]:
+            - /url: about.html
+        - listitem [ref=e9]:
+          - link "Features" [ref=e10] [cursor=pointer]:
+            - /url: index-landing.html#features
+        - listitem [ref=e11]:
+          - link "Residences" [ref=e12] [cursor=pointer]:
+            - /url: index-landing.html#properties
+        - listitem [ref=e13]:
+          - link "Invest" [ref=e14] [cursor=pointer]:
+            - /url: invest.html
+        - listitem [ref=e15]:
+          - link "Contact" [ref=e16] [cursor=pointer]:
+            - /url: index-landing.html#contact
+      - button "EXPLORE NOW" [ref=e17]
+  - generic [ref=e19]:
+    - heading "Secure a High-Yield Asset in Kerala" [level=1] [ref=e20]:
+      - text: Secure a
+      - emphasis [ref=e21]: High-Yield Asset
+      - text: in Kerala
+    - paragraph [ref=e22]: Share-deposit programmes with 10% annual interest, guest privileges, and the option to convert to personal residence. A world-class future for your family.
+    - generic [ref=e23]:
+      - button "Explore Investment Tiers" [ref=e24] [cursor=pointer]
+      - button "Calculate Your Returns" [ref=e25] [cursor=pointer]
+  - generic [ref=e27]:
+    - generic [ref=e28]: Investment Plan | Choose Your Tier
+    - heading "Choose Your Tier" [level=2] [ref=e29]:
+      - text: Choose Your
+      - emphasis [ref=e30]: Tier
+    - paragraph [ref=e31]: Three tiers designed for different investment goals — from entry-level participation to premium board-level access.
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: Silver
+        - generic [ref=e35]: ₹10L
+        - list [ref=e36]:
+          - listitem [ref=e37]: "✓ 1st Instalment: ₹5L Share Capital"
+          - listitem [ref=e38]: "✓ 2nd Instalment (5 months): ₹2.5L Share + ₹2.5L Deposit"
+          - listitem [ref=e39]: ✓ 10% annual interest on deposit
+          - listitem [ref=e40]: ✓ 1 Day free guest room/year
+          - listitem [ref=e41]: ✓ 10% discount on guest room rent
+          - listitem [ref=e42]: ✓ 10% discount on family tour packages
+          - listitem [ref=e43]: ✓ 50% discount on hall rental (150 pax)
+          - listitem [ref=e44]: ✓ 10% discount on wellness packages
+        - button "Select Silver" [ref=e45]
+      - generic [ref=e46]:
+        - generic [ref=e47]: Best Value
+        - generic [ref=e48]: Gold
+        - generic [ref=e49]: ₹20L
+        - list [ref=e50]:
+          - listitem [ref=e51]: "✓ 1st Instalment: ₹7L Share + ₹3L Deposit"
+          - listitem [ref=e52]: "✓ 2nd Instalment (5 months): ₹7L Share + ₹3L Deposit"
+          - listitem [ref=e53]: ✓ 10% annual interest on deposit
+          - listitem [ref=e54]: ✓ 3 Days free guest room/year
+          - listitem [ref=e55]: ✓ 20% discount on guest room rent
+          - listitem [ref=e56]: ✓ 15% discount on family tour packages
+          - listitem [ref=e57]: ✓ 1 day free hall usage (150 pax)/year
+          - listitem [ref=e58]: ✓ 10% discount on wellness packages
+        - button "Select Gold" [ref=e59]
+      - generic [ref=e60]:
+        - generic [ref=e61]: Premium
+        - generic [ref=e62]: Platinum
+        - generic [ref=e63]: ₹30L
+        - list [ref=e64]:
+          - listitem [ref=e65]: ✓ 3 Instalments of ₹10L (5 months apart)
+          - listitem [ref=e66]: "✓ Each: ₹5L Share + ₹5L Share Capital"
+          - listitem [ref=e67]: ✓ 10% annual interest on deposit
+          - listitem [ref=e68]: ✓ 5 Days free guest room/year
+          - listitem [ref=e69]: ✓ 30% discount on guest room rent
+          - listitem [ref=e70]: ✓ 20% discount on family tour packages
+          - listitem [ref=e71]: ✓ 1 day free hall usage (150 pax)/year
+          - listitem [ref=e72]: ✓ 15% discount on wellness packages
+          - listitem [ref=e73]: ✓ Director Board liaison access
+        - button "Select Platinum" [ref=e74]
+  - generic [ref=e76]:
+    - generic [ref=e77]: Interactive Tool
+    - heading "ROI Calculator" [level=2] [ref=e78]:
+      - text: ROI
+      - emphasis [ref=e79]: Calculator
+    - paragraph [ref=e80]: Project your returns based on investment tier, duration, and assumptions. Toggle between conservative and optimistic scenarios.
+    - generic [ref=e81]:
+      - heading "Calculate Your Returns" [level=3] [ref=e82]
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - generic [ref=e85]: Investment Tier
+          - combobox "Investment Tier" [ref=e86]:
+            - option "Silver — ₹10L"
+            - option "Gold — ₹20L" [selected]
+            - option "Platinum — ₹30L"
+        - generic [ref=e87]:
+          - generic [ref=e88]: Investment Duration (Years)
+          - spinbutton "Investment Duration (Years)" [ref=e89]: "5"
+        - generic [ref=e90]:
+          - generic [ref=e91]: Scenario
+          - combobox "Scenario" [ref=e92]:
+            - option "Conservative (10% interest only)"
+            - option "Moderate (10% + dividend)" [selected]
+            - option "Optimistic (10% + dividend + appreciation)"
+        - generic [ref=e93]:
+          - generic [ref=e94]: Guest Days/Year
+          - spinbutton "Guest Days/Year" [ref=e95]: "3"
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - generic [ref=e98]: ₹20,00,000
+          - generic [ref=e99]: Total Investment
+        - generic [ref=e100]:
+          - generic [ref=e101]: ₹10,00,000
+          - generic [ref=e102]: Interest Earned
+        - generic [ref=e103]:
+          - generic [ref=e104]: ₹1,00,000
+          - generic [ref=e105]: Projected Dividend
+        - generic [ref=e106]:
+          - generic [ref=e107]: ₹75,000
+          - generic [ref=e108]: Guest Room Value
+  - generic [ref=e110]:
+    - generic [ref=e111]: Trust & Credibility
+    - heading "Governed by Standards" [level=2] [ref=e112]:
+      - text: Governed by
+      - emphasis [ref=e113]: Standards
+    - paragraph [ref=e114]: Every investment is protected by international certifications, regulatory compliance, and transparent governance.
+    - generic [ref=e115]:
+      - generic [ref=e116]:
+        - generic [ref=e117]: ⛪
+        - generic [ref=e118]: Diocese of Kanjirappally
+      - generic [ref=e119]:
+        - generic [ref=e120]: 📊
+        - generic [ref=e121]: Quarterly Reporting
+      - generic [ref=e122]:
+        - generic [ref=e123]: 🔒
+        - generic [ref=e124]: Escrow Protected
+  - generic [ref=e126]:
+    - generic [ref=e127]: Begin Your Investment Journey
+    - heading "Secure Your Future" [level=2] [ref=e128]:
+      - text: Secure Your
+      - emphasis [ref=e129]: Future
+    - paragraph [ref=e130]: Complete this 3-step form to receive your personalized investment brochure and schedule a site visit.
+    - generic [ref=e136]:
+      - 'heading "Step 1: Your Details" [level=3] [ref=e137]'
+      - generic [ref=e138]: Full Name
+      - textbox "Full Name" [ref=e139]:
+        - /placeholder: e.g. Thomas Kurian
+      - generic [ref=e140]: Email Address
+      - textbox "Email Address" [ref=e141]:
+        - /placeholder: thomas@example.com
+      - generic [ref=e142]: WhatsApp Number (with Country Code)
+      - textbox "WhatsApp Number (with Country Code)" [ref=e143]:
+        - /placeholder: +91 98765 43210
+      - button "Next →" [ref=e145] [cursor=pointer]
+  - contentinfo [ref=e146]:
+    - generic [ref=e147]:
+      - generic [ref=e148]: © 2026 Mater Maria Homes. All rights reserved.
+      - list [ref=e149]:
+        - listitem [ref=e150]:
+          - link "Home" [ref=e151] [cursor=pointer]:
+            - /url: index-landing.html
+        - listitem [ref=e152]:
+          - link "About" [ref=e153] [cursor=pointer]:
+            - /url: about.html
+        - listitem [ref=e154]:
+          - link "Contact" [ref=e155] [cursor=pointer]:
+            - /url: index-landing.html#contact
+        - listitem [ref=e156]:
+          - link "Privacy" [ref=e157] [cursor=pointer]:
+            - /url: privacy.html
+        - listitem [ref=e158]:
+          - link "Facebook" [ref=e159] [cursor=pointer]:
+            - /url: https://www.facebook.com/people/Mater-Maria-Homes/61589862121661/
+        - listitem [ref=e160]:
+          - link "Instagram" [ref=e161] [cursor=pointer]:
+            - /url: https://www.instagram.com/matermariahomes/

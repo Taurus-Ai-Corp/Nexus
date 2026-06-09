@@ -1,0 +1,43 @@
+# 🤖 BizFlow™ Core Platform Backend Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bizflow-backend-config
+data:
+  # FastAPI Configuration
+  fastapi_host: "0.0.0.0"
+  fastapi_port: "8000"
+  fastapi_reload: "true"
+  fastapi_log_level: "info"
+  
+  # Database Configuration
+  database_url: "postgresql://bizflow:password@postgres:5432/bizflow_db"
+  redis_url: "redis://redis:6379"
+  
+  # Authentication
+  jwt_secret_key: "your-secret-key-here"
+  jwt_algorithm: "HS256"
+  jwt_expiration_hours: "24"
+  
+  # Multi-tenant Configuration
+  tenant_isolation: "true"
+  tenant_header: "X-Tenant-ID"
+  
+  # API Configuration
+  api_prefix: "/api/v1"
+  rate_limit: "1000/hour"
+  cors_origins: "https://bizflow.taurusai.io,https://taurusai.io"
+  
+  # WebSocket Configuration
+  websocket_enabled: "true"
+  websocket_path: "/ws"
+  
+  # Agent Configuration
+  max_concurrent_agents: "50"
+  agent_timeout: "300"
+  agent_retry_attempts: "3"
+  
+  # Monitoring
+  health_check_interval: "30"
+  metrics_enabled: "true"
+  logging_level: "INFO"

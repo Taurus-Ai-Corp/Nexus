@@ -433,7 +433,7 @@ class VertexAICreativeAgent(BaseAgent):
     async def generate_campaign_assets(self, campaign_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         High-level method to generate complete campaign assets
-        Specialized for BizFlow™ marketing campaigns
+        Specialized for NEXUS marketing campaigns
         """
         
         logger.info("🚀 Generating complete campaign assets")

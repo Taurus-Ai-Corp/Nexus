@@ -1,0 +1,20 @@
+{
+  "project_name": "vibe_marketing",
+  "site_id": null,
+  "collection_ids": {
+    "social_posts": "",
+    "campaigns": "",
+    "analytics": "",
+    "assets": ""
+  },
+  "webhook_endpoints": {
+    "form_submission": "https://api.vibemarketing.com/webhooks/webflow/form",
+    "item_created": "https://api.vibemarketing.com/webhooks/webflow/item-created"
+  },
+  "custom_fields": {
+    "campaign_type": "social_media",
+    "integration_version": "1.0"
+  },
+  "auto_publish": true,
+  "draft_mode": false
+}

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TAURUS AI x YQG Digital — Overflow Delivery Partner</title>
+<style>
+  @page { size: letter; margin: 0; }
+  @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: -apple-system, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
+    color: #111;
+    line-height: 1.55;
+    font-size: 10.5pt;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    padding: 0.65in 0.7in 0.5in;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .content { flex: 1 1 auto; }
+
+  /* Header */
+  .brand-bar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #0b0b0b;
+    margin-bottom: 24px;
+  }
+  .brand-mark {
+    font-size: 16pt;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #0b0b0b;
+  }
+  .brand-mark .accent { color: #b88a3d; }
+  .brand-meta {
+    font-size: 8.5pt;
+    color: #6b6b6b;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  /* Headline */
+  .eyebrow {
+    font-size: 9pt;
+    color: #b88a3d;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .headline {
+    font-size: 28pt;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: #0b0b0b;
+    margin-bottom: 10px;
+  }
+  .subhead {
+    font-size: 12.5pt;
+    color: #555;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+
+  /* Pull quote */
+  .pullquote {
+    border-left: 3px solid #b88a3d;
+    padding: 10px 16px;
+    background: #faf6ec;
+    font-style: italic;
+    color: #3a3a3a;
+    font-size: 10.5pt;
+    margin-bottom: 22px;
+  }
+  .pullquote cite {
+    display: block;
+    font-size: 8.5pt;
+    font-style: normal;
+    color: #8a7248;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 6px;
+  }
+
+  /* Body */
+  .body-text { font-size: 10.5pt; color: #222; margin-bottom: 14px; }
+  .body-text strong { color: #0b0b0b; font-weight: 600; }
+
+  /* Stats */
+  .stat-row {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0 22px;
+  }
+  .stat {
+    flex: 1;
+    padding: 14px 16px;
+    background: #faf6ec;
+    border-left: 3px solid #b88a3d;
+  }
+  .stat-num {
+    font-size: 20pt;
+    font-weight: 700;
+    color: #0b0b0b;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stat-lbl {
+    font-size: 8pt;
+    color: #7a6a4a;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+
+  /* Section */
+  .section-title {
+    font-size: 9pt;
+    color: #0b0b0b;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 22px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #d8d8d8;
+  }
+
+  /* How it works — 3 steps */
+  .steps {
+    display: flex;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .step {
+    flex: 1;
+    border: 1px solid #e8e3d5;
+    border-radius: 4px;
+    padding: 14px 14px 13px;
+    background: #fdfbf5;
+  }
+  .step-num {
+    font-size: 9pt;
+    color: #b88a3d;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 5px;
+  }
+  .step-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #0b0b0b;
+    margin-bottom: 5px;
+  }
+  .step-body {
+    font-size: 9.5pt;
+    color: #4a4a4a;
+    line-height: 1.45;
+  }
+
+  /* Two-column list */
+  .two-col {
+    display: flex;
+    gap: 28px;
+    margin: 10px 0 18px;
+  }
+  .col {
+    flex: 1;
+  }
+  .col ul {
+    list-style: none;
+    padding: 0;
+  }
+  .col li {
+    font-size: 10pt;
+    color: #2a2a2a;
+    padding: 6px 0 6px 16px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .col li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #b88a3d;
+    font-weight: 700;
+  }
+
+  /* CTA */
+  .cta {
+    background: #0b0b0b;
+    color: #fff;
+    padding: 20px 22px;
+    border-radius: 4px;
+    margin: 22px 0 18px;
+  }
+  .cta-eyebrow {
+    font-size: 8.5pt;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #b88a3d;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .cta-line {
+    font-size: 13pt;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .cta-sub {
+    font-size: 10pt;
+    color: #cfcfcf;
+    margin-bottom: 12px;
+  }
+  .cta-links {
+    font-size: 10pt;
+    color: #e6e6e6;
+  }
+  .cta-links a {
+    color: #d9b377;
+    text-decoration: none;
+    border-bottom: 1px solid #b88a3d;
+    padding-bottom: 1px;
+    margin-right: 20px;
+  }
+
+  /* Signature */
+  .signature {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #e3e3e3;
+  }
+  .sig-from {
+    font-size: 8.5pt;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .sig-name { font-weight: 600; color: #0b0b0b; font-size: 12pt; }
+  .sig-title { font-size: 9.5pt; color: #6b6b6b; margin-top: 2px; }
+
+  /* Footer */
+  .footer {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7.5pt;
+    color: #a6a6a6;
+    letter-spacing: 0.05em;
+    border-top: 1px solid #ececec;
+    padding-top: 10px;
+  }
+  .footer-right { text-align: right; }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="content">
+
+  <div class="brand-bar">
+    <div class="brand-mark">TAURUS<span class="accent"> AI</span></div>
+    <div class="brand-meta">
+      Overflow Delivery Partnership<br>
+      YQG Digital Inc. &middot; Windsor, ON
+    </div>
+  </div>
+
+  <div class="eyebrow">A proposal for Tim &amp; Andrew</div>
+  <div class="headline">Your overflow,<br>our delivery.</div>
+  <div class="subhead">When YQG&rsquo;s 2027 waitlist can&rsquo;t take another client, we ship the build under your brand.</div>
+
+  <div class="pullquote">
+    &ldquo;We usually just end up hiring someone else.&rdquo;
+    <cite>&mdash; Tim Warnholtz, call on April 22</cite>
+  </div>
+
+  <div class="body-text">
+    With a waitlist into <strong>2027</strong> and a new client every 48 hours, hiring-someone-else has become a repeating decision at YQG. Here&rsquo;s a cleaner version of it: a dedicated white-label delivery team you engage on-demand, invisible to your clients, priced as a percentage of the project you sold.
+  </div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-num">&lt; 2 wk</div>
+      <div class="stat-lbl">Typical turnaround<br>for standard builds</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10+</div>
+      <div class="stat-lbl">Engineers on deck<br>across Dubai &amp; Kerala</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">40&ndash;50%</div>
+      <div class="stat-lbl">Share of project fee<br>to TAURUS AI</div>
+    </div>
+  </div>
+
+  <div class="section-title">How it works</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">YQG sells.</div>
+      <div class="step-body">Client discovery, scope, pricing, contract &mdash; all on your side. Your brand, your relationship.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">TAURUS ships.</div>
+      <div class="step-body">We build to YQG&rsquo;s quality bar under NDA. No client-facing presence. No co-marketing. Zero footprint.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">YQG invoices.</div>
+      <div class="step-body">You bill the client at your rates. 40&ndash;50% of the project fee flows to us. You own the renewal.</div>
+    </div>
+  </div>
+
+  <div class="section-title">What we deliver &middot; where it fits YQG</div>
+  <div class="two-col">
+    <div class="col">
+      <ul>
+        <li>Next.js / React custom sites under 10 days</li>
+        <li>WordPress / Elementor for simple builds</li>
+        <li>E-commerce (Shopify, WooCommerce, custom)</li>
+        <li>CRM and booking portals</li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <li>Custom AI integrations (RAG, chat, voice agents)</li>
+        <li>Native app dev (React Native, Swift, Kotlin)</li>
+        <li>Compliance platforms (PQC, privacy, audit trail)</li>
+        <li>Heiro / blockchain plumbing when clients ask</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Why this works for a 10-person Windsor shop</div>
+  <div class="body-text">
+    <strong>No culture clash.</strong> Our team works NDA-backed and invisible to your clients. They see YQG, always.<br>
+    <strong>No capacity risk.</strong> You absorb demand without the overhead of a permanent hire you can&rsquo;t yet justify.<br>
+    <strong>No client leakage.</strong> Zero co-marketing, zero reach-out, zero IP shared across clients. Ever.
+  </div>
+
+  <div class="cta">
+    <div class="cta-eyebrow">The pilot</div>
+    <div class="cta-line">Pick one project from your 2027 backlog.</div>
+    <div class="cta-sub">We price it at cost. You scope, we build, you ship. 30-day delivery commitment. No commitment beyond that single project.</div>
+    <div class="cta-links">
+      <a href="mailto:admin@taurusai.io?subject=YQG%20Overflow%20Pilot%20%E2%80%94%20one%20project%20from%20the%202027%20backlog">admin@taurusai.io</a>
+      <a href="https://taurusai.io">taurusai.io</a>
+    </div>
+  </div>
+
+  <div class="signature">
+    <div class="sig-from">With appreciation,</div>
+    <div class="sig-name">Effin</div>
+    <div class="sig-title">TAURUS AI Corp &middot; admin@taurusai.io</div>
+  </div>
+
+</div><!-- /.content -->
+
+  <div class="footer">
+    <div>TAURUS AI CORP &mdash; FZCO &middot; IFZA, Dubai, UAE &middot; License #68122</div>
+    <div class="footer-right">Prepared for Tim Warnholtz &amp; Andrew Savage &middot; YQG Digital &middot; April 2026</div>
+  </div>
+
+</div>
+</body>
+</html>

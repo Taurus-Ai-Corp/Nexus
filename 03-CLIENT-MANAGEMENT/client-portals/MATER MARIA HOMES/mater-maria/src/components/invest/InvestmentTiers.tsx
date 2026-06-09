@@ -3,29 +3,21 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import SlotCounter from "react-slot-counter";
-import { ArrowRight, Check, Crown, Gem, Medal, Star, TrendingUp, CalendarDays, Landmark } from "lucide-react";
+import { ArrowRight, Check, Crown, Medal, Star, TrendingUp, CalendarDays, Landmark, LogOut } from "lucide-react";
 import { SectionWatermark } from "@/components/ui/section-watermark";
 import { Container } from "@/components/ui/container";
-import { GhostWord } from "@/components/ui/ghost-word";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { INVESTMENT_TIERS, type InvestmentTier, type TierId } from "@/lib/investor-constants";
+import { INVESTMENT_TIERS, type TierId } from "@/lib/investor-constants";
 import { useCurrency } from "@/lib/currency-context";
 import { CurrencyToggle } from "./CurrencyToggle";
 
 const TIER_ICONS: Record<TierId, typeof Star> = {
   silver: Medal,
   gold: Star,
-  diamond: Gem,
   platinum: Crown,
 };
 
 const TIER_PALETTE: Record<TierId, { accent: string; glow: string; border: string; bg: string }> = {
-  diamond: {
-    accent: "#F5C842",
-    glow: "rgba(245,200,66,0.20)",
-    border: "rgba(245,200,66,0.35)",
-    bg: "rgba(245,200,66,0.06)",
-  },
   platinum: {
     accent: "#D8CBB8",
     glow: "rgba(216,203,184,0.18)",
@@ -46,8 +38,16 @@ const TIER_PALETTE: Record<TierId, { accent: string; glow: string; border: strin
   },
 };
 
+const TIMELINE_STEPS = [
+  { emoji: "💰", label: "Instalments", desc: "Share capital + deposit paid in tranches", highlight: false, tag: "" },
+  { emoji: "📈", label: "Interest (Yr 1-4)", desc: "10% annual interest on your deposit portion", highlight: false, tag: "" },
+  { emoji: "🔄", label: "Deposit→Share", desc: "Deposit converts to share capital. You become a shareholder.", highlight: true, tag: "Year 5" },
+  { emoji: "🏦", label: "Dividends (Yr 5-15)", desc: "Escalating dividends from 6% to 20% annually", highlight: false, tag: "" },
+  { emoji: "💵", label: "Share Sale", desc: "Exit after 5 years with 6 months notice in 3 instalments", highlight: false, tag: "" },
+];
+
 export function InvestmentTiers() {
-  const [active, setActive] = useState<TierId>("diamond");
+  const [active, setActive] = useState<TierId>("platinum");
   const detailRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(detailRef, { once: true });
 
@@ -77,7 +77,7 @@ export function InvestmentTiers() {
             Choose Your Legacy
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
-            Four tiers of partnership in Kerala&apos;s premier wellness estate.
+            Three tiers of partnership in Kerala&apos;s premier wellness estate.
             Every tier includes 10% annual interest and dividend participation.
           </p>
           <div className="mt-6 flex justify-center">
@@ -95,6 +95,7 @@ export function InvestmentTiers() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="flex flex-col gap-3"
+            data-testid="tier-list"
           >
             {INVESTMENT_TIERS.map((t) => {
               const p = TIER_PALETTE[t.id];
@@ -103,6 +104,7 @@ export function InvestmentTiers() {
               return (
                 <button
                   key={t.id}
+                  data-testid={`tier-${t.id}`}
                   onClick={() => setActive(t.id)}
                   className="group relative overflow-hidden rounded-2xl border text-left transition-all duration-300"
                   style={{
@@ -289,6 +291,31 @@ export function InvestmentTiers() {
                     </ul>
                   </div>
 
+                  {/* Exit Terms */}
+                  <div
+                    data-testid="exit-terms"
+                    className="mb-6 rounded-xl border p-4"
+                    style={{
+                      borderColor: `${palette.accent}20`,
+                      background: `${palette.accent}0A`,
+                    }}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <LogOut className="size-4" style={{ color: palette.accent }} />
+                      <span className="text-xs font-semibold uppercase tracking-wider text-white/60">
+                        Share Sale &amp; Exit Terms
+                      </span>
+                    </div>
+                    <p className="text-sm text-white/70 leading-relaxed">
+                      Share sale permitted after{" "}
+                      <span className="font-bold text-white">{tier.exitTerms.lockInYears} years</span>{" "}
+                      with{" "}
+                      <span className="font-bold text-white">{tier.exitTerms.noticePeriod}</span>{" "}
+                      notice. Payout in{" "}
+                      <span className="font-bold text-white">{tier.exitTerms.payoutMethod}</span>.
+                    </p>
+                  </div>
+
                   {/* CTA */}
                   <a href="#lead-capture">
                     <ShimmerButton className="w-full">
@@ -300,6 +327,63 @@ export function InvestmentTiers() {
             </AnimatePresence>
           </div>
         </div>
+
+        {/* Strategy Timeline */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-16"
+          data-testid="strategy-timeline"
+        >
+          <div className="mb-8 text-center">
+            <p className="mb-2 font-heading text-sm font-medium uppercase tracking-[0.2em] text-accent-default">
+              Your Investment Journey
+            </p>
+            <h3 className="font-heading text-2xl font-bold text-gold-gradient sm:text-3xl">
+              Strategy Timeline
+            </h3>
+            <p className="mx-auto mt-3 max-w-xl text-text-secondary">
+              A 15-year financial model that transitions you from interest-earning depositor to dividend-earning shareholder.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-4">
+            {TIMELINE_STEPS.map((step, i) => (
+              <div key={step.label} className="flex items-center gap-3">
+                <div
+                  className="flex flex-col items-center rounded-2xl border p-5 text-center"
+                  style={{
+                    minWidth: "160px",
+                    maxWidth: "200px",
+                    borderColor: step.highlight
+                      ? "rgba(192,155,94,0.35)"
+                      : "rgba(255,255,255,0.08)",
+                    background: step.highlight
+                      ? "rgba(192,155,94,0.06)"
+                      : "rgba(255,255,255,0.03)",
+                  }}
+                >
+                  {step.highlight && (
+                    <span
+                      className="mb-2 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
+                      style={{ background: "rgba(192,155,94,0.20)", color: "#D4B77A" }}
+                    >
+                      {step.tag}
+                    </span>
+                  )}
+                  <span className="mb-1 text-2xl">{step.emoji}</span>
+                  <span className="font-heading text-sm font-bold text-white">{step.label}</span>
+                  <span className="mt-1 text-xs text-white/50">{step.desc}</span>
+                </div>
+                {i < TIMELINE_STEPS.length - 1 && (
+                  <ArrowRight className="hidden size-4 text-white/20 md:block shrink-0" />
+                )}
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
         <p className="mt-8 text-center text-xs text-text-muted">
           * Returns are projected based on the 15-year financial model. Deposit converts to share capital at Year 5.

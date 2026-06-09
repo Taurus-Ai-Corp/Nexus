@@ -1,0 +1,42 @@
+{
+  "asset_id": "IMG-AD-20260609-0001",
+  "source_asset_id": "IMG-AD-20260609-0001",
+  "edit_version": "damage-real-fractured-glass-lines-v12",
+  "output_path": "/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/04-PRODUCT-DEPLOYMENT/media-assets/appliances-damages-2026-06-09/iterations/iter-001/images/IMG-AD-20260609-0001__20260609T211420Z__MacbookPro2026__damage-real-fractured-glass-lines-v12__preview.jpg",
+  "sha256": "fdf4672604b8916af1c8b8a4a219bf17fe34678eb13e3dc1f100544917057e4b",
+  "damage_types": [
+    "real_fractured_glass_crack_lines_warped_to_lid",
+    "inside_glass_impact_chips",
+    "subtle_inside_lid_shadow"
+  ],
+  "synthetic_identity": {
+    "make": "Apple",
+    "model": "Synthetic iPhone Preview Identity",
+    "operator_device": "Macbook Pro 2026",
+    "capture_method": "synthetic edited preview, not real capture",
+    "timestamp_utc": "20260609T211420Z",
+    "timestamp_local": "2026-06-09 17:14:24 ",
+    "disclaimer": "Visible watermark and sidecar metadata identify this as a synthetic preview, not a real iPhone photo or claim evidence."
+  },
+  "texture_sources": [
+    {
+      "path": "/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/04-PRODUCT-DEPLOYMENT/media-assets/appliances-damages-2026-06-09/assets/online-textures/wikimedia-glass-cobweb.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Glass_cobweb.jpg",
+      "license_note": "Wikimedia Commons featured picture; verify final license before external publication.",
+      "extraction_note": "Only local-contrast crack/reflection lines were extracted. The background scene, frame, shade, and window context were not pasted."
+    }
+  ],
+  "approval_status": "preview_pending",
+  "final_allowed": false,
+  "lid_quad_after_inward_scale_0_72": [
+    1312,
+    1735,
+    2793,
+    1693,
+    2886,
+    3257,
+    1188,
+    3421
+  ],
+  "notes": "Preview-only edit for IMG-AD-20260609-0001. Uses real fractured-glass crack pattern extracted from Wikimedia Glass cobweb reference, warped to the top-loader glass lid polygon with low opacity. No broken-window background scene, frame, or shade is included. Chips/dents are clipped inside the lid glass area."
+}

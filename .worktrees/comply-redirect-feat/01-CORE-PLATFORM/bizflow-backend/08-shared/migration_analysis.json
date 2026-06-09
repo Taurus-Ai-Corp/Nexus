@@ -1,0 +1,261 @@
+{
+  "analysis": {
+    "timestamp": "2025-09-22T21:54:59.754883",
+    "total_items": 22,
+    "folders": [
+      {
+        "name": "BizFlow-Automation-SaaS",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Automation-SaaS",
+        "size": 0,
+        "items": 0
+      },
+      {
+        "name": "Configuration",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Configuration",
+        "size": 2986849597,
+        "items": 80582
+      },
+      {
+        "name": "Documentation",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Documentation",
+        "size": 22642,
+        "items": 13
+      },
+      {
+        "name": "web-land-Dash",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/web-land-Dash",
+        "size": 1407915,
+        "items": 121
+      },
+      {
+        "name": "NeoVibe-Vibe_Marketing_Studio",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/NeoVibe-Vibe_Marketing_Studio",
+        "size": 2792286442,
+        "items": 63672
+      },
+      {
+        "name": "Cursor Chat",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Cursor Chat",
+        "size": 2226386,
+        "items": 5
+      },
+      {
+        "name": "Web-Platforms",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Web-Platforms",
+        "size": 176685,
+        "items": 23
+      },
+      {
+        "name": "Development-Sandbox",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Development-Sandbox",
+        "size": 2588,
+        "items": 10
+      },
+      {
+        "name": "Business-Intelligence",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Business-Intelligence",
+        "size": 216,
+        "items": 9
+      },
+      {
+        "name": "BizFlow-Agentic_Intelligent_Orchestrator",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator",
+        "size": 3791050415,
+        "items": 166817
+      },
+      {
+        "name": "Development-Tools",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Development-Tools",
+        "size": 220033,
+        "items": 12
+      },
+      {
+        "name": "scripts",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/scripts",
+        "size": 48025,
+        "items": 12
+      }
+    ],
+    "files": [
+      {
+        "name": "create-social-assets.py",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/create-social-assets.py",
+        "size": 15240
+      },
+      {
+        "name": ".DS_Store",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/.DS_Store",
+        "size": 6148
+      },
+      {
+        "name": "migration_analyzer.py",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/migration_analyzer.py",
+        "size": 12860
+      },
+      {
+        "name": "OPTIMAL_BUSINESS_STRUCTURE.md",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/OPTIMAL_BUSINESS_STRUCTURE.md",
+        "size": 6033
+      },
+      {
+        "name": "UNIFIED_TAURUS_AI_CORP_ANALYSIS.md",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/UNIFIED_TAURUS_AI_CORP_ANALYSIS.md",
+        "size": 8613
+      },
+      {
+        "name": "bizflow_orchestrator_prompt.md",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/bizflow_orchestrator_prompt.md",
+        "size": 15626
+      },
+      {
+        "name": ".windsurfrules",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/.windsurfrules",
+        "size": 20045
+      },
+      {
+        "name": "README.md",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/README.md",
+        "size": 6194
+      },
+      {
+        "name": "COMPREHENSIVE_INTEGRATION_EXECUTION_REPORT.md",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/COMPREHENSIVE_INTEGRATION_EXECUTION_REPORT.md",
+        "size": 10684
+      },
+      {
+        "name": "BIZFLOW_ORCHESTRATOR_EXECUTION_REPORT.md",
+        "path": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BIZFLOW_ORCHESTRATOR_EXECUTION_REPORT.md",
+        "size": 7895
+      }
+    ],
+    "migration_plan": {}
+  },
+  "migration_plan": {
+    "bizflow_migrations": [
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Automation-SaaS",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/04-platforms/BizFlow-Automation-SaaS",
+        "size": 0,
+        "items": 0
+      },
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/04-platforms/BizFlow-Agentic_Intelligent_Orchestrator",
+        "size": 3791050415,
+        "items": 166817
+      },
+      {
+        "type": "file",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/bizflow_orchestrator_prompt.md",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/07-docs/bizflow_orchestrator_prompt.md",
+        "size": 15626
+      },
+      {
+        "type": "file",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/COMPREHENSIVE_INTEGRATION_EXECUTION_REPORT.md",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/07-docs/COMPREHENSIVE_INTEGRATION_EXECUTION_REPORT.md",
+        "size": 10684
+      },
+      {
+        "type": "file",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BIZFLOW_ORCHESTRATOR_EXECUTION_REPORT.md",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/07-docs/BIZFLOW_ORCHESTRATOR_EXECUTION_REPORT.md",
+        "size": 7895
+      }
+    ],
+    "neovibe_migrations": [
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/NeoVibe-Vibe_Marketing_Studio",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/NeoVibe-Vibe_Marketing_Studio/02-web-platforms/NeoVibe-Vibe_Marketing_Studio",
+        "size": 2792286442,
+        "items": 63672
+      },
+      {
+        "type": "file",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/create-social-assets.py",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/NeoVibe-Vibe_Marketing_Studio/05-content-creation/create-social-assets.py",
+        "size": 15240
+      }
+    ],
+    "shared_migrations": [
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Configuration",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/Configuration",
+        "size": 2986849597,
+        "items": 80582
+      },
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Documentation",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/Documentation",
+        "size": 22642,
+        "items": 13
+      },
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/web-land-Dash",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/web-land-Dash",
+        "size": 1407915,
+        "items": 121
+      },
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Web-Platforms",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/Web-Platforms",
+        "size": 176685,
+        "items": 23
+      },
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Development-Sandbox",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/Development-Sandbox",
+        "size": 2588,
+        "items": 10
+      },
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Development-Tools",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/Development-Tools",
+        "size": 220033,
+        "items": 12
+      },
+      {
+        "type": "folder",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/scripts",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/scripts",
+        "size": 48025,
+        "items": 12
+      },
+      {
+        "type": "file",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/OPTIMAL_BUSINESS_STRUCTURE.md",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/OPTIMAL_BUSINESS_STRUCTURE.md",
+        "size": 6033
+      },
+      {
+        "type": "file",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/UNIFIED_TAURUS_AI_CORP_ANALYSIS.md",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/UNIFIED_TAURUS_AI_CORP_ANALYSIS.md",
+        "size": 8613
+      },
+      {
+        "type": "file",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/.windsurfrules",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/.windsurfrules",
+        "size": 20045
+      },
+      {
+        "type": "file",
+        "source": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/README.md",
+        "target": "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared/README.md",
+        "size": 6194
+      }
+    ],
+    "conflicts": [],
+    "recommendations": []
+  }
+}

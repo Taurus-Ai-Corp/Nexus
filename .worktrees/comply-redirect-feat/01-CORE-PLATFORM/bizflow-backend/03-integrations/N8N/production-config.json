@@ -1,0 +1,106 @@
+{
+  "production_setup": {
+    "status": "ready",
+    "environment": "production",
+    "organization": "TAURUS AI CORP",
+    "domains": [
+      "taurusai.io",
+      "bizflow.taurusai.io", 
+      "neovibe.taurusai.io"
+    ]
+  },
+  "social_media": {
+    "instagram": {
+      "primary_account": "taurus.ai_",
+      "profile_url": "https://www.instagram.com/taurus.ai_/",
+      "reel_example": "https://www.instagram.com/reel/DF8Ukjpz-q-/?igsh=MTdvemI5aXpibndyZQ==",
+      "username": "taurus.ai_",
+      "password": "Taurus.@369"
+    },
+    "linkedin": {
+      "automated": true,
+      "content_pipeline": "active",
+      "hook_generation": "250+ database"
+    }
+  },
+  "email_system": {
+    "primary_gmail": {
+      "email": "taurus030609@gmail.com",
+      "password": "Taurus.@369",
+      "purpose": "Business communications, client management"
+    }
+  },
+  "api_keys": {
+    "anthropic": {
+      "bizflow": "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",
+      "neovibe": "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",
+      "model": "claude-sonnet-4-20250514"
+    },
+    "perplexity": {
+      "bizflow": "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",
+      "neovibe": "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"
+    },
+    "openai": {
+      "neovibe": "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"
+    },
+    "firecrawl": "fc-43d5707a1d714773a160962cb04391f2",
+    "klavis_mcp": "cNBq6io0XoP2OobYyPrFiPmOdhUiNW/0Sq4DTQvdw/8=",
+    "supabase": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxienZsaHJsYmZibGlza2ZqZ2JkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxMjMyNDIsImV4cCI6MjA3MTY5OTI0Mn0.lGw5i6I8XK6e4hWADJCapjR3zWGslKDP3G96mtr5bv8"
+  },
+  "platform_integrations": {
+    "figma": {
+      "token": "figd_c897wUduGpIvvLI04BqfVFcE3DGjFbSq17pOgW4L",
+      "purpose": "Design automation, asset generation"
+    },
+    "github": {
+      "token": "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",
+      "purpose": "Repository management, deployment automation"
+    },
+    "vercel": {
+      "token": "QwiaZzjMtgBcoZ2FIiqkEMYe",
+      "purpose": "Web deployment, hosting automation"
+    },
+    "clickup": {
+      "client_id": "SZVSYNLFSCY2982SLD94ESAVEMVDK5WO",
+      "client_secret": "ZCNEHBJV3BMC3I1I817QP14QTEJS9MOFW4FASDQ9ZXEI2TAJI7E1T95L3S9L0LZB",
+      "purpose": "Project management, task automation"
+    },
+    "webflow": {
+      "client_id": "f1f4344f7074e4f1f0dd50b1b2867873c17778f877f6f7a07a7882e79bf06828",
+      "client_secret": "a2ae2e2baa88203e069c004a0452272c1fc8f3846d8687c27de13a34a684c097",
+      "purpose": "Website deployment, CMS automation"
+    },
+    "google_cloud": {
+      "client_id": "480581203668-oifr12t4ftfi7469os81fqln1g40ml5u.apps.googleusercontent.com",
+      "client_secret": "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",
+      "purpose": "Admin SDK, Google Workspace automation"
+    }
+  },
+  "automation_capabilities": {
+    "linkedin_growth": {
+      "status": "production_ready",
+      "features": [
+        "4-agent content optimization",
+        "250+ viral hooks database", 
+        "Real-time trend research",
+        "Performance analysis",
+        "Multi-cultural adaptation"
+      ]
+    },
+    "content_creation": {
+      "platforms": ["LinkedIn", "Instagram", "TikTok"],
+      "automation_level": "95%",
+      "ai_enhancement": "Vertex AI + Claude integration"
+    },
+    "client_management": {
+      "email_processing": "100% automated",
+      "crm_integration": "ClickUp + Supabase",
+      "meeting_analysis": "AI-powered transcription"
+    },
+    "web_deployment": {
+      "platforms": ["Vercel", "Webflow"],
+      "automation": "GitHub → Vercel CI/CD",
+      "monitoring": "Real-time performance tracking"
+    }
+  }
+}

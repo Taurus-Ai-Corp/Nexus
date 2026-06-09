@@ -1,0 +1,25 @@
+{
+  "asset_id": "IMG-AD-20260609-0001",
+  "source_asset_id": "IMG-AD-20260609-0001",
+  "edit_version": "damage-cracked-lid-dented-top-v03",
+  "output_path": "/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/04-PRODUCT-DEPLOYMENT/media-assets/appliances-damages-2026-06-09/iterations/iter-001/images/IMG-AD-20260609-0001__20260609T155625Z__MacbookPro2026__damage-cracked-lid-dented-top-v03__preview.jpg",
+  "sha256": "9ed1d1bd4b1769b3a4d054c7eb2d36935dd84f3cd1b17f4f9aacb759f7780968",
+  "damage_types": [
+    "cracked_transparent_lid",
+    "broken_glass_shards",
+    "dented_white_top",
+    "surface_scratches"
+  ],
+  "synthetic_identity": {
+    "make": "Apple",
+    "model": "Synthetic iPhone Preview Identity",
+    "operator_device": "Macbook Pro 2026",
+    "capture_method": "synthetic edited preview, not real capture",
+    "timestamp_utc": "20260609T155625Z",
+    "timestamp_local": "2026-06-09 11:56:56 ",
+    "disclaimer": "Visible watermark and sidecar metadata identify this as a synthetic preview, not a real iPhone photo or claim evidence."
+  },
+  "approval_status": "preview_pending",
+  "final_allowed": false,
+  "notes": "Preview-only edit for IMG-AD-20260609-0001. Do not move to final until approved and source/AI detector audit is complete."
+}

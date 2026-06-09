@@ -1,0 +1,24 @@
+{
+  "name": "google-admin-mcp",
+  "version": "1.0.0",
+  "description": "Google Workspace Admin Directory API MCP Server",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "googleapis": "^128.0.0",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": [
+    "mcp",
+    "google",
+    "admin",
+    "workspace"
+  ],
+  "author": "TAURUS AI CORP",
+  "license": "MIT"
+}

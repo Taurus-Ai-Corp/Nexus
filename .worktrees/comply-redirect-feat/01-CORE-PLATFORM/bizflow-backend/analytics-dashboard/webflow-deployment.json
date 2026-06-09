@@ -1,0 +1,42 @@
+{
+  "deployment": {
+    "version": "1.0.0",
+    "timestamp": "2024-09-19T05:30:00Z",
+    "template": "taurus-analytics-dashboard-v1",
+    "features": [
+      "real-time-metrics",
+      "interactive-charts",
+      "responsive-design",
+      "dark-light-theme",
+      "mobile-first",
+      "accessibility-compliant"
+    ]
+  },
+  "integration": {
+    "react_dashboard": true,
+    "webflow_template": true,
+    "hybrid_mode": true,
+    "data_sync": "websocket",
+    "api_endpoints": [
+      "/api/metrics/business",
+      "/api/metrics/revenue",
+      "/api/metrics/users",
+      "/api/metrics/agents",
+      "/api/metrics/performance",
+      "/api/metrics/system",
+      "/api/alerts"
+    ]
+  },
+  "performance": {
+    "target_load_time": "< 3s",
+    "target_fcp": "< 1.5s",
+    "target_lcp": "< 2.5s",
+    "target_tti": "< 3.0s",
+    "lighthouse_score": "> 90"
+  },
+  "monitoring": {
+    "enabled": true,
+    "metrics": ["performance", "errors", "user_interactions"],
+    "alerts": ["error_rate", "response_time", "uptime"]
+  }
+}

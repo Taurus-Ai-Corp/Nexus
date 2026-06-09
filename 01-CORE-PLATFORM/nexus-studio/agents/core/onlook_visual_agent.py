@@ -541,7 +541,7 @@ export default function LandingPage({{ campaign = 'default', market = 'global' }
   return (
     <>
       <Head>
-        <title>{request.brand_guidelines.get('brand_name', 'BizFlow™')} - {request.prompt[:50]}</title>
+        <title>{request.brand_guidelines.get('brand_name', 'NEXUS by Taurus Ai')} - {request.prompt[:50]}</title>
         <meta name="description" content="High-converting landing page for {request.target_audience}" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -748,7 +748,7 @@ interface SEOProps {{
 }}
 
 export default function SEO({{ 
-  title = '{request.brand_guidelines.get("brand_name", "BizFlow™")}',
+  title = '{request.brand_guidelines.get("brand_name", "NEXUS by Taurus Ai")}',
   description = 'AI-powered marketing solutions',
   market = 'global'
 }}: SEOProps) {{
@@ -1124,7 +1124,7 @@ export default function AIGeneratedDesign() {{
     async def create_campaign_landing_pages(self, campaign_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Create complete set of landing pages for a marketing campaign
-        Specialized method for BizFlow™ campaign deployment
+        Specialized method for NEXUS campaign deployment
         """
         
         logger.info("🚀 Creating Campaign Landing Pages")
@@ -1166,7 +1166,7 @@ export default function AIGeneratedDesign() {{
                     "design_type": "landing_page",
                     "prompt": f"{campaign_data.get('campaign_name', 'Campaign')} - {variation['focus']}",
                     "brand_guidelines": campaign_data.get("brand_guidelines", {
-                        "brand_name": "BizFlow™",
+                        "brand_name": "NEXUS by Taurus Ai",
                         "brand_colors": ["#1E40AF", "#EF4444", "#10B981"]
                     }),
                     "target_audience": variation["audience"],

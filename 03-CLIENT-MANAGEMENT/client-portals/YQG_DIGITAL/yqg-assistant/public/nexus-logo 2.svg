@@ -1,0 +1,8 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagonal frame -->
+  <path d="M16 2L28.12 9V23L16 30L3.88 23V9L16 2Z" stroke="#1a1a2e" stroke-width="1.5" fill="none"/>
+  <!-- Inner hex -->
+  <path d="M16 7L24.66 12V22L16 27L7.34 22V12L16 7Z" stroke="#0d9488" stroke-width="1.5" fill="none"/>
+  <!-- N letterform -->
+  <path d="M11 22V10L16 18V10M16 18L21 10V22" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

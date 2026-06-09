@@ -25,46 +25,42 @@ const ICON_MAP = {
 
 /* Which tiers get each perk */
 const PERK_TIERS: Record<string, { label: string; color: string }[]> = {
-  "Event Hall": [
-    { label: "Platinum", color: "#D8CBB8" },
-    { label: "Diamond", color: "#F5C842" },
-  ],
-  "Guest House": [
-    { label: "Gold", color: "#F4B830" },
-    { label: "Platinum", color: "#D8CBB8" },
-    { label: "Diamond", color: "#F5C842" },
-  ],
-  "Patron Wall": [
-    { label: "Platinum", color: "#D8CBB8" },
-    { label: "Diamond", color: "#F5C842" },
-  ],
-  "Board Reports": [
-    { label: "Gold", color: "#F4B830" },
-    { label: "Platinum", color: "#D8CBB8" },
-    { label: "Diamond", color: "#F5C842" },
-  ],
-  "Estate Access": [
+  "Guest Room Stays": [
     { label: "Silver", color: "#A8C8E0" },
     { label: "Gold", color: "#F4B830" },
     { label: "Platinum", color: "#D8CBB8" },
-    { label: "Diamond", color: "#F5C842" },
   ],
-  "Annual Gala": [
+  "Guest Room Discount": [
+    { label: "Silver", color: "#A8C8E0" },
+    { label: "Gold", color: "#F4B830" },
     { label: "Platinum", color: "#D8CBB8" },
-    { label: "Diamond", color: "#F5C842" },
+  ],
+  "Event Hall": [
+    { label: "Gold", color: "#F4B830" },
+    { label: "Platinum", color: "#D8CBB8" },
+  ],
+  "Family Tour Packages": [
+    { label: "Silver", color: "#A8C8E0" },
+    { label: "Gold", color: "#F4B830" },
+    { label: "Platinum", color: "#D8CBB8" },
+  ],
+  "Wellness Package": [
+    { label: "Silver", color: "#A8C8E0" },
+    { label: "Gold", color: "#F4B830" },
+    { label: "Platinum", color: "#D8CBB8" },
+  ],
+  "Director Board Liaison": [
+    { label: "Platinum", color: "#D8CBB8" },
   ],
 };
 
-/* Bento layout area names */
-const AREA_MAP = ["event", "patron", "guesthouse", "reports", "access", "gala"] as const;
-
 const CARD_ACCENTS: string[] = [
-  "rgba(245,200,66,0.12)",   // event hall — gold
-  "rgba(216,203,184,0.10)",  // patron wall — platinum
-  "rgba(244,184,48,0.10)",   // guest house — amber
-  "rgba(168,200,224,0.10)",  // board reports — blue
-  "rgba(134,239,172,0.09)",  // estate access — green
-  "rgba(245,200,66,0.12)",   // annual gala — gold
+  "rgba(245,200,66,0.12)",
+  "rgba(216,203,184,0.10)",
+  "rgba(244,184,48,0.10)",
+  "rgba(168,200,224,0.10)",
+  "rgba(134,239,172,0.09)",
+  "rgba(245,200,66,0.12)",
 ];
 
 function PerkCard({

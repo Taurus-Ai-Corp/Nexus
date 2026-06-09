@@ -1,0 +1,17 @@
+{
+  "name": "taurus-worldclass-dashboard-simple",
+  "version": "1.0.0",
+  "description": "Simple dashboard server for TAURUS AI CORP",
+  "main": "simple-dashboard-server.js",
+  "scripts": {
+    "start": "node simple-dashboard-server.js",
+    "dev": "node simple-dashboard-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+

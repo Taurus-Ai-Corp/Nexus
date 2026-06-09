@@ -12,7 +12,6 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import { MotionDiv } from "@/components/ui/motion";
 import { ImageSlideshow } from "@/components/ui/image-slideshow";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { PageTransition } from "@/components/ui/page-transition";
 import { VideoBreak } from "@/components/ui/video-break";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
@@ -141,8 +140,8 @@ export default function AmenitiesPageClient() {
               Experience Our Amenities
             </h2>
             <p className="mx-auto mb-8 max-w-lg text-text-secondary">
-              See everything Mater Maria has to offer. Schedule a campus tour
-              and experience our amenities firsthand.
+              See everything Mater Maria has to offer. Request a virtual
+              presentation and explore our amenities from anywhere.
             </p>
             <Button
               asChild
@@ -150,7 +149,7 @@ export default function AmenitiesPageClient() {
               size="lg"
             >
               <Link href="/contact">
-                Schedule a Visit <ArrowRight className="size-4" />
+                Enquire Now <ArrowRight className="size-4" />
               </Link>
             </Button>
           </MotionDiv>

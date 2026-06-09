@@ -1,3 +1,3 @@
 """
-Mcp Agents for BizFlow-Orchestrator
+MCP Agents for NEXUS Creative Studio
 """

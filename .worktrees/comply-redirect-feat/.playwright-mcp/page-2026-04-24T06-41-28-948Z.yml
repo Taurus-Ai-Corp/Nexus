@@ -1,0 +1,920 @@
+- main [ref=e2]:
+  - generic [ref=e4]:
+    - link "Skip to content" [ref=e5] [cursor=pointer]:
+      - /url: "#content"
+    - navigation [ref=e7]:
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "ElevenLabs" [ref=e10] [cursor=pointer]:
+            - /url: /
+            - img [ref=e11]
+        - listitem [ref=e15]:
+          - list [ref=e16]:
+            - listitem [ref=e17]:
+              - button "ElevenCreative" [ref=e18] [cursor=pointer]
+            - listitem [ref=e19]:
+              - button "ElevenAgents" [ref=e20] [cursor=pointer]
+            - listitem [ref=e21]:
+              - button "ElevenAPI" [ref=e22] [cursor=pointer]
+            - listitem [ref=e23]:
+              - button "Resources" [ref=e24] [cursor=pointer]:
+                - generic [ref=e25]: Resources
+            - listitem [ref=e26]:
+              - link "Enterprise" [ref=e27] [cursor=pointer]:
+                - /url: /enterprise
+                - generic [ref=e28]: Enterprise
+            - listitem [ref=e29]:
+              - link "Pricing" [ref=e30] [cursor=pointer]:
+                - /url: /pricing
+                - generic [ref=e31]: Pricing
+    - generic [ref=e34]:
+      - link "Log in" [ref=e35] [cursor=pointer]:
+        - /url: /app/sign-in?platform=agents
+      - link "Sign up" [ref=e36] [cursor=pointer]:
+        - /url: /app/sign-up?platform=agents
+  - generic [ref=e39]:
+    - link "ElevenAgents" [ref=e40] [cursor=pointer]:
+      - /url: /agents
+      - generic [ref=e42]: ElevenAgents
+    - navigation [ref=e43]:
+      - list [ref=e44]:
+        - listitem [ref=e45]:
+          - list [ref=e46]:
+            - listitem [ref=e47]:
+              - button "Platform" [ref=e48] [cursor=pointer]:
+                - generic [ref=e49]: Platform
+            - listitem [ref=e50]:
+              - button "Solutions" [ref=e51] [cursor=pointer]:
+                - generic [ref=e52]: Solutions
+            - listitem [ref=e53]:
+              - link "Docs" [ref=e54] [cursor=pointer]:
+                - /url: /docs/eleven-agents/overview
+                - generic [ref=e55]: Docs
+            - listitem [ref=e56]:
+              - link "Customers" [ref=e57] [cursor=pointer]:
+                - /url: /customer-stories/agents
+                - generic [ref=e58]: Customers
+            - listitem [ref=e59]:
+              - link "Pricing" [ref=e60] [cursor=pointer]:
+                - /url: /pricing/agents
+                - generic [ref=e61]: Pricing
+  - generic [ref=e67]:
+    - generic [ref=e82]:
+      - generic [ref=e84]:
+        - heading "Conversational AI Platform for Real Engagement" [level=1] [ref=e85]
+        - generic [ref=e86]:
+          - paragraph [ref=e87]: Learn to deploy human-like Conversational AI in minutes. ElevenLabs delivers low latency interactions in 70+ languages with enterprise-grade security. Dialogue that feels real, across voice and chat.
+          - generic [ref=e88]:
+            - link "Create your agent" [ref=e89] [cursor=pointer]:
+              - /url: /app/agents
+            - link "Talk to sales" [ref=e90] [cursor=pointer]:
+              - /url: /contact-sales
+      - generic [ref=e95]:
+        - generic [ref=e98]:
+          - button "Chat" [ref=e99] [cursor=pointer]:
+            - generic [ref=e101]: Chat
+          - button "Voice" [ref=e102] [cursor=pointer]:
+            - generic [ref=e104]: Voice
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+            - paragraph [ref=e113]: Hey, how can I help you today?
+          - generic [ref=e114]:
+            - button "Start Call" [ref=e115] [cursor=pointer]:
+              - img [ref=e116]
+            - generic [ref=e118]:
+              - button "Or type a message…" [ref=e119]
+              - textbox "Or type a message…" [ref=e120]
+    - list [ref=e134]:
+      - listitem [ref=e135]:
+        - link "Revolut" [ref=e136] [cursor=pointer]:
+          - /url: /blog/revolut
+          - generic [ref=e137]: Revolut
+      - listitem [ref=e140]:
+        - link "Deliveroo" [ref=e141] [cursor=pointer]:
+          - /url: /blog/deliveroo
+          - generic [ref=e142]: Deliveroo
+      - listitem [ref=e145]:
+        - link "Epic games uses ElevenLabs" [ref=e146] [cursor=pointer]:
+          - /url: https://www.fortnite.com/news/this-will-be-a-day-long-remembered-speak-with-darth-vader-in-fortnite
+          - generic [ref=e147]: Epic games uses ElevenLabs
+      - listitem [ref=e150]:
+        - link "Deutsche Telekom" [ref=e151] [cursor=pointer]:
+          - /url: /blog/deutsche-telekom-ai-call-assistant
+          - generic [ref=e152]: Deutsche Telekom
+      - listitem [ref=e155]:
+        - link "Klarna" [ref=e156] [cursor=pointer]:
+          - /url: /blog/klarna
+          - generic [ref=e157]: Klarna
+      - listitem [ref=e160]:
+        - link "Meesho" [ref=e161] [cursor=pointer]:
+          - /url: /blog/meesho
+          - generic [ref=e162]: Meesho
+    - generic [ref=e177]:
+      - heading "What is Conversational AI?" [level=2] [ref=e178]
+      - generic [ref=e179]:
+        - paragraph [ref=e181]: Revolutionizing human technology interaction
+        - paragraph [ref=e183]: For decades, customer communication meant the same thing. IVR menus, scripted chatbots, and long hold times. Conversational AI bots replace all of it with agents that actually listen, understand, and act in real time, across voice and chat.
+    - button "Watch intro" [ref=e189] [cursor=pointer]:
+      - img [ref=e195]
+      - generic [ref=e198]: Watch intro
+    - generic [ref=e213]:
+      - generic [ref=e214]:
+        - heading "Before Conversational AI" [level=3] [ref=e217]
+        - table "Data table" [ref=e221]:
+          - row "\"Press 1 for billing, press 2 for ...\". Rigid IVR phone trees that frustrate customers before they reach a human." [ref=e222]:
+            - cell "\"Press 1 for billing, press 2 for ...\". Rigid IVR phone trees that frustrate customers before they reach a human." [ref=e223]:
+              - generic [ref=e224]:
+                - img [ref=e226]
+                - generic [ref=e228]: "\"Press 1 for billing, press 2 for ...\". Rigid IVR phone trees that frustrate customers before they reach a human."
+          - row "Rule-based chatbots that follow scripts. One unexpected question and the whole experience falls apart." [ref=e229]:
+            - cell "Rule-based chatbots that follow scripts. One unexpected question and the whole experience falls apart." [ref=e230]:
+              - generic [ref=e232]:
+                - img [ref=e234]
+                - generic [ref=e236]: Rule-based chatbots that follow scripts. One unexpected question and the whole experience falls apart.
+          - row "Customers repeat themselves every time they switch channels, phone to chat to email. Nothing carries over." [ref=e237]:
+            - cell "Customers repeat themselves every time they switch channels, phone to chat to email. Nothing carries over." [ref=e238]:
+              - generic [ref=e240]:
+                - img [ref=e242]
+                - generic [ref=e244]: Customers repeat themselves every time they switch channels, phone to chat to email. Nothing carries over.
+          - row "Scaling means hiring. More agents, more shifts, more training, more cost. Quality varies person to person and call to call." [ref=e245]:
+            - cell "Scaling means hiring. More agents, more shifts, more training, more cost. Quality varies person to person and call to call." [ref=e246]:
+              - generic [ref=e248]:
+                - img [ref=e250]
+                - generic [ref=e252]: Scaling means hiring. More agents, more shifts, more training, more cost. Quality varies person to person and call to call.
+          - row "Single-language support, or clunky handoffs between language-specific teams that slow resolution and lose key context." [ref=e253]:
+            - cell "Single-language support, or clunky handoffs between language-specific teams that slow resolution and lose key context." [ref=e254]:
+              - generic [ref=e256]:
+                - img [ref=e258]
+                - generic [ref=e260]: Single-language support, or clunky handoffs between language-specific teams that slow resolution and lose key context.
+      - generic [ref=e266]:
+        - heading "With our Conversational AI platform" [level=3] [ref=e269]
+        - table "Data table" [ref=e273]:
+          - row "Customers speak naturally and get understood. No menus, no keywords, no waiting." [ref=e274]:
+            - cell "Customers speak naturally and get understood. No menus, no keywords, no waiting." [ref=e275]:
+              - generic [ref=e276]:
+                - img [ref=e278]
+                - generic [ref=e280]: Customers speak naturally and get understood. No menus, no keywords, no waiting.
+          - row "Grounded in your knowledge base, agents adapt to questions, edge cases, and topic changes in real time." [ref=e281]:
+            - cell "Grounded in your knowledge base, agents adapt to questions, edge cases, and topic changes in real time." [ref=e282]:
+              - generic [ref=e284]:
+                - img [ref=e286]
+                - generic [ref=e288]: Grounded in your knowledge base, agents adapt to questions, edge cases, and topic changes in real time.
+          - row "Seamless continuity across voice, chat, phone, and web. One conversation, one context, regardless of channel." [ref=e289]:
+            - cell "Seamless continuity across voice, chat, phone, and web. One conversation, one context, regardless of channel." [ref=e290]:
+              - generic [ref=e292]:
+                - img [ref=e294]
+                - generic [ref=e296]: Seamless continuity across voice, chat, phone, and web. One conversation, one context, regardless of channel.
+          - row "Scales instantly to handle millions conversations at a fraction of the cost. No hiring surges, no training ramps, no inconsistency." [ref=e297]:
+            - cell "Scales instantly to handle millions conversations at a fraction of the cost. No hiring surges, no training ramps, no inconsistency." [ref=e298]:
+              - generic [ref=e300]:
+                - img [ref=e302]
+                - generic [ref=e304]: Scales instantly to handle millions conversations at a fraction of the cost. No hiring surges, no training ramps, no inconsistency.
+          - row "Real-time language detection and switching across 70+ languages. Agents serve global customers without transfers or delays." [ref=e305]:
+            - cell "Real-time language detection and switching across 70+ languages. Agents serve global customers without transfers or delays." [ref=e306]:
+              - generic [ref=e308]:
+                - img [ref=e310]
+                - generic [ref=e312]: Real-time language detection and switching across 70+ languages. Agents serve global customers without transfers or delays.
+    - generic [ref=e326]:
+      - generic [ref=e327]:
+        - heading "Build your first conversational AI in 5 minutes" [level=2] [ref=e328]
+        - link "Watch Conversational AI tutorial" [ref=e331] [cursor=pointer]:
+          - /url: https://www.youtube.com/watch?v=fnivYSh0Cqk&list=PL0p_X3zznhlNfieOUQnxLMrrRersZBqB-
+          - text: Watch tutorial
+      - paragraph [ref=e333]: Spin up your very own conversational AI agent instantly with a simple prompt or pick one of our prebuilt templates. No complex setup, no long onboarding. Just describe what you want and watch it come to life.
+    - generic [ref=e340]:
+      - tablist [ref=e342]:
+        - tab "Configure its knowledge Upload docs, FAQs, or connect a data source so it can answer accurately and act with full context." [selected] [ref=e343] [cursor=pointer]:
+          - paragraph [ref=e345]: Configure its knowledge
+          - paragraph [ref=e346]: Upload docs, FAQs, or connect a data source so it can answer accurately and act with full context.
+        - tab "Define your procedures Define workflows, actions, and escalation paths so it handles real-world scenarios precisely." [ref=e347] [cursor=pointer]:
+          - paragraph [ref=e349]: Define your procedures
+          - paragraph [ref=e350]: Define workflows, actions, and escalation paths so it handles real-world scenarios precisely.
+        - tab "Monitor and Improve Track conversations, identify gaps, and refine performance over time from an intuitive dashboard." [ref=e351] [cursor=pointer]:
+          - paragraph [ref=e353]: Monitor and Improve
+          - paragraph [ref=e354]: Track conversations, identify gaps, and refine performance over time from an intuitive dashboard.
+      - generic [ref=e358]:
+        - tabpanel "Configure its knowledge Upload docs, FAQs, or connect a data source so it can answer accurately and act with full context." [ref=e359]:
+          - img "UI for the ElevenAgents Conversational AI platform showing a configuration for a prompt" [ref=e361]
+        - img "Workflows UI" [ref=e364]
+        - img "Tracking results UI for Conversational AI Agents platform" [ref=e367]
+    - generic "Customer case studies" [ref=e372]:
+      - generic [ref=e376]:
+        - img [ref=e380]
+        - img [ref=e385]
+        - img [ref=e390]
+      - generic [ref=e392]:
+        - group "Quote 1 of 3" [ref=e393]:
+          - button "Play" [ref=e395] [cursor=pointer]
+          - figure "Jayesh Gupta Head of AI and Innovation" [ref=e398]:
+            - blockquote [ref=e399]:
+              - paragraph [ref=e400]:
+                - generic [ref=e401]: If I was a betting man in this AI voice space, I would definitely bet on ElevenLabs.
+            - generic [ref=e402]:
+              - paragraph [ref=e403]: Jayesh Gupta
+              - paragraph [ref=e404]: Head of AI and Innovation
+        - group "Quote 2 of 3" [ref=e405]:
+          - button "Play" [ref=e407] [cursor=pointer]
+          - figure "Mitch Lieberman VP of Product" [ref=e410]:
+            - blockquote [ref=e411]:
+              - paragraph [ref=e412]:
+                - generic [ref=e413]: ElevenLabs did end-to-end for us. They also allowed us the capability to take it apart and stitch together with other solutions if we needed to, but we didn’t need to.
+            - generic [ref=e414]:
+              - paragraph [ref=e415]: Mitch Lieberman
+              - paragraph [ref=e416]: VP of Product
+        - group "Quote 3 of 3" [ref=e417]:
+          - button "Play" [ref=e419] [cursor=pointer]
+          - figure "Mandar Bapaye Chief Product Officer" [ref=e422]:
+            - blockquote [ref=e423]:
+              - paragraph [ref=e424]:
+                - generic [ref=e425]: Voice has that magic that brings the experience alive, and it has worked wonders for us.
+            - generic [ref=e426]:
+              - paragraph [ref=e427]: Mandar Bapaye
+              - paragraph [ref=e428]: Chief Product Officer
+      - generic [ref=e429]:
+        - button "Previous slide" [ref=e430] [cursor=pointer]:
+          - img [ref=e431]
+        - button "Next slide" [ref=e433] [cursor=pointer]:
+          - img [ref=e434]
+    - generic [ref=e449]:
+      - heading "Conversational AI use cases" [level=2] [ref=e450]
+      - generic [ref=e458]:
+        - img [ref=e461]
+        - generic [ref=e465]: Telecom Support
+      - list [ref=e470]:
+        - listitem [ref=e471]:
+          - button "Telecommunications Telecommunications conversational AI qualifies leads and route sales, while automating customer support for billing, account, and service inquiries. It manages the full subscriber lifecycle. All of this with 24/7 omnichannel communication across voice and chat." [expanded] [ref=e472] [cursor=pointer]:
+            - heading "Telecommunications" [level=3] [ref=e473]
+            - paragraph [ref=e477]:
+              - link "Telecommunications" [ref=e478]:
+                - /url: /agents/telecommunications
+              - text: conversational AI qualifies leads and route sales, while automating customer support for billing, account, and service inquiries. It manages the full subscriber lifecycle. All of this with 24/7 omnichannel communication across voice and chat.
+        - listitem [ref=e479]:
+          - button "Financial services" [ref=e480] [cursor=pointer]:
+            - heading "Financial services" [level=3] [ref=e481]
+            - paragraph [ref=e484]:
+              - text: Conversational AI for
+              - link [ref=e485]:
+                - /url: /agents/financial-services
+                - text: financial services
+              - text: automates support, transactions, and compliance across banking and insurance workflows. It handles account inquiries, disputes, and identity verification in real time.
+        - listitem [ref=e486]:
+          - button "Healthcare" [ref=e487] [cursor=pointer]:
+            - heading "Healthcare" [level=3] [ref=e488]
+            - paragraph [ref=e491]:
+              - link [ref=e492]:
+                - /url: /agents/healthcare
+                - text: Healthcare
+              - text: conversational AI automates patient interactions like intake, triage, and appointment scheduling while providing 24/7 support. Reduces administrative burden while improving access and patient experience
+        - listitem [ref=e493]:
+          - button "Retail and e-commerce" [ref=e494] [cursor=pointer]:
+            - heading "Retail and e-commerce" [level=3] [ref=e495]
+            - paragraph [ref=e498]:
+              - link [ref=e499]:
+                - /url: /agents/retail-ecommerce
+                - text: Retail and e-commerce
+              - text: conversational AI guides shoppers, answers product questions, and reduces cart abandonment in real time. It automates support and order workflows and it increases conversion rates and average order value.
+    - generic [ref=e513]:
+      - heading "Emotionally & contextually aware conversational AI" [level=2] [ref=e515]
+      - paragraph [ref=e517]: Emotionally expressive conversational AI sounds on-brand, responds at the right moment, and adapts to customer emotion. Customers feel helped, not processed.
+    - generic [ref=e523]:
+      - button "Previous" [ref=e525] [cursor=pointer]:
+        - img [ref=e527]
+      - button "Next" [ref=e530] [cursor=pointer]:
+        - img [ref=e532]
+      - list [ref=e535]:
+        - listitem [ref=e536]:
+          - generic [ref=e538]:
+            - generic [ref=e539]:
+              - heading "White-glove service" [level=3] [ref=e540]:
+                - link "White-glove service" [ref=e541] [cursor=pointer]:
+                  - /url: agents/forward-deployed-engineers
+                  - text: White-glove service
+                  - img [ref=e542]
+              - generic [ref=e545]: Leverage the implementation expertise of ElevenLabs FDEs to reduce time to deploy and turn AI into measurable business outcomes
+            - img "Create Agent" [ref=e546]
+        - listitem [ref=e547]:
+          - generic [ref=e549]:
+            - generic [ref=e550]:
+              - heading "Create custom SOPs" [level=3] [ref=e551]
+              - generic [ref=e552]: Specify SOPs without code and watch the agent follow your policies and resolve user issues.
+            - img "Support Agents workflow simple" [ref=e553]
+        - listitem [ref=e554]:
+          - generic [ref=e556]:
+            - generic [ref=e557]:
+              - heading "Improve interactions over time" [level=3] [ref=e558]
+              - generic [ref=e559]: Continuously improve CX over by time analyzing results, conducting A/B tests or correcting behavior in plain text.
+            - img "Improve response" [ref=e560]
+        - listitem [ref=e561]:
+          - generic [ref=e563]:
+            - generic [ref=e564]:
+              - heading "Safety first AI" [level=3] [ref=e565]
+              - generic [ref=e566]: Validate safety and compliance guardrails at any time. Ensure your conversational AI enforces your business requirements
+            - img "Agent Guardrails" [ref=e567]
+    - generic [ref=e582]:
+      - generic [ref=e583]:
+        - img [ref=e587]
+        - generic [ref=e600]:
+          - heading "Sub-second responsiveness" [level=3] [ref=e601]
+          - paragraph [ref=e602]: Natural, real-time voice without awkward pauses - improving resolution rates and CSAT.
+      - generic [ref=e608]:
+        - img [ref=e612]
+        - generic [ref=e618]:
+          - heading "10,000+ voices" [level=3] [ref=e619]
+          - paragraph [ref=e620]: Choose from 10,000 expressive voices (or clone yours) to match every product, region, and use case.
+      - generic [ref=e626]:
+        - img [ref=e630]
+        - generic [ref=e635]:
+          - heading "Multilingual support" [level=3] [ref=e636]
+          - paragraph [ref=e637]: Support customers in 70+ languages with native-sounding speech and consistent tone across every channel.
+    - generic [ref=e651]:
+      - generic [ref=e655]: 5,000,000
+      - heading "Agents launched and counting" [level=3] [ref=e656]
+    - generic [ref=e670]:
+      - heading "Integrate effortlessly with the tools you already use" [level=2] [ref=e672]
+      - paragraph [ref=e674]: Connect our conversational AI software to your CRM, support desk, calendar, payment system, or telephony provider. Most tools work out of the box with minimal setup
+      - link "All integrations" [ref=e677] [cursor=pointer]:
+        - /url: /agents/integrations
+    - generic [ref=e687]:
+      - link "Zapier" [ref=e690] [cursor=pointer]:
+        - /url: /agents/integrations/zapier
+        - generic [ref=e691]: Zapier
+        - paragraph [ref=e695]: Integrating Zapier with ElevenLabs conversational AI allows you to automate workflows, manage customer interactions 24/7, and connect to over 8,000+ apps, including Gmail, Slack, and Salesforce.
+        - generic [ref=e697]:
+          - img "Integrate ElevenLabs Agents with Zapier" [ref=e698]
+          - img "Integrate ElevenLabs Agents with Zapier" [ref=e699]
+      - link "Stripe" [ref=e702] [cursor=pointer]:
+        - /url: /agents/integrations/stripe
+        - generic [ref=e703]: Stripe
+        - paragraph [ref=e707]: Integrating Stripe with ElevenLabs conversational AI allows it to process payments, manage subscriptions, and handle refunds directly within a conversation.
+        - generic [ref=e709]:
+          - img "Integrate ElevenLabs Agents with Stripe" [ref=e710]
+          - img "Integrate ElevenLabs Agents with Stripe" [ref=e711]
+      - link "Cal.com" [ref=e714] [cursor=pointer]:
+        - /url: /agents/integrations/calcom
+        - generic [ref=e715]: Cal.com
+        - paragraph [ref=e719]: Integrating Cal.com with conversational AI creates an "AI Scheduler" that can autonomously manage calendars through natural language. Instead of a human sending a booking link, the AI acts as an intelligent intermediary that checks availability, confirms times, and handles the logistical "heavy lifting" during a chat or voice call.
+        - generic [ref=e721]:
+          - img "Integrate ElevenLabs Agents with Cal.com" [ref=e722]
+          - img "Integrate ElevenLabs Agents with Cal.com" [ref=e723]
+      - link "Twilio" [ref=e726] [cursor=pointer]:
+        - /url: /agents/integrations/twilio
+        - generic [ref=e727]: Twilio
+        - paragraph [ref=e731]: Integrating Twilio with conversational AI allows it to make and receive Phone calls. As well as interacting with SMS, and WhatsApp.
+        - generic [ref=e733]:
+          - img "Integrate ElevenLabs Agents with Twilio" [ref=e734]
+          - img "Integrate ElevenLabs Agents with Twilio" [ref=e735]
+      - link "Zendesk" [ref=e738] [cursor=pointer]:
+        - /url: /agents/integrations/zendesk
+        - generic [ref=e739]: Zendesk
+        - paragraph [ref=e743]: Integrating conversational AI with Zendesk enhances customer support through automated responses and 24/7 service. It allows your conversational AI to interact with your tickets.
+        - generic [ref=e745]:
+          - img "Integrate ElevenLabs Agents with Zendesk" [ref=e746]
+          - img "Integrate ElevenLabs Agents with Zendesk" [ref=e747]
+      - link "Hubspot" [ref=e750] [cursor=pointer]:
+        - /url: /agents/integrations/hubspot
+        - generic [ref=e751]: Hubspot
+        - paragraph [ref=e755]: Integrating HubSpot with conversational AI turns your CRM from a passive database into an active, intelligent teammate. While HubSpot stores your customer data, the AI uses that data to drive personalized conversations and automate the manual admin work that usually slows down sales and support teams.
+        - generic [ref=e757]:
+          - img "Integrate ElevenLabs Agents with Hubspot" [ref=e758]
+          - img "Integrate ElevenLabs Agents with Hubspot" [ref=e759]
+    - generic [ref=e773]:
+      - heading "Enterprise-grade security and infrastructure at scale" [level=2] [ref=e774]
+      - img "Foreground" [ref=e781]
+      - list [ref=e783]:
+        - listitem [ref=e784]:
+          - button "Lock icon Enterprise-level data protection Data is encrypted in transit and at rest, with support for SOC 2, HIPAA, and GDPR compliance. Regional Data Residency and Zero Retention modes are available for stricter data control." [expanded] [ref=e785] [cursor=pointer]:
+            - heading "Lock icon Enterprise-level data protection" [level=3] [ref=e786]:
+              - img "Lock icon" [ref=e787]
+              - text: Enterprise-level data protection
+            - generic [ref=e789]: Data is encrypted in transit and at rest, with support for SOC 2, HIPAA, and GDPR compliance. Regional Data Residency and Zero Retention modes are available for stricter data control.
+        - listitem [ref=e790]:
+          - button "Group icon Granular team permissions" [ref=e791] [cursor=pointer]:
+            - heading "Group icon Granular team permissions" [level=3] [ref=e792]:
+              - img "Group icon" [ref=e793]
+              - text: Granular team permissions
+            - generic [ref=e794]: Set granular team permissions and collaborate across the company by sharing voices, assets, and resources across your agents and content production pipeline.
+        - listitem [ref=e795]:
+          - button "Phone icon Elevated support and custom deployments" [ref=e796] [cursor=pointer]:
+            - heading "Phone icon Elevated support and custom deployments" [level=3] [ref=e797]:
+              - img "Phone icon" [ref=e798]
+              - text: Elevated support and custom deployments
+            - generic [ref=e799]: Our team ensures a smooth launch and keeps your operations running reliably, delivering uninterrupted performance and peace of mind.
+    - heading "Getting started with conversational AI" [level=2] [ref=e815]
+    - generic [ref=e830]:
+      - generic [ref=e831]:
+        - generic [ref=e832]:
+          - generic [ref=e833]:
+            - heading "Create on the platform" [level=3] [ref=e834]
+            - paragraph [ref=e835]: Build your first conversational AI agent in just a few minutes using our web platform. No coding required.
+          - link "Sign up" [ref=e837] [cursor=pointer]:
+            - /url: /app/sign-up
+        - img "Create Agent" [ref=e839]
+      - generic [ref=e845]:
+        - generic [ref=e846]:
+          - generic [ref=e847]:
+            - heading "Conversational AI APIs" [level=3] [ref=e848]
+            - paragraph [ref=e849]: Build, launch and scale conversational AI using our APIs and SDKs
+          - generic [ref=e850]:
+            - link "Explore Docs" [ref=e851] [cursor=pointer]:
+              - /url: /docs/eleven-agents/overview
+            - link "Get API Key" [ref=e852] [cursor=pointer]:
+              - /url: /app/developers
+        - img "Create Agent APIs" [ref=e854]
+    - generic [ref=e868]:
+      - heading "Frequently asked questions" [level=2] [ref=e869]
+      - generic [ref=e871]:
+        - heading "What is conversational AI?" [level=3] [ref=e873]:
+          - button "What is conversational AI?" [ref=e874] [cursor=pointer]:
+            - generic [ref=e875]:
+              - generic [ref=e876]: What is conversational AI?
+              - generic [ref=e877]:
+                - img [ref=e878]
+                - img [ref=e880]
+        - heading "How does conversational AI work?" [level=3] [ref=e883]:
+          - button "How does conversational AI work?" [ref=e884] [cursor=pointer]:
+            - generic [ref=e887]:
+              - generic [ref=e888]: How does conversational AI work?
+              - generic [ref=e889]:
+                - img [ref=e890]
+                - img [ref=e892]
+        - heading "What is the difference between conversational AI and a chatbot?" [level=3] [ref=e895]:
+          - button "What is the difference between conversational AI and a chatbot?" [ref=e896] [cursor=pointer]:
+            - generic [ref=e899]:
+              - generic [ref=e900]: What is the difference between conversational AI and a chatbot?
+              - generic [ref=e901]:
+                - img [ref=e902]
+                - img [ref=e904]
+        - heading "What is the difference between conversational AI and generative AI?" [level=3] [ref=e907]:
+          - button "What is the difference between conversational AI and generative AI?" [ref=e908] [cursor=pointer]:
+            - generic [ref=e911]:
+              - generic [ref=e912]: What is the difference between conversational AI and generative AI?
+              - generic [ref=e913]:
+                - img [ref=e914]
+                - img [ref=e916]
+        - heading "What are common use cases for conversational AI?" [level=3] [ref=e919]:
+          - button "What are common use cases for conversational AI?" [ref=e920] [cursor=pointer]:
+            - generic [ref=e923]:
+              - generic [ref=e924]: What are common use cases for conversational AI?
+              - generic [ref=e925]:
+                - img [ref=e926]
+                - img [ref=e928]
+        - heading "Can I integrate ElevenLabs Conversational AI into my own app?" [level=3] [ref=e931]:
+          - button "Can I integrate ElevenLabs Conversational AI into my own app?" [ref=e932] [cursor=pointer]:
+            - generic [ref=e935]:
+              - generic [ref=e936]: Can I integrate ElevenLabs Conversational AI into my own app?
+              - generic [ref=e937]:
+                - img [ref=e938]
+                - img [ref=e940]
+        - heading "How can I make and receive phone calls with Conversational AI?" [level=3] [ref=e943]:
+          - button "How can I make and receive phone calls with Conversational AI?" [ref=e944] [cursor=pointer]:
+            - generic [ref=e947]:
+              - generic [ref=e948]: How can I make and receive phone calls with Conversational AI?
+              - generic [ref=e949]:
+                - img [ref=e950]
+                - img [ref=e952]
+    - heading "Conversational AI is used by companies of any size" [level=2] [ref=e969]
+    - generic [ref=e976]:
+      - button "Previous" [ref=e978] [cursor=pointer]:
+        - img [ref=e980]
+      - button "Next" [ref=e983] [cursor=pointer]:
+        - img [ref=e985]
+      - list [ref=e988]:
+        - listitem [ref=e989]:
+          - generic [ref=e990]:
+            - generic [ref=e995]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e999]: Hey, how can I help...
+            - generic [ref=e1000]:
+              - heading "Real-Estate Answering Service for Agents & Brokers" [level=4] [ref=e1001]
+              - paragraph [ref=e1002]: AI-powered answering service for real estate professionals that captures every call, qualifies leads, and delivers 24/7 availability without the overhead.
+            - link "Real-Estate Answering Service for Agents & Brokers":
+              - /url: /agents/real-estate-answering-service
+              - generic [ref=e1004] [cursor=pointer]: Real-Estate Answering Service for Agents & Brokers
+        - listitem [ref=e1005]:
+          - generic [ref=e1006]:
+            - generic [ref=e1011]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1015]: Hey, how can I help...
+            - generic [ref=e1016]:
+              - heading "After-Hours & 24/7 Medical Answering Service" [level=4] [ref=e1017]
+              - paragraph [ref=e1018]: Always-on, HIPAA-compliant voice agents that manage patient calls, triage needs, and schedule appointments—so you never miss critical care after hours.
+            - link "After-Hours & 24/7 Medical Answering Service":
+              - /url: /agents/after-hours-medical-answering-service
+              - generic [ref=e1020] [cursor=pointer]: After-Hours & 24/7 Medical Answering Service
+        - listitem [ref=e1021]:
+          - generic [ref=e1022]:
+            - generic [ref=e1027]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1031]: Hey, how can I help...
+            - generic [ref=e1032]:
+              - heading "Law-Firm & Law-Office Answering Service" [level=4] [ref=e1033]
+              - paragraph [ref=e1034]: Never miss a client call. Our AI voice agents deliver professional, on-brand answering for law firms—handling intake, scheduling, payments, and follow-ups with human-like accuracy.
+            - link "Law-Firm & Law-Office Answering Service":
+              - /url: /agents/law-firm-answering-service
+              - generic [ref=e1036] [cursor=pointer]: Law-Firm & Law-Office Answering Service
+        - listitem [ref=e1037]:
+          - generic [ref=e1038]:
+            - generic [ref=e1043]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1047]: Hey, how can I help...
+            - generic [ref=e1048]:
+              - heading "Voice AI Agents & Conversational AI in Healthcare" [level=4] [ref=e1049]
+              - paragraph [ref=e1050]: Transform patient access, clinical workflows, and care delivery with conversational AI in healthcare that sounds human, acts instantly, and scales securely.
+            - link "Voice AI Agents & Conversational AI in Healthcare":
+              - /url: /agents/conversational-ai-healthcare
+              - generic [ref=e1052] [cursor=pointer]: Voice AI Agents & Conversational AI in Healthcare
+        - listitem [ref=e1053]:
+          - generic [ref=e1054]:
+            - generic [ref=e1059]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1063]: Hey, how can I help...
+            - generic [ref=e1064]:
+              - heading "Enterprise Conversational AI Platforms & Use-Cases" [level=4] [ref=e1065]
+              - paragraph [ref=e1066]: Deploy human-like, voice-first conversational AI across every enterprise workflow – from customer support to sales and compliance.
+            - link "Enterprise Conversational AI Platforms & Use-Cases":
+              - /url: /agents/enterprise-conversational-ai
+              - generic [ref=e1068] [cursor=pointer]: Enterprise Conversational AI Platforms & Use-Cases
+        - listitem [ref=e1069]:
+          - generic [ref=e1070]:
+            - generic [ref=e1075]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1079]: Hey, how can I help...
+            - generic [ref=e1080]:
+              - heading "Attorney Answering Service (24/7 Voice AI)" [level=4] [ref=e1081]
+              - paragraph [ref=e1082]: Reduce missed calls, lower admin workload, and deliver professional client service with natural, multilingual voice agents built for legal practices. Our AI-powered receptionists sound human, stay compliant, and never miss a lead.
+            - link "Attorney Answering Service (24/7 Voice AI)":
+              - /url: /agents/attorney-answering-service
+              - generic [ref=e1084] [cursor=pointer]: Attorney Answering Service (24/7 Voice AI)
+        - listitem [ref=e1085]:
+          - generic [ref=e1086]:
+            - generic [ref=e1091]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1095]: Hey, how can I help...
+            - generic [ref=e1096]:
+              - heading "Medical Answering Service & Voice AI Reception" [level=4] [ref=e1097]
+              - paragraph [ref=e1098]: Always-on, HIPAA-compliant medical call answering service powered by natural language AI
+            - link "Medical Answering Service & Voice AI Reception":
+              - /url: /agents/medical-answering-service
+              - generic [ref=e1100] [cursor=pointer]: Medical Answering Service & Voice AI Reception
+        - listitem [ref=e1101]:
+          - generic [ref=e1102]:
+            - generic [ref=e1107]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1111]: Hey, how can I help...
+            - generic [ref=e1112]:
+              - heading "Voice AI Agent Platforms, Builders & Dev Tooling" [level=4] [ref=e1113]
+              - paragraph [ref=e1114]: Build production-ready conversational agents using our no-code web interface, SDKs, or APIs, making it simple to prototype, test, and deploy voice AI agents in days - not months.
+            - link "Voice AI Agent Platforms, Builders & Dev Tooling":
+              - /url: /agents/ai-agent-builder
+              - generic [ref=e1116] [cursor=pointer]: Voice AI Agent Platforms, Builders & Dev Tooling
+        - listitem [ref=e1117]:
+          - generic [ref=e1118]:
+            - generic [ref=e1123]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1127]: Hey, how can I help...
+            - generic [ref=e1128]:
+              - heading "Legal Answering Service & Voice AI Reception" [level=4] [ref=e1129]
+              - paragraph [ref=e1130]: Never miss a call at your law firm with our natural, human-sounding AI receptionist voice agents.
+            - link "Legal Answering Service & Voice AI Reception":
+              - /url: /agents/legal-answering-service
+              - generic [ref=e1132] [cursor=pointer]: Legal Answering Service & Voice AI Reception
+        - listitem [ref=e1133]:
+          - generic [ref=e1134]:
+            - generic [ref=e1139]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1143]: Hey, how can I help...
+            - generic [ref=e1144]:
+              - heading "Physician & Doctor Answering Service (24/7 AI Agents)" [level=4] [ref=e1145]
+              - paragraph [ref=e1146]: Always-on physician answering service that provides human-quality patient interactions through empathetic, natural-sounding conversational agents.
+            - link "Physician & Doctor Answering Service (24/7 AI Agents)":
+              - /url: /agents/physician-answering-service
+              - generic [ref=e1148] [cursor=pointer]: Physician & Doctor Answering Service (24/7 AI Agents)
+        - listitem [ref=e1149]:
+          - generic [ref=e1150]:
+            - generic [ref=e1155]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1159]: Hey, how can I help...
+            - generic [ref=e1160]:
+              - heading "Hotels AI answering service" [level=4] [ref=e1161]
+              - paragraph [ref=e1162]: Experience a demo virtual receptionist built for hospitality with the Hotels AI answering service, handling calls 24/7 to greet guests, answer common questions, capture reservation details, and route requests to the right department. Call to hear polished, discreet example conversations for bookings, amenities, policies, and guest support.
+            - link "Hotels":
+              - /url: /ai-answering-service/hotels
+              - generic [ref=e1164] [cursor=pointer]: Hotels
+        - listitem [ref=e1165]:
+          - generic [ref=e1166]:
+            - generic [ref=e1171]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+              - paragraph [ref=e1175]: Hey, how can I help...
+            - generic [ref=e1176]:
+              - heading "Small business Chatbots" [level=4] [ref=e1177]
+              - paragraph [ref=e1178]: Handle customer questions, book appointments, and qualify leads 24/7 - without adding headcount. Deploy a voice-capable AI chatbot across your website, WhatsApp, and phone in hours, not weeks.
+            - link "small business":
+              - /url: /chatbot/small-business
+              - generic [ref=e1180] [cursor=pointer]: small business
+  - generic [ref=e1183]:
+    - paragraph [ref=e1184]: The most realistic voice AI platform
+    - generic [ref=e1185]:
+      - link "Talk to sales" [ref=e1186] [cursor=pointer]:
+        - /url: /contact-sales
+      - link "Create an AI agent" [ref=e1187] [cursor=pointer]:
+        - /url: /app/agents
+  - generic [ref=e1197]:
+    - generic [ref=e1198]:
+      - link "ElevenLabs" [ref=e1199] [cursor=pointer]:
+        - /url: /
+        - img [ref=e1200]
+      - button "English" [ref=e1205] [cursor=pointer]:
+        - img [ref=e1206]
+        - text: English
+        - img [ref=e1209]
+    - list [ref=e1211]:
+      - listitem [ref=e1212]:
+        - paragraph [ref=e1213]:
+          - link "ElevenCreative" [ref=e1214] [cursor=pointer]:
+            - /url: /creative
+        - list [ref=e1215]:
+          - listitem [ref=e1216]:
+            - link "Text to Speech" [ref=e1217] [cursor=pointer]:
+              - /url: /text-to-speech
+          - listitem [ref=e1218]:
+            - link "Speech to Text" [ref=e1219] [cursor=pointer]:
+              - /url: /speech-to-text
+          - listitem [ref=e1220]:
+            - link "Voice Changer" [ref=e1221] [cursor=pointer]:
+              - /url: /voice-changer
+          - listitem [ref=e1222]:
+            - link "Text to Sound Effects" [ref=e1223] [cursor=pointer]:
+              - /url: /sound-effects
+          - listitem [ref=e1224]:
+            - link "Voice Cloning" [ref=e1225] [cursor=pointer]:
+              - /url: /voice-cloning
+          - listitem [ref=e1226]:
+            - link "Voice Isolator" [ref=e1227] [cursor=pointer]:
+              - /url: /voice-isolator
+          - listitem [ref=e1228]:
+            - link "AI Music Generator" [ref=e1229] [cursor=pointer]:
+              - /url: /music
+          - listitem [ref=e1230]:
+            - link "Studio" [ref=e1231] [cursor=pointer]:
+              - /url: /studio
+          - listitem [ref=e1232]:
+            - link "Voice Design" [ref=e1233] [cursor=pointer]:
+              - /url: /voice-design
+          - listitem [ref=e1234]:
+            - link "AI Voice Generator" [ref=e1235] [cursor=pointer]:
+              - /url: /ai-voice-generator
+          - listitem [ref=e1236]:
+            - link "AI Image Generator" [ref=e1237] [cursor=pointer]:
+              - /url: /image
+          - listitem [ref=e1238]:
+            - link "AI Video Generator" [ref=e1239] [cursor=pointer]:
+              - /url: /video
+      - listitem [ref=e1240]:
+        - paragraph [ref=e1241]:
+          - link "ElevenAgents" [ref=e1242] [cursor=pointer]:
+            - /url: /agents
+        - list [ref=e1243]:
+          - listitem [ref=e1244]:
+            - link "Voice Agents" [ref=e1245] [cursor=pointer]:
+              - /url: /voice-agents
+          - listitem [ref=e1246]:
+            - link "Conversational AI" [ref=e1247] [cursor=pointer]:
+              - /url: /conversational-ai
+          - listitem [ref=e1248]:
+            - link "Integrations" [ref=e1249] [cursor=pointer]:
+              - /url: /agents/integrations
+          - listitem [ref=e1250]:
+            - link "Telecommunications" [ref=e1251] [cursor=pointer]:
+              - /url: /agents/telecommunications
+          - listitem [ref=e1252]:
+            - link "Financial Services" [ref=e1253] [cursor=pointer]:
+              - /url: /agents/financial-services
+          - listitem [ref=e1254]:
+            - link "Healthcare" [ref=e1255] [cursor=pointer]:
+              - /url: /agents/healthcare
+          - listitem [ref=e1256]:
+            - link "Technology" [ref=e1257] [cursor=pointer]:
+              - /url: /agents/technology
+          - listitem [ref=e1258]:
+            - link "Retail & E-commerce" [ref=e1259] [cursor=pointer]:
+              - /url: /agents/retail-ecommerce
+          - listitem [ref=e1260]:
+            - link "Customer Support" [ref=e1261] [cursor=pointer]:
+              - /url: /support
+          - listitem [ref=e1262]:
+            - link "Chatbots" [ref=e1263] [cursor=pointer]:
+              - /url: /chatbot
+      - listitem [ref=e1264]:
+        - paragraph [ref=e1265]:
+          - link "ElevenAPI" [ref=e1266] [cursor=pointer]:
+            - /url: /api
+        - list [ref=e1267]:
+          - listitem [ref=e1268]:
+            - link "API Reference" [ref=e1269] [cursor=pointer]:
+              - /url: /docs/api-reference/text-to-speech/convert
+          - listitem [ref=e1270]:
+            - link "Agents API" [ref=e1271] [cursor=pointer]:
+              - /url: /docs/eleven-api/quickstart
+          - listitem [ref=e1272]:
+            - link "Dubbing API" [ref=e1273] [cursor=pointer]:
+              - /url: /docs/eleven-api/guides/cookbooks/dubbing
+          - listitem [ref=e1274]:
+            - link "Text to Speech API" [ref=e1275] [cursor=pointer]:
+              - /url: /text-to-speech-api
+          - listitem [ref=e1276]:
+            - link "Speech to Text API" [ref=e1277] [cursor=pointer]:
+              - /url: /speech-to-text-api
+          - listitem [ref=e1278]:
+            - link "Sound Effects API" [ref=e1279] [cursor=pointer]:
+              - /url: /docs/eleven-api/guides/cookbooks/sound-effects
+          - listitem [ref=e1280]:
+            - link "Music API" [ref=e1281] [cursor=pointer]:
+              - /url: /docs/eleven-api/guides/cookbooks/music
+          - listitem [ref=e1282]:
+            - link "API Key" [ref=e1283] [cursor=pointer]:
+              - /url: /app/settings/api-keys
+      - listitem [ref=e1284]:
+        - paragraph [ref=e1285]:
+          - generic [ref=e1286]: Resources
+        - list [ref=e1287]:
+          - listitem [ref=e1288]:
+            - link "Blog" [ref=e1289] [cursor=pointer]:
+              - /url: /blog
+          - listitem [ref=e1290]:
+            - link "Iconic Marketplace" [ref=e1291] [cursor=pointer]:
+              - /url: /iconic-marketplace
+          - listitem [ref=e1292]:
+            - link "Impact Program" [ref=e1293] [cursor=pointer]:
+              - /url: /impact-program
+          - listitem [ref=e1294]:
+            - link "Startup Grants" [ref=e1295] [cursor=pointer]:
+              - /url: /startup-grants
+          - listitem [ref=e1296]:
+            - link "Help Center" [ref=e1297] [cursor=pointer]:
+              - /url: https://help.elevenlabs.io/hc/en-us
+          - listitem [ref=e1298]:
+            - link "Webinars" [ref=e1299] [cursor=pointer]:
+              - /url: /webinars
+          - listitem [ref=e1300]:
+            - link "Docs" [ref=e1301] [cursor=pointer]:
+              - /url: /docs/overview/intro
+          - listitem [ref=e1302]:
+            - link "Enterprise" [ref=e1303] [cursor=pointer]:
+              - /url: /enterprise
+          - listitem [ref=e1304]:
+            - link "Trust Center" [ref=e1305] [cursor=pointer]:
+              - /url: https://compliance.elevenlabs.io/
+          - listitem [ref=e1306]:
+            - link "India" [ref=e1307] [cursor=pointer]:
+              - /url: /india
+      - listitem [ref=e1308]:
+        - paragraph [ref=e1309]:
+          - generic [ref=e1310]: Socials
+        - list [ref=e1311]:
+          - listitem [ref=e1312]:
+            - link "X" [ref=e1313] [cursor=pointer]:
+              - /url: https://x.com/intent/user?screen_name=elevenlabs
+          - listitem [ref=e1314]:
+            - link "X - Developers" [ref=e1315] [cursor=pointer]:
+              - /url: https://x.com/intent/user?screen_name=elevenlabsdevs
+          - listitem [ref=e1316]:
+            - link "LinkedIn" [ref=e1317] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/elevenlabsio
+          - listitem [ref=e1318]:
+            - link "GitHub" [ref=e1319] [cursor=pointer]:
+              - /url: https://github.com/elevenlabs
+          - listitem [ref=e1320]:
+            - link "YouTube" [ref=e1321] [cursor=pointer]:
+              - /url: https://www.youtube.com/@elevenlabsio?sub_confirmation=1
+          - listitem [ref=e1322]:
+            - link "YouTube - Developers" [ref=e1323] [cursor=pointer]:
+              - /url: https://www.youtube.com/@elevenlabsdevs?sub_confirmation=1
+          - listitem [ref=e1324]:
+            - link "Discord" [ref=e1325] [cursor=pointer]:
+              - /url: https://discord.gg/elevenlabs
+          - listitem [ref=e1326]:
+            - link "TikTok" [ref=e1327] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@elevenlabs
+          - listitem [ref=e1328]:
+            - link "Instagram" [ref=e1329] [cursor=pointer]:
+              - /url: https://www.instagram.com/elevenlabsio/?hl=en
+          - listitem [ref=e1330]:
+            - link "Facebook" [ref=e1331] [cursor=pointer]:
+              - /url: https://www.facebook.com/elevenlabsio/
+          - listitem [ref=e1332]:
+            - link "Reddit" [ref=e1333] [cursor=pointer]:
+              - /url: https://www.reddit.com/r/ElevenLabs/
+      - listitem [ref=e1334]:
+        - paragraph [ref=e1335]:
+          - generic [ref=e1336]: Company
+        - list [ref=e1337]:
+          - listitem [ref=e1338]:
+            - link "About" [ref=e1339] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e1340]:
+            - link "Careers" [ref=e1341] [cursor=pointer]:
+              - /url: /careers
+          - listitem [ref=e1342]:
+            - link "Safety" [ref=e1343] [cursor=pointer]:
+              - /url: /safety
+          - listitem [ref=e1344]:
+            - link "Brand & Press Kit" [ref=e1345] [cursor=pointer]:
+              - /url: /brand
+          - listitem [ref=e1346]:
+            - link "EU Digital Services Act (DSA)" [ref=e1347] [cursor=pointer]:
+              - /url: /digital-services-act
+          - listitem [ref=e1348]:
+            - link "ElevenLabs Summit" [ref=e1349] [cursor=pointer]:
+              - /url: /events/elevenlabs-summit
+          - listitem [ref=e1350]:
+            - link "Terms" [ref=e1351] [cursor=pointer]:
+              - /url: /terms-of-use
+          - listitem [ref=e1352]:
+            - link "Privacy" [ref=e1353] [cursor=pointer]:
+              - /url: /privacy-policy
+          - listitem [ref=e1354]:
+            - link "Modern Slavery Policy" [ref=e1355] [cursor=pointer]:
+              - /url: /modern-slavery-policy-statement
+          - listitem [ref=e1356]:
+            - link "CCPA Notice" [ref=e1357] [cursor=pointer]:
+              - /url: /ccpa-notice-at-collection
+          - listitem [ref=e1358]:
+            - link "EU-US DPF Policy" [ref=e1359] [cursor=pointer]:
+              - /url: /eu-us-data-privacy-framework-policy
+          - listitem [ref=e1360]:
+            - link "AI Transparency" [ref=e1361] [cursor=pointer]:
+              - /url: /ai-transparency
+          - listitem [ref=e1362]:
+            - button "Cookie Settings" [ref=e1363] [cursor=pointer]
+  - button "Talk to an agent" [ref=e1364] [cursor=pointer]:
+    - generic [ref=e1366]:
+      - img [ref=e1370]
+      - img [ref=e1374]
+    - paragraph [ref=e1377]: Talk to an agent

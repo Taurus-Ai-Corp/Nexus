@@ -1,0 +1,26 @@
+{
+  "model_role": "judge",
+  "realism_score_0_to_10": 3,
+  "primary_issues": [
+    "Cracks read as a flat semi-transparent overlay with zero fracture depth, edge displacement, or broken-plastic micro-detail",
+    "Fracture paths ignore lid curvature and surface reflections, behaving like decals floating above the geometry",
+    "Dark vertical dent near the right lid edge is a misaligned paste job that fails to follow washer seam topology",
+    "Complete absence of believable impact shadows, displaced substrate, chip debris, or ambient occlusion under the rim",
+    "Damage arbitrarily crosses surface planes and boundaries without respecting edge thickness or structural logic"
+  ],
+  "mitigation": [
+    "Tighten lid mask to within 2–3 pixels of the rim perimeter and terminate all crack paths at the edge boundary",
+    "Reduce crack opacity to ~0.30 and rebuild fractures using a displacement-aware pass that follows the lid’s radial curvature",
+    "Paint a soft, diffuse impact shadow under the lid rim at low strength instead of the current floating dark patches",
+    "Introduce chip geometry and white stress-highlight edges along crack paths to simulate actual broken plastic",
+    "Realign or remove the right-edge dent; if it cannot conform to existing panel seams, delete the element"
+  ],
+  "recommended_final_edit_parameters": {
+    "lid_mask_scale": 0.96,
+    "crack_opacity": 0.30,
+    "impact_shadow_strength": 0.40,
+    "scratch_count": 4,
+    "chip_opacity": 210
+  },
+  "final_verdict": "needs_more_work"
+}
