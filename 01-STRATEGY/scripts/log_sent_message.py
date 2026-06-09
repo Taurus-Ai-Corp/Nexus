@@ -9,7 +9,7 @@ import sys
 import os
 from datetime import datetime
 
-LOG_PATH = '/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/01-STRATEGY/outreach-log_2026-05-11.csv'
+LOG_PATH = '/Users/taurus_ai/Documents/Nexus-Platform/01-STRATEGY/outreach-log_2026-05-11.csv'
 
 def main():
     if len(sys.argv) != 5:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BizFlow™ Orchestrator - Central coordination for all marketing agents
+Nexus™ Orchestrator - Central coordination for all marketing agents
 Manages the multi-agent ecosystem for Taurus AI Corp's vibe marketing platform
 """
 
@@ -40,9 +40,9 @@ class AgentTask:
         if self.created_at is None:
             self.created_at = datetime.now()
 
-class BizFlowOrchestrator:
+class NexusOrchestrator:
     """
-    Central orchestrator for BizFlow™ agentic marketing ecosystem
+    Central orchestrator for Nexus™ agentic marketing ecosystem
     Coordinates competitor analysis, content generation, SEO, and lead management
     """
     
@@ -220,7 +220,7 @@ class BizFlowOrchestrator:
         }
         
         # Export report
-        report_file = f"bizflow_competitor_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        report_file = f"nexus_competitor_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(report_file, 'w') as f:
             json.dump(report, f, indent=2)
         
@@ -277,14 +277,14 @@ class BizFlowOrchestrator:
 
 async def main():
     """Main orchestrator execution"""
-    logger.info("🚀 Starting BizFlow™ Orchestrator")
+    logger.info("🚀 Starting Nexus™ Orchestrator")
     
-    orchestrator = BizFlowOrchestrator()
+    orchestrator = NexusOrchestrator()
     
     # Run competitor analysis pipeline
     results = await orchestrator.run_competitor_analysis_pipeline()
     
-    logger.info("✅ BizFlow™ orchestration completed")
+    logger.info("✅ Nexus™ orchestration completed")
     return results
 
 if __name__ == "__main__":

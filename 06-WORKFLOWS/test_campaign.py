@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BizFlow™ Comprehensive Test Campaign
+Nexus™ Comprehensive Test Campaign
 Demonstrates full agentic ecosystem capabilities for Taurus AI Corp
 """
 
@@ -15,10 +15,10 @@ logger = logging.getLogger(__name__)
 
 async def run_comprehensive_test_campaign():
     """
-    Run a full test campaign showcasing BizFlow™ capabilities
+    Run a full test campaign showcasing Nexus™ capabilities
     """
     
-    print("🚀 Starting BizFlow™ Comprehensive Test Campaign")
+    print("🚀 Starting Nexus™ Comprehensive Test Campaign")
     print("=" * 60)
     
     # Initialize MCP Integration Agent
@@ -31,18 +31,18 @@ async def run_comprehensive_test_campaign():
         emoji = "✅" if tool_info['status'] == 'Active' else "⚠️"
         print(f"  {emoji} {tool_name}: {tool_info['status']}")
     
-    # Test Campaign Data - BizFlow™ Launch Campaign
+    # Test Campaign Data - Nexus™ Launch Campaign
     test_campaigns = [
         {
-            "id": "bizflow-uae-launch-001",
-            "campaign_name": "BizFlow™ UAE Market Entry - Vibe Marketing Revolution",
+            "id": "nexus-uae-launch-001",
+            "campaign_name": "Nexus™ UAE Market Entry - Vibe Marketing Revolution",
             "target_market": "UAE",
             "campaign_type": "market_entry",
             "industry": "digital marketing",
             "budget": 15000,
             "duration_days": 45,
             "objectives": [
-                "Establish BizFlow™ brand presence in UAE",
+                "Establish Nexus™ brand presence in UAE",
                 "Generate 500+ qualified leads",
                 "Position as premium AI-powered marketing solution",
                 "Build local partnerships and networks"
@@ -54,15 +54,15 @@ async def run_comprehensive_test_campaign():
             }
         },
         {
-            "id": "bizflow-india-launch-002", 
-            "campaign_name": "BizFlow™ India Expansion - AI Marketing for Every Business",
+            "id": "nexus-india-launch-002", 
+            "campaign_name": "Nexus™ India Expansion - AI Marketing for Every Business",
             "target_market": "India",
             "campaign_type": "market_expansion",
             "industry": "digital marketing",
             "budget": 12000,
             "duration_days": 60,
             "objectives": [
-                "Scale BizFlow™ presence in Indian market",
+                "Scale Nexus™ presence in Indian market",
                 "Target Kerala and Mumbai business hubs",
                 "Generate 1000+ leads across B2B/B2C segments",
                 "Establish regional partnerships"
@@ -74,15 +74,15 @@ async def run_comprehensive_test_campaign():
             }
         },
         {
-            "id": "bizflow-canada-launch-003",
-            "campaign_name": "BizFlow™ Canada Launch - AI-Powered Growth Marketing",
+            "id": "nexus-canada-launch-003",
+            "campaign_name": "Nexus™ Canada Launch - AI-Powered Growth Marketing",
             "target_market": "Canada", 
             "campaign_type": "home_market_launch",
             "industry": "digital marketing",
             "budget": 18000,
             "duration_days": 30,
             "objectives": [
-                "Launch BizFlow™ in home Canadian market",
+                "Launch Nexus™ in home Canadian market",
                 "Establish credibility and case studies",
                 "Generate 750+ high-quality leads",
                 "Build referral and partnership network"
@@ -161,7 +161,7 @@ async def run_comprehensive_test_campaign():
     # Export detailed test results
     test_report = {
         "test_metadata": {
-            "test_name": "BizFlow™ Comprehensive Test Campaign",
+            "test_name": "Nexus™ Comprehensive Test Campaign",
             "test_date": datetime.now().isoformat(),
             "system_status": status,
             "total_campaigns": total_campaigns,
@@ -189,7 +189,7 @@ async def run_comprehensive_test_campaign():
     }
     
     # Save test report
-    report_filename = f"bizflow_test_campaign_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    report_filename = f"nexus_test_campaign_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     with open(report_filename, 'w', encoding='utf-8') as f:
         json.dump(test_report, f, indent=2, default=str)
     
@@ -198,7 +198,7 @@ async def run_comprehensive_test_campaign():
     # Cleanup
     await agent.cleanup()
     
-    print(f"\n🎉 BizFlow™ Test Campaign Complete!")
+    print(f"\n🎉 Nexus™ Test Campaign Complete!")
     print(f"   System Status: {'🟢 Operational' if successful_campaigns > 0 else '🔴 Needs Attention'}")
     print(f"   Ready for: {'✅ Production deployment' if successful_campaigns == total_campaigns else '⚠️ Additional testing'}")
     

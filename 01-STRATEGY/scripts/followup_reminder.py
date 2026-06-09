@@ -10,8 +10,8 @@ import sys
 import os
 from datetime import datetime, timedelta
 
-LOG_PATH = '/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/01-STRATEGY/outreach-log_2026-05-11.csv'
-FOLLOWUP_LOG_PATH = '/Users/taurus_ai/Documents/BizFlow-NeoVibe-Platform/01-STRATEGY/followup-log_2026-05-11.csv'
+LOG_PATH = '/Users/taurus_ai/Documents/Nexus-Platform/01-STRATEGY/outreach-log_2026-05-11.csv'
+FOLLOWUP_LOG_PATH = '/Users/taurus_ai/Documents/Nexus-Platform/01-STRATEGY/followup-log_2026-05-11.csv'
 TEMPLATE = """Hi {first_name},
 
 Just wanted to follow up on my note about a quick 2‑minute mockup for {business_name} – a simple, fast site that can help you get more bookings from Google Maps.
