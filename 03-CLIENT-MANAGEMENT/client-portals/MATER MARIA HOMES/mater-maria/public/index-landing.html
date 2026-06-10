@@ -1272,13 +1272,9 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
           <h3 style="font-family:var(--font-serif);font-size:28px;font-weight:400;color:var(--text-heading);margin-bottom:10px">Your Enquiry Has Been Received.</h3>
           <p style="font-size:14px;color:var(--text-muted-dark);line-height:1.7">Thank you for reaching out. A member of our team will be in touch within 2 hours.<br><br>For urgent queries, call <strong style="color:var(--accent-gold)">+91 94470 80356</strong>.</p>
         </div>
-        <form class="form-wrap" id="contact-form" action="/api/web3forms" method="POST" novalidate>
-          <input type="hidden" name="subject" value="New Enquiry — Mater Maria Homes">
-          <input type="hidden" name="from_name" value="Mater Maria Homes Website">
-          <input type="hidden" name="redirect" value="false">
-          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
-          <div class="form-row full"><div class="form-field"><label class="sr-only" for="fn">Full Name</label><input id="fn" name="first_name" type="text" placeholder="Your Full Name" autocomplete="given-name" required></div></div>
-          <div class="form-row"><div class="form-field"><label class="sr-only" for="fe">Email Address</label><input id="fe" name="email" type="email" placeholder="Email Address" autocomplete="email" required></div><div class="form-field"><label class="sr-only" for="fp">Phone / WhatsApp</label><input id="fp" name="phone" type="tel" placeholder="Phone / WhatsApp Number" autocomplete="tel" inputmode="tel" required></div></div>
+        <form class="form-wrap" id="contact-form" method="POST">
+          <div class="form-row full"><div class="form-field"><label class="sr-only" for="fn">Full Name</label><input id="fn" name="first_name" type="text" placeholder="Your Full Name" autocomplete="given-name" maxlength="100" required></div></div>
+          <div class="form-row"><div class="form-field"><label class="sr-only" for="fe">Email Address</label><input id="fe" name="email" type="email" placeholder="Email Address" autocomplete="email" maxlength="254" required></div><div class="form-field"><label class="sr-only" for="fp">Phone / WhatsApp</label><input id="fp" name="phone" type="tel" placeholder="Phone / WhatsApp Number" autocomplete="tel" inputmode="tel" maxlength="15" pattern="[\+]?[0-9\s\-\(\)]{7,15}" required></div></div>
           <div class="form-row"><div class="form-field"><label class="sr-only" for="fc">Country</label><select id="fc" name="country" required><option value="">Country</option><option>India</option><option>UAE</option><option>United States</option><option>Canada</option><option>United Kingdom</option><option>Australia</option><option>Other</option></select></div><div class="form-field"><label class="sr-only" for="ft">Interest</label><select id="ft" name="invest_tier"><option value="">I'm interested in</option><option>Residence for Parents</option><option>Silver Tier — ₹10L</option><option>Gold Tier — ₹20L</option><option>Platinum Tier — ₹30L</option></select></div></div>
           <div class="form-row full"><div class="form-field"><label class="sr-only" for="fm">Message (optional)</label><textarea id="fm" name="message" rows="2" placeholder="Tell us about your needs (optional)"></textarea></div></div>
           <button type="submit" class="form-submit" id="form-submit-btn">ENQUIRE NOW</button>
@@ -1817,7 +1813,7 @@ function selectTier(tierName, tierAmount) {
 }
 
 // ================================================================
-// FORM SUBMISSION — Web3Forms AJAX with success panel
+// FORM SUBMISSION — /api/lead JSON endpoint
 // ================================================================
 (function() {
   var form = document.getElementById('contact-form');
@@ -1841,24 +1837,38 @@ function selectTier(tierName, tierAmount) {
     if (!valid) return;
 
     var btn = document.getElementById('form-submit-btn');
+    var origText = btn.textContent;
     btn.disabled = true;
     btn.textContent = 'SENDING...';
 
+    var data = {
+      name: form.querySelector('[name="first_name"]').value.trim(),
+      email: form.querySelector('[name="email"]').value.trim(),
+      phone: form.querySelector('[name="phone"]').value.trim(),
+      tier: form.querySelector('[name="invest_tier"]')?.value || 'undecided',
+      message: form.querySelector('[name="message"]')?.value || '',
+      source: 'hero-mini',
+    };
+
     try {
-      var res = await fetch('/api/web3forms', { method: 'POST', body: new FormData(form) });
-      var data = await res.json();
-      if (data.success) {
+      var res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
         form.style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
       } else {
+        var err = await res.json();
+        alert(err.error === 'validation_failed' ? 'Please check your inputs and try again.' : 'Something went wrong. Please try again.');
         btn.disabled = false;
-        btn.textContent = 'SUBMIT ENQUIRY';
-        alert('Something went wrong. Please try again or call +91 94470 80356.');
+        btn.textContent = origText;
       }
     } catch (err) {
-      btn.disabled = false;
-      btn.textContent = 'SUBMIT ENQUIRY';
       alert('Network error. Please check your connection and try again.');
+      btn.disabled = false;
+      btn.textContent = origText;
     }
   });
 })();

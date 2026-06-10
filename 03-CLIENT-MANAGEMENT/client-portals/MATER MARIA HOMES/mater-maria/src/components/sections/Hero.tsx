@@ -10,19 +10,19 @@ import { BrandLogo } from "@/components/ui/brand-logo";
 /* ── Slides ──────────────────────────────────────────────── */
 const SLIDES = [
   {
-    bg: "/assets-2025/images/hero-slides/Home_Banner_01.jpg",
-    next: "/assets-2025/images/hero-slides/Home_Banner_02.png",
+    bg: "/assets-2025/images/hero-slides/Home_Banner_01.webp",
+    next: "/assets-2025/images/hero-slides/Home_Banner_02.webp",
   },
   {
-    bg: "/assets-2025/images/hero-slides/Home_Banner_02.png",
-    next: "/assets-2025/images/hero-slides/Home_Banner_03.png",
+    bg: "/assets-2025/images/hero-slides/Home_Banner_02.webp",
+    next: "/assets-2025/images/hero-slides/Home_Banner_03.webp",
   },
   {
-    bg: "/assets-2025/images/hero-slides/Home_Banner_03.png",
-    next: "/assets-2025/images/hero-slides/Home_Banner_04.jpg",
+    bg: "/assets-2025/images/hero-slides/Home_Banner_03.webp",
+    next: "/assets-2025/images/hero-slides/Home_Banner_04.webp",
   },
   {
-    bg: "/assets-2025/images/hero-slides/Home_Banner_04.jpg",
+    bg: "/assets-2025/images/hero-slides/Home_Banner_04.webp",
     next: "/assets-2025/images/hero-slides/Home_Banner_05.jpg",
   },
   {
@@ -35,7 +35,7 @@ const SLIDES = [
   },
   {
     bg: "/assets-2025/images/hero-slides/Home_Banner_08.jpg",
-    next: "/assets-2025/images/hero-slides/Home_Banner_01.jpg",
+    next: "/assets-2025/images/hero-slides/Home_Banner_01.webp",
   },
 ] as const;
 

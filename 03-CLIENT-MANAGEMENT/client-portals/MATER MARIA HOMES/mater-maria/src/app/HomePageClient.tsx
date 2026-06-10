@@ -1,20 +1,22 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/Hero";
 import { TrustBar } from "@/components/sections/TrustBar";
 import { DualCovenant } from "@/components/sections/DualCovenant";
-import { Features } from "@/components/sections/Features";
-import { MedicalWellnessSection } from "@/components/sections/MedicalWellnessSection";
-import { Residences } from "@/components/sections/Residences";
-import { Amenities } from "@/components/sections/Amenities";
-import { InfrastructureSection } from "@/components/sections/InfrastructureSection";
-import { FacilitiesSection } from "@/components/sections/FacilitiesSection";
-import { Testimonials } from "@/components/sections/Testimonials";
-import { CTASection } from "@/components/sections/CTASection";
-import { MockupsShowcase } from "@/components/sections/MockupsShowcase";
 import { SectionDivider } from "@/components/ui/section-divider";
-import { VideoBreak } from "@/components/ui/video-break";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
+
+const Features = dynamic(() => import("@/components/sections/Features").then(m => m.Features), { ssr: false });
+const MedicalWellnessSection = dynamic(() => import("@/components/sections/MedicalWellnessSection").then(m => m.MedicalWellnessSection), { ssr: false });
+const Residences = dynamic(() => import("@/components/sections/Residences").then(m => m.Residences), { ssr: false });
+const Amenities = dynamic(() => import("@/components/sections/Amenities").then(m => m.Amenities), { ssr: false });
+const InfrastructureSection = dynamic(() => import("@/components/sections/InfrastructureSection").then(m => m.InfrastructureSection), { ssr: false });
+const FacilitiesSection = dynamic(() => import("@/components/sections/FacilitiesSection").then(m => m.FacilitiesSection), { ssr: false });
+const Testimonials = dynamic(() => import("@/components/sections/Testimonials").then(m => m.Testimonials), { ssr: false });
+const CTASection = dynamic(() => import("@/components/sections/CTASection").then(m => m.CTASection), { ssr: false });
+const MockupsShowcase = dynamic(() => import("@/components/sections/MockupsShowcase").then(m => m.MockupsShowcase), { ssr: false });
+const VideoBreak = dynamic(() => import("@/components/ui/video-break").then(m => m.VideoBreak), { ssr: false });
 
 export default function HomePageClient() {
   const mainRef = useGsapReveal(".gsap-reveal", {

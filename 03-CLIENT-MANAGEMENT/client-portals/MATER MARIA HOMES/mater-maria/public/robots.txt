@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /preview-landing.html
-Disallow: /preview-v2.html
-Disallow: /media-approvals.html
+Disallow: /api/
+Disallow: /invest/admin/
+Disallow: /download/
 
-Sitemap: https://mater-maria.vercel.app/sitemap.xml
+Sitemap: https://matermariahomes.com/sitemap.xml

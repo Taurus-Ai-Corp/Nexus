@@ -13,15 +13,51 @@ import {
   ChevronDown,
   Quote,
 } from "lucide-react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import dynamic from "next/dynamic";
+
+const RechartsBar = dynamic(
+  () => import("recharts").then((m) => ({
+    default: ({ data }: { data: Array<{ name: string; appreciation: number }> }) => (
+      <m.ResponsiveContainer width="100%" height="100%">
+        <m.BarChart data={data} barSize={36}>
+          <m.CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+          <m.XAxis
+            dataKey="name"
+            tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10, fontWeight: 600 }}
+            axisLine={false}
+            tickLine={false}
+            angle={-20}
+            textAnchor="end"
+            height={60}
+          />
+          <m.YAxis
+            tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 11, fontWeight: 600 }}
+            axisLine={false}
+            tickLine={false}
+            tickFormatter={(v) => `${v}%`}
+          />
+          <m.Tooltip
+            contentStyle={{
+              background: "rgba(8,11,20,0.95)",
+              border: "1px solid rgba(201,168,76,0.3)",
+              borderRadius: 12,
+              color: "rgba(255,255,255,0.9)",
+              fontSize: 12,
+              fontWeight: 600,
+            }}
+            formatter={(value) => [`${value}%`, "Appreciation"]}
+          />
+          <m.Bar
+            dataKey="appreciation"
+            fill="#C9A84C"
+            radius={[6, 6, 0, 0]}
+          />
+        </m.BarChart>
+      </m.ResponsiveContainer>
+    ),
+  })),
+  { ssr: false }
+);
 import { Container } from "@/components/ui/container";
 import {
   INVESTMENT_HIGHLIGHTS,
@@ -219,42 +255,7 @@ function MarketInsightsSection() {
           }}
         >
           <div className="h-[360px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={barData} barSize={36}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                <XAxis
-                  dataKey="name"
-                  tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10, fontWeight: 600 }}
-                  axisLine={false}
-                  tickLine={false}
-                  angle={-20}
-                  textAnchor="end"
-                  height={60}
-                />
-                <YAxis
-                  tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 11, fontWeight: 600 }}
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={(v) => `${v}%`}
-                />
-                <Tooltip
-                  contentStyle={{
-                    background: "rgba(8,11,20,0.95)",
-                    border: "1px solid rgba(201,168,76,0.3)",
-                    borderRadius: 12,
-                    color: "rgba(255,255,255,0.9)",
-                    fontSize: 12,
-                    fontWeight: 600,
-                  }}
-                  formatter={(value) => [`${value}%`, "Appreciation"]}
-                />
-                <Bar
-                  dataKey="appreciation"
-                  fill="#C9A84C"
-                  radius={[6, 6, 0, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
+            <RechartsBar data={barData} />
           </div>
         </motion.div>
       </Container>

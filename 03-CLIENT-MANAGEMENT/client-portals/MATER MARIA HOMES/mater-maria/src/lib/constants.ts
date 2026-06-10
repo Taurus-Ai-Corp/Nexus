@@ -185,34 +185,34 @@ export const GALLERY_ITEMS = [
 
 export const FAQ_ITEMS = [
   {
-    question: "What is the minimum age requirement?",
+    question: "What is the minimum age requirement for Mater Maria Homes?",
     answer:
-      "Mater Maria welcomes residents aged 55 and above. We also welcome couples where one partner meets the age requirement. Our community is designed to support independent, assisted, and enhanced living needs.",
+      "Mater Maria Homes accepts residents aged 55 and above. Couples are welcome where at least one partner meets the age threshold. The estate offers three living modes: independent wellness suites, assisted living with 24/7 nursing, and enhanced care with dedicated medical staff.",
   },
   {
-    question: "Do you accept NRI investments?",
+    question: "Can NRI families invest in Mater Maria Homes from abroad?",
     answer:
-      "Yes, we have special packages for NRI families looking to secure a comfortable home for their parents or for their own retirement. We accept international payments and offer dedicated NRI concierge support throughout the process.",
+      "Yes. Mater Maria Homes is FEMA-compliant and accepts NRE/NRO account transfers. NRI investors can purchase share-deposit tiers (Silver at Rs.10 lakh, Gold at Rs.20 lakh, Platinum at Rs.30 lakh) with 10% annual interest on the deposit component. Dedicated country coordinators in 16 countries assist with the process.",
   },
   {
-    question: "What medical facilities are available?",
+    question: "What medical facilities are available on campus?",
     answer:
-      "Our healthcare infrastructure includes 24/7 nursing staff, on-call doctors and visiting specialists, an in-house pharmacy, emergency response system, and a tie-up with Mary Queens Mission Hospital just 10 km away.",
+      "The estate includes an MMT Hospital Annexure with 24/7 nursing, on-call doctors, visiting specialists, an in-house pharmacy, and emergency ambulance service. The nearest major hospitals are Mar Sleeva Medicity (17 km), Mary Queens Hospital (8 km), and Thiruvalla Medical Mission (8 km).",
   },
   {
-    question: "How can I learn more?",
+    question: "What is the investment structure and expected return?",
     answer:
-      "Absolutely! Use our contact form, call us directly, or reach out via WhatsApp. Our team will be happy to walk you through our plans, share renders and videos, and answer all your questions.",
+      "Investments are structured as share capital plus deposit. The deposit component earns 10% annual interest for years 1-4, converting to dividends from year 5 (escalating from 6% to 20% by year 15). Projected 15-year total return is 150-153%. All investor funds are held in escrow under board-supervised governance.",
   },
   {
-    question: "What is the pricing structure?",
+    question: "How do I schedule a site visit or request a brochure?",
     answer:
-      "We offer 3 residence types starting from ₹25 Lakhs for the Serenity Studio, ₹35 Lakhs for the Harmony Suite, and ₹55 Lakhs for the Tranquility Villa. Pricing varies based on floor preference and customization options. A monthly maintenance fee covers all community services.",
+      "Contact the team via WhatsApp at +91 94470 80356, call during Mon-Sat 9am-6pm IST, or use the enquiry form on this website. Response time is within 2 hours. Personalized brochures and site visit scheduling are available for all investment tiers.",
   },
   {
-    question: "Is there a trial stay option?",
+    question: "What is the governance structure of Mater Maria Homes?",
     answer:
-      "Yes, we offer 7-day trial stays once construction is complete so you can experience life at Mater Maria firsthand. This includes access to all amenities, meals, and community activities. Contact us to reserve your trial stay.",
+      "Mater Maria Homes is governed by the Diocese of Kanjirappally under the patronage of Bishop Mar Jose Pulickal. An Executive Board of Directors supervised by Chairman Rajeev Abraham (37 years Middle East infrastructure) and Managing Director Thomas Abraham (35 years Milma Kerala) oversees all operations and investments. Quarterly reports are provided to all investors.",
   },
 ];
 
