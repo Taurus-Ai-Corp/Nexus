@@ -185,8 +185,9 @@ button{cursor:pointer;font-family:inherit}
 /* Skip link */
 .skip{position:absolute;top:-100px;left:16px;background:var(--accent-gold);color:#fff;padding:8px 16px;z-index:9999;font-size:14px;border-radius:4px;transition:top .3s}
 .skip:focus{top:16px}
-/* Reveal classes — set by GSAP */
-.reveal-up,.split-heading{opacity:0}
+/* Reveal classes — hidden ONLY when GSAP confirmed loaded (html.js-anim).
+   Content stays visible by default so CDN/script failures never blank the page. */
+html.js-anim .reveal-up,html.js-anim .split-heading{opacity:0}
 /* ================================================================
    SHARED UTILITIES (DRY)
    ================================================================ */
@@ -758,6 +759,15 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 .footer-flags{display:flex;gap:8px;font-size:20px}
 @media(max-width:480px){.footer-flags{gap:4px;font-size:16px;flex-wrap:wrap;justify-content:center}}
 @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
+/* Phones: single centred column — keeps the brand logo, text, and link
+   groups on one symmetric axis instead of a lopsided two-column squeeze */
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr;text-align:center;gap:28px}
+  .footer-brand img{margin:0 auto 12px!important}
+  .footer-brand p{margin:16px auto 0}
+  .footer-grid ul{display:inline-block;text-align:left}
+  .footer-grid ul[style]{justify-content:center!important}
+}
 /* ================================================================
    VISION / MISSION 2x2 GRID
    ================================================================ */
@@ -1374,6 +1384,45 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14/dist/ScrollTrigger.min.js" integrity="sha384-xNHNOfrykny9oFwnmpfNbkSc6isny38d1GZvTRVuFV0l9fTMIZKhULvomyQJSMRl" crossorigin="anonymous"></script>
 <!-- Lenis Smooth Scroll -->
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" integrity="sha384-tKsJDT6PlUI0pSBt9/sBKJluKgA19/a6mBrDsZaXotLB4ZYfMGM6xt6/WgGpYhTm" crossorigin="anonymous"></script>
+<!-- CDN failure guard: if GSAP/ScrollTrigger/Lenis didn't load (slow networks,
+     data-saver, blocked CDNs), stub them so the page never crashes and no
+     content stays hidden. Animations are an enhancement, never a dependency. -->
+<script>
+(function () {
+  // Hide-for-reveal is opt-in: only on desktop AND only when GSAP truly loaded.
+  if (window.gsap && window.ScrollTrigger && window.innerWidth > 768) {
+    document.documentElement.classList.add('js-anim');
+  }
+  if (!window.gsap) {
+    var tween = {};
+    ['timeScale','kill','pause','play','progress','to','from','set','add','restart'].forEach(function (m) {
+      tween[m] = function () { return tween; };
+    });
+    window.gsap = {
+      registerPlugin: function () {},
+      to: function () { return tween; },
+      from: function () { return tween; },
+      fromTo: function () { return tween; },
+      set: function () { return tween; },
+      timeline: function () { return tween; },
+      delayedCall: function () { return tween; },
+      ticker: { add: function () {}, lagSmoothing: function () {} },
+      utils: { toArray: function (s) {
+        return Array.prototype.slice.call(typeof s === 'string' ? document.querySelectorAll(s) : (s && s.length != null ? s : []));
+      } }
+    };
+  }
+  if (!window.ScrollTrigger) {
+    window.ScrollTrigger = {
+      config: function () {}, refresh: function () {}, update: function () {},
+      create: function () {}, getAll: function () { return []; }, batch: function () { return []; }
+    };
+  }
+  if (!window.Lenis) {
+    window.Lenis = function () { this.on = function () {}; this.raf = function () {}; };
+  }
+})();
+</script>
 <!-- ================================================================
      GSAP ANIMATION SYSTEM — All 20 Steps
      ================================================================ -->
@@ -1589,23 +1638,25 @@ ticker('.hero-news-inner', { duration: 12 });
 // Governance ticker
 ticker('.gov-ticker', { xPercent: -25, duration: 70 });
 
-// Step 18: Universal scroll reveals — reduced on mobile for performance
-var revealY = isMobile ? 25 : 50;
-var revealDur = isMobile ? 0.5 : 0.8;
+// Step 18: Universal scroll reveals — DESKTOP ONLY. On phones content is never
+// hidden: scroll-reveal hiding stranded sections invisible on slow networks
+// (trigger positions measured before images loaded). Reliability > animation.
+if (!isMobile) {
 gsap.utils.toArray('.reveal-up').forEach(el => {
-  gsap.set(el, { y: revealY, opacity: 0 });
-  gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }, y: 0, opacity: 1, duration: revealDur, ease: 'power2.out' });
+  gsap.set(el, { y: 50, opacity: 0 });
+  gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }, y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' });
 });
 
 // Split headings — word-by-word reveal
 gsap.utils.toArray('.split-heading').forEach(h => {
-  gsap.set(h, { y: isMobile ? 20 : 40, opacity: 0 });
-  gsap.to(h, { scrollTrigger: { trigger: h, start: 'top 85%', toggleActions: 'play none none none' }, opacity: 1, y: 0, duration: isMobile ? 0.6 : 0.9, ease: 'power3.out' });
+  gsap.set(h, { y: 40, opacity: 0 });
+  gsap.to(h, { scrollTrigger: { trigger: h, start: 'top 85%', toggleActions: 'play none none none' }, opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' });
 });
+}
 
-// DRY: Unified reveal — reduced on mobile for performance
+// DRY: Unified reveal — desktop only (no-op on mobile, content stays visible)
 function revealGroup(sel, { y=50, dur=0.7, gap=0.1 } = {}) {
-  if (isMobile) { y = Math.min(y, 25); dur = Math.min(dur, 0.5); gap = Math.min(gap, 0.06); }
+  if (isMobile) return;
   gsap.utils.toArray(sel).forEach((el, i) => {
     gsap.set(el, { y, opacity: 0 });
     gsap.to(el, {
@@ -1618,19 +1669,14 @@ revealGroup('.f-card', { y: 60 });
 revealGroup('.prop', { y: 50 });
 revealGroup('.t-card', { y: 50 });
 revealGroup('.gov-card', { y: 40, dur: 0.6 });
-// UPGRADE 3: Clip-path image reveals — simplified fade on mobile
+// UPGRADE 3: Clip-path image reveals — desktop only (mobile: always visible)
+if (!isMobile) {
 gsap.utils.toArray('.g-item').forEach(function(el, i) {
   var img = el.querySelector('img');
   if (img) {
-    if (isMobile) {
-      gsap.set(img, { opacity: 0 });
-      gsap.to(img, { opacity: 1, duration: 0.6, ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }, delay: i * 0.05 });
-    } else {
-      gsap.set(img, { clipPath: 'inset(0 100% 0 0)' });
-      gsap.to(img, { clipPath: 'inset(0 0% 0 0)', duration: 1.2, ease: 'power4.inOut',
-        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }, delay: i * 0.08 });
-    }
+    gsap.set(img, { clipPath: 'inset(0 100% 0 0)' });
+    gsap.to(img, { clipPath: 'inset(0 0% 0 0)', duration: 1.2, ease: 'power4.inOut',
+      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }, delay: i * 0.08 });
   }
   var cap = el.querySelector('.g-cap');
   if (cap) {
@@ -1642,8 +1688,23 @@ gsap.utils.toArray('.g-item').forEach(function(el, i) {
     });
   }
 });
+}
 revealGroup('.tl-item', { y: 50, gap: 0.15 });
 revealGroup('.loc-card', { y: 40 });
+
+// Failsafe: re-sync trigger positions once every image has loaded, and
+// force-reveal anything still hidden after 6s — slow networks shift layout
+// after triggers are measured, which can strand sections at opacity 0.
+window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+setTimeout(function () {
+  document.querySelectorAll('.reveal-up,.split-heading,.f-card,.prop,.t-card,.gov-card,.tl-item,.loc-card,.g-item img,.g-cap').forEach(function (el) {
+    if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.clipPath = 'none';
+    }
+  });
+}, 6000);
 // Eco — Swipeable stacked cards (drag + click + touch)
 (function() {
   var deck = document.getElementById('ecoDeck');
@@ -1763,12 +1824,13 @@ if (progressBar) {
   }, { passive: true });
 }
 
-// Step 14: FAQ accordion
+// Step 14: FAQ accordion — plain CSS-transition animation (no GSAP dependency,
+// works even when the animation CDN is blocked)
 document.querySelectorAll('.faq-item').forEach(item => {
   item.addEventListener('click', () => {
     const isOpen = item.classList.contains('open');
     document.querySelectorAll('.faq-item.open').forEach(active => {
-      gsap.to(active.querySelector('.faq-a'), { height: 0, duration: 0.4, ease: 'power2.inOut' });
+      active.querySelector('.faq-a').style.height = '0px';
       active.classList.remove('open');
       active.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
     });
@@ -1776,9 +1838,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
       item.classList.add('open');
       item.querySelector('.faq-q').setAttribute('aria-expanded', 'true');
       const a = item.querySelector('.faq-a');
-      gsap.set(a, { height: 'auto' });
-      const h = a.offsetHeight;
-      gsap.fromTo(a, { height: 0 }, { height: h, duration: 0.4, ease: 'power2.inOut' });
+      a.style.height = a.scrollHeight + 'px';
     }
   });
 });
@@ -1841,12 +1901,19 @@ function selectTier(tierName, tierAmount) {
     btn.disabled = true;
     btn.textContent = 'SENDING...';
 
+    // Normalise to E.164 — the /api/lead schema rejects spaces/dashes, and
+    // the input placeholder suggests "+91 98765 43210" which would fail as-is.
+    var rawPhone = form.querySelector('[name="phone"]').value.trim().replace(/[\s\-().]/g, '');
+    if (/^[6-9]\d{9}$/.test(rawPhone)) rawPhone = '+91' + rawPhone;
+    else if (/^91[6-9]\d{9}$/.test(rawPhone)) rawPhone = '+' + rawPhone;
+    else if (/^0[6-9]\d{9}$/.test(rawPhone)) rawPhone = '+91' + rawPhone.slice(1);
+
     var data = {
       name: form.querySelector('[name="first_name"]').value.trim(),
       email: form.querySelector('[name="email"]').value.trim(),
-      phone: form.querySelector('[name="phone"]').value.trim(),
+      phone: rawPhone,
       tier: form.querySelector('[name="invest_tier"]')?.value || 'undecided',
-      message: form.querySelector('[name="message"]')?.value || '',
+      message: (form.querySelector('[name="message"]')?.value || '').slice(0, 500),
       source: 'hero-mini',
     };
 

@@ -54,9 +54,17 @@ a{text-decoration:none;color:inherit}
 .nav-links a.active{color:var(--accent-gold-light);opacity:1}
 .nav-cta{background:#fff;color:var(--text-heading);padding:14px 32px;border-radius:100px;border:none;font-size:16px;font-weight:700;transition:background .4s,color .4s}
 .nav-cta:hover{background:var(--hover-blue);color:#fff}
-.hamburger{display:none;background:none;border:none;width:44px;height:44px;position:relative;cursor:pointer}
-.hamburger span{display:block;width:26px;height:2px;background:#fff;margin:6px auto;border-radius:2px}
-@media(max-width:1024px){.nav-links{display:none}.hamburger{display:block}.nav-cta{display:none}}
+.hamburger{display:none;background:none;border:none;width:44px;height:44px;position:relative;z-index:1002;padding:0;flex-shrink:0;cursor:pointer}
+.hamburger span{display:block;width:26px;height:2px;background:#fff;margin:6px auto;border-radius:2px;transition:transform .3s,opacity .3s}
+.hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:1001;background:rgba(25,29,35,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu a{font-size:clamp(1.4rem,5vw,2rem);font-weight:600;color:#fff;padding:14px 0;display:block;opacity:.9}
+.mobile-menu a:hover,.mobile-menu a.active{color:var(--accent-gold-light)}
+.mobile-menu-cta{margin-top:24px;background:var(--accent-gold);color:#fff;border:none;padding:16px 40px;border-radius:100px;font-size:15px;font-weight:700;cursor:pointer}
+@media(max-width:1024px){.nav-links{display:none}.hamburger{display:block}.nav-cta{display:none}.nav{padding:12px 0}.nav-logo img{height:56px}}
 
 /* Hero */
 .invest-hero{background:linear-gradient(135deg, var(--hover-blue) 0%, var(--bg-dark) 100%);padding:clamp(120px,16vw,180px) 0 clamp(60px,8vw,100px);color:#fff}
@@ -99,6 +107,13 @@ a{text-decoration:none;color:inherit}
 .t-cta:hover{background:var(--hover-blue);color:#fff}
 .t-card.feat .t-cta{background:var(--accent-gold);color:#fff;border-color:var(--accent-gold)}
 @media(max-width:900px){.tiers-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}}
+
+/* Exit Terms cards */
+.exit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.exit-card{background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:32px 28px;transition:transform .4s,box-shadow .4s}
+.exit-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.06)}
+.exit-card .t-name{margin-bottom:8px}
+@media(max-width:900px){.exit-grid{grid-template-columns:1fr;max-width:400px;margin:40px auto 0}}
 
 /* ROI Calculator */
 .roi-calc{background:#fff;border:1px solid var(--border-light);border-radius:20px;padding:40px;margin-top:40px}
@@ -143,7 +158,7 @@ a{text-decoration:none;color:inherit}
 .footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
 .footer a{color:var(--accent-gold-light);transition:color .3s}
 .footer a:hover{color:var(--accent-gold)}
-.footer-links{display:flex;gap:24px;list-style:none;font-size:14px}
+.footer-links{display:flex;gap:24px;list-style:none;font-size:14px;flex-wrap:wrap;justify-content:center}
 </style>
 </head>
 <body>
@@ -163,9 +178,20 @@ a{text-decoration:none;color:inherit}
       <li><a href="index-landing.html#contact">Contact</a></li>
     </ul>
     <button class="nav-cta" onclick="location.href='index-landing.html#contact'">CONNECT NOW</button>
-    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true">
+  <a href="index-landing.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="invest.html" class="active">Invest</a>
+  <a href="index-landing.html#features">Features</a>
+  <a href="index-landing.html#properties">Residences</a>
+  <a href="index-landing.html#contact">Contact</a>
+  <button class="mobile-menu-cta" type="button" onclick="location.href='index-landing.html#contact'">ENQUIRE NOW</button>
+</div>
 
 <!-- HERO -->
 <section class="invest-hero">
@@ -267,7 +293,7 @@ a{text-decoration:none;color:inherit}
     <span class="tag">Share Sale &amp; Exit Terms</span>
     <h2>Clear Exit <em>Terms</em></h2>
     <p class="lead">The programme is structured for transparent exits with staged share sale mechanics and equal instalments.</p>
-    <div class="tiers-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="exit-grid">
       <div class="exit-card"><div class="t-name">5 Year Lock-in</div><p class="lead" style="font-size:15px;text-align:left;margin:0">Primary conversion window opens after Year 5.</p></div>
       <div class="exit-card"><div class="t-name">6 Month Notice</div><p class="lead" style="font-size:15px;text-align:left;margin:0">Exit requests are processed with a 6 month notice period.</p></div>
       <div class="exit-card"><div class="t-name">3 Equal Instalments</div><p class="lead" style="font-size:15px;text-align:left;margin:0">Approved exits are settled in 3 Equal Instalments.</p></div>
@@ -431,9 +457,9 @@ a{text-decoration:none;color:inherit}
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container" style="flex-direction:column;align-items:center;text-align:center;gap:16px">
-    <div style="text-align:left;margin:0 auto 8px;max-width:600px">
-      <img src="assets-2025/images/mater-maria-logo.svg?v=3" alt="Mater Maria Homes" width="280" loading="lazy" style="filter:brightness(0) invert(1);display:block;margin:0 0 12px 0;">
-      <p style="color:var(--text-muted);font-size:15px;line-height:1.6;max-width:320px">A sanctuary of 24/7 care, spiritual community, and medical excellence — where every resident lives with dignity and peace.</p>
+    <div style="text-align:center;margin:0 auto 8px;max-width:600px">
+      <img src="assets-2025/images/mater-maria-logo.svg?v=3" alt="Mater Maria Homes" width="280" loading="lazy" style="filter:brightness(0) invert(1);display:block;margin:0 auto 12px;">
+      <p style="color:var(--text-muted);font-size:15px;line-height:1.6;max-width:320px;margin:0 auto">A sanctuary of 24/7 care, spiritual community, and medical excellence — where every resident lives with dignity and peace.</p>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;width:100%;border-top:1px solid rgba(255,255,255,.06);padding-top:20px">
       <span>&copy; 2026 Mater Maria Homes. All rights reserved.</span>
@@ -454,7 +480,32 @@ a{text-decoration:none;color:inherit}
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('solid', window.scrollY > 60);
-});
+}, { passive: true });
+
+// Mobile hamburger menu
+(function () {
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobile-menu');
+  if (!btn || !menu) return;
+  function close() {
+    menu.classList.remove('open');
+    btn.classList.remove('active');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+    document.body.style.overflow = '';
+  }
+  btn.addEventListener('click', function () {
+    var isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('active', isOpen);
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menu.classList.contains('open')) close();
+  });
+})();
 
 // Tier selection
 function selectTier(tier, amount) {
@@ -520,13 +571,23 @@ function nextStep(step) {
   }
 }
 
+// Normalise to E.164 (the /api/lead schema rejects spaces/dashes):
+// "+91 98765 43210" → "+919876543210"; bare 10-digit Indian numbers get +91.
+function normalizePhone(raw) {
+  var p = raw.trim().replace(/[\s\-().]/g, '');
+  if (/^[6-9]\d{9}$/.test(p)) p = '+91' + p;
+  else if (/^91[6-9]\d{9}$/.test(p)) p = '+' + p;
+  else if (/^0[6-9]\d{9}$/.test(p)) p = '+91' + p.slice(1);
+  return p;
+}
+
 async function submitForm() {
   const data = {
     name: document.getElementById('mf-name').value.trim(),
     email: document.getElementById('mf-email').value.trim(),
-    phone: document.getElementById('mf-phone').value.trim(),
+    phone: normalizePhone(document.getElementById('mf-phone').value),
     tier: (document.getElementById('mf-tier').value || 'undecided').toLowerCase(),
-    message: document.getElementById('mf-message')?.value || '',
+    message: (document.getElementById('mf-message')?.value || '').slice(0, 500),
     source: 'tier-card-button',
   };
 

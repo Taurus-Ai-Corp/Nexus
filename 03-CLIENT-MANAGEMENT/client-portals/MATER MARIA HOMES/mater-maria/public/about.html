@@ -55,9 +55,17 @@ a{text-decoration:none;color:inherit}
 .nav-links a.active{color:var(--accent-gold-light);opacity:1}
 .nav-cta{background:#fff;color:var(--text-heading);padding:14px 32px;border-radius:100px;border:none;font-size:16px;font-weight:700;transition:background .4s,color .4s}
 .nav-cta:hover{background:var(--hover-blue);color:#fff}
-.hamburger{display:none;background:none;border:none;width:44px;height:44px;position:relative;cursor:pointer}
-.hamburger span{display:block;width:26px;height:2px;background:#fff;margin:6px auto;border-radius:2px}
-@media(max-width:1024px){.nav-links{display:none}.hamburger{display:block}.nav-cta{display:none}}
+.hamburger{display:none;background:none;border:none;width:44px;height:44px;position:relative;z-index:1002;padding:0;flex-shrink:0;cursor:pointer}
+.hamburger span{display:block;width:26px;height:2px;background:#fff;margin:6px auto;border-radius:2px;transition:transform .3s,opacity .3s}
+.hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:1001;background:rgba(25,29,35,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu a{font-size:clamp(1.4rem,5vw,2rem);font-weight:600;color:#fff;padding:14px 0;display:block;opacity:.9}
+.mobile-menu a:hover,.mobile-menu a.active{color:var(--accent-gold-light)}
+.mobile-menu-cta{margin-top:24px;background:var(--accent-gold);color:#fff;border:none;padding:16px 40px;border-radius:100px;font-size:15px;font-weight:700;cursor:pointer}
+@media(max-width:1024px){.nav-links{display:none}.hamburger{display:block}.nav-cta{display:none}.nav{padding:12px 0}.nav-logo{width:170px;height:72px}.nav-logo img{height:72px}}
 
 /* Hero */
 .about-hero{background:linear-gradient(135deg, var(--hover-blue) 0%, var(--bg-dark) 100%);padding:clamp(120px,16vw,180px) 0 clamp(60px,8vw,100px);color:#fff}
@@ -88,7 +96,8 @@ a{text-decoration:none;color:inherit}
 .board-card .name{font-size:17px;font-weight:700;color:#fff}
 .board-card .role{color:var(--accent-gold-light);font-size:14px;font-weight:700;margin-top:4px}
 .board-card .org{font-size:13px;color:var(--text-muted);margin-top:6px;font-weight:500}
-@media(max-width:768px){.board-grid{grid-template-columns:1fr;gap:16px}}
+.board-grid-2{grid-template-columns:repeat(2,1fr);max-width:760px;margin-left:auto;margin-right:auto}
+@media(max-width:768px){.board-grid{grid-template-columns:1fr;gap:16px}.board-grid-2{grid-template-columns:1fr;max-width:420px}}
 @media(max-width:768px){.board-card{padding:24px 16px}}
 @media(max-width:768px){.board-card img{width:80px;height:80px}}
 
@@ -134,9 +143,20 @@ a{text-decoration:none;color:inherit}
       <li><a href="index-landing.html#contact">Contact</a></li>
     </ul>
     <button class="nav-cta" onclick="location.href='index-landing.html#contact'">Connect Now</button>
-    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true">
+  <a href="index-landing.html">Home</a>
+  <a href="about.html" class="active">About</a>
+  <a href="invest.html">Invest</a>
+  <a href="index-landing.html#features">Features</a>
+  <a href="index-landing.html#properties">Residences</a>
+  <a href="index-landing.html#contact">Contact</a>
+  <button class="mobile-menu-cta" type="button" onclick="location.href='index-landing.html#contact'">ENQUIRE NOW</button>
+</div>
 
 <!-- HERO -->
 <section class="about-hero">
@@ -152,7 +172,7 @@ a{text-decoration:none;color:inherit}
     <span class="tag tag-light">Spiritual & Pastoral Leadership</span>
     <h2>Guided by <em>Faith</em></h2>
     <p class="lead">Under the patronage of the Diocese of Kanjirappally, Mater Maria Homes is rooted in the Catholic tradition of compassionate care and spiritual stewardship.</p>
-    <div class="board-grid" style="margin-top:40px">
+    <div class="board-grid board-grid-2" style="margin-top:40px">
       <div class="board-card" style="padding:52px 20px;border-color:rgba(192,155,94,.45);box-shadow:0 0 30px rgba(192,155,94,.08);">
         <img src="assets-2025/images/board/bishop-mar-jose-pulickal.png" alt="Bishop Mar Jose Pulickal" style="width:124px;height:124px;border:3px solid var(--accent-gold);margin-bottom:20px;">
         <div class="name" style="font-size:18px;">His Excellency Bishop Mar Jose Pulickal</div>
@@ -163,12 +183,6 @@ a{text-decoration:none;color:inherit}
         <img src="assets-2025/images/board/fr-sebastian-kollamkunnel.png" alt="Fr. Sebastian Kollamkunnel">
         <div class="name">Rev. Fr. Sebastian Kollamkunnel</div>
         <div class="role">Vicar General</div>
-        <div class="org">Diocese of Kanjirappally</div>
-      </div>
-      <div class="board-card" style="align-self:start;">
-        <img src="assets-2025/images/board/fr-mathew-puthumana.png" alt="Fr. Mathew Puthumana">
-        <div class="name">Rev. Fr. Mathew Puthumana</div>
-        <div class="role">Global Director, Pravasi Apostolate</div>
         <div class="org">Diocese of Kanjirappally</div>
       </div>
     </div>
@@ -235,9 +249,9 @@ a{text-decoration:none;color:inherit}
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container">
-    <div style="text-align:left;margin:0 auto 20px;max-width:600px">
-      <img src="assets-2025/images/mater-maria-logo.svg?v=3" alt="Mater Maria Homes" width="280" loading="lazy" style="filter:brightness(0) invert(1);display:block;margin:0 0 12px 0;">
-      <p style="color:var(--text-muted);font-size:15px;line-height:1.6;max-width:320px">A sanctuary of 24/7 care, spiritual community, and medical excellence — where every resident lives with dignity and peace.</p>
+    <div style="text-align:center;margin:0 auto 20px;max-width:600px">
+      <img src="assets-2025/images/mater-maria-logo.svg?v=3" alt="Mater Maria Homes" width="280" loading="lazy" style="filter:brightness(0) invert(1);display:block;margin:0 auto 12px;">
+      <p style="color:var(--text-muted);font-size:15px;line-height:1.6;max-width:320px;margin:0 auto">A sanctuary of 24/7 care, spiritual community, and medical excellence — where every resident lives with dignity and peace.</p>
     </div>
     <div>&copy; 2026 Mater Maria Homes. All rights reserved.</div>
     <ul class="footer-links">
@@ -256,7 +270,32 @@ a{text-decoration:none;color:inherit}
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('solid', window.scrollY > 60);
-});
+}, { passive: true });
+
+// Mobile hamburger menu
+(function () {
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobile-menu');
+  if (!btn || !menu) return;
+  function close() {
+    menu.classList.remove('open');
+    btn.classList.remove('active');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+    document.body.style.overflow = '';
+  }
+  btn.addEventListener('click', function () {
+    var isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('active', isOpen);
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menu.classList.contains('open')) close();
+  });
+})();
 </script>
 </body>
 </html>
