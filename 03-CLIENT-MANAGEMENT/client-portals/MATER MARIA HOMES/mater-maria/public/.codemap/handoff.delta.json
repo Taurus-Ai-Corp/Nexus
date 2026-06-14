@@ -1,0 +1,27 @@
+{
+  "changed": [
+    {
+      "path": "03-CLIENT-MANAGEMENT/client-portals/MATER MARIA HOMES/mater-maria/public/about.html",
+      "status": "modified"
+    },
+    {
+      "path": "03-CLIENT-MANAGEMENT/client-portals/MATER MARIA HOMES/mater-maria/public/index-landing.html",
+      "status": "modified"
+    },
+    {
+      "path": "index-landing.html.lazybackup",
+      "hash": "6a3d18ea928fd4e60268fc1b5be33494970c2f8f858cc0935d9d79cb48bb69cc",
+      "size": 137655,
+      "status": "untracked"
+    }
+  ],
+  "risk_files": [],
+  "recent_events": [],
+  "next_steps": [
+    "Run tests covering changed files before handoff."
+  ],
+  "open_questions": [
+    "Live watch state was unavailable; timeline may be incomplete.",
+    "Dependency graph context was unavailable; risk files may be incomplete."
+  ]
+}

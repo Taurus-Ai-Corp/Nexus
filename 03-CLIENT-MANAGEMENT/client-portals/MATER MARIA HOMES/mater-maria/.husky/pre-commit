@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Run ESLint
+echo "Running ESLint..."
+npx next lint
+
+# Run Prettier check
+echo "Running Prettier..."
+npx prettier --check .
+
+echo "✅ Pre-commit checks passed!"

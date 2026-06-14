@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-06-13T21:51:56.773878-04:00",
+  "root": "/Users/taurus_ai/Documents/Nexus-Platform/03-CLIENT-MANAGEMENT/client-portals/MATER MARIA HOMES/mater-maria/public",
+  "branch": "feat/nexosync-to-nexus-rebrand",
+  "base_ref": "origin/main",
+  "prefix": {
+    "file_count": 408,
+    "hubs": []
+  },
+  "delta": {
+    "changed": [
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER MARIA HOMES/mater-maria/public/about.html",
+        "status": "modified"
+      },
+      {
+        "path": "03-CLIENT-MANAGEMENT/client-portals/MATER MARIA HOMES/mater-maria/public/index-landing.html",
+        "status": "modified"
+      },
+      {
+        "path": "index-landing.html.lazybackup",
+        "hash": "6a3d18ea928fd4e60268fc1b5be33494970c2f8f858cc0935d9d79cb48bb69cc",
+        "size": 137655,
+        "status": "untracked"
+      }
+    ],
+    "risk_files": [],
+    "recent_events": [],
+    "next_steps": [
+      "Run tests covering changed files before handoff."
+    ],
+    "open_questions": [
+      "Live watch state was unavailable; timeline may be incomplete.",
+      "Dependency graph context was unavailable; risk files may be incomplete."
+    ]
+  },
+  "prefix_hash": "9c50faea88a3e48528a1b513eba506b7a11388f6dd9f3dab8a14aa1d48ec6f8e",
+  "delta_hash": "f8a7e83a96395e322785737ec63ef595bd8416291cf286e9da87deb337704ce5",
+  "combined_hash": "54931efcbb5f3aa3f66bc66f246ca9835d52a52f97790a0012dc82b6aa0d391e",
+  "metrics": {
+    "prefix_bytes": 28,
+    "delta_bytes": 659,
+    "total_bytes": 687,
+    "unchanged_bytes": 0,
+    "reuse_ratio": 0,
+    "prefix_reused": false,
+    "delta_reused": false
+  },
+  "changed_files": [
+    "03-CLIENT-MANAGEMENT/client-portals/MATER MARIA HOMES/mater-maria/public/about.html",
+    "03-CLIENT-MANAGEMENT/client-portals/MATER MARIA HOMES/mater-maria/public/index-landing.html",
+    "index-landing.html.lazybackup"
+  ],
+  "risk_files": [],
+  "recent_events": [],
+  "next_steps": [
+    "Run tests covering changed files before handoff."
+  ],
+  "open_questions": [
+    "Live watch state was unavailable; timeline may be incomplete.",
+    "Dependency graph context was unavailable; risk files may be incomplete."
+  ]
+}

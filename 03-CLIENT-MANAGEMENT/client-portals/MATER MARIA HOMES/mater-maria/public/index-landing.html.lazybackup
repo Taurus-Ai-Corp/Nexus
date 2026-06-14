@@ -748,7 +748,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
    FOOTER
    ================================================================ */
 .footer{background:var(--bg-dark);padding:60px 0 30px;position:relative;overflow:hidden}
-
+.footer-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.25;z-index:0;pointer-events:none}
 .footer .container{position:relative;z-index:1}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px}
 .footer-brand p{font-size:15px;font-weight:500;color:var(--text-muted);line-height:1.6;margin-top:16px;max-width:300px}
@@ -1326,7 +1326,7 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
 
 <!-- FOOTER (outside main — correct semantic structure) -->
 <footer class="footer">
-  
+  <video class="footer-video" autoplay muted loop playsinline preload="metadata"><source src="assets-2025/videos/golden-water-footer.mp4" type="video/mp4"></video>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand"><img src="assets-2025/images/mater-maria-logo.svg?v=3" alt="Mater Maria Homes" width="280" loading="lazy" style="filter:brightness(0) invert(1);display:block;margin:0 0 12px 0;"><p style="color:#fff">A sanctuary of 24/7 care, spiritual community, and medical excellence — where every resident lives with dignity and peace.</p></div>
@@ -1337,19 +1337,6 @@ input[type="checkbox"]{min-height:auto;min-width:24px;width:24px;height:24px}
     </div>
     <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,.06);padding-top:24px;margin-top:32px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.3)"><span>&copy; 2026 Mater Maria Homes. All rights reserved.</span><div class="footer-flags" style="display:flex;gap:8px;font-size:20px">🇦🇺 🇨🇦 🇩🇪 🇮🇳 🇮🇹 🇮🇱 🇮🇪 🇰🇼 🇸🇦 🇴🇲 🇬🇧 🇦🇪 🇺🇸</div></div>
 </div>
-
-<!-- Mobile autoplay guard -->
-<script>
-(function() {
-    var videos = document.querySelectorAll('.footer-video');
-    videos.forEach(function(video) {
-        if (window.innerWidth <= 768) {
-            video.removeAttribute('autoplay');
-            video.setAttribute('playsinline', '');
-        }
-    });
-})();
-</script>
 </footer>
 
 
