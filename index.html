@@ -110,6 +110,7 @@
     .lab-output .output-meta { margin-bottom: 20px; color: var(--clay); }
     .lab-output .output-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 16px; }
     .lab-output .output-body { font-size: 15px; line-height: 1.65; color: var(--muted); white-space: pre-line; }
+    .image-status { margin-top: 24px; padding: 16px; border: 1px dashed var(--border); font-size: 13px; color: var(--muted); }
 
     /* Process */
     .process { padding: 140px 0; }
@@ -299,16 +300,19 @@
         </div>
       </div>
 
-        <div class="lab-output" id="labOutput">
-          <div class="mono output-meta">Generated output</div>
-          <div class="output-title" id="outputTitle">Black technical basics, white space.</div>
-          <div class="output-body" id="outputBody"><strong>Image prompt:</strong> Ultra-realistic high-fashion editorial studio portrait of a young woman centered in frame, full-body, calm serious expression. Silver-blonde ash hair with darker roots, naturally wavy, middle-parted past shoulders. Pale skin, sharp facial structure, natural makeup. Oversized black technical streetwear t-shirt with subtle white piping and futuristic micro-logo, loose black cargo pants. Silver rings, cross chain necklace, bracelet; hands in pockets. Seamless white-to-light-gray gradient studio, large negative space, diffused backlight halo, soft frontal fill. Cool monochromatic grade, Scandinavian minimalism, medium-format 85mm, eye-level, symmetrical, 9:16 vertical portrait, ultra-sharp eyes, 8K, fashion lookbook, cyber-minimalist.
+      <div class="lab-output" id="labOutput">
+        <div class="mono output-meta">Generated output</div>
+        <div class="output-title" id="outputTitle">Black technical basics, white space.</div>
+        <div class="output-body" id="outputBody"><strong>Image prompt:</strong> Ultra-realistic high-fashion editorial studio portrait of a young woman centered in frame, full-body, calm serious expression. Silver-blonde ash hair with darker roots, naturally wavy, middle-parted past shoulders. Pale skin, sharp facial structure, natural makeup. Oversized black technical streetwear t-shirt with subtle white piping and futuristic micro-logo, loose black cargo pants. Silver rings, cross chain necklace, bracelet; hands in pockets. Seamless white-to-light-gray gradient studio, large negative space, diffused backlight halo, soft frontal fill. Cool monochromatic grade, Scandinavian minimalism, medium-format 85mm, eye-level, symmetrical, 9:16 vertical portrait, ultra-sharp eyes, 8K, fashion lookbook, cyber-minimalist.
 
 <strong>Platform plan:</strong> Instagram + Google Display
 <strong>Mood:</strong> Cool, controlled, minimal
 <strong>Deliverables:</strong> hero image prompt, 3 copy variants, shot list, posting schedule.
-          </div>
         </div>
+        <div class="image-status">
+          <strong>Image generation:</strong> The pipeline supports DALL-E 3, Replicate Flux, fal.ai, Stability, and Midjourney. Add your key to ~/.env-secrets and run <code>generate-images.py</code> to produce the final campaign PNG.
+        </div>
+      </div>
     </div>
   </section>
 
