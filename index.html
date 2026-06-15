@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Creative — AI Campaign Studio</title>
+  <meta name="description" content="Nexus Creative by Taurus AI builds high-fashion editorial and luxury campaign assets from a single product brief.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f3ef;
+      --paper: #ffffff;
+      --ink: #0f0f0f;
+      --muted: #6e6e6e;
+      --clay: #b85c48;
+      --indigo: #1a1a3a;
+      --border: #d6d2cc;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: 'Inter', system-ui, sans-serif;
+      color: var(--ink); background: var(--bg);
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: var(--ink); text-decoration: none; }
+    a:hover { color: var(--clay); }
+    .mono { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+    .btn {
+      display: inline-block; padding: 12px 24px; border: 1px solid var(--ink);
+      background: var(--ink); color: var(--paper); font-size: 13px; font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .btn:hover { background: var(--paper); color: var(--ink); }
+    .btn-outline {
+      background: transparent; color: var(--ink);
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+    /* Header */
+    header { padding: 28px 0; position: sticky; top: 0; background: rgba(246,243,239,0.94); backdrop-filter: blur(8px); z-index: 100; }
+    .header-inner { display: flex; justify-content: space-between; align-items: baseline; }
+    .logo { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.5px; }
+    .logo span { font-weight: 400; color: var(--muted); }
+    nav { display: flex; gap: 32px; align-items: baseline; }
+    nav a { font-size: 14px; color: var(--muted); }
+    nav a:hover { color: var(--ink); }
+
+    /* Typography */
+    h1, h2, h3 { font-family: 'Syne', sans-serif; margin: 0; font-weight: 700; letter-spacing: -0.04em; }
+    h1 { font-size: clamp(48px, 8vw, 96px); line-height: 0.92; }
+    h2 { font-size: clamp(36px, 5vw, 64px); line-height: 0.96; }
+    h3 { font-size: 28px; line-height: 1.05; }
+    p { line-height: 1.6; color: var(--muted); margin: 0; }
+
+    /* Hero */
+    .hero { padding: 120px 0 160px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: end; }
+    .hero-meta { margin-bottom: 24px; color: var(--clay); }
+    .hero h1 { margin-bottom: 32px; }
+    .hero p { font-size: 18px; max-width: 420px; margin-bottom: 36px; color: var(--muted); }
+    .hero-right { display: grid; gap: 16px; }
+    .hero-card {
+      background: var(--paper); border: 1px solid var(--border); padding: 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .hero-card .label { font-size: 13px; color: var(--muted); }
+    .hero-card .value { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 600; }
+
+    /* Campaign grid */
+    .campaigns { padding: 80px 0 140px; }
+    .section-meta { color: var(--clay); margin-bottom: 18px; }
+    .campaigns h2 { margin-bottom: 72px; max-width: 680px; }
+    .campaign-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .campaign-card { background: var(--paper); border: 1px solid var(--border); position: relative; overflow: hidden; }
+    .campaign-image {
+      aspect-ratio: 4/5; background: #e9e5df; position: relative; overflow: hidden;
+      display: grid; place-items: center;
+    }
+    .campaign-image img { width: 100%; height: 100%; object-fit: cover; }
+    .campaign-image .placeholder {
+      width: 100%; height: 100%; display: grid; place-items: center;
+      background: linear-gradient(135deg, #e9e5df 0%, #ddd8d0 100%);
+      color: var(--muted); font-family: 'Syne', sans-serif; font-size: 14px; text-align: center; padding: 40px;
+    }
+    .campaign-info { padding: 28px; }
+    .campaign-tag { display: inline-block; margin-bottom: 14px; color: var(--clay); }
+    .campaign-info h3 { margin-bottom: 14px; }
+    .campaign-info p { font-size: 14px; max-width: 360px; }
+
+    /* Live lab */
+    .lab { padding: 120px 0; background: var(--paper); border-top: 1px solid var(--border); }
+    .lab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .lab h2 { margin-bottom: 28px; }
+    .lab p { font-size: 16px; margin-bottom: 32px; max-width: 440px; }
+    .lab-input label { display: block; margin-bottom: 10px; font-size: 12px; color: var(--muted); }
+    .lab-input textarea {
+      width: 100%; min-height: 120px; padding: 16px; border: 1px solid var(--border);
+      font-family: 'Inter', sans-serif; font-size: 15px; resize: vertical; outline: none;
+    }
+    .lab-input textarea:focus { border-color: var(--clay); }
+    .lab-actions { margin-top: 16px; display: flex; gap: 12px; }
+    .lab-output {
+      background: var(--bg); border: 1px solid var(--border); padding: 28px;
+      min-height: 320px;
+    }
+    .lab-output .output-meta { margin-bottom: 20px; color: var(--clay); }
+    .lab-output .output-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 16px; }
+    .lab-output .output-body { font-size: 15px; line-height: 1.65; color: var(--muted); white-space: pre-line; }
+
+    /* Process */
+    .process { padding: 140px 0; }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 72px; }
+    .process-card { padding: 32px; border-top: 1px solid var(--border); }
+    .process-card .num { font-family: 'Syne', sans-serif; font-size: 32px; color: var(--clay); margin-bottom: 18px; }
+    .process-card h3 { font-size: 22px; margin-bottom: 12px; }
+    .process-card p { font-size: 14px; }
+
+    /* Pricing */
+    .pricing { padding: 100px 0 140px; background: var(--paper); border-top: 1px solid var(--border); }
+    .pricing h2 { margin-bottom: 60px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .pricing-card { border: 1px solid var(--border); padding: 32px; }
+    .pricing-card h3 { font-size: 22px; margin-bottom: 8px; }
+    .price { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 600; margin: 20px 0; }
+    .price span { font-size: 14px; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 400; }
+    .pricing-card ul { list-style: none; padding: 0; margin: 0 0 28px; }
+    .pricing-card li { padding: 10px 0; font-size: 14px; color: var(--muted); border-bottom: 1px solid var(--border); }
+    .pricing-card.featured { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .pricing-card.featured p, .pricing-card.featured li, .pricing-card.featured .price span { color: #aaa; }
+    .pricing-card.featured .btn { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+    .pricing-card.featured .btn:hover { background: transparent; color: var(--paper); }
+
+    /* Footer CTA */
+    .cta { padding: 140px 0; text-align: center; }
+    .cta h2 { margin-bottom: 28px; }
+    .cta p { max-width: 520px; margin: 0 auto 36px; font-size: 17px; }
+
+    footer { padding: 40px 0; border-top: 1px solid var(--border); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .hero, .lab-grid, .campaign-grid, .process-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .hero { padding: 80px 0 100px; }
+      nav { display: none; }
+      h1 { font-size: 52px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <div class="logo">Nexus <span>Creative</span></div>
+      <div class="mono" style="color:var(--muted);">nexus.taurusai.io</div>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#lab">Lab</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact" class="btn">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="mono hero-meta">AI Campaign Studio</div>
+        <h1>The campaign brief. Solved.</h1>
+        <p>Nexus Creative turns a single product description into editorial-grade campaign assets — concept, copy, shot list, and image prompt — ready for your studio or generative pipeline.</p>
+        <a href="#lab" class="btn">Try the prompt lab</a>
+        <a href="#work" class="btn btn-outline" style="margin-left:12px;">See work</a>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card">
+          <span class="label">Output formats</span>
+          <span class="value">Prompt · Copy · Deck</span>
+        </div>
+        <div class="hero-card">
+          <span class="label">Turnaround</span>
+          <span class="value">Minutes, not weeks</span>
+        </div>
+        <div class="hero-card">
+          <span class="label">Markets</span>
+          <span class="value">Dubai · India · Global</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="campaigns" id="work">
+    <div class="container">
+      <div class="mono section-meta">Selected campaigns</div>
+      <h2>Two reference studies. One system.</h2>
+
+      <div class="campaign-grid">
+        <article class="campaign-card">
+          <div class="campaign-image">
+            <div class="placeholder">
+              [Nordic tech-street editorial]<br><br>
+              full-body portrait · silver-blonde hair · black technical streetwear · seamless gradient studio · medium-format 85mm · 9:16
+            </div>
+          </div>
+          <div class="campaign-info">
+            <div class="mono campaign-tag">Study 01 — Nordic Minimalism</div>
+            <h3>Black technical basics, white space.</h3>
+            <p>A cyber-minimalist fashion lookbook built from one sentence. Cool monochromatic grade, diffused backlight, editorial retouching.</p>
+          </div>
+        </article>
+
+        <article class="campaign-card">
+          <div class="campaign-image">
+            <div class="placeholder">
+              [Tropical sport-luxury sunglasses]<br><br>
+              beach volleyball court · orange-red mirrored visor · white aerodynamic frame · warm golden skin · cyan-turquoise background · wide-angle lens
+            </div>
+          </div>
+          <div class="campaign-info">
+            <div class="mono campaign-tag">Study 02 — Summer Sport-Luxury</div>
+            <h3>Sun, motion, mirrored lens.</h3>
+            <p>A luxury eyewear campaign for peak summer. Dynamic low-angle composition, glossy reflections, Vogue-grade color grading.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="lab" id="lab">
+    <div class="container lab-grid">
+      <div>
+        <div class="mono section-meta">Live Prompt Lab</div>
+        <h2>Describe the shot. Get the brief.</h2>
+        <p>Type a product and scene the way you'd brief a photographer. Nexus Creative returns a production-ready image prompt, headline, and platform plan.</p>
+
+        <div class="lab-input">
+          <label for="briefInput">Your brief</label>
+          <textarea id="briefInput" placeholder="e.g. Luxury leather tote bag in a Milan apartment at golden hour, shot on medium-format film, soft shadows, woman in beige trench coat." style="margin-bottom:12px;"></textarea>
+        </div>
+        <div class="lab-actions">
+          <button class="btn" onclick="generateBrief()">Generate campaign brief</button>
+          <button class="btn btn-outline" onclick="loadSample('nordic')">Nordic sample</button>
+          <button class="btn btn-outline" onclick="loadSample('tropical')">Tropical sample</button>
+        </div>
+      </div>
+
+        <div class="lab-output" id="labOutput">
+          <div class="mono output-meta">Generated output</div>
+          <div class="output-title" id="outputTitle">Black technical basics, white space.</div>
+          <div class="output-body" id="outputBody"><strong>Image prompt:</strong> Ultra-realistic high-fashion editorial studio portrait of a young woman centered in frame, full-body, calm serious expression. Silver-blonde ash hair with darker roots, naturally wavy, middle-parted past shoulders. Pale skin, sharp facial structure, natural makeup. Oversized black technical streetwear t-shirt with subtle white piping and futuristic micro-logo, loose black cargo pants. Silver rings, cross chain necklace, bracelet; hands in pockets. Seamless white-to-light-gray gradient studio, large negative space, diffused backlight halo, soft frontal fill. Cool monochromatic grade, Scandinavian minimalism, medium-format 85mm, eye-level, symmetrical, 9:16 vertical portrait, ultra-sharp eyes, 8K, fashion lookbook, cyber-minimalist.
+
+<strong>Platform plan:</strong> Instagram + Google Display
+<strong>Mood:</strong> Cool, controlled, minimal
+<strong>Deliverables:</strong> hero image prompt, 3 copy variants, shot list, posting schedule.
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="container">
+      <div class="mono section-meta">How it works</div>
+      <h2>Less deck. More image.</h2>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="num">01</div>
+          <h3>Drop the brief</h3>
+          <p>Paste a product note, reference image, or sentence. No templates. No mood boards.</p>
+        </div>
+        <div class="process-card">
+          <div class="num">02</div>
+          <h3>Get the system</h3>
+          <p>Nexus returns a shot list, lighting notes, image prompt, copy variants, and platform plan.</p>
+        </div>
+        <div class="process-card">
+          <div class="num">03</div>
+          <h3>Ship the campaign</h3>
+          <p>Hand the brief to your studio or generate the asset. Launch the same day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="mono section-meta">Pricing</div>
+      <h2>Made for brands that move fast.</h2>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Studio</h3>
+          <p class="mono" style="color:var(--muted);">Single brand</p>
+          <div class="price">AED 499<span>/mo</span></div>
+          <ul>
+            <li>20 campaign briefs / month</li>
+            <li>Image prompts + copy</li>
+            <li>Instagram & Google formats</li>
+            <li>Email support</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline" style="width:100%; text-align:center;">Get started</a>
+        </div>
+
+        <div class="pricing-card featured">
+          <h3>Agency</h3>
+          <p class="mono" style="color:#aaa;">For creative teams</p>
+          <div class="price">AED 1,499<span>/mo</span></div>
+          <ul>
+            <li>Unlimited briefs</li>
+            <li>Multi-brand style memory</li>
+            <li>Deck export + shot lists</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="#contact" class="btn" style="width:100%; text-align:center;">Start now</a>
+        </div>
+
+        <div class="pricing-card">
+          <h3>Enterprise</h3>
+          <p class="mono" style="color:var(--muted);">Managed service</p>
+          <div class="price">Custom</div>
+          <ul>
+            <li>Dedicated AI creative lead</li>
+            <li>Custom style training</li>
+            <li>API access</li>
+            <li>SLA + strategy calls</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline" style="width:100%; text-align:center;">Talk to us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="container">
+      <h2>Stop guessing. Start shipping.</h2>
+      <p>Book a free 15-minute creative audit. We’ll build a live brief for one of your products on the call.</p>
+      <a href="mailto:admin@taurusai.io?subject=Nexus%20Creative%20audit%20-%20nexus.taurusai.io" class="btn" style="font-size:15px; padding:16px 32px;">Claim your free audit</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="logo" style="font-size:16px;">Nexus <span>Creative</span></div>
+      <div style="text-align:right;">
+        <div class="mono" style="margin-bottom:4px;">nexus.taurusai.io</div>
+        <div>© 2026 Taurus AI Corp. FZCO · Built in Dubai</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var samples = {
+      nordic: "High-fashion editorial studio portrait. Full-body woman centered, calm intimidating expression, silver-blonde ash hair with dark roots, pale skin, natural makeup. Oversized black technical streetwear t-shirt with white piping and futuristic micro-logo, loose black cargo pants. Silver rings, chain necklace with cross, bracelet. Hands in pockets. Seamless white-to-light-gray gradient studio, large negative space, diffused backlight halo, soft frontal fill. Cool monochromatic grade, Scandinavian minimalism, medium-format 85mm, 9:16 vertical portrait, ultra-sharp eyes, 8K.",
+      tropical: "Luxury summer sunglasses campaign on tropical beach volleyball court. Athletic woman, short messy brunette hair in wind, glowing tan skin, natural makeup, confident sporty expression. Futuristic oversized wraparound shield sunglasses, orange-to-red mirrored visor lens, thick white aerodynamic frame. White ribbed sleeveless crop tank, white high-waisted shorts, brown leather belt. Low wide-angle fashion lens, dynamic lean, arms extended. Sunglasses hero focus with beach reflections. Blurred cyan-blue sky background, white beach architecture, shallow DOF. Warm golden-orange skin against cool turquoise hues, Vogue-grade color grade, 8K."
+    };
+
+    function loadSample(name) {
+      document.getElementById('briefInput').value = samples[name];
+      generateBrief();
+    }
+
+    function generateBrief() {
+      var input = document.getElementById('briefInput').value.trim();
+      if (!input) return;
+
+      var platform = /sunglass|shoe|watch|bag|beauty|skincare/i.test(input) ? 'Instagram + TikTok' : 'Instagram + Google Display';
+      var mood = /beach|summer|sun|tropical/i.test(input) ? 'Warm, kinetic, sunlit' : /studio|editorial|minimal|nordic/i.test(input) ? 'Cool, controlled, minimal' : 'Premium, product-first';
+      var headline = input.length > 60 ? input.split('.')[0].slice(0, 55) + '...' : input;
+
+      var promptBlock = "Ultra-realistic campaign photography of " + input + ". Shot with professional fashion lighting, premium editorial retouching, hyperrealistic skin texture and fabric detail, 8K resolution, luxury campaign quality.";
+      var output = "**Headline:** " + headline.charAt(0).toUpperCase() + headline.slice(1) + "\n\n" +
+        "**Image prompt:**\n" + promptBlock + "\n\n" +
+        "**Platform plan:** " + platform + "\n" +
+        "**Mood:** " + mood + "\n" +
+        "**Deliverables:** hero image prompt, 3 copy variants, shot list, posting schedule.";
+
+      document.getElementById('outputTitle').textContent = "Campaign brief generated";
+      document.getElementById('outputBody').textContent = output;
+    }
+  </script>
+
+</body>
+</html>

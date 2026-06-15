@@ -1,0 +1,7 @@
+Serving HTTP on :: port 8127 (http://[::]:8127/) ...
+::1 - - [15/Jun/2026 18:33:21] "GET /index.html HTTP/1.1" 200 -
+::1 - - [15/Jun/2026 18:33:21] code 404, message File not found
+::1 - - [15/Jun/2026 18:33:21] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [15/Jun/2026 18:45:53] "GET /index.html HTTP/1.1" 200 -
+::1 - - [15/Jun/2026 18:45:53] code 404, message File not found
+::1 - - [15/Jun/2026 18:45:53] "GET /favicon.ico HTTP/1.1" 404 -
