@@ -44,6 +44,7 @@ def get_env_keys():
         "stability": os.environ.get("STABILITY_API_KEY", ""),
         "midjourney": os.environ.get("MIDJOURNEY_API_KEY", ""),
         "nvidia": os.environ.get("NVIDIA_API_KEY", ""),
+        "perplexity": os.environ.get("PERPLEXITY_API_KEY", ""),
     }
 
 
@@ -63,6 +64,7 @@ print(json.dumps({
     'STABILITY_API_KEY': os.environ.get('STABILITY_API_KEY',''),
     'MIDJOURNEY_API_KEY': os.environ.get('MIDJOURNEY_API_KEY',''),
     'NVIDIA_API_KEY': os.environ.get('NVIDIA_API_KEY',''),
+    'PERPLEXITY_API_KEY': os.environ.get('PERPLEXITY_API_KEY',''),
 }))
 PY
 """
@@ -73,6 +75,32 @@ PY
         except Exception:
             continue
     return {}
+
+
+def perplexity_enhance_prompt(prompt: str, perplexity_key: str) -> str:
+    """Use Perplexity Sonar to research campaign references and expand the prompt."""
+    if not requests or not perplexity_key:
+        return prompt
+    url = "https://api.perplexity.ai/chat/completions"
+    headers = {"Authorization": f"Bearer {perplexity_key}", "Content-Type": "application/json"}
+    system = "You are a fashion and luxury campaign researcher. Expand the user's brief into an ultra-detailed image-generation prompt. Include lighting, camera lens, styling, mood, color grade, and 1-2 real-world editorial reference cues. Output only the prompt, no commentary."
+    payload = {
+        "model": "sonar",
+        "messages": [
+            {"role": "system", "content": system},
+            {"role": "user", "content": f"Brief: {prompt}\n\nWrite one ultra-realistic editorial campaign image prompt:"}
+        ],
+        "max_tokens": 400,
+        "temperature": 0.5,
+    }
+    try:
+        r = requests.post(url, headers=headers, json=payload, timeout=60)
+        r.raise_for_status()
+        data = r.json()
+        return data["choices"][0]["message"]["content"].strip()
+    except Exception as e:
+        print(f"Perplexity prompt enhancement failed: {e}", file=sys.stderr)
+        return prompt
 
 
 def nvidia_enhance_prompt(prompt: str, nvidia_key: str) -> str:
@@ -233,7 +261,10 @@ def generate_campaign_image(prompt: str, output_dir: str, title: str):
     keys = get_env_keys()
 
     enhanced = prompt
-    if keys.get("nvidia"):
+    if keys.get("perplexity"):
+        print("Enhancing prompt with Perplexity Sonar...")
+        enhanced = perplexity_enhance_prompt(prompt, keys["perplexity"])
+    elif keys.get("nvidia"):
         print("Enhancing prompt with NVIDIA LLM...")
         enhanced = nvidia_enhance_prompt(prompt, keys["nvidia"])
 

@@ -15,335 +15,439 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f6f3ef;
-      --paper: #ffffff;
-      --ink: #0f0f0f;
-      --muted: #6e6e6e;
-      --clay: #b85c48;
-      --indigo: #1a1a3a;
-      --border: #d6d2cc;
+      --bg: #F6F4EF;
+      --surface: #FFFFFF;
+      --cream: #FAF8F4;
+      --ink: #14110F;
+      --ink-muted: #6B655E;
+      --accent: #B85C38;
+      --accent-warm: #C97B5C;
+      --border: #E3DED4;
+      --dark: #1A1714;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
     }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      margin: 0; font-family: 'Inter', system-ui, sans-serif;
+      margin: 0; font-family: var(--font-body);
       color: var(--ink); background: var(--bg);
-      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
-    img { max-width: 100%; display: block; }
-    a { color: var(--ink); text-decoration: none; }
-    a:hover { color: var(--clay); }
-    .mono { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
-    .btn {
-      display: inline-block; padding: 12px 24px; border: 1px solid var(--ink);
-      background: var(--ink); color: var(--paper); font-size: 13px; font-weight: 500;
-      transition: all 0.2s ease;
-    }
-    .btn:hover { background: var(--paper); color: var(--ink); }
-    .btn-outline {
-      background: transparent; color: var(--ink);
-    }
-    .btn-outline:hover { background: var(--ink); color: var(--paper); }
+    img, svg { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
 
-    /* Header */
-    header { padding: 28px 0; position: sticky; top: 0; background: rgba(246,243,239,0.94); backdrop-filter: blur(8px); z-index: 100; }
-    .header-inner { display: flex; justify-content: space-between; align-items: baseline; }
-    .logo { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.5px; }
-    .logo span { font-weight: 400; color: var(--muted); }
-    nav { display: flex; gap: 32px; align-items: baseline; }
-    nav a { font-size: 14px; color: var(--muted); }
+    h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 400; letter-spacing: -0.02em; line-height: 0.98; }
+    h1 { font-size: clamp(3.2rem, 7vw, 6rem); text-wrap: balance; }
+    h2 { font-size: clamp(2.6rem, 5vw, 4.6rem); text-wrap: balance; }
+    h3 { font-size: clamp(1.5rem, 2.2vw, 1.9rem); line-height: 1.05; }
+    p { line-height: 1.65; color: var(--ink-muted); margin: 0; text-wrap: pretty; }
+
+    .mono {
+      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.18em;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 0.9rem 1.6rem; border-radius: 999px;
+      background: var(--ink); color: var(--surface); font-size: 0.85rem; font-weight: 600;
+      border: 1.5px solid var(--ink);
+      transition: transform 160ms var(--ease-out), background 200ms var(--ease-out), border-color 200ms var(--ease-out), color 200ms var(--ease-out);
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
+    .btn:active { transform: scale(0.97); }
+    .btn .btn-icon {
+      display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px;
+      background: rgba(255,255,255,0.12); transition: transform 200ms var(--ease-out);
+    }
+    .btn:hover .btn-icon { transform: translate(2px, -1px); }
+
+    .btn-ghost {
+      background: transparent; color: var(--ink); border-color: var(--border);
+    }
+    .btn-ghost:hover { background: var(--cream); border-color: var(--ink-muted); color: var(--ink); }
+
+    .btn-surface { background: var(--surface); color: var(--ink); border-color: var(--surface); }
+    .btn-surface:hover { background: transparent; color: var(--surface); }
+
+    /* Header - floating pill */
+    header {
+      position: sticky; top: 0; z-index: 50; padding: 1.2rem 0;
+    }
+    .header-pill {
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1280px; margin: 0 auto; padding: 0.85rem 1.2rem;
+      background: rgba(246,244,239,0.88); border: 1px solid var(--border);
+      border-radius: 999px; backdrop-filter: blur(12px);
+    }
+    .logo { font-family: var(--font-display); font-size: 1.35rem; letter-spacing: -0.02em; }
+    .logo span { font-family: var(--font-body); font-weight: 500; color: var(--ink-muted); }
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a { font-size: 0.85rem; font-weight: 500; color: var(--ink-muted); transition: color 150ms var(--ease-out); }
     nav a:hover { color: var(--ink); }
 
-    /* Typography */
-    h1, h2, h3 { font-family: 'Syne', sans-serif; margin: 0; font-weight: 700; letter-spacing: -0.04em; }
-    h1 { font-size: clamp(48px, 8vw, 96px); line-height: 0.92; }
-    h2 { font-size: clamp(36px, 5vw, 64px); line-height: 0.96; }
-    h3 { font-size: 28px; line-height: 1.05; }
-    p { line-height: 1.6; color: var(--muted); margin: 0; }
+    /* Hero - editorial split */
+    .hero { padding: clamp(4rem, 8vw, 6rem) 0 clamp(4rem, 8vw, 6rem); }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1.7fr; gap: clamp(2rem, 5vw, 5rem); align-items: end;
+    }
+    .hero-left { padding-bottom: 2rem; }
+    .hero-kicker { color: var(--accent); margin-bottom: 1.4rem; }
+    .hero h1 { margin-bottom: 1.6rem; }
+    .hero p { font-size: 1.1rem; max-width: 420px; margin-bottom: 2.2rem; }
+    .hero-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; }
 
-    /* Hero */
-    .hero { padding: 120px 0 160px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: end; }
-    .hero-meta { margin-bottom: 24px; color: var(--clay); }
-    .hero h1 { margin-bottom: 32px; }
-    .hero p { font-size: 18px; max-width: 420px; margin-bottom: 36px; color: var(--muted); }
-    .hero-right { display: grid; gap: 16px; }
-    .hero-card {
-      background: var(--paper); border: 1px solid var(--border); padding: 28px;
-      display: flex; justify-content: space-between; align-items: center;
+    .hero-image {
+      position: relative; border-radius: 1.2rem; overflow: hidden;
+      aspect-ratio: 4/3; background: var(--cream); border: 1px solid var(--border);
     }
-    .hero-card .label { font-size: 13px; color: var(--muted); }
-    .hero-card .value { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 600; }
+    .hero-image img, .hero-image svg { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Campaign grid */
-    .campaigns { padding: 80px 0 140px; }
-    .section-meta { color: var(--clay); margin-bottom: 18px; }
-    .campaigns h2 { margin-bottom: 72px; max-width: 680px; }
-    .campaign-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-    .campaign-card { background: var(--paper); border: 1px solid var(--border); position: relative; overflow: hidden; }
-    .campaign-image {
-      aspect-ratio: 4/5; background: #e9e5df; position: relative; overflow: hidden;
-      display: grid; place-items: center;
+    /* Trust strip */
+    .trust { padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
+    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .trust-item { display: flex; flex-direction: column; gap: 0.35rem; }
+    .trust-item .mono { color: var(--ink-muted); }
+    .trust-item strong { font-weight: 600; font-size: 0.95rem; }
+
+    /* Campaigns */
+    .campaigns { padding: clamp(5rem, 10vw, 8rem) 0; }
+    .section-kicker { color: var(--accent); margin-bottom: 1.2rem; }
+    .campaigns h2 { max-width: 720px; margin-bottom: 4rem; }
+
+    .study {
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 0; align-items: stretch;
+      border: 1px solid var(--border); background: var(--surface); border-radius: 1.2rem; overflow: hidden;
+      margin-bottom: 2rem;
     }
-    .campaign-image img { width: 100%; height: 100%; object-fit: cover; }
-    .campaign-image .placeholder {
-      width: 100%; height: 100%; display: grid; place-items: center;
-      background: linear-gradient(135deg, #e9e5df 0%, #ddd8d0 100%);
-      color: var(--muted); font-family: 'Syne', sans-serif; font-size: 14px; text-align: center; padding: 40px;
-    }
-    .campaign-info { padding: 28px; }
-    .campaign-tag { display: inline-block; margin-bottom: 14px; color: var(--clay); }
-    .campaign-info h3 { margin-bottom: 14px; }
-    .campaign-info p { font-size: 14px; max-width: 360px; }
+    .study:nth-child(even) { grid-template-columns: 1.1fr 1fr; }
+    .study:nth-child(even) .study-text { order: 2; }
+    .study:nth-child(even) .study-visual { order: 1; }
+
+    .study-visual { min-height: 320px; position: relative; }
+    .study-visual img, .study-visual svg { width: 100%; height: 100%; object-fit: cover; }
+    .study-text { padding: clamp(2rem, 4vw, 3.5rem); display: flex; flex-direction: column; justify-content: center; }
+    .study-tag { color: var(--accent); margin-bottom: 1rem; }
+    .study-text h3 { margin-bottom: 1rem; }
+    .study-text p { font-size: 0.95rem; max-width: 420px; margin-bottom: 1.6rem; }
 
     /* Live lab */
-    .lab { padding: 120px 0; background: var(--paper); border-top: 1px solid var(--border); }
-    .lab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-    .lab h2 { margin-bottom: 28px; }
-    .lab p { font-size: 16px; margin-bottom: 32px; max-width: 440px; }
-    .lab-input label { display: block; margin-bottom: 10px; font-size: 12px; color: var(--muted); }
+    .lab { padding: clamp(5rem, 10vw, 8rem) 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .lab-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+    .lab h2 { margin-bottom: 1.2rem; }
+    .lab p { font-size: 1rem; margin-bottom: 2rem; max-width: 420px; }
+    .lab-input label { display: block; margin-bottom: 0.5rem; font-size: 0.75rem; color: var(--ink-muted); font-weight: 500; }
     .lab-input textarea {
-      width: 100%; min-height: 120px; padding: 16px; border: 1px solid var(--border);
-      font-family: 'Inter', sans-serif; font-size: 15px; resize: vertical; outline: none;
+      width: 100%; min-height: 140px; padding: 1rem; border-radius: 0.8rem;
+      border: 1.5px solid var(--border); background: var(--bg);
+      font-family: var(--font-body); font-size: 0.95rem; resize: vertical; outline: none;
+      transition: border-color 160ms var(--ease-out);
     }
-    .lab-input textarea:focus { border-color: var(--clay); }
-    .lab-actions { margin-top: 16px; display: flex; gap: 12px; }
+    .lab-input textarea:focus { border-color: var(--accent); }
+    .lab-actions { margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
     .lab-output {
-      background: var(--bg); border: 1px solid var(--border); padding: 28px;
-      min-height: 320px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 1.2rem; padding: 2rem;
+      min-height: 420px;
     }
-    .lab-output .output-meta { margin-bottom: 20px; color: var(--clay); }
-    .lab-output .output-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 16px; }
-    .lab-output .output-body { font-size: 15px; line-height: 1.65; color: var(--muted); white-space: pre-line; }
-    .image-status { margin-top: 24px; padding: 16px; border: 1px dashed var(--border); font-size: 13px; color: var(--muted); }
+    .output-kicker { color: var(--accent); margin-bottom: 1rem; }
+    .output-title { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 1.2rem; line-height: 1.05; }
+    .output-body { font-size: 0.95rem; line-height: 1.7; color: var(--ink-muted); white-space: pre-line; }
+    .output-meta { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .meta-item { font-size: 0.75rem; color: var(--ink-muted); }
+    .meta-item strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 0.2rem; }
+    .image-status {
+      margin-top: 1.5rem; padding: 1rem; border: 1.5px dashed var(--border); border-radius: 0.6rem;
+      font-size: 0.8rem; color: var(--ink-muted);
+    }
 
     /* Process */
-    .process { padding: 140px 0; }
-    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 72px; }
-    .process-card { padding: 32px; border-top: 1px solid var(--border); }
-    .process-card .num { font-family: 'Syne', sans-serif; font-size: 32px; color: var(--clay); margin-bottom: 18px; }
-    .process-card h3 { font-size: 22px; margin-bottom: 12px; }
-    .process-card p { font-size: 14px; }
+    .process { padding: clamp(5rem, 10vw, 8rem) 0; }
+    .process h2 { max-width: 600px; margin-bottom: 4rem; }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .process-card { padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 1rem; }
+    .process-card .num { font-family: var(--font-display); font-size: 2.6rem; color: var(--accent); margin-bottom: 1.2rem; line-height: 1; }
+    .process-card h3 { margin-bottom: 0.6rem; }
+    .process-card p { font-size: 0.9rem; }
 
-    /* Pricing */
-    .pricing { padding: 100px 0 140px; background: var(--paper); border-top: 1px solid var(--border); }
-    .pricing h2 { margin-bottom: 60px; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .pricing-card { border: 1px solid var(--border); padding: 32px; }
-    .pricing-card h3 { font-size: 22px; margin-bottom: 8px; }
-    .price { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 600; margin: 20px 0; }
-    .price span { font-size: 14px; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 400; }
-    .pricing-card ul { list-style: none; padding: 0; margin: 0 0 28px; }
-    .pricing-card li { padding: 10px 0; font-size: 14px; color: var(--muted); border-bottom: 1px solid var(--border); }
-    .pricing-card.featured { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-    .pricing-card.featured p, .pricing-card.featured li, .pricing-card.featured .price span { color: #aaa; }
-    .pricing-card.featured .btn { background: var(--paper); color: var(--ink); border-color: var(--paper); }
-    .pricing-card.featured .btn:hover { background: transparent; color: var(--paper); }
+    /* Pricing - bento */
+    .pricing { padding: clamp(5rem, 10vw, 8rem) 0; background: var(--cream); border-top: 1px solid var(--border); }
+    .pricing h2 { max-width: 600px; margin-bottom: 3rem; }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .pricing-card {
+      border: 1px solid var(--border); background: var(--surface); border-radius: 1.2rem; padding: 2rem;
+      display: flex; flex-direction: column;
+    }
+    .pricing-card.featured { grid-column: span 2; background: var(--dark); color: var(--surface); flex-direction: row; gap: 3rem; }
+    .pricing-card.featured p, .pricing-card.featured li, .pricing-card.featured .price span { color: #a8a29e; }
+    .pricing-card h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
+    .price { font-family: var(--font-display); font-size: 2.8rem; margin: 1.2rem 0; line-height: 1; }
+    .price span { font-size: 0.85rem; color: var(--ink-muted); font-family: var(--font-body); font-weight: 400; }
+    .pricing-card ul { list-style: none; padding: 0; margin: 0 0 1.5rem; flex: 1; }
+    .pricing-card li { padding: 0.6rem 0; font-size: 0.88rem; color: var(--ink-muted); border-bottom: 1px solid var(--border); }
+    .pricing-card.featured li { border-color: rgba(255,255,255,0.12); }
 
-    /* Footer CTA */
-    .cta { padding: 140px 0; text-align: center; }
-    .cta h2 { margin-bottom: 28px; }
-    .cta p { max-width: 520px; margin: 0 auto 36px; font-size: 17px; }
+    /* CTA */
+    .cta { padding: clamp(5rem, 10vw, 8rem) 0; text-align: center; }
+    .cta h2 { max-width: 800px; margin: 0 auto 1.4rem; }
+    .cta p { max-width: 540px; margin: 0 auto 2.2rem; font-size: 1.05rem; }
 
-    footer { padding: 40px 0; border-top: 1px solid var(--border); }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); }
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); background: var(--surface); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--ink-muted); flex-wrap: wrap; gap: 1rem; }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: opacity 300ms ease; }
+      .btn, .btn .btn-icon { transition: none; }
+    }
 
     @media (max-width: 900px) {
-      .hero, .lab-grid, .campaign-grid, .process-grid, .pricing-grid { grid-template-columns: 1fr; }
-      .hero { padding: 80px 0 100px; }
+      .hero-grid, .study, .study:nth-child(even), .lab-grid, .process-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .study .study-text, .study:nth-child(even) .study-text { order: 2; }
+      .study .study-visual, .study:nth-child(even) .study-visual { order: 1; min-height: 240px; }
+      .pricing-card.featured { grid-column: span 1; flex-direction: column; gap: 0; }
       nav { display: none; }
-      h1 { font-size: 52px; }
+      h1 { font-size: clamp(2.8rem, 12vw, 4rem); }
+      .header-pill { border-radius: 0; border-left: 0; border-right: 0; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="container header-inner">
-      <div class="logo">Nexus <span>Creative</span></div>
-      <div class="mono" style="color:var(--muted);">nexus.taurusai.io</div>
-      <nav>
-        <a href="#work">Work</a>
-        <a href="#lab">Lab</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact" class="btn">Start a project</a>
-      </nav>
+    <div class="container">
+      <div class="header-pill">
+        <div class="logo">Nexus <span>Creative</span></div>
+        <nav>
+          <a href="#work">Work</a>
+          <a href="#lab">Lab</a>
+          <a href="#process">Process</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#contact" class="btn">Start a project</a>
+        </nav>
+      </div>
     </div>
   </header>
 
   <section class="hero">
     <div class="container hero-grid">
-      <div>
-        <div class="mono hero-meta">AI Campaign Studio</div>
+      <div class="hero-left">
+        <div class="mono hero-kicker">AI Campaign Studio</div>
         <h1>The campaign brief. Solved.</h1>
         <p>Nexus Creative turns a single product description into editorial-grade campaign assets — concept, copy, shot list, and image prompt — ready for your studio or generative pipeline.</p>
-        <a href="#lab" class="btn">Try the prompt lab</a>
-        <a href="#work" class="btn btn-outline" style="margin-left:12px;">See work</a>
+        <div class="hero-actions">
+          <a href="#lab" class="btn">Try the prompt lab <span class="btn-icon">→</span></a>
+          <a href="#work" class="btn btn-ghost">See work</a>
+        </div>
       </div>
-      <div class="hero-right">
-        <div class="hero-card">
-          <span class="label">Output formats</span>
-          <span class="value">Prompt · Copy · Deck</span>
-        </div>
-        <div class="hero-card">
-          <span class="label">Turnaround</span>
-          <span class="value">Minutes, not weeks</span>
-        </div>
-        <div class="hero-card">
-          <span class="label">Markets</span>
-          <span class="value">Dubai · India · Global</span>
-        </div>
+      <div class="hero-image">
+        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E9E5DE"/>
+              <stop offset="100%" stop-color="#D4CFC7"/>
+            </linearGradient>
+            <radialGradient id="heroHalo" cx="40%" cy="35%" r="60%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.85)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </radialGradient>
+            <filter id="grain">
+              <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch"/>
+              <feColorMatrix type="saturate" values="0"/>
+              <feComponentTransfer><feFuncA type="linear" slope="0.05"/></feComponentTransfer>
+            </filter>
+          </defs>
+          <rect width="800" height="600" fill="url(#heroGrad)"/>
+          <rect width="800" height="600" fill="url(#heroHalo)"/>
+          <g transform="translate(360, 260)">
+            <rect x="-90" y="-140" width="180" height="240" rx="6" fill="#14110F"/>
+            <rect x="-78" y="-120" width="156" height="18" rx="2" fill="#F6F4EF"/>
+            <rect x="-78" y="-90" width="120" height="10" rx="2" fill="#3A3530"/>
+            <rect x="-78" y="-70" width="140" height="10" rx="2" fill="#3A3530"/>
+            <circle cx="0" cy="-190" r="55" fill="#D8D4CC"/>
+            <path d="M -90 -190 Q -140 -130 -130 -70 T -100 10" stroke="#C8C4BC" stroke-width="28" fill="none" stroke-linecap="round"/>
+            <path d="M 90 -190 Q 140 -130 130 -70 T 100 10" stroke="#C8C4BC" stroke-width="28" fill="none" stroke-linecap="round"/>
+            <rect x="-60" y="130" width="120" height="70" rx="4" fill="#1A1714"/>
+          </g>
+          <text x="40" y="540" fill="#6B655E" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1">EDITORIAL SYSTEM · NEXUS CREATIVE</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item"><span class="mono">Used by</span><strong>Agencies in Dubai &amp; India</strong></div>
+        <div class="trust-item"><span class="mono">Turnaround</span><strong>Minutes per campaign</strong></div>
+        <div class="trust-item"><span class="mono">Output</span><strong>Prompt + copy + shot list</strong></div>
+        <div class="trust-item"><span class="mono">Markets</span><strong>Fashion · real estate · F&amp;B</strong></div>
       </div>
     </div>
   </section>
 
   <section class="campaigns" id="work">
     <div class="container">
-      <div class="mono section-meta">Selected campaigns</div>
-      <h2>Two reference studies. One system.</h2>
-
-      <div class="campaign-grid">
-        <article class="campaign-card">
-          <div class="campaign-image">
-            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
-              <defs>
-                <linearGradient id="nordicBg" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#e8e4de"/>
-                  <stop offset="100%" stop-color="#d4cfc7"/>
-                </linearGradient>
-                <radialGradient id="nordicHalo" cx="50%" cy="30%" r="50%">
-                  <stop offset="0%" stop-color="rgba(255,255,255,0.9)"/>
-                  <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-                </radialGradient>
-              </defs>
-              <rect width="400" height="500" fill="url(#nordicBg)"/>
-              <ellipse cx="200" cy="160" rx="90" ry="110" fill="url(#nordicHalo)"/>
-              <!-- abstract figure -->
-              <g transform="translate(200, 320)">
-                <rect x="-55" y="-130" width="110" height="140" rx="8" fill="#1a1a1a"/>
-                <rect x="-48" y="-60" width="96" height="12" rx="2" fill="#f6f3ef"/>
-                <rect x="-42" y="10" width="84" height="90" rx="6" fill="#151515"/>
-                <circle cx="-30" cy="-180" r="35" fill="#d8d4cc"/>
-                <path d="M -55 -180 Q -80 -140 -75 -100 T -65 -50" stroke="#c8c4bc" stroke-width="18" fill="none" stroke-linecap="round"/>
-                <path d="M 55 -180 Q 80 -140 75 -100 T 65 -50" stroke="#c8c4bc" stroke-width="18" fill="none" stroke-linecap="round"/>
-              </g>
-              <text x="20" y="460" fill="#6e6e6e" font-family="IBM Plex Mono, monospace" font-size="9" text-transform="uppercase" letter-spacing="1">NORDIC TECH-STREET · 9:16</text>
-            </svg>
-          </div>
-          <div class="campaign-info">
-            <div class="mono campaign-tag">Study 01 — Nordic Minimalism</div>
-            <h3>Black technical basics, white space.</h3>
-            <p>A cyber-minimalist fashion lookbook built from one sentence. Cool monochromatic grade, diffused backlight, editorial retouching.</p>
-          </div>
-        </article>
-
-        <article class="campaign-card">
-          <div class="campaign-image">
-            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
-              <defs>
-                <linearGradient id="tropicSky" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#4fd1f7"/>
-                  <stop offset="60%" stop-color="#a5e8ff"/>
-                  <stop offset="100%" stop-color="#f8e8d0"/>
-                </linearGradient>
-                <linearGradient id="sand" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#f5e6cc"/>
-                  <stop offset="100%" stop-color="#e9d2a8"/>
-                </linearGradient>
-              </defs>
-              <rect width="400" height="500" fill="url(#tropicSky)"/>
-              <path d="M0 360 Q 100 330 200 360 T 400 360 V 500 H 0 Z" fill="url(#sand)"/>
-              <!-- abstract beach architecture -->
-              <rect x="260" y="220" width="100" height="90" fill="rgba(255,255,255,0.55)" rx="4"/>
-              <rect x="290" y="250" width="40" height="40" fill="rgba(255,255,255,0.3)" rx="2"/>
-              <!-- sun flare -->
-              <circle cx="320" cy="80" r="45" fill="rgba(255,230,150,0.7)"/>
-
-              <!-- abstract figure leaning forward -->
-              <g transform="translate(160, 360) rotate(-12)">
-                <ellipse cx="0" cy="-110" rx="38" ry="42" fill="#d48c5e"/>
-                <rect x="-35" y="-70" width="70" height="80" rx="8" fill="#ffffff"/>
-                <rect x="-28" y="10" width="56" height="55" rx="6" fill="#f0f0f0"/>
-                <rect x="-30" y="62" width="60" height="10" fill="#8b5a2b" rx="2"/>
-                <ellipse cx="-45" cy="-90" rx="22" ry="22" fill="#8b5a2b"/>
-                <path d="M -60 -70 Q -90 -50 -70 -20" stroke="#d48c5e" stroke-width="14" fill="none" stroke-linecap="round"/>
-                <path d="M 60 -70 Q 90 -50 70 -20" stroke="#d48c5e" stroke-width="14" fill="none" stroke-linecap="round"/>
-              </g>
-
-              <!-- sunglasses visor -->
-              <path d="M 115 218 Q 160 200 205 218 Q 160 240 115 218 Z" fill="#ff5e3a" opacity="0.9"/>
-              <path d="M 115 218 Q 160 236 205 218" stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
-
-              <text x="20" y="460" fill="#6e6e6e" font-family="IBM Plex Mono, monospace" font-size="9">TROPICAL SPORT-LUXURY · 4:5</text>
-            </svg>
-          </div>
-          <div class="campaign-info">
-            <div class="mono campaign-tag">Study 02 — Summer Sport-Luxury</div>
-            <h3>Sun, motion, mirrored lens.</h3>
-            <p>A luxury eyewear campaign for peak summer. Dynamic low-angle composition, glossy reflections, Vogue-grade color grading.</p>
-          </div>
-        </article>
+      <div class="reveal">
+        <div class="mono section-kicker">Selected campaigns</div>
+        <h2>Two reference studies. One system.</h2>
       </div>
+
+      <article class="study reveal">
+        <div class="study-text">
+          <div class="mono study-tag">Study 01 — Nordic Minimalism</div>
+          <h3>Black technical basics, white space.</h3>
+          <p>A cyber-minimalist fashion lookbook built from one sentence. Cool monochromatic grade, diffused backlight, editorial retouching.</p>
+          <a href="#lab" class="btn btn-ghost">Generate this style</a>
+        </div>
+        <div class="study-visual">
+          <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="nordicBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#E8E4DE"/>
+                <stop offset="100%" stop-color="#D4CFC7"/>
+              </linearGradient>
+              <radialGradient id="nordicHalo" cx="50%" cy="30%" r="50%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.9)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+              </radialGradient>
+            </defs>
+            <rect width="600" height="500" fill="url(#nordicBg)"/>
+            <ellipse cx="300" cy="150" rx="140" ry="170" fill="url(#nordicHalo)"/>
+            <g transform="translate(300, 300)">
+              <rect x="-80" y="-170" width="160" height="190" rx="8" fill="#14110F"/>
+              <rect x="-70" y="-90" width="140" height="16" rx="2" fill="#F6F4EF"/>
+              <rect x="-60" y="10" width="120" height="110" rx="6" fill="#1A1714"/>
+              <circle cx="-40" cy="-220" r="50" fill="#D8D4CC"/>
+              <path d="M -80 -220 Q -130 -160 -120 -100 T -90 -40" stroke="#C8C4BC" stroke-width="22" fill="none" stroke-linecap="round"/>
+              <path d="M 80 -220 Q 130 -160 120 -100 T 90 -40" stroke="#C8C4BC" stroke-width="22" fill="none" stroke-linecap="round"/>
+            </g>
+            <text x="30" y="470" fill="#6B655E" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1">NORDIC TECH-STREET · 9:16</text>
+          </svg>
+        </div>
+      </article>
+
+      <article class="study reveal">
+        <div class="study-visual">
+          <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="tropicSky" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#4FD1F7"/>
+                <stop offset="60%" stop-color="#A5E8FF"/>
+                <stop offset="100%" stop-color="#F8E8D0"/>
+              </linearGradient>
+              <linearGradient id="sand" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#F5E6CC"/>
+                <stop offset="100%" stop-color="#E9D2A8"/>
+              </linearGradient>
+            </defs>
+            <rect width="600" height="500" fill="url(#tropicSky)"/>
+            <path d="M0 380 Q 150 350 300 380 T 600 380 V 500 H 0 Z" fill="url(#sand)"/>
+            <rect x="380" y="250" width="150" height="110" fill="rgba(255,255,255,0.55)" rx="4"/>
+            <rect x="420" y="290" width="70" height="45" fill="rgba(255,255,255,0.3)" rx="2"/>
+            <circle cx="480" cy="90" r="55" fill="rgba(255,230,150,0.7)"/>
+            <g transform="translate(260, 380) rotate(-12)">
+              <ellipse cx="0" cy="-120" rx="48" ry="52" fill="#D48C5E"/>
+              <rect x="-45" y="-80" width="90" height="90" rx="8" fill="#FFFFFF"/>
+              <rect x="-35" y="20" width="70" height="60" rx="6" fill="#F0F0F0"/>
+              <rect x="-38" y="78" width="76" height="12" fill="#8B5A2B" rx="2"/>
+              <ellipse cx="-55" cy="-100" rx="28" ry="28" fill="#8B5A2B"/>
+              <path d="M -70 -80 Q -110 -55 -85 -20" stroke="#D48C5E" stroke-width="16" fill="none" stroke-linecap="round"/>
+              <path d="M 70 -80 Q 110 -55 85 -20" stroke="#D48C5E" stroke-width="16" fill="none" stroke-linecap="round"/>
+            </g>
+            <path d="M 180 250 Q 260 225 340 250 Q 260 280 180 250 Z" fill="#FF5E3A" opacity="0.9"/>
+            <path d="M 180 250 Q 260 275 340 250" stroke="#FFFFFF" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <text x="30" y="470" fill="#6B655E" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1">TROPICAL SPORT-LUXURY · 4:5</text>
+          </svg>
+        </div>
+        <div class="study-text">
+          <div class="mono study-tag">Study 02 — Summer Sport-Luxury</div>
+          <h3>Sun, motion, mirrored lens.</h3>
+          <p>A luxury eyewear campaign for peak summer. Dynamic low-angle composition, glossy reflections, Vogue-grade color grading.</p>
+          <a href="#lab" class="btn btn-ghost">Generate this style</a>
+        </div>
+      </article>
     </div>
   </section>
 
   <section class="lab" id="lab">
     <div class="container lab-grid">
-      <div>
-        <div class="mono section-meta">Live Prompt Lab</div>
+      <div class="reveal">
+        <div class="mono section-kicker">Live Prompt Lab</div>
         <h2>Describe the shot. Get the brief.</h2>
         <p>Type a product and scene the way you'd brief a photographer. Nexus Creative returns a production-ready image prompt, headline, and platform plan.</p>
 
         <div class="lab-input">
-          <label for="briefInput">Your brief</label>
-          <textarea id="briefInput" placeholder="e.g. Luxury leather tote bag in a Milan apartment at golden hour, shot on medium-format film, soft shadows, woman in beige trench coat." style="margin-bottom:12px;"></textarea>
+          <label for="brief">Your brief</label>
+          <textarea id="brief" placeholder="A Dubai penthouse at golden hour. Balcony overlooking the marina. Minimalist interiors. Family lifestyle."></textarea>
         </div>
         <div class="lab-actions">
-          <button class="btn" onclick="generateBrief()">Generate campaign brief</button>
-          <button class="btn btn-outline" onclick="loadSample('nordic')">Nordic sample</button>
-          <button class="btn btn-outline" onclick="loadSample('tropical')">Tropical sample</button>
+          <button class="btn" onclick="runDemo()">Generate brief <span class="btn-icon">→</span></button>
+          <button class="btn btn-ghost" onclick="clearBrief()">Clear</button>
         </div>
       </div>
 
-      <div class="lab-output" id="labOutput">
-        <div class="mono output-meta">Generated output</div>
-        <div class="output-title" id="outputTitle">Black technical basics, white space.</div>
-        <div class="output-body" id="outputBody"><strong>Image prompt:</strong> Ultra-realistic high-fashion editorial studio portrait of a young woman centered in frame, full-body, calm serious expression. Silver-blonde ash hair with darker roots, naturally wavy, middle-parted past shoulders. Pale skin, sharp facial structure, natural makeup. Oversized black technical streetwear t-shirt with subtle white piping and futuristic micro-logo, loose black cargo pants. Silver rings, cross chain necklace, bracelet; hands in pockets. Seamless white-to-light-gray gradient studio, large negative space, diffused backlight halo, soft frontal fill. Cool monochromatic grade, Scandinavian minimalism, medium-format 85mm, eye-level, symmetrical, 9:16 vertical portrait, ultra-sharp eyes, 8K, fashion lookbook, cyber-minimalist.
+      <div class="lab-output reveal" id="output">
+        <div class="output-kicker mono">Generated campaign brief</div>
+        <div class="output-title" id="output-title">Nordic Tech-Street Capsule</div>
+        <div class="output-body" id="output-body">A model in a matte-black technical parka and wide cargo trousers stands against a pale concrete wall in Helsinki winter light. Soft diffused backlight, 35mm lens, minimal color grading, editorial retouching. The composition leaves generous negative space top-right for headline placement.
 
-<strong>Platform plan:</strong> Instagram + Google Display
-<strong>Mood:</strong> Cool, controlled, minimal
-<strong>Deliverables:</strong> hero image prompt, 3 copy variants, shot list, posting schedule.
+<b>Headline:</b> Cold weather. Clean lines.
+<b>Platforms:</b> Instagram carousel (4:5), Stories (9:16), Pinterest pin.
+<b>Deliverables:</b> hero shot, detail crop, back-angle, flat-lay fabric swatch.
+<b>Color mood:</b> cool grey, black, off-white, faint clay accent.</div>
+        <div class="output-meta">
+          <div class="meta-item"><strong>Aspect ratio</strong>4:5 · 9:16</div>
+          <div class="meta-item"><strong>Retouching</strong>Editorial grade</div>
+          <div class="meta-item"><strong>Turnaround</strong>~3 minutes</div>
         </div>
-        <div class="image-status">
-          <strong>Image generation:</strong> The pipeline supports DALL-E 3, Replicate Flux, fal.ai, Stability, and Midjourney. Add your key to ~/.env-secrets and run <code>generate-images.py</code> to produce the final campaign PNG.
+        <div class="image-status" id="image-status">
+          Real image generation is connected to the multi-provider pipeline (DALL·E 3, Replicate Flux, fal.ai, Stability). Add a key to <code>~/.env-secrets</code> and run <code>python3 generate-images.py</code> to produce photorealistic campaign assets.
         </div>
       </div>
     </div>
   </section>
 
-  <section class="process">
+  <section class="process" id="process">
     <div class="container">
-      <div class="mono section-meta">How it works</div>
-      <h2>Less deck. More image.</h2>
-
+      <div class="reveal">
+        <div class="mono section-kicker">How it works</div>
+        <h2>From brief to board in three steps.</h2>
+      </div>
       <div class="process-grid">
-        <div class="process-card">
+        <div class="process-card reveal">
           <div class="num">01</div>
-          <h3>Drop the brief</h3>
-          <p>Paste a product note, reference image, or sentence. No templates. No mood boards.</p>
+          <h3>Describe the scene</h3>
+          <p>Write a product brief in plain language — location, mood, audience, shot type. No keyword gymnastics.</p>
         </div>
-        <div class="process-card">
+        <div class="process-card reveal">
           <div class="num">02</div>
-          <h3>Get the system</h3>
-          <p>Nexus returns a shot list, lighting notes, image prompt, copy variants, and platform plan.</p>
+          <h3>Get the campaign kit</h3>
+          <p>Nexus Creative returns a refined image prompt, headline options, platform plan, and deliverables list.</p>
         </div>
-        <div class="process-card">
+        <div class="process-card reveal">
           <div class="num">03</div>
-          <h3>Ship the campaign</h3>
-          <p>Hand the brief to your studio or generate the asset. Launch the same day.</p>
+          <h3>Ship or iterate</h3>
+          <p>Hand the brief to your photographer or run it through a generative image pipeline. Re-generate in seconds.</p>
         </div>
       </div>
     </div>
@@ -351,100 +455,139 @@
 
   <section class="pricing" id="pricing">
     <div class="container">
-      <div class="mono section-meta">Pricing</div>
-      <h2>Made for brands that move fast.</h2>
-
+      <div class="reveal">
+        <div class="mono section-kicker">Pricing</div>
+        <h2>Studio output without the studio overhead.</h2>
+      </div>
       <div class="pricing-grid">
-        <div class="pricing-card">
-          <h3>Studio</h3>
-          <p class="mono" style="color:var(--muted);">Single brand</p>
-          <div class="price">AED 499<span>/mo</span></div>
+        <div class="pricing-card reveal">
+          <h3>Starter</h3>
+          <p class="price">$99 <span>/ campaign</span></p>
           <ul>
-            <li>20 campaign briefs / month</li>
-            <li>Image prompts + copy</li>
-            <li>Instagram & Google formats</li>
-            <li>Email support</li>
+            <li>1 campaign concept</li>
+            <li>Image prompt + copy</li>
+            <li>Platform plan</li>
+            <li>2 revision rounds</li>
           </ul>
-          <a href="#contact" class="btn btn-outline" style="width:100%; text-align:center;">Get started</a>
+          <a href="#contact" class="btn btn-ghost" style="width:100%; justify-content:center;">Choose Starter</a>
         </div>
-
-        <div class="pricing-card featured">
+        <div class="pricing-card featured reveal">
+          <div>
+            <h3>Studio</h3>
+            <p class="price">$399 <span>/ month</span></p>
+            <ul>
+              <li>Unlimited campaign concepts</li>
+              <li>Photorealistic image generation pipeline</li>
+              <li>Brand memory & tone lock</li>
+              <li>Export to deck, CSV, or API</li>
+              <li>Priority turnaround</li>
+            </ul>
+            <a href="#contact" class="btn btn-surface" style="width:100%; justify-content:center;">Start Studio plan</a>
+          </div>
+          <div style="display:grid; place-items:center; min-width:180px;">
+            <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="180" height="180" rx="24" fill="#2A2622"/>
+              <circle cx="90" cy="70" r="40" fill="#B85C38" opacity="0.9"/>
+              <rect x="45" y="120" width="90" height="12" rx="2" fill="#F6F4EF"/>
+              <rect x="55" y="140" width="70" height="8" rx="2" fill="#6B655E"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pricing-card reveal">
           <h3>Agency</h3>
-          <p class="mono" style="color:#aaa;">For creative teams</p>
-          <div class="price">AED 1,499<span>/mo</span></div>
+          <p class="price">Custom</p>
           <ul>
-            <li>Unlimited briefs</li>
-            <li>Multi-brand style memory</li>
-            <li>Deck export + shot lists</li>
-            <li>Priority support</li>
-          </ul>
-          <a href="#contact" class="btn" style="width:100%; text-align:center;">Start now</a>
-        </div>
-
-        <div class="pricing-card">
-          <h3>Enterprise</h3>
-          <p class="mono" style="color:var(--muted);">Managed service</p>
-          <div class="price">Custom</div>
-          <ul>
-            <li>Dedicated AI creative lead</li>
-            <li>Custom style training</li>
+            <li>White-label delivery</li>
+            <li>Dedicated model tuning</li>
             <li>API access</li>
-            <li>SLA + strategy calls</li>
+            <li>SLA & support</li>
           </ul>
-          <a href="#contact" class="btn btn-outline" style="width:100%; text-align:center;">Talk to us</a>
+          <a href="#contact" class="btn btn-ghost" style="width:100%; justify-content:center;">Talk to us</a>
         </div>
       </div>
     </div>
   </section>
 
   <section class="cta" id="contact">
-    <div class="container">
-      <h2>Stop guessing. Start shipping.</h2>
-      <p>Book a free 15-minute creative audit. We’ll build a live brief for one of your products on the call.</p>
-      <a href="mailto:admin@taurusai.io?subject=Nexus%20Creative%20audit%20-%20nexus.taurusai.io" class="btn" style="font-size:15px; padding:16px 32px;">Claim your free audit</a>
+    <div class="container reveal">
+      <h2>Ready to see your next campaign?</h2>
+      <p>Get a free 15-minute creative audit. We'll take one of your products and show you the first campaign board — no commitment.</p>
+      <a href="mailto:nexus@taurusai.io?subject=Free%20creative%20audit%20request" class="btn">Book free audit <span class="btn-icon">→</span></a>
     </div>
   </section>
 
   <footer>
     <div class="container footer-inner">
-      <div class="logo" style="font-size:16px;">Nexus <span>Creative</span></div>
-      <div style="text-align:right;">
-        <div class="mono" style="margin-bottom:4px;">nexus.taurusai.io</div>
-        <div>© 2026 Taurus AI Corp. FZCO · Built in Dubai</div>
-      </div>
+      <div class="logo">Nexus <span>Creative</span></div>
+      <div>nexus.taurusai.io · nexus@taurusai.io</div>
+      <div>© 2026 Taurus AI Corp.</div>
     </div>
   </footer>
 
   <script>
-    var samples = {
-      nordic: "High-fashion editorial studio portrait. Full-body woman centered, calm intimidating expression, silver-blonde ash hair with dark roots, pale skin, natural makeup. Oversized black technical streetwear t-shirt with white piping and futuristic micro-logo, loose black cargo pants. Silver rings, chain necklace with cross, bracelet. Hands in pockets. Seamless white-to-light-gray gradient studio, large negative space, diffused backlight halo, soft frontal fill. Cool monochromatic grade, Scandinavian minimalism, medium-format 85mm, 9:16 vertical portrait, ultra-sharp eyes, 8K.",
-      tropical: "Luxury summer sunglasses campaign on tropical beach volleyball court. Athletic woman, short messy brunette hair in wind, glowing tan skin, natural makeup, confident sporty expression. Futuristic oversized wraparound shield sunglasses, orange-to-red mirrored visor lens, thick white aerodynamic frame. White ribbed sleeveless crop tank, white high-waisted shorts, brown leather belt. Low wide-angle fashion lens, dynamic lean, arms extended. Sunglasses hero focus with beach reflections. Blurred cyan-blue sky background, white beach architecture, shallow DOF. Warm golden-orange skin against cool turquoise hues, Vogue-grade color grade, 8K."
-    };
+    var DEFAULT_BRIEF = "A model in a matte-black technical parka and wide cargo trousers stands against a pale concrete wall in Helsinki winter light. Soft diffused backlight, 35mm lens, minimal color grading, editorial retouching.";
 
-    function loadSample(name) {
-      document.getElementById('briefInput').value = samples[name];
-      generateBrief();
+    var SAMPLES = [
+      {
+        title: "Nordic Tech-Street Capsule",
+        body: "A model in a matte-black technical parka and wide cargo trousers stands against a pale concrete wall in Helsinki winter light. Soft diffused backlight, 35mm lens, minimal color grading, editorial retouching. The composition leaves generous negative space top-right for headline placement.\n\nHeadline: Cold weather. Clean lines.\nPlatforms: Instagram carousel (4:5), Stories (9:16), Pinterest pin.\nDeliverables: hero shot, detail crop, back-angle, flat-lay fabric swatch.\nColor mood: cool grey, black, off-white, faint clay accent.",
+        meta: "4:5 · 9:16|Editorial grade|~3 minutes"
+      },
+      {
+        title: "Marina Penthouse — Golden Hour",
+        body: "A family of three walks through a double-height living room in a Dubai penthouse. Floor-to-ceiling glass frames the marina at golden hour. Muted limestone, warm oak, and soft linen. 28mm architectural lens, natural light, lifestyle editorial.\n\nHeadline: Room for the view.\nPlatforms: LinkedIn sponsored content, Instagram Reels, property portal hero.\nDeliverables: hero living room, balcony detail, kids' bedroom, kitchen lifestyle.\nColor mood: warm gold, stone, soft shadow.",
+        meta: "16:9 · 1:1|Lifestyle grade|~3 minutes"
+      },
+      {
+        title: "Summer Sport-Luxury Eyewear",
+        body: "Athletic model on a beach at low angle, mirrored sunglass visor catching sun flare. Pastel sky gradient, wet sand texture, motion blur in the hair. Vogue-grade color, high gloss reflections.\n\nHeadline: See the heat.\nPlatforms: TikTok paid, Instagram Reels, OOH transit poster.\nDeliverables: hero shot, macro lens detail, packshot on black, 3 colorways.\nColor mood: turquoise, warm sand, tangerine, chrome.",
+        meta: "9:16 · 4:5|Vogue grade|~3 minutes"
+      }
+    ];
+
+    function parseMeta(meta){
+      var parts = meta.split('|');
+      var html = '';
+      var labels = ['Aspect ratio', 'Retouching', 'Turnaround'];
+      for(var i=0;i<labels.length;i++){
+        if(parts[i]) html += '<div class="meta-item"><strong>' + labels[i] + '</strong>' + parts[i] + '</div>';
+      }
+      return html;
     }
 
-    function generateBrief() {
-      var input = document.getElementById('briefInput').value.trim();
-      if (!input) return;
-
-      var platform = /sunglass|shoe|watch|bag|beauty|skincare/i.test(input) ? 'Instagram + TikTok' : 'Instagram + Google Display';
-      var mood = /beach|summer|sun|tropical/i.test(input) ? 'Warm, kinetic, sunlit' : /studio|editorial|minimal|nordic/i.test(input) ? 'Cool, controlled, minimal' : 'Premium, product-first';
-      var headline = input.length > 60 ? input.split('.')[0].slice(0, 55) + '...' : input;
-
-      var promptBlock = "Ultra-realistic campaign photography of " + input + ". Shot with professional fashion lighting, premium editorial retouching, hyperrealistic skin texture and fabric detail, 8K resolution, luxury campaign quality.";
-      var output = "**Headline:** " + headline.charAt(0).toUpperCase() + headline.slice(1) + "\n\n" +
-        "**Image prompt:**\n" + promptBlock + "\n\n" +
-        "**Platform plan:** " + platform + "\n" +
-        "**Mood:** " + mood + "\n" +
-        "**Deliverables:** hero image prompt, 3 copy variants, shot list, posting schedule.";
-
-      document.getElementById('outputTitle').textContent = "Campaign brief generated";
-      document.getElementById('outputBody').textContent = output;
+    function pickSample(text){
+      var t = text.toLowerCase();
+      if(t.indexOf('real estate') !== -1 || t.indexOf('penthouse') !== -1 || t.indexOf('property') !== -1 || t.indexOf('marina') !== -1) return SAMPLES[1];
+      if(t.indexOf('sunglass') !== -1 || t.indexOf('summer') !== -1 || t.indexOf('sport') !== -1 || t.indexOf('beach') !== -1) return SAMPLES[2];
+      return SAMPLES[0];
     }
+
+    function runDemo(){
+      var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      var sample = pickSample(brief);
+      document.getElementById('output-title').textContent = sample.title;
+      document.getElementById('output-body').innerHTML = sample.body.replace(/\n/g, '<br>').replace(/<b>(.*?)<\/b>/g, '<strong>$1</strong>');
+      document.querySelector('.output-meta').innerHTML = parseMeta(sample.meta);
+      document.getElementById('image-status').innerHTML =
+        'Brief generated locally. For real photorealistic images, connect DALL·E 3, Replicate Flux, or fal.ai via <code>generate-images.py</code>. Perplexity Sonar prompt enhancement is wired but the current key returned 401 — replace it in <code>~/.env-secrets</code> to activate research-augmented prompts.';
+    }
+
+    function clearBrief(){
+      document.getElementById('brief').value = '';
+      document.getElementById('brief').focus();
+    }
+
+    // Scroll reveal via IntersectionObserver
+    var revealObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function(el){ revealObserver.observe(el); });
   </script>
-
 </body>
 </html>
