@@ -2,7 +2,6 @@
 // Accepts POST with { prompt } and returns a generated image.
 // Uses Application Default Credentials (ADC) for auth.
 
-const VERTEX_PROJECT = 'project-0ae56a62-0f0a-4d8a-9b7';
 const VERTEX_LOCATION = 'us-central1';
 const VERTEX_MODEL = 'imagen-3.0-generate-002';
 const VERTEX_ENDPOINT = `https://${VERTEX_LOCATION}-aiplatform.googleapis.com/v1/projects/${VERTEX_PROJECT}/locations/${VERTEX_LOCATION}/publishers/google/models/${VERTEX_MODEL}:predict`;
@@ -10,7 +9,31 @@ const VERTEX_ENDPOINT = `https://${VERTEX_LOCATION}-aiplatform.googleapis.com/v1
 // Get OAuth2 access token from ADC metadata server (Vercel / GCP environments)
 // Falls back to GOOGLE_APPLICATION_CREDENTIALS JSON if available
 async function getAccessToken() {
-  // 1. Try metadata server (GCP/Vercel with workload identity)
+  // 1. Try refresh-token flow (Vercel / non-GCP environments)
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
+
+  if (clientId && clientSecret && refreshToken) {
+    try {
+      const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken,
+          client_id: clientId,
+          client_secret: clientSecret,
+        }),
+      });
+      if (tokenRes.ok) {
+        const tokenData = await tokenRes.json();
+        if (tokenData.access_token) return tokenData.access_token;
+      }
+    } catch {}
+  }
+
+  // 2. Try metadata server (GCP/Vercel with workload identity)
   try {
     const metaRes = await fetch(
       'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token',
@@ -22,19 +45,18 @@ async function getAccessToken() {
     }
   } catch {}
 
-  // 2. Try GOOGLE_APPLICATION_CREDENTIALS JSON file
+  // 3. Try GOOGLE_APPLICATION_CREDENTIALS JSON file
   if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     try {
       const { readFileSync } = await import('fs');
       const creds = JSON.parse(readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'utf8'));
-      // For service accounts, use the private_key to create a JWT
       if (creds.private_key && creds.client_email) {
         return await getAccessTokenFromSA(creds);
       }
     } catch {}
   }
 
-  // 3. Try explicit GOOGLE_ACCESS_TOKEN (for dev/testing)
+  // 4. Try explicit GOOGLE_ACCESS_TOKEN (for dev/testing)
   if (process.env.GOOGLE_ACCESS_TOKEN) {
     return process.env.GOOGLE_ACCESS_TOKEN;
   }
@@ -42,7 +64,7 @@ async function getAccessToken() {
   return null;
 }
 
-// Create access token from service account JSON using JWT
+const VERTEX_PROJECT = process.env.GOOGLE_CLOUD_PROJECT_ID || 'project-0ae56a62-0f0a-4d8a-9b7';
 async function getAccessTokenFromSA(creds) {
   const now = Math.floor(Date.now() / 1000);
   const header = { alg: 'RS256', typ: 'JWT' };
@@ -131,7 +153,7 @@ export default async function handler(req, res) {
         instances: [{ prompt: prompt.trim() }],
         parameters: {
           sampleCount: 1,
-          aspectRatio: '4:5',
+          aspectRatio: '3:4',
           personGeneration: 'allow_adult',
           safetyFilterLevel: 'block_only_high',
           addWatermark: true,
