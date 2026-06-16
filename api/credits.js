@@ -1,14 +1,18 @@
-// /api/checkout.js — Create fresh Stripe Checkout session with metered billing
-// Creates Checkout Sessions for Starter ($99 + 5 credits) and Studio ($399/mo + 20 credits/mo)
+// /api/credits.js — Credits-based checkout via Stripe Metered Billing
+// Creates Checkout Sessions with metered usage for credit consumption
 export default async function handler(req, res) {
-  const { plan, email } = req.query;
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed. Use POST.' });
+  }
+
+  const { customer_email, plan } = req.body || {};
+
+  if (!customer_email) {
+    return res.status(400).json({ error: 'Missing customer_email.' });
+  }
 
   if (!['starter', 'studio'].includes(plan)) {
     return res.status(400).json({ error: 'Invalid plan. Use starter or studio.' });
-  }
-
-  if (!email || !email.includes('@')) {
-    return res.status(400).json({ error: 'Valid email required. Pass ?email=user@example.com' });
   }
 
   // Metered price IDs (set up via setup_metered_billing.py)
@@ -42,7 +46,7 @@ export default async function handler(req, res) {
   try {
     const params = new URLSearchParams();
     params.append('mode', plan === 'studio' ? 'subscription' : 'payment');
-    params.append('customer_email', email);
+    params.append('customer_email', customer_email);
     params.append('success_url', 'https://nexus.taurusai.io/thanks.html?session_id={CHECKOUT_SESSION_ID}');
     params.append('cancel_url', 'https://nexus.taurusai.io/#pricing');
     params.append('payment_method_types[]', 'card');
@@ -63,7 +67,7 @@ export default async function handler(req, res) {
     // Metadata for webhook processing
     params.append('metadata[plan]', plan);
     params.append('metadata[credits_included]', String(includedCredits));
-    params.append('metadata[customer_email]', email);
+    params.append('metadata[customer_email]', customer_email);
 
     const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',
@@ -88,9 +92,12 @@ export default async function handler(req, res) {
       return res.status(response.status).json({ error: message });
     }
 
-    // Redirect directly to Stripe Checkout
-    res.setHeader('Location', data.url);
-    return res.status(302).end();
+    return res.status(200).json({
+      url: data.url,
+      session_id: data.id,
+      plan,
+      credits_included: includedCredits,
+    });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }

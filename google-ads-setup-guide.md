@@ -1,4 +1,4 @@
-# Google Ads Account Setup — Click-by-Click Execution Guide
+# Google Ads Account Setup — Enterprise B2B Execution Guide
 
 ## Account creation (5 minutes)
 1. Open an incognito browser and go to https://ads.google.com
@@ -18,87 +18,100 @@
 3. Use a company card or the WIO business banking card
 4. Set a **monthly account limit** of AED 2,700 to stay within the test budget
 
-## Campaign A — Dubai Creative Agencies
+## Campaign A — Enterprise AI Marketing Platform (Dubai/GCC)
 1. Click **Campaigns** → **New campaign**
-2. Select **Sales** or **Leads** as the goal
+2. Select **Leads** as the goal
 3. Choose **Search**
-4. Name: `Creative Agencies — Dubai`
-5. Locations: **Dubai, United Arab Emirates**
+4. Name: `Enterprise AI Marketing — Dubai GCC`
+5. Locations: **Dubai, Abu Dhabi, Riyadh, Jeddah, Doha, Manama, Muscat** (GCC metros)
 6. Languages: English, Arabic
-7. Bidding: **Maximize conversions** (or **Manual CPC** at AED 3–6 if no conversion history)
-8. Daily budget: **AED 30**
-9. Ad group name: `AI Creative Agency Dubai`
+7. Bidding: **Maximize conversions** (or **Manual CPC** at AED 5–10 if no conversion history)
+8. Daily budget: **AED 45**
+9. Ad group name: `Enterprise Marketing Automation UAE`
 10. Keywords (add as phrase + exact match):
-    - `"AI creative agency Dubai"`
-    - `"fashion campaign studio Dubai"`
-    - `"luxury brand content Dubai"`
-    - `"AI generated campaign brief"`
-    - `[AI creative studio Dubai]`
+    - `"AI ad agency Dubai"`
+    - `"enterprise marketing automation UAE"`
+    - `"campaign optimization platform GCC"`
+    - `"AI creative studio Dubai"`
+    - `"marketing automation enterprise Dubai"`
+    - `"ad performance optimization UAE"`
+    - `[AI ad agency Dubai]`
+    - `[enterprise marketing automation UAE]`
+    - `[campaign optimization platform GCC]`
 11. Responsive search ad:
-    - H1: AI Campaign Studio for Dubai Brands
-    - H2: Brief to Image Prompt in Minutes
-    - H3: Book a Free Creative Audit
-    - Desc 1: Nexus Creative turns one sentence into campaign assets.
-    - Desc 2: Fashion, real estate, F&B, beauty. Try the free prompt lab.
+    - H1: Enterprise AI Campaign Platform — Dubai
+    - H2: Cut Ad Production Time by 90%
+    - H3: Request Enterprise Audit
+    - Desc 1: Nexus Creative turns briefs into production-ready campaign assets in minutes, not weeks.
+    - Desc 2: Brands in Dubai & GCC use our AI to outperform agency timelines. View a private demo.
     - Final URL: https://nexus.taurusai.io
 
-## Campaign B — Dubai Real Estate Marketing
-- Name: `Real Estate Marketing — Dubai`
-- Locations: Dubai
-- Daily budget: AED 30
-- Ad group: `Property Campaign Dubai`
+## Campaign B — Marketing Decision-Makers (GCC)
+- Name: `Marketing Leaders — GCC Enterprise`
+- Locations: Dubai, Abu Dhabi, Riyadh, Jeddah, Doha, Manama, Muscat
+- Daily budget: AED 40
+- Ad group: `CMO Marketing Tech Dubai`
 - Keywords:
-  - `"real estate marketing Dubai"`
-  - `"property campaign creative Dubai"`
-  - `"luxury property photoshoot Dubai"`
-  - `"real estate social media Dubai"`
-  - `[property marketing agency Dubai]`
+  - `"AI campaign optimization enterprise"`
+  - `"marketing automation platform Dubai"`
+  - `"enterprise ad performance GCC"`
+  - `"B2B marketing automation UAE"`
+  - `"AI creative platform for brands"`
+  - `[marketing automation platform Dubai]`
+  - `[enterprise ad performance GCC]`
 - Ad:
-  - H1: Property Campaigns in Hours
-  - H2: AI Briefs for Dubai Real Estate
-  - H3: Get a Free Property Audit
-  - Desc 1: Hero shots, lifestyle frames, launch copy from one brief.
-  - Desc 2: See examples for Downtown Dubai penthouses.
-  - Final URL: https://nexus.taurusai.io/real-estate
+  - H1: AI Campaign Studio for Enterprise
+  - H2: ROI Proof of Concept in 15 Min
+  - H3: View Private Demo
+  - Desc 1: Replace weeks of agency turnaround with AI-generated campaign kits. Proven in Dubai.
+  - Desc 2: Free enterprise audit — we run your worst campaign through our AI and show you the uplift.
+  - Final URL: https://nexus.taurusai.io
 
-## Campaign C — Fashion / Beauty / F&B
-- Name: `Fashion Beauty F&B — Dubai`
-- Locations: Dubai
-- Daily budget: AED 30
-- Ad group: `Fashion Campaign Dubai`
+## Campaign C — Agency & White-Label Partners (GCC)
+- Name: `Agency Partners — GCC White-Label`
+- Locations: Dubai, Abu Dhabi, Riyadh, Jeddah, Doha, Manama, Muscat
+- Daily budget: AED 35
+- Ad group: `Agency White Label Dubai`
 - Keywords:
-  - `"fashion campaign creative Dubai"`
-  - `"beauty brand content Dubai"`
-  - `"AI product photography Dubai"`
-  - `"luxury campaign brief Dubai"`
-  - `[AI fashion campaign Dubai]`
+  - `"white label marketing automation Dubai"`
+  - `"AI creative white label GCC"`
+  - `"agency campaign automation UAE"`
+  - `"AI ad production for agencies Dubai"`
+  - `"marketing automation reseller UAE"`
+  - `[AI creative white label GCC]`
 - Ad:
-  - H1: AI Campaign Briefs for Brands
-  - H2: Fashion, Beauty, F&B, Real Estate
-  - H3: Try the Free Prompt Lab
-  - Desc 1: Generate image prompts, headlines, and platform plans.
-  - Desc 2: Built in Dubai by Taurus AI.
+  - H1: White-Label AI Campaign Studio
+  - H2: Your Brand, Our Engine
+  - H3: Schedule Executive Briefing
+  - Desc 1: Deliver agency-grade campaigns at 10x speed. White-label AI for your clients.
+  - Desc 2: Dedicated model tuning, API access, SLA. Built for agencies in Dubai & GCC.
   - Final URL: https://nexus.taurusai.io
 
 ## Conversion tracking
 Before launching ads, replace `G-XXXXXXXXXX` in `index.html` and `real-estate/index.html` with a real GA4 measurement ID.
 
 Add these events via Google Tag:
-- `generate_brief_click` — when "Generate brief" is clicked
-- `audit_book_click` — when "Book free audit" is clicked
-- `pricing_inquiry` — when a pricing button is clicked
+- `view_private_demo` — when "View Private Demo" is clicked
+- `request_enterprise_audit` — when "Request Enterprise Audit" is clicked
+- `schedule_executive_briefing` — when "Schedule Executive Briefing" is clicked
+- `start_poc` — when "Start Proof of Concept" is clicked
+- `start_enterprise_plan` — when "Start Enterprise Plan" is clicked
+- `calendly_booking` — when a Calendly booking is completed (via Calendly event callback)
 
 ## Launch checklist
 - [ ] Account created in Expert Mode
 - [ ] Billing method added
-- [ ] 3 campaigns built
+- [ ] 3 campaigns built with enterprise keywords
 - [ ] GA4 tag installed
-- [ ] Conversion events configured
+- [ ] Conversion events configured (6 enterprise events)
+- [ ] Calendly embed active on landing page
 - [ ] Campaigns set to **Paused** until you review
-- [ ] Daily budget capped at AED 90 total
+- [ ] Daily budget capped at AED 120 total
+- [ ] Negative keyword list applied: `free`, `job`, `internship`, `software engineer`, `AI engineer`, `tutorial`, `course`, `how to`, `DIY`, `open source`
 
 ## First-week optimization
 - Day 1–2: let campaigns run without changes
-- Day 3: review Search terms, add negative keywords: `free`, `job`, `internship`, `software engineer`, `AI engineer`
-- Day 7: pause keywords with CTR < 1%
-- Day 14: increase budget on campaigns with CTR > 3% and demo clicks
+- Day 3: review Search terms, add negative keywords from the list above
+- Day 7: pause keywords with CTR < 1.5%
+- Day 14: increase budget on campaigns with CTR > 3% and enterprise audit form submissions
+- Day 21: review cost-per-enterprise-audit; aim for < AED 150 per qualified booking
