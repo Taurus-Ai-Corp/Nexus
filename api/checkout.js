@@ -51,7 +51,9 @@ export default async function handler(req, res) {
       return res.status(response.status).json({ error: message });
     }
 
-    return res.status(200).json({ url: data.url });
+    // Redirect directly to Stripe Checkout
+    res.setHeader('Location', data.url);
+    return res.status(302).end();
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
