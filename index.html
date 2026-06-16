@@ -262,6 +262,54 @@
       font-size: 0.6rem; color: var(--ink-muted); margin-top: 0.5rem;
       text-align: right; font-family: var(--font-mono); opacity: 0.6;
     }
+    .btn-optimize {
+      margin-top: 0.8rem; font-size: 0.75rem; padding: 0.45rem 1rem;
+      background: transparent; border-color: var(--accent); color: var(--accent);
+    }
+    .btn-optimize:hover { background: var(--accent); color: #fff; }
+    .btn-optimize:disabled { opacity: 0.4; pointer-events: none; }
+
+    /* Optimization comparison panel */
+    .optim-compare {
+      margin-top: 1.2rem; padding: 1.2rem; border: 1.5px solid var(--accent-warm);
+      border-radius: 0.8rem; background: var(--surface);
+    }
+    .optim-compare-header {
+      font-family: var(--font-mono); font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.15em;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem; color: var(--accent);
+    }
+    .optim-compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;
+    }
+    .optim-version { font-size: 0.78rem; }
+    .optim-version-label {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 0.4rem; color: var(--ink-muted);
+    }
+    .optim-version-text {
+      line-height: 1.6; padding: 0.6rem; background: var(--bg);
+      border-radius: 0.4rem; border: 1px solid var(--border);
+      max-height: 140px; overflow-y: auto; white-space: pre-wrap;
+      font-size: 0.75rem;
+    }
+    .optim-delta-row {
+      display: flex; gap: 0.6rem; align-items: center;
+      font-family: var(--font-mono); font-size: 0.65rem;
+    }
+    .optim-delta-row .label { color: var(--ink-muted); min-width: 6rem; }
+    .optim-delta-up { color: #3a7a3a; }
+    .optim-delta-down { color: #8a3a3a; }
+    .optim-improvements {
+      margin-top: 0.8rem; padding: 0.4rem 0.8rem;
+      background: #f0f5f0; border-radius: 0.4rem;
+      font-size: 0.75rem;
+    }
+    .optim-accept-btn {
+      margin-top: 0.8rem; width: 100%;
+    }
 
     /* Neural Score button variant */
     .btn-neural {
@@ -528,8 +576,28 @@
             <span class="neural-score-badge" id="neural-badge"></span>
           </div>
           <div class="neural-bars" id="neural-bars"></div>
+          <button class="btn btn-optimize" id="optimize-btn" onclick="optimizeBrief()" style="display:none;">Optimize Neural Score <span class="btn-icon">↻</span></button>
           <div class="neural-recs" id="neural-recs"></div>
           <div class="neural-score-source" id="neural-source"></div>
+          <div class="optim-compare" id="optim-compare" style="display:none;">
+            <div class="optim-compare-header">
+              <span>Before vs After</span>
+              <span class="optim-delta-row" id="optim-overall-delta"></span>
+            </div>
+            <div class="optim-compare-grid">
+              <div class="optim-version">
+                <div class="optim-version-label">Original</div>
+                <div class="optim-version-text" id="optim-original-text"></div>
+              </div>
+              <div class="optim-version">
+                <div class="optim-version-label">Optimized</div>
+                <div class="optim-version-text" id="optim-optimized-text"></div>
+              </div>
+            </div>
+            <div class="optim-delta-row" id="optim-deltas"></div>
+            <div class="optim-improvements" id="optim-improvements"></div>
+            <button class="btn btn-accent optim-accept-btn" onclick="acceptOptimizedBrief()">Accept Optimized Brief <span class="btn-icon">←</span></button>
+          </div>
         </div>
         <div class="colab-upload" id="colab-upload">
           <span style="white-space:nowrap;">Upload Colab results:</span>
@@ -850,6 +918,11 @@
       badge.textContent = 'Score: ' + report.overall + '/100';
       badge.className = 'neural-score-badge ' + report.verdict;
 
+      // Show optimize button when scored
+      var optimBtn = document.getElementById('optimize-btn');
+      optimBtn.style.display = 'inline-flex';
+      document.getElementById('optim-compare').style.display = 'none';
+
       var recHtml = '<strong>Neural Analysis:</strong> ' + report.verdict_reason;
       if (report.recommendations && report.recommendations.length > 0) {
         recHtml += '<br><br><strong>Recommendations:</strong><ul style="margin:0.3rem 0 0 1rem; padding:0;">';
@@ -1001,6 +1074,104 @@
     }
 
     var colabScores = null;
+    var lastScoreReport = null;
+
+    async function optimizeBrief() {
+      var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      var btn = document.getElementById('optimize-btn');
+      btn.disabled = true;
+      btn.textContent = 'Optimizing...';
+
+      try {
+        var res = await fetch('/api/neural-refine', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ brief: brief })
+        });
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Optimization failed');
+
+        renderOptimization(data);
+      } catch (err) {
+        console.error(err);
+        alert('Optimization failed: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Optimize Neural Score';
+      }
+    }
+
+    function renderOptimization(data) {
+      var el = document.getElementById('optim-compare');
+      var og = data.original;
+      var opt = data.optimized;
+
+      document.getElementById('optim-original-text').textContent = og.brief;
+      document.getElementById('optim-optimized-text').textContent = opt.brief;
+
+      // Deltas
+      var deltaHtml = '';
+      var networks = [
+        { key: 'van', label: 'Scroll-Stop' },
+        { key: 'dmn', label: 'Retention' },
+        { key: 'dan', label: 'Cognitive Focus' },
+        { key: 'limbic', label: 'Emotional Resonance' },
+      ];
+      networks.forEach(function(n) {
+        var d = data.deltas[n.key];
+        var arrow = d.direction === 'up' ? '↑' : d.direction === 'down' ? '↓' : '→';
+        var cls = d.improved ? 'optim-delta-up' : 'optim-delta-down';
+        var pctStr = (d.pct_delta >= 0 ? '+' : '') + d.pct_delta + '%';
+        deltaHtml += '<div class="optim-delta-row">' +
+          '<span class="label">' + n.label + '</span>' +
+          '<span class="' + cls + '">' + arrow + ' ' + pctStr + '</span>' +
+          '</div>';
+      });
+      document.getElementById('optim-deltas').innerHTML = deltaHtml;
+
+      // Overall delta
+      var overallBefore = Math.round(
+        og.scores.van.pct * 0.35 +
+        Math.max(0, -og.scores.dmn.z * 33 + 50) * 0.25 +
+        og.scores.dan.pct * 0.15 +
+        og.scores.limbic.pct * 0.25
+      );
+      var overallAfter = Math.round(
+        opt.scores.van.pct * 0.35 +
+        Math.max(0, -opt.scores.dmn.z * 33 + 50) * 0.25 +
+        opt.scores.dan.pct * 0.15 +
+        opt.scores.limbic.pct * 0.25
+      );
+      var overallDelta = overallAfter - overallBefore;
+      var deltaSign = overallDelta >= 0 ? '+' : '';
+      document.getElementById('optim-overall-delta').innerHTML =
+        'Score: ' + overallBefore + ' → ' + overallAfter +
+        ' <span style="color:' + (overallDelta >= 0 ? '#3a7a3a' : '#8a3a3a') + '">' +
+        deltaSign + overallDelta + '</span>';
+
+      // Improvements
+      var imprHtml = '<strong>Improvements made:</strong> ';
+      if (data.improvements_made && data.improvements_made.length > 0) {
+        imprHtml += data.improvements_made.map(function(i) { return '• ' + i; }).join('<br>');
+      } else {
+        imprHtml += 'Your brief already scores well — no changes needed.';
+      }
+      document.getElementById('optim-improvements').innerHTML = imprHtml;
+
+      el.style.display = 'block';
+      document.getElementById('neural-score').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function acceptOptimizedBrief() {
+      var text = document.getElementById('optim-optimized-text').textContent;
+      document.getElementById('brief').value = text;
+
+      // Hide the comparison panel
+      document.getElementById('optim-compare').style.display = 'none';
+
+      // Rescore the accepted brief
+      scoreBrief();
+    }
 
     function toggleColabUpload() {
       var el = document.getElementById('colab-upload');
@@ -1051,6 +1222,8 @@
       document.getElementById('image-status').innerHTML =
         'Vertex AI Imagen 3 is live. The first campaign board is generated locally from your brief. For full image generation, connect <code>generate_images.py</code> to your GCP project.';
       document.getElementById('neural-score').style.display = 'none';
+      document.getElementById('optimize-btn').style.display = 'none';
+      document.getElementById('optim-compare').style.display = 'none';
       showGuardrailStatus(null);
     }
 
