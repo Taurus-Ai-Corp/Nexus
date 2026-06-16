@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thanks — Nexus Creative</title>
   <meta name="robots" content="noindex">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18242669881"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18242669881');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -51,10 +59,33 @@
         <label for="brief">Your brief</label>
         <textarea id="brief" name="brief" rows="6" required placeholder="Describe your product, target audience, and the mood you want. Example: 'Luxury sunscreen for women 30-45, summer campaign, Mediterranean yacht setting, golden hour.'"></textarea>
 
-        <button type="submit" class="btn">Send brief →</button>
+        <button type="submit" class="btn" onclick="if(typeof gtag==='function'){gtag('event','conversion',{send_to:'AW-18242669881/XVbiCOTP978cELma5PpD',value:1.0,currency:'CAD'});gtag('event','lead_brief_submit',{event_category:'nexus_creative'});}">Send brief →</button>
       </form>
     </div>
     <footer>© 2026 Taurus AI Corp. · nexus@taurusai.io</footer>
   </div>
+  <script>
+    // Track purchase conversion from URL plan parameter
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var plan = params.get('plan') || params.get('session_id') ? 'unknown' : 'unknown';
+      if(params.get('plan') === 'starter' || params.get('plan') === 'studio') plan = params.get('plan');
+      var values = { starter: 99.0, studio: 399.0 };
+      var value = values[plan] || 0;
+      if(value > 0 && typeof gtag === 'function'){
+        gtag('event', 'conversion', {
+          send_to: 'AW-18242669881',
+          value: value,
+          currency: 'USD',
+          transaction_id: params.get('session_id') || ('nexus_' + Date.now())
+        });
+        gtag('event', 'purchase_' + plan, {
+          event_category: 'nexus_creative',
+          value: value,
+          currency: 'USD'
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
