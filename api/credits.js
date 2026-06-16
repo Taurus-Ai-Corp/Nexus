@@ -47,7 +47,7 @@ export default async function handler(req, res) {
     const params = new URLSearchParams();
     params.append('mode', plan === 'studio' ? 'subscription' : 'payment');
     params.append('customer_email', customer_email);
-    params.append('success_url', 'https://nexus.taurusai.io/thanks.html?session_id={CHECKOUT_SESSION_ID}');
+    params.append('success_url', 'https://nexus.taurusai.io/thanks.html?session_id={CHECKOUT_SESSION_ID}&plan=' + plan);
     params.append('cancel_url', 'https://nexus.taurusai.io/#pricing');
     params.append('payment_method_types[]', 'card');
 

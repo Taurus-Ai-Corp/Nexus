@@ -100,15 +100,16 @@ def find_or_create_price(product_id, unit_amount, currency, recurring=None, mete
     prices = stripe_api("GET", "prices", {"product": product_id, "limit": "100"})
 
     for p in prices.get("data", []):
+        p_recurring = p.get("recurring") or {}
         matches = (
             p["unit_amount"] == unit_amount
             and p["currency"] == currency
             and p.get("active", True)
         )
         if recurring and not metered:
-            matches = matches and p.get("recurring", {}).get("interval") == recurring
+            matches = matches and p_recurring.get("interval") == recurring
         if metered:
-            matches = matches and p.get("recurring", {}).get("usage_type") == "metered"
+            matches = matches and p_recurring.get("usage_type") == "metered"
         elif not recurring:
             matches = matches and "recurring" not in p
 
@@ -131,6 +132,7 @@ def find_or_create_price(product_id, unit_amount, currency, recurring=None, mete
             params["recurring[meter]"] = meter_id
     elif recurring:
         params["recurring[interval]"] = recurring
+        params["recurring[usage_type]"] = "licensed"
 
     return stripe_api("POST", "prices", params)
 
@@ -148,7 +150,7 @@ def create_meter(display_name, event_name):
     params = {
         "display_name": display_name,
         "event_name": event_name,
-        "default_aggregation": "sum",
+        "default_aggregation[formula]": "sum",
     }
     return stripe_api("POST", "billing/meters", params)
 
@@ -163,9 +165,10 @@ def create_billing_portal():
             return c
 
     print("  Creating Customer Portal configuration...")
-    # Enable subscription cancellation and payment method updates
     params = {
         "features[subscription_update][enabled]": "true",
+        "features[subscription_update][products][0]": "prod_UiGwsQdaqNAVWQ",
+        "features[subscription_update][default_allowed_updates][0]": "price",
         "features[subscription_cancel][enabled]": "true",
         "features[subscription_cancel][mode]": "at_period_end",
         "features[payment_method_update][enabled]": "true",
@@ -242,8 +245,12 @@ def main():
 
     # ── Customer Portal ──
     print("\n=== CUSTOMER PORTAL ===")
-    portal = create_billing_portal()
-    results["STRIPE_PORTAL_CONFIG_ID"] = portal["id"]
+    try:
+        portal = create_billing_portal()
+        results["STRIPE_PORTAL_CONFIG_ID"] = portal["id"]
+    except Exception as e:
+        print(f"  Skipping portal config: {e}")
+        print("  You can create this manually in Stripe Dashboard later.")
 
     # ── Webhook Endpoint (instructions) ──
     print("\n=== WEBHOOK SETUP ===")
