@@ -157,9 +157,81 @@ export default async function handler(req, res) {
     } catch {}
   }
 
+  // Step 4: Push to ORCA (Social Media Orchestra) for multi-agent orchestration
+  let orcaStatus = 'skipped';
+  const orcaWebhookUrl = process.env.ORCA_WEBHOOK_URL || 'https://orca.taurusai.io/api/campaigns';
+  const orcaApiKey = process.env.ORCA_API_KEY || '';
+  const orcaAutoDeploy = (req.body || {}).orca_deploy !== false;
+
+  if (orcaAutoDeploy) {
+    try {
+      const platformMap = {
+        'LinkedIn carousel (thought leadership)': 'linkedin',
+        'Twitter/X thread (hook-driven)': 'twitter',
+        'Instagram (visual + emotional)': 'instagram',
+        'TikTok short (pattern interrupt)': 'tiktok',
+        'LinkedIn post': 'linkedin',
+        'Twitter/X thread': 'twitter',
+      };
+      const orcaPlatforms = [...new Set(kit.campaign.platforms.map(p => platformMap[p] || p))];
+
+      const contentTypes = [];
+      if (kit.campaign.tone === 'provocative') contentTypes.push('thread', 'carousel');
+      else if (kit.campaign.tone === 'emotional') contentTypes.push('story', 'reel');
+      else if (kit.campaign.tone === 'urgent') contentTypes.push('post', 'thread');
+      else contentTypes.push('post', 'article');
+
+      const orcaPayload = {
+        name: kit.campaign.headline,
+        description: kit.campaign.subheadline + '\n\nOriginal brief: ' + brief.trim(),
+        brand_profile: {
+          name: 'TAURUS AI Corp',
+          voice: kit.campaign.tone,
+          guidelines: 'Neural-scored campaign from Nexus Creative. Score: ' + kit.neural_scores.overall + '/100',
+          colors: {},
+        },
+        platforms: orcaPlatforms,
+        content_types: contentTypes,
+        schedule: {
+          start_date: new Date().toISOString().split('T')[0],
+          frequency: 'once',
+          timezone: 'UTC',
+        },
+      };
+
+      const orcaHeaders = { 'Content-Type': 'application/json' };
+      if (orcaApiKey) orcaHeaders['X-API-Key'] = orcaApiKey;
+
+      const orcaRes = await fetch(orcaWebhookUrl, {
+        method: 'POST',
+        headers: orcaHeaders,
+        body: JSON.stringify(orcaPayload),
+        signal: AbortSignal.timeout(8000),
+      });
+
+      if (orcaRes.ok) {
+        const orcaData = await orcaRes.json();
+        orcaStatus = 'pushed';
+        kit._orca = {
+          campaign_id: orcaData.data?.id || null,
+          status: orcaData.data?.status || 'draft',
+          dashboard_url: 'https://orca.taurusai.io/campaigns',
+        };
+      } else {
+        const errText = await orcaRes.text().catch(() => '');
+        orcaStatus = 'failed:' + orcaRes.status;
+        kit._orca = { error: errText.slice(0, 200), http_status: orcaRes.status };
+      }
+    } catch (err) {
+      orcaStatus = 'error';
+      kit._orca = { error: err.message };
+    }
+  }
+
   return res.status(200).json({
     status: 'success',
     deploy_key: deployKey,
+    orca: orcaStatus,
     ...kit,
     _meta: {
       source: 'heuristic',

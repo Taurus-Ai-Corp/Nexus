@@ -1260,6 +1260,19 @@
         var data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Deploy failed');
 
+        var orcaHtml = '';
+        if (data.orca === 'pushed' && data._orca) {
+          orcaHtml = '<div style="margin-top:0.5rem;padding:0.6rem;border:1.5px solid #3a5a8a;border-radius:0.5rem;background:#eef3f8;">' +
+            '<strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:#3a5a8a;">ORCA — Campaign Pushed</strong>' +
+            '<p style="font-size:0.75rem;margin:0.3rem 0;color:var(--ink);">Status: <strong>' + data._orca.status + '</strong> · Multi-agent crew will adapt & schedule across ' + data.campaign.platforms.length + ' platforms.</p>' +
+            '<a href="' + data._orca.dashboard_url + '" class="btn" style="margin-top:0.3rem;font-size:0.7rem;padding:0.3rem 0.8rem;" target="_blank">Open in ORCA ↗</a>' +
+            '</div>';
+        } else if (data.orca === 'skipped') {
+          orcaHtml = '<p style="font-size:0.7rem;color:var(--ink-muted);margin-top:0.4rem;">ORCA: skipped (set ORCA_WEBHOOK_URL to enable auto-push)</p>';
+        } else {
+          orcaHtml = '<p style="font-size:0.7rem;color:#8a6a3a;margin-top:0.4rem;">ORCA: ' + (data._orca?.error || data.orca) + ' — campaign saved locally</p>';
+        }
+
         document.getElementById('image-status').innerHTML =
           '<div style="margin-top:1rem;padding:1.2rem;border:1.5px solid #3a7a3a;border-radius:0.6rem;background:#eef5ee;">' +
           '<strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:#3a7a3a;">✓ Campaign deployed</strong>' +
@@ -1269,6 +1282,7 @@
           '<strong>Platforms:</strong> ' + data.campaign.platforms.join(', ') + '</p>' +
           '<p style="font-size:0.72rem;color:var(--ink-muted);">Deploy key: ' + data.deploy_key + ' · Tracked in pipeline.</p>' +
           '<a href="/dogfood" class="btn" style="margin-top:0.3rem;font-size:0.7rem;padding:0.3rem 0.8rem;" target="_blank">See all deployed campaigns ↗</a>' +
+          orcaHtml +
           '</div>';
 
         trackEvent('campaign_deployed');
