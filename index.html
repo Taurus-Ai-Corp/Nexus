@@ -512,13 +512,13 @@
       <h2>Schedule Your Enterprise Audit</h2>
       <p class="demo-sub">15 minutes. We run your worst-performing campaign through our AI and show you the uplift.</p>
       <div class="demo-embed-wrap">
-        <!-- REPLACE: Swap this placeholder with a Calendly inline widget.
-             Add the Calendly embed script to <head> and replace the div below with:
-             <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR-LINK/nexus-enterprise-audit" style="min-width:320px;height:630px;"></div>
-             <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-        -->
-        <div class="calendly-placeholder">
-          <p>Calendar widget loads here after Calendly URL is configured.</p>
+        <!-- Cal.com inline embed -->
+        <iframe src="https://cal.com/taurusai/15min?embed=true" width="100%" height="600" frameborder="0" allowfullscreen style="border-radius:0.8rem; background:var(--surface);"></iframe>
+        <script type="text/javascript">
+          (function(C,A,L){var p=function(a,ar){a=q(a);ar.push(a);};var q=function(a){return A.createElement(a)};var r=function(a){return A.querySelector(a)};L='https://app.cal.com/embed/embed.js';var s=q('script');s.src=L;s.async=true;s.onload=function(){Cal('init',{origin:'https://cal.com'});Cal('inline',{elementOrSelector:'#cal-booking',calLink:'taurusai/15min'});};A.head.appendChild(s);})(window,document);
+        </script>
+        <!-- Fallback mailto remains below for users who block iframes -->
+        <div class="calendly-placeholder" style="margin-top:1rem;">
           <a href="mailto:nexus@taurusai.io?subject=Enterprise%20audit%20request" class="btn" onclick="trackEvent('lead_enterprise_audit')">Request Enterprise Audit <span class="btn-icon">→</span></a>
         </div>
       </div>
