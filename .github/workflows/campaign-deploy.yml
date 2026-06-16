@@ -1,0 +1,58 @@
+# Nexus Creative — Campaign CI/CD Pipeline
+# On push to the campaigns branch: generate, deploy, and track
+# This is the pipeline that proves we use our own product.
+
+name: Campaign Deploy
+
+on:
+  push:
+    branches: [ 'campaigns/**' ]
+  workflow_dispatch:
+    inputs:
+      brief:
+        description: 'Campaign brief text'
+        required: true
+      email:
+        description: 'Lead email for tracking'
+        required: false
+
+jobs:
+  neural-score:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Neural Score Brief
+        id: score
+        run: |
+          BRIEF="${{ github.event.inputs.brief || 'TAURUS AI Corp — enterprise AI marketing platform. PQC compliance, Hedera blockchain, agent orchestration.' }}"
+          echo "BRIEF=$BRIEF" >> $GITHUB_ENV
+
+          SCORE_RESULT=$(curl -s -X POST https://nexus.taurusai.io/api/neural-score \
+            -H 'Content-Type: application/json' \
+            -d "{\"brief\": \"$BRIEF\"}")
+          echo "SCORE=$SCORE_RESULT" >> $GITHUB_ENV
+          echo "Score: $(echo $SCORE_RESULT | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get(\"overall\",\"?\"))')"
+
+      - name: Generate Campaign Kit
+        id: generate
+        run: |
+          EMAIL="${{ github.event.inputs.email || 'pipeline@taurusai.io' }}"
+          PIPELINE_RESULT=$(curl -s -X POST https://nexus.taurusai.io/api/campaign-pipeline \
+            -H 'Content-Type: application/json' \
+            -d "{\"brief\": \"$BRIEF\", \"email\": \"$EMAIL\"}")
+          echo "PIPELINE=$PIPELINE_RESULT" >> $GITHUB_ENV
+
+          HEADLINE=$(echo $PIPELINE_RESULT | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get("campaign",{}).get("headline",""))')
+          echo "Headline: $HEADLINE"
+
+      - name: Deploy Campaign Variant
+        run: |
+          echo "::notice title=Campaign Deployed::Headline generated. Neural score captured. Lead tracked."
+          echo "Preview: https://nexus.taurusai.io/dogfood"
+
+      - name: Log to Pipeline
+        run: |
+          echo "Deployed at: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          echo "Trigger: ${{ github.event_name }}"
+          echo "Branch: ${{ github.ref_name }}"

@@ -7,6 +7,7 @@
     { "src": "/world-cup-2026", "dest": "/world-cup-2026.html" },
     { "src": "/colab", "dest": "/colab.html" },
     { "src": "/thanks", "dest": "/thanks.html" },
+    { "src": "/dogfood", "dest": "/dogfood.html" },
     { "src": "/case-studies", "dest": "/case-studies.html" },
     { "src": "/(.*)\\.html", "dest": "/$1.html" },
     { "src": "/(.*)\\.ipynb", "dest": "/$1.ipynb" },

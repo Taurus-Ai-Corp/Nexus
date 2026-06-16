@@ -918,6 +918,28 @@
       badge.textContent = 'Score: ' + report.overall + '/100';
       badge.className = 'neural-score-badge ' + report.verdict;
 
+      // Capture lead silently when scoring
+      var briefText = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      var storedEmail = localStorage.getItem('nexus_lead_email');
+      if (storedEmail) {
+        fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: storedEmail, source: 'neural_score', brief: briefText, neural_score: report.overall }),
+        }).catch(function(){});
+      } else {
+        // Prompt for email on first score (non-blocking, store in localStorage)
+        var email = prompt('Enter your email to save this score and receive the optimized version:');
+        if (email && email.includes('@')) {
+          localStorage.setItem('nexus_lead_email', email);
+          fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: 'neural_score_first', brief: briefText, neural_score: report.overall }),
+          }).catch(function(){});
+        }
+      }
+
       // Show optimize button when scored
       var optimBtn = document.getElementById('optimize-btn');
       optimBtn.style.display = 'inline-flex';
@@ -1059,6 +1081,18 @@
           renderNeuralScore(finalScore);
         } catch (e) {
           console.warn('Post-generation neural score failed:', e);
+        }
+
+        // Step 5: Offer to deploy as campaign
+        var deployBtn = document.getElementById('image-status');
+        var storedEmail = localStorage.getItem('nexus_lead_email');
+        if (storedEmail) {
+          deployBtn.innerHTML =
+            '<div style="margin-top:1rem;padding:1rem;border:1.5px solid var(--accent);border-radius:0.6rem;background:var(--cream);">' +
+            '<strong style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);">Campaign ready for deploy</strong>' +
+            '<p style="font-size:0.8rem;margin:0.3rem 0;">This campaign can be pushed to your live pipeline. Deploy to generate landing pages, social posts, and track performance.</p>' +
+            '<button class="btn btn-accent" style="margin-top:0.5rem;" onclick="deployCampaign(\'' + result.title.replace(/'/g, "\\'") + '\')">Deploy Campaign <span class="btn-icon">→</span></button>' +
+            '</div>';
         }
 
         // Update credits display
@@ -1211,6 +1245,39 @@
         }
       };
       reader.readAsText(file);
+    }
+
+    async function deployCampaign(campaignTitle) {
+      var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      var email = localStorage.getItem('nexus_lead_email') || '';
+
+      try {
+        var res = await fetch('/api/campaign-pipeline', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ brief: brief, email: email, platform: 'nexus_creative' }),
+        });
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Deploy failed');
+
+        document.getElementById('image-status').innerHTML =
+          '<div style="margin-top:1rem;padding:1.2rem;border:1.5px solid #3a7a3a;border-radius:0.6rem;background:#eef5ee;">' +
+          '<strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:#3a7a3a;">✓ Campaign deployed</strong>' +
+          '<p style="font-size:0.82rem;margin:0.4rem 0;color:var(--ink);">' +
+          '<strong>Headline:</strong> ' + data.campaign.headline + '<br>' +
+          '<strong>Neural Score:</strong> ' + data.neural_scores.overall + '/100<br>' +
+          '<strong>Platforms:</strong> ' + data.campaign.platforms.join(', ') + '</p>' +
+          '<p style="font-size:0.72rem;color:var(--ink-muted);">Deploy key: ' + data.deploy_key + ' · Tracked in pipeline.</p>' +
+          '<a href="/dogfood" class="btn" style="margin-top:0.3rem;font-size:0.7rem;padding:0.3rem 0.8rem;" target="_blank">See all deployed campaigns ↗</a>' +
+          '</div>';
+
+        trackEvent('campaign_deployed');
+      } catch (err) {
+        console.error(err);
+        document.getElementById('image-status').innerHTML =
+          '<div style="margin-top:1rem;padding:0.8rem;border:1px solid #8a3a3a;border-radius:0.4rem;font-size:0.8rem;color:#8a3a3a;">' +
+          'Deploy failed: ' + err.message + '</div>';
+      }
     }
 
     function clearBrief(){
