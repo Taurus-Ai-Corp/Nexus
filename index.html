@@ -582,7 +582,15 @@
 
     function trackEvent(eventName){
       if(typeof gtag === 'function'){
-        gtag('event', 'conversion', { send_to: 'AW-18242669881/' + eventName });
+        var leadEvents = ['lead_enterprise_audit','lead_executive_briefing'];
+        var purchaseEvents = ['purchase_starter','purchase_studio'];
+        if(leadEvents.indexOf(eventName) !== -1){
+          gtag('event', 'conversion', {
+            send_to: 'AW-18242669881/XVbiCOTP978cELma5PpD',
+            value: 1.0,
+            currency: 'CAD'
+          });
+        }
         gtag('event', eventName, { event_category: 'nexus_creative', non_interaction: false });
       }
     }
