@@ -467,7 +467,7 @@
             <li>Platform plan</li>
             <li>2 revision rounds</li>
           </ul>
-          <a href="/api/checkout?plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="trackEvent('purchase_starter')">Start Proof of Concept</a>
+          <a href="/api/checkout?plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_starter'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Proof of Concept</a>
         </div>
         <div class="pricing-card featured reveal">
           <div>
@@ -480,7 +480,7 @@
               <li>Export to deck, CSV, or API</li>
               <li>Priority turnaround</li>
             </ul>
-            <a href="/api/checkout?plan=studio" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="trackEvent('purchase_studio')">Start Enterprise Plan</a>
+            <a href="/api/checkout?plan=studio" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_studio'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Enterprise Plan</a>
           </div>
           <div style="display:grid; place-items:center; min-width:180px;">
             <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
