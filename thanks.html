@@ -80,7 +80,7 @@
       <h1>Welcome aboard.</h1>
       <p>Your payment is confirmed. To start your first campaign, send us your product or property brief. We will return a production-ready image prompt, headline options, and platform plan within one business day.</p>
 
-      <form action="mailto:nexus@taurusai.io?subject=My%20first%20Nexus%20Creative%20brief" method="post" enctype="text/plain">
+      <form id="brief-form" action="#" method="post">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required placeholder="Your name">
 
@@ -93,8 +93,9 @@
         <label for="brief">Your brief</label>
         <textarea id="brief" name="brief" rows="6" required placeholder="Describe your product, target audience, and the mood you want. Example: 'Luxury sunscreen for women 30-45, summer campaign, Mediterranean yacht setting, golden hour.'"></textarea>
 
-        <button type="submit" class="btn" onclick="if(typeof gtag==='function'){gtag('event','conversion',{send_to:'AW-18242669881/XVbiCOTP978cELma5PpD',value:1.0,currency:'CAD'});gtag('event','lead_brief_submit',{event_category:'nexus_creative'});}">Send brief →</button>
+        <button type="submit" class="btn" onclick="event.preventDefault();submitBrief();if(typeof gtag==='function'){gtag('event','conversion',{send_to:'AW-18242669881/XVbiCOTP978cELma5PpD',value:1.0,currency:'CAD'});gtag('event','lead_brief_submit',{event_category:'nexus_creative'});}">Send brief →</button>
       </form>
+      <p id="form-status" style="margin-top:1rem;font-size:0.8rem;color:var(--ink-muted);"></p>
     </div>
     <footer>© 2026 Taurus AI Corp. · nexus@taurusai.io</footer>
   </div>
@@ -137,6 +138,53 @@
       var label = planLabels[plan];
       if(label) document.querySelector('h1').textContent = label + ' — welcome aboard.';
     })();
+
+    async function submitBrief() {
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var company = document.getElementById('company').value.trim();
+      var brief = document.getElementById('brief').value.trim();
+      var statusEl = document.getElementById('form-status');
+
+      if (!name || !email || !brief) {
+        statusEl.textContent = 'Please fill all required fields.';
+        statusEl.style.color = '#8a3a3a';
+        return;
+      }
+
+      statusEl.textContent = 'Submitting...';
+      statusEl.style.color = 'var(--ink-muted)';
+
+      try {
+        var res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            source: 'post_purchase_brief',
+            brief: brief,
+            neural_score: null,
+            platform: 'web',
+            campaign_headline: '',
+            name: name,
+            company: company,
+            plan: new URLSearchParams(window.location.search).get('plan') || 'unknown',
+          })
+        });
+        var data = await res.json();
+        if (res.ok) {
+          statusEl.textContent = 'Brief received. Our team will contact you within 1 business day.';
+          statusEl.style.color = '#3a7a3a';
+          document.getElementById('brief-form').reset();
+        } else {
+          statusEl.textContent = 'Error: ' + (data.error || 'Submission failed');
+          statusEl.style.color = '#8a3a3a';
+        }
+      } catch (err) {
+        statusEl.textContent = 'Network error. Please email nexus@taurusai.io directly.';
+        statusEl.style.color = '#8a3a3a';
+      }
+    }
   </script>
 </body>
 </html>

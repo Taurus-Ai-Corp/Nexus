@@ -470,11 +470,11 @@
     <div class="container hero-grid">
       <div class="hero-left">
         <div class="mono hero-kicker">AI Campaign Studio</div>
-        <h1>The campaign brief. Solved.</h1>
-        <p>Nexus Creative turns a single product description into editorial-grade campaign assets — concept, copy, shot list, and image prompt — ready for your studio or generative pipeline.</p>
+        <h1>The campaign brief. Scored.</h1>
+        <p>Nexus Creative turns a product description into a production-ready brief — headline, image prompt, platform plan, and a heuristic TRIBE v2 neural score. Ready for your studio or generative pipeline.</p>
         <div class="hero-actions">
-          <a href="#lab" class="btn" onclick="trackEvent('view_demo')">View Private Demo <span class="btn-icon">→</span></a>
-        <a href="/case-studies.html" class="btn" onclick="if(typeof gtag==='function'){gtag('event','view_case_studies',{event_category:'nexus_creative'});} if(typeof fbq==='function'){fbq('trackCustom','ViewCaseStudies');}">Explore case studies <span class="btn-icon">→</span></a>
+          <a href="#lab" class="btn" onclick="trackEvent('view_demo')">Score your brief <span class="btn-icon">→</span></a>
+        <a href="/case-studies.html" class="btn" onclick="if(typeof gtag==='function'){gtag('event','view_case_studies',{event_category:'nexus_creative'});} if(typeof fbq==='function'){fbq('trackCustom','ViewCaseStudies');}">See our dogfood <span class="btn-icon">→</span></a>
         </div>
       </div>
       <div class="hero-image">
@@ -486,10 +486,10 @@
   <section class="trust">
     <div class="container">
       <div class="trust-grid">
-        <div class="trust-item"><span class="mono">Trusted by</span><strong>Enterprise brands in Dubai & GCC</strong></div>
-        <div class="trust-item"><span class="mono">Turnaround</span><strong>90% faster than agencies</strong></div>
-        <div class="trust-item"><span class="mono">Output</span><strong>Prompt + copy + shot list</strong></div>
-        <div class="trust-item"><span class="mono">Markets</span><strong>Fashion · real estate · F&amp;B</strong></div>
+        <div class="trust-item"><span class="mono">Clients</span><strong>Mater Maria Homes · YQG Digital · Muthoot FinCorp</strong></div>
+        <div class="trust-item"><span class="mono">Speed</span><strong>Brief → scored assets in < 60s</strong></div>
+        <div class="trust-item"><span class="mono">Output</span><strong>Prompt + headline + platform plan + neural score</strong></div>
+        <div class="trust-item"><span class="mono">Stack</span><strong>Heuristic TRIBE v2 · zero API dependency</strong></div>
       </div>
     </div>
   </section>
@@ -497,31 +497,31 @@
   <section class="campaigns" id="work">
     <div class="container">
       <div class="reveal">
-        <div class="mono section-kicker">Selected campaigns</div>
-        <h2>Two reference studies. One system.</h2>
+        <div class="mono section-kicker">Example outputs</div>
+        <h2>What the system produces from one brief.</h2>
       </div>
 
       <article class="study reveal">
         <div class="study-text">
-          <div class="mono study-tag">Study 01 — Nordic Minimalism</div>
+          <div class="mono study-tag">Example 01 — Nordic Minimalism</div>
           <h3>Black technical basics, white space.</h3>
-          <p>A cyber-minimalist fashion lookbook built from one sentence. Cool monochromatic grade, diffused backlight, editorial retouching.</p>
-          <a href="#lab" class="btn btn-ghost">Generate this style</a>
+          <p>A cyber-minimalist fashion lookbook concept generated from one sentence. Cool monochromatic grade, diffused backlight, editorial retouching.</p>
+          <a href="#lab" class="btn btn-ghost">Try this style</a>
         </div>
         <div class="study-visual">
-          <img src="assets/campaigns/nordic-editorial-01.png" alt="Nordic minimalist skincare editorial campaign" loading="lazy">
+          <img src="assets/campaigns/nordic-editorial-01.png" alt="Nordic minimalist skincare editorial campaign example" loading="lazy">
         </div>
       </article>
 
       <article class="study reveal">
         <div class="study-visual">
-          <img src="assets/campaigns/sport-luxury-01.png" alt="Sporty luxury summer eyewear campaign on a vintage racing boat" loading="lazy">
+          <img src="assets/campaigns/sport-luxury-01.png" alt="Sporty luxury summer eyewear campaign example on a vintage racing boat" loading="lazy">
         </div>
         <div class="study-text">
-          <div class="mono study-tag">Study 02 — Summer Sport-Luxury</div>
+          <div class="mono study-tag">Example 02 — Summer Sport-Luxury</div>
           <h3>Sun, motion, mirrored lens.</h3>
-          <p>A luxury eyewear campaign for peak summer. Dynamic low-angle composition, glossy reflections, Vogue-grade color grading.</p>
-          <a href="#lab" class="btn btn-ghost">Generate this style</a>
+          <p>A luxury eyewear campaign concept for peak summer. Dynamic low-angle composition, glossy reflections, Vogue-grade color grading.</p>
+          <a href="#lab" class="btn btn-ghost">Try this style</a>
         </div>
       </article>
     </div>
@@ -605,7 +605,7 @@
           <a href="/colab.html" style="color:var(--accent); font-size:0.78rem; text-decoration:underline; white-space:nowrap;">How it works →</a>
         </div>
         <div class="image-status" id="image-status">
-          Real image generation is connected to the multi-provider pipeline (DALL·E 3, Replicate Flux, fal.ai, Stability). Add a key to <code>~/.env-secrets</code> and run <code>python3 generate-images.py</code> to produce photorealistic campaign assets.
+          Neural-score your brief to generate campaign-ready creative assets.
         </div>
       </div>
     </div>
@@ -1301,7 +1301,7 @@
       document.getElementById('output-body').innerHTML = SAMPLES[0].body.replace(/\n/g, '<br>').replace(/<b>(.*?)<\/b>/g, '<strong>$1</strong>');
       document.querySelector('.output-meta').innerHTML = parseMeta(SAMPLES[0].meta);
       document.getElementById('image-status').innerHTML =
-        'Vertex AI Imagen 3 is live. The first campaign board is generated locally from your brief. For full image generation, connect <code>generate_images.py</code> to your GCP project.';
+        'Enter a brief and score it to generate your campaign.';
       document.getElementById('neural-score').style.display = 'none';
       document.getElementById('optimize-btn').style.display = 'none';
       document.getElementById('optim-compare').style.display = 'none';
