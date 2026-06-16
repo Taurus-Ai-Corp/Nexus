@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanks — Nexus Creative</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F6F4EF; --surface: #FFFFFF; --ink: #14110F; --ink-muted: #6B655E;
+      --accent: #B85C38; --border: #E3DED4; --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font-body); color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+    h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 3.6rem); margin: 0 0 1.2rem; font-weight: 400; letter-spacing: -0.02em; line-height: 1; }
+    p { line-height: 1.7; color: var(--ink-muted); margin: 0 0 1.6rem; }
+    .mono { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 1.2rem; padding: clamp(2rem, 5vw, 3rem); }
+    label { display: block; margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 600; }
+    input, textarea { width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 0.8rem; background: var(--bg); font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 1rem; outline: none; }
+    input:focus, textarea:focus { border-color: var(--accent); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0.9rem 1.6rem; border-radius: 999px; background: var(--ink); color: var(--surface); font-size: 0.85rem; font-weight: 600; border: 1.5px solid var(--ink); text-decoration: none; cursor: pointer; width: 100%; }
+    .btn:hover { background: var(--accent); border-color: var(--accent); }
+    footer { text-align: center; font-size: 0.8rem; color: var(--ink-muted); margin-top: 2rem; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="mono">Nexus Creative</div>
+      <h1>Welcome aboard.</h1>
+      <p>Your payment is confirmed. To start your first campaign, send us your product or property brief. We will return a production-ready image prompt, headline options, and platform plan within one business day.</p>
+
+      <form action="mailto:nexus@taurusai.io?subject=My%20first%20Nexus%20Creative%20brief" method="post" enctype="text/plain">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required placeholder="Your name">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="you@company.com">
+
+        <label for="company">Company / brand</label>
+        <input type="text" id="company" name="company" placeholder="Acme Dubai">
+
+        <label for="brief">Your brief</label>
+        <textarea id="brief" name="brief" rows="6" required placeholder="Describe your product, target audience, and the mood you want. Example: 'Luxury sunscreen for women 30-45, summer campaign, Mediterranean yacht setting, golden hour.'"></textarea>
+
+        <button type="submit" class="btn">Send brief →</button>
+      </form>
+    </div>
+    <footer>© 2026 Taurus AI Corp. · nexus@taurusai.io</footer>
+  </div>
+</body>
+</html>
