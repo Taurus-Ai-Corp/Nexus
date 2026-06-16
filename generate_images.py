@@ -2,24 +2,19 @@
 """
 Nexus Creative — Multi-Provider Image Generation Pipeline
 
-Tries providers in this order:
-  1. OpenAI DALL-E 3            (OPENAI_API_KEY)
-  2. Replicate Flux / SDXL      (REPLICATE_API_TOKEN)
-  3. fal.ai Flux                (FAL_KEY)
-  4. Stability AI               (STABILITY_API_KEY)
-  5. Midjourney (via API)       (MIDJOURNEY_API_KEY)
-  6. NVIDIA NIM LLM prompt enhancement + HTML placeholder (fallback, always works with NVIDIA_API_KEY)
-
-For text-to-image, prefer DALL-E/Flux/Replicate over NVIDIA for photorealism.
-NVIDIA key available here only drives chat/vision; it will enhance prompts.
+Primary provider: Google Cloud Vertex AI Imagen 3
+Fallbacks: DALL-E 3, Replicate, fal.ai, Stability, Midjourney
+Prompt enhancement: NVIDIA LLM (free tier) or Perplexity Sonar
+Final fallback: HTML/SVG placeholder
 
 Usage:
-  export OPENAI_API_KEY=...   # or any paid image key above
-  python3 generate-images.py --prompt "Luxury penthouse at golden hour" --output assets/campaign.png
+  source ~/.env-secrets
+  python3 generate-images.py --prompt "Luxury penthouse at golden hour" --title real-estate-hero --output assets
 
-Without paid keys, the script still outputs:
-  - enhanced prompt JSON
- - photorealistic HTML placeholder at assets/campaign.html
+The script outputs:
+  - assets/{title}.png (if Vertex or a paid provider succeeds)
+  - assets/{title}.json (original + enhanced prompt + provider)
+  - assets/{title}.html (only if no image provider succeeds)
 """
 
 import argparse
@@ -30,10 +25,7 @@ import re
 import sys
 from pathlib import Path
 
-try:
-    import requests
-except ImportError:
-    requests = None
+import requests
 
 
 def get_env_keys():
@@ -79,7 +71,7 @@ PY
 
 def perplexity_enhance_prompt(prompt: str, perplexity_key: str) -> str:
     """Use Perplexity Sonar to research campaign references and expand the prompt."""
-    if not requests or not perplexity_key:
+    if not perplexity_key:
         return prompt
     url = "https://api.perplexity.ai/chat/completions"
     headers = {"Authorization": f"Bearer {perplexity_key}", "Content-Type": "application/json"}
@@ -105,7 +97,7 @@ def perplexity_enhance_prompt(prompt: str, perplexity_key: str) -> str:
 
 def nvidia_enhance_prompt(prompt: str, nvidia_key: str) -> str:
     """Use NVIDIA chat LLM to expand a brief into a richer image prompt."""
-    if not requests or not nvidia_key:
+    if not nvidia_key:
         return prompt
     url = "https://integrate.api.nvidia.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {nvidia_key}", "Content-Type": "application/json"}
@@ -129,6 +121,24 @@ def nvidia_enhance_prompt(prompt: str, nvidia_key: str) -> str:
         return prompt
 
 
+def generate_vertex(prompt: str, output_file: str, project_id: str = None, location: str = "us-central1", model_id: str = "imagen-3.0-generate-002"):
+    """Generate image with Google Cloud Vertex AI Imagen 3."""
+    import vertexai
+    from vertexai.preview.vision_models import ImageGenerationModel
+
+    project_id = project_id or os.environ.get("GOOGLE_CLOUD_PROJECT") or "project-0ae56a62-0f0a-4d8a-9b7"
+    vertexai.init(project=project_id, location=location)
+    model = ImageGenerationModel.from_pretrained(model_id)
+    images = model.generate_images(
+        prompt=prompt,
+        number_of_images=1,
+        aspect_ratio="1:1",
+        safety_filter_level="block_some"
+    )
+    images[0].save(location=output_file, include_generation_parameters=False)
+    return output_file
+
+
 def generate_openai(prompt: str, output_file: str, api_key: str, size: str = "1024x1024"):
     url = "https://api.openai.com/v1/images/generations"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
@@ -148,9 +158,8 @@ def generate_replicate(prompt: str, output_file: str, api_key: str, model: str =
     r.raise_for_status()
     pred = r.json()
     get_url = pred["urls"]["get"]
-    # Poll
+    import time
     for _ in range(60):
-        import time
         time.sleep(2)
         r = requests.get(get_url, headers={"Authorization": f"Token {api_key}"}, timeout=20)
         data = r.json()
@@ -194,7 +203,6 @@ def generate_stability(prompt: str, output_file: str, api_key: str):
 
 
 def generate_midjourney(prompt: str, output_file: str, api_key: str):
-    # Midjourney has many unofficial APIs. This template uses the common Imagine API pattern.
     url = "https://api.imaginepro.ai/api/v1/midjourney/imagine"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     payload = {"prompt": prompt}
@@ -204,9 +212,8 @@ def generate_midjourney(prompt: str, output_file: str, api_key: str):
     task_id = data.get("taskId") or data.get("id")
     if not task_id:
         raise RuntimeError(f"No task ID: {data}")
-    # Poll
+    import time
     for _ in range(60):
-        import time
         time.sleep(5)
         r = requests.get(f"{url}/{task_id}", headers=headers, timeout=20)
         d = r.json()
@@ -246,7 +253,7 @@ body {{ margin:0; width:400px; height:500px; background:#f6f3ef; display:grid; p
     return output_file
 
 
-def generate_campaign_image(prompt: str, output_dir: str, title: str):
+def generate_campaign_image(prompt: str, output_dir: str, title: str, project_id: str = None):
     out_dir = Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     base = re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-') or 'campaign'
@@ -268,9 +275,21 @@ def generate_campaign_image(prompt: str, output_dir: str, title: str):
         print("Enhancing prompt with NVIDIA LLM...")
         enhanced = nvidia_enhance_prompt(prompt, keys["nvidia"])
 
-    # Save metadata
     json_file.write_text(json.dumps({"original": prompt, "enhanced": enhanced, "provider": None}, indent=2), encoding='utf-8')
 
+    # 1. Try Vertex AI Imagen 3 first
+    try:
+        print("Trying Vertex AI Imagen 3...")
+        generate_vertex(enhanced, str(png_file), project_id=project_id)
+        meta = json.loads(json_file.read_text())
+        meta["provider"] = "vertex-imagen-3"
+        json_file.write_text(json.dumps(meta, indent=2), encoding='utf-8')
+        print(f"  Saved PNG: {png_file}")
+        return png_file
+    except Exception as e:
+        print(f"  Vertex AI failed: {e}")
+
+    # 2. Paid provider fallback chain
     providers = [
         ("openai", keys.get("openai"), generate_openai),
         ("fal", keys.get("fal"), generate_fal),
@@ -288,10 +307,10 @@ def generate_campaign_image(prompt: str, output_dir: str, title: str):
             meta = json.loads(json_file.read_text())
             meta["provider"] = name
             json_file.write_text(json.dumps(meta, indent=2), encoding='utf-8')
-            print(f"  ✓ Saved PNG: {png_file}")
+            print(f"  Saved PNG: {png_file}")
             return png_file
         except Exception as e:
-            print(f"  ✗ {name} failed: {e}")
+            print(f"  {name} failed: {e}")
 
     # Fallback: HTML placeholder
     print("No paid image provider available. Creating HTML placeholder...")
@@ -300,8 +319,8 @@ def generate_campaign_image(prompt: str, output_dir: str, title: str):
     meta["provider"] = "html-placeholder"
     meta["html"] = str(html_file)
     json_file.write_text(json.dumps(meta, indent=2), encoding='utf-8')
-    print(f"  ✓ Saved placeholder: {html_file}")
-    print(f"\nTo get real PNGs, add one of these keys: OPENAI_API_KEY, REPLICATE_API_TOKEN, FAL_KEY, STABILITY_API_KEY, MIDJOURNEY_API_KEY")
+    print(f"  Saved placeholder: {html_file}")
+    print("\nTo get real PNGs, add a paid key: OPENAI_API_KEY, REPLICATE_API_TOKEN, FAL_KEY, STABILITY_API_KEY, MIDJOURNEY_API_KEY, or ensure Vertex AI billing is enabled.")
     return html_file
 
 
@@ -310,9 +329,10 @@ def main():
     parser.add_argument("--prompt", required=True, help="Image prompt or campaign brief")
     parser.add_argument("--title", default="Campaign Visual", help="Output filename slug")
     parser.add_argument("--output", default="assets", help="Output directory")
+    parser.add_argument("--project", default=os.environ.get("GOOGLE_CLOUD_PROJECT", "project-0ae56a62-0f0a-4d8a-9b7"), help="Google Cloud project ID")
     args = parser.parse_args()
 
-    generate_campaign_image(args.prompt, args.output, args.title)
+    generate_campaign_image(args.prompt, args.output, args.title, project_id=args.project)
 
 
 if __name__ == "__main__":
