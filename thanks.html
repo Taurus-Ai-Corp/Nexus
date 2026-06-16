@@ -102,29 +102,40 @@
     // Track purchase conversion from URL plan parameter
     (function(){
       var params = new URLSearchParams(window.location.search);
-      var plan = params.get('plan') || params.get('session_id') ? 'unknown' : 'unknown';
-      if(params.get('plan') === 'starter' || params.get('plan') === 'studio') plan = params.get('plan');
-      var values = { starter: 99.0, studio: 399.0 };
+      var plan = params.get('plan') || 'unknown';
+      var values = {
+        starter: 99.0, studio: 399.0,
+        agency_starter: 399.0, agency_pro: 999.0,
+        agency_enterprise: 2499.0, worldcup: 2500.0
+      };
       var value = values[plan] || 0;
-        if(value > 0 && typeof gtag === 'function'){
-          gtag('event', 'conversion', {
-            send_to: 'AW-18242669881',
-            value: value,
-            currency: 'USD',
-            transaction_id: params.get('session_id') || ('nexus_' + Date.now())
-          });
-          gtag('event', 'purchase_' + plan, {
-            event_category: 'nexus_creative',
-            value: value,
-            currency: 'USD'
-          });
-        }
-        if(value > 0 && typeof fbq === 'function'){
-          fbq('track', 'Purchase', {value: value, currency: 'USD'});
-        }
-        if(value > 0 && typeof window.lintrk === 'function'){
-          window.lintrk('track', {conversion_id: value});
-        }
+      if(value > 0 && typeof gtag === 'function'){
+        gtag('event', 'conversion', {
+          send_to: 'AW-18242669881',
+          value: value,
+          currency: 'USD',
+          transaction_id: params.get('session_id') || ('nexus_' + Date.now())
+        });
+        gtag('event', 'purchase_' + plan, {
+          event_category: 'nexus_creative',
+          value: value,
+          currency: 'USD'
+        });
+      }
+      if(value > 0 && typeof fbq === 'function'){
+        fbq('track', 'Purchase', {value: value, currency: 'USD'});
+      }
+      if(value > 0 && typeof window.lintrk === 'function'){
+        window.lintrk('track', {conversion_id: value});
+      }
+      // Update heading based on plan
+      var planLabels = {
+        starter: 'Starter', studio: 'Studio',
+        agency_starter: 'Agency Starter', agency_pro: 'Agency Pro',
+        agency_enterprise: 'Agency Enterprise', worldcup: 'World Cup Neural Pack'
+      };
+      var label = planLabels[plan];
+      if(label) document.querySelector('h1').textContent = label + ' — welcome aboard.';
     })();
   </script>
 </body>
