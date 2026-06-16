@@ -653,7 +653,7 @@
             <li>Platform plan</li>
             <li>2 revision rounds</li>
           </ul>
-          <a href="/api/checkout?plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_starter'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Proof of Concept</a>
+          <a href="/api/stripe?action=checkout&plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_starter'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Proof of Concept</a>
         </div>
         <div class="pricing-card featured reveal">
           <div>
@@ -666,7 +666,7 @@
               <li>Export to deck, CSV, or API</li>
               <li>Priority turnaround</li>
             </ul>
-            <a href="/api/checkout?plan=studio" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_studio'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Enterprise Plan</a>
+            <a href="/api/stripe?action=checkout&plan=studio" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_studio'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Enterprise Plan</a>
           </div>
           <div style="display:grid; place-items:center; min-width:180px;">
             <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
@@ -848,10 +848,10 @@
     }
 
     async function callGenerate(brief, mode) {
-      var res = await fetch('/api/generate', {
+      var res = await fetch('/api/ai?action=' + (mode === 'generate' ? 'generate' : 'refine'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ brief: brief, mode: mode })
+        body: JSON.stringify({ brief: brief })
       });
       var data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Generation failed');
@@ -859,7 +859,7 @@
     }
 
     async function callGuardrail(text, imageUrl) {
-      var res = await fetch('/api/guardrail', {
+      var res = await fetch('/api/ai?action=guardrail', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: text, image_url: imageUrl })
@@ -981,12 +981,10 @@
 
     async function checkCredits(email) {
       try {
-        var res = await fetch('/api/credits-balance?email=' + encodeURIComponent(email));
+        var res = await fetch('/api/stripe?action=balance&email=' + encodeURIComponent(email));
         var data = await res.json();
         if (res.ok) return data.credits_remaining;
-      } catch (e) {
-        console.warn('Credits check failed:', e);
-      }
+      } catch {}
       return null;
     }
 

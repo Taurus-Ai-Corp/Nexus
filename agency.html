@@ -387,7 +387,7 @@
             <li>Email support</li>
             <li>Single agency brand</li>
           </ul>
-          <a href="/api/checkout?plan=agency_starter" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault();trackEvent('purchase_agency_starter');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Start Agency Starter</a>
+          <a href="/api/stripe?action=checkout&plan=agency_starter" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault();trackEvent('purchase_agency_starter');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Start Agency Starter</a>
         </div>
         <div class="pricing-card featured reveal">
           <div>
@@ -404,7 +404,7 @@
               <li>Dedicated account manager</li>
               <li>Score data export (CSV/JSON)</li>
             </ul>
-            <a href="/api/checkout?plan=agency_pro" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault();trackEvent('purchase_agency_pro');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Start Agency Pro</a>
+            <a href="/api/stripe?action=checkout&plan=agency_pro" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault();trackEvent('purchase_agency_pro');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Start Agency Pro</a>
           </div>
           <div style="display:grid; place-items:center; min-width:160px;">
             <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
@@ -431,7 +431,7 @@
             <li>SLA guarantee</li>
             <li>Quarterly strategy sessions</li>
           </ul>
-          <a href="/api/checkout?plan=agency_enterprise" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault();trackEvent('purchase_agency_enterprise');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Start Enterprise</a>
+          <a href="/api/stripe?action=checkout&plan=agency_enterprise" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault();trackEvent('purchase_agency_enterprise');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Start Enterprise</a>
         </div>
       </div>
     </div>
