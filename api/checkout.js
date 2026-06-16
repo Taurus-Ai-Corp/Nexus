@@ -37,10 +37,18 @@ export default async function handler(req, res) {
       body: params.toString(),
     });
 
-    const data = await response.json();
+    const buffer = await response.arrayBuffer();
+    const text = new TextDecoder('utf-8').decode(buffer);
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = { raw: text };
+    }
 
     if (!response.ok) {
-      return res.status(response.status).json({ error: data.error?.message || 'Stripe error' });
+      const message = data.error?.message || data.raw || 'Stripe error';
+      return res.status(response.status).json({ error: message });
     }
 
     return res.status(200).json({ url: data.url });
