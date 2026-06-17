@@ -1,6 +1,11 @@
 // /api/campaign-pipeline.js — Full campaign pipeline orchestrator
 // Brief → Neural Score → Refine → Generate Campaign → Deploy
 // Returns the complete campaign kit ready for deploy
+//
+// Now powered by the Ad Campaign Prompt Bible (9-block universal skeleton).
+// See lib/prompt-bible.mjs for the full framework.
+
+import { buildBibleCampaignKit, ARCHETYPES, CATEGORY_ELEMENTS } from '../lib/prompt-bible.mjs';
 
 function heuristicScore(text) {
   const SIGNALS = {
@@ -43,76 +48,10 @@ function heuristicScore(text) {
 
 function zToPct(z) { return Math.round(Math.min(100, Math.max(0, (z + 1.5) / 3 * 100))); }
 
-function generateCampaignKit(brief, scores) {
-  const { van, dmn, dan, limbic } = scores;
-  const vanPct = zToPct(van);
-  const dmnPct = zToPct(-dmn);
-  const danPct = zToPct(dan);
-  const limbicPct = zToPct(limbic);
-  const overall = Math.round(vanPct * 0.35 + Math.max(0, -dmn * 33 + 50) * 0.25 + danPct * 0.15 + limbicPct * 0.25);
-
-  const lower = brief.toLowerCase();
-
-  // Generate headline from brief content
-  let headline;
-  if (lower.includes('pqc') || lower.includes('quantum') || lower.includes('compliance')) {
-    headline = 'Your data isn\'t safe. Here\'s why.';
-  } else if (lower.includes('agency') || lower.includes('marketing') || lower.includes('social')) {
-    headline = 'Your agency is overpaying. We fixed it.';
-  } else if (lower.includes('real estate') || lower.includes('home') || lower.includes('villa')) {
-    headline = 'The property your competitors haven\'t found.';
-  } else if (lower.includes('blockchain') || lower.includes('hedera') || lower.includes('smart contract')) {
-    headline = 'Enterprise blockchain. No PhD required.';
-  } else {
-    headline = van > 0.4
-      ? 'This changes everything.'
-      : 'What they\'re not telling you.';
-  }
-
-  // Generate subheadline
-  const subheadline = dmn < 0
-    ? brief.split(' ').slice(0, 15).join(' ') + ' — this is why it matters now.'
-    : brief.length > 80
-      ? brief.substring(0, 80) + '...'
-      : brief;
-
-  // Platform plan
-  const platforms = [];
-  if (danPct > 50) platforms.push('LinkedIn carousel (thought leadership)');
-  if (vanPct > 50) platforms.push('Twitter/X thread (hook-driven)');
-  if (limbicPct > 50) platforms.push('Instagram (visual + emotional)');
-  if (vanPct > 60) platforms.push('TikTok short (pattern interrupt)');
-  if (platforms.length === 0) platforms.push('LinkedIn post', 'Twitter/X thread');
-
-  // Image prompt
-  const imagePrompt = brief.replace(/[.!?]$/, '') + ' — editorial photography style, premium brand aesthetic, soft natural lighting, shallow depth of field, 35mm, award-winning editorial composition, cinematic color grading.';
-
-  // Call to action
-  const cta = dan > 0.2
-    ? ['Book a demo', 'See the platform', 'Schedule an audit']
-    : limbic > 0.1
-      ? ['Get started today', 'Claim your spot', 'Join the waitlist']
-      : ['Learn more', 'Get in touch', 'Request access'];
-
-  return {
-    campaign: {
-      headline,
-      subheadline,
-      brief: brief.trim(),
-      platforms,
-      image_prompt: imagePrompt,
-      cta_options: cta,
-      aspect_ratios: ['4:5', '9:16', '1:1', '16:9'],
-      tone: van > 0.5 ? 'provocative' : dmn < -0.2 ? 'urgent' : limbic > 0.2 ? 'emotional' : 'authoritative',
-    },
-    neural_scores: {
-      van: { z: Math.round(van * 100) / 100, pct: vanPct },
-      dmn: { z: Math.round(dmn * 100) / 100, pct: dmnPct },
-      dan: { z: Math.round(dan * 100) / 100, pct: danPct },
-      limbic: { z: Math.round(limbic * 100) / 100, pct: limbicPct },
-      overall,
-    },
-  };
+// Legacy generateCampaignKit — now delegates to the Bible-powered buildBibleCampaignKit
+// Kept for backward compatibility; the real logic is in lib/prompt-bible.mjs
+function generateCampaignKit(brief, scores, options = {}) {
+  return buildBibleCampaignKit(brief, scores, options);
 }
 
 export default async function handler(req, res) {
@@ -135,8 +74,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Brief too short (min 3 words).' });
   }
 
-  // Step 2: Generate campaign kit
-  const kit = generateCampaignKit(brief.trim(), originalScores);
+  // Step 2: Generate campaign kit (Bible-powered)
+  const kit = generateCampaignKit(brief.trim(), originalScores, {
+    archetype: (req.body || {}).archetype,
+  });
   const deployKey = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 
   // Step 3: Capture lead if email provided
@@ -234,10 +175,15 @@ export default async function handler(req, res) {
     orca: orcaStatus,
     ...kit,
     _meta: {
-      source: 'heuristic',
+      source: 'heuristic+bible',
       brief_length: brief.trim().length,
       generated_at: new Date().toISOString(),
       deploy_url: `https://nexus.taurusai.io/dogfood.html#campaign-${deployKey}`,
+      bible_version: '1.0.0',
+      archetype: kit.campaign.archetype,
+      product_category: kit.campaign.product_category,
+      archetype_label: ARCHETYPES[kit.campaign.archetype] || kit.campaign.archetype,
+      category_label: (CATEGORY_ELEMENTS[kit.campaign.product_category] || {}).label || kit.campaign.product_category,
     },
   });
 }
