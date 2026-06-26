@@ -3,12 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Nexus Freelance — secure AI-powered freelancer design workspace with admin approval, AI image/video generation, design knowledge, and code export.">
+  <meta name="description" content="RAG-powered briefs, secure file handling, admin approval gates, and code export for vetted freelancers.">
+  <meta property="og:title" content="Nexus Freelance — Secure AI Workspace for Global Teams">
+  <meta property="og:description" content="RAG-powered briefs, secure file handling, admin approval gates, and code export for vetted freelancers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nexus.taurusai.io/freelance">
+  <meta property="og:image" content="https://nexus.taurusai.io/assets/og-nexus-freelance.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nexus Freelance — Secure AI Workspace for Global Teams">
+  <meta name="twitter:description" content="RAG-powered briefs, secure file handling, admin approval gates, and code export for vetted freelancers.">
+  <meta name="twitter:image" content="https://nexus.taurusai.io/assets/og-nexus-freelance.png">
+  <link rel="canonical" href="https://nexus.taurusai.io/freelance">
   <title>Nexus Freelance — Secure Design Workspace | NEXUS by Taurus AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/design-system.css">
+
+  <!-- Google tag (gtag.js) — replace G-XXXXXXXXXX in Vercel env or here -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PLACEHOLDER', { send_page_view: true });
+  </script>
 </head>
 <body>
   <nav class="nav">
@@ -26,7 +45,7 @@
         <a href="/pricing.html">Pricing</a>
       </div>
       <div class="nav-cta">
-        <a href="/contact.html" class="btn btn-primary">Request access</a>
+        <a href="/contact.html" class="btn btn-primary" data-track="cta_click" data-track-label="contact">Request access</a>
         <button class="nav-toggle" aria-label="Menu"><span></span></button>
       </div>
     </div>

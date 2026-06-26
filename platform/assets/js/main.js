@@ -3,7 +3,7 @@
    Handles: sticky nav, mobile toggle, active link, scroll reveals,
             code tabs, FAQ accordion, demo form, console year.
    ========================================================================== */
-/* global window, document, IntersectionObserver */
+/* global window, document, IntersectionObserver, gtag */
 
 const Nexus = (function () {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -127,6 +127,15 @@ const Nexus = (function () {
 
   // Demo / contact forms - lightweight client-side validation + feedback
   function initForms() {
+    document.querySelectorAll('a[data-track]').forEach((a) => {
+      a.addEventListener('click', () => {
+        gtag?.('event', a.dataset.track, {
+          event_category: 'engagement',
+          event_label: a.dataset.trackLabel || a.getAttribute('href'),
+        });
+      });
+    });
+
     document.querySelectorAll('form[data-form]').forEach((form) => {
       const button = form.querySelector('button[type="submit"]');
       const status = form.querySelector('[data-status]') || document.createElement('div');
@@ -157,18 +166,29 @@ const Nexus = (function () {
           return;
         }
 
+        // basic email validation
+        const email = String(data.email || '').trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          status.textContent = 'Please enter a valid work email.';
+          status.style.color = 'var(--danger)';
+          return;
+        }
+
         button.disabled = true;
         const original = button.textContent;
         button.textContent = 'Sending…';
+        gtag?.('event', 'form_submit', { event_category: 'engagement', event_label: form.dataset.form || 'contact' });
 
         try {
           const action = form.getAttribute('action') || '/api/contact';
-          if (action && action !== '#' && !action.startsWith('javascript')) {
-            await fetch(action, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(data),
-            });
+          const response = await fetch(action, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          const result = response.ok ? await response.json().catch(() => ({})) : null;
+          if (!response.ok) {
+            throw new Error(result?.error || `HTTP ${response.status}`);
           }
           status.textContent = 'Message received. We will respond within one business day.';
           status.style.color = 'var(--success)';
