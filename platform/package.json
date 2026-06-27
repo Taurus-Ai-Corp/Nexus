@@ -1,0 +1,12 @@
+{
+  "name": "nexus-platform-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test api/contact.test.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.0"
+  }
+}

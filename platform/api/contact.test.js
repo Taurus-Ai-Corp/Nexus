@@ -50,9 +50,11 @@ describe('contact handler', () => {
     assert.strictEqual(res.getBody().error, 'Invalid email address');
   });
 
-  it('returns 503 when Resend is not configured', async () => {
+  it('returns 503 when SMTP is not configured', async () => {
     const env = { ...process.env };
-    delete process.env['RESEND_API_KEY'];
+    delete process.env['SMTP_HOST'];
+    delete process.env['SMTP_USER'];
+    delete process.env['SMTP_PASS'];
     delete process.env['LEAD_RECIPIENT_EMAIL'];
     const req = mockReq({ body: { name: 'Test User', email: 'test@example.com' } });
     const res = mockRes();
