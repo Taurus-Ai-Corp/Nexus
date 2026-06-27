@@ -34,18 +34,22 @@ export default async function handler(req, res) {
     source: req.headers['referer'] || 'direct',
   };
 
-  if (!process.env['RESEND_API_KEY'] || !process.env['LEAD_RECIPIENT_EMAIL']) {
+  // Support Resend, OpenSend, or any Resend-compatible email API.
+  const apiBase = process.env['EMAIL_API_BASE_URL'] || 'https://api.resend.com';
+  const apiKey = process.env['EMAIL_API_KEY'] || process.env['RESEND_API_KEY'];
+
+  if (!apiKey || !process.env['LEAD_RECIPIENT_EMAIL']) {
     res.status(503).json({
       error: 'Lead capture is not configured',
       ok: false,
-      missing: ['RESEND_API_KEY', 'LEAD_RECIPIENT_EMAIL'].filter((k) => !process.env[k]),
+      missing: ['EMAIL_API_KEY', 'LEAD_RECIPIENT_EMAIL'].filter((k) => !process.env[k]),
     });
     return;
   }
 
   try {
     const payload = {
-      from: process.env['RESEND_FROM_EMAIL'] || 'Nexus Leads <leads@nexus.taurusai.io>',
+      from: process.env['EMAIL_FROM'] || 'Nexus Leads <leads@nexus.taurusai.io>',
       to: [process.env['LEAD_RECIPIENT_EMAIL']],
       subject: `Nexus lead: ${lead.name} — ${lead.vertical}`,
       text: [
@@ -76,10 +80,10 @@ export default async function handler(req, res) {
       `,
     };
 
-    const response = await fetch('https://api.resend.com/emails', {
+    const response = await fetch(`${apiBase.replace(/\/$/, '')}/emails`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env['RESEND_API_KEY']}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
@@ -87,7 +91,7 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const body = await response.text();
-      throw new Error(`Resend ${response.status}: ${body}`);
+      throw new Error(`Email API ${response.status}: ${body}`);
     }
 
     res.status(200).json({ ok: true, message: 'Lead submitted' });
