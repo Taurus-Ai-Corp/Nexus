@@ -1,7 +1,8 @@
 import logging
 import os
-from typing import Any, Dict, Optional
 from contextvars import ContextVar
+from typing import Any
+
 import httpx
 from dotenv import load_dotenv
 
@@ -38,30 +39,30 @@ def get_auth_token() -> str:
 
 class MoneybirdClient:
     """Client for Moneybird API v2 using Bearer Authentication."""
-    
+
     @staticmethod
     async def make_request(
-        method: str, 
+        method: str,
         administration_id: str,
-        endpoint: str, 
-        data: Optional[Dict[str, Any]] = None,
-        params: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        endpoint: str,
+        data: dict[str, Any] | None = None,
+        params: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
         """Make an HTTP request to Moneybird API."""
         api_key = get_auth_token()
-        
+
         if not api_key:
             raise RuntimeError("No API key provided. Please set the x-auth-token header.")
-        
+
         # Moneybird uses Bearer Authentication
         headers = {
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json"
         }
-        
+
         # Moneybird API structure: /api/v2/:administration_id/:endpoint
         url = f"{MONEYBIRD_API_ENDPOINT}/{administration_id}{endpoint}"
-        
+
         async with httpx.AsyncClient() as client:
             if method.upper() == "GET":
                 response = await client.get(url, headers=headers, params=params)
@@ -75,13 +76,13 @@ class MoneybirdClient:
                 response = await client.delete(url, headers=headers)
             else:
                 raise ValueError(f"Unsupported HTTP method: {method}")
-            
+
             response.raise_for_status()
-            
+
             # Handle empty responses for DELETE operations
             if response.status_code == 204 or not response.content:
                 return {"success": True}
-            
+
             try:
                 json_response = response.json()
                 # Handle null/undefined responses
@@ -95,11 +96,11 @@ class MoneybirdClient:
                 return {"error": "Invalid JSON response", "content": response.text}
 
 async def make_request(
-    method: str, 
+    method: str,
     administration_id: str,
-    endpoint: str, 
-    data: Optional[Dict[str, Any]] = None,
-    params: Optional[Dict[str, Any]] = None
-) -> Dict[str, Any]:
+    endpoint: str,
+    data: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Make an HTTP request to Moneybird API."""
     return await MoneybirdClient.make_request(method, administration_id, endpoint, data, params)

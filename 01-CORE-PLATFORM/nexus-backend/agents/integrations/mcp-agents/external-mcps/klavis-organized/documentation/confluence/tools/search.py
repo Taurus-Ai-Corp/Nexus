@@ -41,4 +41,4 @@ async def search_content(
     cql = client.construct_cql(must_contain_all, can_contain_any, enable_fuzzy)
     response = await client.get("search", params={"cql": cql, "limit": max(1, min(limit, 100))})
 
-    return client.transform_search_content_response(response) 
+    return client.transform_search_content_response(response)

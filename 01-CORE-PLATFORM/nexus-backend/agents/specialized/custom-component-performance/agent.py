@@ -7,27 +7,27 @@ Monitors and optimizes component performance vs Webflow trade-offs
 import asyncio
 import json
 import time
-import psutil
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass, asdict
+from typing import Any
+
 import aiofiles
 import aiohttp
-from fastapi import FastAPI, WebSocket, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
+import psutil
 import redis.asyncio as redis
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from fastapi import FastAPI, HTTPException, WebSocket
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-import lighthouse
-import requests
+
 
 @dataclass
 class PerformanceMetric:
     component_name: str
     load_time: float
     bundle_size: int
-    core_web_vitals: Dict[str, float]
+    core_web_vitals: dict[str, float]
     lighthouse_score: int
     webflow_equivalent_score: int
     recommendation: str
@@ -41,22 +41,22 @@ class CustomComponentPerformanceAgent:
     - Monitoring Core Web Vitals and Lighthouse scores
     - Providing component optimization recommendations
     """
-    
+
     def __init__(self):
         self.name = "custom-component-performance"
         self.description = "Performance analysis and optimization for custom components"
-        self.redis_client: Optional[redis.Redis] = None
-        self.db_session: Optional[AsyncSession] = None
+        self.redis_client: redis.Redis | None = None
+        self.db_session: AsyncSession | None = None
         self.performance_cache = {}
-        
-    async def initialize(self, config: Dict[str, Any]):
+
+    async def initialize(self, config: dict[str, Any]):
         """Initialize agent with configuration"""
         # Redis connection for real-time metrics
         self.redis_client = redis.from_url(
             config.get('redis_url', 'redis://localhost:6379'),
             decode_responses=True
         )
-        
+
         # Database connection for historical data
         engine = create_async_engine(
             config.get('database_url', 'postgresql+asyncpg://user:pass@localhost/taurus'),
@@ -64,35 +64,35 @@ class CustomComponentPerformanceAgent:
         )
         async_session = sessionmaker(engine, class_=AsyncSession)
         self.db_session = async_session()
-        
+
         print(f"✅ {self.name} agent initialized successfully")
 
     async def analyze_component_performance(self, component_path: str, webflow_equivalent: str = None) -> PerformanceMetric:
         """Analyze custom component performance"""
         try:
             start_time = time.time()
-            
+
             # Analyze bundle size
             bundle_size = await self._get_bundle_size(component_path)
-            
+
             # Run Lighthouse analysis
             lighthouse_score = await self._run_lighthouse_test(component_path)
-            
+
             # Get Core Web Vitals
             core_vitals = await self._measure_core_web_vitals(component_path)
-            
+
             # Compare with Webflow equivalent if provided
             webflow_score = 0
             if webflow_equivalent:
                 webflow_score = await self._analyze_webflow_equivalent(webflow_equivalent)
-            
+
             load_time = time.time() - start_time
-            
+
             # Generate recommendation
             recommendation = await self._generate_recommendation(
                 lighthouse_score, webflow_score, bundle_size, core_vitals
             )
-            
+
             metric = PerformanceMetric(
                 component_name=Path(component_path).stem,
                 load_time=load_time,
@@ -103,12 +103,12 @@ class CustomComponentPerformanceAgent:
                 recommendation=recommendation,
                 timestamp=datetime.now()
             )
-            
+
             # Cache results
             await self._cache_performance_data(metric)
-            
+
             return metric
-            
+
         except Exception as e:
             print(f"❌ Performance analysis failed: {e}")
             raise
@@ -131,7 +131,7 @@ class CustomComponentPerformanceAgent:
         try:
             # Mock Lighthouse test - in production, use actual Lighthouse API
             # For now, return mock score based on component complexity
-            async with aiofiles.open(component_path, 'r') as f:
+            async with aiofiles.open(component_path) as f:
                 content = await f.read()
                 lines = len(content.split('\n'))
                 # Simple heuristic: fewer lines = better performance
@@ -140,7 +140,7 @@ class CustomComponentPerformanceAgent:
         except Exception:
             return 75  # Default score
 
-    async def _measure_core_web_vitals(self, component_path: str) -> Dict[str, float]:
+    async def _measure_core_web_vitals(self, component_path: str) -> dict[str, float]:
         """Measure Core Web Vitals metrics"""
         try:
             # Mock Core Web Vitals - in production, use real browser metrics
@@ -166,27 +166,27 @@ class CustomComponentPerformanceAgent:
         except Exception:
             return 80
 
-    async def _generate_recommendation(self, lighthouse: int, webflow: int, bundle_size: int, vitals: Dict) -> str:
+    async def _generate_recommendation(self, lighthouse: int, webflow: int, bundle_size: int, vitals: dict) -> str:
         """Generate optimization recommendation"""
         recommendations = []
-        
+
         if lighthouse < 90:
             recommendations.append("Optimize component rendering and reduce complexity")
-        
+
         if bundle_size > 100000:  # 100KB
             recommendations.append("Reduce bundle size through code splitting")
-        
+
         if vitals.get('lcp', 0) > 2.5:
             recommendations.append("Improve Largest Contentful Paint")
-        
+
         if vitals.get('cls', 0) > 0.1:
             recommendations.append("Reduce Cumulative Layout Shift")
-        
+
         if lighthouse < webflow - 10:
             recommendations.append("Consider using Webflow equivalent for better performance")
         elif lighthouse > webflow + 10:
             recommendations.append("Custom component outperforms Webflow - keep custom implementation")
-        
+
         return "; ".join(recommendations) if recommendations else "Performance is optimal"
 
     async def _cache_performance_data(self, metric: PerformanceMetric):
@@ -195,7 +195,7 @@ class CustomComponentPerformanceAgent:
             if self.redis_client:
                 key = f"performance:{metric.component_name}:{int(metric.timestamp.timestamp())}"
                 await self.redis_client.setex(
-                    key, 
+                    key,
                     3600,  # 1 hour TTL
                     json.dumps(asdict(metric), default=str)
                 )
@@ -209,15 +209,15 @@ class CustomComponentPerformanceAgent:
                 # Monitor system resources
                 cpu_percent = psutil.cpu_percent()
                 memory_percent = psutil.virtual_memory().percent
-                
+
                 if cpu_percent > 80 or memory_percent > 80:
                     print(f"⚠️ High resource usage: CPU {cpu_percent}%, Memory {memory_percent}%")
-                
+
                 # Check performance alerts
                 await self._check_performance_alerts()
-                
+
                 await asyncio.sleep(30)  # Check every 30 seconds
-                
+
             except Exception as e:
                 print(f"❌ Monitoring error: {e}")
                 await asyncio.sleep(60)
@@ -229,7 +229,7 @@ class CustomComponentPerformanceAgent:
                 # Get recent performance data
                 keys = await self.redis_client.keys("performance:*")
                 recent_keys = sorted(keys)[-10:]  # Last 10 metrics
-                
+
                 for key in recent_keys:
                     data = await self.redis_client.get(key)
                     if data:
@@ -239,7 +239,7 @@ class CustomComponentPerformanceAgent:
         except Exception as e:
             print(f"⚠️ Alert check failed: {e}")
 
-    async def optimize_component_suggestions(self, component_name: str) -> List[str]:
+    async def optimize_component_suggestions(self, component_name: str) -> list[str]:
         """Generate specific optimization suggestions"""
         suggestions = [
             "Implement React.memo() for component memoization",
@@ -253,35 +253,35 @@ class CustomComponentPerformanceAgent:
             "Optimize font loading with font-display: swap",
             "Implement virtual scrolling for long lists"
         ]
-        
+
         # Return relevant suggestions based on component analysis
         return suggestions[:5]  # Top 5 suggestions
 
-    async def generate_performance_report(self) -> Dict[str, Any]:
+    async def generate_performance_report(self) -> dict[str, Any]:
         """Generate comprehensive performance report"""
         try:
             if not self.redis_client:
                 return {"error": "Redis not available"}
-                
+
             # Get all performance data
             keys = await self.redis_client.keys("performance:*")
             metrics = []
-            
+
             for key in keys:
                 data = await self.redis_client.get(key)
                 if data:
                     metrics.append(json.loads(data))
-            
+
             if not metrics:
                 return {"message": "No performance data available"}
-            
+
             # Calculate averages
             avg_lighthouse = sum(m['lighthouse_score'] for m in metrics) / len(metrics)
             avg_load_time = sum(m['load_time'] for m in metrics) / len(metrics)
-            
+
             # Find worst performers
             worst_performers = sorted(metrics, key=lambda x: x['lighthouse_score'])[:3]
-            
+
             return {
                 "total_components_analyzed": len(metrics),
                 "average_lighthouse_score": round(avg_lighthouse, 2),
@@ -289,7 +289,7 @@ class CustomComponentPerformanceAgent:
                 "worst_performers": worst_performers,
                 "generated_at": datetime.now().isoformat()
             }
-            
+
         except Exception as e:
             return {"error": f"Report generation failed: {e}"}
 

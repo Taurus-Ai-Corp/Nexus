@@ -1,6 +1,8 @@
 import logging
+
 from hubspot.crm.objects import Filter, FilterGroup, PublicObjectSearchRequest
 from hubspot.crm.properties import PropertyCreate
+
 from .base import get_hubspot_client
 
 # Configure logging
@@ -19,7 +21,7 @@ async def hubspot_list_properties(object_type: str) -> list[dict]:
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     logger.info(f"Executing hubspot_list_properties for object_type: {object_type}")
     try:
         props = client.crm.properties.core_api.get_all(object_type)
@@ -117,7 +119,7 @@ async def hubspot_search_by_property(
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     logger.info(f"Executing hubspot_search_by_property on {object_type}: {property_name} {operator} {value}")
 
     try:
@@ -156,7 +158,7 @@ async def hubspot_create_property(name: str, label: str, description: str, objec
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         logger.info(f"Creating property with name: {name}, label: {label}, object_type: {object_type}")
 

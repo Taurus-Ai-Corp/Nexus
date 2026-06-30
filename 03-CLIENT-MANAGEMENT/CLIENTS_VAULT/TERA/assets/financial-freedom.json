@@ -1,0 +1,13 @@
+{
+  "slug": "financial-freedom",
+  "original": "Shot on iPhone 17 Pro Max, natural everyday photography, candid moment, real human with natural skin texture, visible pores, fine lines and natural imperfections, no artificial lighting, available light only, no airbrushing, no CGI, no AI artifacts, natural color temperature, realistic shadows, authentic appearance, real photograph not computer generated, organic skin tones, Creative still life: an open hand with coins floating upward, warm golden light from below, dark background, coins frozen mid-air with natural motion blur, realistic lighting, coins with natural metallic sheen, top portion of frame empty for text, artistic concept photography, natural shadows, realistic materials, authentic look",
+  "enhanced": "Shot on iPhone 17 Pro Max, a candid artistic concept photograph of an open human hand with coins floating upward against a dark background, captured in warm golden light originating from below. The subject is a real human with organic skin tones, displaying natural skin texture with visible pores, fine lines, and authentic imperfections, completely free of airbrushing, CGI, or AI artifacts. The coins are frozen mid-air with natural metallic sheen and realistic motion blur, illuminated by authentic lighting that casts realistic shadows and creates a natural color temperature. The top portion of the frame is intentionally empty for text overlay, while the overall image maintains an authentic, photorealistic appearance with no artificial lighting, no plastic look, and no AI artifacts, resembling a real photograph taken in everyday natural lighting rather than a computer-generated image.",
+  "provider": "black-forest-labs/FLUX.1-schnell",
+  "status": "completed",
+  "params": {
+    "steps": 8,
+    "guidance": 5.0,
+    "size": "1024x768"
+  },
+  "raw_size_bytes": 46584
+}

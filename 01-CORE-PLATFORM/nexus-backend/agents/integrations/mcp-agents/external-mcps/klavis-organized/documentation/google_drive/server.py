@@ -1,15 +1,19 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
 from contextvars import ContextVar
 from enum import Enum
+from typing import Any
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -17,11 +21,6 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-
 from utils import convert_document_to_html, convert_document_to_markdown
 
 # Configure logging
@@ -65,7 +64,7 @@ def get_docs_service(access_token: str):
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -79,10 +78,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -102,16 +101,16 @@ def remove_none_values(params: dict) -> dict:
     """Remove None values from parameters dictionary."""
     return {k: v for k, v in params.items() if v is not None}
 
-async def get_document_content_by_id(document_id: str) -> Dict[str, Any]:
+async def get_document_content_by_id(document_id: str) -> dict[str, Any]:
     """Get the latest version of the specified Google Docs document."""
     logger.info(f"Executing tool: get_document_by_id with document_id: {document_id}")
     try:
         access_token = get_auth_token()
         service = get_docs_service(access_token)
-        
+
         request = service.documents().get(documentId=document_id)
         response = request.execute()
-        
+
         return dict(response)
     except HttpError as e:
         logger.error(f"Google Docs API error: {e}")
@@ -296,13 +295,13 @@ async def search_documents(
     order_by: list[str] | None = None,
     limit: int = 50,
     pagination_token: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Search for documents in the user's Google Drive."""
-    logger.info(f"Executing tool: search_documents")
+    logger.info("Executing tool: search_documents")
     try:
         access_token = get_auth_token()
         service = get_drive_service(access_token)
-        
+
         # Convert order_by strings to OrderBy enums
         order_by_enums = []
         if order_by:
@@ -362,9 +361,9 @@ async def search_and_retrieve_documents(
     order_by: list[str] | None = None,
     limit: int = 50,
     pagination_token: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Search and retrieve the contents of Google documents in the user's Google Drive."""
-    logger.info(f"Executing tool: search_and_retrieve_documents")
+    logger.info("Executing tool: search_and_retrieve_documents")
     try:
         # First search for documents
         response = await search_documents(
@@ -411,13 +410,13 @@ async def get_file_tree_structure(
     include_organization_domain_documents: bool = False,
     order_by: list[str] | None = None,
     limit: int | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get the file/folder tree structure of the user's Google Drive."""
-    logger.info(f"Executing tool: get_file_tree_structure")
+    logger.info("Executing tool: get_file_tree_structure")
     try:
         access_token = get_auth_token()
         service = get_drive_service(access_token)
-        
+
         # Convert order_by strings to OrderBy enums
         order_by_enums = []
         if order_by:
@@ -662,7 +661,7 @@ def main(
     @app.call_tool()
     async def call_tool(
         name: str, arguments: dict
-    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:     
+    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         if name == "google_drive_search_documents":
             try:
                 result = await search_documents(
@@ -689,7 +688,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_drive_search_and_retrieve_documents":
             try:
                 result = await search_and_retrieve_documents(
@@ -717,7 +716,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_drive_get_file_tree_structure":
             try:
                 result = await get_file_tree_structure(
@@ -741,7 +740,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         return [
             types.TextContent(
                 type="text",
@@ -754,10 +753,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -769,7 +768,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -784,10 +783,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -812,7 +811,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -830,4 +829,4 @@ def main(
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

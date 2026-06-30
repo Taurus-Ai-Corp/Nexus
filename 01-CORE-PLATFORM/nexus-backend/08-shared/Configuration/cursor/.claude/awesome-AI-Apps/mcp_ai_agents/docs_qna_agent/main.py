@@ -1,13 +1,13 @@
 # from agno.models.openai import OpenAIChat
 import asyncio
+import os
+
+import streamlit as st
+from agno.agent import Agent
 from agno.models.nebius import Nebius
 from agno.tools.mcp import MCPTools
-from typing import AsyncIterator
-from agno.agent import Agent, RunResponseEvent
-from agno.utils.pprint import pprint_run_response
-import os
-import streamlit as st
 from dotenv import load_dotenv
+
 load_dotenv()
 
 server_url = "https://mintlify.com/docs/mcp"
@@ -53,7 +53,7 @@ if "messages" not in st.session_state:
 col1, col2 = st.columns([4, 1])
 with col1:
     # Create title with embedded images
-    title_html = f"""
+    title_html = """
         <div style="display: flex; align-items: center; gap: 10px;">
             <h1 style="margin: 0;">
              📚 Talk to Your Docs
@@ -83,16 +83,16 @@ with st.sidebar:
     )
 
     st.divider()
-    
+
     # Documentation URL input
     doc_url = st.text_input(
         "Documentation URL",
         value=server_url,
         help="Enter the URL of the documentation you want to query",
     )
-    
+
     st.divider()
-    
+
     # Example questions
     st.markdown("### 💡 Example Questions")
     example_questions = [
@@ -101,7 +101,7 @@ with st.sidebar:
         "How do I set up authentication?",
         "What are the best practices for documentation?",
     ]
-    
+
     for question in example_questions:
         if st.button(question, key=f"example_{hash(question)}", use_container_width=True):
             st.session_state.messages.append({"role": "user", "content": question})
@@ -131,25 +131,25 @@ if prompt:
     if not nebius_api_key:
         st.error("Please enter your Nebius API key in the sidebar.")
         st.stop()
-    
+
     # Add user message to chat history only if it's from chat input (not from example button)
     if not (st.session_state.messages and st.session_state.messages[-1]["role"] == "user" and st.session_state.messages[-1]["content"] == prompt):
         st.session_state.messages.append({"role": "user", "content": prompt})
-        
+
         # Display user message
         with st.chat_message("user"):
             st.markdown(prompt)
-    
+
     # Display assistant response
     with st.chat_message("assistant"):
         try:
             with st.spinner("Thinking..."):
                 # Update environment variable for this session
                 os.environ["NEBIUS_API_KEY"] = nebius_api_key
-                
+
                 # Run the MCP agent
                 response_text = asyncio.run(run_mcp_agent(doc_url, prompt))
-            
+
             # Display the response after spinner is done
             if response_text:
                 st.markdown(response_text)
@@ -159,7 +159,7 @@ if prompt:
                 error_message = "No response received from the agent."
                 st.error(error_message)
                 st.session_state.messages.append({"role": "assistant", "content": error_message})
-                
+
         except Exception as e:
             error_message = f"An error occurred: {str(e)}"
             st.error(error_message)
@@ -171,4 +171,3 @@ if prompt:
 #     # The Streamlit app runs the agent through the UI above
 #     pass
 
-    

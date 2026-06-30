@@ -1,14 +1,13 @@
+import base64
 import contextlib
+import json
 import logging
 import os
-import json
-import base64
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from contextvars import ContextVar
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,14 +15,20 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
     auth_token_context,
+    create_comment,
+    create_issue,
+    create_project,
+    get_comments,
+    get_issue_by_id,
+    get_issues,
+    get_projects,
     get_teams,
-    get_issues, get_issue_by_id, create_issue, update_issue, search_issues,
-    get_projects, create_project, update_project,
-    get_comments, create_comment, update_comment
+    search_issues,
+    update_comment,
+    update_issue,
+    update_project,
 )
 
 # Configure logging
@@ -36,7 +41,7 @@ LINEAR_MCP_SERVER_PORT = int(os.getenv("LINEAR_MCP_SERVER_PORT", "5000"))
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -50,10 +55,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -426,7 +431,7 @@ def main(
     async def call_tool(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
-        
+
         if name == "linear_get_teams":
             try:
                 result = await get_teams()
@@ -444,7 +449,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_get_issues":
             team_id = arguments.get("team_id")
             limit = arguments.get("limit", 50)
@@ -465,7 +470,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_get_issue_by_id":
             issue_id = arguments.get("issue_id")
             if not issue_id:
@@ -491,7 +496,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_create_issue":
             team_id = arguments.get("team_id")
             title = arguments.get("title")
@@ -502,13 +507,13 @@ def main(
                         text="Error: team_id and title parameters are required",
                     )
                 ]
-            
+
             description = arguments.get("description")
             assignee_id = arguments.get("assignee_id")
             priority = arguments.get("priority")
             state_id = arguments.get("state_id")
             project_id = arguments.get("project_id")
-            
+
             try:
                 result = await create_issue(team_id, title, description, assignee_id, priority, state_id, project_id)
                 return [
@@ -525,7 +530,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_update_issue":
             issue_id = arguments.get("issue_id")
             if not issue_id:
@@ -535,14 +540,14 @@ def main(
                         text="Error: issue_id parameter is required",
                     )
                 ]
-            
+
             title = arguments.get("title")
             description = arguments.get("description")
             assignee_id = arguments.get("assignee_id")
             priority = arguments.get("priority")
             state_id = arguments.get("state_id")
             project_id = arguments.get("project_id")
-            
+
             try:
                 result = await update_issue(issue_id, title, description, assignee_id, priority, state_id, project_id)
                 return [
@@ -559,7 +564,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_get_projects":
             team_id = arguments.get("team_id")
             limit = arguments.get("limit", 50)
@@ -580,7 +585,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_create_project":
             name = arguments.get("name")
             if not name:
@@ -590,12 +595,12 @@ def main(
                         text="Error: name parameter is required",
                     )
                 ]
-            
+
             description = arguments.get("description")
             team_ids = arguments.get("team_ids")
             lead_id = arguments.get("lead_id")
             target_date = arguments.get("target_date")
-            
+
             try:
                 result = await create_project(name, description, team_ids, lead_id, target_date)
                 return [
@@ -612,7 +617,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_update_project":
             project_id = arguments.get("project_id")
             if not project_id:
@@ -622,13 +627,13 @@ def main(
                         text="Error: project_id parameter is required",
                     )
                 ]
-            
+
             name = arguments.get("name")
             description = arguments.get("description")
             state = arguments.get("state")
             target_date = arguments.get("target_date")
             lead_id = arguments.get("lead_id")
-            
+
             try:
                 result = await update_project(project_id, name, description, state, target_date, lead_id)
                 return [
@@ -645,7 +650,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_get_comments":
             issue_id = arguments.get("issue_id")
             if not issue_id:
@@ -671,7 +676,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_create_comment":
             issue_id = arguments.get("issue_id")
             body = arguments.get("body")
@@ -698,7 +703,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_update_comment":
             comment_id = arguments.get("comment_id")
             body = arguments.get("body")
@@ -725,7 +730,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "linear_search_issues":
             query_text = arguments.get("query")
             if not query_text:
@@ -735,10 +740,10 @@ def main(
                         text="Error: query parameter is required",
                     )
                 ]
-            
+
             team_id = arguments.get("team_id")
             limit = arguments.get("limit", 20)
-            
+
             try:
                 result = await search_issues(query_text, team_id, limit)
                 return [
@@ -755,7 +760,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         return [
             types.TextContent(
                 type="text",
@@ -768,10 +773,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -783,7 +788,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -798,10 +803,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -826,7 +831,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -844,4 +849,4 @@ def main(
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

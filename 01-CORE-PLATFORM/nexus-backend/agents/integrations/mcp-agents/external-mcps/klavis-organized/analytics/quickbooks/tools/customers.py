@@ -1,6 +1,7 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from mcp.types import Tool
+
 from .http_client import QuickBooksHTTPClient
 
 customer_properties_user_define = {
@@ -266,7 +267,7 @@ search_customers_tool = Tool(
 )
 
 
-def mcp_object_to_customer_data(**kwargs) -> Dict[str, Any]:
+def mcp_object_to_customer_data(**kwargs) -> dict[str, Any]:
     """
     Convert MCP object format to QuickBooks customer data format.
     This function transforms the flat MCP structure to the nested format expected by QuickBooks API.
@@ -343,7 +344,7 @@ def mcp_object_to_customer_data(**kwargs) -> Dict[str, Any]:
     return customer_data
 
 
-def customer_data_to_mcp_object(customer_data: Dict[str, Any]) -> Dict[str, Any]:
+def customer_data_to_mcp_object(customer_data: dict[str, Any]) -> dict[str, Any]:
     """
     Convert QuickBooks customer data format to MCP object format.
     This function flattens the nested QuickBooks structure to the flat format expected by MCP tools.
@@ -462,7 +463,7 @@ class CustomerManager:
     def __init__(self, client: QuickBooksHTTPClient):
         self.client = client
 
-    async def create_customer(self, **kwargs) -> Dict[str, Any]:
+    async def create_customer(self, **kwargs) -> dict[str, Any]:
 
         # Validate we have DisplayName or at least one name component
         display_name_provided = 'DisplayName' in kwargs
@@ -482,13 +483,13 @@ class CustomerManager:
         # Convert response back to MCP format
         return customer_data_to_mcp_object(response['Customer'])
 
-    async def get_customer(self, Id: str) -> Dict[str, Any]:
+    async def get_customer(self, Id: str) -> dict[str, Any]:
         response = await self.client._get(f"customer/{Id}")
 
         # Convert response back to MCP format
         return customer_data_to_mcp_object(response['Customer'])
 
-    async def list_customers(self, MaxResults: int = 100, ActiveOnly: bool = True) -> List[Dict[str, Any]]:
+    async def list_customers(self, MaxResults: int = 100, ActiveOnly: bool = True) -> list[dict[str, Any]]:
         query = "SELECT * FROM Customer"
         if ActiveOnly:
             query += " WHERE Active = true"
@@ -499,7 +500,7 @@ class CustomerManager:
         customers = response['QueryResponse']['Customer']
         return [customer_data_to_mcp_object(customer) for customer in customers]
 
-    async def update_customer(self, **kwargs) -> Dict[str, Any]:
+    async def update_customer(self, **kwargs) -> dict[str, Any]:
         customer_id = kwargs.get('Id')
         if not customer_id:
             raise ValueError("Id is required for updating a customer")
@@ -524,7 +525,7 @@ class CustomerManager:
         # Convert response back to MCP format
         return customer_data_to_mcp_object(response['Customer'])
 
-    async def deactivate_customer(self, Id: str) -> Dict[str, Any]:
+    async def deactivate_customer(self, Id: str) -> dict[str, Any]:
         # First get the current customer to obtain the SyncToken
         current_customer_response = await self.client._get(f"customer/{Id}")
         current_data = current_customer_response.get('Customer', {})
@@ -542,7 +543,7 @@ class CustomerManager:
         # Convert response back to MCP format
         return customer_data_to_mcp_object(response['Customer'])
 
-    async def activate_customer(self, Id: str) -> Dict[str, Any]:
+    async def activate_customer(self, Id: str) -> dict[str, Any]:
         # First get the current customer to obtain the SyncToken
         current_customer_response = await self.client._get(f"customer/{Id}")
         current_data = current_customer_response.get('Customer', {})
@@ -560,7 +561,7 @@ class CustomerManager:
         # Convert response back to MCP format
         return customer_data_to_mcp_object(response['Customer'])
 
-    async def search_customers(self, **kwargs) -> List[Dict[str, Any]]:
+    async def search_customers(self, **kwargs) -> list[dict[str, Any]]:
         """
         Search customers with various filters and pagination support.
 

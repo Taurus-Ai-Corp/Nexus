@@ -1,0 +1,13 @@
+{
+  "slug": "headshot-chiaroscuro",
+  "original": "Shot on iPhone 17 Pro Max, natural everyday photography, candid moment, real human with natural skin texture, visible pores, fine lines and natural imperfections, no artificial lighting, available light only, no airbrushing, no CGI, no AI artifacts, natural color temperature, realistic shadows, authentic appearance, real photograph not computer generated, organic skin tones, Natural light black and white portrait of a woman in her late 30s, seated by a window with soft daylight coming from one side creating natural shadow play, three-quarter angle, leaning slightly forward, thoughtful expression, monochrome filter, natural skin texture visible, realistic shadows, casual indoor setting, authentic moment, ('natural skin texture, visible pores, subtle wrinkles, natural hair strands, no airbrushing, minimal makeup, real person, candid expression, iPhone 17 Pro Max portrait mode, natural depth of field, realistic colors, everyday authentic look, not AI generated, real photograph quality',)",
+  "enhanced": "Shot on iPhone 17 Pro Max in natural everyday photography, a candid monochrome black and white portrait of a woman in her late 30s seated by a window with soft daylight coming from one side creating natural shadow play, three-quarter angle leaning slightly forward with a thoughtful expression, featuring real human skin texture with visible pores, fine lines, subtle wrinkles, and natural imperfections, no airbrushing, minimal makeup, natural hair strands, no artificial lighting, available light only, realistic shadows, authentic appearance, organic skin tones, natural depth of field, realistic colors, everyday authentic look, not AI generated, real photograph quality, casual indoor setting, authentic moment, no CGI, no AI artifacts, natural color temperature, no plastic look, no artificial or dramatic lighting, candid composition, realistic skin texture with visible pores and fine lines, natural imperfections, authentic moment, Stark Black & White photographic style for high-contrast monochrome, natural skin texture visible, realistic shadows, no airbrushing, minimal makeup, real person, candid expression, iPhone 17 Pro Max portrait mode, natural depth of field, realistic colors, everyday authentic look, not AI generated, real photograph quality.",
+  "provider": "black-forest-labs/FLUX.1-schnell",
+  "status": "completed",
+  "params": {
+    "steps": 8,
+    "guidance": 5.0,
+    "size": "1024x768"
+  },
+  "raw_size_bytes": 87668
+}

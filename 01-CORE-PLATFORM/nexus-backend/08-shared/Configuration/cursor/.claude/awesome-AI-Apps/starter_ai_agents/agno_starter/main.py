@@ -1,9 +1,10 @@
-from agno.agent import Agent
-from agno.tools.hackernews import HackerNewsTools
-from agno.models.nebius import Nebius
 import os
-from dotenv import load_dotenv
 from datetime import datetime
+
+from agno.agent import Agent
+from agno.models.nebius import Nebius
+from agno.tools.hackernews import HackerNewsTools
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -58,13 +59,13 @@ def main():
     print("3. User engagement patterns")
     print("4. Tech industry insights")
     print("\nType 'exit' to quit or ask me anything about tech news!")
-    
+
     while True:
         user_input = input("\nYou: ").strip()
         if user_input.lower() == 'exit':
             print("Goodbye! 👋")
             break
-            
+
         # Add timestamp to the response
         print(f"\n[{datetime.now().strftime('%H:%M:%S')}]")
         agent.print_response(user_input)

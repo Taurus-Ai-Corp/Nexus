@@ -1,13 +1,14 @@
 import contextlib
 import logging
 import os
-import re
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from urllib.parse import urlparse, parse_qs
+from typing import Any
+from urllib.parse import parse_qs, urlparse
 
+import aiohttp
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -15,10 +16,6 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from pydantic import Field
-from dotenv import load_dotenv
-import aiohttp
-import asyncio
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.proxies import WebshareProxyConfig
 
@@ -80,7 +77,7 @@ def _extract_video_id(url: str) -> str:
     """
     if not url:
         raise ValueError("Empty URL provided")
-        
+
     # Pattern 1: Standard YouTube URL (youtube.com/watch?v=VIDEO_ID)
     if "youtube.com/watch" in url:
         parsed_url = urlparse(url)
@@ -88,37 +85,37 @@ def _extract_video_id(url: str) -> str:
         video_ids = query_params.get("v")
         if video_ids and len(video_ids[0]) > 0:
             return video_ids[0]
-            
+
     # Pattern 2: Short YouTube URL (youtu.be/VIDEO_ID)
     if "youtu.be/" in url:
         parsed_url = urlparse(url)
         path = parsed_url.path
         if path and path.startswith("/"):
             return path[1:].split("?")[0]
-            
+
     # Pattern 3: Embedded YouTube URL (youtube.com/embed/VIDEO_ID)
     if "youtube.com/embed/" in url:
         parsed_url = urlparse(url)
         path = parsed_url.path
         if path and path.startswith("/embed/"):
             return path[7:].split("?")[0]
-            
+
     # Pattern 4: YouTube shorts URL (youtube.com/shorts/VIDEO_ID)
     if "youtube.com/shorts/" in url:
         parsed_url = urlparse(url)
         path = parsed_url.path
         if path and path.startswith("/shorts/"):
             return path[8:].split("?")[0]
-    
+
     raise ValueError(f"Could not extract video ID from URL: {url}")
 
-async def _make_youtube_request(endpoint: str, params: Dict[str, Any], headers: Dict[str, Any] = None) -> Any:
+async def _make_youtube_request(endpoint: str, params: dict[str, Any], headers: dict[str, Any] = None) -> Any:
     """
     Makes an HTTP request to the YouTube Data API.
     """
     params["key"] = YOUTUBE_API_KEY
     url = f"{YOUTUBE_API_BASE}/{endpoint}"
-    
+
     async with aiohttp.ClientSession() as session:
         try:
             async with session.get(url, params=params, headers=headers) as response:
@@ -139,7 +136,7 @@ async def _make_youtube_request(endpoint: str, params: Dict[str, Any], headers: 
             logger.error(f"An unexpected error occurred during YouTube API request: {e}")
             raise RuntimeError(f"Unexpected error during API call to {url}") from e
 
-async def get_video_details(video_id: str) -> Dict[str, Any]:
+async def get_video_details(video_id: str) -> dict[str, Any]:
     """Get detailed information about a specific YouTube video."""
     logger.info(f"Executing tool: get_video_details with video_id: {video_id}")
     try:
@@ -147,17 +144,17 @@ async def get_video_details(video_id: str) -> Dict[str, Any]:
             "part": "snippet,contentDetails,statistics",
             "id": video_id
         }
-        
+
         result = await _make_youtube_request("videos", params)
-        
+
         if not result.get("items"):
             return {"error": f"No video found with ID: {video_id}"}
-        
+
         video = result["items"][0]
         snippet = video.get("snippet", {})
         content_details = video.get("contentDetails", {})
         statistics = video.get("statistics", {})
-        
+
         return {
             "id": video.get("id"),
             "title": snippet.get("title"),
@@ -230,7 +227,7 @@ def main(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         ctx = app.request_context
-        
+
         if name == "get_youtube_video_transcript":
             url = arguments.get("url")
             if not url:
@@ -240,7 +237,7 @@ def main(
                         text="Error: URL parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await get_youtube_video_transcript(url)
                 return [
@@ -257,7 +254,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         return [
             types.TextContent(
                 type="text",
@@ -265,7 +262,7 @@ def main(
             )
         ]
 
-    async def get_youtube_video_transcript(url: str) -> Dict[str, Any]:
+    async def get_youtube_video_transcript(url: str) -> dict[str, Any]:
         """
         Retrieve the transcript or video details for a given YouTube video.
         The 'start' time in the transcript is formatted as MM:SS or HH:MM:SS.
@@ -273,14 +270,14 @@ def main(
         try:
             video_id = _extract_video_id(url)
             logger.info(f"Executing tool: get_video_transcript with video_id: {video_id}")
-            
+
             try:
                 # Use the initialized API with or without proxy
                 raw_transcript = youtube_transcript_api.fetch(video_id, languages=TRANSCRIPT_LANGUAGES).to_raw_data()
 
                 # Format the start time for each segment
                 formatted_transcript = [
-                    {**segment, 'start': _format_time(segment['start'])} 
+                    {**segment, 'start': _format_time(segment['start'])}
                     for segment in raw_transcript
                 ]
 
@@ -352,7 +349,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -370,4 +367,4 @@ def main(
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

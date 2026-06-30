@@ -3,8 +3,6 @@ import json
 import logging
 import os
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from contextvars import ContextVar
 
 import click
 import mcp.types as types
@@ -16,53 +14,52 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-
 from tools import (
-    get_spotify_access_token,
-    get_spotify_client,
-    search_tracks,
+    add_items_to_playlist,
     auth_token_context,
-    get_tracks_info,
-    get_user_spotify_client,
-    get_user_saved_tracks,
-    check_user_saved_tracks,
-    save_tracks_for_current_user,
-    remove_user_saved_tracks,
-    get_albums_info,
-    get_album_tracks,
-    get_user_saved_albums,
-    save_albums_for_current_user,
-    remove_albums_for_current_user,
+    check_user_follows,
     check_user_saved_albums,
-    get_artists_info,
+    check_user_saved_episodes,
+    check_user_saved_shows,
+    check_user_saved_tracks,
+    follow_artists_or_users,
+    follow_playlist,
+    get_album_tracks,
+    get_albums_info,
     get_artist_albums,
     get_artist_top_tracks,
-    get_episodes_info,
-    save_episodes_for_current_user,
-    get_user_saved_episodes,
-    remove_episodes_for_current_user,
-    check_user_saved_episodes,
-    get_playlist_by_id,
-    get_user_owned_playlists,
-    update_playlist_details,
-    get_current_user_profile,
-    get_current_user_top_items,
-    get_spotify_user_public_profile,
-    follow_playlist,
-    unfollow_playlist,
+    get_artists_info,
     get_current_user_followed_artists,
-    follow_artists_or_users,
-    unfollow_artists_or_users,
-    check_user_follows,
-    add_items_to_playlist,
-    remove_items_from_playlist,
     get_current_user_playlists,
-    get_multiple_shows,
-    get_show_episodes,
+    get_current_user_profile,
     get_current_user_saved_shows,
-    save_shows_to_user_library,
+    get_current_user_top_items,
+    get_episodes_info,
+    get_multiple_shows,
+    get_playlist_by_id,
+    get_show_episodes,
+    get_spotify_access_token,
+    get_spotify_client,
+    get_spotify_user_public_profile,
+    get_tracks_info,
+    get_user_owned_playlists,
+    get_user_saved_albums,
+    get_user_saved_episodes,
+    get_user_saved_tracks,
+    get_user_spotify_client,
+    remove_albums_for_current_user,
+    remove_episodes_for_current_user,
+    remove_items_from_playlist,
     remove_shows_from_user_library,
-    check_user_saved_shows,
+    remove_user_saved_tracks,
+    save_albums_for_current_user,
+    save_episodes_for_current_user,
+    save_shows_to_user_library,
+    save_tracks_for_current_user,
+    search_tracks,
+    unfollow_artists_or_users,
+    unfollow_playlist,
+    update_playlist_details,
 )
 
 load_dotenv()
@@ -75,8 +72,8 @@ SPOTIFY_MCP_SERVER_PORT = int(os.getenv("SPOTIFY_MCP_SERVER_PORT", "5000"))
 
 @click.command()
 @click.option(
-    "--port", 
-    default=SPOTIFY_MCP_SERVER_PORT, 
+    "--port",
+    default=SPOTIFY_MCP_SERVER_PORT,
     help="Port to listen on for HTTP"
 )
 @click.option(
@@ -1043,7 +1040,7 @@ def main(
                 )
             ]
 
-            
+
         elif name == "spotify_remove_albums_for_current_user":
             album_ids = arguments.get("album_ids", [])
             logger.info(f"Removing albums for current user: {album_ids}")
@@ -1054,7 +1051,7 @@ def main(
                         text="album_ids parameter is required to remove albums.",
                     )
                 ]
-    
+
             result = remove_albums_for_current_user(album_ids, sp_oauth)
             result = [
                 types.TextContent(
@@ -1062,7 +1059,7 @@ def main(
                     text=json.dumps(result, indent=2)
                 )
             ]
-            
+
             return result
         elif name == "spotify_check_user_saved_albums":
             album_ids = arguments.get("album_ids", [])
@@ -1074,7 +1071,7 @@ def main(
                         text="album_ids parameter is required to check saved albums.",
                     )
                 ]
-    
+
             result = check_user_saved_albums(album_ids, sp_oauth)
             result = [
                 types.TextContent(
@@ -1082,7 +1079,7 @@ def main(
                     text=json.dumps(result, indent=2)
                 )
             ]
-            
+
             return result
         elif name == "spotify_get_artists_info":
             artist_ids = arguments.get("artist_ids", [])
@@ -1101,7 +1098,7 @@ def main(
                     text=json.dumps(result, indent=2)
                 )
             ]
-            
+
             return result
         elif name == "spotify_get_artist_albums":
             artist_id = arguments.get("artist_id", "")
@@ -1184,7 +1181,7 @@ def main(
             limit = arguments.get("limit", 20)
             offset = arguments.get("offset", 0)
             logger.info(f"Getting user saved episodes with limit: {limit}, offset: {offset}")
-            
+
             result = get_user_saved_episodes(sp_oauth, limit, offset)
             logger.info(f"User saved episodes result: {result}")
             result = [
@@ -1193,7 +1190,7 @@ def main(
                     text=json.dumps(result, indent=2)
                 )
             ]
-            
+
             return result
         elif name == "spotify_remove_episodes_for_current_user":
             episode_ids = arguments.get("episode_ids", [])
@@ -1205,7 +1202,7 @@ def main(
                         text="episode_ids parameter is required to remove episodes.",
                     )
                 ]
-    
+
             result = remove_episodes_for_current_user(episode_ids, sp_oauth)
             result = [
                 types.TextContent(
@@ -1213,7 +1210,7 @@ def main(
                     text=json.dumps(result, indent=2)
                 )
             ]
-            
+
             return result
         elif name == "spotify_check_user_saved_episodes":
             episode_ids = arguments.get("episode_ids", [])
@@ -1225,7 +1222,7 @@ def main(
                         text="episode_ids parameter is required to check saved episodes.",
                     )
                 ]
-    
+
             result = check_user_saved_episodes(episode_ids, sp_oauth)
             result = [
                 types.TextContent(
@@ -1233,7 +1230,7 @@ def main(
                     text=json.dumps(result, indent=2)
                 )
             ]
-            
+
             return result
         elif name == "spotify_get_playlist_by_id":
             playlist_id = arguments.get("playlist_id", "")
@@ -1246,7 +1243,7 @@ def main(
                         text="playlist_id parameter is required to get playlist information.",
                     )
                 ]
-    
+
             result = get_playlist_by_id(playlist_id, sp, market)
             result = [
                 types.TextContent(
@@ -1254,7 +1251,7 @@ def main(
                     text=json.dumps(result, indent=2)
                 )
             ]
-            
+
             return result
         elif name == "spotify_get_user_owned_playlists":
             user_id = arguments.get("user_id", "")

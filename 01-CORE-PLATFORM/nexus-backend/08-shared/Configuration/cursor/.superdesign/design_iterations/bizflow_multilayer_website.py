@@ -8,19 +8,20 @@ import asyncio
 import json
 import os
 import sys
-from datetime import datetime
-from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
+from datetime import datetime
+from typing import Any
 
 # Add paths for all integrations
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../web-land-Dash/subagents'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../TaurusAI-BizFlow-Service-package'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../web-land-Dash/landing-page'))
 
-from seo_optimization_agent import SEOOptimizationAgent
 from competitive_research import CompetitiveIntelligenceAgent
-from social_media_integration import SocialMediaIntegrationAgent
 from landing_page_generator import TaurusAILandingPageGenerator
+from seo_optimization_agent import SEOOptimizationAgent
+from social_media_integration import SocialMediaIntegrationAgent
+
 
 @dataclass
 class WebsiteLayer:
@@ -28,17 +29,17 @@ class WebsiteLayer:
     name: str
     purpose: str
     target_audience: str
-    required_features: List[str]
-    seo_focus: List[str]
+    required_features: list[str]
+    seo_focus: list[str]
     content_strategy: str
     design_style: str
-    conversion_goals: List[str]
+    conversion_goals: list[str]
 
 class BizFlowMultiLayerWebsite:
     """
     Intelligent multi-layer website generator using all available MCPs and agents
     """
-    
+
     def __init__(self):
         self.website_layers = self._define_website_layers()
         self.mcp_integrations = self._define_mcp_integrations()
@@ -46,10 +47,10 @@ class BizFlowMultiLayerWebsite:
         self.competitive_insights = {}
         self.seo_optimizations = {}
         self.social_media_strategy = {}
-        
-    def _define_website_layers(self) -> Dict[str, WebsiteLayer]:
+
+    def _define_website_layers(self) -> dict[str, WebsiteLayer]:
         """Define the multi-layer website architecture"""
-        
+
         return {
             "main_landing": WebsiteLayer(
                 name="Main Landing Page",
@@ -72,7 +73,7 @@ class BizFlowMultiLayerWebsite:
                 design_style="Modern, professional, conversion-focused",
                 conversion_goals=["demo_requests", "trial_signups", "consultation_bookings"]
             ),
-            
+
             "features_showcase": WebsiteLayer(
                 name="Features & Capabilities",
                 purpose="Detailed feature demonstration and education",
@@ -94,7 +95,7 @@ class BizFlowMultiLayerWebsite:
                 design_style="Interactive, technical, demonstration-focused",
                 conversion_goals=["feature_exploration", "technical_understanding", "integration_interest"]
             ),
-            
+
             "solutions_industry": WebsiteLayer(
                 name="Industry Solutions",
                 purpose="Industry-specific marketing solutions",
@@ -117,7 +118,7 @@ class BizFlowMultiLayerWebsite:
                 design_style="Professional, industry-focused, solution-oriented",
                 conversion_goals=["industry_solution_interest", "case_study_engagement", "custom_solution_requests"]
             ),
-            
+
             "resources_education": WebsiteLayer(
                 name="Resources & Education",
                 purpose="Thought leadership and educational content",
@@ -140,7 +141,7 @@ class BizFlowMultiLayerWebsite:
                 design_style="Educational, resource-rich, community-focused",
                 conversion_goals=["content_consumption", "resource_downloads", "webinar_registrations"]
             ),
-            
+
             "about_company": WebsiteLayer(
                 name="About & Company",
                 purpose="Company story, team, and credibility",
@@ -162,7 +163,7 @@ class BizFlowMultiLayerWebsite:
                 design_style="Professional, trustworthy, company-focused",
                 conversion_goals=["company_trust", "partnership_inquiries", "career_applications"]
             ),
-            
+
             "pricing_plans": WebsiteLayer(
                 name="Pricing & Plans",
                 purpose="Transparent pricing and plan comparison",
@@ -184,7 +185,7 @@ class BizFlowMultiLayerWebsite:
                 design_style="Transparent, value-focused, conversion-oriented",
                 conversion_goals=["plan_selection", "trial_signups", "enterprise_inquiries"]
             ),
-            
+
             "contact_support": WebsiteLayer(
                 name="Contact & Support",
                 purpose="Customer support and contact information",
@@ -207,10 +208,10 @@ class BizFlowMultiLayerWebsite:
                 conversion_goals=["support_requests", "contact_inquiries", "customer_satisfaction"]
             )
         }
-    
-    def _define_mcp_integrations(self) -> Dict[str, Any]:
+
+    def _define_mcp_integrations(self) -> dict[str, Any]:
         """Define all MCP integrations for the website"""
-        
+
         return {
             "firecrawl": {
                 "name": "Firecrawl MCP",
@@ -224,7 +225,7 @@ class BizFlowMultiLayerWebsite:
                 ],
                 "integration_status": "ready_to_connect"
             },
-            
+
             "perplexity": {
                 "name": "Perplexity MCP",
                 "purpose": "Real-time market intelligence and research",
@@ -237,7 +238,7 @@ class BizFlowMultiLayerWebsite:
                 ],
                 "integration_status": "ready_to_connect"
             },
-            
+
             "playwright": {
                 "name": "Playwright MCP",
                 "purpose": "Website testing and automation",
@@ -250,7 +251,7 @@ class BizFlowMultiLayerWebsite:
                 ],
                 "integration_status": "ready_to_connect"
             },
-            
+
             "design_tokens": {
                 "name": "Design Tokens MCP",
                 "purpose": "Consistent design system management",
@@ -263,7 +264,7 @@ class BizFlowMultiLayerWebsite:
                 ],
                 "integration_status": "ready_to_connect"
             },
-            
+
             "figma": {
                 "name": "Figma MCP",
                 "purpose": "Design asset management and collaboration",
@@ -276,7 +277,7 @@ class BizFlowMultiLayerWebsite:
                 ],
                 "integration_status": "ready_to_connect"
             },
-            
+
             "tailwind": {
                 "name": "Tailwind MCP",
                 "purpose": "CSS framework optimization and component generation",
@@ -289,7 +290,7 @@ class BizFlowMultiLayerWebsite:
                 ],
                 "integration_status": "ready_to_connect"
             },
-            
+
             "claude_seo": {
                 "name": "Claude SEO MCP",
                 "purpose": "Advanced SEO optimization and keyword research",
@@ -303,10 +304,10 @@ class BizFlowMultiLayerWebsite:
                 "integration_status": "ready_to_connect"
             }
         }
-    
-    def _define_agent_orchestration(self) -> Dict[str, Any]:
+
+    def _define_agent_orchestration(self) -> dict[str, Any]:
         """Define intelligent agent orchestration strategy"""
-        
+
         return {
             "orchestration_strategy": "intelligent_task_routing",
             "agent_workflow": {
@@ -343,12 +344,12 @@ class BizFlowMultiLayerWebsite:
                 "performance_monitoring": "continuous"
             }
         }
-    
-    async def initialize_website_generation(self) -> Dict[str, Any]:
+
+    async def initialize_website_generation(self) -> dict[str, Any]:
         """Initialize the complete website generation process"""
-        
+
         print("🚀 Initializing BizFlow™ Multi-Layer Website Generation...")
-        
+
         initialization_results = {
             "timestamp": datetime.now().isoformat(),
             "website_layers": len(self.website_layers),
@@ -357,117 +358,117 @@ class BizFlowMultiLayerWebsite:
             "generation_phases": 5,
             "estimated_completion_time": "2-3 hours"
         }
-        
+
         # Initialize all agents
         await self._initialize_agents()
-        
+
         # Initialize MCP connections
         await self._initialize_mcp_connections()
-        
+
         # Setup orchestration
         await self._setup_agent_orchestration()
-        
+
         print("✅ Website generation system initialized successfully!")
-        
+
         return initialization_results
-    
+
     async def _initialize_agents(self):
         """Initialize all required agents"""
-        
+
         print("🤖 Initializing intelligent agents...")
-        
+
         # Initialize SEO agent
         self.seo_agent = SEOOptimizationAgent()
-        
+
         # Initialize competitive intelligence agent
         self.competitive_agent = CompetitiveIntelligenceAgent()
         await self.competitive_agent.initialize_agents()
-        
+
         # Initialize social media integration agent
         self.social_media_agent = SocialMediaIntegrationAgent()
-        
+
         # Initialize landing page generator
         self.landing_page_generator = TaurusAILandingPageGenerator()
-        
+
         print("✅ All agents initialized successfully!")
-    
+
     async def _initialize_mcp_connections(self):
         """Initialize connections to all MCPs"""
-        
+
         print("🔗 Initializing MCP connections...")
-        
+
         # Initialize Firecrawl MCP for competitor analysis
         await self._initialize_firecrawl_mcp()
-        
+
         # Initialize Perplexity MCP for market intelligence
         await self._initialize_perplexity_mcp()
-        
+
         # Initialize other MCPs
         await self._initialize_other_mcps()
-        
+
         print("✅ All MCP connections established!")
-    
+
     async def _initialize_firecrawl_mcp(self):
         """Initialize Firecrawl MCP for competitor analysis"""
-        
+
         print("🕷️ Initializing Firecrawl MCP...")
-        
+
         # Simulate Firecrawl MCP initialization
         await asyncio.sleep(1)
-        
+
         self.firecrawl_status = {
             "status": "connected",
             "capabilities": ["deep_scraping", "content_analysis", "design_extraction"],
             "rate_limits": {"requests_per_minute": 100, "concurrent_scrapes": 10},
             "ready": True
         }
-        
+
         print("✅ Firecrawl MCP ready for competitor analysis!")
-    
+
     async def _initialize_perplexity_mcp(self):
         """Initialize Perplexity MCP for market intelligence"""
-        
+
         print("🔍 Initializing Perplexity MCP...")
-        
+
         # Simulate Perplexity MCP initialization
         await asyncio.sleep(1)
-        
+
         self.perplexity_status = {
             "status": "connected",
             "capabilities": ["market_research", "trend_analysis", "competitor_intelligence"],
             "rate_limits": {"queries_per_minute": 50, "research_depth": "comprehensive"},
             "ready": True
         }
-        
+
         print("✅ Perplexity MCP ready for market intelligence!")
-    
+
     async def _initialize_other_mcps(self):
         """Initialize other MCPs"""
-        
+
         print("🔧 Initializing other MCPs...")
-        
+
         # Initialize Playwright MCP
         self.playwright_status = {"status": "connected", "ready": True}
-        
+
         # Initialize Design Tokens MCP
         self.design_tokens_status = {"status": "connected", "ready": True}
-        
+
         # Initialize Figma MCP
         self.figma_status = {"status": "connected", "ready": True}
-        
+
         # Initialize Tailwind MCP
         self.tailwind_status = {"status": "connected", "ready": True}
-        
+
         # Initialize Claude SEO MCP
         self.claude_seo_status = {"status": "connected", "ready": True}
-        
+
         print("✅ All other MCPs initialized!")
-    
+
     async def _setup_agent_orchestration(self):
         """Setup intelligent agent orchestration"""
-        
+
         print("🎯 Setting up agent orchestration...")
-        
+
         self.orchestration_engine = {
             "status": "active",
             "intelligence_level": "advanced",
@@ -475,14 +476,14 @@ class BizFlowMultiLayerWebsite:
             "performance_monitoring": "real_time",
             "adaptive_optimization": "enabled"
         }
-        
+
         print("✅ Agent orchestration configured!")
-    
-    async def conduct_competitive_analysis(self) -> Dict[str, Any]:
+
+    async def conduct_competitive_analysis(self) -> dict[str, Any]:
         """Conduct comprehensive competitive analysis using Firecrawl and Perplexity"""
-        
+
         print("🔍 Conducting comprehensive competitive analysis...")
-        
+
         competitive_analysis = {
             "timestamp": datetime.now().isoformat(),
             "analysis_methods": ["firecrawl_scraping", "perplexity_research", "seo_analysis"],
@@ -492,34 +493,34 @@ class BizFlowMultiLayerWebsite:
             "technical_insights": [],
             "opportunity_identification": []
         }
-        
+
         # 1. Firecrawl competitor scraping
         print("🕷️ Scraping competitor websites with Firecrawl...")
         firecrawl_results = await self._scrape_competitor_websites()
         competitive_analysis["competitors_analyzed"] = firecrawl_results["competitors"]
         competitive_analysis["design_patterns"] = firecrawl_results["design_patterns"]
-        
+
         # 2. Perplexity market intelligence
         print("🔍 Gathering market intelligence with Perplexity...")
         perplexity_results = await self._gather_market_intelligence()
         competitive_analysis["content_strategies"] = perplexity_results["content_strategies"]
         competitive_analysis["technical_insights"] = perplexity_results["technical_insights"]
-        
+
         # 3. SEO competitive analysis
         print("📊 Analyzing SEO competitive landscape...")
         seo_results = await self._analyze_seo_competition()
         competitive_analysis["opportunity_identification"] = seo_results["opportunities"]
-        
+
         # Save competitive analysis
         await self._save_competitive_analysis(competitive_analysis)
-        
+
         print(f"✅ Competitive analysis complete! {len(competitive_analysis['competitors_analyzed'])} competitors analyzed")
-        
+
         return competitive_analysis
-    
-    async def _scrape_competitor_websites(self) -> Dict[str, Any]:
+
+    async def _scrape_competitor_websites(self) -> dict[str, Any]:
         """Scrape competitor websites using Firecrawl MCP"""
-        
+
         competitor_urls = [
             "https://vibemarketing.com",
             "https://boringmarketing.com",
@@ -528,41 +529,41 @@ class BizFlowMultiLayerWebsite:
             "https://hootsuite.com",
             "https://buffer.com"
         ]
-        
+
         scraped_data = {
             "competitors": [],
             "design_patterns": [],
             "content_structures": [],
             "feature_analysis": []
         }
-        
+
         for url in competitor_urls:
             print(f"🕷️ Scraping {url}...")
-            
+
             # Simulate Firecrawl scraping (in real implementation, would use actual MCP)
             competitor_data = await self._simulate_firecrawl_scraping(url)
-            
+
             scraped_data["competitors"].append(competitor_data)
-            
+
             # Extract design patterns
             if competitor_data.get("design_patterns"):
                 scraped_data["design_patterns"].extend(competitor_data["design_patterns"])
-            
+
             # Extract content structures
             if competitor_data.get("content_structure"):
                 scraped_data["content_structures"].append(competitor_data["content_structure"])
-            
+
             # Extract features
             if competitor_data.get("features"):
                 scraped_data["feature_analysis"].extend(competitor_data["features"])
-        
+
         return scraped_data
-    
-    async def _simulate_firecrawl_scraping(self, url: str) -> Dict[str, Any]:
+
+    async def _simulate_firecrawl_scraping(self, url: str) -> dict[str, Any]:
         """Simulate Firecrawl MCP scraping results"""
-        
+
         await asyncio.sleep(1)  # Simulate scraping time
-        
+
         competitor_data = {
             "url": url,
             "scraped_at": datetime.now().isoformat(),
@@ -596,14 +597,14 @@ class BizFlowMultiLayerWebsite:
                 "seo": "structured_data_and_meta_optimization"
             }
         }
-        
+
         return competitor_data
-    
-    async def _gather_market_intelligence(self) -> Dict[str, Any]:
+
+    async def _gather_market_intelligence(self) -> dict[str, Any]:
         """Gather market intelligence using Perplexity MCP"""
-        
+
         print("🔍 Gathering market intelligence...")
-        
+
         # Simulate Perplexity research queries
         research_queries = [
             "Digital marketing automation industry trends 2025",
@@ -612,7 +613,7 @@ class BizFlowMultiLayerWebsite:
             "Content marketing automation best practices",
             "Social media management platform features"
         ]
-        
+
         market_intelligence = {
             "content_strategies": [
                 "Educational content with lead generation",
@@ -636,17 +637,17 @@ class BizFlowMultiLayerWebsite:
                 "Personalization and customer experience"
             ]
         }
-        
+
         return market_intelligence
-    
-    async def _analyze_seo_competition(self) -> Dict[str, Any]:
+
+    async def _analyze_seo_competition(self) -> dict[str, Any]:
         """Analyze SEO competitive landscape"""
-        
+
         print("📊 Analyzing SEO competition...")
-        
+
         # Use existing SEO agent for competitive analysis
         seo_analysis = await self.seo_agent.conduct_uae_keyword_research()
-        
+
         opportunities = {
             "opportunities": [
                 "AI marketing automation UAE (low competition, high volume)",
@@ -667,24 +668,24 @@ class BizFlowMultiLayerWebsite:
                 "Competitive intelligence reports"
             ]
         }
-        
+
         return opportunities
-    
-    async def _save_competitive_analysis(self, analysis: Dict[str, Any]):
+
+    async def _save_competitive_analysis(self, analysis: dict[str, Any]):
         """Save competitive analysis to file"""
-        
+
         filename = f"../assets/competitive_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        
+
         with open(filename, 'w') as f:
             json.dump(analysis, f, indent=2, default=str)
-        
+
         print(f"💾 Competitive analysis saved to: {filename}")
-    
-    async def generate_website_architecture(self) -> Dict[str, Any]:
+
+    async def generate_website_architecture(self) -> dict[str, Any]:
         """Generate the complete website architecture based on competitive analysis"""
-        
+
         print("🏗️ Generating website architecture...")
-        
+
         website_architecture = {
             "timestamp": datetime.now().isoformat(),
             "architecture_type": "multi_layer_intelligent",
@@ -695,36 +696,36 @@ class BizFlowMultiLayerWebsite:
             "design_system": {},
             "technical_specifications": {}
         }
-        
+
         # Generate architecture for each layer
         for layer_id, layer_config in self.website_layers.items():
             print(f"📄 Generating architecture for {layer_config.name}...")
-            
+
             layer_architecture = await self._generate_layer_architecture(layer_config)
             website_architecture["page_architecture"][layer_id] = layer_architecture
-        
+
         # Generate navigation structure
         website_architecture["navigation_structure"] = await self._generate_navigation_structure()
-        
+
         # Generate content strategy
         website_architecture["content_strategy"] = await self._generate_content_strategy()
-        
+
         # Generate design system
         website_architecture["design_system"] = await self._generate_design_system()
-        
+
         # Generate technical specifications
         website_architecture["technical_specifications"] = await self._generate_technical_specifications()
-        
+
         # Save architecture
         await self._save_website_architecture(website_architecture)
-        
+
         print("✅ Website architecture generated successfully!")
-        
+
         return website_architecture
-    
-    async def _generate_layer_architecture(self, layer: WebsiteLayer) -> Dict[str, Any]:
+
+    async def _generate_layer_architecture(self, layer: WebsiteLayer) -> dict[str, Any]:
         """Generate architecture for a specific website layer"""
-        
+
         return {
             "name": layer.name,
             "purpose": layer.purpose,
@@ -755,10 +756,10 @@ class BizFlowMultiLayerWebsite:
                 "internal_linking": "cross_page_relevance"
             }
         }
-    
-    async def _generate_navigation_structure(self) -> Dict[str, Any]:
+
+    async def _generate_navigation_structure(self) -> dict[str, Any]:
         """Generate website navigation structure"""
-        
+
         return {
             "main_navigation": [
                 {"label": "Features", "url": "/features", "dropdown": ["AI Automation", "Social Media", "Content Marketing"]},
@@ -780,10 +781,10 @@ class BizFlowMultiLayerWebsite:
                 "bottom_navigation": False
             }
         }
-    
-    async def _generate_content_strategy(self) -> Dict[str, Any]:
+
+    async def _generate_content_strategy(self) -> dict[str, Any]:
         """Generate comprehensive content strategy"""
-        
+
         return {
             "content_pillars": [
                 "AI Marketing Automation",
@@ -814,10 +815,10 @@ class BizFlowMultiLayerWebsite:
                 "content_optimization": "Semantic SEO with user intent focus"
             }
         }
-    
-    async def _generate_design_system(self) -> Dict[str, Any]:
+
+    async def _generate_design_system(self) -> dict[str, Any]:
         """Generate comprehensive design system"""
-        
+
         return {
             "color_palette": {
                 "primary": ["#667eea", "#764ba2", "#f093fb"],
@@ -858,10 +859,10 @@ class BizFlowMultiLayerWebsite:
                 "large": "1440px"
             }
         }
-    
-    async def _generate_technical_specifications(self) -> Dict[str, Any]:
+
+    async def _generate_technical_specifications(self) -> dict[str, Any]:
         """Generate technical specifications"""
-        
+
         return {
             "frontend_framework": "Next.js 14 with React 18",
             "styling_framework": "Tailwind CSS with custom design system",
@@ -891,43 +892,43 @@ class BizFlowMultiLayerWebsite:
                 "performance_tests": "Lighthouse CI integration"
             }
         }
-    
-    async def _save_website_architecture(self, architecture: Dict[str, Any]):
+
+    async def _save_website_architecture(self, architecture: dict[str, Any]):
         """Save website architecture to file"""
-        
+
         filename = f"../assets/website_architecture_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        
+
         with open(filename, 'w') as f:
             json.dump(architecture, f, indent=2, default=str)
-        
+
         print(f"💾 Website architecture saved to: {filename}")
-    
-    async def generate_complete_website(self) -> Dict[str, Any]:
+
+    async def generate_complete_website(self) -> dict[str, Any]:
         """Generate the complete multi-layer website"""
-        
+
         print("🌐 Generating complete multi-layer website...")
-        
+
         # 1. Initialize system
         init_results = await self.initialize_website_generation()
-        
+
         # 2. Conduct competitive analysis
         competitive_analysis = await self.conduct_competitive_analysis()
-        
+
         # 3. Generate website architecture
         website_architecture = await self.generate_website_architecture()
-        
+
         # 4. Generate all website pages
         website_pages = await self._generate_all_website_pages(website_architecture)
-        
+
         # 5. Generate design system and assets
         design_system = await self._generate_design_system_assets()
-        
+
         # 6. Generate technical implementation
         technical_implementation = await self._generate_technical_implementation()
-        
+
         # 7. Generate deployment configuration
         deployment_config = await self._generate_deployment_configuration()
-        
+
         complete_website = {
             "generation_timestamp": datetime.now().isoformat(),
             "initialization": init_results,
@@ -940,32 +941,32 @@ class BizFlowMultiLayerWebsite:
             "total_files_generated": len(website_pages) + len(design_system) + len(technical_implementation),
             "website_status": "ready_for_deployment"
         }
-        
+
         # Save complete website
         await self._save_complete_website(complete_website)
-        
+
         print("✅ Complete website generated successfully!")
-        
+
         return complete_website
-    
-    async def _generate_all_website_pages(self, architecture: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _generate_all_website_pages(self, architecture: dict[str, Any]) -> dict[str, Any]:
         """Generate all website pages based on architecture"""
-        
+
         print("📄 Generating all website pages...")
-        
+
         website_pages = {}
-        
+
         for layer_id, layer_arch in architecture["page_architecture"].items():
             print(f"📝 Generating {layer_arch['name']}...")
-            
+
             page_content = await self._generate_single_page(layer_arch)
             website_pages[layer_id] = page_content
-        
+
         return website_pages
-    
-    async def _generate_single_page(self, layer_arch: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _generate_single_page(self, layer_arch: dict[str, Any]) -> dict[str, Any]:
         """Generate a single website page"""
-        
+
         return {
             "page_name": layer_arch["name"],
             "html_content": f"<!-- {layer_arch['name']} HTML Content -->",
@@ -978,12 +979,12 @@ class BizFlowMultiLayerWebsite:
             },
             "page_structure": layer_arch["page_structure"]
         }
-    
-    async def _generate_design_system_assets(self) -> Dict[str, Any]:
+
+    async def _generate_design_system_assets(self) -> dict[str, Any]:
         """Generate design system assets"""
-        
+
         print("🎨 Generating design system assets...")
-        
+
         return {
             "design_tokens": "CSS custom properties for consistent theming",
             "component_library": "React component library with Tailwind CSS",
@@ -991,12 +992,12 @@ class BizFlowMultiLayerWebsite:
             "illustration_system": "Custom illustrations and graphics",
             "animation_library": "CSS animations and transitions"
         }
-    
-    async def _generate_technical_implementation(self) -> Dict[str, Any]:
+
+    async def _generate_technical_implementation(self) -> dict[str, Any]:
         """Generate technical implementation files"""
-        
+
         print("⚙️ Generating technical implementation...")
-        
+
         return {
             "nextjs_config": "Next.js configuration with optimizations",
             "tailwind_config": "Tailwind CSS configuration with custom design system",
@@ -1005,12 +1006,12 @@ class BizFlowMultiLayerWebsite:
             "eslint_config": "Code quality and linting configuration",
             "testing_setup": "Testing configuration and setup files"
         }
-    
-    async def _generate_deployment_configuration(self) -> Dict[str, Any]:
+
+    async def _generate_deployment_configuration(self) -> dict[str, Any]:
         """Generate deployment configuration"""
-        
+
         print("🚀 Generating deployment configuration...")
-        
+
         return {
             "vercel_config": "Vercel deployment configuration",
             "environment_variables": "Environment configuration for different stages",
@@ -1018,47 +1019,47 @@ class BizFlowMultiLayerWebsite:
             "domain_configuration": "Custom domain and SSL setup",
             "performance_monitoring": "Analytics and performance tracking setup"
         }
-    
-    async def _save_complete_website(self, website: Dict[str, Any]):
+
+    async def _save_complete_website(self, website: dict[str, Any]):
         """Save complete website to file"""
-        
+
         filename = f"../assets/complete_website_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        
+
         with open(filename, 'w') as f:
             json.dump(website, f, indent=2, default=str)
-        
+
         print(f"💾 Complete website saved to: {filename}")
 
 async def main():
     """Main function to generate the complete multi-layer website"""
     print("🏗️ BizFlow™ Multi-Layer Website Generator")
     print("="*80)
-    
+
     # Create website generator
     generator = BizFlowMultiLayerWebsite()
-    
+
     # Generate complete website
     complete_website = await generator.generate_complete_website()
-    
+
     # Display results
     print("\n" + "="*80)
     print("🎉 WEBSITE GENERATION COMPLETE!")
     print("="*80)
-    
+
     print(f"🌐 Website Layers: {complete_website['website_architecture']['total_pages']}")
     print(f"🔗 MCP Integrations: {complete_website['initialization']['mcp_integrations']}")
     print(f"🤖 Agent Orchestration: {complete_website['initialization']['agent_orchestration']}")
     print(f"📄 Total Files Generated: {complete_website['total_files_generated']}")
-    
-    print(f"\n🏗️ Architecture Generated:")
+
+    print("\n🏗️ Architecture Generated:")
     for layer_id, layer_arch in complete_website['website_architecture']['page_architecture'].items():
         print(f"   • {layer_arch['name']}: {layer_arch['purpose']}")
-    
+
     print(f"\n🎨 Design System: {len(complete_website['design_system'])} components")
     print(f"⚙️ Technical Implementation: {len(complete_website['technical_implementation'])} files")
-    print(f"🚀 Deployment Configuration: Ready for Vercel deployment")
-    
-    print(f"\n✅ Your world-class multi-layer website is ready!")
+    print("🚀 Deployment Configuration: Ready for Vercel deployment")
+
+    print("\n✅ Your world-class multi-layer website is ready!")
     print("🚀 Deploy to Vercel and dominate your market!")
 
 if __name__ == "__main__":

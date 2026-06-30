@@ -1,13 +1,13 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -15,23 +15,20 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
-from tools.base import AsanaToolExecutionError
-from tools.constants import (
-    TaskSortBy,
-    SortOrder,
-    TagColor,
-)
+from tools import projects as project_tools
+from tools import tags as tag_tools
 
 # Import tools
 from tools import tasks as task_tools
-from tools import projects as project_tools
-from tools import workspaces as workspace_tools
-from tools import users as user_tools
 from tools import teams as team_tools
-from tools import tags as tag_tools
-from tools.base import auth_token_context
+from tools import users as user_tools
+from tools import workspaces as workspace_tools
+from tools.base import AsanaToolExecutionError, auth_token_context
+from tools.constants import (
+    SortOrder,
+    TagColor,
+    TaskSortBy,
+)
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -43,7 +40,7 @@ ASANA_MCP_SERVER_PORT = int(os.getenv("ASANA_MCP_SERVER_PORT", "5000"))
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -57,10 +54,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -663,7 +660,7 @@ def main(
                 # Convert string enums to proper enum types
                 sort_by = arguments.get("sort_by", "modified_at")
                 sort_order = arguments.get("sort_order", "descending")
-                
+
                 # Map string values to enum values
                 sort_by_map = {
                     "created_at": TaskSortBy.CREATED_AT,
@@ -674,10 +671,10 @@ def main(
                     "ascending": SortOrder.ASCENDING,
                     "descending": SortOrder.DESCENDING,
                 }
-                
+
                 arguments["sort_by"] = sort_by_map.get(sort_by, TaskSortBy.MODIFIED_AT)
                 arguments["sort_order"] = sort_order_map.get(sort_order, SortOrder.DESCENDING)
-                
+
                 result = await task_tools.search_tasks(**arguments)
             elif name == "asana_update_task":
                 result = await task_tools.update_task(**arguments)
@@ -766,10 +763,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -781,7 +778,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -796,10 +793,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -824,7 +821,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -850,4 +847,4 @@ def main(
         return 1
 
 if __name__ == "__main__":
-    exit(main()) 
+    exit(main())

@@ -1,9 +1,8 @@
+import json
+import time
+
 import requests
 from bs4 import BeautifulSoup
-import re
-import time
-from urllib.parse import urljoin, urlparse
-import json
 
 # Headers to mimic a browser
 headers = {
@@ -30,16 +29,16 @@ def scrape_url(url):
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         soup = BeautifulSoup(response.content, 'html.parser')
-        
+
         # Remove script and style elements
         for script in soup(["script", "style"]):
             script.decompose()
-        
+
         text = soup.get_text()
         lines = (line.strip() for line in text.splitlines())
         chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
         text = '\n'.join(chunk for chunk in chunks if chunk)
-        
+
         return text
     except Exception as e:
         print(f"Error scraping {url}: {e}")
@@ -55,13 +54,13 @@ def find_keywords(text, keywords):
 
 def main():
     print("Starting research on Muthoot FinCorp AI agents in SaaS opportunities...")
-    
+
     results = {
         'muthoot_website': {},
         'news_articles': [],
         'key_findings': []
     }
-    
+
     # Scrape Muthoot FinCorp website
     print("Scraping Muthoot FinCorp website...")
     muthoot_text = scrape_url(muthoot_url)
@@ -72,7 +71,7 @@ def main():
         lines = muthoot_text.split('\n')
         relevant_lines = [line for line in lines if any(kw.lower() in line.lower() for kw in ['ai', 'artificial intelligence', 'saas', 'cloud', 'digital'])]
         results['muthoot_website']['relevant_snippets'] = relevant_lines[:10]  # Top 10
-    
+
     # Scrape news sites
     for news_url in news_sites:
         print(f"Scraping news site: {news_url}")
@@ -85,34 +84,34 @@ def main():
             for line in lines:
                 if 'muthoot' in line.lower() and any(kw.lower() in line.lower() for kw in ['ai', 'artificial intelligence', 'saas', 'cloud', 'digital']):
                     relevant_lines.append(line.strip())
-            
+
             results['news_articles'].append({
                 'url': news_url,
                 'keywords_found': found_keywords,
                 'relevant_lines': relevant_lines[:5]  # Top 5
             })
         time.sleep(1)  # Be respectful
-    
+
     # Generate key findings
     # 1. From Muthoot website
     if results['muthoot_website'].get('keywords_found'):
         results['key_findings'].append(
             f"Muthoot FinCorp website mentions: {', '.join(results['muthoot_website']['keywords_found'])}"
         )
-    
+
     # 2. From news
     for article in results['news_articles']:
         if article['relevant_lines']:
             results['key_findings'].append(
                 f"From {article['url']}: Found {len(article['relevant_lines'])} relevant lines about Muthoot and AI/SaaS."
             )
-    
+
     # Save results to a JSON file
     with open('/Users/taurus_ai/Documents/Nexus-Platform/muthoot_research_results.json', 'w') as f:
         json.dump(results, f, indent=2)
-    
+
     print("Research complete. Results saved to muthoot_research_results.json")
-    
+
     # Print a summary
     print("\n=== SUMMARY ===")
     print(f"Muthoot Website Keywords Found: {results['muthoot_website'].get('keywords_found', [])}")

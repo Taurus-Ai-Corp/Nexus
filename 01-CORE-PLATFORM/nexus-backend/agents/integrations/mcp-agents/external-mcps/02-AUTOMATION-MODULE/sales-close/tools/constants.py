@@ -52,4 +52,4 @@ class OpportunityStatus:
 class ContactFieldType:
     PHONE = "phone"
     EMAIL = "email"
-    URL = "url" 
+    URL = "url"

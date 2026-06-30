@@ -1,6 +1,8 @@
-import yfinance as yf
-import requests 
 import time
+
+import requests
+import yfinance as yf
+
 session = requests.Session()
 session.headers.update({
     "User-Agent": "Chrome/122.0.0.0"
@@ -8,7 +10,7 @@ session.headers.update({
 
 def get_top_stock_info():
     tickers_list = [
-        "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "TSLA", "META", "BRK-B", "JPM", 
+        "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "TSLA", "META", "BRK-B", "JPM",
         "JNJ", "V", "PG", "UNH", "MA", "HD", "XOM", "PFE", "NFLX", "DIS", "PEP",
         "KO", "CSCO", "INTC", "ORCL", "CRM", "NKE", "WMT", "BA", "CVX", "T", "UL",
         "IBM", "AMD"
@@ -43,7 +45,7 @@ def get_top_stock_info():
                 stock_data.append(stock_info)
             except Exception as e:
                 print(f"⚠️ Could not fetch info for {stock}: {e}")
-        
+
         print("✅ Data fetching done successfully!")
         return stock_data
 

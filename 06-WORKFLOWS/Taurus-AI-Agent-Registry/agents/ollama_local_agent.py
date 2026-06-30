@@ -3,24 +3,21 @@
 Complete local AI model integration for zero-cost development
 """
 
-import os
-import asyncio
 import logging
-from typing import Dict, List, Any, Optional, Union, AsyncGenerator
+import os
+import sys
+from collections.abc import AsyncGenerator
 from datetime import datetime
-import json
 from enum import Enum
+from typing import Any
 
-import ollama
 from ollama import AsyncClient
 from pydantic import BaseModel
 
-import sys
-import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from registry.base_agent import BaseAgent
 from registry.agent_registry import AgentMetadata
+from registry.base_agent import BaseAgent
 
 logger = logging.getLogger(__name__)
 
@@ -37,20 +34,20 @@ class ModelCapability(Enum):
 class OllamaModel(BaseModel):
     name: str
     size: str
-    capabilities: List[ModelCapability]
+    capabilities: list[ModelCapability]
     context_length: int
-    best_for: List[str]
+    best_for: list[str]
     performance_tier: str  # "fast", "balanced", "quality"
 
 class OllamaRequest(BaseModel):
-    model: Optional[str] = None
+    model: str | None = None
     prompt: str
     task_type: str = "chat"
     max_tokens: int = 1000
     temperature: float = 0.7
     stream: bool = False
-    system_message: Optional[str] = None
-    context: Optional[List[Dict[str, str]]] = None
+    system_message: str | None = None
+    context: list[dict[str, str]] | None = None
 
 class OllamaResponse(BaseModel):
     response: str
@@ -59,19 +56,19 @@ class OllamaResponse(BaseModel):
     tokens_generated: int
     cost: float = 0.0  # Always 0 for local models
     finish_reason: str
-    metadata: Dict[str, Any] = {}
+    metadata: dict[str, Any] = {}
 
 class OllamaLocalAgent(BaseAgent):
     """Local AI model agent using Ollama for zero-cost development"""
-    
+
     def __init__(self):
         super().__init__()  # Call BaseAgent __init__
         self.ollama_url = os.getenv("OLLAMA_URL", "http://localhost:11434")
-        self.client: Optional[AsyncClient] = None
-        self.available_models: Dict[str, OllamaModel] = {}
+        self.client: AsyncClient | None = None
+        self.available_models: dict[str, OllamaModel] = {}
         self.model_recommendations = {}
         self.is_initialized = False
-        
+
         # Model definitions with capabilities
         self.supported_models = {
             "llama3.1:8b": OllamaModel(
@@ -134,7 +131,7 @@ class OllamaLocalAgent(BaseAgent):
                 performance_tier="fast"
             )
         }
-        
+
         # Task-to-model recommendations
         self.task_model_map = {
             "chat": ["llama3.1:8b", "phi3:mini", "mistral:7b"],
@@ -144,31 +141,31 @@ class OllamaLocalAgent(BaseAgent):
             "quick": ["phi3:mini", "mistral:7b"],
             "embeddings": ["nomic-embed-text"]
         }
-    
+
     async def initialize(self):
         """Initialize the Ollama local agent"""
         try:
             logger.info("🦙 Initializing Ollama Local Agent...")
-            
+
             # Initialize Ollama client
             self.client = AsyncClient(host=self.ollama_url)
-            
+
             # Check Ollama connection
             await self._check_ollama_status()
-            
+
             # Discover available models
             await self._discover_models()
-            
+
             # Ensure essential models are available
             await self._ensure_essential_models()
-            
+
             self.is_initialized = True
             logger.info("✅ Ollama Local Agent ready")
-            
+
         except Exception as e:
             logger.error(f"❌ Failed to initialize Ollama Local Agent: {e}")
             self.is_initialized = False
-    
+
     async def _check_ollama_status(self) -> bool:
         """Check if Ollama service is running"""
         try:
@@ -178,13 +175,13 @@ class OllamaLocalAgent(BaseAgent):
         except Exception as e:
             logger.error(f"❌ Ollama connection failed: {e}")
             return False
-    
+
     async def _discover_models(self):
         """Discover currently available models"""
         try:
             response = await self.client.list()
             installed_models = {model['name'] for model in response['models']}
-            
+
             # Map installed models to our supported models
             for model_name in installed_models:
                 if model_name in self.supported_models:
@@ -200,16 +197,16 @@ class OllamaLocalAgent(BaseAgent):
                         best_for=["general"],
                         performance_tier="unknown"
                     )
-            
+
             logger.info(f"🔍 Discovered {len(self.available_models)} available models")
-            
+
         except Exception as e:
             logger.warning(f"⚠️ Could not discover models: {e}")
-    
+
     async def _ensure_essential_models(self):
         """Ensure essential models are installed"""
         essential_models = ["llama3.1:8b", "phi3:mini"]
-        
+
         for model in essential_models:
             if model not in self.available_models:
                 logger.info(f"📥 Pulling essential model: {model}")
@@ -219,22 +216,22 @@ class OllamaLocalAgent(BaseAgent):
                     logger.info(f"✅ Model {model} ready")
                 except Exception as e:
                     logger.warning(f"⚠️ Could not pull {model}: {e}")
-    
+
     def recommend_model(self, task_type: str, performance_preference: str = "balanced") -> str:
         """Recommend the best model for a given task"""
-        
+
         # Get models suitable for the task
         suitable_models = self.task_model_map.get(task_type, ["llama3.1:8b"])
-        
+
         # Filter by available models
         available_suitable = [m for m in suitable_models if m in self.available_models]
-        
+
         if not available_suitable:
             # Fallback to any available model
             available_suitable = list(self.available_models.keys())
             if not available_suitable:
                 return "llama3.1:8b"  # Ultimate fallback
-        
+
         # Apply performance preference
         if performance_preference == "fast":
             # Prefer fast models
@@ -246,36 +243,36 @@ class OllamaLocalAgent(BaseAgent):
             for model in available_suitable:
                 if self.available_models[model].performance_tier == "quality":
                     return model
-        
+
         # Return first available suitable model
         return available_suitable[0]
-    
+
     async def chat_completion(self, request: OllamaRequest) -> OllamaResponse:
         """Generate chat completion using local Ollama model"""
-        
+
         start_time = datetime.now()
-        
+
         # Select model if not specified
         if not request.model:
             request.model = self.recommend_model(request.task_type)
-        
+
         # Ensure model is available
         if request.model not in self.available_models:
             logger.warning(f"⚠️ Model {request.model} not available, using fallback")
             request.model = self.recommend_model("chat")
-        
+
         try:
             # Prepare messages for chat format
             messages = []
-            
+
             if request.system_message:
                 messages.append({"role": "system", "content": request.system_message})
-            
+
             if request.context:
                 messages.extend(request.context)
-            
+
             messages.append({"role": "user", "content": request.prompt})
-            
+
             # Generate response
             response = await self.client.chat(
                 model=request.model,
@@ -286,9 +283,9 @@ class OllamaLocalAgent(BaseAgent):
                 },
                 stream=request.stream
             )
-            
+
             execution_time = (datetime.now() - start_time).total_seconds()
-            
+
             if request.stream:
                 return self._handle_streaming_response(response, request.model, execution_time)
             else:
@@ -306,7 +303,7 @@ class OllamaLocalAgent(BaseAgent):
                         "eval_count": response.get('eval_count', 0)
                     }
                 )
-                
+
         except Exception as e:
             logger.error(f"❌ Chat completion failed: {e}")
             return OllamaResponse(
@@ -318,14 +315,14 @@ class OllamaLocalAgent(BaseAgent):
                 finish_reason="error",
                 metadata={"error": str(e)}
             )
-    
-    async def generate_text(self, 
-                           prompt: str, 
+
+    async def generate_text(self,
+                           prompt: str,
                            model: str = None,
                            max_tokens: int = 500,
                            temperature: float = 0.7) -> str:
         """Simple text generation interface"""
-        
+
         request = OllamaRequest(
             model=model,
             prompt=prompt,
@@ -333,25 +330,25 @@ class OllamaLocalAgent(BaseAgent):
             max_tokens=max_tokens,
             temperature=temperature
         )
-        
+
         response = await self.chat_completion(request)
         return response.response
-    
-    async def generate_code(self, 
+
+    async def generate_code(self,
                            description: str,
                            language: str = "python",
                            model: str = None) -> str:
         """Generate code using the best available code model"""
-        
+
         if not model:
             model = self.recommend_model("code")
-        
+
         prompt = f"""Generate {language} code for the following requirement:
 
 {description}
 
 Please provide clean, well-commented code:"""
-        
+
         request = OllamaRequest(
             model=model,
             prompt=prompt,
@@ -360,28 +357,28 @@ Please provide clean, well-commented code:"""
             temperature=0.3,  # Lower temperature for code
             system_message=f"You are an expert {language} developer. Provide clean, efficient, and well-documented code."
         )
-        
+
         response = await self.chat_completion(request)
         return response.response
-    
-    async def analyze_text(self, 
-                          text: str, 
+
+    async def analyze_text(self,
+                          text: str,
                           analysis_type: str = "summary",
                           model: str = None) -> str:
         """Analyze text using local models"""
-        
+
         if not model:
             model = self.recommend_model("analysis")
-        
+
         analysis_prompts = {
             "summary": f"Provide a concise summary of the following text:\n\n{text}",
             "sentiment": f"Analyze the sentiment of the following text:\n\n{text}",
             "keywords": f"Extract the main keywords and topics from the following text:\n\n{text}",
             "insights": f"Provide key insights and analysis from the following text:\n\n{text}"
         }
-        
+
         prompt = analysis_prompts.get(analysis_type, analysis_prompts["summary"])
-        
+
         request = OllamaRequest(
             model=model,
             prompt=prompt,
@@ -389,16 +386,16 @@ Please provide clean, well-commented code:"""
             max_tokens=800,
             temperature=0.5
         )
-        
+
         response = await self.chat_completion(request)
         return response.response
-    
-    async def generate_embeddings(self, texts: List[str]) -> List[List[float]]:
+
+    async def generate_embeddings(self, texts: list[str]) -> list[list[float]]:
         """Generate embeddings for texts using local embedding model"""
-        
+
         embeddings = []
         embedding_model = "nomic-embed-text"
-        
+
         # Ensure embedding model is available
         if embedding_model not in self.available_models:
             logger.warning(f"⚠️ Embedding model {embedding_model} not available")
@@ -408,7 +405,7 @@ Please provide clean, well-commented code:"""
             except Exception as e:
                 logger.error(f"❌ Could not pull embedding model: {e}")
                 return []
-        
+
         try:
             for text in texts:
                 response = await self.client.embeddings(
@@ -416,25 +413,25 @@ Please provide clean, well-commented code:"""
                     prompt=text
                 )
                 embeddings.append(response['embedding'])
-            
+
             return embeddings
-            
+
         except Exception as e:
             logger.error(f"❌ Embedding generation failed: {e}")
             return []
-    
-    async def _handle_streaming_response(self, 
-                                       stream: AsyncGenerator, 
-                                       model: str, 
+
+    async def _handle_streaming_response(self,
+                                       stream: AsyncGenerator,
+                                       model: str,
                                        execution_time: float) -> OllamaResponse:
         """Handle streaming response from Ollama"""
         full_response = ""
-        
+
         try:
             async for chunk in stream:
                 if chunk['message']['content']:
                     full_response += chunk['message']['content']
-            
+
             return OllamaResponse(
                 response=full_response,
                 model_used=f"local:{model}",
@@ -444,7 +441,7 @@ Please provide clean, well-commented code:"""
                 finish_reason="stop",
                 metadata={"streaming": True}
             )
-            
+
         except Exception as e:
             logger.error(f"❌ Streaming response error: {e}")
             return OllamaResponse(
@@ -456,8 +453,8 @@ Please provide clean, well-commented code:"""
                 finish_reason="error",
                 metadata={"streaming_error": str(e)}
             )
-    
-    def get_capabilities(self) -> List[str]:
+
+    def get_capabilities(self) -> list[str]:
         """Return the capabilities of the Ollama Local Agent"""
         return [
             "local_ai_inference",
@@ -476,7 +473,7 @@ Please provide clean, well-commented code:"""
             "performance_optimization",
             "privacy_preservation"
         ]
-    
+
     def get_metadata(self) -> AgentMetadata:
         """Return agent metadata for registry"""
         return AgentMetadata(
@@ -499,8 +496,8 @@ Please provide clean, well-commented code:"""
             author="Ollama Team / Taurus AI Corp Integration",
             status="active"
         )
-    
-    async def get_available_models(self) -> Dict[str, Dict[str, Any]]:
+
+    async def get_available_models(self) -> dict[str, dict[str, Any]]:
         """Get information about all available models"""
         return {
             name: {
@@ -515,8 +512,8 @@ Please provide clean, well-commented code:"""
             }
             for name, model in self.available_models.items()
         }
-    
-    async def get_model_stats(self) -> Dict[str, Any]:
+
+    async def get_model_stats(self) -> dict[str, Any]:
         """Get model usage statistics"""
         return {
             "total_models": len(self.available_models),
@@ -526,7 +523,7 @@ Please provide clean, well-commented code:"""
                 "quality": len([m for m in self.available_models.values() if m.performance_tier == "quality"])
             },
             "capabilities_coverage": list(set([
-                cap.value for model in self.available_models.values() 
+                cap.value for model in self.available_models.values()
                 for cap in model.capabilities
             ])),
             "total_storage": "Varies by installed models",
@@ -534,7 +531,7 @@ Please provide clean, well-commented code:"""
             "ollama_url": self.ollama_url,
             "initialized": self.is_initialized
         }
-    
+
     async def cleanup(self):
         """Cleanup resources"""
         logger.info("🧹 Cleaning up Ollama Local Agent...")

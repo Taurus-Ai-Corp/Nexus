@@ -1,16 +1,16 @@
 import logging
+from typing import Any
 
-from typing import Any, Dict, List
+from utils.rate_limiter import rate_limited
 
 from .base import make_coinbase_request
-from utils.rate_limiter import rate_limited
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 
 @rate_limited(api_type="market_data")
-async def coinbase_get_prices(symbols: List[str]) -> Dict[str, Any]:
+async def coinbase_get_prices(symbols: list[str]) -> dict[str, Any]:
     """
     Get current prices for cryptocurrencies.
     Uses higher rate limits for market data endpoints.
@@ -49,7 +49,7 @@ async def coinbase_get_prices(symbols: List[str]) -> Dict[str, Any]:
 
 
 @rate_limited(api_type="market_data")
-async def coinbase_get_current_exchange_rate(symbols: List[str]) -> Dict[str, Any]:
+async def coinbase_get_current_exchange_rate(symbols: list[str]) -> dict[str, Any]:
     """
     Get current exchange rate for a cryptocurrencies.
     Uses higher rate limits for market data endpoints.

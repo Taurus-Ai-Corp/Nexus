@@ -23,4 +23,4 @@ class TokenExpiredError(AuthenticationError):
 
 class InvalidTokenError(AuthenticationError):
     def __init__(self, message: str = "OAuth token is invalid", developer_message: str = ""):
-        super().__init__(message, developer_message) 
+        super().__init__(message, developer_message)

@@ -1,10 +1,8 @@
 import contextlib
-import base64
 import json
 import logging
 import os
 from collections.abc import AsyncIterator
-from typing import Any
 
 import click
 import mcp.types as types
@@ -16,15 +14,14 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-
 from tools import (
+    add_new_call,
     auth_token_context,
     extract_access_token,
-    get_transcripts_by_user,
     get_call_transcripts,
     get_extensive_data,
+    get_transcripts_by_user,
     list_calls,
-    add_new_call,
 )
 
 logger = logging.getLogger(__name__)
@@ -288,4 +285,4 @@ def main(port: int, log_level: str, json_response: bool) -> int:
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

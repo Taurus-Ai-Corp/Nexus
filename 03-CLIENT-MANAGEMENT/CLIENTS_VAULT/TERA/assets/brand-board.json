@@ -1,0 +1,13 @@
+{
+  "slug": "brand-board",
+  "original": "Brand identity board flat lay for 'Cherish Inc', financial coaching brand for millennial women, 3x3 grid arranged on cream paper surface, featuring logo mark with abstract C, color swatches in ink terracotta warm paper and muted border, typography DM Serif Display and Jakarta Sans, brand tagline 'Financial freedom starts within', mockups of website on laptop, printed journal and bookmark, natural daylight flat lay photography, soft shadows, clean simple composition, realistic product mockups, high detail",
+  "enhanced": "A photorealistic flat-lay brand identity board for \"Cherish Inc,\" a financial coaching brand for millennial women, captured as a candid iPhone 17 Pro Max photo with natural daylight and soft shadows. The 3x3 grid is arranged on cream paper, featuring the abstract \"C\" logo mark, color swatches in ink terracotta, warm paper, and muted border tones, typography in DM Serif Display and Jakarta Sans, and the tagline \"Financial freedom starts within.\" Mockups include a website on a laptop, a printed journal, and a bookmark, all rendered with realistic product detail and high resolution. The composition is clean and simple, with soft natural shadows, no artificial lighting, no CGI, and no plastic or AI artifacts\u2014just everyday natural lighting, realistic textures, and the authentic look of a real iPhone photo with visible skin pores and fine lines if any human elements appear, natural color temperature, and zero filters or edits.",
+  "provider": "black-forest-labs/FLUX.1-schnell",
+  "status": "completed",
+  "params": {
+    "steps": 8,
+    "guidance": 5.0,
+    "size": "1024x768"
+  },
+  "raw_size_bytes": 71740
+}

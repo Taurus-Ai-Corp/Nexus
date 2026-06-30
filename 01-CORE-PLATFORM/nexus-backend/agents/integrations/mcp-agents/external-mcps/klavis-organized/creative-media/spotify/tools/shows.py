@@ -1,14 +1,20 @@
-from typing import List, Dict, Optional
-from spotipy import Spotify
-from .base import get_spotify_client, get_user_spotify_client , process_shows , process_episodes , process_saved_shows
 
+from spotipy import Spotify
+
+from .base import (
+    get_spotify_client,
+    get_user_spotify_client,
+    process_episodes,
+    process_saved_shows,
+    process_shows,
+)
 
 
 def get_multiple_shows(
-    show_ids: List[str],
-    sp: Optional[Spotify] = None,
+    show_ids: list[str],
+    sp: Spotify | None = None,
     market: str = "US"
-) -> List[Dict]:
+) -> list[dict]:
     """
     Get Spotify catalog information for several shows by their Spotify IDs.
 
@@ -24,7 +30,7 @@ def get_multiple_shows(
         sp = get_spotify_client()
 
     MAX_IDS_PER_CALL = 50
-    shows: List[Dict] = []
+    shows: list[dict] = []
     try:
         for i in range(0, len(show_ids), MAX_IDS_PER_CALL):
             chunk = show_ids[i:i + MAX_IDS_PER_CALL]
@@ -42,11 +48,11 @@ def get_multiple_shows(
 
 def get_show_episodes(
     show_id: str,
-    sp: Optional[Spotify] = None,
+    sp: Spotify | None = None,
     limit: int = 20,
     offset: int = 0,
     market: str = "US"
-) -> List[Dict]:
+) -> list[dict]:
     """
     Get Spotify catalog information about a show's episodes.
 
@@ -83,10 +89,10 @@ def get_show_episodes(
 
 
 def get_current_user_saved_shows(
-    sp: Optional[Spotify] = None,
+    sp: Spotify | None = None,
     limit: int = 20,
     offset: int = 0
-) -> List[Dict]:
+) -> list[dict]:
     """
     Get shows saved in the current Spotify user's library.
 
@@ -109,8 +115,8 @@ def get_current_user_saved_shows(
 
 
 def save_shows_to_user_library(
-    show_ids: List[str],
-    sp: Optional[Spotify] = None
+    show_ids: list[str],
+    sp: Spotify | None = None
 ) -> str:
     """
     Save one or more shows to the current user's library.
@@ -138,8 +144,8 @@ def save_shows_to_user_library(
 
 
 def remove_shows_from_user_library(
-    show_ids: List[str],
-    sp: Optional[Spotify] = None
+    show_ids: list[str],
+    sp: Spotify | None = None
 ) -> str:
     """
     Remove one or more shows from the current user's library.
@@ -166,9 +172,9 @@ def remove_shows_from_user_library(
 
 
 def check_user_saved_shows(
-    show_ids: List[str],
-    sp: Optional[Spotify] = None
-) -> List[bool]:
+    show_ids: list[str],
+    sp: Spotify | None = None
+) -> list[bool]:
     """
     Check if one or more shows are saved in the current user's library.
 
@@ -182,7 +188,7 @@ def check_user_saved_shows(
     if not sp:
         sp, _ = get_user_spotify_client()
 
-    results: List[bool] = []
+    results: list[bool] = []
     MAX_IDS_PER_CALL = 50
     for i in range(0, len(show_ids), MAX_IDS_PER_CALL):
         chunk = show_ids[i:i + MAX_IDS_PER_CALL]

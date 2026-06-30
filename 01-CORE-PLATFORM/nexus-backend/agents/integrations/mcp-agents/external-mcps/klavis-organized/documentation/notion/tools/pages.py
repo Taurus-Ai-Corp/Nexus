@@ -1,22 +1,23 @@
-from typing import Dict, Any, Optional, List
 import re
-from .base import get_notion_client, handle_notion_error, clean_notion_response
+from typing import Any
+
+from .base import clean_notion_response, get_notion_client, handle_notion_error
 
 
-def markdown_to_notion_blocks(markdown_content: str) -> List[Dict[str, Any]]:
+def markdown_to_notion_blocks(markdown_content: str) -> list[dict[str, Any]]:
     """Convert markdown content to Notion block format."""
     blocks = []
     lines = markdown_content.split('\n')
     i = 0
-    
+
     while i < len(lines):
         line = lines[i]
-        
+
         # Skip empty lines
         if not line.strip():
             i += 1
             continue
-            
+
         # Headers
         if line.startswith('#'):
             header_match = re.match(r'^(#{1,3})\s+(.+)', line)
@@ -36,7 +37,7 @@ def markdown_to_notion_blocks(markdown_content: str) -> List[Dict[str, Any]]:
                 })
                 i += 1
                 continue
-        
+
         # Code blocks
         if line.startswith('```'):
             code_lines = []
@@ -58,7 +59,7 @@ def markdown_to_notion_blocks(markdown_content: str) -> List[Dict[str, Any]]:
             })
             i += 1
             continue
-            
+
         # Bullet lists
         if line.startswith('- ') or line.startswith('* '):
             blocks.append({
@@ -73,7 +74,7 @@ def markdown_to_notion_blocks(markdown_content: str) -> List[Dict[str, Any]]:
             })
             i += 1
             continue
-            
+
         # Numbered lists
         numbered_match = re.match(r'^\d+\.\s+(.+)', line)
         if numbered_match:
@@ -89,7 +90,7 @@ def markdown_to_notion_blocks(markdown_content: str) -> List[Dict[str, Any]]:
             })
             i += 1
             continue
-            
+
         # Regular paragraphs
         blocks.append({
             "object": "block",
@@ -102,18 +103,18 @@ def markdown_to_notion_blocks(markdown_content: str) -> List[Dict[str, Any]]:
             }
         })
         i += 1
-    
+
     return blocks
 
 
 async def create_page(
-    page: Optional[Dict[str, Any]] = None,
-    parent: Optional[Dict[str, Any]] = None,
-    properties: Optional[Dict[str, Any]] = None,
-    children: Optional[List[Dict[str, Any]]] = None,
-    icon: Optional[Dict[str, Any]] = None,
-    cover: Optional[Dict[str, Any]] = None
-) -> Dict[str, Any]:
+    page: dict[str, Any] | None = None,
+    parent: dict[str, Any] | None = None,
+    properties: dict[str, Any] | None = None,
+    children: list[dict[str, Any]] | None = None,
+    icon: dict[str, Any] | None = None,
+    cover: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """
     Create a new page in Notion with support for both old and new input formats.
     
@@ -130,13 +131,13 @@ async def create_page(
     """
     try:
         notion = get_notion_client()
-        
+
         # Handle new format with page object
         if page:
             # Extract and convert content to blocks if provided
             if page.get('content'):
                 children = markdown_to_notion_blocks(page['content'])
-            
+
             # Extract properties and format title
             if page.get('properties'):
                 page_props = page['properties']
@@ -156,50 +157,50 @@ async def create_page(
                             properties[key] = value
                 else:
                     properties = page_props
-        
+
         # Ensure we have properties
         if not properties:
             raise ValueError("Properties are required")
-        
+
         # If parent is not specified, create a private page (workspace-level)
         if not parent:
             parent = {"workspace": True}
-        
+
         # Build the page data
         page_data = {
             "parent": parent,
             "properties": properties
         }
-        
+
         if children:
             page_data["children"] = children
         if icon:
             page_data["icon"] = icon
         if cover:
             page_data["cover"] = cover
-        
+
         response = notion.pages.create(**page_data)
         return clean_notion_response(response)
-        
+
     except Exception as e:
         return handle_notion_error(e)
 
 
 async def get_page(
     page_id: str,
-    filter_properties: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    filter_properties: list[str] | None = None
+) -> dict[str, Any]:
     """Retrieve a page from Notion."""
     try:
         notion = get_notion_client()
-        
+
         params = {}
         if filter_properties:
             params["filter_properties"] = filter_properties
-        
+
         response = notion.pages.retrieve(page_id, **params)
         return clean_notion_response(response)
-        
+
     except Exception as e:
         return handle_notion_error(e)
 
@@ -207,40 +208,40 @@ async def get_page(
 async def retrieve_page_property(
     page_id: str,
     property_id: str,
-    start_cursor: Optional[str] = None,
-    page_size: Optional[int] = None
-) -> Dict[str, Any]:
+    start_cursor: str | None = None,
+    page_size: int | None = None
+) -> dict[str, Any]:
     """Retrieve a specific property from a page."""
     try:
         notion = get_notion_client()
-        
+
         params = {}
         if start_cursor:
             params["start_cursor"] = start_cursor
         if page_size:
             params["page_size"] = page_size
-        
+
         response = notion.pages.properties.retrieve(page_id, property_id, **params)
         return clean_notion_response(response)
-        
+
     except Exception as e:
         return handle_notion_error(e)
 
 
 async def update_page_properties(
     page_id: str,
-    properties: Dict[str, Any],
-    icon: Optional[Dict[str, Any]] = None,
-    cover: Optional[Dict[str, Any]] = None,
-    archived: Optional[bool] = None,
-    in_trash: Optional[bool] = None
-) -> Dict[str, Any]:
+    properties: dict[str, Any],
+    icon: dict[str, Any] | None = None,
+    cover: dict[str, Any] | None = None,
+    archived: bool | None = None,
+    in_trash: bool | None = None
+) -> dict[str, Any]:
     """Update properties of a page."""
     try:
         notion = get_notion_client()
-        
+
         update_data = {"properties": properties}
-        
+
         if icon is not None:
             update_data["icon"] = icon
         if cover is not None:
@@ -249,9 +250,9 @@ async def update_page_properties(
             update_data["archived"] = archived
         if in_trash is not None:
             update_data["in_trash"] = in_trash
-        
+
         response = notion.pages.update(page_id, **update_data)
         return clean_notion_response(response)
-        
+
     except Exception as e:
-        return handle_notion_error(e) 
+        return handle_notion_error(e)

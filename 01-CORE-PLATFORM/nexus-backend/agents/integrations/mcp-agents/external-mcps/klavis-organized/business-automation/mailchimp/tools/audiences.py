@@ -1,11 +1,12 @@
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any
+
 from .base import make_mailchimp_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
-async def get_all_audiences(count: int = 10, offset: int = 0) -> Dict[str, Any]:
+async def get_all_audiences(count: int = 10, offset: int = 0) -> dict[str, Any]:
     """Get information about all audiences (lists) in the account."""
     logger.info(f"Executing tool: get_all_audiences with count: {count}, offset: {offset}")
     try:
@@ -14,14 +15,14 @@ async def get_all_audiences(count: int = 10, offset: int = 0) -> Dict[str, Any]:
             "count": count,
             "offset": offset
         }
-        
+
         audiences_data = await make_mailchimp_request("GET", endpoint, params=params)
-        
+
         result = {
             "total_items": audiences_data.get("total_items"),
             "audiences": []
         }
-        
+
         for audience in audiences_data.get("lists", []):
             audience_info = {
                 "id": audience.get("id"),
@@ -55,7 +56,7 @@ async def get_all_audiences(count: int = 10, offset: int = 0) -> Dict[str, Any]:
                 "marketing_permissions": audience.get("marketing_permissions")
             }
             result["audiences"].append(audience_info)
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool get_all_audiences: {e}")
@@ -66,7 +67,7 @@ async def get_all_audiences(count: int = 10, offset: int = 0) -> Dict[str, Any]:
 
 async def create_audience(
     name: str,
-    contact: Dict[str, str],
+    contact: dict[str, str],
     permission_reminder: str,
     from_name: str,
     from_email: str,
@@ -75,12 +76,12 @@ async def create_audience(
     email_type_option: bool = False,
     double_optin: bool = False,
     has_welcome: bool = False
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create a new audience (list) in Mailchimp."""
     logger.info(f"Executing tool: create_audience with name: {name}")
     try:
         endpoint = "/lists"
-        
+
         payload = {
             "name": name,
             "contact": contact,
@@ -95,9 +96,9 @@ async def create_audience(
             "double_optin": double_optin,
             "has_welcome": has_welcome
         }
-        
+
         audience_data = await make_mailchimp_request("POST", endpoint, json_data=payload)
-        
+
         result = {
             "id": audience_data.get("id"),
             "name": audience_data.get("name"),
@@ -114,7 +115,7 @@ async def create_audience(
             "from_email": from_email,
             "contact": contact
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool create_audience: {e}")
@@ -124,14 +125,14 @@ async def create_audience(
             "exception": str(e)
         }
 
-async def get_audience_info(list_id: str) -> Dict[str, Any]:
+async def get_audience_info(list_id: str) -> dict[str, Any]:
     """Get information about a specific audience (list)."""
     logger.info(f"Executing tool: get_audience_info with list_id: {list_id}")
     try:
         endpoint = f"/lists/{list_id}"
-        
+
         audience_data = await make_mailchimp_request("GET", endpoint)
-        
+
         result = {
             "id": audience_data.get("id"),
             "name": audience_data.get("name"),
@@ -152,7 +153,7 @@ async def get_audience_info(list_id: str) -> Dict[str, Any]:
             "contact": audience_data.get("contact", {}),
             "campaign_defaults": audience_data.get("campaign_defaults", {})
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool get_audience_info: {e}")
@@ -164,25 +165,25 @@ async def get_audience_info(list_id: str) -> Dict[str, Any]:
 
 async def update_audience(
     list_id: str,
-    name: Optional[str] = None,
-    contact: Optional[Dict[str, str]] = None,
-    permission_reminder: Optional[str] = None,
-    from_name: Optional[str] = None,
-    from_email: Optional[str] = None,
-    subject: Optional[str] = None,
-    language: Optional[str] = None,
-    email_type_option: Optional[bool] = None,
-    double_optin: Optional[bool] = None,
-    has_welcome: Optional[bool] = None
-) -> Dict[str, Any]:
+    name: str | None = None,
+    contact: dict[str, str] | None = None,
+    permission_reminder: str | None = None,
+    from_name: str | None = None,
+    from_email: str | None = None,
+    subject: str | None = None,
+    language: str | None = None,
+    email_type_option: bool | None = None,
+    double_optin: bool | None = None,
+    has_welcome: bool | None = None
+) -> dict[str, Any]:
     """Update settings for a specific audience (list)."""
     logger.info(f"Executing tool: update_audience with list_id: {list_id}")
     try:
         endpoint = f"/lists/{list_id}"
-        
+
         # Build payload with only provided fields
         payload = {}
-        
+
         if name is not None:
             payload["name"] = name
         if contact is not None:
@@ -195,7 +196,7 @@ async def update_audience(
             payload["double_optin"] = double_optin
         if has_welcome is not None:
             payload["has_welcome"] = has_welcome
-            
+
         # Handle campaign_defaults separately
         campaign_defaults = {}
         if from_name is not None:
@@ -206,18 +207,18 @@ async def update_audience(
             campaign_defaults["subject"] = subject
         if language is not None:
             campaign_defaults["language"] = language
-            
+
         if campaign_defaults:
             payload["campaign_defaults"] = campaign_defaults
-        
+
         if not payload:
             return {
                 "error": "No update parameters provided",
                 "list_id": list_id
             }
-        
+
         audience_data = await make_mailchimp_request("PATCH", endpoint, json_data=payload)
-        
+
         result = {
             "id": audience_data.get("id"),
             "name": audience_data.get("name"),
@@ -230,7 +231,7 @@ async def update_audience(
             "double_optin": audience_data.get("double_optin"),
             "has_welcome": audience_data.get("has_welcome")
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool update_audience: {e}")
@@ -240,21 +241,21 @@ async def update_audience(
             "exception": str(e)
         }
 
-async def delete_audience(list_id: str) -> Dict[str, Any]:
+async def delete_audience(list_id: str) -> dict[str, Any]:
     """Delete an audience (list) from Mailchimp account."""
     logger.info(f"Executing tool: delete_audience with list_id: {list_id}")
     try:
         endpoint = f"/lists/{list_id}"
-        
+
         await make_mailchimp_request("DELETE", endpoint, expect_empty_response=True)
-        
+
         result = {
             "status": "success",
             "message": f"Audience {list_id} has been deleted",
             "list_id": list_id,
             "warning": "This action is permanent. List history including subscriber activity, unsubscribes, complaints, and bounces have been lost."
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool delete_audience: {e}")

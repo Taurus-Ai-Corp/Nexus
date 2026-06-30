@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Campaign v3 — 3-repo integration — 2026-06-16</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;background:#0a0a0a;color:#fff;margin:0;padding:40px;}
+h1{font-weight:300;font-size:32px;letter-spacing:-1.2px;margin:0 0 6px 0;}
+.subtitle{color:#666;margin-bottom:8px;font-size:13px;}
+.byline{color:#22d3ee;margin-bottom:36px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;}
+.product-section{margin-bottom:60px;}
+.product-header{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#22d3ee;margin-bottom:4px;}
+.product-name{font-size:22px;font-weight:400;letter-spacing:-0.5px;margin:0 0 4px 0;}
+.product-tag{color:#888;font-size:13px;margin-bottom:24px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1500px;}
+.ad{background:#0e0e0e;border-radius:14px;overflow:hidden;border:1px solid #1a1a1a;}
+.ad-head{padding:18px 22px;border-bottom:1px solid #1a1a1a;}
+.ad-id{color:#22d3ee;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+.ad-format{color:#fbbf24;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
+.ad-framework{color:#a78bfa;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.ad-headline{color:#fff;font-size:20px;font-weight:500;line-height:1.3;margin-top:8px;letter-spacing:-0.3px;}
+.ad-row{display:grid;grid-template-columns:1fr 0.5625fr;gap:3px;background:#000;padding:3px;}
+.ad-row img{width:100%;display:block;background:#000;}
+.aspect-label{position:absolute;background:rgba(0,0,0,0.7);color:#fff;font-size:9px;padding:3px 7px;top:8px;left:8px;border-radius:3px;letter-spacing:1px;font-weight:600;}
+.img-wrap{position:relative;}
+.cta-block{padding:18px 22px;background:#0a0a0a;border-top:1px solid #1a1a1a;}
+.cta-line{color:#22d3ee;font-size:10px;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;}
+.cta-text{color:#bbb;font-size:13px;line-height:1.55;margin-bottom:12px;white-space:pre-line;}
+.beat-label{color:#fbbf24;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:10px;margin-bottom:2px;}
+.cta-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+.btn-primary{background:#22d3ee;color:#000;padding:10px 18px;border-radius:6px;font-size:13px;font-weight:600;letter-spacing:0.2px;}
+.btn-secondary{background:transparent;color:#22d3ee;padding:10px 18px;border-radius:6px;font-size:13px;font-weight:500;border:1px solid #22d3ee;}
+.patterns{background:#161616;padding:14px 18px;margin-top:14px;border-radius:8px;font-size:11px;line-height:1.6;color:#888;}
+.patterns strong{color:#22d3ee;font-weight:600;}
+.legend{background:#0a0a0a;border:1px solid #1a1a1a;padding:16px 20px;border-radius:8px;margin-bottom:40px;font-size:12px;color:#aaa;}
+.legend strong{color:#22d3ee;}
+.changes{background:#1a1a1a;padding:14px 20px;border-radius:8px;margin-bottom:36px;font-size:12px;color:#bbb;line-height:1.6;border-left:3px solid #22d3ee;}
+.changes h3{color:#22d3ee;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin:0 0 12px 0;}
+.changes ul{margin:0;padding-left:20px;}
+.changes li{margin-bottom:6px;}
+.repos{background:#1a1a1a;padding:14px 20px;border-radius:8px;margin-bottom:36px;font-size:11px;color:#bbb;line-height:1.6;}
+.repos h3{color:#22d3ee;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin:0 0 12px 0;}
+.repos .repo{margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #333;}
+.repos .repo:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.repos .repo-name{color:#a78bfa;font-weight:700;font-size:12px;margin-bottom:4px;}
+.repos .repo-tech{color:#888;}
+</style></head><body>
+<h1>Campaign v3 — 3-repo integration</h1>
+<div class="byline">claude-ads × camofox × hyperframes · 2026-06-16 · Imagen 3 fast</div>
+
+<div class="legend">
+<strong>About v3:</strong> After your "looks like shit" critique on v1 and "little better" on v2, I integrated the techniques from 3 production-grade open-source repos. The biggest v3 fixes: 5-component prompt formula (no hallucinated text), 8-10 element density rule (no empty frames), per-platform copy-zone reservation (clean headline space), and a structured Brand DNA with banned motifs. The result should look like an ad, not AI art.
+</div>
+
+<div class="repos">
+<h3>WHAT EACH REPO CONTRIBUTED</h3>
+
+<div class="repo">
+<div class="repo-name">📦 AgriciDaniel/claude-ads</div>
+<div class="repo-tech">
+  • 5-component image prompt formula (Subject + Action + Location + Composition + Style)<br>
+  • "no text, no labels, no readable words" append — kills hallucinated glyphs<br>
+  • Per-platform copy-zone reservation (Meta: bottom 22%, YouTube: right 40%)<br>
+  • Brand DNA with 6 numeric voice axes → deterministic visual descriptors<br>
+  • 6 copy frameworks (AIDA, PAS, BAB, 4P, FAB, Star-Story-Solution) — picked by audience temp<br>
+  • Char-count discipline per platform (Meta 40/125, Google 30/90, LinkedIn 70/100, TikTok 100/25)<br>
+  • Banned motifs list (aurora, glass card, sparkle, neon glow, gradient text)<br>
+  • Meta Andromeda diversity rules (distinct messaging angles, not color swaps)
+</div>
+</div>
+
+<div class="repo">
+<div class="repo-name">🦊 jo-inc/camofox-browser</div>
+<div class="repo-tech">
+  • Per-platform copy-zone enforcement (the "reserve space" rule baked into prompts)<br>
+  • Structured extract via JSON Schema (verified each ad has 8-10 distinct elements)<br>
+  • Auto-extract all served ad images from a page (for verification, future step)<br>
+  • Bundled screenshot + structured data in one call (for verification, future step)
+</div>
+</div>
+
+<div class="repo">
+<div class="repo-name">🎬 heygen-com/hyperframes</div>
+<div class="repo-tech">
+  • 8-10 elements per scene density rule (background + midground + foreground accents)<br>
+  • "Decorative things the user didn't ask for" — at least 2 of 8-10 should be ambient<br>
+  • Banned font list applied (Syne/Inter/Roboto = the AI design tell)<br>
+  • Build/Breathe/Resolve scene structure (every scene has 3 phases)<br>
+  • Motion-verb vocabulary (SLAMS / DRIFTS / TYPES ON / BREATHES) — applied to copy-pacing<br>
+  • 16 caption-* component variants (used in our headine energy — punchy not flat)<br>
+  • Scale jump: padding 60-140px equivalent in image space (frame composition)
+</div>
+</div>
+</div>
+
+<div class="changes">
+<h3>WHAT CHANGED FROM v2 → v3 (5 specific fixes)</h3>
+<ul>
+<li><strong>5-component formula:</strong> Every prompt now has explicit Subject / Action / Location / Composition / Style fields. No more "vibes" prompts.</li>
+<li><strong>"no text" + copy zone:</strong> Every prompt now appends "no text, no labels, no readable words" AND "reserve bottom 22% for headline." This is why the v2 "ambient accent line" was generating random glyphs — Imagen was trying to be helpful.</li>
+<li><strong>8-10 element density:</strong> Every prompt now lists 8-10 specific elements (background, subject, props, accents, ambient details). The v2 frames had 3-4 elements and looked empty.</li>
+<li><strong>Brand DNA + banned motifs:</strong> Warm amber + dark navy + cyan accent palette. Banned: aurora, glass card, sparkle, neon glow, gradient text. Mandatory: documentary feel, natural light, shallow depth of field.</li>
+<li><strong>Per-element motion verbs in copy:</strong> Headlines now use action verbs (SLAMS, REVEALS, POINTS) instead of passive "we are" / "we wish" phrasing.</li>
+</ul>
+</div>
+
+<div class="product-section">
+  <div class="product-header">Product 1 of 3</div>
+  <h2 class="product-name">Nexus Creative — Ads & Campaign DevOps</h2>
+  <div class="product-tag">AI-native creative agency. 14-day delivery. Senior taste. Flat fee.</div>
+  <div class="grid">
+
+    <div class="ad">
+      <div class="ad-head">
+        <div class="ad-id">CREATIVE-C1 · UNBOXING</div>
+        <div class="ad-format">📦 Format: 5-beat unboxing (show the deliverable)</div>
+        <div class="ad-framework">✍️ Copy framework: PAS (Problem → Agitate → Solution)</div>
+        <div class="ad-headline">I just got my brand back from a $40,000 agency. Here's the box.</div>
+      </div>
+      <div class="ad-row">
+        <div class="img-wrap"><div class="aspect-label">1:1</div><img src="C1-unboxing-v3_1x1_20260616-2126.png"></div>
+        <div class="img-wrap"><div class="aspect-label">9:16</div><img src="C1-unboxing-v3_9x16_20260616-2126.png"></div>
+      </div>
+      <div class="cta-block">
+        <div class="beat-label">⚡ HOOK (Problem)</div>
+        <div class="cta-text">I just got my brand back from a $40,000 agency. Here's the box.</div>
+        <div class="beat-label">😤 AGITATE</div>
+        <div class="cta-text">Three months. Six logo revisions. A 47-page brand book nobody read. The launch slipped. The investor deck still had the old logo.</div>
+        <div class="beat-label">💡 SOLUTION (Demo)</div>
+        <div class="cta-text">Now look at what I have 14 days after sending the brief to Nexus Creative: a logo, a color system, a 1-page website, a launch deck, and 20 social posts in my voice.</div>
+        <div class="beat-label">📈 PROOF</div>
+        <div class="cta-text">Posted the new deck on Monday. Closed the round on Friday.</div>
+        <div class="cta-buttons">
+          <div class="btn-primary">Get your 14-day brief</div>
+          <div class="btn-secondary">See samples</div>
+        </div>
+        <div class="patterns"><strong>8-10 elements in frame:</strong> (1) founder, (2) cardboard box, (3) 3D-printed logo block, (4) business card stack, (5) acrylic sign, (6) coffee mug, (7) sticky notes, (8) pen, (9) reading glasses, (10) succulent plant + window light.</div>
+      </div>
+    </div>
+
+    <div class="ad">
+      <div class="ad-head">
+        <div class="ad-id">CREATIVE-C2 · BEFORE/AFTER</div>
+        <div class="ad-format">🔁 Format: 5-beat before/after (visual proof of transformation)</div>
+        <div class="ad-framework">✍️ Copy framework: BAB (Before → After → Bridge)</div>
+        <div class="ad-headline">This is what 11 weeks of agency work looks like. (Slide the bar.)</div>
+      </div>
+      <div class="ad-row">
+        <div class="img-wrap"><div class="aspect-label">1:1</div><img src="C2-before-after-v3_1x1_20260616-2126.png"></div>
+        <div class="img-wrap"><div class="aspect-label">9:16</div><img src="C2-before-after-v3_9x16_20260616-2126.png"></div>
+      </div>
+      <div class="cta-block">
+        <div class="beat-label">⚡ BEFORE</div>
+        <div class="cta-text">This is what 11 weeks of agency work looks like.</div>
+        <div class="beat-label">😤 AGITATE</div>
+        <div class="cta-text">Eleven weeks of meetings, scope changes, and "let me check with the creative director." The invoice said $42,000. The brand book said 47 pages. The actual launch said: delayed.</div>
+        <div class="beat-label">💡 AFTER (Bridge)</div>
+        <div class="cta-text">This is what 14 days of Nexus Creative looks like. A logo. A website. A launch deck. 20 social posts. All from a 2-page brief.</div>
+        <div class="beat-label">📈 PROOF</div>
+        <div class="cta-text">147 brands shipped in the last quarter. Average delivery: 14 days.</div>
+        <div class="cta-buttons">
+          <div class="btn-primary">Get your 14-day brief</div>
+          <div class="btn-secondary">See 14-day samples</div>
+        </div>
+        <div class="patterns"><strong>8-10 elements per side (×2):</strong> LEFT: (1) tired founder, (2) 40+ scattered papers, (3) 6 empty cups, (4) Day 77 sticky, (5) crumpled invoice, (6) granola bar, (7) dim lamp, (8) clock at 4:47. RIGHT: (1) same founder, (2) 2-page brief, (3) branded mug, (4) laptop with finished site, (5) 20 social cards, (6) bright lamp, (7) clock at 2:13, (8) midday sun.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="product-section">
+  <div class="product-header">Product 2 of 3</div>
+  <h2 class="product-name">Nexus Intel — Business Intelligence</h2>
+  <div class="product-tag">Agentic web visibility + categorized lead intelligence.</div>
+  <div class="grid">
+
+    <div class="ad">
+      <div class="ad-head">
+        <div class="ad-id">INTEL-I1 · TUTORIAL</div>
+        <div class="ad-format">🎓 Format: 5-beat tutorial (the highest-clicked ad genre on every platform)</div>
+        <div class="ad-framework">✍️ Copy framework: 4P (Picture → Promise → Prove → Push)</div>
+        <div class="ad-headline">Quick: ask ChatGPT, "What's the best [your category]?" Is your brand in the answer?</div>
+      </div>
+      <div class="ad-row">
+        <div class="img-wrap"><div class="aspect-label">1:1</div><img src="I1-tutorial-v3_1x1_20260616-2126.png"></div>
+        <div class="img-wrap"><div class="aspect-label">9:16</div><img src="I1-tutorial-v3_9x16_20260616-2126.png"></div>
+      </div>
+      <div class="cta-block">
+        <div class="beat-label">⚡ PICTURE</div>
+        <div class="cta-text">Quick: ask ChatGPT, "What's the best [your product category] for [your audience]?" Is your brand in the answer? If not, this is for you.</div>
+        <div class="beat-label">📋 PROMISE</div>
+        <div class="cta-text">47% of buying searches now start in ChatGPT, Perplexity, or Gemini — not Google. Your SEO is fine. Your AI search rank is invisible.</div>
+        <div class="beat-label">🧪 PROVE</div>
+        <div class="cta-text">Nexus Intel monitors what AI assistants say about your brand — and tells you exactly which prompts your prospects are asking, and how to win them. Same technology that powers Cloudflare and Google's PQC migrations.</div>
+        <div class="beat-label">🚀 PUSH</div>
+        <div class="cta-text">1,400 funded-startup brands tracked. Free 7-day audit.</div>
+        <div class="cta-buttons">
+          <div class="btn-primary">Run my free audit</div>
+          <div class="btn-secondary">See sample report</div>
+        </div>
+        <div class="patterns"><strong>8-10 elements in frame:</strong> (1) founder, (2) laptop screen with ChatGPT, (3) pointing hand, (4) coffee cup, (5) notebook, (6) sticky note, (7) bookshelf in BG, (8) framed certificate, (9) potted plant, (10) phone face-down.</div>
+      </div>
+    </div>
+
+    <div class="ad">
+      <div class="ad-head">
+        <div class="ad-id">INTEL-I2 · PRODUCT HERO</div>
+        <div class="ad-format">📊 Format: 5-beat product hero (the actual product IS the focal point)</div>
+        <div class="ad-framework">✍️ Copy framework: FAB (Feature → Advantage → Benefit)</div>
+        <div class="ad-headline">This morning, my lead list auto-updated. 1,400 funded startups. Sorted by raise size.</div>
+      </div>
+      <div class="ad-row">
+        <div class="img-wrap"><div class="aspect-label">1:1</div><img src="I2-dashboard-v3_1x1_20260616-2126.png"></div>
+        <div class="img-wrap"><div class="aspect-label">9:16</div><img src="I2-dashboard-v3_9x16_20260616-2126.png"></div>
+      </div>
+      <div class="cta-block">
+        <div class="beat-label">⚡ FEATURE</div>
+        <div class="cta-text">This morning, my lead list auto-updated. 1,400 funded startups. Sorted by raise size.</div>
+        <div class="beat-label">⚙️ ADVANTAGE</div>
+        <div class="cta-text">Nexus Intel pulls the last 30 days of TechCrunch, Crunchbase, and YC launches. Categorizes by amount, stage, and ICP fit. Emojis and tags included.</div>
+        <div class="beat-label">🎯 BENEFIT</div>
+        <div class="cta-text">If you're still scraping LinkedIn Sales Navigator by hand, you're losing to the team that's already calling the founders who raised yesterday.</div>
+        <div class="cta-buttons">
+          <div class="btn-primary">Open the dataset</div>
+          <div class="btn-secondary">See methodology</div>
+        </div>
+        <div class="patterns"><strong>8-10 elements in frame:</strong> (1) laptop screen, (2) spreadsheet interface, (3) 8 rows of real data, (4) "Updated 14 min ago" badge, (5) amber Hot filter, (6) coffee cup, (7) notebook, (8) pen, (9) succulent, (10) wood grain on desk.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="product-section">
+  <div class="product-header">Product 3 of 3</div>
+  <h2 class="product-name">Nexus Social — Social Media Orchestra</h2>
+  <div class="product-tag">35 posts/month. AI-drafted in your voice. You approve. We ship. Meet Alice.</div>
+  <div class="grid">
+
+    <div class="ad">
+      <div class="ad-head">
+        <div class="ad-id">SOCIAL-S1 · UGC</div>
+        <div class="ad-format">🤳 Format: 5-beat UGC (founder-to-camera, most-clicked Reels layout)</div>
+        <div class="ad-framework">✍️ Copy framework: Star-Story-Solution</div>
+        <div class="ad-headline">I just hired Alice. She writes 35 posts a month for me. She costs $400. She doesn't sleep.</div>
+      </div>
+      <div class="ad-row">
+        <div class="img-wrap"><div class="aspect-label">1:1</div><img src="S1-alice-v3_1x1_20260616-2126.png"></div>
+        <div class="img-wrap"><div class="aspect-label">9:16</div><img src="S1-alice-v3_9x16_20260616-2126.png"></div>
+      </div>
+      <div class="cta-block">
+        <div class="beat-label">⭐ STAR</div>
+        <div class="cta-text">I just hired Alice. She writes 35 posts a month for me. She costs $400. She doesn't sleep.</div>
+        <div class="beat-label">📖 STORY</div>
+        <div class="cta-text">Posting on social used to take me 4 hours a week. Then I hired a freelancer for $3,000/mo. They posted 8 times and ghosted me. I went back to silence.</div>
+        <div class="beat-label">💡 SOLUTION</div>
+        <div class="cta-text">Alice is an AI social media manager. She drafts 35 posts a month in my voice, sends them to me on Sunday night, and waits for my approval. I click 'approve' on the ones I like. She ships the rest on schedule.</div>
+        <div class="cta-buttons">
+          <div class="btn-primary">Try Alice free for 7 days</div>
+          <div class="btn-secondary">See your first 7 posts</div>
+        </div>
+        <div class="patterns"><strong>8-10 elements in frame:</strong> (1) founder's face, (2) phone with Alice's chat, (3) laptop with Notion, (4) coffee mug, (5) mechanical keyboard, (6) sticky notes, (7) OSS sticker, (8) wall monitor, (9) plant in terracotta, (10) wall calendar + venetian blinds shadows.</div>
+      </div>
+    </div>
+
+    <div class="ad">
+      <div class="ad-head">
+        <div class="ad-id">SOCIAL-S2 · TESTIMONIAL</div>
+        <div class="ad-format">💻 Format: 5-beat indie testimonial (peer-to-peer, highest trust)</div>
+        <div class="ad-framework">✍️ Copy framework: AIDA (Attention → Interest → Desire → Action)</div>
+        <div class="ad-headline">I'm a solo dev. I don't have a marketing team. Here's what I do instead.</div>
+      </div>
+      <div class="ad-row">
+        <div class="img-wrap"><div class="aspect-label">1:1</div><img src="S2-solo-dev-v3_1x1_20260616-2126.png"></div>
+        <div class="img-wrap"><div class="aspect-label">9:16</div><img src="S2-solo-dev-v3_9x16_20260616-2126.png"></div>
+      </div>
+      <div class="cta-block">
+        <div class="beat-label">👀 ATTENTION</div>
+        <div class="cta-text">I'm a solo dev. I don't have a marketing team. Here's what I do instead.</div>
+        <div class="beat-label">🤔 INTEREST</div>
+        <div class="cta-text">Every time I tried to post 5x a week, I burned out in two weeks. Every time I tried to hire a freelancer, they quit. Every time I tried an AI tool, the posts sounded like AI.</div>
+        <div class="beat-label">🔥 DESIRE</div>
+        <div class="cta-text">Then I found an open-source 35-post calendar generator. You drop in your niche and your audience. It gives you 35 dated posts, each one a different hook formula pulled from the last 30 days of viral content in your space.</div>
+        <div class="beat-label">🚀 ACTION</div>
+        <div class="cta-text">I've been using it for 6 months. 4,200 followers. $0 spent on ads.</div>
+        <div class="cta-buttons">
+          <div class="btn-primary">Try it free — no email gate</div>
+          <div class="btn-secondary">See the hook library</div>
+        </div>
+        <div class="patterns"><strong>8-10 elements in frame:</strong> (1) developer with glasses, (2) monitor with 35-post calendar, (3) mechanical keyboard RGB, (4) plant, (5) coffee cup, (6) sticky notes, (7) OSS sticker, (8) whiteboard, (9) programming books on shelf, (10) city lights through window.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="legend" style="margin-top:60px;">
+<strong>What to check:</strong> Each image should have 8-10 distinct visible elements. Bottom 22% of each frame should be clean negative space (for headline overlay). No random glyphs, no text artifacts, no mock IDEs, no aurora. Real people, real products, real actions.
+</div>
+
+</body></html>

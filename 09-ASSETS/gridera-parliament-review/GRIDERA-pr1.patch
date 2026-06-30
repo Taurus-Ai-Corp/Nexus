@@ -1,0 +1,487 @@
+From 5b86dff01ae7d30860c4589ab5c6ab2b4c853d74 Mon Sep 17 00:00:00 2001
+From: Taurus AI Corp <admin@taurusai.io>
+Date: Wed, 8 Apr 2026 22:51:48 -0400
+Subject: [PATCH 1/2] =?UTF-8?q?feat(rebrand):=20GRIDERA=20UI/UX=20?=
+ =?UTF-8?q?=E2=80=94=20cream=20bg,=20thinner=20grid,=20full=20branding?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Comply app:
+- Background: #F8F9FA → #F5F1EB (warm cream), deep: #FFFFFF → #FAF8F5
+- Grid animation: nodes 3-6px→2-3px, strokes 1.2→0.6px, opacity 0.5→0.2
+- All "Q-Grid" → "GRIDERA | COMPLY" in public pages, nav, footer, metadata
+- Logo wordmark: "Q-GRID / COMPLY" → "GRIDERA | COMPLY"
+
+Landing page:
+- Nav: "QUANTUM GRID" → "GRIDERA"
+- Hero CTA: "Why Q-Grid" → "Why GRIDERA"
+- Footer: "QUANTUM GRID" → "GRIDERA"
+- All metadata/OG tags: "Quantum Grid" → "GRIDERA"
+
+11 files, both apps build, all tests pass.
+
+Co-Authored-By: E.Fdz <admin@taurusai.io>
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+---
+ apps/comply/src/app/(public)/page.tsx        |  2 +-
+ apps/comply/src/app/globals.css              |  6 +++---
+ apps/comply/src/app/layout.tsx               |  6 +++---
+ apps/comply/src/components/bg-animation.tsx  | 12 +++++------
+ apps/comply/src/components/public-footer.tsx |  4 ++--
+ apps/comply/src/components/public-nav.tsx    |  4 ++--
+ apps/landing/src/app/layout.tsx              | 10 ++++-----
+ apps/landing/src/components/footer.tsx       |  3 +--
+ apps/landing/src/components/hero.tsx         |  2 +-
+ apps/landing/src/components/nav.tsx          |  5 ++---
+ packages/ui/src/brand/q-grid-logo.tsx        | 22 ++++++++++----------
+ 11 files changed, 37 insertions(+), 39 deletions(-)
+
+diff --git a/apps/comply/src/app/(public)/page.tsx b/apps/comply/src/app/(public)/page.tsx
+index 6fda6b6..8e7d534 100644
+--- a/apps/comply/src/app/(public)/page.tsx
++++ b/apps/comply/src/app/(public)/page.tsx
+@@ -130,7 +130,7 @@ export default function EULandingPage() {
+               className="font-[var(--font-heading)] font-bold text-[var(--graphite)] mb-4"
+               style={{ fontSize: 'clamp(28px, 4vw, 42px)' }}
+             >
+-              Why Q-Grid Comply?
++              Why GRIDERA Comply?
+             </h2>
+             <p className="text-[var(--graphite-med)] max-w-[520px] mx-auto">
+               Built for fintechs and enterprises who need bulletproof EU compliance
+diff --git a/apps/comply/src/app/globals.css b/apps/comply/src/app/globals.css
+index 9d8cf8d..039045b 100644
+--- a/apps/comply/src/app/globals.css
++++ b/apps/comply/src/app/globals.css
+@@ -3,8 +3,8 @@
+ @import "@taurus/ui/styles";
+ 
+ :root {
+-  --bone: #F8F9FA;
+-  --bone-deep: #FFFFFF;
++  --bone: #F5F1EB;
++  --bone-deep: #FAF8F5;
+   --graphite: #1A1D21;
+   --graphite-med: #4B5563;
+   --graphite-light: #9CA3AF;
+@@ -65,7 +65,7 @@ body::after {
+   inset: 0;
+   z-index: 0;
+   pointer-events: none;
+-  background: white;
++  background: var(--bone-deep);
+ }
+ 
+ /* ================================================================
+diff --git a/apps/comply/src/app/layout.tsx b/apps/comply/src/app/layout.tsx
+index 6ea16fa..9fbc4a4 100644
+--- a/apps/comply/src/app/layout.tsx
++++ b/apps/comply/src/app/layout.tsx
+@@ -4,11 +4,11 @@ import './globals.css'
+ 
+ export const metadata: Metadata = {
+   title: {
+-    template: '%s | Q-Grid Comply',
+-    default: 'Q-Grid Comply — Quantum Grid Compliance for EU AI Act',
++    template: '%s | GRIDERA Comply',
++    default: 'GRIDERA Comply — Post-Quantum Compliance for EU AI Act',
+   },
+   description:
+-    'EU AI Act compliance automation with blockchain audit trails and post-quantum cryptography. Sovereign AI report generation.',
++    'GRIDERA Comply — EU AI Act compliance automation with blockchain audit trails and post-quantum cryptography. Sovereign AI report generation.',
+ }
+ 
+ export default function RootLayout({ children }: { children: React.ReactNode }) {
+diff --git a/apps/comply/src/components/bg-animation.tsx b/apps/comply/src/components/bg-animation.tsx
+index ab63b1f..9d859b8 100644
+--- a/apps/comply/src/components/bg-animation.tsx
++++ b/apps/comply/src/components/bg-animation.tsx
+@@ -30,8 +30,8 @@ export function BgAnimation() {
+     window.addEventListener('resize', resize)
+ 
+     // --- NODES ---
+-    const NODE_COUNT = 70
+-    const CONNECT_DIST = 200
++    const NODE_COUNT = 50
++    const CONNECT_DIST = 180
+ 
+     interface Node {
+       x: number
+@@ -49,8 +49,8 @@ export function BgAnimation() {
+         y: Math.random() * canvas.height,
+         vx: (Math.random() - 0.5) * 0.35,
+         vy: (Math.random() - 0.5) * 0.35,
+-        r: Math.random() * 3 + 3, // 3-6px radius — BIG visible dots
+-        baseAlpha: Math.random() * 0.15 + 0.55, // 0.55 - 0.70 — SOLID visible on white
++        r: Math.random() * 1 + 2, // 2-3px radius — subtle dots
++        baseAlpha: Math.random() * 0.15 + 0.3, // 0.3 - 0.45 — subtle on cream
+       })
+     }
+ 
+@@ -79,12 +79,12 @@ export function BgAnimation() {
+           const dy = ni.y - nj.y
+           const dist = Math.sqrt(dx * dx + dy * dy)
+           if (dist < CONNECT_DIST) {
+-            const alpha = (1 - dist / CONNECT_DIST) * 0.5
++            const alpha = (1 - dist / CONNECT_DIST) * 0.2
+             ctx.beginPath()
+             ctx.moveTo(ni.x, ni.y)
+             ctx.lineTo(nj.x, nj.y)
+             ctx.strokeStyle = `rgba(0, 142, 138, ${alpha})`
+-            ctx.lineWidth = 1.2
++            ctx.lineWidth = 0.6
+             ctx.stroke()
+           }
+         }
+diff --git a/apps/comply/src/components/public-footer.tsx b/apps/comply/src/components/public-footer.tsx
+index 79324ca..2ac8805 100644
+--- a/apps/comply/src/components/public-footer.tsx
++++ b/apps/comply/src/components/public-footer.tsx
+@@ -8,7 +8,7 @@ const FOOTER_LINKS = {
+     { label: 'Dashboard', href: '/dashboard' },
+   ],
+   Company: [
+-    { label: 'Quantum Grid', href: 'https://q-grid.net', external: true },
++    { label: 'GRIDERA', href: 'https://q-grid.net', external: true },
+     { label: 'Contact', href: 'mailto:admin@taurusai.io', external: true },
+     { label: 'GitHub', href: 'https://github.com/Taurus-Ai-Corp/q-grid-platform', external: true },
+     { label: 'Hedera', href: 'https://hedera.com', external: true },
+@@ -30,7 +30,7 @@ export function PublicFooter() {
+           <div className="col-span-1">
+             <div className="mb-3">
+               <div className="font-[var(--font-heading)] text-base font-bold text-[var(--graphite)]">
+-                Q-GRID <span className="text-[var(--graphite-faint)]">/</span> <span className="text-[var(--accent)]">COMPLY</span>
++                GRIDERA <span className="text-[var(--graphite-faint)]">|</span> <span className="text-[var(--accent)]">COMPLY</span>
+               </div>
+               <div className="font-mono text-[9px] tracking-[0.12em] uppercase text-[var(--graphite-light)] mt-0.5">
+                 by TAURUS AI Corp
+diff --git a/apps/comply/src/components/public-nav.tsx b/apps/comply/src/components/public-nav.tsx
+index c826219..008e65f 100644
+--- a/apps/comply/src/components/public-nav.tsx
++++ b/apps/comply/src/components/public-nav.tsx
+@@ -11,8 +11,8 @@ export function PublicNav() {
+             href="/"
+             className="font-[var(--font-heading)] text-lg font-bold tracking-tight text-[var(--graphite)]"
+           >
+-            <span>Q-GRID</span>
+-            <span className="text-[var(--graphite-faint)] mx-0.5">/</span>
++            <span>GRIDERA</span>
++            <span className="text-[var(--graphite-faint)] mx-1">|</span>
+             <span className="text-[var(--accent)]">COMPLY</span>
+           </Link>
+           <JurisdictionBadge jurisdiction="eu" size="sm" />
+diff --git a/apps/landing/src/app/layout.tsx b/apps/landing/src/app/layout.tsx
+index 4460a5c..2fef466 100644
+--- a/apps/landing/src/app/layout.tsx
++++ b/apps/landing/src/app/layout.tsx
+@@ -7,23 +7,23 @@ import { Analytics } from '../components/analytics'
+ 
+ export const metadata: Metadata = {
+   title: {
+-    template: '%s | Quantum Grid by TAURUS AI Corp',
+-    default: 'Quantum Grid — Post-Quantum Compliance Infrastructure by TAURUS AI Corp',
++    template: '%s | GRIDERA by TAURUS AI Corp',
++    default: 'GRIDERA — Post-Quantum Compliance Infrastructure by TAURUS AI Corp',
+   },
+   description:
+     'The first compliance-first post-quantum cryptography platform. Get quantum-safe in 45 minutes, not months. NIST FIPS 203/204, EU AI Act, SWIFT 2027.',
+   openGraph: {
+-    title: 'Quantum Grid — Post-Quantum Compliance Infrastructure by TAURUS AI Corp',
++    title: 'GRIDERA — Post-Quantum Compliance Infrastructure by TAURUS AI Corp',
+     description:
+       'Get quantum-safe in 45 minutes, not months. NIST FIPS 203/204, EU AI Act Aug 2026, SWIFT 2027.',
+     url: 'https://q-grid.net',
+-    siteName: 'Quantum Grid',
++    siteName: 'GRIDERA',
+     locale: 'en_US',
+     type: 'website',
+   },
+   twitter: {
+     card: 'summary_large_image',
+-    title: 'Quantum Grid — Post-Quantum Compliance by TAURUS AI Corp',
++    title: 'GRIDERA — Post-Quantum Compliance by TAURUS AI Corp',
+     description:
+       'Get quantum-safe in 45 minutes, not months. 37 AI Agents. NIST FIPS 203/204.',
+   },
+diff --git a/apps/landing/src/components/footer.tsx b/apps/landing/src/components/footer.tsx
+index b569c1f..fc0b355 100644
+--- a/apps/landing/src/components/footer.tsx
++++ b/apps/landing/src/components/footer.tsx
+@@ -27,8 +27,7 @@ export default function Footer() {
+           <div>
+             <div className="mb-4">
+               <div className="font-[var(--font-heading)] text-[16px] font-bold tracking-[0.04em]">
+-                <span className="text-[var(--graphite)]">QUANTUM</span>
+-                <span className="text-[var(--accent)] ml-1">GRID</span>
++                <span className="text-[var(--accent)]">GRIDERA</span>
+               </div>
+               <div className="font-mono text-[9px] tracking-[0.12em] uppercase text-[var(--graphite-light)] mt-0.5">
+                 by TAURUS AI Corp
+diff --git a/apps/landing/src/components/hero.tsx b/apps/landing/src/components/hero.tsx
+index 46db89e..987e6bf 100644
+--- a/apps/landing/src/components/hero.tsx
++++ b/apps/landing/src/components/hero.tsx
+@@ -139,7 +139,7 @@ export default function Hero() {
+             <span aria-hidden="true">→</span>
+           </a>
+           <a href="#differentiators" className="btn-secondary">
+-            Why Q-Grid
++            Why GRIDERA
+           </a>
+         </div>
+ 
+diff --git a/apps/landing/src/components/nav.tsx b/apps/landing/src/components/nav.tsx
+index 7db743c..9711131 100644
+--- a/apps/landing/src/components/nav.tsx
++++ b/apps/landing/src/components/nav.tsx
+@@ -12,8 +12,7 @@ export default function Nav() {
+         {/* Logo */}
+         <a href="/" className="flex flex-col">
+           <span className="font-[var(--font-heading)] text-[15px] font-bold tracking-[0.04em]">
+-            <span className="text-[var(--graphite)]">QUANTUM</span>
+-            <span className="text-[var(--accent)] ml-1">GRID</span>
++            <span className="text-[var(--accent)]">GRIDERA</span>
+           </span>
+           <span className="font-mono text-[8px] tracking-[0.12em] uppercase text-[var(--graphite-light)]">
+             by TAURUS AI Corp
+@@ -23,7 +22,7 @@ export default function Nav() {
+         {/* Nav links */}
+         <div className="hidden md:flex items-center gap-8">
+           {[
+-            ['Why Q-Grid', '/#differentiators'],
++            ['Why GRIDERA', '/#differentiators'],
+             ['AI Agents', '/#agents'],
+             ['Frameworks', '/#frameworks'],
+             ['Blog', '/blog'],
+diff --git a/packages/ui/src/brand/q-grid-logo.tsx b/packages/ui/src/brand/q-grid-logo.tsx
+index a7ddc14..5a261c7 100644
+--- a/packages/ui/src/brand/q-grid-logo.tsx
++++ b/packages/ui/src/brand/q-grid-logo.tsx
+@@ -8,13 +8,13 @@ interface QGridLogoProps {
+   color?: string
+   /** Size in px — controls the grid icon height */
+   size?: number
+-  /** Show "Quantum Grid Compliance" subtitle (only in 'mark' variant) */
++  /** Show "GRIDERA Compliance" subtitle (only in 'mark' variant) */
+   showSubtitle?: boolean
+   className?: string
+ }
+ 
+ /**
+- * Q-GRID Comply logo — 3x3 grid mesh with diagonal lattice bonds.
++ * GRIDERA Comply logo — 3x3 grid mesh with diagonal lattice bonds.
+  *
+  * 9 nodes in a regular grid + 4 diagonal lattice connections + Q tail
+  * breaking symmetry bottom-right. Center node enlarged (governance).
+@@ -87,7 +87,7 @@ export function QGridLogo({
+ 
+   if (variant === 'icon') {
+     return (
+-      <span className={cn('inline-flex items-center', className)} aria-label="Q-GRID Comply">
++      <span className={cn('inline-flex items-center', className)} aria-label="GRIDERA Comply">
+         {gridMesh}
+       </span>
+     )
+@@ -97,16 +97,16 @@ export function QGridLogo({
+     return (
+       <span
+         className={cn('inline-flex flex-col font-[var(--font-heading)] tracking-tight', className)}
+-        aria-label="Q-GRID Comply"
++        aria-label="GRIDERA Comply"
+       >
+         <span className="flex items-baseline gap-0.5">
+-          <span className="font-bold">Q-GRID</span>
+-          <span className="text-[var(--graphite-faint)] mx-0.5">/</span>
++          <span className="font-bold">GRIDERA</span>
++          <span className="text-[var(--graphite-faint)] mx-0.5">|</span>
+           <span className="font-bold" style={{ color }}>COMPLY</span>
+         </span>
+         {showSubtitle && (
+           <span className="text-[0.55em] font-normal tracking-[0.15em] text-[var(--graphite-light)] uppercase">
+-            Quantum Grid Compliance
++            GRIDERA Compliance
+           </span>
+         )}
+       </span>
+@@ -114,17 +114,17 @@ export function QGridLogo({
+   }
+ 
+   return (
+-    <span className={cn('inline-flex items-center gap-2.5', className)} aria-label="Q-GRID Comply">
++    <span className={cn('inline-flex items-center gap-2.5', className)} aria-label="GRIDERA Comply">
+       {gridMesh}
+       <span className="inline-flex flex-col font-[var(--font-heading)] tracking-tight leading-tight">
+         <span className="flex items-baseline gap-0.5">
+-          <span className="font-bold">Q-GRID</span>
+-          <span className="text-[var(--graphite-faint)] mx-0.5">/</span>
++          <span className="font-bold">GRIDERA</span>
++          <span className="text-[var(--graphite-faint)] mx-0.5">|</span>
+           <span className="font-bold" style={{ color }}>COMPLY</span>
+         </span>
+         {showSubtitle && (
+           <span className="text-[0.55em] font-normal tracking-[0.15em] text-[var(--graphite-light)] uppercase">
+-            Quantum Grid Compliance
++            GRIDERA Compliance
+           </span>
+         )}
+       </span>
+
+From d9747f21e34ab856893af22f503fb33f496ad451 Mon Sep 17 00:00:00 2001
+From: Taurus AI Corp <admin@taurusai.io>
+Date: Wed, 8 Apr 2026 23:36:15 -0400
+Subject: [PATCH 2/2] feat(rebrand): sweep remaining Q-Grid references in
+ internal pages
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Onboarding, sidebar, topbar, billing, settings, security, reports,
+report-generator — all "Q-Grid" → "GRIDERA". GitHub link updated.
+Zero Q-Grid references remain in comply app.
+
+Co-Authored-By: E.Fdz <admin@taurusai.io>
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+---
+ .../src/app/(dashboard)/dashboard/reports/[id]/page.tsx       | 4 ++--
+ .../app/(dashboard)/dashboard/security/algorithms/page.tsx    | 2 +-
+ apps/comply/src/app/(dashboard)/dashboard/settings/page.tsx   | 2 +-
+ apps/comply/src/app/(onboarding)/onboarding/page.tsx          | 2 +-
+ apps/comply/src/app/api/billing/checkout/route.ts             | 2 +-
+ apps/comply/src/components/public-footer.tsx                  | 2 +-
+ apps/comply/src/components/sidebar.tsx                        | 2 +-
+ apps/comply/src/components/topbar.tsx                         | 2 +-
+ apps/comply/src/lib/report-generator.ts                       | 4 ++--
+ 9 files changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/apps/comply/src/app/(dashboard)/dashboard/reports/[id]/page.tsx b/apps/comply/src/app/(dashboard)/dashboard/reports/[id]/page.tsx
+index 94189c1..2d18907 100644
+--- a/apps/comply/src/app/(dashboard)/dashboard/reports/[id]/page.tsx
++++ b/apps/comply/src/app/(dashboard)/dashboard/reports/[id]/page.tsx
+@@ -180,7 +180,7 @@ function PqcBadge({ report }: { report: Report }) {
+       </div>
+ 
+       <p className="mt-3 text-xs text-gray-400 leading-relaxed">
+-        Algorithm: ML-DSA-65 (NIST FIPS 204) &middot; Generated by Q-Grid Comply &middot; Quantum Grid Compliance Platform
++        Algorithm: ML-DSA-65 (NIST FIPS 204) &middot; Generated by GRIDERA Comply &middot; GRIDERA Compliance Platform
+       </p>
+     </div>
+   )
+@@ -318,7 +318,7 @@ export default function ReportViewerPage() {
+           <div className="flex items-start justify-between gap-4 mb-6 pb-5 border-b border-gray-200">
+             <div>
+               <div className="text-xs font-semibold text-[var(--accent)] tracking-widest uppercase mb-1">
+-                Q-Grid Comply
++                GRIDERA Comply
+               </div>
+               <div className="font-mono text-xs text-gray-400 mt-1">
+                 Report ID: {report.id}
+diff --git a/apps/comply/src/app/(dashboard)/dashboard/security/algorithms/page.tsx b/apps/comply/src/app/(dashboard)/dashboard/security/algorithms/page.tsx
+index ca92d08..c557e37 100644
+--- a/apps/comply/src/app/(dashboard)/dashboard/security/algorithms/page.tsx
++++ b/apps/comply/src/app/(dashboard)/dashboard/security/algorithms/page.tsx
+@@ -387,7 +387,7 @@ export default function AlgorithmsPage() {
+               <p className="text-xs text-[var(--graphite-med)] leading-relaxed">
+                 ML-DSA (FIPS 204) and ML-KEM (FIPS 203) were finalised by NIST in August 2024. These are
+                 module-lattice-based algorithms designed to resist attacks from both classical and quantum computers.
+-                All Q-Grid Comply artifacts are signed with ML-DSA-65 and anchored to Hedera HCS.
++                All GRIDERA Comply artifacts are signed with ML-DSA-65 and anchored to Hedera HCS.
+               </p>
+             </div>
+           </div>
+diff --git a/apps/comply/src/app/(dashboard)/dashboard/settings/page.tsx b/apps/comply/src/app/(dashboard)/dashboard/settings/page.tsx
+index 8425f1a..def42ee 100644
+--- a/apps/comply/src/app/(dashboard)/dashboard/settings/page.tsx
++++ b/apps/comply/src/app/(dashboard)/dashboard/settings/page.tsx
+@@ -343,7 +343,7 @@ function AIProviderTab() {
+           <div>
+             <p className="text-sm font-medium text-[var(--graphite)]">Cloud AI</p>
+             <p className="text-xs text-[var(--graphite-med)] mt-0.5">
+-              Reports generated via Q-Grid AI Gateway (Gemini / OpenAI). Data leaves your network.
++              Reports generated via GRIDERA AI Gateway (Gemini / OpenAI). Data leaves your network.
+             </p>
+           </div>
+         </label>
+diff --git a/apps/comply/src/app/(onboarding)/onboarding/page.tsx b/apps/comply/src/app/(onboarding)/onboarding/page.tsx
+index 1c0df4c..330e866 100644
+--- a/apps/comply/src/app/(onboarding)/onboarding/page.tsx
++++ b/apps/comply/src/app/(onboarding)/onboarding/page.tsx
+@@ -130,7 +130,7 @@ export default function OnboardingPage() {
+       {/* Header */}
+       <div className="text-center mb-8">
+         <h1 className="font-[var(--font-heading)] text-2xl font-bold text-[var(--graphite)]">
+-          Welcome to Quantum Grid
++          Welcome to GRIDERA Comply
+         </h1>
+         <p className="text-sm text-[var(--graphite-med)] mt-1">
+           Let&apos;s set up your compliance workspace in a few steps.
+diff --git a/apps/comply/src/app/api/billing/checkout/route.ts b/apps/comply/src/app/api/billing/checkout/route.ts
+index cc0b048..73f10b3 100644
+--- a/apps/comply/src/app/api/billing/checkout/route.ts
++++ b/apps/comply/src/app/api/billing/checkout/route.ts
+@@ -45,7 +45,7 @@ export async function POST(req: Request) {
+         {
+           price_data: {
+             currency: plan.currency,
+-            product_data: { name: `Q-Grid Comply ${plan.name}` },
++            product_data: { name: `GRIDERA Comply ${plan.name}` },
+             unit_amount: unitAmount,
+             recurring: { interval },
+           },
+diff --git a/apps/comply/src/components/public-footer.tsx b/apps/comply/src/components/public-footer.tsx
+index 2ac8805..2808b03 100644
+--- a/apps/comply/src/components/public-footer.tsx
++++ b/apps/comply/src/components/public-footer.tsx
+@@ -10,7 +10,7 @@ const FOOTER_LINKS = {
+   Company: [
+     { label: 'GRIDERA', href: 'https://q-grid.net', external: true },
+     { label: 'Contact', href: 'mailto:admin@taurusai.io', external: true },
+-    { label: 'GitHub', href: 'https://github.com/Taurus-Ai-Corp/q-grid-platform', external: true },
++    { label: 'GitHub', href: 'https://github.com/Taurus-Ai-Corp/Quantum-Grid-Mesh', external: true },
+     { label: 'Hedera', href: 'https://hedera.com', external: true },
+   ],
+   Legal: [
+diff --git a/apps/comply/src/components/sidebar.tsx b/apps/comply/src/components/sidebar.tsx
+index 62ca20d..fe8b7a5 100644
+--- a/apps/comply/src/components/sidebar.tsx
++++ b/apps/comply/src/components/sidebar.tsx
+@@ -36,7 +36,7 @@ export function Sidebar() {
+       <div className="px-5 py-4 border-b border-[var(--graphite-ghost)]">
+         <div className="flex items-center gap-2">
+           <span className="font-[var(--font-heading)] text-base font-bold text-[var(--graphite)]">
+-            Q-GRID <span className="text-[var(--graphite-faint)]">/</span> <span className="text-[var(--accent)]">COMPLY</span>
++            GRIDERA <span className="text-[var(--graphite-faint)]">|</span> <span className="text-[var(--accent)]">COMPLY</span>
+           </span>
+           <JurisdictionBadge jurisdiction="eu" size="sm" />
+         </div>
+diff --git a/apps/comply/src/components/topbar.tsx b/apps/comply/src/components/topbar.tsx
+index 219fdc6..99e7a3b 100644
+--- a/apps/comply/src/components/topbar.tsx
++++ b/apps/comply/src/components/topbar.tsx
+@@ -23,7 +23,7 @@ export function Topbar() {
+     <header className="h-14 bg-white border-b border-[var(--graphite-ghost)] flex items-center justify-between px-6 shrink-0">
+       {/* Breadcrumb */}
+       <div className="flex items-center gap-2 text-sm">
+-        <span className="text-[var(--graphite-light)]">Q-Grid Comply</span>
++        <span className="text-[var(--graphite-light)]">GRIDERA Comply</span>
+         <span className="text-[var(--graphite-ghost)]">/</span>
+         <span className="font-medium text-[var(--graphite)]">{pageTitle}</span>
+       </div>
+diff --git a/apps/comply/src/lib/report-generator.ts b/apps/comply/src/lib/report-generator.ts
+index f25d2df..04d1c90 100644
+--- a/apps/comply/src/lib/report-generator.ts
++++ b/apps/comply/src/lib/report-generator.ts
+@@ -202,11 +202,11 @@ ${recsFormatted}
+ | **Completed** | ${assessment.completedAt ? new Date(assessment.completedAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) : 'In Progress'} |
+ | **Algorithm** | ML-DSA-65 (NIST FIPS 204) |
+ | **Hedera Anchor** | Pending |
+-| **Generated by** | Q-Grid Comply — Quantum Grid Compliance Platform |
++| **Generated by** | GRIDERA Comply — GRIDERA Compliance Platform |
+ 
+ ---
+ 
+-_This report was generated by Q-Grid Comply using post-quantum cryptographic signing (ML-DSA-65). The assessment results and recommendations are based on self-reported information and should be reviewed by qualified legal and technical compliance professionals before submission to regulatory authorities._
++_This report was generated by GRIDERA Comply using post-quantum cryptographic signing (ML-DSA-65). The assessment results and recommendations are based on self-reported information and should be reviewed by qualified legal and technical compliance professionals before submission to regulatory authorities._
+ `
+ }
+ 

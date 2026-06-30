@@ -1,7 +1,6 @@
-import logging
 import json
-from typing import Any, Dict, List, Optional
-import httpx
+import logging
+from typing import Any
 
 from .base import MixpanelQueryClient
 
@@ -9,11 +8,11 @@ logger = logging.getLogger(__name__)
 
 async def run_funnels_query(
     project_id: str,
-    events: List[Dict[str, Any]] | str,
+    events: list[dict[str, Any]] | str,
     from_date: str,
     to_date: str,
-    count_type: Optional[str] = "unique",
-) -> Dict[str, Any]:
+    count_type: str | None = "unique",
+) -> dict[str, Any]:
     """Run a funnel query via Mixpanel Query API.
 
     Measures conversion through a sequence of steps.
@@ -49,7 +48,7 @@ async def run_funnels_query(
         except Exception as e:
             raise ValueError(f"events must be serializable to JSON array of step objects: {e}")
 
-    params: Dict[str, Any] = {
+    params: dict[str, Any] = {
         "project_id": str(project_id),
         "events": events_param,
         "from_date": from_date,

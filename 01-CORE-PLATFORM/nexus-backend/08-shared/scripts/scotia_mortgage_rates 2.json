@@ -1,8 +1,0 @@
-{
-  "title": "404 | Scotiabank",
-  "content": "```markdown\n# We couldn’t find the page you’re looking for.\n\nLet’s find the right one.\n\n[Visit the Help Centre](https://help.scotiabank.com/?origin=dotcom_help)\n\n[Go to Scotiabank’s home page](https://www.scotiabank.com/ca/en/personal.html)\n```\n\nThis refined Markdown focuses solely on the main content provided in the original HTML, excluding navigation elements, headers, footers, sidebars, and other UI-specific components. It maintains proper semantic structure and preserves essential text and links.\n```\n",
-  "url": "https://www.scotiabank.com/ca/en/personal/mortgages/mortgage-rates.html",
-  "usage": {
-    "tokens": 12000
-  }
-}

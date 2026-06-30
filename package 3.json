@@ -1,0 +1,67 @@
+{
+  "name": "nexus-platform",
+  "version": "1.0.0",
+  "description": "AI-powered marketing automation and creative design platform by Taurus AI",
+  "private": true,
+  "workspaces": [
+    "01-CORE-PLATFORM/nexus-frontend",
+    "01-CORE-PLATFORM/nexus-studio"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:nexus\"",
+    "dev:backend": "cd 01-CORE-PLATFORM/nexus-backend && uvicorn main:app --reload --port 8000",
+    "dev:frontend": "cd 01-CORE-PLATFORM/nexus-frontend && npm run dev",
+    "dev:nexus": "cd 01-CORE-PLATFORM/nexus-studio && npm run dev",
+    "build": "npm run build:frontend && npm run build:nexus",
+    "build:frontend": "cd 01-CORE-PLATFORM/nexus-frontend && npm run build",
+    "build:nexus": "cd 01-CORE-PLATFORM/nexus-studio && npm run build",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd 01-CORE-PLATFORM/nexus-backend && pytest",
+    "test:frontend": "cd 01-CORE-PLATFORM/nexus-frontend && npm test",
+    "lint": "npm run lint:frontend && npm run lint:nexus",
+    "lint:frontend": "cd 01-CORE-PLATFORM/nexus-frontend && npm run lint",
+    "lint:nexus": "cd 01-CORE-PLATFORM/nexus-studio && npm run lint",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "db:migrate": "cd 05-DATABASES/supabase && supabase db push",
+    "db:reset": "cd 05-DATABASES/supabase && supabase db reset",
+    "orchestrator:start": "python 02-AGENTS/orchestration/master_orchestrator.py",
+    "n8n:export": "docker exec nexus-n8n n8n export:workflow --all --output=/home/node/workflows/",
+    "n8n:import": "docker exec nexus-n8n n8n import:workflow --input=/home/node/workflows/"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0",
+    "pptxgenjs": "^4.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.6.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Taurus-Ai-Corp/Nexus.git"
+  },
+  "keywords": [
+    "ai",
+    "marketing",
+    "automation",
+    "agents",
+    "nexus",
+    "mcp",
+    "taurus-ai"
+  ],
+  "author": "TAURUS AI CORP",
+  "license": "PROPRIETARY"
+}

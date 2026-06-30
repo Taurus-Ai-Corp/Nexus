@@ -1,17 +1,23 @@
 import base64
-from typing import Annotated, Any, Dict, cast
-import logging
 import json
+import logging
 from datetime import datetime
+from typing import Any, cast
 
-from .constants import TASK_OPT_FIELDS, SortOrder, TaskSortBy, MAX_PROJECTS_TO_SCAN_BY_NAME, MAX_TAGS_TO_SCAN_BY_NAME
 from .base import (
-    get_asana_client,
-    get_next_page,
-    remove_none_values,
-    get_unique_workspace_id_or_raise_error,
     AsanaToolExecutionError,
     RetryableToolError,
+    get_asana_client,
+    get_next_page,
+    get_unique_workspace_id_or_raise_error,
+    remove_none_values,
+)
+from .constants import (
+    MAX_PROJECTS_TO_SCAN_BY_NAME,
+    MAX_TAGS_TO_SCAN_BY_NAME,
+    TASK_OPT_FIELDS,
+    SortOrder,
+    TaskSortBy,
 )
 
 logger = logging.getLogger(__name__)
@@ -212,13 +218,13 @@ async def handle_new_task_tags(
 
         if response["not_found"]["tags"]:
             client = get_asana_client()
-            
+
             created_tags = []
             for name in response["not_found"]["tags"]:
                 tag_data = {"name": name, "workspace": workspace_id}
                 create_response = await client.post("/tags", json_data={"data": tag_data})
                 created_tags.append(create_response["data"]["id"])
-            
+
             tag_ids.extend(created_tags)
 
     return tag_ids
@@ -263,13 +269,13 @@ async def find_projects_by_name(
 ) -> dict[str, Any]:
     """Find projects by name."""
     client = get_asana_client()
-    
+
     # Get all workspaces first
     workspaces_response = await client.get("/workspaces")
     workspaces = workspaces_response["data"]
-    
+
     all_projects = []
-    
+
     # Search through all workspaces
     for workspace in workspaces:
         projects_response = await client.get(
@@ -277,14 +283,14 @@ async def find_projects_by_name(
             params={"limit": min(response_limit, max_items_to_scan)}
         )
         all_projects.extend(projects_response["data"])
-        
+
         if len(all_projects) >= max_items_to_scan:
             break
-    
+
     # Match projects by name
     matches = []
     not_matched = []
-    
+
     for name in names:
         found = False
         for project in all_projects:
@@ -294,20 +300,20 @@ async def find_projects_by_name(
                 break
         if not found:
             not_matched.append(name)
-    
+
     result = {
         "matches": {
             "projects": matches,
             "count": len(matches)
         }
     }
-    
+
     if return_projects_not_matched:
         result["not_matched"] = {
             "projects": all_projects,
             "tags": not_matched
         }
-    
+
     return result
 
 
@@ -320,16 +326,16 @@ async def find_tags_by_name(
 ) -> dict[str, Any]:
     """Find tags by name."""
     client = get_asana_client()
-    
+
     # Get all workspaces first
     if not workspace_id:
         workspaces_response = await client.get("/workspaces")
         workspaces = workspaces_response["data"]
     else:
         workspaces = [{"id": wid} for wid in workspace_id]
-    
+
     all_tags = []
-    
+
     # Search through all workspaces
     for workspace in workspaces:
         tags_response = await client.get(
@@ -337,14 +343,14 @@ async def find_tags_by_name(
             params={"limit": min(response_limit, max_items_to_scan)}
         )
         all_tags.extend(tags_response["data"])
-        
+
         if len(all_tags) >= max_items_to_scan:
             break
-    
+
     # Match tags by name
     matches = []
     not_found = []
-    
+
     for name in names:
         found = False
         for tag in all_tags:
@@ -354,7 +360,7 @@ async def find_tags_by_name(
                 break
         if not found:
             not_found.append(name)
-    
+
     result = {
         "matches": {
             "tags": matches,
@@ -364,12 +370,12 @@ async def find_tags_by_name(
             "tags": not_found
         }
     }
-    
+
     if return_tags_not_matched:
         result["not_matched"] = {
             "tags": all_tags
         }
-    
+
     return result
 
 async def search_tasks(
@@ -389,7 +395,7 @@ async def search_tasks(
     limit: int = 100,
     sort_by: TaskSortBy = TaskSortBy.MODIFIED_AT,
     sort_order: SortOrder = SortOrder.DESCENDING,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Search for tasks"""
     try:
         limit = max(1, min(100, limit))
@@ -460,7 +466,7 @@ async def search_tasks(
 async def get_task_by_id(
     task_id: str,
     max_subtasks: int = 100,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get a task by its ID"""
     try:
         client = get_asana_client()
@@ -486,7 +492,7 @@ async def get_subtasks_from_a_task(
     task_id: str,
     limit: int = 100,
     next_page_token: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get subtasks from a task"""
     try:
         limit = max(1, min(100, limit))
@@ -522,7 +528,7 @@ async def update_task(
     due_date: str | None = None,
     description: str | None = None,
     assignee_id: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Update a task in Asana"""
     try:
         client = get_asana_client()
@@ -552,7 +558,7 @@ async def update_task(
 
 async def mark_task_as_completed(
     task_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Mark a task as completed"""
     return await update_task(task_id, completed=True)
 
@@ -567,7 +573,7 @@ async def create_task(
     project: str | None = None,
     assignee_id: str | None = "me",
     tags: list[str] | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create a task in Asana"""
     try:
         client = get_asana_client()
@@ -611,7 +617,7 @@ async def attach_file_to_task(
     file_content_base64: str | None = None,
     file_content_url: str | None = None,
     file_encoding: str = "utf-8",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Attach a file to a task"""
     try:
         client = get_asana_client()
@@ -638,7 +644,7 @@ async def attach_file_to_task(
                 "file": (file_name, file_content)
             }
             data = {"parent": task_id}
-            
+
             response = await client.post("/attachments", data=data, files=files)
 
         return {"attachment": response["data"]}

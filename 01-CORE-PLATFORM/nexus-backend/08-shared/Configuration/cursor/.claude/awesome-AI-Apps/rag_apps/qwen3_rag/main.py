@@ -1,14 +1,14 @@
-import streamlit as st
+import base64
 import os
-from llama_index.core import SimpleDirectoryReader, Settings, VectorStoreIndex
+import re
+import shutil
+import tempfile
+
+import streamlit as st
+from dotenv import load_dotenv
+from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex
 from llama_index.embeddings.nebius import NebiusEmbedding
 from llama_index.llms.nebius import NebiusLLM
-from dotenv import load_dotenv
-import tempfile
-import shutil
-import base64
-import io
-import re
 
 # Load environment variables
 load_dotenv()
@@ -29,13 +29,13 @@ def run_rag_completion(
         model_name=embedding_model,
         api_key=os.getenv("NEBIUS_API_KEY")
     )
-    
+
     Settings.llm = llm
     Settings.embed_model = embed_model
-    
+
     index = VectorStoreIndex.from_documents(documents)
     response = index.as_query_engine(similarity_top_k=5).query(query_text)
-    
+
     return str(response)
 
 def display_pdf_preview(pdf_file):
@@ -43,14 +43,14 @@ def display_pdf_preview(pdf_file):
     try:
         # Display PDF info
         st.sidebar.subheader("PDF Preview")
-        
+
         # Convert PDF to base64 for display
         base64_pdf = base64.b64encode(pdf_file.getvalue()).decode('utf-8')
-        
+
         # Display PDF using HTML iframe
         pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="500" type="application/pdf"></iframe>'
         st.sidebar.markdown(pdf_display, unsafe_allow_html=True)
-        
+
         return True
     except Exception as e:
         st.sidebar.error(f"Error previewing PDF: {str(e)}")
@@ -80,7 +80,7 @@ def display_assistant_message(content):
 
 def main():
     st.set_page_config(page_title="Nebius RAG Chat", layout="wide")
-    
+
     # Initialize session states
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -90,7 +90,7 @@ def main():
         st.session_state.temp_dir = None
     if "current_pdf" not in st.session_state:
         st.session_state.current_pdf = None
-    
+
     # Header with title and buttons
     col1, col2 = st.columns([4, 1])
     with col1:
@@ -99,7 +99,7 @@ def main():
             qwen_base64 = base64.b64encode(qwen_file.read()).decode()
         with open("./assets/LlamaIndex.png", "rb") as llama_file:
             llama_base64 = base64.b64encode(llama_file.read()).decode()
-        
+
         # Create title with embedded images
         title_html = f"""
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -120,22 +120,22 @@ def main():
                 st.session_state.temp_dir = None
             st.session_state.current_pdf = None
             st.rerun()
-    
+
     st.caption("Powered by Nebius AI")
-    
+
     # Sidebar for configuration
     with st.sidebar:
         st.image("./assets/Nebius.png", width=150)
-        
+
         # Model selection
         generative_model = st.selectbox(
             "Generative Model",
             ["Qwen/Qwen3-235B-A22B", "deepseek-ai/DeepSeek-V3"],
             index=0
         )
-        
+
         st.divider()
-        
+
         # PDF file upload
         st.subheader("Upload PDF")
         uploaded_file = st.file_uploader(
@@ -143,7 +143,7 @@ def main():
             type="pdf",
             accept_multiple_files=False
         )
-        
+
         # Handle PDF upload and processing
         if uploaded_file is not None:
             if uploaded_file != st.session_state.current_pdf:
@@ -152,29 +152,29 @@ def main():
                     if not os.getenv("NEBIUS_API_KEY"):
                         st.error("Missing Nebius API key")
                         st.stop()
-                    
+
                     # Create temporary directory for the PDF
                     if st.session_state.temp_dir:
                         shutil.rmtree(st.session_state.temp_dir)
                     st.session_state.temp_dir = tempfile.mkdtemp()
-                    
+
                     # Save uploaded PDF to temp directory
                     file_path = os.path.join(st.session_state.temp_dir, uploaded_file.name)
                     with open(file_path, "wb") as f:
                         f.write(uploaded_file.getbuffer())
-                    
+
                     with st.spinner("Loading PDF..."):
                         # Load documents from temp directory
                         documents = SimpleDirectoryReader(st.session_state.temp_dir).load_data()
                         st.session_state.docs_loaded = True
                         st.session_state.documents = documents
                         st.success("✓ PDF loaded successfully")
-                        
+
                         # Display PDF preview
                         display_pdf_preview(uploaded_file)
                 except Exception as e:
                     st.error(f"Error: {str(e)}")
-    
+
     # Display chat messages
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
@@ -182,18 +182,18 @@ def main():
                 display_assistant_message(message["content"])
             else:
                 st.markdown(message["content"])
-    
+
     # Chat input
     if prompt := st.chat_input("Ask about your PDF..."):
         if not st.session_state.docs_loaded:
             st.error("Please upload a PDF first")
             st.stop()
-        
+
         # Add user message
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
-        
+
         # Generate response
         with st.chat_message("assistant"):
             with st.spinner("Thinking..."):

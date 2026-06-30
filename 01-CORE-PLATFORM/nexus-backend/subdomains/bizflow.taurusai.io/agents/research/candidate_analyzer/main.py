@@ -9,15 +9,15 @@ and ReasoningTools — enabling strict, professional-grade hiring decisions with
 """
 
 import re
-import yaml
-import streamlit as st
 
+import streamlit as st
+import yaml
 from agno.agent import Agent
 from agno.models.nebius import Nebius
-from agno.tools.github import GithubTools
 from agno.tools.exa import ExaTools
-from agno.tools.thinking import ThinkingTools
+from agno.tools.github import GithubTools
 from agno.tools.reasoning import ReasoningTools
+from agno.tools.thinking import ThinkingTools
 
 # Set wide layout
 st.set_page_config(layout="wide")
@@ -26,7 +26,7 @@ st.set_page_config(layout="wide")
 @st.cache_data
 def load_yaml(file_path):
     try:
-        with open(file_path, "r", encoding="utf-8") as file:
+        with open(file_path, encoding="utf-8") as file:
             return yaml.safe_load(file)
     except FileNotFoundError:
         st.error("❌ YAML prompt file not found.")

@@ -1,14 +1,14 @@
-import os
+import base64
+import contextlib
 import json
 import logging
-import contextlib
-import base64
+import os
 from collections.abc import AsyncIterator
-from typing import Any, Dict
+from typing import Any
 
 import click
-from dotenv import load_dotenv
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,13 +16,12 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-
 from tools import (
     tavily_api_key_context,
-    tavily_search,
-    tavily_extract,
     tavily_crawl,
+    tavily_extract,
     tavily_map,
+    tavily_search,
 )
 
 # Load env early
@@ -37,7 +36,7 @@ def extract_api_key(request_or_scope) -> str:
     """Extract API key from headers or environment."""
     api_key = os.getenv("API_KEY")
     auth_data = None
-    
+
     if not api_key:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -51,7 +50,7 @@ def extract_api_key(request_or_scope) -> str:
             header_value = headers.get(b'x-auth-data')
             if header_value:
                 auth_data = base64.b64decode(header_value).decode('utf-8')
-        
+
         if auth_data:
             try:
                 # Parse the JSON auth data to extract token
@@ -60,7 +59,7 @@ def extract_api_key(request_or_scope) -> str:
             except (json.JSONDecodeError, TypeError) as e:
                 logger.warning(f"Failed to parse auth data JSON: {e}")
                 api_key = ""
-    
+
     return api_key or ""
 
 @click.command()
@@ -230,7 +229,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
 
     # ---------------------------- Tool Dispatcher ----------------------------#
     @app.call_tool()
-    async def call_tool(name: str, arguments: Dict[str, Any]) -> list[types.TextContent]:
+    async def call_tool(name: str, arguments: dict[str, Any]) -> list[types.TextContent]:
         logger.info(f"call_tool: {name}")
         logger.debug(f"raw arguments: {json.dumps(arguments, indent=2)}")
 
@@ -265,10 +264,10 @@ def main(port: int, log_level: str, json_response: bool) -> int:
         If header 'x-auth-token' is present, bind it for the request via ContextVar.
         """
         logger.info("Handling SSE connection")
-        
+
         # Extract API key from headers
         api_key = extract_api_key(request)
-        
+
         token = None
         if api_key:
             token = tavily_api_key_context.set(api_key)
@@ -294,7 +293,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
         Accepts 'x-auth-token' header for per-request auth.
         """
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract API key from headers
         api_key = extract_api_key(scope)
 

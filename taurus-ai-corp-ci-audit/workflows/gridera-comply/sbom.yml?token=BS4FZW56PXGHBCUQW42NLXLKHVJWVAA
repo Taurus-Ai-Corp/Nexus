@@ -1,0 +1,85 @@
+name: SBOM & Supply Chain
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  schedule:
+    - cron: '0 8 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  security-events: write
+
+jobs:
+  generate-sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+
+      - name: Generate CycloneDX SBOM (JSON)
+        run: npx --yes @cyclonedx/cyclonedx-npm --ignore-npm-errors --output-file sbom-cyclonedx.json --spec-version 1.5
+        env:
+          npm_config_legacy_peer_deps: 'true'
+
+      - name: Generate CycloneDX SBOM (XML)
+        run: npx --yes @cyclonedx/cyclonedx-npm --ignore-npm-errors --output-file sbom-cyclonedx.xml --spec-version 1.5 --output-reproducible
+        env:
+          npm_config_legacy_peer_deps: 'true'
+
+      - name: Generate SPDX SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          format: spdx-json
+          output-file: sbom-spdx.json
+
+      - name: Upload SBOM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: |
+            sbom-cyclonedx.json
+            sbom-cyclonedx.xml
+            sbom-spdx.json
+          retention-days: 365
+
+      - name: Attach SBOM to Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            sbom-cyclonedx.json
+            sbom-spdx.json
+
+  vulnerability-scan:
+    name: SBOM Vulnerability Scan
+    runs-on: ubuntu-latest
+    needs: generate-sbom
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+
+      - name: Scan SBOM for vulnerabilities
+        uses: anchore/scan-action@v5
+        id: scan
+        with:
+          sbom: sbom-spdx.json
+          fail-build: false
+          severity-cutoff: high
+
+      - name: Upload SARIF results
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}
+        continue-on-error: true

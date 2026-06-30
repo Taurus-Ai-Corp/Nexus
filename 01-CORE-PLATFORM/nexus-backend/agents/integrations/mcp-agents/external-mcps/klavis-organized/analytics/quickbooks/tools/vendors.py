@@ -1,6 +1,7 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from mcp.types import Tool
+
 from .http_client import QuickBooksHTTPClient
 
 # Minimal properties for vendor creation (required by QuickBooks)
@@ -208,7 +209,7 @@ update_vendor_tool = Tool(
     inputSchema={
         "type": "object",
         "properties": {
-            key: value for key, value in vendor_properties.items() 
+            key: value for key, value in vendor_properties.items()
             if key != "Active"  # Remove Active from update inputs
         },
         "required": ["Id"]
@@ -242,7 +243,7 @@ deactivate_vendor_tool = Tool(
 )
 
 
-def mcp_object_to_vendor_data(**kwargs) -> Dict[str, Any]:
+def mcp_object_to_vendor_data(**kwargs) -> dict[str, Any]:
     """
     Convert MCP object format to QuickBooks vendor data format.
     This function transforms the flat MCP structure to the nested format expected by QuickBooks API.
@@ -320,7 +321,7 @@ def mcp_object_to_vendor_data(**kwargs) -> Dict[str, Any]:
     return vendor_data
 
 
-def vendor_data_to_mcp_object(vendor_data: Dict[str, Any]) -> Dict[str, Any]:
+def vendor_data_to_mcp_object(vendor_data: dict[str, Any]) -> dict[str, Any]:
     """
     Convert QuickBooks vendor data format to MCP object format.
     This function flattens the nested QuickBooks structure to the flat format expected by MCP tools.
@@ -351,7 +352,7 @@ def vendor_data_to_mcp_object(vendor_data: Dict[str, Any]) -> Dict[str, Any]:
     if 'PrimaryPhone' in vendor_data and isinstance(vendor_data['PrimaryPhone'], dict):
         if 'FreeFormNumber' in vendor_data['PrimaryPhone']:
             mcp_object['PrimaryPhone'] = vendor_data['PrimaryPhone']['FreeFormNumber']
-    
+
     # Handle other phone fields as output-only
     phone_mappings = ['AlternatePhone', 'Mobile', 'Fax']
     for field in phone_mappings:
@@ -429,21 +430,21 @@ class VendorManager:
     def __init__(self, client: QuickBooksHTTPClient):
         self.client = client
 
-    async def create_vendor(self, **kwargs) -> Dict[str, Any]:
+    async def create_vendor(self, **kwargs) -> dict[str, Any]:
         """Create a new vendor with comprehensive property support."""
         vendor_data = mcp_object_to_vendor_data(**kwargs)
 
         response = await self.client._post('vendor', vendor_data)
         return vendor_data_to_mcp_object(response['Vendor'])
 
-    async def get_vendor(self, Id: str) -> Dict[str, Any]:
+    async def get_vendor(self, Id: str) -> dict[str, Any]:
         """Get a specific vendor by ID."""
         response = await self.client._get(f"vendor/{Id}")
         return vendor_data_to_mcp_object(response['Vendor'])
 
-    async def list_vendors(self, ActiveOnly: bool = True, MaxResults: int = 100) -> List[Dict[str, Any]]:
+    async def list_vendors(self, ActiveOnly: bool = True, MaxResults: int = 100) -> list[dict[str, Any]]:
         """List all vendors with comprehensive properties and pagination support."""
-        query = f"select * from Vendor"
+        query = "select * from Vendor"
 
         if ActiveOnly:
             query += " WHERE Active = true"
@@ -459,7 +460,7 @@ class VendorManager:
         vendors = response['QueryResponse']['Vendor']
         return [vendor_data_to_mcp_object(vendor) for vendor in vendors]
 
-    async def search_vendors(self, **kwargs) -> List[Dict[str, Any]]:
+    async def search_vendors(self, **kwargs) -> list[dict[str, Any]]:
         """
         Search vendors with various filters and pagination support.
 
@@ -552,7 +553,7 @@ class VendorManager:
 
         return results
 
-    async def update_vendor(self, **kwargs) -> Dict[str, Any]:
+    async def update_vendor(self, **kwargs) -> dict[str, Any]:
         """Update an existing vendor with comprehensive property support."""
         Id = kwargs.get('Id')
         if not Id:
@@ -573,11 +574,11 @@ class VendorManager:
         response = await self.client._post('vendor', vendor_data)
         return vendor_data_to_mcp_object(response['Vendor'])
 
-    async def activate_vendor(self, Id: str) -> Dict[str, Any]:
+    async def activate_vendor(self, Id: str) -> dict[str, Any]:
         """Activate a vendor (set Active to true)."""
         return await self.update_vendor(Id=Id, Active=True)
 
-    async def deactivate_vendor(self, Id: str) -> Dict[str, Any]:
+    async def deactivate_vendor(self, Id: str) -> dict[str, Any]:
         """Deactivate a vendor (set Active to false)."""
         return await self.update_vendor(Id=Id, Active=False)
 

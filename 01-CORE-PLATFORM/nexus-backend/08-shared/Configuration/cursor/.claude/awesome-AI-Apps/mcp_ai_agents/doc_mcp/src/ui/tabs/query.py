@@ -1,14 +1,13 @@
 """Query interface tab implementation."""
 
 import logging
-from typing import Any, Dict, Tuple
+from typing import Any
 
 import gradio as gr
 
 from ...database.repository import repository_manager
 from ...rag.query import create_query_retriever
-from ..components.common import (create_query_interface,
-                                 create_repository_dropdown)
+from ..components.common import create_query_interface, create_repository_dropdown
 
 logger = logging.getLogger(__name__)
 
@@ -134,7 +133,7 @@ class QueryTab:
 
     def _execute_query(
         self, repo: str, mode: str, query: str
-    ) -> Tuple[str, Dict[str, Any]]:
+    ) -> tuple[str, dict[str, Any]]:
         """Execute query against repository."""
         if not query.strip():
             return "Please enter a query.", {"error": "Empty query"}

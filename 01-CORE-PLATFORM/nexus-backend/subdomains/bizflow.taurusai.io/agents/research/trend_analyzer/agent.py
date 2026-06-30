@@ -1,17 +1,16 @@
-from google.adk.agents.sequential_agent import SequentialAgent
-from google.adk.agents.llm_agent import LlmAgent
-from google.adk.sessions import InMemorySessionService
-from google.adk.runners import Runner
-from google.adk.models.lite_llm import LiteLlm
-from google.adk.agents import Agent
-from datetime import datetime, timedelta
-from google.genai import types
-
-from exa_py import Exa
-from tavily import TavilyClient
-from firecrawl import FirecrawlApp
-from dotenv import load_dotenv
 import os
+from datetime import datetime, timedelta
+
+from dotenv import load_dotenv
+from exa_py import Exa
+from firecrawl import FirecrawlApp
+from google.adk.agents.llm_agent import LlmAgent
+from google.adk.agents.sequential_agent import SequentialAgent
+from google.adk.models.lite_llm import LiteLlm
+from google.adk.runners import Runner
+from google.adk.sessions import InMemorySessionService
+from google.genai import types
+from tavily import TavilyClient
 
 # Load environment variables from .env file
 load_dotenv()
@@ -78,7 +77,7 @@ def firecrawl_scrape_nebius(_: str) -> dict:
             formats=["markdown"],
             only_main_content=True
         )
-        
+
         if scrape_result.success:
             return {
                 "type": "firecrawl",
@@ -154,14 +153,14 @@ firecrawl_agent = LlmAgent(
 )
 
 # --- Agent 5: Analysis & Stats ---
-analysis_agent = LlmAgent(  
+analysis_agent = LlmAgent(
     name="AnalysisAgent",
     model=LiteLlm(
         model="openai/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1",  # New Nebius model
         api_base=api_base,
         api_key=api_key
     ),
-    instruction="""
+    instruction=r"""
 You are an AI analyst specializing in the latest AI trends and Large Language Models (LLMs).
 - Analyze the 'final_summary', combining it with your knowledge of AI advancements and the information extracted from 'exa_results' and 'tavily_results'.
 - Identify key trends, growth areas, and notable statistics related to AI and LLMs.

@@ -1,21 +1,16 @@
 import logging
-import json
-from typing import Any, Dict, Optional, List
 import time
 import uuid
+from typing import Any
 
-from .base import (
-    MixpanelIngestionClient,
-    MixpanelExportClient,
-    MixpanelQueryClient
-)
+from .base import MixpanelExportClient, MixpanelIngestionClient, MixpanelQueryClient
 
 logger = logging.getLogger(__name__)
 
 async def send_events(
     project_id: str,
-    events: List[Dict[str, Any]]
-) -> Dict[str, Any]:
+    events: list[dict[str, Any]]
+) -> dict[str, Any]:
     """Send events to Mixpanel using the /import endpoint with Service Account authentication.
     Use this API to send batches of events from your servers to Mixpanel.
     
@@ -29,59 +24,59 @@ async def send_events(
     try:
         if not events or not isinstance(events, list):
             raise ValueError("Events must be a non-empty list")
-        
+
         if not project_id:
             raise ValueError("project_id is required")
-        
+
         # Prepare batch event data for /import endpoint
         batch_events = []
         for i, event_data in enumerate(events):
             if not isinstance(event_data, dict):
                 raise ValueError(f"Event {i} must be a dictionary")
-            
+
             event_name = event_data.get("event")
             if not event_name:
                 raise ValueError(f"Event {i} missing required 'event' field")
-            
+
             properties = event_data.get("properties", {})
             distinct_id = event_data.get("distinct_id", "")
-            
+
             # Ensure required fields for /import endpoint
             if "time" not in properties:
                 # Use current time in milliseconds if not specified
                 properties["time"] = int(time.time() * 1000)
-            
+
             if "$insert_id" not in properties:
                 # Generate a unique insert_id for deduplication
                 properties["$insert_id"] = str(uuid.uuid4())
-            
+
             # Ensure distinct_id is in properties
             properties["distinct_id"] = distinct_id or ""
-            
+
             # Build event object for /import endpoint
             event_obj = {
                 "event": event_name,
                 "properties": properties
             }
-            
+
             batch_events.append(event_obj)
-        
+
         # Use Service Account auth with /import endpoint
         result = await MixpanelIngestionClient.make_request(
-            "POST", 
+            "POST",
             "/import",
             data=batch_events,
             project_id=project_id
         )
-        
+
         # Add batch info to result
         if isinstance(result, dict):
             result["batch_size"] = len(batch_events)
             result["events_processed"] = len(batch_events) if result.get("success", True) else 0
             result["project_id"] = project_id
-            
+
         return result
-        
+
     except Exception as e:
         return {
             "success": False,
@@ -94,29 +89,29 @@ async def send_events(
 async def query_events(
     from_date: str,
     to_date: str,
-    event: Optional[str] = None,
-    where: Optional[str] = None,
-    limit: Optional[int] = 1000
-) -> Dict[str, Any]:
+    event: str | None = None,
+    where: str | None = None,
+    limit: int | None = 1000
+) -> dict[str, Any]:
     """Query raw event data from Mixpanel."""
     try:
         params = {
             "from_date": from_date,
             "to_date": to_date
         }
-        
+
         if event:
             params["event"] = f'["{event}"]'
-        
+
         if where:
             params["where"] = where
-            
+
         if limit:
             params["limit"] = str(limit)
-        
+
         # The export endpoint is already included in MIXPANEL_EXPORT_ENDPOINT
         result = await MixpanelExportClient.make_request("GET", "", params=params)
-        
+
         if isinstance(result, dict) and "events" in result:
             return {
                 "success": True,
@@ -130,7 +125,7 @@ async def query_events(
                 "events": [],
                 "error": f"Unexpected response format: {result}"
             }
-            
+
     except Exception as e:
         return {
             "success": False,
@@ -141,39 +136,39 @@ async def query_events(
 async def get_event_count(
     from_date: str,
     to_date: str,
-    event: Optional[str] = None
-) -> Dict[str, Any]:
+    event: str | None = None
+) -> dict[str, Any]:
     """Get total event count for a date range from Mixpanel."""
     try:
         params = {
             "from_date": from_date,
             "to_date": to_date
         }
-        
+
         # If specific event is provided, filter by it
         if event:
             params["event"] = f'["{event}"]'
-        
+
         # Query events and count them
         # The export endpoint is already included in MIXPANEL_EXPORT_ENDPOINT
         result = await MixpanelExportClient.make_request("GET", "", params=params)
-        
+
         if isinstance(result, dict) and "events" in result:
             event_count = len(result["events"])
-            
+
             # Calculate additional stats
             unique_users = set()
             event_types = {}
-            
+
             for event_data in result["events"]:
                 # Count unique users
                 if "properties" in event_data and "distinct_id" in event_data["properties"]:
                     unique_users.add(event_data["properties"]["distinct_id"])
-                
+
                 # Count event types
                 event_name = event_data.get("event", "Unknown")
                 event_types[event_name] = event_types.get(event_name, 0) + 1
-            
+
             return {
                 "success": True,
                 "total_events": event_count,
@@ -192,7 +187,7 @@ async def get_event_count(
                 "total_events": 0,
                 "error": f"Unexpected response format: {result}"
             }
-            
+
     except Exception as e:
         return {
             "success": False,
@@ -203,40 +198,40 @@ async def get_event_count(
 async def get_top_events(
     from_date: str,
     to_date: str,
-    limit: Optional[int] = 10
-) -> Dict[str, Any]:
+    limit: int | None = 10
+) -> dict[str, Any]:
     """Get the most common events over a time period from Mixpanel."""
     try:
         params = {
             "from_date": from_date,
             "to_date": to_date
         }
-        
+
         # Query all events for the time period
         # The export endpoint is already included in MIXPANEL_EXPORT_ENDPOINT
         result = await MixpanelExportClient.make_request("GET", "", params=params)
-        
+
         if isinstance(result, dict) and "events" in result:
             events = result["events"]
-            
+
             # Count events by type
             event_counts = {}
             total_events = len(events)
             unique_users = set()
-            
+
             for event_data in events:
                 # Count events by name
                 event_name = event_data.get("event", "Unknown")
                 event_counts[event_name] = event_counts.get(event_name, 0) + 1
-                
+
                 # Track unique users
                 if "properties" in event_data and "distinct_id" in event_data["properties"]:
                     unique_users.add(event_data["properties"]["distinct_id"])
-            
+
             # Sort events by count (descending) and get top N
             sorted_events = sorted(event_counts.items(), key=lambda x: x[1], reverse=True)
             top_events = sorted_events[:limit] if limit else sorted_events
-            
+
             # Calculate percentages
             top_events_with_stats = []
             for event_name, count in top_events:
@@ -246,7 +241,7 @@ async def get_top_events(
                     "count": count,
                     "percentage": round(percentage, 2)
                 })
-            
+
             return {
                 "success": True,
                 "top_events": top_events_with_stats,
@@ -266,7 +261,7 @@ async def get_top_events(
                 "top_events": [],
                 "error": f"Unexpected response format: {result}"
             }
-            
+
     except Exception as e:
         return {
             "success": False,
@@ -275,20 +270,20 @@ async def get_top_events(
         }
 
 async def get_todays_top_events(
-    limit: Optional[int] = 10
-) -> Dict[str, Any]:
+    limit: int | None = 10
+) -> dict[str, Any]:
     """Get the most common events from today from Mixpanel analytics."""
     try:
-        from datetime import datetime, date
-        
+        from datetime import date
+
         # Get today's date in YYYY-MM-DD format
         today = date.today().strftime('%Y-%m-%d')
-        
+
         print(f"Querying today's events for date: {today}")
-        
+
         # Use the existing get_top_events function with today's date
         result = await get_top_events(today, today, limit)
-        
+
         if isinstance(result, dict) and result.get("success"):
             # Enhance the result with today-specific information
             enhanced_result = {
@@ -298,14 +293,14 @@ async def get_todays_top_events(
                 "is_today": True,
                 "message": f"Found top {len(result.get('top_events', []))} events for today ({today})"
             }
-            
+
             # Add some additional context
             if result.get("total_events_analyzed", 0) == 0:
                 enhanced_result.update({
                     "message": f"No events found for today ({today}). This might be because it's early in the day or no events have been tracked yet.",
                     "suggestion": "Try tracking some test events or check events from yesterday."
                 })
-            
+
             return enhanced_result
         else:
             # Handle case where get_top_events failed
@@ -318,7 +313,7 @@ async def get_todays_top_events(
                 "error": result.get("error", "Failed to get today's top events"),
                 "message": f"Could not retrieve events for today ({today})"
             }
-            
+
     except Exception as e:
         from datetime import date
         today = date.today().strftime('%Y-%m-%d')
@@ -333,7 +328,7 @@ async def get_todays_top_events(
 
 async def get_events(
     project_id: str
-) -> List[str]:
+) -> list[str]:
     """Get event names for the given Mixpanel project.
     
     This tool retrieves all event names that have been tracked in the specified project.
@@ -348,19 +343,19 @@ async def get_events(
     try:
         if not project_id:
             raise ValueError("project_id is required")
-        
+
         # Use the Query API endpoint to get event names
         params = {
             "project_id": project_id,
             "type": "general"  # Default type for event names
         }
-        
+
         result = await MixpanelQueryClient.make_request(
             "GET",
             "/query/events/names",
             params=params
         )
-        
+
         # The API returns a list of event names directly
         if isinstance(result, list):
             return result
@@ -375,7 +370,7 @@ async def get_events(
         else:
             logger.warning(f"Unexpected response format: {result}")
             return []
-            
+
     except Exception as e:
         logger.exception(f"Error getting event names: {e}")
         raise
@@ -383,7 +378,7 @@ async def get_events(
 async def get_event_properties(
     project_id: str,
     event: str
-) -> List[str]:
+) -> list[str]:
     """Get available properties for a specific event in a Mixpanel project.
 
     This returns the list of event property keys that can be used for filtering
@@ -440,7 +435,7 @@ async def get_event_property_values(
     project_id: str,
     event: str,
     property_name: str
-) -> List[str]:
+) -> list[str]:
     """Get distinct values for a specific event property in a Mixpanel project.
 
     This returns the list of unique values that have been seen for the given

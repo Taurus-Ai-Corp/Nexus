@@ -1,12 +1,14 @@
-import httpx
 import logging
-from typing import Tuple, Union, Dict, Any, Literal
+from typing import Any
+
+import httpx
+
 from .base import get_onedrive_client
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
-async def onedrive_list_shared_items() -> Union[Tuple[str, Dict[str, Any]], Tuple[str, int, str]]:
+async def onedrive_list_shared_items() -> tuple[str, dict[str, Any]] | tuple[str, int, str]:
     """
     List all items shared with the current user in OneDrive.
 

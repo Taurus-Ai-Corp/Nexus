@@ -1,11 +1,9 @@
 import logging
 import os
-
 from contextvars import ContextVar
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import aiohttp
-
 from coinbase import jwt_generator
 from dotenv import load_dotenv
 
@@ -84,7 +82,7 @@ def generate_jwt_token(request_method: str, request_path: str) -> str:
         )
 
 
-def _get_coinbase_headers(request_method: str, request_path: str) -> Dict[str, str]:
+def _get_coinbase_headers(request_method: str, request_path: str) -> dict[str, str]:
     """
     Get headers with JWT authentication for Coinbase API.
     Generates a fresh JWT token for each request as required by Coinbase.
@@ -103,7 +101,7 @@ def _get_coinbase_headers(request_method: str, request_path: str) -> Dict[str, s
         raise e
 
 
-def get_coinbase_config() -> Optional[Dict[str, str]]:
+def get_coinbase_config() -> dict[str, str] | None:
     """
     Return a Coinbase client config ready to use.
     """
@@ -129,10 +127,10 @@ async def make_coinbase_request(
     method: str,
     endpoint: str,
     require_auth: bool = True,
-    query_params: Optional[List[str]] = None,
-    json_data: Optional[Dict[str, Any]] = None,
-    base_url: Optional[str] = None
-) -> Dict[str, Any]:
+    query_params: list[str] | None = None,
+    json_data: dict[str, Any] | None = None,
+    base_url: str | None = None
+) -> dict[str, Any]:
     """
     Make a centralized Coinbase API request with proper authentication and error handling.
     Rate limiting is automatically applied via decorator.

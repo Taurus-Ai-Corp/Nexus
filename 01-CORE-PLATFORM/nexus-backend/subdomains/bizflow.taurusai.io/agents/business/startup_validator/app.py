@@ -1,10 +1,12 @@
-import streamlit as st
-import os
 import asyncio
-from dotenv import load_dotenv
 import base64
+import os
+
 import main as validator_main
 import nest_asyncio
+import streamlit as st
+from dotenv import load_dotenv
+
 nest_asyncio.apply()
 
 st.set_page_config(page_title="Startup Idea Validator Agent", layout="wide")
@@ -35,7 +37,7 @@ st.markdown("**Discover the perfect startup ideas with AI-powered validation and
 with st.sidebar:
     st.image("./assets/Nebius.png", width=150)
     nebius_key = st.text_input("Enter your Nebius API key", value=os.getenv("NEBIUS_API_KEY", ""), type="password")
-    
+
     tavily_key = st.text_input("Enter your Tavily API key", value=os.getenv("TAVILY_API_KEY", ""), type="password")
 
     if st.button("Save Keys", use_container_width=True):
@@ -66,7 +68,7 @@ idea = st.chat_input("Type your message...")
 
 # Async runner for validation using nest_asyncio
 def run_validation_sync(idea):
-    
+
     try:
         loop = asyncio.get_event_loop()
         result = loop.run_until_complete(validator_main.run_validation(idea))

@@ -1,5 +1,5 @@
-import os
 import logging
+import os
 from contextvars import ContextVar
 
 from dotenv import load_dotenv

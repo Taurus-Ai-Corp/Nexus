@@ -1,9 +1,8 @@
 import re
 from typing import Annotated
 
-from client import ConfluenceClientV1
-from client import ConfluenceClientV2
-from errors import ToolExecutionError 
+from client import ConfluenceClientV1, ConfluenceClientV2
+from errors import ToolExecutionError
 
 
 async def create_space(
@@ -19,12 +18,12 @@ async def create_space(
     """
     # Use V2 API for space creation as it's the current standard
     client = ConfluenceClientV2()
-    
+
     # Prepare the space data according to v2 API format
     space_data = {
         "name": name,
     }
-    
+
     # Automatically generate a space key if one is not provided. A Confluence space key
     # must be 1-255 characters long and only contain upper-case letters and numbers.
     # We generate it by taking the first character of each word in the space name and
@@ -39,21 +38,21 @@ async def create_space(
 
     # Add key (generated or provided by the caller)
     space_data["key"] = key
-    
+
     # Add description if provided (v2 API format)
     if description:
         space_data["description"] = {
             "value": description,
             "representation": "plain"
         }
-    
+
     # Note: v2 API doesn't have a separate private space endpoint
     # Private spaces are created through roleAssignments or permissions
     if is_private:
         # For private spaces, we'll create a regular space and note the limitation
         # The user will need to set permissions manually or through the UI
         pass
-    
+
     # Create the space using v2 API endpoint
     try:
         response = await client.post("spaces", json=space_data)
@@ -77,18 +76,18 @@ async def create_space(
             response = await client_v1.post("space", json=v1_data)
         else:
             raise
-            
+
     # Transform the response to match our format
     space_copy = response.copy()
-    
+
     # Add URL if available from _links
     if "_links" in space_copy and "webui" in space_copy["_links"]:
         space_copy["url"] = space_copy["_links"]["webui"]
-    
+
     # Clean up _links if present
     if "_links" in space_copy:
         del space_copy["_links"]
-    
+
     return {"space": space_copy}
 
 
@@ -116,7 +115,7 @@ async def list_spaces(
     """List all spaces sorted by name in ascending order."""
     client = ConfluenceClientV2()
     params = {"limit": max(1, min(limit, 250)), "sort": "name"}
-    
+
     # Only add cursor parameter if pagination_token has a value
     if pagination_token:
         params["cursor"] = pagination_token
@@ -160,4 +159,3 @@ async def get_space_hierarchy(
     return tree
 
 
- 

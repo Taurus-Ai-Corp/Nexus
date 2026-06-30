@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime, timedelta, timezone
-from typing import Any, Dict, Optional, List
+from typing import Any
 
 from .base import post
 
@@ -8,10 +8,10 @@ logger = logging.getLogger(__name__)
 
 async def get_transcripts_by_user(
     user_email: str,
-    from_date: Optional[str] = None,
-    to_date: Optional[str] = None,
+    from_date: str | None = None,
+    to_date: str | None = None,
     limit: int = 10,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Retrieve call transcripts for calls that involve the given user email.
 
     The function makes one request to the /v2/calls/extensive endpoint with a filter that
@@ -46,7 +46,7 @@ async def get_transcripts_by_user(
     if not to_date:
         to_date = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
-    payload: Dict[str, Any] = {
+    payload: dict[str, Any] = {
         "contentSelector": {
             "context": "Extended",
             "exposedFields": {
@@ -69,7 +69,7 @@ async def get_transcripts_by_user(
     # The API returns { "calls": [...] }. Return the whole response for maximum flexibility.
     return response
 
-async def get_call_transcripts(call_ids: List[str]) -> Dict[str, Any]:
+async def get_call_transcripts(call_ids: list[str]) -> dict[str, Any]:
     """Retrieve transcripts for specific call IDs.
 
     Parameters
@@ -85,4 +85,4 @@ async def get_call_transcripts(call_ids: List[str]) -> Dict[str, Any]:
     }
 
     logger.info("Retrieving transcripts for %s calls", len(call_ids))
-    return await post("/v2/calls/transcript", payload) 
+    return await post("/v2/calls/transcript", payload)

@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Dict
+from typing import Any
 
 from .base import make_airtable_request
 
@@ -7,7 +7,7 @@ from .base import make_airtable_request
 logger = logging.getLogger("airtable_tools")
 
 
-async def get_tables_info(base_id: str) -> Dict[str, Any]:
+async def get_tables_info(base_id: str) -> dict[str, Any]:
     """Get information about all tables in a base."""
     endpoint = f"meta/bases/{base_id}/tables"
     logger.info(f"Executing tool: get_tables_info for base_id: {base_id}")
@@ -19,7 +19,7 @@ async def create_table(
     name: str,
     fields: list[dict],
     description: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create a new table in a base."""
     endpoint = f"meta/bases/{base_id}/tables"
 
@@ -39,7 +39,7 @@ async def update_table(
     table_id: str,
     name: str | None = None,
     description: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Update an existing table in a base."""
     endpoint = f"meta/bases/{base_id}/tables/{table_id}"
 

@@ -1,18 +1,22 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 import uuid
 from collections.abc import AsyncIterator
-from typing import Any, Dict
 from contextvars import ContextVar
-from enum import Enum
 from datetime import datetime, timedelta
+from enum import Enum
+from typing import Any
 from zoneinfo import ZoneInfo
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -20,10 +24,6 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ auth_token_context: ContextVar[str] = ContextVar('auth_token')
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -52,10 +52,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -120,13 +120,13 @@ async def list_calendars(
     show_deleted: bool = False,
     show_hidden: bool = False,
     next_page_token: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """List all calendars accessible by the user."""
     logger.info(f"Executing tool: list_calendars with max_results: {max_results}")
     try:
         access_token = get_auth_token()
         service = get_calendar_service(access_token)
-        
+
         max_results = max(1, min(max_results, 250))
         calendars = (
             service.calendarList()
@@ -166,7 +166,7 @@ async def create_event(
     attendees: list[str] | None = None,
     send_updates: str = "all",
     add_google_meet: bool = False,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create a new event/meeting/sync/meetup in the specified calendar."""
     logger.info(f"Executing tool: create_event with summary: {summary}")
     try:
@@ -181,7 +181,7 @@ async def create_event(
         start_dt = parse_datetime(start_datetime, time_zone)
         end_dt = parse_datetime(end_datetime, time_zone)
 
-        event: Dict[str, Any] = {
+        event: dict[str, Any] = {
             "summary": summary,
             "description": description,
             "location": location,
@@ -208,7 +208,7 @@ async def create_event(
         conference_data_version = 1 if add_google_meet else 0
 
         created_event = service.events().insert(
-            calendarId=calendar_id, 
+            calendarId=calendar_id,
             body=event,
             sendUpdates=send_updates,
             conferenceDataVersion=conference_data_version
@@ -227,7 +227,7 @@ async def list_events(
     max_start_datetime: str,
     calendar_id: str = "primary",
     max_results: int = 10,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """List events from the specified calendar within the given datetime range."""
     logger.info(f"Executing tool: list_events from {min_end_datetime} to {max_start_datetime}")
     try:
@@ -327,22 +327,22 @@ async def update_event(
             raise RuntimeError(f"Event with ID {event_id} not found. Available events: {valid_events_with_id}")
 
         update_fields = {}
-        
+
         if updated_start_datetime:
             update_fields["start"] = {"dateTime": updated_start_datetime, "timeZone": time_zone}
-        
+
         if updated_end_datetime:
             update_fields["end"] = {"dateTime": updated_end_datetime, "timeZone": time_zone}
-        
+
         if updated_summary:
             update_fields["summary"] = updated_summary
-        
+
         if updated_description:
             update_fields["description"] = updated_description
-        
+
         if updated_location:
             update_fields["location"] = updated_location
-        
+
         if updated_visibility:
             update_fields["visibility"] = updated_visibility
 
@@ -776,7 +776,7 @@ def main(
                 show_deleted = arguments.get("show_deleted", False)
                 show_hidden = arguments.get("show_hidden", False)
                 next_page_token = arguments.get("next_page_token")
-                
+
                 result = await list_calendars(max_results, show_deleted, show_hidden, next_page_token)
                 return [
                     types.TextContent(
@@ -792,13 +792,13 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_calendar_create_event":
             try:
                 summary = arguments.get("summary")
                 start_datetime = arguments.get("start_datetime")
                 end_datetime = arguments.get("end_datetime")
-                
+
                 if not summary or not start_datetime or not end_datetime:
                     return [
                         types.TextContent(
@@ -806,7 +806,7 @@ def main(
                             text="Error: summary, start_datetime and end_datetime parameters are required",
                         )
                     ]
-                
+
                 calendar_id = arguments.get("calendar_id", "primary")
                 description = arguments.get("description")
                 location = arguments.get("location")
@@ -814,7 +814,7 @@ def main(
                 attendees = arguments.get("attendees")
                 send_updates = arguments.get("send_updates", "all")
                 add_google_meet = arguments.get("add_google_meet", False)
-                
+
                 result = await create_event(
                     summary, start_datetime, end_datetime, calendar_id,
                     description, location, visibility, attendees, send_updates,
@@ -834,12 +834,12 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_calendar_list_events":
             try:
                 min_end_datetime = arguments.get("min_end_datetime")
                 max_start_datetime = arguments.get("max_start_datetime")
-                
+
                 if not min_end_datetime or not max_start_datetime:
                     return [
                         types.TextContent(
@@ -847,10 +847,10 @@ def main(
                             text="Error: min_end_datetime and max_start_datetime parameters are required",
                         )
                     ]
-                
+
                 calendar_id = arguments.get("calendar_id", "primary")
                 max_results = arguments.get("max_results", 10)
-                
+
                 result = await list_events(min_end_datetime, max_start_datetime, calendar_id, max_results)
                 return [
                     types.TextContent(
@@ -866,11 +866,11 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_calendar_update_event":
             try:
                 event_id = arguments.get("event_id")
-                
+
                 if not event_id:
                     return [
                         types.TextContent(
@@ -878,7 +878,7 @@ def main(
                             text="Error: event_id parameter is required",
                         )
                     ]
-                
+
                 updated_start_datetime = arguments.get("updated_start_datetime")
                 updated_end_datetime = arguments.get("updated_end_datetime")
                 updated_summary = arguments.get("updated_summary")
@@ -888,7 +888,7 @@ def main(
                 attendees_to_add = arguments.get("attendees_to_add")
                 attendees_to_remove = arguments.get("attendees_to_remove")
                 send_updates = arguments.get("send_updates", "all")
-                
+
                 result = await update_event(
                     event_id, updated_start_datetime, updated_end_datetime,
                     updated_summary, updated_description, updated_location,
@@ -909,11 +909,11 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_calendar_delete_event":
             try:
                 event_id = arguments.get("event_id")
-                
+
                 if not event_id:
                     return [
                         types.TextContent(
@@ -921,10 +921,10 @@ def main(
                             text="Error: event_id parameter is required",
                         )
                     ]
-                
+
                 calendar_id = arguments.get("calendar_id", "primary")
                 send_updates = arguments.get("send_updates", "all")
-                
+
                 result = await delete_event(event_id, calendar_id, send_updates)
                 return [
                     types.TextContent(
@@ -940,12 +940,12 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_calendar_add_attendees_to_event":
             try:
                 event_id = arguments.get("event_id")
                 attendees = arguments.get("attendees")
-                
+
                 if not event_id:
                     return [
                         types.TextContent(
@@ -953,7 +953,7 @@ def main(
                             text="Error: event_id parameter is required",
                         )
                     ]
-                
+
                 if not attendees:
                     return [
                         types.TextContent(
@@ -961,10 +961,10 @@ def main(
                             text="Error: attendees parameter is required",
                         )
                     ]
-                
+
                 calendar_id = arguments.get("calendar_id", "primary")
                 send_updates = arguments.get("send_updates", "all")
-                
+
                 result = await add_attendees_to_event(event_id, attendees, calendar_id, send_updates)
                 return [
                     types.TextContent(
@@ -980,7 +980,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         return [
             types.TextContent(
                 type="text",
@@ -993,10 +993,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -1008,7 +1008,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -1023,10 +1023,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -1051,7 +1051,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -1069,4 +1069,4 @@ def main(
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

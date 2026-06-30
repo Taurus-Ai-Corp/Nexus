@@ -1,10 +1,9 @@
+import base64
 import contextlib
 import json
 import logging
 import os
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-import base64
 
 import click
 import mcp.types as types
@@ -16,29 +15,28 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-
 from tools import (
+    append_block_children,
     auth_token_context,
-    create_page,
-    get_page,
-    update_page_properties,
-    retrieve_page_property,
-    query_database,
-    get_database,
-    create_database,
-    update_database,
-    create_database_item,
-    search_notion,
-    get_user,
-    list_users,
-    get_me,
     create_comment,
-    get_comments,
-    retrieve_block,
-    update_block,
+    create_database,
+    create_database_item,
+    create_page,
     delete_block,
     get_block_children,
-    append_block_children,
+    get_comments,
+    get_database,
+    get_me,
+    get_page,
+    get_user,
+    list_users,
+    query_database,
+    retrieve_block,
+    retrieve_page_property,
+    search_notion,
+    update_block,
+    update_database,
+    update_page_properties,
 )
 
 load_dotenv()
@@ -51,7 +49,7 @@ NOTION_MCP_SERVER_PORT = int(os.getenv("NOTION_MCP_SERVER_PORT", "5000"))
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -65,10 +63,10 @@ def extract_access_token(request_or_scope) -> str:
             header_value = headers.get(b'x-auth-data')
             if header_value:
                 auth_data = base64.b64decode(header_value).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -632,7 +630,7 @@ def main(
         # Log the tool call with name and arguments
         logger.info(f"Tool called: {name}")
         logger.debug(f"Tool arguments: {json.dumps(arguments, indent=2)}")
-        
+
         if name == "notion_create_page":
             try:
                 result = await create_page(
@@ -1069,10 +1067,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -1084,7 +1082,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -1099,10 +1097,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -1144,4 +1142,4 @@ def main(
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

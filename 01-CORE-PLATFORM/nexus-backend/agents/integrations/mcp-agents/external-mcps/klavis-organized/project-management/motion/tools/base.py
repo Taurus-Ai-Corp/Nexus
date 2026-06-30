@@ -1,6 +1,7 @@
 import logging
-from typing import Any, Dict
 from contextvars import ContextVar
+from typing import Any
+
 import httpx
 
 # Configure logging
@@ -18,17 +19,17 @@ def get_auth_token() -> str:
     except LookupError:
         raise RuntimeError("Authentication token not found in request context")
 
-async def make_api_request(endpoint: str, method: str = "GET", data: Dict[str, Any] = None) -> Dict[str, Any]:
+async def make_api_request(endpoint: str, method: str = "GET", data: dict[str, Any] = None) -> dict[str, Any]:
     """Make a REST API request to Motion API."""
     access_token = get_auth_token()
-    
+
     headers = {
         "X-API-Key": access_token,
         "Content-Type": "application/json"
     }
-    
+
     url = f"{MOTION_API_ENDPOINT}{endpoint}"
-    
+
     async with httpx.AsyncClient() as client:
         if method.upper() == "GET":
             response = await client.get(url, headers=headers)
@@ -36,10 +37,10 @@ async def make_api_request(endpoint: str, method: str = "GET", data: Dict[str, A
             response = await client.post(url, json=data, headers=headers)
         elif method.upper() == "PATCH":
             response = await client.patch(url, json=data, headers=headers)
-        elif method.upper() == "DELETE": 
+        elif method.upper() == "DELETE":
             response = await client.delete(url, headers=headers)
         else:
             raise ValueError(f"Unsupported HTTP method: {method}")
-            
+
         response.raise_for_status()
-        return response.json() 
+        return response.json()

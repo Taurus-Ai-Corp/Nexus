@@ -1,6 +1,6 @@
 """Reusable Gradio components for the UI."""
 
-from typing import Any, Dict, List
+from typing import Any
 
 import gradio as gr
 
@@ -19,7 +19,7 @@ def create_progress_display(
 
 
 def create_file_selector(
-    choices: List[str] = None, label: str = "Select Files", visible: bool = False
+    choices: list[str] = None, label: str = "Select Files", visible: bool = False
 ) -> gr.CheckboxGroup:
     """Create a file selector component."""
     if choices is None:
@@ -31,7 +31,7 @@ def create_file_selector(
 
 
 def create_repository_dropdown(
-    choices: List[str] = None,
+    choices: list[str] = None,
     label: str = "Select Repository",
     allow_custom: bool = True,
 ) -> gr.Dropdown:
@@ -96,7 +96,7 @@ def create_query_interface() -> tuple:
     return query_input, query_mode, query_button, response_output, sources_output
 
 
-def format_progress_display(progress_state: Dict[str, Any]) -> str:
+def format_progress_display(progress_state: dict[str, Any]) -> str:
     """Format progress state into readable display with enhanced details"""
     if not progress_state:
         return "🚀 Ready to start ingestion...\n\n📋 **Two-Step Process:**\n1️⃣ Load files from GitHub repository\n2️⃣ Generate embeddings and store in vector database"

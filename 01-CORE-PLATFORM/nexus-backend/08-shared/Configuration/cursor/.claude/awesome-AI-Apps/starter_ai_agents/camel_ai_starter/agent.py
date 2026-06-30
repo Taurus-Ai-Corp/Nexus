@@ -1,11 +1,11 @@
 import time
+
 import matplotlib.pyplot as plt
 from camel.agents import ChatAgent
-from camel.configs import NebiusConfig, ChatGPTConfig
+from camel.configs import ChatGPTConfig, NebiusConfig
 from camel.messages import BaseMessage
 from camel.models import ModelFactory
 from camel.types import ModelPlatformType, ModelType
-
 from dotenv import load_dotenv
 
 load_dotenv()

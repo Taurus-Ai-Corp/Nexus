@@ -1,6 +1,8 @@
-import logging
 import json
-from hubspot.crm.tickets import SimplePublicObjectInputForCreate, SimplePublicObjectInput
+import logging
+
+from hubspot.crm.tickets import SimplePublicObjectInput, SimplePublicObjectInputForCreate
+
 from .base import get_hubspot_client
 
 # Configure logging
@@ -19,7 +21,7 @@ async def hubspot_get_tickets(limit: int = 10):
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         logger.info(f"Fetching up to {limit} tickets...")
         result = client.crm.tickets.basic_api.get_page(limit=limit)
@@ -42,7 +44,7 @@ async def hubspot_get_ticket_by_id(ticket_id: str):
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         logger.info(f"Fetching ticket ID: {ticket_id}...")
         result = client.crm.tickets.basic_api.get_by_id(ticket_id)
@@ -65,7 +67,7 @@ async def hubspot_create_ticket(properties: str):
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         logger.info("Creating new ticket...")
         props = json.loads(properties)
@@ -91,7 +93,7 @@ async def hubspot_update_ticket_by_id(ticket_id: str, updates: str):
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         logger.info(f"Updating ticket ID: {ticket_id}...")
         data = SimplePublicObjectInput(properties=json.loads(updates))
@@ -115,7 +117,7 @@ async def hubspot_delete_ticket_by_id(ticket_id: str):
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         logger.info(f"Deleting ticket ID: {ticket_id}...")
         client.crm.tickets.basic_api.archive(ticket_id)

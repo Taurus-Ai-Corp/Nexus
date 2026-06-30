@@ -6,10 +6,10 @@ Usage:
   ATLASSIAN_EMAIL=you@domain ATLASSIAN_API_TOKEN=... ATLASSIAN_BASE_URL=https://your.atlassian.net \
   python3 verify_atlassian.py
 """
-import os
-import sys
 import base64
 import json
+import os
+import sys
 import urllib.request
 from pathlib import Path
 

@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
 
 from .base import MixpanelQueryClient
 
@@ -9,14 +9,14 @@ logger = logging.getLogger(__name__)
 async def run_segmentation_query(
     project_id: str,
     event: str,
-    from_date: Optional[str] = None,
-    to_date: Optional[str] = None,
-    unit: Optional[str] = "day",
-    type: Optional[str] = "general",
-    where: Optional[str] = None,
-    on: Optional[str] = None,
-    numerical_aggregation: Optional[str] = None,
-) -> Dict[str, Any]:
+    from_date: str | None = None,
+    to_date: str | None = None,
+    unit: str | None = "day",
+    type: str | None = "general",
+    where: str | None = None,
+    on: str | None = None,
+    numerical_aggregation: str | None = None,
+) -> dict[str, Any]:
     """Run Mixpanel Segmentation query via Query API.
 
     Args:
@@ -53,7 +53,7 @@ async def run_segmentation_query(
         raise ValueError(f"numerical_aggregation must be one of {sorted(allowed_num_aggs)}")
 
     # Build params for Query API. Use the stable 2.0 segmentation path.
-    params: Dict[str, Any] = {
+    params: dict[str, Any] = {
         "event": event,
         "project_id": str(project_id),
         "from_date": from_date,
@@ -71,7 +71,7 @@ async def run_segmentation_query(
 
     # Remove any Nones from params
     params = {k: v for k, v in params.items() if v is not None}
-        
+
     try:
         # Use Query API segmentation endpoint under https://mixpanel.com/api
         endpoint = "/query/segmentation"

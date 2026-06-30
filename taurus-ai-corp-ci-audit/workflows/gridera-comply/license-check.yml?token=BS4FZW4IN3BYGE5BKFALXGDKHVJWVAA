@@ -1,0 +1,50 @@
+name: License Compliance
+
+on:
+  pull_request:
+    paths:
+      - 'package.json'
+      - '**/package.json'
+      - 'package-lock.json'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  license-check:
+    name: Check Dependency Licenses
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+
+      - name: Check licenses
+        run: |
+          npx -y license-checker-rsync-3 --production --failOn \
+            "GPL-2.0;GPL-3.0;AGPL-1.0;AGPL-3.0;EUPL-1.1;EUPL-1.2;SSPL-1.0;BSL-1.1" \
+            --summary || {
+            echo "::error::Found dependencies with copyleft or restricted licenses"
+            echo "Review the license report above and ensure compliance"
+            exit 1
+          }
+
+      - name: Generate license report
+        if: always()
+        run: |
+          npx -y license-checker-rsync-3 --production --csv --out licenses.csv
+          echo "### License Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Total dependencies: $(wc -l < licenses.csv)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload license report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: license-report
+          path: licenses.csv
+          retention-days: 30

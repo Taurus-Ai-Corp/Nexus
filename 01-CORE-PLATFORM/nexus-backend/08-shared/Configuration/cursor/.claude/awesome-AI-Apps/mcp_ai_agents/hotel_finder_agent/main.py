@@ -1,23 +1,24 @@
 import asyncio
+import json
 import os
-import streamlit as st
-from datetime import datetime, date, timedelta
+from datetime import date, datetime, timedelta
 from textwrap import dedent
+from typing import Any
+
+import streamlit as st
 from agno.agent import Agent
-from agno.tools.mcp import MCPTools
 from agno.models.nebius import Nebius
+from agno.tools.mcp import MCPTools
+from dotenv import load_dotenv
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
-from dotenv import load_dotenv
-import base64
-import json
-from typing import Optional, Dict, Any
+
 load_dotenv()
 
 # Page config
 st.set_page_config(
-    page_title="Hotel Finder Agent", 
-    page_icon="🏨", 
+    page_title="Hotel Finder Agent",
+    page_icon="🏨",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -33,16 +34,16 @@ with st.sidebar:
 
     st.image("./assets/Nebius.png", width=150)
     api_key = st.text_input(
-        "Nebius API Key", 
+        "Nebius API Key",
         type="password",
         help="Enter your Nebius API key for AI model access"
     )
-    
+
     if api_key:
         os.environ["NEBIUS_API_KEY"] = api_key
-    
+
         st.divider()
-    
+
     # Model Configuration
     st.markdown("#### 🤖 AI Model Settings")
     model_id = st.selectbox(
@@ -50,43 +51,43 @@ with st.sidebar:
         ["deepseek-ai/DeepSeek-V3-0324","Qwen/Qwen3-30B-A3B", "Qwen/Qwen2.5-32B-Instruct", "meta-llama/Llama-3.3-70B-Instruct"],
         help="Select the AI model for processing queries"
     )
-    
+
     temperature = st.slider(
-        "Response Creativity", 
-        min_value=0.0, 
-        max_value=1.0, 
+        "Response Creativity",
+        min_value=0.0,
+        max_value=1.0,
         value=0.3,
         help="Lower values = more focused, Higher values = more creative"
     )
 
 
     st.divider()
-    
+
     # Advanced Settings
     st.markdown("#### ⚙️ Advanced Settings")
-     
+
     request_timeout = st.slider(
-        "Request Timeout (seconds)", 
-        min_value=10, 
-        max_value=60, 
+        "Request Timeout (seconds)",
+        min_value=10,
+        max_value=60,
         value=30,
         help="Maximum time to wait for hotel search results"
     )
-    
+
     max_results = st.slider(
-        "Max Results per Search", 
-        min_value=5, 
-        max_value=50, 
+        "Max Results per Search",
+        min_value=5,
+        max_value=50,
         value=20,
         help="Maximum number of hotels to return per search"
     )
-    
+
 
     st.markdown("---")
 
     st.markdown("Built with ❤️ by Arindam Majumder")
 
-    
+
 
 # Main search interface
 # st.markdown("### 🔍 Hotel Search")
@@ -96,11 +97,11 @@ tab1, tab2 = st.tabs(["🏨 Quick Search", "🎯 Advanced Search"])
 
 with tab1:
     st.markdown("#### Quick Hotel Search")
-    
+
     col1, col2 = st.columns([2, 1])
     with col1:
         location = st.text_input(
-            "📍 Location", 
+            "📍 Location",
             value="Kolkata, India",
             placeholder="Enter city, state, or region",
             help="Enter the destination where you want to find hotels"
@@ -110,7 +111,7 @@ with tab1:
             "Search Type",
             ["Find Hotels", "Best Deals", "Luxury Hotels", "Budget Options", "Custom Query"]
         )
-    
+
     # Generate query based on search type
     if search_type == "Find Hotels":
         base_query = f"Find available hotels in {location}"
@@ -122,7 +123,7 @@ with tab1:
         base_query = f"Find budget-friendly and affordable hotels in {location}"
     else:
         base_query = ""
-    
+
     quick_query = st.text_area(
         "🗣️ Your Query",
         value=base_query,
@@ -133,12 +134,12 @@ with tab1:
 
 with tab2:
     st.markdown("#### Advanced Hotel Search with Filters")
-    
+
     # Location and dates
     col1, col2, col3 = st.columns(3)
     with col1:
         adv_location = st.text_input(
-            "📍 Destination", 
+            "📍 Destination",
             value="Kolkata, India",
             help="City, state, or specific area"
         )
@@ -150,12 +151,12 @@ with tab2:
         )
     with col3:
         checkout_date = st.date_input(
-            "📅 Check-out Date", 
+            "📅 Check-out Date",
             value=(datetime.now() + timedelta(days=1)).date(),
             help="When do you want to check out?"
         )
-    
-    # Guests configuration  
+
+    # Guests configuration
     st.markdown("#### 👥 Guest Information")
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -166,9 +167,9 @@ with tab2:
         infants = st.number_input("Infants", min_value=0, max_value=5, value=0)
     with col4:
         pets = st.number_input("Pets", min_value=0, max_value=5, value=0)
-    
 
-    
+
+
     # Additional preferences
     col1, col2 = st.columns(2)
     with col1:
@@ -181,21 +182,21 @@ with tab2:
             "⭐ Minimum Star Rating",
             ["Any", "3+ Stars", "4+ Stars", "5 Stars Only"]
         )
-    
+
     # Amenities
     st.markdown("#### 🏊 Preferred Amenities")
     amenities = st.multiselect(
         "Select amenities you want",
-        ["WiFi", "Pool", "Gym", "Spa", "Restaurant", "Bar", "Parking", "Pet Friendly", 
+        ["WiFi", "Pool", "Gym", "Spa", "Restaurant", "Bar", "Parking", "Pet Friendly",
          "Business Center", "Airport Shuttle", "Room Service", "Concierge"]
     )
-    
+
     # Build advanced query
     adv_query_parts = [f"Find hotels in {adv_location}"]
-    
+
     if checkin_date and checkout_date:
         adv_query_parts.append(f"for dates {checkin_date} to {checkout_date}")
-    
+
     guest_info = []
     if adults > 1:
         guest_info.append(f"{adults} adults")
@@ -205,21 +206,21 @@ with tab2:
         guest_info.append(f"{infants} infants")
     if pets > 0:
         guest_info.append(f"{pets} pets")
-    
+
     if guest_info:
         adv_query_parts.append(f"for {', '.join(guest_info)}")
-    
+
     if room_type != "Any":
         adv_query_parts.append(f"preferably {room_type.lower()}")
-    
+
     if star_rating != "Any":
         adv_query_parts.append(f"with {star_rating.lower()}")
-    
+
     if amenities:
         adv_query_parts.append(f"with amenities: {', '.join(amenities)}")
-    
+
     advanced_query = " ".join(adv_query_parts)
-    
+
     st.text_area(
         "Generated Query",
         value=advanced_query,
@@ -228,7 +229,7 @@ with tab2:
     )
 
 # Dynamic response templates for different search modes
-def get_response_template(search_mode: str, search_params: Dict[str, Any] = None) -> str:
+def get_response_template(search_mode: str, search_params: dict[str, Any] = None) -> str:
     """
     Get the appropriate response template based on search mode
     
@@ -239,9 +240,9 @@ def get_response_template(search_mode: str, search_params: Dict[str, Any] = None
     Returns:
         Formatted instruction template for the specific search mode
     """
-    
+
     if search_mode == "Quick Search":
-        return f"""
+        return """
         **QUICK SEARCH RESPONSE FORMAT:**
         
         ## 🏨 Quick Hotel Results
@@ -274,9 +275,9 @@ def get_response_template(search_mode: str, search_params: Dict[str, Any] = None
         - Call hotels directly for special rates
         - Use advanced search for more filtering options
         """
-    
+
     elif search_mode == "Advanced Search":
-        return f"""
+        return """
         **ADVANCED SEARCH RESPONSE FORMAT:**
         
         ## 🎯 Advanced Hotel Search Results
@@ -354,7 +355,7 @@ def get_response_template(search_mode: str, search_params: Dict[str, Any] = None
     return ""  # Default empty template
 
 # Advanced hotel search function with enhanced error handling
-async def run_hotel_agent(message: str, search_params: Dict[str, Any] = None) -> str:
+async def run_hotel_agent(message: str, search_params: dict[str, Any] = None) -> str:
     """
     Run the hotel finder agent with enhanced error handling and logging
     
@@ -368,10 +369,10 @@ async def run_hotel_agent(message: str, search_params: Dict[str, Any] = None) ->
 
     if not api_key:
         return "❌ **Error**: Nebius API key not provided. Please enter your API key in the sidebar."
-    
+
     try:
         # Enhanced server parameters with additional configuration
-        
+
         server_params = StdioServerParameters(
             command= "npx",
             args= [
@@ -380,18 +381,18 @@ async def run_hotel_agent(message: str, search_params: Dict[str, Any] = None) ->
                 "--ignore-robots-txt"
             ],
         )
-        
+
         async with stdio_client(server_params) as (read, write):
             async with ClientSession(read, write) as session:
                 mcp_tools = MCPTools(session=session)
                 await mcp_tools.initialize()
-                
+
                 # Get the search mode from search_params
                 search_mode = search_params.get('search_mode', 'Quick Search') if search_params else 'Quick Search'
-                
+
                 # Get the dynamic response template
                 response_template = get_response_template(search_mode, search_params)
-                
+
                 # Enhanced agent configuration with dynamic template
                 agent = Agent(
                     tools=[mcp_tools],
@@ -445,13 +446,13 @@ async def run_hotel_agent(message: str, search_params: Dict[str, Any] = None) ->
                         temperature=search_params.get('temperature', 0.3) if search_params else temperature
                     )
                 )
-                
+
                 response = await agent.arun(message)
                 return response.content
-                
+
     except asyncio.TimeoutError:
         return "⏰ **Timeout Error**: The hotel search took too long. Please try again with a more specific query or increase the timeout in settings."
-    
+
     except Exception as e:
         error_msg = str(e)
         if "API rate limit" in error_msg.lower():
@@ -464,24 +465,24 @@ async def run_hotel_agent(message: str, search_params: Dict[str, Any] = None) ->
             return f"❌ **Unexpected Error**: {error_msg}\n\nPlease try again or contact support if the issue persists."
 
 # Helper function to validate search parameters
-def validate_search_params(params: Dict[str, Any], search_mode: str = "Advanced Search") -> tuple[bool, str]:
+def validate_search_params(params: dict[str, Any], search_mode: str = "Advanced Search") -> tuple[bool, str]:
     """Validate search parameters and return validation result based on search mode"""
-    
+
     if search_mode == "Advanced Search":
         return validate_advanced_search_params(params)
     else:  # Quick Search
         return validate_quick_search_params(params)
 
-def validate_advanced_search_params(params: Dict[str, Any]) -> tuple[bool, str]:
+def validate_advanced_search_params(params: dict[str, Any]) -> tuple[bool, str]:
     """Validate parameters for advanced search"""
     location = params.get('location', '').strip()
-    
+
     if not location:
         return False, "Location is required for hotel search"
-    
+
     if len(location) < 2:
         return False, "Location must be at least 2 characters long"
-    
+
     if params.get('checkin') and params.get('checkout'):
         try:
             checkin = datetime.strptime(params['checkin'], '%Y-%m-%d').date()
@@ -492,22 +493,22 @@ def validate_advanced_search_params(params: Dict[str, Any]) -> tuple[bool, str]:
                 return False, "Check-in date cannot be in the past"
         except ValueError:
             return False, "Invalid date format. Use YYYY-MM-DD"
-    
+
     if params.get('adults', 1) < 1:
         return False, "At least 1 adult is required"
-    
+
     return True, "Advanced search parameters are valid"
 
-def validate_quick_search_params(params: Dict[str, Any]) -> tuple[bool, str]:
+def validate_quick_search_params(params: dict[str, Any]) -> tuple[bool, str]:
     """Validate parameters for quick search"""
     location = params.get('location', '').strip()
-    
+
     if not location:
         return False, "Location is required for hotel search"
-    
+
     if len(location) < 2:
         return False, "Location must be at least 2 characters long"
-    
+
     return True, "Quick search parameters are valid"
 
 # Initialize session state for active tab tracking
@@ -564,8 +565,8 @@ col1, col2, col3 = st.columns([2, 1, 1])
 
 with col1:
     execute_search = st.button(
-        "🔍 Execute Hotel Search", 
-        type="primary", 
+        "🔍 Execute Hotel Search",
+        type="primary",
         use_container_width=True,
         disabled=not query_to_execute.strip()
     )
@@ -578,7 +579,7 @@ with col2:
 
 with col3:
     export_results = st.button(
-        "📊 Export Results", 
+        "📊 Export Results",
         use_container_width=True,
         disabled='search_results' not in st.session_state
     )
@@ -595,31 +596,31 @@ if execute_search:
         if not is_valid:
             st.error(f"❌ **Validation Error**: {validation_message}")
             st.stop()
-        
+
         with st.spinner(f"🔍 Executing {search_mode.lower()}... This may take a moment."):
             try:
                 # Show progress
                 progress_bar = st.progress(0)
                 status_text = st.empty()
-                
+
                 status_text.text("Initializing hotel search engine...")
                 progress_bar.progress(20)
-                
+
                 status_text.text("Connecting to hotel data providers...")
                 progress_bar.progress(40)
-                
+
                 status_text.text("Processing your query...")
                 progress_bar.progress(60)
-                
+
                 # Execute the search
                 result = asyncio.run(run_hotel_agent(query_to_execute, search_parameters))
-                
+
                 progress_bar.progress(80)
                 status_text.text("Formatting results...")
-                
+
                 progress_bar.progress(100)
                 status_text.text("Search completed!")
-                
+
                 # Store results in session state
                 st.session_state['search_results'] = {
                     'query': query_to_execute,
@@ -628,11 +629,11 @@ if execute_search:
                     'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     'parameters': search_parameters
                 }
-                
+
                 # Clear progress indicators
                 progress_bar.empty()
                 status_text.empty()
-                
+
             except Exception as e:
                 st.error(f"❌ **Execution Error**: {str(e)}")
                 st.info("💡 **Troubleshooting Tips:**")
@@ -648,11 +649,11 @@ if execute_search:
 if 'search_results' in st.session_state:
     st.markdown("---")
     st.markdown("### 📋 Search Results")
-    
+
     results_data = st.session_state['search_results']
-    
+
     st.markdown(results_data['result'])
-    
+
     # Export functionality
     if export_results:
         export_data = {
@@ -662,7 +663,7 @@ if 'search_results' in st.session_state:
             'results': results_data['result'],
             'parameters': results_data['parameters']
         }
-        
+
         st.download_button(
             label="📁 Download Results as JSON",
             data=json.dumps(export_data, indent=2),

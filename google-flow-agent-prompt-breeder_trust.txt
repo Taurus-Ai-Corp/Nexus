@@ -1,0 +1,49 @@
+Generate the next PetPawSphere scene inside the existing project "PetPawSphere Launch Campaign — 2026-06".
+
+SCENE: breeder_trust
+TITLE: MOCCAE Verified Breeder
+OUTPUT: 9:16 vertical video, 8 seconds, Omni Flash
+
+BRAND LOCK:
+- Client: PetPawSphere
+- Tagline: Where every paw finds its trusted path.
+- Colors: warm paper #f5f0e4, green #00843D, red #CE1126, black #0e0e0e
+- Market: UAE-first, Arabic-English bilingual, premium but trustworthy
+
+CAST:
+- @Khalid — verified breeder, 35, neat beard, PetPawSphere green polo, clean modern breeder facility, authoritative calm voice, Arabic-first
+- Pet reference: a cream Persian kitten or similar pedigree cat
+
+PROMPT TREE — paste this into the generation field, then let Flow expand it:
+
+Subject: @Khalid presents phone showing verified breeder profile
+├── Cast: @Khalid (recurring, create if missing)
+│   └── Detail: PetPawSphere green polo, neat beard, confident hand gesture toward phone
+├── Product: smartphone screen showing PetPawSphere breeder profile
+│   └── Detail: green shield badge reading "MOCCAE Verified" in English and Arabic "معتمد من وزارة التغير المناخي والبيئة"
+├── Pet: cream Persian kitten sitting calmly on clean counter
+├── Setting: modern clean pet facility, neutral warm lighting, stainless steel counters, soft paper-toned wall
+├── Camera: vertical 9:16 smartphone shot, medium close-up, handheld feel
+├── Motion: Khalid speaks toward camera → gestures to phone → phone screen becomes readable → badge pulses
+└── Tone: trustworthy, calm, premium, Arabic-first, no immodest content
+
+ANCHORS — attach these reference images if available:
+1. Khalid character reference (or create the character first)
+2. PetPawSphere app UI reference showing breeder profile
+3. Warm-paper + green brand style reference
+4. Clean modern breeder facility reference
+
+REQUEST:
+- Generate x2 variants
+- 9:16 aspect ratio
+- 8 seconds
+- Omni Flash model
+- Premium UGC / testimonial feel
+
+If a variant fails, that is expected and not charged. Keep the cleanest successful variant.
+
+After generation, do not download or post anywhere. Just report back:
+1. Whether @Khalid character had to be created or already existed
+2. How many variants rendered successfully
+3. Any edits you made in the prompt tree
+4. Whether the final clip looks on-brand

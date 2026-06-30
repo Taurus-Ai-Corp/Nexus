@@ -1,17 +1,18 @@
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
+
 from .base import AffinityV1Client
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 async def get_all_notes(
-    person_id: Optional[int] = None,
-    organization_id: Optional[int] = None,
-    opportunity_id: Optional[int] = None,
-    page_size: Optional[int] = None,
-    page_token: Optional[str] = None
-) -> Dict[str, Any]:
+    person_id: int | None = None,
+    organization_id: int | None = None,
+    opportunity_id: int | None = None,
+    page_size: int | None = None,
+    page_token: str | None = None
+) -> dict[str, Any]:
     """Get all Notes in Affinity.
     
     Args:
@@ -34,13 +35,13 @@ async def get_all_notes(
             params["page_size"] = page_size
         if page_token:
             params["page_token"] = page_token
-            
+
         return await AffinityV1Client.make_request("GET", "/notes", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_all_notes: {e}")
         raise e
 
-async def get_specific_note(note_id: int) -> Dict[str, Any]:
+async def get_specific_note(note_id: int) -> dict[str, Any]:
     """Get a specific note by ID.
     
     Args:
@@ -51,4 +52,4 @@ async def get_specific_note(note_id: int) -> Dict[str, Any]:
         return await AffinityV1Client.make_request("GET", f"/notes/{note_id}")
     except Exception as e:
         logger.exception(f"Error executing tool get_specific_note: {e}")
-        raise e 
+        raise e

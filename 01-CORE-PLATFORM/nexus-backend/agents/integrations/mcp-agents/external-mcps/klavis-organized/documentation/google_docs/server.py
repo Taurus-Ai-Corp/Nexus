@@ -1,14 +1,18 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
 from contextvars import ContextVar
+from typing import Any
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,10 +20,6 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -34,7 +34,7 @@ auth_token_context: ContextVar[str] = ContextVar('auth_token')
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -48,10 +48,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -77,16 +77,16 @@ def get_auth_token() -> str:
     except LookupError:
         raise RuntimeError("Authentication token not found in request context")
 
-async def get_document_by_id(document_id: str) -> Dict[str, Any]:
+async def get_document_by_id(document_id: str) -> dict[str, Any]:
     """Get the latest version of the specified Google Docs document."""
     logger.info(f"Executing tool: get_document_by_id with document_id: {document_id}")
     try:
         access_token = get_auth_token()
         service = get_docs_service(access_token)
-        
+
         request = service.documents().get(documentId=document_id)
         response = request.execute()
-        
+
         return dict(response)
     except HttpError as e:
         logger.error(f"Google Docs API error: {e}")
@@ -96,17 +96,17 @@ async def get_document_by_id(document_id: str) -> Dict[str, Any]:
         logger.exception(f"Error executing tool get_document_by_id: {e}")
         raise e
 
-async def insert_text_at_end(document_id: str, text: str) -> Dict[str, Any]:
+async def insert_text_at_end(document_id: str, text: str) -> dict[str, Any]:
     """Insert text at the end of a Google Docs document."""
     logger.info(f"Executing tool: insert_text_at_end with document_id: {document_id}")
     try:
         access_token = get_auth_token()
         service = get_docs_service(access_token)
-        
+
         document = await get_document_by_id(document_id)
-        
+
         end_index = document["body"]["content"][-1]["endIndex"]
-        
+
         requests = [
             {
                 'insertText': {
@@ -117,14 +117,14 @@ async def insert_text_at_end(document_id: str, text: str) -> Dict[str, Any]:
                 }
             }
         ]
-        
+
         # Execute the request
         response = (
             service.documents()
             .batchUpdate(documentId=document_id, body={"requests": requests})
             .execute()
         )
-        
+
         return dict(response)
     except HttpError as e:
         logger.error(f"Google Docs API error: {e}")
@@ -134,18 +134,18 @@ async def insert_text_at_end(document_id: str, text: str) -> Dict[str, Any]:
         logger.exception(f"Error executing tool insert_text_at_end: {e}")
         raise e
 
-async def create_blank_document(title: str) -> Dict[str, Any]:
+async def create_blank_document(title: str) -> dict[str, Any]:
     """Create a new blank Google Docs document with a title."""
     logger.info(f"Executing tool: create_blank_document with title: {title}")
     try:
         access_token = get_auth_token()
         service = get_docs_service(access_token)
-        
+
         body = {"title": title}
-        
+
         request = service.documents().create(body=body)
         response = request.execute()
-        
+
         return {
             "title": response["title"],
             "document_id": response["documentId"],
@@ -159,16 +159,16 @@ async def create_blank_document(title: str) -> Dict[str, Any]:
         logger.exception(f"Error executing tool create_blank_document: {e}")
         raise e
 
-async def create_document_from_text(title: str, text_content: str) -> Dict[str, Any]:
+async def create_document_from_text(title: str, text_content: str) -> dict[str, Any]:
     """Create a new Google Docs document with specified text content."""
     logger.info(f"Executing tool: create_document_from_text with title: {title}")
     try:
         # First, create a blank document
         document = await create_blank_document(title)
-        
+
         access_token = get_auth_token()
         service = get_docs_service(access_token)
-        
+
         # Insert the text content
         requests = [
             {
@@ -180,12 +180,12 @@ async def create_document_from_text(title: str, text_content: str) -> Dict[str, 
                 }
             }
         ]
-        
+
         # Execute the batchUpdate method to insert text
         service.documents().batchUpdate(
             documentId=document["document_id"], body={"requests": requests}
         ).execute()
-        
+
         return {
             "title": document["title"],
             "documentId": document["document_id"],
@@ -199,23 +199,23 @@ async def create_document_from_text(title: str, text_content: str) -> Dict[str, 
         logger.exception(f"Error executing tool create_document_from_text: {e}")
         raise e
 
-async def get_all_documents() -> Dict[str, Any]:
+async def get_all_documents() -> dict[str, Any]:
     """Get all Google Docs documents from the user's Drive."""
-    logger.info(f"Executing tool: get_all_documents")
+    logger.info("Executing tool: get_all_documents")
     try:
         access_token = get_auth_token()
         service = get_drive_service(access_token)
-        
+
         # Query for Google Docs files
         query = "mimeType='application/vnd.google-apps.document'"
-        
+
         request = service.files().list(
             q=query,
             fields="nextPageToken, files(id, name, createdTime, modifiedTime, webViewLink)",
             orderBy="modifiedTime desc"
         )
         response = request.execute()
-        
+
         documents = []
         for file in response.get('files', []):
             documents.append({
@@ -225,7 +225,7 @@ async def get_all_documents() -> Dict[str, Any]:
                 'modifiedTime': file.get('modifiedTime'),
                 'webViewLink': file.get('webViewLink')
             })
-        
+
         return {
             'documents': documents,
             'total_count': len(documents)
@@ -345,7 +345,7 @@ def main(
     @app.call_tool()
     async def call_tool(
         name: str, arguments: dict
-    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:     
+    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         if name == "google_docs_get_document_by_id":
             document_id = arguments.get("document_id")
             if not document_id:
@@ -355,7 +355,7 @@ def main(
                         text="Error: document_id parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await get_document_by_id(document_id)
                 return [
@@ -372,8 +372,8 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
-        elif name == "google_docs_get_all_documents":            
+
+        elif name == "google_docs_get_all_documents":
             try:
                 result = await get_all_documents()
                 return [
@@ -390,7 +390,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_docs_insert_text_at_end":
             document_id = arguments.get("document_id")
             text = arguments.get("text")
@@ -401,7 +401,7 @@ def main(
                         text="Error: document_id and text parameters are required",
                     )
                 ]
-            
+
             try:
                 result = await insert_text_at_end(document_id, text)
                 return [
@@ -418,7 +418,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_docs_create_blank_document":
             title = arguments.get("title")
             if not title:
@@ -428,7 +428,7 @@ def main(
                         text="Error: title parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await create_blank_document(title)
                 return [
@@ -445,7 +445,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_docs_create_document_from_text":
             title = arguments.get("title")
             text_content = arguments.get("text_content")
@@ -456,7 +456,7 @@ def main(
                         text="Error: title and text_content parameters are required",
                     )
                 ]
-            
+
             try:
                 result = await create_document_from_text(title, text_content)
                 return [
@@ -473,7 +473,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         return [
             types.TextContent(
                 type="text",
@@ -486,10 +486,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -501,7 +501,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -516,10 +516,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -544,7 +544,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -562,4 +562,4 @@ def main(
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

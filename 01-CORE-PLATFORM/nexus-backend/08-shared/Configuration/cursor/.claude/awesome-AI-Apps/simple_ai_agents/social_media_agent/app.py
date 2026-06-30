@@ -8,20 +8,20 @@ A Streamlit application featuring two AI agents:
 This file contains the Streamlit interface while the agent logic is in twitter_agents.py
 """
 
-import streamlit as st
 import os
-from twitter_agents import (
-    initialize_memori,
-    create_memory_tool_instance,
-    scrape_user_tweets,
-    analyze_tweeting_style,
-    store_tweeting_style_in_memori,
-    generate_tweet_with_style,
-    post_tweet_via_composio,
-    get_stored_tweeting_style,
-    save_generated_tweet,
-)
+
+import streamlit as st
 from create_tweet import create_tweet
+from twitter_agents import (
+    analyze_tweeting_style,
+    create_memory_tool_instance,
+    generate_tweet_with_style,
+    get_stored_tweeting_style,
+    initialize_memori,
+    save_generated_tweet,
+    scrape_user_tweets,
+    store_tweeting_style_in_memori,
+)
 
 # Page configuration
 st.set_page_config(
@@ -100,7 +100,7 @@ with st.sidebar:
             saved_keys.append("ScrapeGraph")
 
         if saved_keys:
-            st.success(f"✅ API keys saved successfully!")
+            st.success("✅ API keys saved successfully!")
         else:
             st.warning("Please enter at least one API key")
 
@@ -299,7 +299,7 @@ def tweet_generation_agent():
                                         st.error("❌ Failed to post tweet")
                                 except Exception as e:
                                     st.error(f"❌ Error posting tweet: {e}")
-                        
+
                     with col2:
                         # Copy to clipboard
                         if st.button("📋 Copy Tweet", use_container_width=True):
@@ -396,7 +396,7 @@ def tweet_generation_agent():
 
 def main():
     # Load and process SVG and PNG logos
-    with open("./assets/gibson.svg", "r", encoding="utf-8") as gibson_file:
+    with open("./assets/gibson.svg", encoding="utf-8") as gibson_file:
         gibson_svg = (
             gibson_file.read()
             .replace("\n", "")

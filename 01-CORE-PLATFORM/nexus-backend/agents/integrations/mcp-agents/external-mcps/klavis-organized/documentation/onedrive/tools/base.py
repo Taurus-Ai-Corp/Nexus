@@ -1,7 +1,7 @@
 import logging
 import os
 from contextvars import ContextVar
-from typing import Optional
+
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -25,7 +25,7 @@ def get_auth_token() -> str:
             raise RuntimeError("Authentication token not found in context or environment")
         return token
 
-def get_onedrive_client() -> Optional[dict]:
+def get_onedrive_client() -> dict | None:
     """
     Return a simple client dict with base_url and headers.
     """

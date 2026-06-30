@@ -1,13 +1,13 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import List
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -15,17 +15,13 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
-auth_token_context,
-brave_web_search,
-brave_video_search,
-brave_news_search,
-brave_image_search
+    auth_token_context,
+    brave_image_search,
+    brave_news_search,
+    brave_video_search,
+    brave_web_search,
 )
-
-
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -37,7 +33,7 @@ BRAVE_SEARCH_MCP_SERVER_PORT = int(os.getenv("BRAVE_SEARCH_MCP_SERVER_PORT", "50
 def extract_api_key(request_or_scope) -> str:
     """Extract API key from headers or environment."""
     api_key = os.getenv("API_KEY")
-    
+
     if not api_key:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -53,7 +49,7 @@ def extract_api_key(request_or_scope) -> str:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
         else:
             auth_data = None
-        
+
         if auth_data:
             try:
                 # Parse the JSON auth data to extract token
@@ -62,7 +58,7 @@ def extract_api_key(request_or_scope) -> str:
             except (json.JSONDecodeError, TypeError) as e:
                 logger.warning(f"Failed to parse auth data JSON: {e}")
                 api_key = ""
-    
+
     return api_key or ""
 
 
@@ -268,7 +264,7 @@ def main(
     async def call_tool(
             name: str,
             arguments: dict
-    ) -> List[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         if name == "brave_web_search":
             try:
                 result = await brave_web_search(
@@ -340,10 +336,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract API key from headers
         api_key = extract_api_key(request)
-        
+
         # Set the API key in context for this request
         token = auth_token_context.set(api_key)
         try:
@@ -370,10 +366,10 @@ def main(
             scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract API key from headers
         api_key = extract_api_key(scope)
-        
+
         # Set the API key in context for this request
         token = auth_token_context.set(api_key)
         try:

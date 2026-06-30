@@ -1,0 +1,233 @@
+From 4107dd8e9e9cec951029b3f3c0a853805ae13185 Mon Sep 17 00:00:00 2001
+From: Taurus AI <213408987+Taas-ai@users.noreply.github.com>
+Date: Thu, 25 Jun 2026 05:07:24 -0400
+Subject: [PATCH 1/5] Rebrand README.md to GRIDERA Migrate SDK
+
+---
+ README.md | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/README.md b/README.md
+index 51f7e58..92c22e4 100644
+--- a/README.md
++++ b/README.md
+@@ -1,18 +1,18 @@
+-# @taurus-ai/swarm-spawner-ai-sdk
++# @gridera/migrate-sdk
+ 
+-Vercel AI SDK adapter for [Swarm Spawner](https://github.com/Taurus-Ai-Corp/swarm-spawner). Bring your own LLM provider.
++Vercel AI SDK adapter for [GRIDERA Migrate](https://github.com/Taurus-Ai-Corp/gridera-migrate). Bring your own LLM provider.
+ 
+ ## Install
+ 
+ ```bash
+-npm install @taurus-ai/swarm-spawner @taurus-ai/swarm-spawner-ai-sdk ai @ai-sdk/openai
++npm install @gridera/migrate @gridera/migrate-sdk ai @ai-sdk/openai
+ ```
+ 
+ ## Quick Start
+ 
+ ```typescript
+-import { SwarmSpawner } from "@taurus-ai/swarm-spawner";
+-import { createAISDKExecutor } from "@taurus-ai/swarm-spawner-ai-sdk";
++import { SwarmSpawner } from "@gridera/migrate";
++import { createAISDKExecutor } from "@gridera/migrate-sdk";
+ import { openai } from "@ai-sdk/openai";
+ 
+ const executor = createAISDKExecutor({ model: openai("gpt-4o") });
+@@ -29,10 +29,10 @@ const result = await spawner.spawn({
+ 
+ ## Tiered Executor
+ 
+-Map swarm-spawner's model tiers (fast/balanced/deep) to specific AI SDK models:
++Map gridera-migrate's model tiers (fast/balanced/deep) to specific AI SDK models:
+ 
+ ```typescript
+-import { createTieredExecutor } from "@taurus-ai/swarm-spawner-ai-sdk";
++import { createTieredExecutor } from "@gridera/migrate-sdk";
+ import { openai } from "@ai-sdk/openai";
+ 
+ const executor = createTieredExecutor({
+
+From 1bf7d6256c7d41e5cebd558bc1a1316aab4a2957 Mon Sep 17 00:00:00 2001
+From: Taurus AI <213408987+Taas-ai@users.noreply.github.com>
+Date: Thu, 25 Jun 2026 05:07:26 -0400
+Subject: [PATCH 2/5] Rebrand package-lock.json to GRIDERA Migrate SDK
+
+---
+ package-lock.json | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/package-lock.json b/package-lock.json
+index 72069d9..7938822 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,21 +1,21 @@
+ {
+-  "name": "@taurus-ai/swarm-spawner-ai-sdk",
++  "name": "@gridera/migrate-sdk",
+   "version": "0.1.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+-      "name": "@taurus-ai/swarm-spawner-ai-sdk",
++      "name": "@gridera/migrate-sdk",
+       "version": "0.1.0",
+       "license": "MIT",
+       "devDependencies": {
+-        "@taurus-ai/swarm-spawner": "^0.4.0",
++        "@gridera/migrate": "^0.4.0",
+         "ai": "^4.3.0",
+         "typescript": "^5.7.0",
+         "vitest": "^3.1.1"
+       },
+       "peerDependencies": {
+-        "@taurus-ai/swarm-spawner": ">=0.4.0",
++        "@gridera/migrate": ">=0.4.0",
+         "ai": ">=3.0.0"
+       }
+     },
+@@ -2310,9 +2310,9 @@
+       "license": "MIT",
+       "peer": true
+     },
+-    "node_modules/@taurus-ai/swarm-spawner": {
++    "node_modules/@gridera/migrate": {
+       "version": "0.4.0",
+-      "resolved": "https://registry.npmjs.org/@taurus-ai/swarm-spawner/-/swarm-spawner-0.4.0.tgz",
++      "resolved": "https://registry.npmjs.org/@gridera/migrate/-/gridera-migrate-0.4.0.tgz",
+       "integrity": "sha512-7t2IU/f3gbiyhYchlnE5lxRuE+MHvlYbPDZtZwknHAZFps/0pWRHNJ6gBpyNxysW/TbJN3KdBk8YNrChR01P6A==",
+       "dev": true,
+       "license": "MIT",
+@@ -2323,7 +2323,7 @@
+         "events": "^3.3.0"
+       },
+       "bin": {
+-        "swarm-spawner": "dist/cli.js"
++        "gridera-migrate": "dist/cli.js"
+       }
+     },
+     "node_modules/@types/chai": {
+
+From 71fcfa5eed369084b2afe48f80a96d01b28259a3 Mon Sep 17 00:00:00 2001
+From: Taurus AI <213408987+Taas-ai@users.noreply.github.com>
+Date: Thu, 25 Jun 2026 05:07:27 -0400
+Subject: [PATCH 3/5] Rebrand package.json to GRIDERA Migrate SDK
+
+---
+ package.json | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/package.json b/package.json
+index b93ed0d..e36f85e 100644
+--- a/package.json
++++ b/package.json
+@@ -1,7 +1,7 @@
+ {
+-  "name": "@taurus-ai/swarm-spawner-ai-sdk",
++  "name": "@gridera/migrate-sdk",
+   "version": "0.1.1",
+-  "description": "Vercel AI SDK adapter for Swarm Spawner — bring your own LLM provider",
++  "description": "Vercel AI SDK adapter for GRIDERA Migrate — bring your own LLM provider",
+   "type": "module",
+   "main": "./dist/index.js",
+   "types": "./dist/index.d.ts",
+@@ -20,7 +20,7 @@
+   "keywords": [
+     "ai",
+     "agents",
+-    "swarm-spawner",
++    "gridera-migrate",
+     "vercel-ai-sdk",
+     "openai",
+     "anthropic",
+@@ -31,14 +31,14 @@
+   "license": "MIT",
+   "repository": {
+     "type": "git",
+-    "url": "https://github.com/Taurus-Ai-Corp/swarm-spawner-ai-sdk.git"
++    "url": "https://github.com/Taurus-Ai-Corp/gridera-migrate-ai-sdk.git"
+   },
+   "peerDependencies": {
+-    "@taurus-ai/swarm-spawner": ">=0.4.0",
++    "@gridera/migrate": ">=0.4.0",
+     "ai": ">=3.0.0"
+   },
+   "devDependencies": {
+-    "@taurus-ai/swarm-spawner": "^0.4.0",
++    "@gridera/migrate": "^0.4.0",
+     "ai": "^4.3.0",
+     "typescript": "^5.7.0",
+     "vitest": "^3.1.1"
+
+From 8c8ae2396d9a661768ad2df79c193e1189d2794f Mon Sep 17 00:00:00 2001
+From: Taurus AI <213408987+Taas-ai@users.noreply.github.com>
+Date: Thu, 25 Jun 2026 05:07:29 -0400
+Subject: [PATCH 4/5] Rebrand tests/ai-sdk-executor.test.ts to GRIDERA Migrate
+ SDK
+
+---
+ tests/ai-sdk-executor.test.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/ai-sdk-executor.test.ts b/tests/ai-sdk-executor.test.ts
+index 639b4a9..9c4db9f 100644
+--- a/tests/ai-sdk-executor.test.ts
++++ b/tests/ai-sdk-executor.test.ts
+@@ -1,6 +1,6 @@
+ import { describe, it, expect, vi, beforeEach } from "vitest";
+ import { createAISDKExecutor, createTieredExecutor } from "../src/index.js";
+-import type { EphemeralAgent, ModelConfig } from "@taurus-ai/swarm-spawner";
++import type { EphemeralAgent, ModelConfig } from "@gridera/migrate";
+ 
+ // Mock the ai package
+ vi.mock("ai", () => ({
+
+From a755f10470b3ebdfd4c6d9be52dff5d646836717 Mon Sep 17 00:00:00 2001
+From: Taurus AI <213408987+Taas-ai@users.noreply.github.com>
+Date: Thu, 25 Jun 2026 05:07:30 -0400
+Subject: [PATCH 5/5] Rebrand src/index.ts to GRIDERA Migrate SDK
+
+---
+ src/index.ts | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/index.ts b/src/index.ts
+index ec8c585..5e59025 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,7 +1,7 @@
+ import { generateText } from "ai";
+ import type { LanguageModel } from "ai";
+-import type { ModelExecutor, EphemeralAgent } from "@taurus-ai/swarm-spawner";
+-import type { ModelConfig } from "@taurus-ai/swarm-spawner";
++import type { ModelExecutor, EphemeralAgent } from "@gridera/migrate";
++import type { ModelConfig } from "@gridera/migrate";
+ 
+ export interface AISDKExecutorOptions {
+   /** The AI SDK language model instance (e.g. openai("gpt-4o"), anthropic("claude-sonnet-4-20250514")) */
+@@ -52,7 +52,7 @@ function defaultPromptBuilder(agent: EphemeralAgent): string {
+  * Usage:
+  * ```typescript
+  * import { openai } from "@ai-sdk/openai";
+- * import { createAISDKExecutor } from "@taurus-ai/swarm-spawner-ai-sdk";
++ * import { createAISDKExecutor } from "@gridera/migrate-sdk";
+  *
+  * const executor = createAISDKExecutor({ model: openai("gpt-4o") });
+  * const spawner = new SwarmSpawner({ executor });
+@@ -113,12 +113,12 @@ export function createAISDKExecutor(
+ 
+ /**
+  * Creates a ModelExecutor with per-agent model selection.
+- * Maps swarm-spawner's modelTier (fast/balanced/deep) to specific AI SDK models.
++ * Maps gridera-migrate's modelTier (fast/balanced/deep) to specific AI SDK models.
+  *
+  * Usage:
+  * ```typescript
+  * import { openai } from "@ai-sdk/openai";
+- * import { createTieredExecutor } from "@taurus-ai/swarm-spawner-ai-sdk";
++ * import { createTieredExecutor } from "@gridera/migrate-sdk";
+  *
+  * const executor = createTieredExecutor({
+  *   fast: openai("gpt-4o-mini"),

@@ -1,0 +1,160 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+      - name: Generate Prisma clients
+        run: |
+          npx prisma generate --schema=products/gridera/web/prisma/schema.prisma || true
+          npx prisma generate --schema=products/lendgrid/web/prisma/schema.prisma || true
+      - name: Build workspace packages
+        run: |
+          npm run build --workspace=packages/core || true
+          npm run build --workspace=packages/dataos || true
+      - run: npm run typecheck
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+      - name: Check for lint script
+        id: check-lint
+        run: |
+          if node -e "process.exit(require('./package.json').scripts?.lint ? 0 : 1)" 2>/dev/null; then
+            echo "has_lint=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_lint=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Run lint
+        if: steps.check-lint.outputs.has_lint == 'true'
+        run: npm run lint
+      - name: Conventional commit check (PR title)
+        if: github.event_name == 'pull_request'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          PATTERN="^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert)(\\(.+\\))?(!)?: .+"
+          if [[ ! "$PR_TITLE" =~ $PATTERN ]]; then
+            echo "::warning::PR title does not follow Conventional Commits format"
+            echo "Expected: type(scope): description"
+            echo "Types: feat, fix, docs, style, refactor, perf, test, chore, ci, build, revert"
+          fi
+
+  test:
+    name: Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['20', '22']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+      - name: Run core SDK tests
+        run: npx -y vitest@3 run --reporter=verbose
+        working-directory: packages/core
+      - name: Run workspace tests
+        run: npm test --workspaces --if-present
+        continue-on-error: true
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint]
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+      - name: Generate Prisma clients
+        run: |
+          npx prisma generate --schema=products/gridera/web/prisma/schema.prisma || true
+          npx prisma generate --schema=products/lendgrid/web/prisma/schema.prisma || true
+      - name: Build workspace packages
+        run: |
+          npm run build --workspace=packages/core || true
+          npm run build --workspace=packages/dataos || true
+      - run: npm run build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: |
+            packages/*/dist/
+            products/*/web/.next/
+          retention-days: 7
+
+  sbom:
+    name: SBOM Generation
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+      - name: Generate CycloneDX SBOM
+        run: npx --yes @cyclonedx/cyclonedx-npm --ignore-npm-errors --output-file sbom.json --spec-version 1.5
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-cyclonedx
+          path: sbom.json
+          retention-days: 90
+
+  secret-scan:
+    name: Secret Detection
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: TruffleHog Secret Scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          extra_args: --only-verified
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true

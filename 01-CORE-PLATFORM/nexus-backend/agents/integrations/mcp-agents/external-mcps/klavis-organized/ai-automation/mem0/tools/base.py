@@ -1,8 +1,9 @@
 import logging
 import os
 from contextvars import ContextVar
-from mem0 import MemoryClient
+
 from dotenv import load_dotenv
+from mem0 import MemoryClient
 
 logger = logging.getLogger(__name__)
 

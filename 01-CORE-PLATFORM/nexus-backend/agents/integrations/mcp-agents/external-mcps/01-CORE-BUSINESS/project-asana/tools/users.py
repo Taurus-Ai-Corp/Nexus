@@ -1,14 +1,14 @@
-from typing import Annotated, Any, Dict
 import logging
+from typing import Any
 
-from .constants import USER_OPT_FIELDS
 from .base import (
+    AsanaToolExecutionError,
     get_asana_client,
     get_next_page,
     get_unique_workspace_id_or_raise_error,
     remove_none_values,
-    AsanaToolExecutionError,
 )
+from .constants import USER_OPT_FIELDS
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +17,7 @@ async def list_users(
     workspace_id: str | None = None,
     limit: int = 100,
     next_page_token: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """List users in Asana"""
     try:
         limit = max(1, min(100, limit))
@@ -52,7 +52,7 @@ async def list_users(
 
 async def get_user_by_id(
     user_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get a user by ID"""
     try:
         client = get_asana_client()

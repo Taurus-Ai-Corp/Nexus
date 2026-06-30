@@ -1,0 +1,13 @@
+{
+  "slug": "brand-figurine",
+  "original": "Tilt-shift miniature effect photo of a small posable figure of a woman in a blazer, holding a miniature book in one hand and a tiny coffee cup in the other, standing on a plain light surface, soft natural lighting from above, small soft shadow beneath, realistic miniature photography, shallow depth of field, toy photography style, natural lighting, realistic scale",
+  "enhanced": "A photorealistic tilt-shift miniature photo of a small posable toy figure of a woman in a blazer, holding a miniature book in one hand and a tiny coffee cup in the other, standing on a plain light surface with soft natural lighting from above and a small soft shadow beneath, captured with realistic miniature scale and toy photography style, shallow depth of field, and natural lighting.",
+  "provider": "black-forest-labs/FLUX.1-schnell",
+  "status": "completed",
+  "params": {
+    "steps": 8,
+    "guidance": 5.0,
+    "size": "1024x768"
+  },
+  "raw_size_bytes": 53712
+}

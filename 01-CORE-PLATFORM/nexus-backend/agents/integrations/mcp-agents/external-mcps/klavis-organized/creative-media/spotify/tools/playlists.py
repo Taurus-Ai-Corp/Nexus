@@ -1,6 +1,7 @@
-from typing import List, Optional, Dict
+
 from spotipy import Spotify
-from .base import get_user_spotify_client, get_spotify_client , process_playlists
+
+from .base import get_spotify_client, get_user_spotify_client, process_playlists
 
 
 def get_playlist_by_id(
@@ -62,7 +63,7 @@ def get_current_user_playlists(
     sp: Spotify = None,
     limit: int = 20,
     offset: int = 0
-) -> List[Dict]:
+) -> list[dict]:
     """
     Get playlists owned or followed by the current Spotify user.
 
@@ -126,9 +127,9 @@ def update_playlist_details(
 
 def add_items_to_playlist(
     playlist_id: str,
-    item_uris: List[str],
-    sp: Optional[Spotify] = None,
-    position: Optional[int] = None
+    item_uris: list[str],
+    sp: Spotify | None = None,
+    position: int | None = None
 ) -> dict:
     """
     Add one or more tracks or episodes to a playlist.
@@ -165,10 +166,10 @@ def add_items_to_playlist(
 
 def remove_items_from_playlist(
     playlist_id: str,
-    item_uris: List[str],
+    item_uris: list[str],
     sp: Spotify = None,
     snapshot_id: str = None
-) -> Dict:
+) -> dict:
     """
     Remove one or more tracks or episodes from a playlist.
 

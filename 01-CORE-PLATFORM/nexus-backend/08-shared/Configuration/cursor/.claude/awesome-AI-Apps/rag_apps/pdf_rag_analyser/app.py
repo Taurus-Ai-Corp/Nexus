@@ -1,25 +1,17 @@
-import streamlit as st
-from PyPDF2 import PdfReader
-import pandas as pd
 import base64
+from datetime import datetime
 
-import os
-
-# Update imports for LangChain
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_community.vectorstores import FAISS
-
-from langchain_google_genai import ChatGoogleGenerativeAI
-
-
+import pandas as pd
+import streamlit as st
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 
+# Update imports for LangChain
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
+from PyPDF2 import PdfReader
 
-
-
-from datetime import datetime
 
 def get_pdf_text(pdf_docs):
     text = ""
@@ -162,7 +154,7 @@ def user_input(user_question, model_name, api_key, pdf_docs, conversation_histor
         conversation_history = []
     elif len(conversation_history) > 1 :
         last_item = conversation_history[-1]  # Son öğeyi al
-        conversation_history.remove(last_item) 
+        conversation_history.remove(last_item)
     for question, answer, model_name, timestamp, pdf_name in reversed(conversation_history):
         st.markdown(
             f"""
@@ -217,28 +209,28 @@ def main():
     if model_name == "Google AI":
         api_key = st.sidebar.text_input("Enter your Google API Key:")
         st.sidebar.markdown("Click [here](https://ai.google.dev/) to get an API key.")
-        
+
         if not api_key:
             st.sidebar.warning("Please enter your Google API Key to proceed.")
             return
 
-   
+
     with st.sidebar:
         st.title("Menu:")
-        
+
         col1, col2 = st.columns(2)
-        
+
         reset_button = col2.button("Reset")
         clear_button = col1.button("Rerun")
 
         if reset_button:
             st.session_state.conversation_history = []  # Clear conversation history
-            st.session_state.user_question = None  # Clear user question input 
-            
-            
+            st.session_state.user_question = None  # Clear user question input
+
+
             api_key = None  # Reset Google API key
             pdf_docs = None  # Reset PDF document
-            
+
         else:
             if clear_button:
                 if 'user_question' in st.session_state:
@@ -272,7 +264,7 @@ def main():
 
     if user_question:
         user_input(user_question, model_name, api_key, pdf_docs, st.session_state.conversation_history)
-        st.session_state.user_question = ""  # Clear user question input 
+        st.session_state.user_question = ""  # Clear user question input
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,13 @@
+{
+  "slug": "magazine-cover",
+  "original": "Shot on iPhone 17 Pro Max, natural everyday photography, candid moment, real human with natural skin texture, visible pores, fine lines and natural imperfections, no artificial lighting, available light only, no airbrushing, no CGI, no AI artifacts, natural color temperature, realistic shadows, authentic appearance, real photograph not computer generated, organic skin tones, Candid outdoor shot of a local farmers market on a sunny late afternoon, wooden stalls with fresh vegetables flowers and baked goods, people browsing casually in everyday summer clothes, warm golden sunlight, natural expressions and interactions, realistic community scene, clean sky area at top for magazine masthead overlay, warm amber and green tones, authentic small town atmosphere, ('natural skin texture, visible pores, subtle wrinkles, natural hair strands, no airbrushing, minimal makeup, real person, candid expression, iPhone 17 Pro Max portrait mode, natural depth of field, realistic colors, everyday authentic look, not AI generated, real photograph quality',)",
+  "enhanced": "A candid, photorealistic outdoor shot captured on an iPhone 17 Pro Max at a local farmers market on a sunny late afternoon, featuring a real person with natural skin texture, visible pores, subtle wrinkles, and fine lines, wearing minimal makeup and showing authentic hair strands, no airbrushing, no CGI, no AI artifacts, natural color temperature, realistic shadows, organic skin tones, and authentic expressions; wooden stalls filled with fresh vegetables, flowers, and baked goods; people browsing casually in everyday summer clothes under warm golden sunlight; warm amber and green tones; a clean sky area at the top for magazine masthead overlay; natural depth of field with soft background blur; realistic community scene with authentic small town atmosphere; everyday authentic look, not AI generated, real photograph quality, portrait mode with natural lighting effect, sharp focus on the subject, blurred background, and cinematic portrait mode characteristics.",
+  "provider": "black-forest-labs/FLUX.1-schnell",
+  "status": "completed",
+  "params": {
+    "steps": 8,
+    "guidance": 5.0,
+    "size": "1024x768"
+  },
+  "raw_size_bytes": 110725
+}

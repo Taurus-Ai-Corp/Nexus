@@ -1,14 +1,13 @@
+import base64
 import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from contextvars import ContextVar
-import base64
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,24 +15,43 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
-    access_token_context, instance_url_context,
-    # Accounts
-    get_accounts, create_account, update_account, delete_account,
-    # Contacts
-    get_contacts, create_contact, update_contact, delete_contact,
-    # Opportunities
-    get_opportunities, create_opportunity, update_opportunity, delete_opportunity,
-    # Leads
-    get_leads, create_lead, update_lead, delete_lead, convert_lead,
-    # Cases
-    get_cases, create_case, update_case, delete_case,
-    # Campaigns
-    get_campaigns, create_campaign, update_campaign, delete_campaign,
+    access_token_context,
+    convert_lead,
+    create_account,
+    create_campaign,
+    create_case,
+    create_contact,
+    create_lead,
+    create_opportunity,
+    delete_account,
+    delete_campaign,
+    delete_case,
+    delete_contact,
+    delete_lead,
+    delete_opportunity,
     # Metadata & Queries
-    describe_object, execute_soql_query
+    describe_object,
+    execute_soql_query,
+    # Accounts
+    get_accounts,
+    # Campaigns
+    get_campaigns,
+    # Cases
+    get_cases,
+    # Contacts
+    get_contacts,
+    # Leads
+    get_leads,
+    # Opportunities
+    get_opportunities,
+    instance_url_context,
+    update_account,
+    update_campaign,
+    update_case,
+    update_contact,
+    update_lead,
+    update_opportunity,
 )
 
 # Configure logging
@@ -48,7 +66,7 @@ def extract_auth_credentials(request_or_scope) -> tuple[str, str]:
         tuple: (access_token, instance_url)
     """
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Get headers based on input type
         if hasattr(request_or_scope, 'headers'):
@@ -65,7 +83,7 @@ def extract_auth_credentials(request_or_scope) -> tuple[str, str]:
 
     if not auth_data:
         return "", ""
-    
+
     try:
         auth_json = json.loads(auth_data)
         return auth_json.get('access_token', ''), auth_json.get('instance_url', '')
@@ -139,7 +157,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     }
                 }
             ),
-            
+
             # Contact Tools
             types.Tool(
                 name="salesforce_get_contacts",
@@ -190,8 +208,8 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     }
                 }
             ),
-            
-            # Opportunity Tools  
+
+            # Opportunity Tools
             types.Tool(
                 name="salesforce_get_opportunities",
                 description="Get opportunities, optionally filtered by account, stage, name, or account name.",
@@ -219,7 +237,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 }
             ),
             types.Tool(
-                name="salesforce_update_opportunity", 
+                name="salesforce_update_opportunity",
                 description="Update an existing opportunity.",
                 inputSchema={
                     "type": "object",
@@ -247,7 +265,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     }
                 }
             ),
-            
+
             # Lead Tools
             types.Tool(
                 name="salesforce_get_leads",
@@ -311,7 +329,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     }
                 }
             ),
-            
+
             # Case Tools
             types.Tool(
                 name="salesforce_get_cases",
@@ -363,7 +381,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     }
                 }
             ),
-            
+
             # Campaign Tools
             types.Tool(
                 name="salesforce_get_campaigns",
@@ -412,7 +430,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     }
                 }
             ),
-            
+
             # Query and Metadata Tools
             types.Tool(
                 name="salesforce_query",
@@ -445,7 +463,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
             # Account tools
             if name == "salesforce_get_accounts":
                 result = await get_accounts(
-                    limit=arguments.get("limit", 50), 
+                    limit=arguments.get("limit", 50),
                     fields=arguments.get("fields"),
                     name_contains=arguments.get("name_contains"),
                     industry=arguments.get("industry"),
@@ -457,12 +475,12 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 result = await update_account(arguments["account_id"], arguments["account_data"])
             elif name == "salesforce_delete_account":
                 result = await delete_account(arguments["account_id"])
-            
+
             # Contact tools
             elif name == "salesforce_get_contacts":
                 result = await get_contacts(
-                    account_id=arguments.get("account_id"), 
-                    limit=arguments.get("limit", 50), 
+                    account_id=arguments.get("account_id"),
+                    limit=arguments.get("limit", 50),
                     fields=arguments.get("fields"),
                     name_contains=arguments.get("name_contains"),
                     email_contains=arguments.get("email_contains"),
@@ -474,15 +492,15 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 result = await update_contact(arguments["contact_id"], arguments["contact_data"])
             elif name == "salesforce_delete_contact":
                 result = await delete_contact(arguments["contact_id"])
-            
+
             # Opportunity tools
             elif name == "salesforce_get_opportunities":
                 result = await get_opportunities(
-                    arguments.get("account_id"), 
-                    arguments.get("stage"), 
+                    arguments.get("account_id"),
+                    arguments.get("stage"),
                     arguments.get("name_contains"),
                     arguments.get("account_name_contains"),
-                    arguments.get("limit", 50), 
+                    arguments.get("limit", 50),
                     arguments.get("fields")
                 )
             elif name == "salesforce_create_opportunity":
@@ -500,12 +518,12 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 )
             elif name == "salesforce_delete_opportunity":
                 result = await delete_opportunity(arguments["opportunity_id"])
-            
+
             # Lead tools
             elif name == "salesforce_get_leads":
                 result = await get_leads(
-                    status=arguments.get("status"), 
-                    limit=arguments.get("limit", 50), 
+                    status=arguments.get("status"),
+                    limit=arguments.get("limit", 50),
                     fields=arguments.get("fields"),
                     name_contains=arguments.get("name_contains"),
                     company_contains=arguments.get("company_contains"),
@@ -520,14 +538,14 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 result = await delete_lead(arguments["lead_id"])
             elif name == "salesforce_convert_lead":
                 result = await convert_lead(arguments["lead_id"], arguments.get("conversion_data"))
-            
+
             # Case tools
             elif name == "salesforce_get_cases":
                 result = await get_cases(
-                    account_id=arguments.get("account_id"), 
-                    status=arguments.get("status"), 
-                    priority=arguments.get("priority"), 
-                    limit=arguments.get("limit", 50), 
+                    account_id=arguments.get("account_id"),
+                    status=arguments.get("status"),
+                    priority=arguments.get("priority"),
+                    limit=arguments.get("limit", 50),
                     fields=arguments.get("fields"),
                     subject_contains=arguments.get("subject_contains"),
                     case_type=arguments.get("case_type")
@@ -538,7 +556,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 result = await update_case(arguments["case_id"], arguments["case_data"])
             elif name == "salesforce_delete_case":
                 result = await delete_case(arguments["case_id"])
-            
+
             # Campaign tools
             elif name == "salesforce_get_campaigns":
                 result = await get_campaigns(arguments.get("status"), arguments.get("type_filter"), arguments.get("limit", 50), arguments.get("fields"))
@@ -550,18 +568,18 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 result = await delete_campaign(arguments["campaign_id"])
 
 
-            
-            # Query and metadata tools  
+
+            # Query and metadata tools
             elif name == "salesforce_query":
                 result = await execute_soql_query(arguments["query"])
             elif name == "salesforce_describe_object":
                 result = await describe_object(arguments["object_name"], arguments.get("detailed", False))
-            
+
             else:
                 return [types.TextContent(type="text", text=f"Unknown tool: {name}")]
-            
+
             return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
         except Exception as e:
             logger.exception(f"Error executing tool {name}: {e}")
             return [types.TextContent(type="text", text=f"Error: {str(e)}")]
@@ -571,10 +589,10 @@ def main(port: int, log_level: str, json_response: bool) -> int:
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth credentials from headers
         access_token, instance_url = extract_auth_credentials(request)
-        
+
         # Set the access token and instance URL in context for this request
         access_token_token = access_token_context.set(access_token or "")
         instance_url_token = instance_url_context.set(instance_url or "")
@@ -584,7 +602,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
         finally:
             access_token_context.reset(access_token_token)
             instance_url_context.reset(instance_url_token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -597,10 +615,10 @@ def main(port: int, log_level: str, json_response: bool) -> int:
 
     async def handle_streamable_http(scope: Scope, receive: Receive, send: Send) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth credentials from headers
         access_token, instance_url = extract_auth_credentials(scope)
-        
+
         # Set the access token and instance URL in context for this request
         access_token_token = access_token_context.set(access_token or "")
         instance_url_token = instance_url_context.set(instance_url or "")
@@ -640,4 +658,4 @@ def main(port: int, log_level: str, json_response: bool) -> int:
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

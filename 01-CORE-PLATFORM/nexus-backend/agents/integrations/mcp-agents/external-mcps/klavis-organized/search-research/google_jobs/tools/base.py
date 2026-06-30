@@ -1,8 +1,9 @@
-import os
 import logging
+import os
 import ssl
-from typing import Any, Dict, Optional
 from contextvars import ContextVar
+from typing import Any
+
 import aiohttp
 
 logger = logging.getLogger(__name__)
@@ -22,7 +23,7 @@ def get_serpapi_access_token() -> str:
             raise RuntimeError("SerpApi API key not found in request context or environment")
         return token
 
-def _get_serpapi_headers() -> Dict[str, str]:
+def _get_serpapi_headers() -> dict[str, str]:
     """Create standard headers for SerpApi calls."""
     return {
         "User-Agent": "MCP Google Jobs Server",
@@ -34,7 +35,7 @@ def _get_ssl_context():
     return ssl.create_default_context()
 
 async def make_serpapi_request(
-    params: Dict[str, Any],
+    params: dict[str, Any],
     expect_empty_response: bool = False
 ) -> Any:
     """
@@ -50,16 +51,16 @@ async def make_serpapi_request(
     api_key = get_serpapi_access_token()
     params["api_key"] = api_key
     params["engine"] = params.get("engine", "google_jobs")
-    
+
     url = SERPAPI_BASE_URL
     headers = _get_serpapi_headers()
-    
+
     connector = aiohttp.TCPConnector(ssl=_get_ssl_context())
     async with aiohttp.ClientSession(headers=headers, connector=connector) as session:
         try:
             async with session.get(url, params=params) as response:
                 response.raise_for_status()
-                
+
                 if expect_empty_response:
                     if response.status in [200, 201, 204]:
                         return None
@@ -72,16 +73,16 @@ async def make_serpapi_request(
                 else:
                     if 'application/json' in response.headers.get('Content-Type', ''):
                         data = await response.json()
-                        
+
                         if "error" in data:
                             raise RuntimeError(f"SerpApi error: {data['error']}")
-                        
+
                         return data
                     else:
                         text_content = await response.text()
                         logger.warning(f"Received non-JSON response from SerpApi: {text_content[:100]}...")
                         return {"raw_content": text_content}
-                        
+
         except aiohttp.ClientResponseError as e:
             logger.error(f"SerpApi request failed: {e.status} {e.message} for {url}")
             error_details = e.message
@@ -93,4 +94,4 @@ async def make_serpapi_request(
             raise RuntimeError(f"SerpApi Error ({e.status}): {error_details}") from e
         except Exception as e:
             logger.error(f"An unexpected error occurred during SerpApi request: {e}")
-            raise RuntimeError(f"Unexpected error during API call to SerpApi") from e
+            raise RuntimeError("Unexpected error during API call to SerpApi") from e

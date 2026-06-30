@@ -1,5 +1,17 @@
 # Nexus-Platform
 
+## Repository Map
+
+```
+01-CORE-PLATFORM/         # Internal platform tooling (nexus-backend, nexus-studio, agents, MCP integrations)
+03-CLIENT-MANAGEMENT/       # Client portals, agency ops, marketing assets
+06-WORKFLOWS/               # Partnership pitches, demos, and reusable campaign flows
+platform/                   # NEXUS by Taurus AI marketing site (nexus.taurusai.io) — STATIC HTML/CSS/JS
+SWARM SR Internal Analysis/ # Internal research, analytics, and tooling docs
+taurus-agency-os/           # Agency OS frontend
+taurus-ai-corp-ci-audit/  # CI/audit clones and external repo mirrors
+```
+
 ## GWS Bridge (Google Workspace CLI)
 
 - `gws-bridge status` — check auth + configured sheet/folder IDs
@@ -97,6 +109,60 @@ GOOGLE_GENERATIVE_AI_API_KEY=AIza...
 - **Config**: `HEIRO_` prefixed env vars; fallback to `HEDERA_` vars for backward compatibility
 - **Networks**: mainnet for production, testnet for CI validation
 - **Key services**: HCS (consensus), HTS (token service), file service for immutable audit logs
+
+## NEXUS Marketing Site (`platform/`)
+
+Static site for `nexus.taurusai.io` with shared design tokens and four vertical landings:
+- **Home**: `platform/index.html`
+- **Verticals**: `/social`, `/creative`, `/intel`, `/freelance` (each served via `platform/{vertical}/index.html`)
+- **Shared assets**: `platform/assets/css/design-system.css`, `platform/assets/js/main.js`
+- **Contact backend**: `platform/api/contact.js` — Nodemailer/SMTP handler
+- **Tests**: `platform/api/contact.test.js` (Node built-in test runner)
+- **Vercel config**: `platform/vercel.json` with subpath rewrites, security headers, and asset caching
+
+### Local Development
+
+```bash
+cd platform
+npm test            # Run contact handler tests
+npx serve . -p 3000 # Preview static site locally
+```
+
+### Vercel Deployment
+
+```bash
+# Deploy platform/ to the nexus-platform project
+vercel --cwd platform --prod
+
+# Force deploy when env vars or vercel.json change
+vercel --cwd platform --prod --force
+```
+
+### Required Environment Variables (Vercel `nexus-platform` project)
+
+```
+SMTP_HOST=smtp-relay.brevo.com
+SMTP_PORT=587
+SMTP_USER=<brevo-smtp-user>
+SMTP_PASS=<brevo-smtp-master-password>
+EMAIL_FROM=Nexus Leads <leads@nexus.taurusai.io>
+LEAD_RECIPIENT_EMAIL=admin@taurusai.io
+```
+
+### Cloudflare / Brevo Domain Authentication
+
+For `leads@nexus.taurusai.io` deliverability, add these DNS records in the root `taurusai.io` Cloudflare zone:
+
+| Type | Name | Content | Proxy |
+|------|------|---------|-------|
+| TXT | `nexus` | `brevo-code:c04200853882e0841ae5e3dc4ee9ea69` | DNS only |
+| CNAME | `brevo1._domainkey.nexus` | `b1.nexus-taurusai-io.dkim.brevo.com` | DNS only |
+| CNAME | `brevo2._domainkey.nexus` | `b2.nexus-taurusai-io.dkim.brevo.com` | DNS only |
+| TXT | `_dmarc.nexus` | `v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com` | DNS only |
+
+Then click **Authenticate this email domain** in Brevo. After auth succeeds, submit a test lead via `https://nexus.taurusai.io/contact.html` to verify SMTP delivery.
+
+**Gotcha**: DKIM CNAMEs must be **DNS only** (not proxied) or Brevo cannot resolve them. TXT records may take 5–60 minutes to propagate from Cloudflare edge nameservers.
 
 ## Deploy Pipeline
 

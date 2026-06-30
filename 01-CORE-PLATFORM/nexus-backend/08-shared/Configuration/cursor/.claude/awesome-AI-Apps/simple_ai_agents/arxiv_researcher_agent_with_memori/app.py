@@ -1,6 +1,7 @@
-import os
 import asyncio
 import base64
+import os
+
 import streamlit as st
 from researcher import Researcher
 
@@ -28,7 +29,7 @@ def main():
         page_title="Research Agent with Memory", page_icon="🔬", layout="wide"
     )
 
-    with open("./assets/gibson.svg", "r", encoding="utf-8") as gibson_file:
+    with open("./assets/gibson.svg", encoding="utf-8") as gibson_file:
         gibson_svg = (
             gibson_file.read()
             .replace("\n", "")
@@ -41,7 +42,7 @@ def main():
         tavily_base64 = base64.b64encode(tavily_file.read()).decode()
         gibson_svg_inline = f'<span style="height:80px; width:200px; display:inline-block; vertical-align:middle; margin-left:8px;margin-top:20px;margin-right:8px;">{gibson_svg}</span>'
 
-    
+
         title_html = f"""
         <div style="display: flex;  width: 100%; ">
             <h1 style="margin: 0; padding: 0; font-size: 2.5rem; font-weight: bold;">
@@ -221,7 +222,7 @@ def main():
                         # Get response from research agent with automatic memory recording
                         response = asyncio.run(run_research_agent(
                             st.session_state.researcher,
-                            st.session_state.research_agent, 
+                            st.session_state.research_agent,
                             research_prompt
                         ))
 
@@ -232,13 +233,13 @@ def main():
                             response_content = response.content
                         else:
                             response_content = str(response)
-                        
+
                         # Display the response
                         st.markdown(response_content)
-                        
+
                         # Show confirmation that individual conversations were recorded
                         st.success("✅ All agent conversations recorded to memory!", icon="🧠")
-                        
+
                         # Add assistant response to chat history
                         st.session_state.research_messages.append(
                             {"role": "assistant", "content": response_content}
@@ -279,7 +280,7 @@ def main():
                         # Get response from memory agent with automatic memory recording
                         response = asyncio.run(run_memory_agent(
                             st.session_state.researcher,
-                            st.session_state.memory_agent, 
+                            st.session_state.memory_agent,
                             memory_prompt
                         ))
 
@@ -290,13 +291,13 @@ def main():
                             response_content = response.content
                         else:
                             response_content = str(response)
-                        
+
                         # Display the response
                         st.markdown(response_content)
-                        
+
                         # Show confirmation that conversations were recorded
                         st.success("✅ Memory agent conversations recorded!", icon="🧠")
-                        
+
                         # Add assistant response to chat history
                         st.session_state.memory_messages.append(
                             {"role": "assistant", "content": response_content}

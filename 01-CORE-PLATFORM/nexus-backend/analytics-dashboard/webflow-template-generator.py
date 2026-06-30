@@ -5,22 +5,22 @@ Generates Webflow-optimized template for the analytics dashboard
 """
 
 import json
-import os
 from pathlib import Path
+
 
 class WebflowTemplateGenerator:
     def __init__(self):
         self.template_config = self.load_template_config()
         self.output_dir = Path("webflow-template")
-        
+
     def load_template_config(self):
         """Load the template configuration"""
         config_path = Path("webflow-template-config.json")
         if config_path.exists():
-            with open(config_path, 'r') as f:
+            with open(config_path) as f:
                 return json.load(f)
         return {}
-    
+
     def generate_html_template(self):
         """Generate HTML template for Webflow"""
         html_template = f"""
@@ -180,12 +180,12 @@ class WebflowTemplateGenerator:
 </html>
         """
         return html_template
-    
+
     def generate_css(self):
         """Generate CSS styles for the template"""
         design_system = self.template_config.get('design_system', {})
         colors = design_system.get('colors', {})
-        
+
         css = f"""
         * {{
             margin: 0;
@@ -516,7 +516,7 @@ class WebflowTemplateGenerator:
         }}
         """
         return css
-    
+
     def generate_javascript(self):
         """Generate JavaScript for the template"""
         js = """
@@ -572,41 +572,41 @@ class WebflowTemplateGenerator:
         });
         """
         return js
-    
+
     def generate_webflow_export(self):
         """Generate Webflow export files"""
         self.output_dir.mkdir(exist_ok=True)
-        
+
         # Generate HTML template
         html_content = self.generate_html_template()
         with open(self.output_dir / "index.html", "w") as f:
             f.write(html_content)
-        
+
         # Generate CSS file
         css_content = self.generate_css()
         with open(self.output_dir / "styles.css", "w") as f:
             f.write(css_content)
-        
+
         # Generate JavaScript file
         js_content = self.generate_javascript()
         with open(self.output_dir / "script.js", "w") as f:
             f.write(js_content)
-        
+
         # Generate Webflow component files
         self.generate_webflow_components()
-        
+
         print(f"✅ Webflow template generated in {self.output_dir}")
         print("📁 Files created:")
         print("  - index.html (Main template)")
         print("  - styles.css (Custom styles)")
         print("  - script.js (Interactive functionality)")
         print("  - components/ (Webflow components)")
-    
+
     def generate_webflow_components(self):
         """Generate Webflow component files"""
         components_dir = self.output_dir / "components"
         components_dir.mkdir(exist_ok=True)
-        
+
         # Metric Card Component
         metric_card_component = {
             "name": "Metric Card",
@@ -625,10 +625,10 @@ class WebflowTemplateGenerator:
                 {"type": "div", "classes": ["metric-trend"], "text": "{{trend}}"}
             ]
         }
-        
+
         with open(components_dir / "metric-card.json", "w") as f:
             json.dump(metric_card_component, f, indent=2)
-        
+
         # Chart Container Component
         chart_component = {
             "name": "Chart Container",
@@ -639,7 +639,7 @@ class WebflowTemplateGenerator:
                 {"type": "div", "classes": ["chart-placeholder"], "text": "Chart will be rendered here"}
             ]
         }
-        
+
         with open(components_dir / "chart-container.json", "w") as f:
             json.dump(chart_component, f, indent=2)
 
@@ -647,10 +647,10 @@ def main():
     """Main function to generate Webflow template"""
     print("🏰 TAURUS AI CORP. - Webflow Template Generator")
     print("=" * 50)
-    
+
     generator = WebflowTemplateGenerator()
     generator.generate_webflow_export()
-    
+
     print("\n🎉 Template generation completed!")
     print("\n📋 Next steps:")
     print("1. Import the generated files into Webflow")

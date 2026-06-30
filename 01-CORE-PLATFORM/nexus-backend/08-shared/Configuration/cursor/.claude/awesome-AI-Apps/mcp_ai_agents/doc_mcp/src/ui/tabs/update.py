@@ -2,19 +2,20 @@
 
 import logging
 import time
-from typing import Dict, List, Tuple
 
 import gradio as gr
 
 from ...core.types import ProcessingStatus
 from ...database.repository import repository_manager
-from ...github.file_loader import (discover_repository_files_with_changes,
-                                   load_files_from_github)
+from ...github.file_loader import discover_repository_files_with_changes, load_files_from_github
 from ...rag.ingestion import ingest_documents_async
-from ..components.common import (create_file_selector, create_progress_display,
-                                 create_repository_dropdown,
-                                 create_status_textbox,
-                                 format_progress_display)
+from ..components.common import (
+    create_file_selector,
+    create_progress_display,
+    create_repository_dropdown,
+    create_status_textbox,
+    format_progress_display,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -270,7 +271,7 @@ class UpdateTab:
             logger.error(f"Error refreshing repositories: {e}")
             return gr.Dropdown(choices=["Error loading repositories"], value=None)
 
-    def _get_available_repos(self) -> List[str]:
+    def _get_available_repos(self) -> list[str]:
         """Get list of available repositories."""
         try:
             repos = repository_manager.get_available_repositories()
@@ -282,11 +283,11 @@ class UpdateTab:
 
     def _detect_changes_and_available(
         self, repo_name: str, branch: str = "main"
-    ) -> Tuple[
-        Dict,
-        List,
+    ) -> tuple[
+        dict,
+        list,
         str,
-        Dict,
+        dict,
         gr.CheckboxGroup,
         gr.CheckboxGroup,
         gr.Dataframe,
@@ -438,7 +439,7 @@ class UpdateTab:
                 gr.Button(interactive=False),
             )
 
-    def _select_files_by_type(self, changes: Dict, file_type: str) -> gr.CheckboxGroup:
+    def _select_files_by_type(self, changes: dict, file_type: str) -> gr.CheckboxGroup:
         """Select all files of a specific type."""
         if not changes or file_type not in changes:
             return gr.CheckboxGroup(value=[])
@@ -446,7 +447,7 @@ class UpdateTab:
         file_paths = [f["path"] for f in changes[file_type]]
         return gr.CheckboxGroup(value=file_paths)
 
-    def _select_all_available(self, available_files: List[str]) -> gr.CheckboxGroup:
+    def _select_all_available(self, available_files: list[str]) -> gr.CheckboxGroup:
         """Select all available files."""
         return gr.CheckboxGroup(value=available_files)
 
@@ -454,9 +455,9 @@ class UpdateTab:
         self,
         repo_name: str,
         branch: str,
-        selected_new: List[str],
-        selected_modified: List[str],
-        changes: Dict,
+        selected_new: list[str],
+        selected_modified: list[str],
+        changes: dict,
     ):
         """Process changed files (new and modified) using incremental updates."""
         if not repo_name or repo_name in [
@@ -595,8 +596,8 @@ class UpdateTab:
             yield error_progress, format_progress_display(error_progress)
 
     def _ingest_available_files(
-        self, repo_name: str, branch: str, selected_files: List[str]
-    ) -> Tuple[Dict, str]:
+        self, repo_name: str, branch: str, selected_files: list[str]
+    ) -> tuple[dict, str]:
         """Ingest available files that haven't been processed yet."""
         if not selected_files:
             error_progress = {
@@ -671,7 +672,7 @@ class UpdateTab:
             }
             return error_progress, format_progress_display(error_progress)
 
-    def _delete_removed_files(self, repo_name: str, changes: Dict) -> Tuple[Dict, str]:
+    def _delete_removed_files(self, repo_name: str, changes: dict) -> tuple[dict, str]:
         """Delete files that have been removed from the repository."""
         deleted_files = changes.get("deleted", [])
         if not deleted_files:
@@ -706,6 +707,6 @@ class UpdateTab:
             }
             return error_progress, format_progress_display(error_progress)
 
-    def _refresh_progress(self, progress_state: Dict) -> str:
+    def _refresh_progress(self, progress_state: dict) -> str:
         """Refresh progress display."""
         return format_progress_display(progress_state)

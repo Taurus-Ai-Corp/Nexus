@@ -4,8 +4,6 @@ Generates personalized reminders based on borrower cash-flow patterns and segmen
 """
 
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional
-import json
 
 
 class ReminderEngine:
@@ -24,7 +22,7 @@ class ReminderEngine:
             'pa': 'Punjabi'
         }
 
-    def _load_templates(self) -> Dict:
+    def _load_templates(self) -> dict:
         """Load reminder templates for different segments and languages."""
         return {
             'en': {
@@ -71,8 +69,8 @@ class ReminderEngine:
         due_date: datetime,
         reminder_type: str = 'upcoming',
         language: str = 'en',
-        cash_flow_insights: Optional[Dict] = None
-    ) -> Dict:
+        cash_flow_insights: dict | None = None
+    ) -> dict:
         """
         Generate a personalized reminder message.
         
@@ -92,20 +90,20 @@ class ReminderEngine:
         lang_templates = self.templates.get(language, self.templates['en'])
         segment_templates = lang_templates.get(borrower_segment, lang_templates['trader'])
         template = segment_templates.get(reminder_type, segment_templates['upcoming'])
-        
+
         # Format message
         formatted_message = template.format(
             name=borrower_name.split()[0] if borrower_name else 'Customer',
             amount=f"{loan_amount:,.0f}",
             date=due_date.strftime("%d %B %Y")
         )
-        
+
         # Determine optimal timing based on cash flow insights
         optimal_time = self._calculate_optimal_time(due_date, reminder_type, cash_flow_insights)
-        
+
         # Determine channel based on amount and segment
         channel = self._determine_channel(loan_amount, borrower_segment)
-        
+
         return {
             'message': formatted_message,
             'channel': channel,
@@ -126,32 +124,32 @@ class ReminderEngine:
         self,
         due_date: datetime,
         reminder_type: str,
-        cash_flow_insights: Optional[Dict] = None
+        cash_flow_insights: dict | None = None
     ) -> datetime:
         """Calculate optimal time to send reminder based on cash flow patterns."""
         if reminder_type == 'upcoming':
             # Send 2 days before due date
             send_date = due_date - timedelta(days=2)
             send_time = datetime(send_date.year, send_date.month, send_date.day, 10, 0)  # 10 AM
-            
+
         elif reminder_type == 'reminder':
             # Send 1 day before due date
             send_date = due_date - timedelta(days=1)
             send_time = datetime(send_date.year, send_date.month, send_date.day, 14, 0)  # 2 PM
-            
+
         elif reminder_type == 'overdue':
             # Send immediately on due date
             send_time = datetime.now()
-            
+
         else:
             send_time = due_date - timedelta(days=1)
-        
+
         # Adjust based on cash flow insights if available
         if cash_flow_insights and 'suggested_repayment_days' in cash_flow_insights:
             # If we know their peak income days, send reminder the day after
             # This is already handled in the cash flow analyzer
             pass
-            
+
         return send_time
 
     def _determine_channel(self, loan_amount: float, segment: str) -> str:
@@ -164,7 +162,7 @@ class ReminderEngine:
             # For larger amounts, use both WhatsApp and SMS
             return 'whatsapp+sms'
 
-    def generate_reminder_batch(self, borrowers: List[Dict]) -> List[Dict]:
+    def generate_reminder_batch(self, borrowers: list[dict]) -> list[dict]:
         """Generate reminders for a batch of borrowers."""
         reminders = []
         for borrower in borrowers:
@@ -184,7 +182,7 @@ class ReminderEngine:
 # Example usage
 if __name__ == "__main__":
     engine = ReminderEngine()
-    
+
     # Example borrower data
     borrower = {
         'name': 'Rajesh Kumar',
@@ -198,7 +196,7 @@ if __name__ == "__main__":
             'suggested_repayment_days': ['Monday']
         }
     }
-    
+
     reminder = engine.generate_reminder(
         borrower_name=borrower['name'],
         borrower_segment=borrower['segment'],
@@ -208,13 +206,13 @@ if __name__ == "__main__":
         language=borrower['language'],
         cash_flow_insights=borrower['cash_flow_insights']
     )
-    
+
     print("Generated Reminder:")
     print(f"Message: {reminder['message']}")
     print(f"Channel: {reminder['channel']}")
     print(f"Scheduled: {reminder['scheduled_time']}")
     print(f"Personalization: {reminder['metadata']['personalization_level']}")
-    
+
     # Test Hindi reminder
     hindi_reminder = engine.generate_reminder(
         borrower_name='सuresh Patel',
@@ -224,6 +222,6 @@ if __name__ == "__main__":
         reminder_type='upcoming',
         language='hi'
     )
-    
+
     print("\nHindi Reminder:")
     print(f"Message: {hindi_reminder['message']}")

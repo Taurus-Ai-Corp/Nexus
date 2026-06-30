@@ -1,13 +1,14 @@
-import httpx
 import logging
-from typing import Tuple, Union
+
+import httpx
+
 from .base import get_onedrive_client
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 
-async def onedrive_rename_item(file_id: str, new_name: str) -> Union[Tuple[str, dict], Tuple[str, int, str]]:
+async def onedrive_rename_item(file_id: str, new_name: str) -> tuple[str, dict] | tuple[str, int, str]:
     """
     Rename an item in OneDrive.
 
@@ -41,7 +42,7 @@ async def onedrive_rename_item(file_id: str, new_name: str) -> Union[Tuple[str, 
         return "Error:", str(e)
 
 
-async def onedrive_move_item(item_id: str, new_parent_id: str) -> Union[Tuple[str, dict], Tuple[str, int, str]]:
+async def onedrive_move_item(item_id: str, new_parent_id: str) -> tuple[str, dict] | tuple[str, int, str]:
     """
     Move an item to a different folder in OneDrive.
 
@@ -72,7 +73,7 @@ async def onedrive_move_item(item_id: str, new_parent_id: str) -> Union[Tuple[st
         return ("Error:", str(e))
 
 
-async def onedrive_delete_item(item_id: str) -> Union[Tuple[str], Tuple[str, int, str]]:
+async def onedrive_delete_item(item_id: str) -> tuple[str] | tuple[str, int, str]:
     """
     Deletes an item from OneDrive.
 

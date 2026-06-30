@@ -1,6 +1,8 @@
-import httpx
 import logging
-from typing import Tuple, Union, Dict, Any
+from typing import Any
+
+import httpx
+
 from .base import get_onedrive_client
 
 # Configure logging
@@ -10,7 +12,7 @@ async def onedrive_create_folder(
     parent_folder: str,
     new_folder_name: str,
     behavior: str = "fail"
-) -> Union[Tuple[str, Dict[str, Any]], Tuple[str, int, str]]:
+) -> tuple[str, dict[str, Any]] | tuple[str, int, str]:
     """
     Create a new folder in a specific OneDrive parent folder.
 

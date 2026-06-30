@@ -1,28 +1,29 @@
 import logging
-from typing import Any, Dict
+from typing import Any
+
 from .base import make_graphql_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
-async def get_issues(team_id: str = None, limit: int = 50, filter: Dict[str, Any] = None) -> Dict[str, Any]:
+async def get_issues(team_id: str = None, limit: int = 50, filter: dict[str, Any] = None) -> dict[str, Any]:
     """Get issues with optional filtering by team and timestamps."""
     logger.info(f"Executing tool: get_issues with team_id: {team_id}, limit: {limit}, filter: {filter}")
     try:
         # Build the filter object
         issue_filter = {}
-        
+
         # Add team filter if specified
         if team_id:
             issue_filter["team"] = {"id": {"eq": team_id}}
-        
+
         # Add timestamp filters if provided
         if filter:
             if "updatedAt" in filter:
                 issue_filter["updatedAt"] = filter["updatedAt"]
             if "createdAt" in filter:
                 issue_filter["createdAt"] = filter["createdAt"]
-        
+
         # Use filtered query if we have any filters
         if issue_filter:
             query = """
@@ -111,13 +112,13 @@ async def get_issues(team_id: str = None, limit: int = 50, filter: Dict[str, Any
             }
             """
             variables = {"first": limit}
-        
+
         return await make_graphql_request(query, variables)
     except Exception as e:
         logger.exception(f"Error executing tool get_issues: {e}")
         raise e
 
-async def get_issue_by_id(issue_id: str) -> Dict[str, Any]:
+async def get_issue_by_id(issue_id: str) -> dict[str, Any]:
     """Get a specific issue by ID."""
     logger.info(f"Executing tool: get_issue_by_id with issue_id: {issue_id}")
     try:
@@ -178,7 +179,7 @@ async def get_issue_by_id(issue_id: str) -> Dict[str, Any]:
         logger.exception(f"Error executing tool get_issue_by_id: {e}")
         raise e
 
-async def create_issue(team_id: str, title: str, description: str = None, assignee_id: str = None, priority: int = None, state_id: str = None, project_id: str = None) -> Dict[str, Any]:
+async def create_issue(team_id: str, title: str, description: str = None, assignee_id: str = None, priority: int = None, state_id: str = None, project_id: str = None) -> dict[str, Any]:
     """Create a new issue."""
     logger.info(f"Executing tool: create_issue with title: {title}")
     try:
@@ -218,12 +219,12 @@ async def create_issue(team_id: str, title: str, description: str = None, assign
           }
         }
         """
-        
+
         input_data = {
             "teamId": team_id,
             "title": title
         }
-        
+
         if description:
             input_data["description"] = description
         if assignee_id:
@@ -234,14 +235,14 @@ async def create_issue(team_id: str, title: str, description: str = None, assign
             input_data["stateId"] = state_id
         if project_id:
             input_data["projectId"] = project_id
-        
+
         variables = {"input": input_data}
         return await make_graphql_request(query, variables)
     except Exception as e:
         logger.exception(f"Error executing tool create_issue: {e}")
         raise e
 
-async def update_issue(issue_id: str, title: str = None, description: str = None, assignee_id: str = None, priority: int = None, state_id: str = None, project_id: str = None) -> Dict[str, Any]:
+async def update_issue(issue_id: str, title: str = None, description: str = None, assignee_id: str = None, priority: int = None, state_id: str = None, project_id: str = None) -> dict[str, Any]:
     """Update an existing issue."""
     logger.info(f"Executing tool: update_issue with issue_id: {issue_id}")
     try:
@@ -281,7 +282,7 @@ async def update_issue(issue_id: str, title: str = None, description: str = None
           }
         }
         """
-        
+
         input_data = {}
         if title:
             input_data["title"] = title
@@ -295,14 +296,14 @@ async def update_issue(issue_id: str, title: str = None, description: str = None
             input_data["stateId"] = state_id
         if project_id:
             input_data["projectId"] = project_id
-        
+
         variables = {"id": issue_id, "input": input_data}
         return await make_graphql_request(query, variables)
     except Exception as e:
         logger.exception(f"Error executing tool update_issue: {e}")
         raise e
 
-async def search_issues(query_text: str, team_id: str = None, limit: int = 20) -> Dict[str, Any]:
+async def search_issues(query_text: str, team_id: str = None, limit: int = 20) -> dict[str, Any]:
     """Search for issues by text."""
     logger.info(f"Executing tool: search_issues with query: {query_text}")
     try:
@@ -393,8 +394,8 @@ async def search_issues(query_text: str, team_id: str = None, limit: int = 20) -
                 },
                 "first": limit
             }
-        
+
         return await make_graphql_request(query, variables)
     except Exception as e:
         logger.exception(f"Error executing tool search_issues: {e}")
-        raise e 
+        raise e

@@ -1,9 +1,9 @@
 import logging
 import os
 from contextvars import ContextVar
-from hubspot import HubSpot
-from typing import Optional
+
 from dotenv import load_dotenv
+from hubspot import HubSpot
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -30,7 +30,7 @@ def get_auth_token() -> str:
             raise RuntimeError("Authentication token not found in request context or environment")
         return token
 
-def get_hubspot_client() -> Optional[HubSpot]:
+def get_hubspot_client() -> HubSpot | None:
     """Get HubSpot client with auth token from context."""
     try:
         auth_token = get_auth_token()

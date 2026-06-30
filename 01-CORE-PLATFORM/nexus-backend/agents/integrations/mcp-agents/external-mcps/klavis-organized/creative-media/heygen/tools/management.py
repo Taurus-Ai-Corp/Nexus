@@ -2,13 +2,15 @@
 Video management tools for HeyGen API.
 """
 
-from typing import Dict, Any, Optional
+from typing import Any
+
 from .base import make_request
 
+
 async def heygen_list_videos(
-    limit: Optional[int] = 20,
-    offset: Optional[int] = 0
-) -> Dict[str, Any]:
+    limit: int | None = 20,
+    offset: int | None = 0
+) -> dict[str, Any]:
     """
     Retrieve a list of videos from your HeyGen account.
     
@@ -25,7 +27,7 @@ async def heygen_list_videos(
     }
     return await make_request("GET", "/v1/video.list", params=params)
 
-async def heygen_delete_video(video_id: str) -> Dict[str, Any]:
+async def heygen_delete_video(video_id: str) -> dict[str, Any]:
     """
     Delete a video from your HeyGen account.
     

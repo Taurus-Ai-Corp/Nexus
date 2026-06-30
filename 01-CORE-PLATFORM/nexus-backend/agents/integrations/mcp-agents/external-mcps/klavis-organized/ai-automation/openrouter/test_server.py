@@ -5,10 +5,11 @@ Test script for OpenRouter MCP Server
 
 import asyncio
 import json
-import os
 import logging
+import os
+from typing import Any
+
 import dotenv
-from typing import Dict, Any
 
 dotenv.load_dotenv()
 
@@ -20,13 +21,13 @@ TEST_API_KEY = os.getenv("OPENROUTER_API_KEY")
 BASE_URL = "http://localhost:8000"
 
 
-async def test_list_models() -> Dict[str, Any]:
+async def test_list_models() -> dict[str, Any]:
     """Test the list_models tool."""
     logger.info("Testing list_models...")
-        
-    from tools.models import list_models
+
     from tools.base import auth_token_context
-    
+    from tools.models import list_models
+
     token = auth_token_context.set(TEST_API_KEY)
     try:
         result = await list_models(limit=5)
@@ -35,13 +36,13 @@ async def test_list_models() -> Dict[str, Any]:
     finally:
         auth_token_context.reset(token)
 
-async def test_chat_completion() -> Dict[str, Any]:
+async def test_chat_completion() -> dict[str, Any]:
     """Test the create_chat_completion tool."""
     logger.info("Testing create_chat_completion...")
-    
-    from tools.chat import create_chat_completion
+
     from tools.base import auth_token_context
-    
+    from tools.chat import create_chat_completion
+
     token = auth_token_context.set(TEST_API_KEY)
     try:
         messages = [
@@ -59,13 +60,13 @@ async def test_chat_completion() -> Dict[str, Any]:
         auth_token_context.reset(token)
 
 
-async def test_chat_completion_stream() -> Dict[str, Any]:
+async def test_chat_completion_stream() -> dict[str, Any]:
     """Test the create_chat_completion_stream tool."""
     logger.info("Testing create_chat_completion_stream...")
-    
-    from tools.chat import create_chat_completion_stream
+
     from tools.base import auth_token_context
-    
+    from tools.chat import create_chat_completion_stream
+
     token = auth_token_context.set(TEST_API_KEY)
     try:
         messages = [
@@ -77,23 +78,23 @@ async def test_chat_completion_stream() -> Dict[str, Any]:
             max_tokens=72,
             temperature=0.8
         )
-        
+
         logger.info("=== STREAMING CHAT COMPLETION TEST ===")
         logger.info(f"Model: {result.get('model', 'Unknown')}")
         logger.info(f"Stream enabled: {result.get('stream', False)}")
-        
+
         if result.get('success'):
             data = result.get('data', {})
             if data.get('stream') and data.get('generator'):
                 logger.info("✅ Streaming generator received! Processing chunks in real-time...")
                 logger.info(f"Stream status: {data.get('message', 'No message')}")
-                
+
                 generator = data.get('generator')
                 all_chunks = []
                 chunk_count = 0
-                
+
                 logger.info("🚀 Starting to process stream chunks in real-time...")
-                
+
                 async for chunk_data in generator:
                     if chunk_data.get("is_complete"):
                         total_chunks = chunk_data.get("total_chunks", chunk_count)
@@ -105,38 +106,38 @@ async def test_chat_completion_stream() -> Dict[str, Any]:
                             all_chunks.append(chunk_content)
                             chunk_count += 1
                             logger.info(f"📦 Chunk {chunk_count}: '{chunk_content}'")
-                
+
                 final_content = ''.join(all_chunks)
                 logger.info(f"📝 Final content length: {len(final_content)}")
                 logger.info(f"📝 Final content: {final_content}")
-                
+
                 usage = result.get('usage', {})
                 logger.info(f"💳 Token usage: {usage}")
-                
+
             elif data.get('choices'):
                 choices = data['choices']
                 if choices:
                     content = choices[0].get('message', {}).get('content', '')
                     logger.info(f"Response content: {content}")
-                    
+
                     usage = result.get('usage', {})
                     logger.info(f"Token usage: {usage}")
             else:
                 logger.info(f"Response data: {data}")
-        
+
         logger.info("=== END STREAMING TEST ===")
         return result
     finally:
         auth_token_context.reset(token)
 
 
-async def test_user_profile() -> Dict[str, Any]:
+async def test_user_profile() -> dict[str, Any]:
     """Test the get_user_profile tool."""
     logger.info("Testing get_user_profile...")
-    
-    from tools.usage import get_user_profile
+
     from tools.base import auth_token_context
-    
+    from tools.usage import get_user_profile
+
     token = auth_token_context.set(TEST_API_KEY)
     try:
         result = await get_user_profile()
@@ -146,13 +147,13 @@ async def test_user_profile() -> Dict[str, Any]:
         auth_token_context.reset(token)
 
 
-async def test_get_credits() -> Dict[str, Any]:
+async def test_get_credits() -> dict[str, Any]:
     """Test the get_credits tool."""
     logger.info("Testing get_credits...")
-    
-    from tools.usage import get_credits
+
     from tools.base import auth_token_context
-    
+    from tools.usage import get_credits
+
     token = auth_token_context.set(TEST_API_KEY)
     try:
         result = await get_credits()
@@ -162,13 +163,13 @@ async def test_get_credits() -> Dict[str, Any]:
         auth_token_context.reset(token)
 
 
-async def test_model_comparison() -> Dict[str, Any]:
+async def test_model_comparison() -> dict[str, Any]:
     """Test the compare_models tool."""
     logger.info("Testing compare_models...")
-    
-    from tools.comparison import compare_models
+
     from tools.base import auth_token_context
-    
+    from tools.comparison import compare_models
+
     token = auth_token_context.set(TEST_API_KEY)
     try:
         models = ["anthropic/claude-3-opus", "openai/gpt-4"]
@@ -184,13 +185,13 @@ async def test_model_comparison() -> Dict[str, Any]:
         auth_token_context.reset(token)
 
 
-async def test_model_recommendations() -> Dict[str, Any]:
+async def test_model_recommendations() -> dict[str, Any]:
     """Test the get_model_recommendations tool."""
     logger.info("Testing get_model_recommendations...")
-    
-    from tools.comparison import get_model_recommendations
+
     from tools.base import auth_token_context
-    
+    from tools.comparison import get_model_recommendations
+
     token = auth_token_context.set(TEST_API_KEY)
     try:
         result = await get_model_recommendations(
@@ -207,7 +208,7 @@ async def test_model_recommendations() -> Dict[str, Any]:
 async def run_all_tests():
     """Run all tests."""
     logger.info("Starting OpenRouter MCP Server tests...")
-    
+
     tests = [
         ("List Models", test_list_models),
         ("Chat Completion", test_chat_completion),
@@ -217,30 +218,30 @@ async def run_all_tests():
         ("Model Comparison", test_model_comparison),
         ("Model Recommendations", test_model_recommendations),
     ]
-    
+
     results = {}
-    
+
     for test_name, test_func in tests:
         try:
             logger.info(f"\n{'='*50}")
             logger.info(f"Running test: {test_name}")
             logger.info(f"{'='*50}")
-            
+
             result = await test_func()
             results[test_name] = {"status": "PASSED", "result": result}
-            
+
         except Exception as e:
             logger.error(f"Test {test_name} FAILED: {str(e)}")
             results[test_name] = {"status": "FAILED", "error": str(e)}
-    
+
     # Print summary
     logger.info(f"\n{'='*50}")
     logger.info("TEST SUMMARY")
     logger.info(f"{'='*50}")
-    
+
     passed = 0
     failed = 0
-    
+
     for test_name, result in results.items():
         status = result["status"]
         if status == "PASSED":
@@ -249,17 +250,17 @@ async def run_all_tests():
         else:
             failed += 1
             logger.error(f"❌ {test_name}: FAILED - {result.get('error', 'Unknown error')}")
-    
+
     logger.info(f"\nTotal: {passed + failed}, Passed: {passed}, Failed: {failed}")
-    
+
     if failed == 0:
         logger.info("🎉 All tests passed!")
     else:
         logger.error(f"💥 {failed} test(s) failed!")
-    
+
     return results
 
 
 if __name__ == "__main__":
     # Run the tests
-    asyncio.run(run_all_tests()) 
+    asyncio.run(run_all_tests())

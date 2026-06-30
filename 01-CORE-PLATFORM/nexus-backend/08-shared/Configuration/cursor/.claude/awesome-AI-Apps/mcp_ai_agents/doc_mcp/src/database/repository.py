@@ -2,7 +2,7 @@
 
 import logging
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from ..core.config import settings
 from ..core.types import ProcessingStatus
@@ -20,7 +20,7 @@ class RepositoryManager:
         )
         self.docs_collection = mongodb_client.get_collection(settings.collection_name)
 
-    def get_available_repositories(self) -> List[str]:
+    def get_available_repositories(self) -> list[str]:
         """Get list of available repositories."""
         try:
             # Use repo_name field to match existing data structure
@@ -30,7 +30,7 @@ class RepositoryManager:
             logger.error(f"Failed to get available repositories: {e}")
             return []
 
-    def get_repository_details(self) -> List[Dict[str, Any]]:
+    def get_repository_details(self) -> list[dict[str, Any]]:
         """Get detailed information about all repositories."""
         try:
             repos = []
@@ -61,7 +61,7 @@ class RepositoryManager:
             logger.error(f"Failed to get repository details: {e}")
             return []
 
-    def get_repository_stats(self) -> Dict[str, Any]:
+    def get_repository_stats(self) -> dict[str, Any]:
         """Get overall repository statistics."""
         try:
             total_repos = self.repos_collection.count_documents({})
@@ -106,8 +106,8 @@ class RepositoryManager:
         self,
         repo_name: str,
         file_count: int = 0,
-        branch: Optional[str] = "main",
-        files_with_sha: Optional[List[Dict[str, str]]] = None,
+        branch: str | None = "main",
+        files_with_sha: list[dict[str, str]] | None = None,
     ) -> bool:
         """Update repository information incrementally."""
         try:
@@ -189,7 +189,7 @@ class RepositoryManager:
             logger.error(f"Failed to update repository info for {repo_name}: {e}")
             return False
 
-    def get_repository_files(self, repo_name: str) -> List[Dict[str, Any]]:
+    def get_repository_files(self, repo_name: str) -> list[dict[str, Any]]:
         """Get tracked files for a repository."""
         try:
             repo_doc = self.repos_collection.find_one({"_id": repo_name})
@@ -201,8 +201,8 @@ class RepositoryManager:
             return []
 
     def detect_file_changes(
-        self, repo_name: str, current_files: List[Dict[str, str]]
-    ) -> Dict[str, List[Dict[str, str]]]:
+        self, repo_name: str, current_files: list[dict[str, str]]
+    ) -> dict[str, list[dict[str, str]]]:
         """
         Detect changes in repository files by comparing SHAs.
 
@@ -283,7 +283,7 @@ class RepositoryManager:
             return {"new": [], "modified": [], "deleted": [], "unchanged": []}
 
     def delete_specific_files(
-        self, repo_name: str, file_paths: List[str], branch: str = "main"
+        self, repo_name: str, file_paths: list[str], branch: str = "main"
     ) -> int:
         """Delete specific files from the vector store."""
         try:
@@ -307,7 +307,7 @@ class RepositoryManager:
             logger.error(f"Failed to delete files from {repo_name}: {e}")
             return 0
 
-    def delete_repository_data(self, repo_name: str) -> Dict[str, Any]:
+    def delete_repository_data(self, repo_name: str) -> dict[str, Any]:
         """Delete all data for a repository."""
         try:
             # Delete from documents collection

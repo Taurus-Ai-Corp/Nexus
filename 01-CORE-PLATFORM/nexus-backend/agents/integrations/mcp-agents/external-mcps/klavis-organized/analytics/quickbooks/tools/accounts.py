@@ -1,6 +1,7 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from mcp.types import Tool
+
 from .http_client import QuickBooksHTTPClient
 
 # Minimal properties for account creation (required by QuickBooks)
@@ -120,7 +121,7 @@ search_accounts_tool = Tool(
 )
 
 
-def mcp_object_to_account_data(**kwargs) -> Dict[str, Any]:
+def mcp_object_to_account_data(**kwargs) -> dict[str, Any]:
     """
     Convert MCP object format to QuickBooks account data format.
     This function transforms the flat MCP structure to the nested format expected by QuickBooks API.
@@ -135,7 +136,7 @@ def mcp_object_to_account_data(**kwargs) -> Dict[str, Any]:
     return account_data
 
 
-def account_data_to_mcp_object(account_data: Dict[str, Any]) -> Dict[str, Any]:
+def account_data_to_mcp_object(account_data: dict[str, Any]) -> dict[str, Any]:
     """
     Convert QuickBooks account data format to MCP object format.
     This function flattens the nested QuickBooks structure to the flat format expected by MCP tools.
@@ -184,19 +185,19 @@ class AccountManager:
     def __init__(self, client: QuickBooksHTTPClient):
         self.client = client
 
-    async def create_account(self, **kwargs) -> Dict[str, Any]:
+    async def create_account(self, **kwargs) -> dict[str, Any]:
         """Create a new account with comprehensive property support."""
         account_data = mcp_object_to_account_data(**kwargs)
 
         response = await self.client._post('account', account_data)
         return account_data_to_mcp_object(response['Account'])
 
-    async def get_account(self, Id: str) -> Dict[str, Any]:
+    async def get_account(self, Id: str) -> dict[str, Any]:
         """Get a specific account by ID."""
         response = await self.client._get(f"account/{Id}")
         return account_data_to_mcp_object(response['Account'])
 
-    async def list_accounts(self, MaxResults: int = 100, AccountType: str = None, ActiveOnly: bool = True) -> List[Dict[str, Any]]:
+    async def list_accounts(self, MaxResults: int = 100, AccountType: str = None, ActiveOnly: bool = True) -> list[dict[str, Any]]:
         """List all accounts with comprehensive properties and pagination support."""
         query = "SELECT * FROM Account"
 
@@ -220,7 +221,7 @@ class AccountManager:
         accounts = response['QueryResponse']['Account']
         return [account_data_to_mcp_object(account) for account in accounts]
 
-    async def update_account(self, **kwargs) -> Dict[str, Any]:
+    async def update_account(self, **kwargs) -> dict[str, Any]:
         """Update an existing account with comprehensive property support."""
         account_id = kwargs.get('Id')
         if not account_id:
@@ -241,7 +242,7 @@ class AccountManager:
         response = await self.client._post('account', account_data)
         return account_data_to_mcp_object(response['Account'])
 
-    async def search_accounts(self, **kwargs) -> List[Dict[str, Any]]:
+    async def search_accounts(self, **kwargs) -> list[dict[str, Any]]:
         """
         Search accounts with various filters and pagination support.
 
@@ -289,7 +290,7 @@ class AccountManager:
 
         # Name searches (partial match) - we'll need to post-filter these due to QB API limitations
         partial_match_filters = {}
-        
+
         if kwargs.get('Name'):
             partial_match_filters['Name'] = kwargs['Name'].lower()
 

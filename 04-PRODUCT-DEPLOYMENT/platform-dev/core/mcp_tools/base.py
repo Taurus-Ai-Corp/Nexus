@@ -6,12 +6,12 @@ payoff tools. Each tool provides standardized input/output formats, explanation,
 and confidence scores.
 """
 
-from abc import ABC, abstractmethod
-from dataclasses import dataclass, field, asdict
-from typing import Dict, Any, Optional, List, Union
-from enum import Enum
-from datetime import datetime
 import json
+from abc import ABC, abstractmethod
+from dataclasses import asdict, dataclass, field
+from datetime import datetime
+from enum import Enum
+from typing import Any
 
 
 class ToolCategory(str, Enum):
@@ -39,14 +39,14 @@ class ConfidenceLevel(str, Enum):
 class ToolInput:
     """Standardized input for MCP tools."""
     borrower_id: str
-    features: Dict[str, Any] = field(default_factory=dict)
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    features: dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ToolInput":
+    def from_dict(cls, data: dict[str, Any]) -> "ToolInput":
         return cls(
             borrower_id=data.get("borrower_id", ""),
             features=data.get("features", {}),
@@ -57,14 +57,14 @@ class ToolInput:
 @dataclass
 class ToolExplanation:
     """Explanation for tool output (SHAP/LIME style)."""
-    feature_importance: List[Dict[str, Any]] = field(default_factory=list)
-    top_factors: List[str] = field(default_factory=list)
-    counterfactuals: List[Dict[str, Any]] = field(default_factory=list)
+    feature_importance: list[dict[str, Any]] = field(default_factory=list)
+    top_factors: list[str] = field(default_factory=list)
+    counterfactuals: list[dict[str, Any]] = field(default_factory=list)
     narrative: str = ""
     confidence_score: float = 0.0
     confidence_level: ConfidenceLevel = ConfidenceLevel.medium
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -74,17 +74,17 @@ class ToolOutput:
     tool_name: str = ""
     tool_version: str = "1.0.0"
     borrower_id: str = ""
-    result: Dict[str, Any] = field(default_factory=dict)
-    explanation: Optional[ToolExplanation] = None
+    result: dict[str, Any] = field(default_factory=dict)
+    explanation: ToolExplanation | None = None
     confidence: float = 0.0
     confidence_level: ConfidenceLevel = ConfidenceLevel.medium
     execution_time_ms: float = 0.0
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
     status: str = "success"
-    error_message: Optional[str] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    error_message: str | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         d = asdict(self)
         return d
 
@@ -105,7 +105,7 @@ class MCPTool(ABC):
         """Execute the tool and return standardized output."""
         pass
 
-    def train(self, features: List[Dict[str, Any]], labels: List[Any], **kwargs) -> Dict[str, Any]:
+    def train(self, features: list[dict[str, Any]], labels: list[Any], **kwargs) -> dict[str, Any]:
         """Train or update the tool's underlying model."""
         return {"status": "not_implemented"}
 
@@ -133,7 +133,7 @@ class MCPTool(ABC):
         else:
             return ConfidenceLevel.very_low
 
-    def get_metadata(self) -> Dict[str, Any]:
+    def get_metadata(self) -> dict[str, Any]:
         return {
             "name": self.name,
             "version": self.version,

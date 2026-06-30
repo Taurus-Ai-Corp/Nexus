@@ -5,22 +5,22 @@ Tests the MCP tool interface, repayment predictor, early warning system,
 and tool registry for the micro-loan pricing platform.
 """
 
-import sys
-import os
-import time
 import json
-import numpy as np
-from typing import Dict, Any
+import os
+import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
 from core.mcp_tools.base import (
-    MCPTool, ToolInput, ToolOutput, ToolExplanation,
-    ToolCategory, ConfidenceLevel,
+    ConfidenceLevel,
+    ToolCategory,
+    ToolExplanation,
+    ToolInput,
+    ToolOutput,
 )
-from core.mcp_tools.repayment_predictor import RepaymentPredictionEnhancer
 from core.mcp_tools.early_warning import EarlyWarningSystem
-from core.mcp_tools.registry import MCPToolRegistry, ToolPerformance, default_registry
+from core.mcp_tools.registry import MCPToolRegistry, ToolPerformance
+from core.mcp_tools.repayment_predictor import RepaymentPredictionEnhancer
 
 
 def test_tool_input_output():
@@ -296,7 +296,7 @@ def test_tool_registry():
     # Non-existent tool
     result = registry.execute("nonexistent_tool", tool_input)
     assert result.status == "error"
-    print(f"   ✅ Error handling for unknown tool")
+    print("   ✅ Error handling for unknown tool")
     print()
 
 

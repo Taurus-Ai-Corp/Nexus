@@ -3,15 +3,13 @@ Cash Flow Analysis Module for Micro-Loan Borrowers
 Segments borrowers (trader/hotelier/grocer) and analyzes repayment patterns.
 """
 
-import pandas as pd
-import numpy as np
-from typing import Dict, List, Tuple, Optional
 from datetime import datetime, timedelta
-import json
+
+import pandas as pd
 
 
 class CashFlowAnalyzer:
-    def __init__(self, data_path: Optional[str] = None):
+    def __init__(self, data_path: str | None = None):
         """
         Initialize the analyzer with optional data path.
         If data_path is provided, load historical data.
@@ -49,7 +47,7 @@ class CashFlowAnalyzer:
         for col in date_columns:
             self.borrower_data[col] = pd.to_datetime(self.borrower_data[col])
 
-    def segment_borrower(self, borrower_info: Dict) -> str:
+    def segment_borrower(self, borrower_info: dict) -> str:
         """
         Segment a borrower based on their business type.
         Expected keys in borrower_info: 'business_type', 'primary_income_source'
@@ -57,7 +55,7 @@ class CashFlowAnalyzer:
         business_type = borrower_info.get('business_type', '').lower()
         income_source = borrower_info.get('primary_income_source', '').lower()
         combined = f"{business_type} {income_source}"
-        
+
         # Check for hotelier first (more specific)
         if any(keyword in combined for keyword in ['hotel', 'lodging', 'guest', 'inn', 'resort', 'restaurant', 'hospitality']):
             return 'hotelier'
@@ -71,7 +69,7 @@ class CashFlowAnalyzer:
             # Default to trader if unknown
             return 'trader'
 
-    def analyze_cash_flow_patterns(self, borrower_id: str) -> Dict:
+    def analyze_cash_flow_patterns(self, borrower_id: str) -> dict:
         """
         Analyze cash flow patterns for a given borrower.
         Returns insights on income frequency, peak days, volatility, and suggested repayment timing.
@@ -89,7 +87,7 @@ class CashFlowAnalyzer:
         # Ensure we have a date column and amount column
         date_col = [col for col in borrower_transactions.columns if 'date' in col.lower()][0]
         amount_col = [col for col in borrower_transactions.columns if 'amount' in col.lower()][0]
-        
+
         # Convert date column to datetime if it's not already
         borrower_transactions[date_col] = pd.to_datetime(borrower_transactions[date_col], errors='coerce')
         borrower_transactions['day_of_week'] = borrower_transactions[date_col].dt.day_name()
@@ -130,7 +128,7 @@ class CashFlowAnalyzer:
             "net_daily_cash_flow": round(income.mean() - expenses.mean(), 2) if not income.empty and not expenses.empty else 0
         }
 
-    def generate_repayment_suggestion(self, borrower_id: str, loan_amount: float, loan_term_days: int) -> Dict:
+    def generate_repayment_suggestion(self, borrower_id: str, loan_amount: float, loan_term_days: int) -> dict:
         """
         Generate a repayment schedule suggestion based on cash flow analysis.
         """

@@ -1,12 +1,15 @@
+
 from spotipy import Spotify
-from typing import List, Dict
-from .base import get_spotify_client, get_user_spotify_client ,process_album_info, process_album_tracks
+
+from .base import (
+    get_spotify_client,
+    get_user_spotify_client,
+    process_album_info,
+    process_album_tracks,
+)
 
 
-
-
-
-def get_albums_info(album_ids: List[str], sp: Spotify = None) -> List[Dict]:
+def get_albums_info(album_ids: list[str], sp: Spotify = None) -> list[dict]:
     """
     Get detailed information about one or multiple albums.
 
@@ -38,7 +41,7 @@ def get_album_tracks(
     sp: Spotify = None,
     limit: int = 50,
     offset: int = 0
-) -> List[Dict]:
+) -> list[dict]:
     """
     Get catalog information for tracks in a Spotify album.
 
@@ -66,7 +69,7 @@ def get_user_saved_albums(
     sp: Spotify = None,
     limit: int = 20,
     offset: int = 0
-) -> List[Dict]:
+) -> list[dict]:
     """
     Fetch the albums saved in the current Spotify user's library.
 
@@ -89,7 +92,7 @@ def get_user_saved_albums(
         return {"error": str(e)}
 
 
-def save_albums_for_current_user(album_ids: List[str], sp: Spotify = None) -> str:
+def save_albums_for_current_user(album_ids: list[str], sp: Spotify = None) -> str:
     """
     Save one or more albums to the current user's library ("Your Music").
 
@@ -115,7 +118,7 @@ def save_albums_for_current_user(album_ids: List[str], sp: Spotify = None) -> st
         return f"error: {str(e)}"
 
 
-def remove_albums_for_current_user(album_ids: List[str], sp: Spotify = None) -> str:
+def remove_albums_for_current_user(album_ids: list[str], sp: Spotify = None) -> str:
     """
     Remove one or more albums from the current user's library ("Your Music").
 
@@ -141,7 +144,7 @@ def remove_albums_for_current_user(album_ids: List[str], sp: Spotify = None) -> 
         return f"error: {str(e)}"
 
 
-def check_user_saved_albums(album_ids: List[str], sp: Spotify = None) -> List[bool] | Dict:
+def check_user_saved_albums(album_ids: list[str], sp: Spotify = None) -> list[bool] | dict:
     """
     Check if one or more albums are saved in the current user's Spotify library.
 

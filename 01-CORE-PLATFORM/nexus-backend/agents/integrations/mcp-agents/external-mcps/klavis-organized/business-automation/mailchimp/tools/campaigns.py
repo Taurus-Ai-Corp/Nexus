@@ -1,24 +1,25 @@
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any
+
 from .base import make_mailchimp_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 async def get_all_campaigns(
-    count: int = 10, 
+    count: int = 10,
     offset: int = 0,
-    type: Optional[str] = None,
-    status: Optional[str] = None,
-    before_send_time: Optional[str] = None,
-    since_send_time: Optional[str] = None,
-    before_create_time: Optional[str] = None,
-    since_create_time: Optional[str] = None,
-    list_id: Optional[str] = None,
-    folder_id: Optional[str] = None,
-    sort_field: Optional[str] = None,
-    sort_dir: Optional[str] = None
-) -> Dict[str, Any]:
+    type: str | None = None,
+    status: str | None = None,
+    before_send_time: str | None = None,
+    since_send_time: str | None = None,
+    before_create_time: str | None = None,
+    since_create_time: str | None = None,
+    list_id: str | None = None,
+    folder_id: str | None = None,
+    sort_field: str | None = None,
+    sort_dir: str | None = None
+) -> dict[str, Any]:
     """Get all campaigns in the account with optional filtering."""
     logger.info(f"Executing tool: get_all_campaigns with count: {count}, offset: {offset}")
     try:
@@ -27,7 +28,7 @@ async def get_all_campaigns(
             "count": count,
             "offset": offset
         }
-        
+
         # Add optional filters
         if type:
             params["type"] = type
@@ -49,14 +50,14 @@ async def get_all_campaigns(
             params["sort_field"] = sort_field
         if sort_dir:
             params["sort_dir"] = sort_dir
-        
+
         campaigns_data = await make_mailchimp_request("GET", endpoint, params=params)
-        
+
         result = {
             "total_items": campaigns_data.get("total_items"),
             "campaigns": []
         }
-        
+
         for campaign in campaigns_data.get("campaigns", []):
             campaign_info = {
                 "id": campaign.get("id"),
@@ -79,7 +80,7 @@ async def get_all_campaigns(
                 "delivery_status": campaign.get("delivery_status", {})
             }
             result["campaigns"].append(campaign_info)
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool get_all_campaigns: {e}")
@@ -94,22 +95,22 @@ async def create_campaign(
     subject_line: str,
     from_name: str,
     reply_to: str,
-    title: Optional[str] = None,
-    folder_id: Optional[str] = None,
+    title: str | None = None,
+    folder_id: str | None = None,
     authenticate: bool = True,
     auto_footer: bool = True,
     inline_css: bool = True,
     auto_tweet: bool = False,
     fb_comments: bool = True,
     timewarp: bool = False,
-    template_id: Optional[int] = None,
+    template_id: int | None = None,
     drag_and_drop: bool = True
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create a new Mailchimp campaign."""
     logger.info(f"Executing tool: create_campaign with type: {type}, list_id: {list_id}, subject: {subject_line}")
     try:
         endpoint = "/campaigns"
-        
+
         payload = {
             "type": type,
             "recipients": {
@@ -128,16 +129,16 @@ async def create_campaign(
                 "drag_and_drop": drag_and_drop
             }
         }
-        
+
         if title:
             payload["settings"]["title"] = title
         if folder_id:
             payload["settings"]["folder_id"] = folder_id
         if template_id:
             payload["settings"]["template_id"] = template_id
-        
+
         campaign_data = await make_mailchimp_request("POST", endpoint, json_data=payload)
-        
+
         result = {
             "id": campaign_data.get("id"),
             "web_id": campaign_data.get("web_id"),
@@ -157,7 +158,7 @@ async def create_campaign(
             "from_name": from_name,
             "note": "Campaign created successfully. Use set_campaign_content to add content, then send_campaign to send it."
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool create_campaign: {e}")
@@ -169,14 +170,14 @@ async def create_campaign(
             "exception": str(e)
         }
 
-async def get_campaign_info(campaign_id: str) -> Dict[str, Any]:
+async def get_campaign_info(campaign_id: str) -> dict[str, Any]:
     """Get information about a specific campaign."""
     logger.info(f"Executing tool: get_campaign_info with campaign_id: {campaign_id}")
     try:
         endpoint = f"/campaigns/{campaign_id}"
-        
+
         campaign_data = await make_mailchimp_request("GET", endpoint)
-        
+
         result = {
             "id": campaign_data.get("id"),
             "web_id": campaign_data.get("web_id"),
@@ -201,7 +202,7 @@ async def get_campaign_info(campaign_id: str) -> Dict[str, Any]:
             "rss_opts": campaign_data.get("rss_opts", {}),
             "variate_settings": campaign_data.get("variate_settings", {})
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool get_campaign_info: {e}")
@@ -213,20 +214,20 @@ async def get_campaign_info(campaign_id: str) -> Dict[str, Any]:
 
 async def set_campaign_content(
     campaign_id: str,
-    html: Optional[str] = None,
-    plain_text: Optional[str] = None,
-    url: Optional[str] = None,
-    template: Optional[Dict[str, Any]] = None,
-    archive: Optional[Dict[str, Any]] = None,
-    variate_contents: Optional[List[Dict[str, Any]]] = None
-) -> Dict[str, Any]:
+    html: str | None = None,
+    plain_text: str | None = None,
+    url: str | None = None,
+    template: dict[str, Any] | None = None,
+    archive: dict[str, Any] | None = None,
+    variate_contents: list[dict[str, Any]] | None = None
+) -> dict[str, Any]:
     """Set the content for a campaign."""
     logger.info(f"Executing tool: set_campaign_content with campaign_id: {campaign_id}")
     try:
         endpoint = f"/campaigns/{campaign_id}/content"
-        
+
         payload = {}
-        
+
         if html:
             payload["html"] = html
         if plain_text:
@@ -239,16 +240,16 @@ async def set_campaign_content(
             payload["archive"] = archive
         if variate_contents:
             payload["variate_contents"] = variate_contents
-        
+
         if not payload:
             return {
                 "error": "No content provided",
                 "campaign_id": campaign_id,
                 "note": "At least one content type (html, plain_text, url, template, archive, or variate_contents) must be provided"
             }
-        
+
         content_data = await make_mailchimp_request("PUT", endpoint, json_data=payload)
-        
+
         result = {
             "variate_contents": content_data.get("variate_contents", []),
             "html": content_data.get("html"),
@@ -258,7 +259,7 @@ async def set_campaign_content(
             "content_set": list(payload.keys()),
             "note": "Campaign content has been set successfully. Campaign is now ready to send."
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool set_campaign_content: {e}")
@@ -268,14 +269,14 @@ async def set_campaign_content(
             "exception": str(e)
         }
 
-async def send_campaign(campaign_id: str) -> Dict[str, Any]:
+async def send_campaign(campaign_id: str) -> dict[str, Any]:
     """Send a Mailchimp campaign immediately."""
     logger.info(f"Executing tool: send_campaign with campaign_id: {campaign_id}")
     try:
         endpoint = f"/campaigns/{campaign_id}/actions/send"
-        
+
         await make_mailchimp_request("POST", endpoint, expect_empty_response=True)
-        
+
         result = {
             "status": "success",
             "message": f"Campaign {campaign_id} has been sent successfully",
@@ -283,7 +284,7 @@ async def send_campaign(campaign_id: str) -> Dict[str, Any]:
             "action": "sent",
             "note": "Campaign is now being delivered to recipients. Check campaign reports for delivery status."
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool send_campaign: {e}")
@@ -294,22 +295,22 @@ async def send_campaign(campaign_id: str) -> Dict[str, Any]:
             "exception": str(e)
         }
 
-async def schedule_campaign(campaign_id: str, schedule_time: str, timewarp: bool = False, batch_delay: Optional[int] = None) -> Dict[str, Any]:
+async def schedule_campaign(campaign_id: str, schedule_time: str, timewarp: bool = False, batch_delay: int | None = None) -> dict[str, Any]:
     """Schedule a campaign for delivery at a specific time."""
     logger.info(f"Executing tool: schedule_campaign with campaign_id: {campaign_id}, schedule_time: {schedule_time}")
     try:
         endpoint = f"/campaigns/{campaign_id}/actions/schedule"
-        
+
         payload = {
             "schedule_time": schedule_time,
             "timewarp": timewarp
         }
-        
+
         if batch_delay:
             payload["batch_delay"] = batch_delay
-        
+
         await make_mailchimp_request("POST", endpoint, json_data=payload, expect_empty_response=True)
-        
+
         result = {
             "status": "success",
             "message": f"Campaign {campaign_id} has been scheduled successfully",
@@ -320,7 +321,7 @@ async def schedule_campaign(campaign_id: str, schedule_time: str, timewarp: bool
             "action": "scheduled",
             "note": "Campaign is scheduled for delivery. Use unschedule if you need to make changes."
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool schedule_campaign: {e}")
@@ -332,14 +333,14 @@ async def schedule_campaign(campaign_id: str, schedule_time: str, timewarp: bool
             "exception": str(e)
         }
 
-async def delete_campaign(campaign_id: str) -> Dict[str, Any]:
+async def delete_campaign(campaign_id: str) -> dict[str, Any]:
     """Delete a campaign from Mailchimp account."""
     logger.info(f"Executing tool: delete_campaign with campaign_id: {campaign_id}")
     try:
         endpoint = f"/campaigns/{campaign_id}"
-        
+
         await make_mailchimp_request("DELETE", endpoint, expect_empty_response=True)
-        
+
         result = {
             "status": "success",
             "message": f"Campaign {campaign_id} has been deleted successfully",
@@ -347,7 +348,7 @@ async def delete_campaign(campaign_id: str) -> Dict[str, Any]:
             "action": "deleted",
             "warning": "This action is permanent. Campaign content and statistics have been removed."
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool delete_campaign: {e}")

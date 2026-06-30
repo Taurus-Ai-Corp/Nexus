@@ -1,19 +1,19 @@
-import streamlit as st
-from openai import OpenAI
-from typing import List, Dict, Any
 import os
-from dotenv import load_dotenv
-from couchbase.cluster import Cluster
-from couchbase.options import ClusterOptions, ClusterTimeoutOptions
-from couchbase.auth import PasswordAuthenticator
-from couchbase.vector_search import VectorQuery, VectorSearch
-from couchbase.search import SearchRequest, MatchNoneQuery
 from datetime import timedelta
-import time
+from typing import Any
+
+import streamlit as st
 
 # --- Local Imports ---
 # Import the main function from your new ADK agent module
 from adk_research_agent import run_adk_research
+from couchbase.auth import PasswordAuthenticator
+from couchbase.cluster import Cluster
+from couchbase.options import ClusterOptions, ClusterTimeoutOptions
+from couchbase.search import MatchNoneQuery, SearchRequest
+from couchbase.vector_search import VectorQuery, VectorSearch
+from dotenv import load_dotenv
+from openai import OpenAI
 
 # --- Setup ---
 load_dotenv()
@@ -37,27 +37,27 @@ class CouchbaseConnection:
             password = os.getenv('CB_PASSWORD')
             bucket_name = os.getenv('CB_BUCKET')
             collection_name = os.getenv('CB_COLLECTION')
-            
+
             if not all([connection_string, username, password, bucket_name, collection_name]):
                 raise ValueError("Missing required Couchbase environment variables")
-            
+
             auth = PasswordAuthenticator(username, password)
             timeout_options = ClusterTimeoutOptions(kv_timeout=timedelta(seconds=10), query_timeout=timedelta(seconds=20), search_timeout=timedelta(seconds=20))
             options = ClusterOptions(auth, timeout_options=timeout_options)
-            
+
             self.cluster = Cluster(connection_string, options)
             self.cluster.ping()
-            
+
             self.bucket = self.cluster.bucket(bucket_name)
             self.scope = self.bucket.scope("_default")
             self.collection = self.bucket.collection(collection_name)
             self.search_index_name = os.getenv('CB_SEARCH_INDEX', "kubecontalks")
-            
+
         except Exception as e:
             st.error(f"Failed to initialize Couchbase connection: {str(e)}")
             raise
 
-    def generate_embedding(self, text: str) -> List[float]:
+    def generate_embedding(self, text: str) -> list[float]:
         try:
             response = client.embeddings.create(
                 model="intfloat/e5-mistral-7b-instruct",
@@ -69,7 +69,7 @@ class CouchbaseConnection:
             st.error(f"Error generating embedding: {str(e)}")
             raise
 
-    def get_similar_talks(self, query: str, num_results: int = 5) -> List[Dict[str, Any]]:
+    def get_similar_talks(self, query: str, num_results: int = 5) -> list[dict[str, Any]]:
         try:
             embedding = self.generate_embedding(query)
             search_req = SearchRequest.create(MatchNoneQuery()).with_vector_search(
@@ -79,7 +79,7 @@ class CouchbaseConnection:
             )
             result = self.scope.search(self.search_index_name, search_req, timeout=timedelta(seconds=20))
             rows = list(result.rows())
-            
+
             similar_talks = []
             for row in rows:
                 try:
@@ -102,7 +102,7 @@ class CouchbaseConnection:
 
 
 # --- Final Prompt Generation (Modified to use ADK research) ---
-def generate_talk_suggestion(query: str, similar_talks: List[Dict[str, Any]], adk_research: str) -> str:
+def generate_talk_suggestion(query: str, similar_talks: list[dict[str, Any]], adk_research: str) -> str:
     """Generates the final talk proposal by synthesizing all available context."""
     historical_context = "\n\n".join([
         f"Title: {talk['title']}\nDescription: {talk['description']}\nCategory: {talk['category']}"
@@ -181,7 +181,7 @@ def main():
             with st.spinner("Connecting to Couchbase DB..."):
                 st.session_state.cb_connection = CouchbaseConnection()
         cb = st.session_state.cb_connection
-        
+
         user_query = st.text_area(
             "Enter the core idea or topic for your talk proposal:",
             placeholder="e.g., Using OpenTelemetry's inferred spans feature for better observability in serverless environments.",
@@ -215,7 +215,7 @@ def main():
                 if adk_research_results:
                     final_proposal = generate_talk_suggestion(user_query, similar_talks, adk_research_results)
                     st.success("✅ Step 3: Proposal generation complete!")
-                    
+
                     st.divider()
                     st.subheader("💡 Generated Talk Proposal")
                     st.markdown(final_proposal)
@@ -224,7 +224,7 @@ def main():
                     # Display the context used for generation in expanders
                     with st.expander("View Real-Time Web Analysis (from Research Agent)"):
                         st.markdown(adk_research_results)
-                    
+
                     with st.expander("View Historical Context (from Couchbase DB)"):
                         if similar_talks:
                             st.json(similar_talks)

@@ -4,16 +4,14 @@
 Main API server for the AI empire
 """
 
-from fastapi import FastAPI, HTTPException, BackgroundTasks
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-import uvicorn
-import os
-import json
 import asyncio
-from datetime import datetime
-from typing import Dict, List, Any, Optional
 import logging
+from datetime import datetime
+from typing import Any
+
+import uvicorn
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -101,7 +99,7 @@ async def get_agent(agent_name: str):
     """Get specific agent status"""
     if agent_name not in empire_state["agents"]:
         raise HTTPException(status_code=404, detail="Agent not found")
-    
+
     return {
         "agent": agent_name,
         "status": empire_state["agents"][agent_name],
@@ -109,11 +107,11 @@ async def get_agent(agent_name: str):
     }
 
 @app.post("/agents/{agent_name}/execute")
-async def execute_agent(agent_name: str, task: Dict[str, Any]):
+async def execute_agent(agent_name: str, task: dict[str, Any]):
     """Execute a task with a specific agent"""
     if agent_name not in empire_state["agents"]:
         raise HTTPException(status_code=404, detail="Agent not found")
-    
+
     # Simulate agent execution
     return {
         "agent": agent_name,
@@ -149,7 +147,7 @@ async def get_services():
     }
 
 @app.post("/campaigns/create")
-async def create_campaign(campaign_data: Dict[str, Any]):
+async def create_campaign(campaign_data: dict[str, Any]):
     """Create a marketing campaign"""
     return {
         "campaign_id": f"campaign_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
@@ -158,11 +156,11 @@ async def create_campaign(campaign_data: Dict[str, Any]):
     }
 
 @app.post("/leads/generate")
-async def generate_leads(lead_request: Dict[str, Any]):
+async def generate_leads(lead_request: dict[str, Any]):
     """Generate leads for a market"""
     market = lead_request.get("market", "global")
     count = lead_request.get("count", 10)
-    
+
     return {
         "leads_generated": count,
         "market": market,
@@ -202,14 +200,14 @@ async def update_metrics():
         try:
             # Update uptime
             empire_state["metrics"]["uptime"] += 1
-            
+
             # Simulate some metric updates
             for agent in empire_state["agents"]:
                 if empire_state["agents"][agent]["status"] == "active":
                     empire_state["agents"][agent]["last_activity"] = datetime.now().isoformat()
-            
+
             await asyncio.sleep(60)  # Update every minute
-            
+
         except Exception as e:
             logger.error(f"Error updating metrics: {e}")
             await asyncio.sleep(60)
@@ -218,10 +216,10 @@ async def update_metrics():
 async def startup_event():
     """Startup event"""
     logger.info("🏰 Taurus AI Corp. Registry starting up...")
-    
+
     # Start background task
     asyncio.create_task(update_metrics())
-    
+
     logger.info("✅ Registry server started successfully!")
 
 @app.on_event("shutdown")

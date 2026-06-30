@@ -1,9 +1,10 @@
-import os
 import json
-from dotenv import load_dotenv
-from crewai import Agent, Task, Crew
+import os
+
 import litellm
+from crewai import Agent, Crew, Task
 from crewai_tools import ScrapegraphScrapeTool
+from dotenv import load_dotenv
 from tools.custom_tools import DecisionTool, NotifyTool
 
 PRODUCT_DATA_FILE = "product_data.json"
@@ -32,7 +33,7 @@ class NebiusLLM:
 def load_json(file_path, default_value):
     if os.path.exists(file_path):
         try:
-            with open(file_path, "r") as f:
+            with open(file_path) as f:
                 return json.load(f)
         except json.JSONDecodeError:
             return default_value

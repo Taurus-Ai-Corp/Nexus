@@ -3,11 +3,9 @@ Jina AI Converter Utilities
 Simple wrapper functions for easy URL conversion to Markdown or JSON format
 """
 
+
 from url_to_md_json_converter import JinaAIConverter
-import json
-from datetime import datetime
-from urllib.parse import urlparse
-from pathlib import Path
+
 
 def convert_url_to_markdown(url, use_readerlm_v2=True, gather_links=False, api_key="jina_492c48beb31643e3b5a81c4052fa0628fS7ORRidO2zZAueI2W9OgX1QPDML"):
     """

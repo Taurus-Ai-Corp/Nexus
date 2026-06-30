@@ -2,19 +2,19 @@ import asyncio
 import functools
 import logging
 import time
-
-from typing import Any, Callable, Optional
+from collections.abc import Callable
 from contextlib import asynccontextmanager
+from typing import Any
 
 from tools.constants import (
-    COINBASE_DEFAULT_RATE_LIMIT,
-    COINBASE_MARKET_DATA_RATE_LIMIT,
     COINBASE_ACCOUNTS_RATE_LIMIT,
-    COINBASE_PRODUCTS_RATE_LIMIT,
-    COINBASE_MAX_RETRY_ATTEMPTS,
-    COINBASE_INITIAL_DELAY,
-    COINBASE_MAX_DELAY,
     COINBASE_BACKOFF_FACTOR,
+    COINBASE_DEFAULT_RATE_LIMIT,
+    COINBASE_INITIAL_DELAY,
+    COINBASE_MARKET_DATA_RATE_LIMIT,
+    COINBASE_MAX_DELAY,
+    COINBASE_MAX_RETRY_ATTEMPTS,
+    COINBASE_PRODUCTS_RATE_LIMIT,
 )
 
 logger = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ class TokenBucketRateLimiter:
     def __init__(
         self,
         tokens_per_second: int,
-        bucket_capacity: Optional[int] = None
+        bucket_capacity: int | None = None
     ):
         """
         Initialize token bucket rate limiter.
@@ -120,7 +120,7 @@ class TokenBucketRateLimiter:
 class RateLimiter:
     def __init__(
         self,
-        max_requests_per_second: Optional[int] = None
+        max_requests_per_second: int | None = None
     ):
         self.max_requests_per_second = max_requests_per_second or config.default_max_requests_per_second
         self.token_bucket = TokenBucketRateLimiter(
@@ -241,7 +241,7 @@ class RateLimiter:
 
 def get_rate_limiter(
     api_type: str = "default",
-    max_requests_per_second: Optional[int] = None
+    max_requests_per_second: int | None = None
 ) -> RateLimiter:
     """
     Get a rate limiter instance for a specific API type.
@@ -273,7 +273,7 @@ def get_rate_limiter(
 
 def rate_limited(
     api_type: str = "default",
-    max_requests_per_second: Optional[int] = None
+    max_requests_per_second: int | None = None
 ):
     """
     Decorator to apply rate limiting to async functions.

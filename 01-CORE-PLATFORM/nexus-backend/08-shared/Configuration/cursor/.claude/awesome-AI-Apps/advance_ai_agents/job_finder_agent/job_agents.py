@@ -1,6 +1,6 @@
-import os
 import logging
-import asyncio
+import os
+
 from agents import (
     Agent,
     OpenAIChatCompletionsModel,
@@ -15,13 +15,13 @@ logger = logging.getLogger(__name__)
 async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
     logger.info(f"Starting analysis for LinkedIn URL: {linkedin_url}")
     api_key = os.environ["NEBIUS_API_KEY"]
-    base_url = "https://api.studio.nebius.ai/v1" 
+    base_url = "https://api.studio.nebius.ai/v1"
     client = AsyncOpenAI(base_url=base_url, api_key=api_key)
     set_tracing_disabled(disabled=True)
 
     linkedin_agent = Agent(
         name="LinkedIn Profile Analyzer",
-        instructions=f"""You are a LinkedIn profile analyzer.
+        instructions="""You are a LinkedIn profile analyzer.
         Analyze profiles for:
         
         - Professional experience and career progression
@@ -45,7 +45,7 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
 
     job_suggestions_agent = Agent(
         name="Job Suggestions",
-        instructions=f"""You are a domain classifier that identifies the primary professional domain from a LinkedIn profile.
+        instructions="""You are a domain classifier that identifies the primary professional domain from a LinkedIn profile.
 
         Select ONE domain from:
         - Software Engineering (for programming, development, technical skills)
@@ -63,11 +63,11 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
         - Never make up or assume skills
 
         Format response as JSON:
-        {{
+        {
             "selected_domain": "chosen domain",
             "confidence_score": 0-100,
             "selection_reason": "brief explanation"
-        }}
+        }
         """,
         model=OpenAIChatCompletionsModel(
             model="meta-llama/Llama-3.3-70B-Instruct",
@@ -77,14 +77,14 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
 
     url_generator_agent = Agent(
         name="URL Generator",
-        instructions=f"""You are a URL generator that creates Y Combinator job board URLs based on domains.
+        instructions="""You are a URL generator that creates Y Combinator job board URLs based on domains.
 
         Input: JSON from job suggestions agent with format:
-        {{
+        {
             "selected_domain": "domain name",
             "confidence_score": number,
             "selection_reason": "reason"
-        }}
+        }
 
         Map domains to URLs:
         - "Software Engineering" -> "ycombinator.com/jobs/role/software-engineer"
@@ -96,10 +96,10 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
         - "Marketing" -> "ycombinator.com/jobs/role/marketing"
 
         Output format:
-        {{
+        {
             "job_board_url": "mapped url",
             "domain": "original domain"
-        }}
+        }
 
         Rules:
         - Return exact URL match for domain
@@ -114,7 +114,7 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
 
     Job_search_agent = Agent(
         name="Job Finder",
-        instructions=f"""You are a job finder that extracts job listings from Y Combinator's job board.
+        instructions="""You are a job finder that extracts job listings from Y Combinator's job board.
 
         Steps:
         1. Take the URL from job_link_result agent's JSON response
@@ -152,10 +152,10 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
             openai_client=client
         )
     )
-    
+
     url_parser_agent = Agent(
         name="URL Parser",
-        instructions=f"""You are a URL parser that transforms Y Combinator authentication URLs into direct job URLs.
+        instructions="""You are a URL parser that transforms Y Combinator authentication URLs into direct job URLs.
 
         Input: Job listings with authentication URLs in format:
         ## Job Matches for [Domain]
@@ -192,10 +192,10 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
             openai_client=client
         )
     )
-    
+
     summary_agent = Agent(
         name="Summary Agent",
-        instructions=f"""You are a summary agent that creates comprehensive career analysis reports.
+        instructions="""You are a summary agent that creates comprehensive career analysis reports.
         Your task is to:
         1. Take the inputs from various agents (LinkedIn analysis, job suggestions, and job matches)
         2. Create a well-structured, professional summary in markdown format that includes:
@@ -241,7 +241,7 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
             openai_client=client
         )
     )
-    
+
     query = f"""Analyze the LinkedIn profile at {linkedin_url}.
     Focus on gathering comprehensive information about the person's professional background.
     Then, find the best job for the user based on their profile.
@@ -285,7 +285,7 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
         {parsed_urls_result.final_output}
 
         Please analyze the above information and create a comprehensive career analysis report in markdown format."""
-        
+
         # Get final summary with a single call
         summary_result = await Runner.run(starting_agent=summary_agent, input=summary_input)
         logger.info("Summary generation completed")
@@ -293,4 +293,4 @@ async def run_analysis(mcp_server: MCPServer, linkedin_url: str):
 
     except Exception as e:
         logger.error(f"Error during analysis: {str(e)}")
-        raise e 
+        raise e

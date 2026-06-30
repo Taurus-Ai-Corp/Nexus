@@ -3,11 +3,12 @@ Base utilities and error handling for OpenRouter MCP Server.
 """
 
 import contextvars
+import json
 import logging
-from typing import Optional, Dict, Any
+from typing import Any
+
 import httpx
 from pydantic import BaseModel, Field
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -18,13 +19,13 @@ OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 class OpenRouterToolExecutionError(Exception):
     """Custom exception for OpenRouter tool execution errors."""
-    
+
     def __init__(
         self,
         message: str,
-        retry_after_ms: Optional[int] = None,
-        additional_prompt_content: Optional[str] = None,
-        developer_message: Optional[str] = None,
+        retry_after_ms: int | None = None,
+        additional_prompt_content: str | None = None,
+        developer_message: str | None = None,
     ):
         super().__init__(message)
         self.retry_after_ms = retry_after_ms
@@ -34,8 +35,8 @@ class OpenRouterToolExecutionError(Exception):
 
 class OpenRouterAPIError(Exception):
     """Exception for OpenRouter API errors."""
-    
-    def __init__(self, status_code: int, message: str, details: Optional[Dict[str, Any]] = None):
+
+    def __init__(self, status_code: int, message: str, details: dict[str, Any] | None = None):
         super().__init__(message)
         self.status_code = status_code
         self.details = details or {}
@@ -43,7 +44,7 @@ class OpenRouterAPIError(Exception):
 
 class OpenRouterClient:
     """HTTP client for OpenRouter API."""
-    
+
     def __init__(self, api_key: str):
         self.api_key = api_key
         self.base_url = OPENROUTER_BASE_URL
@@ -53,17 +54,17 @@ class OpenRouterClient:
             "HTTP-Referer": "https://klavis.ai",
             "X-Title": "Klavis MCP Server",
         }
-    
+
     async def _make_request(
         self,
         method: str,
         endpoint: str,
-        data: Optional[Dict[str, Any]] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+        data: dict[str, Any] | None = None,
+        params: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
         """Make an HTTP request to the OpenRouter API."""
         url = f"{self.base_url}{endpoint}"
-        
+
         async with httpx.AsyncClient(timeout=30.0) as client:
             try:
                 response = await client.request(
@@ -73,7 +74,7 @@ class OpenRouterClient:
                     json=data,
                     params=params,
                 )
-                
+
                 if response.status_code == 429:
                     retry_after = response.headers.get("Retry-After")
                     retry_after_ms = int(retry_after) * 1000 if retry_after else 60000
@@ -83,7 +84,7 @@ class OpenRouterClient:
                         additional_prompt_content="Please wait before making another request.",
                         developer_message=f"Rate limited. Retry after {retry_after_ms}ms",
                     )
-                
+
                 if response.status_code >= 400:
                     error_data = response.json() if response.content else {}
                     error_message = error_data.get("error", {}).get("message", "Unknown error")
@@ -92,7 +93,7 @@ class OpenRouterClient:
                         message=error_message,
                         details=error_data,
                     )
-                
+
                 if data and data.get("stream") and response.status_code == 200:
                     # For streaming responses, return a generator that yields chunks
                     async def stream_generator():
@@ -128,14 +129,14 @@ class OpenRouterClient:
                                                     }
                                         except json.JSONDecodeError:
                                             continue
-                            
+
                             yield {
                                 "chunk": None,
                                 "is_complete": True,
                                 "total_chunks": chunk_count,
                                 "message": "Stream ended without [DONE] marker"
                             }
-                            
+
                         except Exception as e:
                             logger.error(f"Error in stream generator: {e}")
                             yield {
@@ -144,20 +145,20 @@ class OpenRouterClient:
                                 "error": str(e),
                                 "message": f"Stream error: {str(e)}"
                             }
-                    
+
                     return {
                         "stream": True,
                         "status_code": response.status_code,
                         "generator": stream_generator(),
                         "message": "Stream generator created"
                     }
-                
+
                 # Try to parse as JSON, but handle empty responses gracefully
                 if response.content:
                     return response.json()
                 else:
                     return {"status": "success", "message": "Empty response received"}
-                
+
             except httpx.TimeoutException:
                 raise OpenRouterToolExecutionError(
                     "Request timeout",
@@ -181,12 +182,12 @@ class OpenRouterClient:
                         "message": "This is a streaming response. Use appropriate streaming client to handle it."
                     }
                 raise
-    
-    async def get(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+
+    async def get(self, endpoint: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         """Make a GET request."""
         return await self._make_request("GET", endpoint, params=params)
-    
-    async def post(self, endpoint: str, data: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def post(self, endpoint: str, data: dict[str, Any]) -> dict[str, Any]:
         """Make a POST request."""
         return await self._make_request("POST", endpoint, data=data)
 
@@ -203,7 +204,7 @@ def get_client() -> OpenRouterClient:
     return OpenRouterClient(api_key)
 
 
-def validate_required_params(params: Dict[str, Any], required: list[str]) -> None:
+def validate_required_params(params: dict[str, Any], required: list[str]) -> None:
     """Validate that required parameters are present."""
     missing = [param for param in required if param not in params or params[param] is None]
     if missing:
@@ -232,7 +233,7 @@ def validate_messages(messages: list) -> None:
             additional_prompt_content="Messages must be a non-empty list of message objects.",
             developer_message="Messages must be a non-empty list",
         )
-    
+
     for i, message in enumerate(messages):
         if not isinstance(message, dict):
             raise OpenRouterToolExecutionError(
@@ -240,14 +241,14 @@ def validate_messages(messages: list) -> None:
                 additional_prompt_content="Each message must be an object with 'role' and 'content' fields.",
                 developer_message=f"Message at index {i} is not a dictionary",
             )
-        
+
         if "role" not in message or "content" not in message:
             raise OpenRouterToolExecutionError(
                 f"Missing required fields in message at index {i}",
                 additional_prompt_content="Each message must have 'role' and 'content' fields.",
                 developer_message=f"Message at index {i} missing required fields",
             )
-        
+
         if message["role"] not in ["system", "user", "assistant"]:
             raise OpenRouterToolExecutionError(
                 f"Invalid role '{message['role']}' in message at index {i}",
@@ -266,13 +267,13 @@ class ChatCompletionRequest(BaseModel):
     """Chat completion request model."""
     model: str = Field(..., description="The model to use for completion")
     messages: list[ChatMessage] = Field(..., description="The messages to complete")
-    max_tokens: Optional[int] = Field(None, description="Maximum number of tokens to generate")
-    temperature: Optional[float] = Field(None, ge=0.0, le=2.0, description="Sampling temperature")
-    top_p: Optional[float] = Field(None, ge=0.0, le=1.0, description="Nucleus sampling parameter")
-    n: Optional[int] = Field(None, ge=1, le=10, description="Number of completions to generate")
-    stream: Optional[bool] = Field(False, description="Whether to stream the response")
-    stop: Optional[list[str]] = Field(None, description="Stop sequences")
-    presence_penalty: Optional[float] = Field(None, ge=-2.0, le=2.0, description="Presence penalty")
-    frequency_penalty: Optional[float] = Field(None, ge=-2.0, le=2.0, description="Frequency penalty")
-    logit_bias: Optional[Dict[str, float]] = Field(None, description="Logit bias")
-    user: Optional[str] = Field(None, description="User identifier") 
+    max_tokens: int | None = Field(None, description="Maximum number of tokens to generate")
+    temperature: float | None = Field(None, ge=0.0, le=2.0, description="Sampling temperature")
+    top_p: float | None = Field(None, ge=0.0, le=1.0, description="Nucleus sampling parameter")
+    n: int | None = Field(None, ge=1, le=10, description="Number of completions to generate")
+    stream: bool | None = Field(False, description="Whether to stream the response")
+    stop: list[str] | None = Field(None, description="Stop sequences")
+    presence_penalty: float | None = Field(None, ge=-2.0, le=2.0, description="Presence penalty")
+    frequency_penalty: float | None = Field(None, ge=-2.0, le=2.0, description="Frequency penalty")
+    logit_bias: dict[str, float] | None = Field(None, description="Logit bias")
+    user: str | None = Field(None, description="User identifier")

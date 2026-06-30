@@ -6,26 +6,24 @@ This server provides MCP tools for interacting with QuickBooks APIs.
 Supports both Server-Sent Events (SSE) and Streamable HTTP transport modes.
 """
 
-import os
-import logging
 import contextlib
-import json
+import logging
+import os
 from collections.abc import AsyncIterator
-from typing import Any
 from contextvars import ContextVar
+from typing import Any
 
 import click
 import mcp.types as types
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
+from session_manager import SessionManager
 from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-
-from tools import accounts, invoices, customers, payments, vendors
-from session_manager import SessionManager
+from tools import accounts, customers, invoices, payments, vendors
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

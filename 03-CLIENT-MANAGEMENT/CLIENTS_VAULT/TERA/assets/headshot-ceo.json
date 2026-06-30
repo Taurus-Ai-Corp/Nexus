@@ -1,0 +1,13 @@
+{
+  "slug": "headshot-ceo",
+  "original": "Shot on iPhone 17 Pro Max, natural everyday photography, candid moment, real human with natural skin texture, visible pores, fine lines and natural imperfections, no artificial lighting, available light only, no airbrushing, no CGI, no AI artifacts, natural color temperature, realistic shadows, authentic appearance, real photograph not computer generated, organic skin tones, Candid professional portrait of a woman in her late 30s standing in a bright modern office, wearing a navy blazer and light blouse, relaxed pose with one hand in pocket, warm genuine smile, natural office environment with soft ambient light, approachable professional look, real workplace setting, natural expression, caught in a genuine moment, ('natural skin texture, visible pores, subtle wrinkles, natural hair strands, no airbrushing, minimal makeup, real person, candid expression, iPhone 17 Pro Max portrait mode, natural depth of field, realistic colors, everyday authentic look, not AI generated, real photograph quality',)",
+  "enhanced": "A candid, photorealistic portrait of a woman in her late 30s standing in a bright, modern office, shot on an iPhone 17 Pro Max in natural portrait mode with a realistic depth of field; she wears a navy blazer over a light blouse, with one hand relaxed in her pocket and a warm, genuine smile that conveys approachability and professionalism; her skin is organic and unairbrushed, showing visible pores, subtle wrinkles, fine lines, and natural imperfections with realistic skin texture, fine hair strands, and minimal makeup; the lighting is entirely from available natural office light with soft ambient glow, creating realistic shadows and natural color temperature without artificial or dramatic illumination; the background is a real workplace setting with soft focus, capturing the subject in a genuine, caught-in-the-moment expression with authentic appearance, organic skin tones, and no CGI, no AI artifacts, no plastic look, and no computer-generated elements\u2014purely a real photograph with everyday authentic look and professional candid expression.",
+  "provider": "black-forest-labs/FLUX.1-schnell",
+  "status": "completed",
+  "params": {
+    "steps": 8,
+    "guidance": 5.0,
+    "size": "1024x768"
+  },
+  "raw_size_bytes": 93858
+}

@@ -8,28 +8,25 @@ Implements:
 - P3: robots.txt, security.txt
 """
 
+import hashlib
+import json
+import logging
 import os
 import re
 import time
-import json
-import logging
-import hashlib
-from typing import Optional, Dict, Any, List, Set
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any, Dict, List, Optional, Set
 
-from fastapi import Request, Response, HTTPException, Depends, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
-
-from jose import JWTError, jwt
 import bcrypt
-
+from fastapi import Depends, HTTPException, Request, Response, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jose import JWTError, jwt
+from pydantic import BaseModel, Field, field_validator
 from slowapi import Limiter
 from slowapi.util import get_remote_address
-
-from pydantic import BaseModel, Field, field_validator
+from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
 # Configuration
 SECRET_KEY = os.environ.get("API_SECRET_KEY", "change-me-in-production-use-env-var")
@@ -58,7 +55,7 @@ class APIKeyManager:
     def __init__(self, keys_file: str = API_KEYS_FILE):
         self.keys_file = Path(keys_file)
         self.keys_file.parent.mkdir(parents=True, exist_ok=True)
-        self._keys: Dict[str, Dict[str, Any]] = {}
+        self._keys: dict[str, dict[str, Any]] = {}
         self._load_keys()
 
     def _load_keys(self):
@@ -70,7 +67,7 @@ class APIKeyManager:
         with open(self.keys_file, "w") as f:
             json.dump(self._keys, f, indent=2)
 
-    def create_key(self, name: str, scopes: Optional[List[str]] = None) -> Dict[str, Any]:
+    def create_key(self, name: str, scopes: list[str] | None = None) -> dict[str, Any]:
         key = f"ml_{hashlib.sha256(f'{name}{time.time()}'.encode()).hexdigest()[:32]}"
         hashed = hashlib.sha256(key.encode()).hexdigest()
         self._keys[hashed] = {
@@ -82,7 +79,7 @@ class APIKeyManager:
         self._save_keys()
         return {"key": key, "name": name, "scopes": scopes or ["read"]}
 
-    def validate_key(self, key: str) -> Optional[Dict[str, Any]]:
+    def validate_key(self, key: str) -> dict[str, Any] | None:
         hashed = hashlib.sha256(key.encode()).hexdigest()
         key_data = self._keys.get(hashed)
         if key_data and key_data.get("active"):
@@ -97,7 +94,7 @@ class APIKeyManager:
             return True
         return False
 
-    def list_keys(self) -> List[Dict[str, Any]]:
+    def list_keys(self) -> list[dict[str, Any]]:
         return [
             {"hashed": k, **v}
             for k, v in self._keys.items()
@@ -107,7 +104,7 @@ class APIKeyManager:
 api_key_manager = APIKeyManager()
 
 
-def create_access_token(subject: str, scopes: Optional[List[str]] = None) -> str:
+def create_access_token(subject: str, scopes: list[str] | None = None) -> str:
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {
         "sub": subject,
@@ -117,7 +114,7 @@ def create_access_token(subject: str, scopes: Optional[List[str]] = None) -> str
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
 
-def verify_token(token: str) -> Dict[str, Any]:
+def verify_token(token: str) -> dict[str, Any]:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload
@@ -131,8 +128,8 @@ def verify_token(token: str) -> Dict[str, Any]:
 
 async def authenticate_request(
     request: Request,
-    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security_scheme),
-) -> Dict[str, Any]:
+    credentials: HTTPAuthorizationCredentials | None = Depends(security_scheme),
+) -> dict[str, Any]:
     """Authenticate via Bearer token (JWT) or API key."""
     auth_header = request.headers.get("Authorization", "")
     api_key = request.headers.get("X-API-Key", "")
@@ -249,7 +246,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
         response.headers["X-Response-Time"] = f"{duration_ms:.1f}ms"
         return response
 
-    def _write_log(self, entry: Dict[str, Any]):
+    def _write_log(self, entry: dict[str, Any]):
         with open(self.log_file, "a") as f:
             f.write(json.dumps(entry) + "\n")
 

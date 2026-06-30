@@ -1,6 +1,7 @@
 # stripe_server/tools.py
 from mcp.types import Tool
 
+
 def get_stripe_tools() -> list[Tool]:
     return [
         Tool(

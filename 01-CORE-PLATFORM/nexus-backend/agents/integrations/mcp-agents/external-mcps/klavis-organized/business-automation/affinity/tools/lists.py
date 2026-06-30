@@ -1,5 +1,6 @@
 import logging
-from typing import Any, Dict, Optional, List
+from typing import Any
+
 from .base import make_v2_request
 
 # Configure logging
@@ -7,11 +8,11 @@ logger = logging.getLogger(__name__)
 
 async def get_all_list_entries_on_a_list(
     list_id: int,
-    cursor: Optional[str] = None,
-    limit: Optional[int] = None,
-    field_ids: Optional[List[str]] = None,
-    field_types: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    cursor: str | None = None,
+    limit: int | None = None,
+    field_ids: list[str] | None = None,
+    field_types: list[str] | None = None
+) -> dict[str, Any]:
     """Get all List Entries on a List.
     
     Args:
@@ -32,16 +33,16 @@ async def get_all_list_entries_on_a_list(
             params["fieldIds"] = field_ids
         if field_types:
             params["fieldTypes"] = field_types
-            
+
         return await make_v2_request("GET", f"/lists/{list_id}/list-entries", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_all_list_entries_on_a_list: {e}")
         raise e
 
 async def get_metadata_on_all_lists(
-    cursor: Optional[str] = None,
-    limit: Optional[int] = None
-) -> Dict[str, Any]:
+    cursor: str | None = None,
+    limit: int | None = None
+) -> dict[str, Any]:
     """Get metadata on all Lists.
     
     Args:
@@ -55,13 +56,13 @@ async def get_metadata_on_all_lists(
             params["cursor"] = cursor
         if limit:
             params["limit"] = limit
-            
+
         return await make_v2_request("GET", "/lists", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_metadata_on_all_lists: {e}")
         raise e
 
-async def get_metadata_on_a_single_list(list_id: int) -> Dict[str, Any]:
+async def get_metadata_on_a_single_list(list_id: int) -> dict[str, Any]:
     """Get metadata on a single List.
     
     Args:
@@ -76,9 +77,9 @@ async def get_metadata_on_a_single_list(list_id: int) -> Dict[str, Any]:
 
 async def get_metadata_on_a_single_list_fields(
     list_id: int,
-    cursor: Optional[str] = None,
-    limit: Optional[int] = None
-) -> Dict[str, Any]:
+    cursor: str | None = None,
+    limit: int | None = None
+) -> dict[str, Any]:
     """Get metadata on a single List's Fields.
     
     Args:
@@ -93,7 +94,7 @@ async def get_metadata_on_a_single_list_fields(
             params["cursor"] = cursor
         if limit:
             params["limit"] = limit
-            
+
         return await make_v2_request("GET", f"/lists/{list_id}/fields", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_metadata_on_a_single_list_fields: {e}")
@@ -102,9 +103,9 @@ async def get_metadata_on_a_single_list_fields(
 async def get_a_single_list_entry_on_a_list(
     list_id: int,
     list_entry_id: int,
-    field_ids: Optional[List[str]] = None,
-    field_types: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    field_ids: list[str] | None = None,
+    field_types: list[str] | None = None
+) -> dict[str, Any]:
     """Get a single List Entry on a List.
     
     Args:
@@ -120,7 +121,7 @@ async def get_a_single_list_entry_on_a_list(
             params["fieldIds"] = field_ids
         if field_types:
             params["fieldTypes"] = field_types
-            
+
         return await make_v2_request("GET", f"/lists/{list_id}/list-entries/{list_entry_id}", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_a_single_list_entry_on_a_list: {e}")

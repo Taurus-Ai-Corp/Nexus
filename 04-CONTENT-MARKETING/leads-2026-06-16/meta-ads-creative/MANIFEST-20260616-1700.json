@@ -1,0 +1,38 @@
+[
+  {
+    "ad": "A1-just-raised",
+    "aspect": "1:1",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/meta-ads-creative/A1-just-raised_1x1_20260616-1700.png",
+    "status": "922136"
+  },
+  {
+    "ad": "A1-just-raised",
+    "aspect": "16:9",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/meta-ads-creative/A1-just-raised_16x9_20260616-1700.png",
+    "status": "ERR 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Quota exceeded for aiplatform.googleapis.com/online_prediction_requests_per_base_model with base model: imagen-3.0-generate. Please submit a quota incre"
+  },
+  {
+    "ad": "A2-speed",
+    "aspect": "1:1",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/meta-ads-creative/A2-speed_1x1_20260616-1700.png",
+    "status": "ERR 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Quota exceeded for aiplatform.googleapis.com/online_prediction_requests_per_base_model with base model: imagen-3.0-generate. Please submit a quota incre"
+  },
+  {
+    "ad": "A2-speed",
+    "aspect": "16:9",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/meta-ads-creative/A2-speed_16x9_20260616-1700.png",
+    "status": "ERR 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Quota exceeded for aiplatform.googleapis.com/online_prediction_requests_per_base_model with base model: imagen-3.0-generate. Please submit a quota incre"
+  },
+  {
+    "ad": "A3-credibility",
+    "aspect": "1:1",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/meta-ads-creative/A3-credibility_1x1_20260616-1700.png",
+    "status": "ERR 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Quota exceeded for aiplatform.googleapis.com/online_prediction_requests_per_base_model with base model: imagen-3.0-generate. Please submit a quota incre"
+  },
+  {
+    "ad": "A3-credibility",
+    "aspect": "16:9",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/meta-ads-creative/A3-credibility_16x9_20260616-1700.png",
+    "status": "ERR 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Quota exceeded for aiplatform.googleapis.com/online_prediction_requests_per_base_model with base model: imagen-3.0-generate. Please submit a quota incre"
+  }
+]

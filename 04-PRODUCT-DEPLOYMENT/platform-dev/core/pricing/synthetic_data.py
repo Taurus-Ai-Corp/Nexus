@@ -5,11 +5,9 @@ Generates realistic borrower profiles across segments with configurable
 economic conditions, repayment behaviors, and demographic distributions.
 """
 
+
 import numpy as np
 import pandas as pd
-from typing import Dict, Any, Optional, List
-from datetime import datetime, timedelta
-
 
 SEGMENT_PROFILES = {
     "street_vendor": {
@@ -69,28 +67,28 @@ ECONOMIC_SCENARIOS = {
 
 def generate_borrowers(
     n: int = 1000,
-    seed: Optional[int] = None,
+    seed: int | None = None,
     economic_scenario: str = "stable_growth",
     include_history: bool = True,
 ) -> pd.DataFrame:
     rng = np.random.default_rng(seed)
-    
+
     segments = list(SEGMENT_PROFILES.keys())
     weights = [SEGMENT_PROFILES[s]["weight"] for s in segments]
     borrower_segments = rng.choice(segments, size=n, p=weights)
-    
+
     eco = ECONOMIC_SCENARIOS.get(economic_scenario, ECONOMIC_SCENARIOS["stable_growth"])
     economic_factor = 1.0 + eco["gdp_growth"] - eco["inflation"] * 0.5 - eco["unemployment"] * 2.0
     economic_factor = np.clip(economic_factor, 0.7, 1.3)
-    
+
     records = []
     for i, seg in enumerate(borrower_segments):
         profile = SEGMENT_PROFILES[seg]
-        
+
         monthly_income = rng.uniform(*profile["income_range"]) * economic_factor
         loan_amount = rng.uniform(*profile["loan_range"])
         credit_score = rng.uniform(*profile["credit_score_range"])
-        
+
         base_repayment = profile["repayment_base"]
         seasonal = rng.normal(0, profile["seasonal_variance"])
         income_ratio = np.clip(loan_amount / (monthly_income * 12), 0, 2)
@@ -99,10 +97,10 @@ def generate_borrowers(
             0.1,
             0.98,
         )
-        
+
         preferred_term_min, preferred_term_max = profile["term_preference"]
         loan_term = int(rng.uniform(preferred_term_min, preferred_term_max))
-        
+
         age = int(rng.integers(22, 65))
         dependents = int(rng.integers(0, 5))
         years_in_business = max(0, int(rng.normal(5, 3)))
@@ -110,10 +108,10 @@ def generate_borrowers(
         has_upi = rng.random() > 0.25
         previous_loans = int(rng.integers(0, 8))
         previous_defaults = int(rng.integers(0, max(1, previous_loans // 3)))
-        
+
         region_choices = ["north", "south", "east", "west", "central"]
         region = rng.choice(region_choices)
-        
+
         record = {
             "borrower_id": f"BL{i:06d}",
             "segment": seg,
@@ -132,7 +130,7 @@ def generate_borrowers(
             "region": region,
             "economic_factor": round(economic_factor, 4),
         }
-        
+
         if include_history:
             payment_history = []
             for month in range(loan_term):
@@ -140,26 +138,26 @@ def generate_borrowers(
                 seasonal_month = np.sin(2 * np.pi * month / 12) * profile["seasonal_variance"] * 0.1
                 paid = rng.random() < (base_prob + seasonal_month)
                 payment_history.append(1 if paid else 0)
-            
+
             record["payment_history"] = payment_history
             record["on_time_payments"] = sum(payment_history)
             record["late_payments"] = loan_term - sum(payment_history)
-        
+
         records.append(record)
-    
+
     df = pd.DataFrame(records)
     return df
 
 
 def borrowers_to_env_array(df: pd.DataFrame) -> np.ndarray:
     from core.pricing.microloan_env import MicroLoanPricingEnv
-    
+
     n = len(df)
     state_dim = MicroLoanPricingEnv.STATE_DIM
     states = np.zeros((n, state_dim), dtype=np.float32)
-    
+
     segment_map = {seg: idx for idx, seg in enumerate(SEGMENT_PROFILES.keys())}
-    
+
     for i, (_, row) in enumerate(df.iterrows()):
         states[i, 0] = np.clip(row["credit_score"] * 2 - 1, -1, 1)
         income_norm = np.clip(row["monthly_income"] / 50000, 0, 1)
@@ -169,29 +167,29 @@ def borrowers_to_env_array(df: pd.DataFrame) -> np.ndarray:
         states[i, 3] = np.clip(row["repayment_rate"] * 2 - 1, -1, 1)
         years_norm = np.clip(row["years_in_business"] / 15, 0, 1)
         states[i, 4] = years_norm * 2 - 1
-        
+
         seg_idx = segment_map.get(row["segment"], 0)
         states[i, 5 + seg_idx] = 1.0
-        
+
         states[i, 10] = np.clip(row["economic_factor"] * 2 - 2, -1, 1)
         states[i, 11] = 0.0
         states[i, 12] = 0.0
-    
+
     return states
 
 
 def generate_training_dataset(
     n: int = 5000,
     seed: int = 42,
-    output_path: Optional[str] = None,
+    output_path: str | None = None,
 ) -> np.ndarray:
     df = generate_borrowers(n=n, seed=seed, include_history=True)
     env_array = borrowers_to_env_array(df)
-    
+
     if output_path:
         df.to_csv(output_path, index=False)
         print(f"Saved {n} borrower profiles to {output_path}")
-    
+
     return env_array
 
 

@@ -7,17 +7,15 @@ Manages and orchestrates all AI agents, N8N workflows, and automation systems
 across the entire TAURUS AI ecosystem.
 """
 
-import asyncio
-import json
 import logging
-import requests
-import aiohttp
-from datetime import datetime
-from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
-from fastapi import FastAPI, BackgroundTasks, HTTPException
-from pydantic import BaseModel
+from datetime import datetime
+from typing import Any
+
+import aiohttp
 import uvicorn
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -29,30 +27,30 @@ class WorkflowInfo:
     id: str
     name: str
     description: str
-    capabilities: List[str]
-    webhook_url: Optional[str] = None
-    input_schema: Optional[Dict] = None
-    output_schema: Optional[Dict] = None
+    capabilities: list[str]
+    webhook_url: str | None = None
+    input_schema: dict | None = None
+    output_schema: dict | None = None
 
 class TaurusAIMasterOrchestrator:
     """
     Master Orchestrator for TAURUS AI CORP
     Manages all AI agents, workflows, and automation systems
     """
-    
+
     def __init__(self):
         self.n8n_base_url = "http://localhost:5678"
         self.n8n_auth = ("taurus_admin", "TaurusAI_Production_2025!")
         self.available_workflows = {}
         self.active_sessions = {}
-        
+
         # Initialize workflow registry
         self.initialize_workflow_registry()
-        
+
     def initialize_workflow_registry(self):
         """Initialize the registry of all available workflows and agents"""
         logger.info("🚀 Initializing TAURUS AI Master Orchestrator...")
-        
+
         # Jack's Automation Workflows
         self.available_workflows = {
             "linkedin_automation": WorkflowInfo(
@@ -60,7 +58,7 @@ class TaurusAIMasterOrchestrator:
                 name="$10,000 LinkedIn Agent",
                 description="4-agent LinkedIn content optimization system with 250+ viral hooks",
                 capabilities=[
-                    "content_research", "performance_analysis", "script_generation", 
+                    "content_research", "performance_analysis", "script_generation",
                     "hook_optimization", "viral_content_creation", "audience_targeting"
                 ],
                 webhook_url="http://localhost:5678/webhook/linkedin-automation",
@@ -68,11 +66,11 @@ class TaurusAIMasterOrchestrator:
                     "message": "str", "metadata": "dict", "target_audience": "str"
                 },
                 output_schema={
-                    "optimized_post": "str", "alternative_hooks": "list", 
+                    "optimized_post": "str", "alternative_hooks": "list",
                     "research_insights": "list", "performance_predictions": "dict"
                 }
             ),
-            
+
             "social_media_scraper": WorkflowInfo(
                 id="social_media_scraper",
                 name="LinkedIn + Instagram Scraper",
@@ -89,7 +87,7 @@ class TaurusAIMasterOrchestrator:
                     "scraped_data": "list", "profiles": "list", "analytics": "dict"
                 }
             ),
-            
+
             "memory_agent": WorkflowInfo(
                 id="memory_agent",
                 name="Agent with Memory",
@@ -106,9 +104,9 @@ class TaurusAIMasterOrchestrator:
                     "response": "str", "memory_update": "dict", "context_analysis": "dict"
                 }
             ),
-            
+
             "client_intelligence": WorkflowInfo(
-                id="client_intelligence", 
+                id="client_intelligence",
                 name="Client Intelligence System",
                 description="Comprehensive client data processing and relationship management",
                 capabilities=[
@@ -123,11 +121,11 @@ class TaurusAIMasterOrchestrator:
                     "processed_data": "dict", "insights": "list", "recommendations": "list"
                 }
             ),
-            
+
             # BizFlow Native Agents
             "vertex_ai_creative": WorkflowInfo(
                 id="vertex_ai_creative",
-                name="Vertex AI Creative Agent", 
+                name="Vertex AI Creative Agent",
                 description="Advanced creative content generation with 9 specialized capabilities",
                 capabilities=[
                     "engagement_optimization", "visual_storytelling", "emotional_resonance",
@@ -136,7 +134,7 @@ class TaurusAIMasterOrchestrator:
                 ],
                 webhook_url="http://localhost:8000/api/agents/vertex-ai-creative"
             ),
-            
+
             "vibe_marketing": WorkflowInfo(
                 id="vibe_marketing",
                 name="Vibe Marketing Agent",
@@ -148,17 +146,17 @@ class TaurusAIMasterOrchestrator:
                 webhook_url="http://localhost:8000/api/agents/vibe-marketing"
             )
         }
-        
+
         logger.info(f"✅ Initialized {len(self.available_workflows)} workflows and agents")
-    
-    async def execute_workflow(self, workflow_id: str, input_data: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def execute_workflow(self, workflow_id: str, input_data: dict[str, Any]) -> dict[str, Any]:
         """Execute a specific workflow with given input data"""
         if workflow_id not in self.available_workflows:
             raise ValueError(f"Workflow '{workflow_id}' not found")
-        
+
         workflow = self.available_workflows[workflow_id]
         logger.info(f"🔄 Executing workflow: {workflow.name}")
-        
+
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.post(
@@ -193,33 +191,33 @@ class TaurusAIMasterOrchestrator:
                 "error": str(e),
                 "timestamp": datetime.now().isoformat()
             }
-    
-    async def orchestrate_multi_workflow(self, workflow_chain: List[Dict]) -> Dict[str, Any]:
+
+    async def orchestrate_multi_workflow(self, workflow_chain: list[dict]) -> dict[str, Any]:
         """Execute multiple workflows in sequence or parallel"""
         logger.info(f"🔗 Orchestrating {len(workflow_chain)} workflow chain...")
-        
+
         results = []
         context_data = {}
-        
+
         for step in workflow_chain:
             workflow_id = step["workflow_id"]
             input_data = step.get("input_data", {})
             execution_mode = step.get("mode", "sequential")  # or "parallel"
-            
+
             # Merge context from previous steps
             if step.get("use_context", True) and context_data:
                 input_data.update({"context": context_data})
-            
+
             # Execute workflow
             result = await self.execute_workflow(workflow_id, input_data)
             results.append(result)
-            
+
             # Update context for next workflow
             if result["status"] == "success":
                 context_data[workflow_id] = result["result"]
-            
+
             logger.info(f"📊 Step {len(results)}/{len(workflow_chain)} completed")
-        
+
         return {
             "orchestration_status": "completed",
             "total_workflows": len(workflow_chain),
@@ -228,11 +226,11 @@ class TaurusAIMasterOrchestrator:
             "final_context": context_data,
             "timestamp": datetime.now().isoformat()
         }
-    
-    async def smart_workflow_selection(self, user_intent: str, requirements: Dict) -> List[str]:
+
+    async def smart_workflow_selection(self, user_intent: str, requirements: dict) -> list[str]:
         """AI-powered workflow selection based on user intent and requirements"""
-        logger.info(f"🧠 Analyzing user intent for smart workflow selection...")
-        
+        logger.info("🧠 Analyzing user intent for smart workflow selection...")
+
         # Intent mapping to workflows
         intent_mappings = {
             "linkedin_content": ["vertex_ai_creative", "linkedin_automation"],
@@ -244,21 +242,21 @@ class TaurusAIMasterOrchestrator:
             "global_marketing": ["vibe_marketing", "vertex_ai_creative"],
             "automation_setup": ["client_intelligence", "memory_agent"]
         }
-        
+
         # Simple intent detection (can be enhanced with ML)
         detected_workflows = []
         for intent, workflows in intent_mappings.items():
             if intent.lower() in user_intent.lower():
                 detected_workflows.extend(workflows)
-        
+
         # Remove duplicates and ensure workflows exist
         recommended_workflows = list(set(detected_workflows))
         available_workflows = [w for w in recommended_workflows if w in self.available_workflows]
-        
+
         logger.info(f"💡 Recommended {len(available_workflows)} workflows for intent: {user_intent}")
         return available_workflows
-    
-    def get_workflow_documentation(self) -> Dict[str, Any]:
+
+    def get_workflow_documentation(self) -> dict[str, Any]:
         """Generate comprehensive documentation of all available workflows"""
         docs = {
             "taurus_ai_master_orchestrator": {
@@ -268,7 +266,7 @@ class TaurusAIMasterOrchestrator:
             },
             "workflows": {}
         }
-        
+
         for workflow_id, workflow in self.available_workflows.items():
             docs["workflows"][workflow_id] = {
                 "name": workflow.name,
@@ -279,9 +277,9 @@ class TaurusAIMasterOrchestrator:
                 "output_schema": workflow.output_schema,
                 "category": self._get_workflow_category(workflow_id)
             }
-        
+
         return docs
-    
+
     def _get_workflow_category(self, workflow_id: str) -> str:
         """Categorize workflows for better organization"""
         categories = {
@@ -290,7 +288,7 @@ class TaurusAIMasterOrchestrator:
             "ai_agents": ["memory_agent", "vibe_marketing"],
             "automation": ["client_intelligence"]
         }
-        
+
         for category, workflows in categories.items():
             if workflow_id in workflows:
                 return category
@@ -299,17 +297,17 @@ class TaurusAIMasterOrchestrator:
 # API Models
 class WorkflowExecutionRequest(BaseModel):
     workflow_id: str
-    input_data: Dict[str, Any]
-    metadata: Optional[Dict[str, Any]] = None
+    input_data: dict[str, Any]
+    metadata: dict[str, Any] | None = None
 
 class MultiWorkflowRequest(BaseModel):
-    workflow_chain: List[Dict[str, Any]]
-    execution_mode: Optional[str] = "sequential"
+    workflow_chain: list[dict[str, Any]]
+    execution_mode: str | None = "sequential"
 
 class SmartOrchestrationRequest(BaseModel):
     user_intent: str
-    requirements: Dict[str, Any]
-    auto_execute: Optional[bool] = False
+    requirements: dict[str, Any]
+    auto_execute: bool | None = False
 
 # FastAPI Application
 app = FastAPI(
@@ -332,7 +330,7 @@ async def orchestrator_status():
         "bizflow_integration": "active",
         "capabilities": [
             "workflow_execution",
-            "multi_workflow_orchestration", 
+            "multi_workflow_orchestration",
             "smart_workflow_selection",
             "context_management",
             "real_time_monitoring"
@@ -377,16 +375,16 @@ async def smart_orchestrate(request: SmartOrchestrationRequest):
             request.user_intent,
             request.requirements
         )
-        
+
         response = {
             "user_intent": request.user_intent,
             "recommended_workflows": recommended_workflows,
             "workflow_details": {
-                wf_id: orchestrator.available_workflows[wf_id].__dict__ 
+                wf_id: orchestrator.available_workflows[wf_id].__dict__
                 for wf_id in recommended_workflows
             }
         }
-        
+
         # Auto-execute if requested
         if request.auto_execute and recommended_workflows:
             workflow_chain = [
@@ -397,17 +395,17 @@ async def smart_orchestrate(request: SmartOrchestrationRequest):
                 }
                 for wf_id in recommended_workflows
             ]
-            
+
             execution_result = await orchestrator.orchestrate_multi_workflow(workflow_chain)
             response["execution_result"] = execution_result
-        
+
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Smart orchestration error: {str(e)}")
 
 # Specialized endpoints for common use cases
 @app.post("/api/linkedin-viral-content")
-async def create_linkedin_viral_content(content_idea: Dict[str, str]):
+async def create_linkedin_viral_content(content_idea: dict[str, str]):
     """Specialized endpoint for LinkedIn viral content creation"""
     workflow_chain = [
         {
@@ -418,18 +416,18 @@ async def create_linkedin_viral_content(content_idea: Dict[str, str]):
             }
         },
         {
-            "workflow_id": "linkedin_automation", 
+            "workflow_id": "linkedin_automation",
             "input_data": {
                 "message": "{{ context.vertex_ai_creative.enhanced_content }}",
                 "metadata": {"source": "taurus_ai_orchestrator"}
             }
         }
     ]
-    
+
     return await orchestrator.orchestrate_multi_workflow(workflow_chain)
 
 @app.post("/api/comprehensive-client-analysis")
-async def comprehensive_client_analysis(client_data: Dict[str, Any]):
+async def comprehensive_client_analysis(client_data: dict[str, Any]):
     """Specialized endpoint for comprehensive client intelligence"""
     workflow_chain = [
         {
@@ -445,7 +443,7 @@ async def comprehensive_client_analysis(client_data: Dict[str, Any]):
             }
         }
     ]
-    
+
     return await orchestrator.orchestrate_multi_workflow(workflow_chain)
 
 @app.get("/api/health")
@@ -453,7 +451,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "orchestrator": "operational", 
+        "orchestrator": "operational",
         "workflows_available": len(orchestrator.available_workflows),
         "timestamp": datetime.now().isoformat()
     }

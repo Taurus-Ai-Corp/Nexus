@@ -1,9 +1,9 @@
-import logging
 import json
-import base64
+import logging
 import os
-from typing import Any, Dict, Optional, Tuple
 from contextvars import ContextVar
+from typing import Any
+
 import httpx
 
 logger = logging.getLogger(__name__)
@@ -18,7 +18,7 @@ MIXPANEL_APP_ENDPOINT = "https://mixpanel.com/api/app"  # App Management APIs (p
 username_context: ContextVar[str] = ContextVar('serviceaccount_username')
 secret_context: ContextVar[str] = ContextVar('serviceaccount_secret')
 
-def get_service_account_credentials() -> Tuple[str, str]:
+def get_service_account_credentials() -> tuple[str, str]:
     """Get the service account credentials from context or environment.
     
     Returns:
@@ -32,11 +32,11 @@ def get_service_account_credentials() -> Tuple[str, str]:
             return username, secret
     except LookupError:
         pass
-    
+
     # Fall back to environment variables
     username = os.getenv("MIXPANEL_SERVICE_ACCOUNT_USERNAME", "")
     secret = os.getenv("MIXPANEL_SERVICE_ACCOUNT_SECRET", "")
-    
+
     if not username or not secret:
         raise RuntimeError(
             "Service account credentials not found. Please provide them via x-auth-data header "
@@ -44,7 +44,7 @@ def get_service_account_credentials() -> Tuple[str, str]:
             "or set MIXPANEL_SERVICE_ACCOUNT_USERNAME and "
             "MIXPANEL_SERVICE_ACCOUNT_SECRET environment variables."
         )
-    
+
     return username, secret
 
 class MixpanelIngestionClient:
@@ -53,15 +53,15 @@ class MixpanelIngestionClient:
     Ingestion API (api.mixpanel.com): For sending events, user profiles, and group data to Mixpanel.
     Supports /import for batch events and /engage for user profile updates.
     """
-    
+
     @staticmethod
     async def make_request(
-        method: str, 
-        endpoint: str, 
-        data: Optional[Dict[str, Any]] = None,
-        params: Optional[Dict[str, Any]] = None,
-        project_id: Optional[str] = None
-    ) -> Dict[str, Any]:
+        method: str,
+        endpoint: str,
+        data: dict[str, Any] | None = None,
+        params: dict[str, Any] | None = None,
+        project_id: str | None = None
+    ) -> dict[str, Any]:
         """Make an HTTP request to Mixpanel Ingestion API using Service Account auth.
         
         The ingestion API uses Service Account authentication for /import endpoint.
@@ -75,25 +75,25 @@ class MixpanelIngestionClient:
         """
         if not project_id:
             raise ValueError("project_id is required for ingestion operations")
-            
+
         # Get service account credentials
         username, secret = get_service_account_credentials()
-        
+
         headers = {
             "Content-Type": "application/json",
             "Accept": "text/plain"
         }
-        
+
         url = f"{MIXPANEL_INGESTION_ENDPOINT}{endpoint}"
-        
+
         # Add project_id to params for /import endpoint
         if params is None:
             params = {}
         params["project_id"] = project_id
-        
+
         # Use Basic Auth with service account credentials
         auth = httpx.BasicAuth(username, secret)
-        
+
         async with httpx.AsyncClient() as client:
             if method.upper() == "POST":
                 response = await client.post(url, auth=auth, headers=headers, json=data, params=params)
@@ -101,9 +101,9 @@ class MixpanelIngestionClient:
                 response = await client.get(url, auth=auth, headers=headers, params=params)
             else:
                 raise ValueError(f"Unsupported HTTP method for ingestion: {method}")
-        
+
         response.raise_for_status()
-        
+
         # Handle response based on content type
         content_type = response.headers.get("content-type", "")
         if "application/json" in content_type:
@@ -124,14 +124,14 @@ class MixpanelExportClient:
     
     Raw Data Export API (data.mixpanel.com/api/2.0/export): For exporting raw event data.
     """
-    
+
     @staticmethod
     async def make_request(
-        method: str, 
-        endpoint: str = "", 
-        data: Optional[Dict[str, Any]] = None,
-        params: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        method: str,
+        endpoint: str = "",
+        data: dict[str, Any] | None = None,
+        params: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
         """Make an HTTP request to Mixpanel Export API using Service Account authentication.
         
         Args:
@@ -142,17 +142,17 @@ class MixpanelExportClient:
         """
         # Get service account credentials
         username, secret = get_service_account_credentials()
-        
+
         # Use Basic Auth with service account credentials
         auth = httpx.BasicAuth(username, secret)
-        
+
         headers = {
             "Content-Type": "application/json"
         }
-        
+
         # MIXPANEL_EXPORT_ENDPOINT already includes the full path /api/2.0/export
         url = MIXPANEL_EXPORT_ENDPOINT
-        
+
         async with httpx.AsyncClient() as client:
             if method.upper() == "GET":
                 response = await client.get(url, auth=auth, headers=headers, params=params)
@@ -160,12 +160,12 @@ class MixpanelExportClient:
                 response = await client.post(url, auth=auth, headers=headers, json=data)
             else:
                 raise ValueError(f"Unsupported HTTP method for export: {method}")
-            
+
             response.raise_for_status()
-            
+
             # Handle different response types
             content_type = response.headers.get("content-type", "")
-            
+
             if "application/json" in content_type:
                 return response.json()
             elif response.text:
@@ -187,14 +187,14 @@ class MixpanelQueryClient:
     
     Query API (mixpanel.com/api): For calculated data like Insights, Funnels, Retention.
     """
-    
+
     @staticmethod
     async def make_request(
-        method: str, 
-        endpoint: str, 
-        data: Optional[Dict[str, Any]] = None,
-        params: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        method: str,
+        endpoint: str,
+        data: dict[str, Any] | None = None,
+        params: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
         """Make an HTTP request to Mixpanel Query API using Service Account authentication.
         
         Args:
@@ -205,16 +205,16 @@ class MixpanelQueryClient:
         """
         # Get service account credentials
         username, secret = get_service_account_credentials()
-        
+
         # Use Basic Auth with service account credentials
         auth = httpx.BasicAuth(username, secret)
-        
+
         headers = {
             "Content-Type": "application/json"
         }
-        
+
         url = f"{MIXPANEL_QUERY_ENDPOINT}{endpoint}"
-        
+
         async with httpx.AsyncClient() as client:
             if method.upper() == "GET":
                 response = await client.get(url, auth=auth, headers=headers, params=params)
@@ -222,12 +222,12 @@ class MixpanelQueryClient:
                 response = await client.post(url, auth=auth, headers=headers, json=data)
             else:
                 raise ValueError(f"Unsupported HTTP method for query: {method}")
-            
+
             response.raise_for_status()
-            
+
             # Handle response
             content_type = response.headers.get("content-type", "")
-            
+
             if "application/json" in content_type:
                 return response.json()
             elif response.text:
@@ -243,14 +243,14 @@ class MixpanelAppAPIClient:
     
     App Management APIs (mixpanel.com/api/app): For project management, GDPR, schemas, etc.
     """
-    
+
     @staticmethod
     async def make_request(
-        method: str, 
-        endpoint: str, 
-        data: Optional[Dict[str, Any]] = None,
-        params: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        method: str,
+        endpoint: str,
+        data: dict[str, Any] | None = None,
+        params: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
         """Make an HTTP request to Mixpanel App Management API using Service Account authentication.
         
         Args:
@@ -261,16 +261,16 @@ class MixpanelAppAPIClient:
         """
         # Get service account credentials
         username, secret = get_service_account_credentials()
-        
+
         # Use Basic Auth with service account credentials
         auth = httpx.BasicAuth(username, secret)
-        
+
         headers = {
             "Content-Type": "application/json"
         }
-        
+
         url = f"{MIXPANEL_APP_ENDPOINT}{endpoint}"
-        
+
         async with httpx.AsyncClient() as client:
             if method.upper() == "GET":
                 response = await client.get(url, auth=auth, headers=headers, params=params)
@@ -278,12 +278,12 @@ class MixpanelAppAPIClient:
                 response = await client.post(url, auth=auth, headers=headers, json=data)
             else:
                 raise ValueError(f"Unsupported HTTP method: {method}")
-            
+
             response.raise_for_status()
-            
+
             # Handle response
             content_type = response.headers.get("content-type", "")
-            
+
             if "application/json" in content_type:
                 return response.json()
             elif response.text:

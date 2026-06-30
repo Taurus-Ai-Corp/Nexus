@@ -8,6 +8,7 @@ import asyncio
 import json
 import logging
 from datetime import datetime
+
 from ai_agents.mcp_integration_agent import MCPIntegrationAgent
 
 logging.basicConfig(level=logging.INFO)
@@ -17,20 +18,20 @@ async def run_comprehensive_test_campaign():
     """
     Run a full test campaign showcasing Nexus™ capabilities
     """
-    
+
     print("🚀 Starting Nexus™ Comprehensive Test Campaign")
     print("=" * 60)
-    
+
     # Initialize MCP Integration Agent
     agent = MCPIntegrationAgent()
-    
+
     # Display system status
     status = agent.get_system_status()
     print("\n📊 System Status:")
     for tool_name, tool_info in status['tools'].items():
         emoji = "✅" if tool_info['status'] == 'Active' else "⚠️"
         print(f"  {emoji} {tool_name}: {tool_info['status']}")
-    
+
     # Test Campaign Data - Nexus™ Launch Campaign
     test_campaigns = [
         {
@@ -54,7 +55,7 @@ async def run_comprehensive_test_campaign():
             }
         },
         {
-            "id": "nexus-india-launch-002", 
+            "id": "nexus-india-launch-002",
             "campaign_name": "Nexus™ India Expansion - AI Marketing for Every Business",
             "target_market": "India",
             "campaign_type": "market_expansion",
@@ -76,7 +77,7 @@ async def run_comprehensive_test_campaign():
         {
             "id": "nexus-canada-launch-003",
             "campaign_name": "Nexus™ Canada Launch - AI-Powered Growth Marketing",
-            "target_market": "Canada", 
+            "target_market": "Canada",
             "campaign_type": "home_market_launch",
             "industry": "digital marketing",
             "budget": 18000,
@@ -89,37 +90,37 @@ async def run_comprehensive_test_campaign():
             ],
             "target_audience": {
                 "primary": "Mid-market businesses (100-1000 employees)",
-                "secondary": "Tech companies and SaaS businesses", 
+                "secondary": "Tech companies and SaaS businesses",
                 "tertiary": "Marketing agencies and consultants"
             }
         }
     ]
-    
+
     # Run test campaigns for each market
     campaign_results = []
-    
+
     for campaign_data in test_campaigns:
         print(f"\n🎯 Running Campaign: {campaign_data['campaign_name']}")
         print(f"   Market: {campaign_data['target_market']} | Budget: ${campaign_data['budget']:,}")
         print("-" * 60)
-        
+
         try:
             # Execute campaign using MCP orchestration
             result = await agent.orchestrate_marketing_campaign(campaign_data)
-            
+
             if result and not result.get("error"):
-                print(f"   ✅ Campaign executed successfully")
+                print("   ✅ Campaign executed successfully")
                 print(f"   📊 Research completed: {bool(result.get('research'))}")
                 print(f"   📝 Content generated: {bool(result.get('content'))}")
                 print(f"   💾 Data stored: {result.get('storage', {}).get('campaign_stored', False)}")
                 print(f"   📈 Analytics generated: {bool(result.get('analytics'))}")
-                
+
                 # Extract key insights
                 if result.get('research') and result['research'].get('research_results'):
                     research_data = result['research']['research_results']
                     successful_queries = len([r for r in research_data.values() if not r.get('error')])
                     print(f"   🔍 Market research: {successful_queries} queries successful")
-                
+
                 campaign_results.append({
                     "campaign": campaign_data,
                     "result": result,
@@ -133,7 +134,7 @@ async def run_comprehensive_test_campaign():
                     "error": error_msg,
                     "status": "failed"
                 })
-                
+
         except Exception as e:
             print(f"   💥 Campaign exception: {str(e)}")
             campaign_results.append({
@@ -141,23 +142,23 @@ async def run_comprehensive_test_campaign():
                 "error": str(e),
                 "status": "error"
             })
-        
+
         # Rate limiting between campaigns
-        print(f"   ⏳ Waiting 3 seconds before next campaign...")
+        print("   ⏳ Waiting 3 seconds before next campaign...")
         await asyncio.sleep(3)
-    
+
     # Generate comprehensive test report
-    print(f"\n📋 Test Campaign Summary")
+    print("\n📋 Test Campaign Summary")
     print("=" * 60)
-    
+
     successful_campaigns = len([r for r in campaign_results if r['status'] == 'success'])
     total_campaigns = len(campaign_results)
-    
+
     print(f"Total Campaigns: {total_campaigns}")
     print(f"Successful: {successful_campaigns}")
     print(f"Failed: {total_campaigns - successful_campaigns}")
     print(f"Success Rate: {(successful_campaigns/total_campaigns*100):.1f}%")
-    
+
     # Export detailed test results
     test_report = {
         "test_metadata": {
@@ -187,21 +188,21 @@ async def run_comprehensive_test_campaign():
             "Launch live campaigns across all markets"
         ]
     }
-    
+
     # Save test report
     report_filename = f"nexus_test_campaign_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     with open(report_filename, 'w', encoding='utf-8') as f:
         json.dump(test_report, f, indent=2, default=str)
-    
+
     print(f"\n💾 Detailed test report saved: {report_filename}")
-    
+
     # Cleanup
     await agent.cleanup()
-    
-    print(f"\n🎉 Nexus™ Test Campaign Complete!")
+
+    print("\n🎉 Nexus™ Test Campaign Complete!")
     print(f"   System Status: {'🟢 Operational' if successful_campaigns > 0 else '🔴 Needs Attention'}")
     print(f"   Ready for: {'✅ Production deployment' if successful_campaigns == total_campaigns else '⚠️ Additional testing'}")
-    
+
     return test_report
 
 if __name__ == "__main__":

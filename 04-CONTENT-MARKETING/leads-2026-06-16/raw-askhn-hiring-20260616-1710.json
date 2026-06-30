@@ -1,0 +1,6 @@
+Retrieving project…
+Retrieving project…
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    80    0     0  100    80      0     75  0:00:01  0:00:01 --:--:--    75100   217  100   137  100    80    115     67  0:00:01  0:00:01 --:--:--   182100   217  100   137  100    80    115     67  0:00:01  0:00:01 --:--:--   182
+{"query":"hiring","url":"https://hnrss.org/ask_hn","results":{"rss":[]},"errors":{"rss":"RSS fetch 502"},"ts":"2026-06-16T20:57:12.968Z"}

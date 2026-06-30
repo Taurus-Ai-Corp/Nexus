@@ -4,15 +4,14 @@ Competitor Analysis Agent for TAAS Canada Inc.
 Uses Claude AI to analyze competitors and identify market opportunities
 """
 
-import anthropic
-import requests
 import json
-import time
+import logging
 import os
-from typing import Dict, List, Optional
+import time
 from dataclasses import dataclass
 from datetime import datetime
-import logging
+
+import anthropic
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -28,24 +27,24 @@ class CompetitorInfo:
     name: str
     website: str
     market: str
-    services: List[str]
-    pricing: Dict[str, str]
-    pain_points: List[str]
-    strengths: List[str]
-    weaknesses: List[str]
-    opportunities: List[str]
-    threats: List[str]
+    services: list[str]
+    pricing: dict[str, str]
+    pain_points: list[str]
+    strengths: list[str]
+    weaknesses: list[str]
+    opportunities: list[str]
+    threats: list[str]
     analysis_date: datetime
 
 class CompetitorAnalysisAgent:
     """
     AI-powered agent for analyzing competitors in the marketing and SEO space
     """
-    
+
     def __init__(self, claude_api_key: str):
         self.client = anthropic.Anthropic(api_key=claude_api_key)
         self.competitors = []
-        
+
     def analyze_competitor_website(self, url: str, company_name: str) -> CompetitorInfo:
         """
         Analyze a competitor's website using Claude AI
@@ -80,18 +79,18 @@ class CompetitorAnalysisAgent:
             
             Focus on identifying gaps and opportunities that TAAS Canada Inc. can exploit.
             """
-            
+
             # Get Claude's analysis
             response = self.client.messages.create(
                 model="claude-3-haiku-20240307",
                 max_tokens=2000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             # Parse response
             analysis_text = response.content[0].text
             analysis_data = json.loads(analysis_text)
-            
+
             # Create competitor info object
             competitor = CompetitorInfo(
                 name=company_name,
@@ -106,15 +105,15 @@ class CompetitorAnalysisAgent:
                 threats=analysis_data.get("threats", []),
                 analysis_date=datetime.now()
             )
-            
+
             logger.info(f"Successfully analyzed {company_name}")
             return competitor
-            
+
         except Exception as e:
             logger.error(f"Error analyzing {company_name}: {str(e)}")
             return None
-    
-    def analyze_market_segment(self, market: str) -> Dict[str, List[str]]:
+
+    def analyze_market_segment(self, market: str) -> dict[str, list[str]]:
         """
         Analyze a specific market segment (UAE, India, Canada)
         """
@@ -147,16 +146,16 @@ class CompetitorAnalysisAgent:
             6. Pricing expectations
             """
         }
-        
+
         prompt = market_prompts.get(market, "Analyze the market for digital marketing services.")
-        
+
         try:
             response = self.client.messages.create(
                 model="claude-3-haiku-20240307",
                 max_tokens=1500,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             # Parse and structure the response
             analysis = response.content[0].text
             return {
@@ -164,11 +163,11 @@ class CompetitorAnalysisAgent:
                 "analysis": analysis,
                 "timestamp": datetime.now().isoformat()
             }
-            
+
         except Exception as e:
             logger.error(f"Error analyzing {market} market: {str(e)}")
             return {}
-    
+
     def generate_competitive_advantage_strategy(self) -> str:
         """
         Generate competitive advantage strategy based on analysis
@@ -187,19 +186,19 @@ class CompetitorAnalysisAgent:
             
             Make it actionable and specific to the UAE, India, and Canada markets.
             """
-            
+
             response = self.client.messages.create(
                 model="claude-3-haiku-20240307",
                 max_tokens=2000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             return response.content[0].text
-            
+
         except Exception as e:
             logger.error(f"Error generating competitive strategy: {str(e)}")
             return "Strategy generation failed"
-    
+
     def export_analysis_report(self, filename: str = "competitor_analysis_report.json"):
         """
         Export analysis results to JSON file
@@ -224,13 +223,13 @@ class CompetitorAnalysisAgent:
                     for c in self.competitors
                 ]
             }
-            
+
             with open(filename, 'w') as f:
                 json.dump(report_data, f, indent=2)
-            
+
             logger.info(f"Analysis report exported to {filename}")
             return filename
-            
+
         except Exception as e:
             logger.error(f"Error exporting report: {str(e)}")
             return None
@@ -244,9 +243,9 @@ def main():
     if not api_key:
         logger.error("ANTHROPIC_API_KEY not found in environment variables")
         return
-    
+
     agent = CompetitorAnalysisAgent(api_key)
-    
+
     # Define competitors to analyze
     competitors = [
         {"name": "HubSpot", "url": "https://www.hubspot.com"},
@@ -256,30 +255,30 @@ def main():
         {"name": "Jasper AI", "url": "https://www.jasper.ai"},
         {"name": "Copy.ai", "url": "https://www.copy.ai"}
     ]
-    
+
     # Analyze each competitor
     for competitor in competitors:
         logger.info(f"Analyzing {competitor['name']}...")
         result = agent.analyze_competitor_website(
-            competitor['url'], 
+            competitor['url'],
             competitor['name']
         )
-        
+
         if result:
             agent.competitors.append(result)
             time.sleep(2)  # Rate limiting
-    
+
     # Analyze target markets
     markets = ["UAE", "India", "Canada"]
     for market in markets:
         logger.info(f"Analyzing {market} market...")
         market_analysis = agent.analyze_market_segment(market)
         # Store market analysis results
-    
+
     # Generate competitive strategy
     strategy = agent.generate_competitive_advantage_strategy()
     logger.info("Competitive strategy generated")
-    
+
     # Export report
     report_file = agent.export_analysis_report()
     if report_file:

@@ -1,0 +1,13 @@
+{
+  "slug": "headshot-fashion",
+  "original": "Shot on iPhone 17 Pro Max, natural everyday photography, candid moment, real human with natural skin texture, visible pores, fine lines and natural imperfections, no artificial lighting, available light only, no airbrushing, no CGI, no AI artifacts, natural color temperature, realistic shadows, authentic appearance, real photograph not computer generated, organic skin tones, Close-up headshot of a woman in her late 30s with warm brown eyes and shoulder-length dark hair, dark professional top against softly blurred background, natural window light from the side, relaxed confident expression with slight natural smile, catch lights in eyes, portrait mode, natural skin finish, realistic skin texture, candid moment, ('natural skin texture, visible pores, subtle wrinkles, natural hair strands, no airbrushing, minimal makeup, real person, candid expression, iPhone 17 Pro Max portrait mode, natural depth of field, realistic colors, everyday authentic look, not AI generated, real photograph quality',)",
+  "enhanced": "A photorealistic close-up headshot of a woman in her late 30s, captured on an iPhone 17 Pro Max in portrait mode with natural window light streaming from the side, showing her warm brown eyes with subtle catch lights, shoulder-length dark hair with realistic individual strands, and authentic skin texture featuring visible pores, fine lines, and subtle natural wrinkles without any airbrushing or CGI. She wears a dark professional top against a softly blurred background with realistic depth of field, displaying a relaxed confident expression with a slight natural smile, organic skin tones, and natural color temperature that emphasizes the authentic appearance of a real photograph taken in everyday available light rather than artificial or dramatic lighting.",
+  "provider": "black-forest-labs/FLUX.1-schnell",
+  "status": "completed",
+  "params": {
+    "steps": 8,
+    "guidance": 5.0,
+    "size": "1024x768"
+  },
+  "raw_size_bytes": 98434
+}

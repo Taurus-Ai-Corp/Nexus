@@ -3,16 +3,15 @@ Session-based QuickBooks configuration management for MCP server.
 Allows clients to provide QB credentials via headers or initialization.
 """
 
+import base64
 import json
 import logging
-from typing import Dict, Any, Optional, Tuple
 import os
-import base64
 
-from tools.http_client import QuickBooksHTTPClient
 from tools.accounts import AccountManager
-from tools.invoices import InvoiceManager
 from tools.customers import CustomerManager
+from tools.http_client import QuickBooksHTTPClient
+from tools.invoices import InvoiceManager
 from tools.payments import PaymentManager
 from tools.vendors import VendorManager
 
@@ -21,26 +20,26 @@ logger = logging.getLogger(__name__)
 
 class QuickBooksSession:
     """Represents a QuickBooks session with specific credentials."""
-    
+
     def __init__(self, access_token: str = None, realm_id: str = None, environment: str = None):
         self.client = QuickBooksHTTPClient(
             access_token=access_token,
             company_id=realm_id,
             environment=environment
         )
-        
+
         if not self.client.is_configured():
             raise ValueError("QuickBooks session not properly configured")
-        
+
         # Initialize managers
         self.account_manager = AccountManager(self.client)
         self.invoice_manager = InvoiceManager(self.client)
         self.customer_manager = CustomerManager(self.client)
         self.payment_manager = PaymentManager(self.client)
         self.vendor_manager = VendorManager(self.client)
-        
+
         logger.info(f"QuickBooks session created for realm: {realm_id or 'env'}")
-    
+
     async def close(self):
         """Close the session and cleanup resources."""
         await self.client.close()
@@ -48,22 +47,22 @@ class QuickBooksSession:
 
 class SessionManager:
     """Manages QuickBooks sessions and routes requests to appropriate sessions."""
-    
+
     def __init__(self):
-        self.sessions: Dict[str, QuickBooksSession] = {}
-        self.default_session: Optional[QuickBooksSession] = None
-        
+        self.sessions: dict[str, QuickBooksSession] = {}
+        self.default_session: QuickBooksSession | None = None
+
         # Try to create a default session from environment variables
         try:
             self.default_session = QuickBooksSession()
             logger.info("Default QuickBooks session created from environment variables")
         except ValueError:
             logger.warning("No default QuickBooks session available. Clients must provide credentials.")
-    
+
     def create_session_key(self, access_token: str = None, realm_id: str = None, environment: str = None) -> str:
         """Create a unique key for session caching."""
         return f"{access_token or 'env'}_{realm_id or 'env'}_{environment or 'env'}"
-    
+
     def get_session(self, access_token: str = None, realm_id: str = None, environment: str = None) -> QuickBooksSession:
         """Get or create a session for the given credentials."""
         # If no credentials provided, use default session
@@ -71,12 +70,12 @@ class SessionManager:
             if self.default_session:
                 return self.default_session
             raise ValueError("No credentials provided and no default session available")
-        
+
         # Check cache
         session_key = self.create_session_key(access_token, realm_id, environment)
         if session_key in self.sessions:
             return self.sessions[session_key]
-        
+
         # Create new session
         try:
             session = QuickBooksSession(access_token, realm_id, environment)
@@ -84,15 +83,15 @@ class SessionManager:
             return session
         except ValueError as e:
             raise ValueError(f"Failed to create QuickBooks session: {str(e)}")
-    
-    def extract_credentials_from_headers(self, request_or_scope) -> Tuple[str, str, str]:
+
+    def extract_credentials_from_headers(self, request_or_scope) -> tuple[str, str, str]:
         """Extract QuickBooks credentials from request headers.
         
         Returns:
             tuple: (access_token, realm_id, environment)
         """
         auth_data = os.getenv("AUTH_DATA")
-        
+
         if not auth_data:
             # Get headers based on input type
             if hasattr(request_or_scope, 'headers'):
@@ -109,7 +108,7 @@ class SessionManager:
 
         if not auth_data:
             return "", "", ""
-        
+
         try:
             auth_json = json.loads(auth_data.decode('utf-8'))
             return (
@@ -120,14 +119,14 @@ class SessionManager:
         except (json.JSONDecodeError, TypeError) as e:
             logger.warning(f"Failed to parse auth data JSON: {e}")
             return "", "", ""
-    
+
     async def cleanup(self):
         """Cleanup all sessions."""
         if self.default_session:
             await self.default_session.close()
-        
+
         for session in self.sessions.values():
             await session.close()
-        
+
         self.sessions.clear()
         logger.info("All QuickBooks sessions cleaned up")

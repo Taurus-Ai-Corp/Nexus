@@ -1,9 +1,7 @@
 
 from typing import Any
 
-from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import Resource, build
-
+from googleapiclient.discovery import Resource
 from models import (
     CellData,
     CellExtendedValue,

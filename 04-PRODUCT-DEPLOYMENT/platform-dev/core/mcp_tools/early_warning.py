@@ -7,14 +7,16 @@ with contributing factors and recommended intervention timing.
 """
 
 import time
-import numpy as np
-from typing import Dict, Any, Optional, List
-from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any
 
 from core.mcp_tools.base import (
-    MCPTool, ToolInput, ToolOutput, ToolExplanation,
-    ToolCategory, ConfidenceLevel,
+    ConfidenceLevel,
+    MCPTool,
+    ToolCategory,
+    ToolExplanation,
+    ToolInput,
+    ToolOutput,
 )
 
 
@@ -110,7 +112,7 @@ class EarlyWarningSystem(MCPTool):
                 error_message=str(e),
             )
 
-    def _calculate_component_scores(self, features: Dict[str, Any]) -> Dict[str, float]:
+    def _calculate_component_scores(self, features: dict[str, Any]) -> dict[str, float]:
         income = features.get("monthly_income", 10000)
         expenses = features.get("monthly_expenses", 8000)
         savings = features.get("savings_balance", 5000)
@@ -152,14 +154,14 @@ class EarlyWarningSystem(MCPTool):
         else:
             return "minimal"
 
-    def _estimate_days_to_default(self, risk: float, features: Dict) -> Optional[int]:
+    def _estimate_days_to_default(self, risk: float, features: dict) -> int | None:
         if risk < 0.3:
             return None
         base_days = 180
         risk_multiplier = 1.0 - risk
         return max(7, int(base_days * risk_multiplier))
 
-    def _recommend_action(self, risk_level: str, days: Optional[int]) -> str:
+    def _recommend_action(self, risk_level: str, days: int | None) -> str:
         actions = {
             "critical": "immediate_intervention",
             "high": "schedule_counseling",
@@ -169,7 +171,7 @@ class EarlyWarningSystem(MCPTool):
         }
         return actions.get(risk_level, "standard_monitoring")
 
-    def _determine_urgency(self, risk_level: str, days: Optional[int]) -> str:
+    def _determine_urgency(self, risk_level: str, days: int | None) -> str:
         if risk_level == "critical":
             return "immediate"
         elif risk_level == "high":
@@ -179,13 +181,13 @@ class EarlyWarningSystem(MCPTool):
         else:
             return "routine"
 
-    def _get_top_warning_factors(self, scores: Dict[str, float], n: int = 5) -> List[str]:
+    def _get_top_warning_factors(self, scores: dict[str, float], n: int = 5) -> list[str]:
         sorted_factors = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         return [f for f, s in sorted_factors[:n] if s > 0.2]
 
     def _generate_intervention_scenarios(
-        self, risk_level: str, scores: Dict[str, float],
-    ) -> List[Dict[str, Any]]:
+        self, risk_level: str, scores: dict[str, float],
+    ) -> list[dict[str, Any]]:
         scenarios = []
         if risk_level in ("critical", "high"):
             scenarios.append({
@@ -201,7 +203,7 @@ class EarlyWarningSystem(MCPTool):
         return scenarios
 
     def _generate_warning_narrative(
-        self, risk_level: str, score: float, factors: List[str], action: str,
+        self, risk_level: str, score: float, factors: list[str], action: str,
     ) -> str:
         narratives = {
             "critical": f"CRITICAL: Borrower at imminent default risk (score: {score:.2f}). ",
@@ -216,9 +218,9 @@ class EarlyWarningSystem(MCPTool):
         narrative += f"Recommended: {action}."
         return narrative
 
-    def train(self, features: List[Dict[str, Any]], labels: List[Any], **kwargs) -> Dict[str, Any]:
+    def train(self, features: list[dict[str, Any]], labels: list[Any], **kwargs) -> dict[str, Any]:
         """Update warning thresholds based on historical default data."""
-        defaults = [f for f, l in zip(features, labels) if l == 1]
+        defaults = [f for f, l in zip(features, labels, strict=False) if l == 1]
         if not defaults:
             return {"status": "no_defaults_in_training_data"}
 
@@ -227,7 +229,7 @@ class EarlyWarningSystem(MCPTool):
             "n_defaults_analyzed": len(defaults),
         }
 
-    def save_state(self, path: Optional[str] = None) -> str:
+    def save_state(self, path: str | None = None) -> str:
         import json
         save_path = Path(path) if path else Path("models/early_warning_state.json")
         save_path.parent.mkdir(parents=True, exist_ok=True)
@@ -239,7 +241,7 @@ class EarlyWarningSystem(MCPTool):
             }, f, indent=2)
         return str(save_path)
 
-    def load_state(self, path: Optional[str] = None) -> bool:
+    def load_state(self, path: str | None = None) -> bool:
         import json
         load_path = Path(path) if path else Path("models/early_warning_state.json")
         if not load_path.exists():

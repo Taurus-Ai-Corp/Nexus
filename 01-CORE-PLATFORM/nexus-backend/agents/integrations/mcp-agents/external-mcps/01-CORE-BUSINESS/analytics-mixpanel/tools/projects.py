@@ -1,11 +1,11 @@
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
 
 from .base import MixpanelAppAPIClient
 
 logger = logging.getLogger(__name__)
 
-async def get_projects() -> Dict[str, Any]:
+async def get_projects() -> dict[str, Any]:
     """Get all projects that are accessible to the current service account user.
     
     This tool retrieves all projects the service account has access to, 
@@ -20,11 +20,11 @@ async def get_projects() -> Dict[str, Any]:
             "GET",
             "/me"
         )
-        
+
         if isinstance(result, dict):
             # Extract projects information
             projects = {}
-            
+
             # Check if response has results.projects structure
             if "results" in result and "projects" in result.get("results", {}):
                 # Handle /me endpoint response where projects is a dict
@@ -66,11 +66,11 @@ async def get_projects() -> Dict[str, Any]:
                         "id": result.get("id"),
                         "name": result.get("name", "")
                     }
-            
+
             return projects
         else:
             return {}
-            
+
     except Exception as e:
         logger.exception(f"Error getting projects: {e}")
         return {}

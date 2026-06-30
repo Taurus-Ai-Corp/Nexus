@@ -6,17 +6,15 @@ Implements NIST ML-DSA-65 (Post-Quantum) command signing for Tier 1 actions.
 """
 
 import asyncio
+import base64
 import json
 import logging
 import os
-import subprocess
-import time
-import base64
-from datetime import datetime
-from typing import Dict, List, Any, Optional
+from typing import Any
+
 from gemini_executive_layer import GeminiExecutiveLayer
-from pqc_executive_security import PQCSecurityProvider
 from neuromorphic_governance import NeuromorphicGovernor
+from pqc_executive_security import PQCSecurityProvider
 
 # Configure logging
 logging.basicConfig(
@@ -40,13 +38,13 @@ class TelegramCommandListener:
         self.governor = NeuromorphicGovernor()
         self.is_running = False
 
-    async def get_updates(self) -> List[Dict[str, Any]]:
+    async def get_updates(self) -> list[dict[str, Any]]:
         """Fetch updates from Telegram API."""
         self.bot_token = "".join(self.bot_token.split())
         self.bot_token = self.bot_token.replace("×", "x").replace("Ø", "0")
 
         if not self.bot_token.isascii():
-            logger.error(f"❌ NON-ASCII CHARACTERS remain in token.")
+            logger.error("❌ NON-ASCII CHARACTERS remain in token.")
             return []
 
         self.api_url = f"https://api.telegram.org/bot{self.bot_token}"
@@ -82,7 +80,7 @@ class TelegramCommandListener:
             return []
 
     async def send_message(
-        self, chat_id: int, text: str, reply_to_id: Optional[int] = None
+        self, chat_id: int, text: str, reply_to_id: int | None = None
     ):
         """Send a message back to the Telegram chat."""
         try:
@@ -107,7 +105,7 @@ class TelegramCommandListener:
         except Exception as e:
             logger.error(f"Error sending message: {e}")
 
-    async def handle_command(self, message: Dict[str, Any]):
+    async def handle_command(self, message: dict[str, Any]):
         """Parse and route commands."""
         text = message.get("text", "")
         chat_id = message["chat"]["id"]
@@ -128,7 +126,7 @@ class TelegramCommandListener:
             sig_id = sig_id.strip()
             sig_file = f"configs/secrets/pqc/signatures/{sig_id}.sig"
             if os.path.exists(sig_file):
-                with open(sig_file, "r") as f:
+                with open(sig_file) as f:
                     signature = f.read().strip()
         elif " --sig " in text:
             main_text, signature = text.split(" --sig ", 1)

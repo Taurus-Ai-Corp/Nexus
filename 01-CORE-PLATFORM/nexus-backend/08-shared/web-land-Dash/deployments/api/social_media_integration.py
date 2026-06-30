@@ -4,12 +4,12 @@
 Integrates all major social media platforms using social_media_cli.py
 """
 
-import sys
-import os
 import asyncio
 import json
+import os
+import sys
 from datetime import datetime
-from typing import Dict, List, Any, Optional
+from typing import Any
 
 # Add paths for agent integration
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../TaurusAI-BizFlow-Service-package/agents'))
@@ -18,7 +18,7 @@ class SocialMediaIntegrationAgent:
     """
     Comprehensive social media integration for the TaurusAI dashboard
     """
-    
+
     def __init__(self):
         self.platforms = {
             "facebook": {
@@ -36,7 +36,7 @@ class SocialMediaIntegrationAgent:
                 "content_types": ["text", "image", "video", "carousel", "story"],
                 "status": "ready_to_connect"
             },
-            
+
             "instagram": {
                 "name": "Instagram",
                 "icon": "fab fa-instagram",
@@ -52,7 +52,7 @@ class SocialMediaIntegrationAgent:
                 "content_types": ["image", "video", "story", "reel", "igtv"],
                 "status": "ready_to_connect"
             },
-            
+
             "twitter": {
                 "name": "Twitter/X",
                 "icon": "fab fa-twitter",
@@ -68,7 +68,7 @@ class SocialMediaIntegrationAgent:
                 "content_types": ["text", "image", "video", "thread", "space"],
                 "status": "ready_to_connect"
             },
-            
+
             "linkedin": {
                 "name": "LinkedIn",
                 "icon": "fab fa-linkedin",
@@ -84,7 +84,7 @@ class SocialMediaIntegrationAgent:
                 "content_types": ["text", "image", "video", "document", "article"],
                 "status": "ready_to_connect"
             },
-            
+
             "tiktok": {
                 "name": "TikTok",
                 "icon": "fab fa-tiktok",
@@ -100,7 +100,7 @@ class SocialMediaIntegrationAgent:
                 "content_types": ["video", "live_stream"],
                 "status": "ready_to_connect"
             },
-            
+
             "youtube": {
                 "name": "YouTube",
                 "icon": "fab fa-youtube",
@@ -116,7 +116,7 @@ class SocialMediaIntegrationAgent:
                 "content_types": ["video", "short", "live_stream", "premiere"],
                 "status": "ready_to_connect"
             },
-            
+
             "whatsapp": {
                 "name": "WhatsApp Business",
                 "icon": "fab fa-whatsapp",
@@ -132,7 +132,7 @@ class SocialMediaIntegrationAgent:
                 "content_types": ["text", "image", "video", "document", "location"],
                 "status": "ready_to_connect"
             },
-            
+
             "telegram": {
                 "name": "Telegram",
                 "icon": "fab fa-telegram",
@@ -149,7 +149,7 @@ class SocialMediaIntegrationAgent:
                 "status": "ready_to_connect"
             }
         }
-        
+
         self.integration_status = {
             "total_platforms": len(self.platforms),
             "connected_platforms": 0,
@@ -157,13 +157,13 @@ class SocialMediaIntegrationAgent:
             "failed_connections": 0,
             "last_sync": None
         }
-        
+
         self.automation_workflows = self._define_automation_workflows()
         self.content_calendar = self._initialize_content_calendar()
-    
-    def _define_automation_workflows(self) -> Dict[str, Any]:
+
+    def _define_automation_workflows(self) -> dict[str, Any]:
         """Define automation workflows for cross-platform management"""
-        
+
         return {
             "multi_platform_posting": {
                 "name": "Multi-Platform Content Distribution",
@@ -178,7 +178,7 @@ class SocialMediaIntegrationAgent:
                 "platforms": "all",
                 "status": "active"
             },
-            
+
             "engagement_automation": {
                 "name": "Smart Engagement Management",
                 "description": "Automatically respond to comments, messages, and mentions across platforms",
@@ -192,7 +192,7 @@ class SocialMediaIntegrationAgent:
                 "platforms": ["facebook", "instagram", "twitter", "linkedin"],
                 "status": "active"
             },
-            
+
             "lead_generation_workflow": {
                 "name": "Social Media Lead Generation",
                 "description": "Identify and capture leads from social media interactions",
@@ -206,7 +206,7 @@ class SocialMediaIntegrationAgent:
                 "platforms": ["linkedin", "facebook", "twitter"],
                 "status": "active"
             },
-            
+
             "crisis_management": {
                 "name": "Crisis Detection & Response",
                 "description": "Monitor for negative sentiment and automatically implement crisis response",
@@ -220,7 +220,7 @@ class SocialMediaIntegrationAgent:
                 "platforms": "all",
                 "status": "active"
             },
-            
+
             "competitor_monitoring": {
                 "name": "Competitive Intelligence Tracking",
                 "description": "Monitor competitor activity and identify opportunities",
@@ -235,10 +235,10 @@ class SocialMediaIntegrationAgent:
                 "status": "active"
             }
         }
-    
-    def _initialize_content_calendar(self) -> Dict[str, Any]:
+
+    def _initialize_content_calendar(self) -> dict[str, Any]:
         """Initialize content calendar for all platforms"""
-        
+
         return {
             "calendar_id": f"taurus_ai_calendar_{datetime.now().strftime('%Y%m%d')}",
             "scheduling_strategy": "optimal_engagement_times",
@@ -259,12 +259,12 @@ class SocialMediaIntegrationAgent:
                 "telegram": {"posts_per_day": 2, "optimal_times": ["9:00", "20:00"]}
             }
         }
-    
-    async def initialize_platform_connections(self) -> Dict[str, Any]:
+
+    async def initialize_platform_connections(self) -> dict[str, Any]:
         """Initialize connections to all social media platforms"""
-        
+
         print("📱 Initializing Social Media Platform Connections...")
-        
+
         connection_results = {
             "timestamp": datetime.now().isoformat(),
             "platform_connections": {},
@@ -273,16 +273,16 @@ class SocialMediaIntegrationAgent:
             "pending_auth": [],
             "total_capabilities": 0
         }
-        
+
         for platform_id, platform_data in self.platforms.items():
             print(f"🔗 Connecting to {platform_data['name']}...")
-            
+
             try:
                 # Simulate platform connection (in real implementation, this would use actual APIs)
                 connection_result = await self._connect_platform(platform_id, platform_data)
-                
+
                 connection_results["platform_connections"][platform_id] = connection_result
-                
+
                 if connection_result["status"] == "connected":
                     connection_results["successful_connections"].append(platform_id)
                     self.integration_status["connected_platforms"] += 1
@@ -292,9 +292,9 @@ class SocialMediaIntegrationAgent:
                 else:
                     connection_results["failed_connections"].append(platform_id)
                     self.integration_status["failed_connections"] += 1
-                
+
                 connection_results["total_capabilities"] += len(platform_data["capabilities"])
-                
+
             except Exception as e:
                 print(f"❌ Failed to connect to {platform_data['name']}: {e}")
                 connection_results["failed_connections"].append(platform_id)
@@ -303,26 +303,26 @@ class SocialMediaIntegrationAgent:
                     "error": str(e),
                     "timestamp": datetime.now().isoformat()
                 }
-        
+
         # Update integration status
         self.integration_status["last_sync"] = datetime.now().isoformat()
-        
+
         # Save connection results
         await self._save_connection_results(connection_results)
-        
-        print(f"✅ Platform integration complete!")
+
+        print("✅ Platform integration complete!")
         print(f"   • Connected: {len(connection_results['successful_connections'])}")
         print(f"   • Pending Auth: {len(connection_results['pending_auth'])}")
         print(f"   • Failed: {len(connection_results['failed_connections'])}")
-        
+
         return connection_results
-    
-    async def _connect_platform(self, platform_id: str, platform_data: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _connect_platform(self, platform_id: str, platform_data: dict[str, Any]) -> dict[str, Any]:
         """Connect to a specific social media platform"""
-        
+
         # Simulate connection process
         await asyncio.sleep(1)  # Simulate API call delay
-        
+
         # For demonstration, we'll simulate successful connections
         connection_result = {
             "platform_id": platform_id,
@@ -338,7 +338,7 @@ class SocialMediaIntegrationAgent:
             },
             "account_info": {
                 "account_id": f"taurus_ai_{platform_id}",
-                "account_name": f"TaurusAI Official",
+                "account_name": "TaurusAI Official",
                 "followers": 0,
                 "verified": False
             },
@@ -350,19 +350,19 @@ class SocialMediaIntegrationAgent:
                 "pages_messaging"
             ]
         }
-        
+
         # Simulate some platforms requiring additional authentication
         if platform_id in ["tiktok", "youtube"]:
             connection_result["status"] = "pending_auth"
             connection_result["auth_url"] = f"https://auth.{platform_id}.com/oauth/authorize?client_id=taurus_ai"
-        
+
         return connection_result
-    
-    async def setup_automation_workflows(self) -> Dict[str, Any]:
+
+    async def setup_automation_workflows(self) -> dict[str, Any]:
         """Set up automation workflows for all connected platforms"""
-        
+
         print("🤖 Setting up automation workflows...")
-        
+
         workflow_setup = {
             "timestamp": datetime.now().isoformat(),
             "workflows_configured": [],
@@ -370,31 +370,31 @@ class SocialMediaIntegrationAgent:
             "trigger_conditions": {},
             "success_rate": 0
         }
-        
+
         for workflow_id, workflow_data in self.automation_workflows.items():
             print(f"⚙️ Configuring {workflow_data['name']}...")
-            
+
             try:
                 # Configure workflow
                 workflow_config = await self._configure_workflow(workflow_id, workflow_data)
-                
+
                 workflow_setup["workflows_configured"].append(workflow_id)
                 workflow_setup["automation_rules"][workflow_id] = workflow_config
-                
+
             except Exception as e:
                 print(f"❌ Failed to configure {workflow_data['name']}: {e}")
-        
+
         workflow_setup["success_rate"] = len(workflow_setup["workflows_configured"]) / len(self.automation_workflows) * 100
-        
+
         print(f"✅ Automation setup complete! {workflow_setup['success_rate']:.1f}% success rate")
-        
+
         return workflow_setup
-    
-    async def _configure_workflow(self, workflow_id: str, workflow_data: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _configure_workflow(self, workflow_id: str, workflow_data: dict[str, Any]) -> dict[str, Any]:
         """Configure a specific automation workflow"""
-        
+
         await asyncio.sleep(0.5)  # Simulate configuration time
-        
+
         return {
             "workflow_id": workflow_id,
             "name": workflow_data["name"],
@@ -415,12 +415,12 @@ class SocialMediaIntegrationAgent:
                 "last_execution": None
             }
         }
-    
-    async def generate_content_calendar(self, days: int = 30) -> Dict[str, Any]:
+
+    async def generate_content_calendar(self, days: int = 30) -> dict[str, Any]:
         """Generate content calendar for all platforms"""
-        
+
         print(f"📅 Generating {days}-day content calendar...")
-        
+
         calendar_data = {
             "calendar_id": self.content_calendar["calendar_id"],
             "period": f"{days} days",
@@ -430,15 +430,15 @@ class SocialMediaIntegrationAgent:
             "content_themes": [],
             "optimization_insights": []
         }
-        
+
         for platform_id, platform_data in self.platforms.items():
             if platform_id in ["whatsapp", "telegram"]:  # Skip messaging platforms for content calendar
                 continue
-                
+
             platform_schedule = await self._generate_platform_schedule(platform_id, days)
             calendar_data["platform_schedules"][platform_id] = platform_schedule
             calendar_data["total_posts_scheduled"] += platform_schedule["total_posts"]
-        
+
         # Add content themes
         calendar_data["content_themes"] = [
             "AI Marketing Tips",
@@ -450,7 +450,7 @@ class SocialMediaIntegrationAgent:
             "Educational Content",
             "Product Updates"
         ]
-        
+
         # Add optimization insights
         calendar_data["optimization_insights"] = [
             "Post during peak engagement hours for 23% higher reach",
@@ -459,18 +459,18 @@ class SocialMediaIntegrationAgent:
             "Cross-promote content for 34% audience growth",
             "Respond to comments within 1 hour for 78% better sentiment"
         ]
-        
+
         print(f"✅ Content calendar generated: {calendar_data['total_posts_scheduled']} posts scheduled")
-        
+
         return calendar_data
-    
-    async def _generate_platform_schedule(self, platform_id: str, days: int) -> Dict[str, Any]:
+
+    async def _generate_platform_schedule(self, platform_id: str, days: int) -> dict[str, Any]:
         """Generate content schedule for a specific platform"""
-        
+
         platform_config = self.content_calendar["posting_frequency"][platform_id]
         posts_per_day = platform_config["posts_per_day"]
         total_posts = posts_per_day * days
-        
+
         return {
             "platform": platform_id,
             "posts_per_day": posts_per_day,
@@ -491,20 +491,20 @@ class SocialMediaIntegrationAgent:
                 } for i in range(total_posts)
             ]
         }
-    
-    async def _save_connection_results(self, results: Dict[str, Any]):
+
+    async def _save_connection_results(self, results: dict[str, Any]):
         """Save connection results to file"""
-        
+
         filename = f"../assets/social_media_connections_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        
+
         with open(filename, 'w') as f:
             json.dump(results, f, indent=2)
-        
+
         print(f"💾 Connection results saved to: {filename}")
-    
+
     def generate_integration_dashboard_html(self) -> str:
         """Generate HTML for social media integration dashboard"""
-        
+
         return f"""
         <!-- Social Media Integration Dashboard Component -->
         <div class="bg-white rounded-lg shadow-lg p-6">
@@ -555,15 +555,15 @@ class SocialMediaIntegrationAgent:
             </div>
         </div>
         """
-    
+
     def _generate_platform_cards_html(self) -> str:
         """Generate HTML for platform cards"""
-        
+
         cards_html = ""
-        
+
         for platform_id, platform_data in self.platforms.items():
             status_color = "green" if platform_data["status"] == "connected" else "gray"
-            
+
             cards_html += f"""
             <div class="bg-gray-50 rounded-lg p-4 text-center hover:shadow-md transition-shadow cursor-pointer">
                 <i class="{platform_data['icon']} text-2xl mb-2" style="color: {platform_data['color']}"></i>
@@ -573,12 +573,12 @@ class SocialMediaIntegrationAgent:
                 </div>
             </div>
             """
-        
+
         return cards_html
-    
-    def get_integration_summary(self) -> Dict[str, Any]:
+
+    def get_integration_summary(self) -> dict[str, Any]:
         """Get comprehensive integration summary"""
-        
+
         return {
             "integration_status": self.integration_status,
             "platforms": self.platforms,
@@ -596,45 +596,45 @@ async def main():
     """Main function to set up social media integration"""
     print("📱 TaurusAI Social Media Integration Setup")
     print("="*60)
-    
+
     # Create integration agent
     agent = SocialMediaIntegrationAgent()
-    
+
     # Initialize platform connections
     connections = await agent.initialize_platform_connections()
-    
+
     # Set up automation workflows
     workflows = await agent.setup_automation_workflows()
-    
+
     # Generate content calendar
     calendar = await agent.generate_content_calendar(30)
-    
+
     # Get integration summary
     summary = agent.get_integration_summary()
-    
+
     # Display results
     print("\n" + "="*60)
     print("📊 SOCIAL MEDIA INTEGRATION SUMMARY")
     print("="*60)
-    
-    print(f"🔗 Platform Connections:")
+
+    print("🔗 Platform Connections:")
     print(f"   • Connected: {len(connections['successful_connections'])}")
     print(f"   • Pending: {len(connections['pending_auth'])}")
     print(f"   • Failed: {len(connections['failed_connections'])}")
-    
-    print(f"\n🤖 Automation Workflows:")
+
+    print("\n🤖 Automation Workflows:")
     print(f"   • Total Workflows: {len(workflows['workflows_configured'])}")
     print(f"   • Success Rate: {workflows['success_rate']:.1f}%")
-    
-    print(f"\n📅 Content Calendar:")
+
+    print("\n📅 Content Calendar:")
     print(f"   • Posts Scheduled: {calendar['total_posts_scheduled']}")
     print(f"   • Platforms: {len(calendar['platform_schedules'])}")
     print(f"   • Content Themes: {len(calendar['content_themes'])}")
-    
+
     print(f"\n⚡ Total Capabilities: {summary['capabilities_summary']['total_capabilities']}")
     print(f"📝 Content Types: {len(summary['capabilities_summary']['content_types'])}")
-    
-    print(f"\n✅ Social media integration complete!")
+
+    print("\n✅ Social media integration complete!")
     print("🚀 Ready for multi-platform marketing automation!")
 
 if __name__ == "__main__":

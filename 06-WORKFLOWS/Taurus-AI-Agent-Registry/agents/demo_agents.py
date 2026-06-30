@@ -5,7 +5,6 @@ Shows practical usage examples
 
 import asyncio
 import logging
-from typing import Dict, Any
 
 # Configure logging
 logging.basicConfig(
@@ -14,20 +13,28 @@ logging.basicConfig(
 )
 
 # Import our agents and registry
-import sys
 import os
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from registry.agent_registry import AgentRegistry
-from agents.vibe_marketing_agent import VibeMarketingAgent, VibeProfile, ContentRequest, ContentType, VibeStyle, TargetMarket
 from agents.ollama_local_agent import OllamaLocalAgent
+from agents.vibe_marketing_agent import (
+    ContentRequest,
+    ContentType,
+    TargetMarket,
+    VibeMarketingAgent,
+    VibeProfile,
+    VibeStyle,
+)
+
 
 class DemoAIRouter:
     """Demo AI router that provides realistic responses"""
-    
+
     async def generate_text(self, prompt: str, max_tokens: int = 500, temperature: float = 0.8) -> str:
         """Generate realistic marketing content"""
-        
+
         if "social media post" in prompt.lower():
             if "uae" in prompt.lower():
                 return """🚀 Discover the Future of AI with Taurus AI Corp!
@@ -43,7 +50,7 @@ Transform your business with our cutting-edge local AI solutions that understand
 Ready to elevate your business to the next level? Let's create something extraordinary together!
 
 #TaurusAI #UAEBusiness #Innovation #LuxuryTech #FutureReady #AIRevolution"""
-            
+
             elif "india" in prompt.lower():
                 return """🌟 Transform Your Business with Taurus AI Corp!
 
@@ -60,7 +67,7 @@ Join thousands of Indian businesses already transforming with Taurus AI!
 Ready to grow together? Let's build the future! 🇮🇳
 
 #TaurusAI #IndiaBusiness #Innovation #Growth #Community #TechForAll"""
-            
+
             else:
                 return """🚀 Unlock Your Business Potential with Taurus AI!
 
@@ -75,7 +82,7 @@ Discover how our innovative AI solutions can transform your business operations 
 Ready to revolutionize your business? Let's create something amazing together!
 
 #TaurusAI #Innovation #BusinessGrowth #AIRevolution #Excellence"""
-        
+
         elif "blog article" in prompt.lower():
             return """# The Future of Business: AI-Powered Transformation
 
@@ -98,7 +105,7 @@ Our approach goes beyond simple AI implementation. We understand that successful
 By combining cutting-edge AI technology with deep cultural understanding, we're helping businesses create authentic, engaging experiences that drive results.
 
 Ready to transform your business? Contact Taurus AI Corp. today."""
-        
+
         else:
             return """Taurus AI Corp. - Empowering businesses with intelligent AI solutions.
 
@@ -110,18 +117,18 @@ async def demo_vibe_marketing():
     """Demonstrate vibe marketing agent capabilities"""
     print("\n🎨 Vibe Marketing Agent Demo")
     print("=" * 50)
-    
+
     # Create different vibe profiles for different markets
     markets = [
         (TargetMarket.UAE, "UAE Market", "luxury", "innovation"),
         (TargetMarket.INDIA, "Indian Market", "value", "community"),
         (TargetMarket.CANADA, "Canadian Market", "inclusivity", "sustainability")
     ]
-    
+
     for target_market, market_name, vibe1, vibe2 in markets:
         print(f"\n🌍 {market_name} Content Generation:")
         print("-" * 30)
-        
+
         # Create vibe profile
         vibe_profile = VibeProfile(
             brand_name="Taurus AI Corp.",
@@ -134,7 +141,7 @@ async def demo_vibe_marketing():
             brand_values=["innovation", "excellence", "community", "transformation"],
             unique_selling_points=["Local AI development", "Cultural marketing intelligence", "Zero-cost AI"]
         )
-        
+
         # Create content request
         content_request = ContentRequest(
             content_type=ContentType.SOCIAL_MEDIA_POST,
@@ -152,15 +159,15 @@ async def demo_vibe_marketing():
             include_hashtags=True,
             include_emojis=True
         )
-        
+
         # Generate content
         agent = VibeMarketingAgent()
         demo_router = DemoAIRouter()
         agent.set_ai_router(demo_router)
         await agent.initialize()
-        
+
         content = await agent.generate_content(content_request)
-        
+
         print(f"📊 Engagement Score: {content.estimated_engagement_score}")
         print(f"🎯 Brand Alignment: {content.brand_alignment_score}")
         print(f"🌍 Market Relevance: {content.market_relevance_score}")
@@ -171,33 +178,33 @@ async def demo_ollama_integration():
     """Demonstrate Ollama local agent capabilities"""
     print("\n🦙 Ollama Local Agent Demo")
     print("=" * 50)
-    
+
     try:
         agent = OllamaLocalAgent()
         await agent.initialize()
-        
+
         if agent.is_initialized:
             print("✅ Ollama Local Agent ready")
-            
+
             # Show available models
             models = await agent.get_available_models()
             print(f"📊 Available Models: {len(models)}")
             for model_name, model_info in models.items():
                 print(f"  • {model_name}: {model_info['size']} - {model_info['performance_tier']}")
-            
+
             # Show capabilities
             stats = await agent.get_model_stats()
             print(f"🔧 Capabilities: {', '.join(stats['capabilities_coverage'][:5])}...")
-            
+
             print("\n💡 You can now use this agent for:")
             print("  • Local AI text generation")
             print("  • Code generation and analysis")
             print("  • Text summarization and analysis")
             print("  • Creative writing and content generation")
-            
+
         else:
             print("⚠️ Ollama not available - install and start Ollama server to use local AI")
-            
+
     except Exception as e:
         print(f"❌ Ollama demo error: {e}")
 
@@ -205,7 +212,7 @@ async def demo_campaign_generation():
     """Demonstrate campaign suite generation"""
     print("\n🚀 Campaign Suite Generation Demo")
     print("=" * 50)
-    
+
     # Create a comprehensive vibe profile
     vibe_profile = VibeProfile(
         brand_name="Taurus AI Corp.",
@@ -218,30 +225,30 @@ async def demo_campaign_generation():
         brand_values=["innovation", "excellence", "community", "transformation"],
         unique_selling_points=["Local AI development", "Cultural marketing intelligence", "Zero-cost AI"]
     )
-    
+
     # Generate campaign suite
     agent = VibeMarketingAgent()
     demo_router = DemoAIRouter()
     agent.set_ai_router(demo_router)
     await agent.initialize()
-    
+
     content_types = [
         ContentType.SOCIAL_MEDIA_POST,
         ContentType.EMAIL_CAMPAIGN,
         ContentType.BLOG_ARTICLE
     ]
-    
+
     print("🎯 Generating campaign suite for 'AI Business Transformation'...")
-    
+
     campaign_content = await agent.generate_campaign_suite(
         vibe_profile=vibe_profile,
         target_market=TargetMarket.GLOBAL,
         campaign_theme="AI Business Transformation",
         content_types=content_types
     )
-    
+
     print(f"✅ Generated {len(campaign_content)} pieces of content:")
-    
+
     for content_type, content in campaign_content.items():
         print(f"\n📋 {content_type.replace('_', ' ').title()}:")
         print(f"  • Words: {content.word_count}")
@@ -258,12 +265,12 @@ async def main():
     print("• 🦙 Ollama Local Agent - Local AI capabilities")
     print("• 🚀 Campaign Generation - Multi-format content suites")
     print("=" * 60)
-    
+
     # Run demos
     await demo_vibe_marketing()
     await demo_ollama_integration()
     await demo_campaign_generation()
-    
+
     print("\n" + "=" * 60)
     print("🎉 Demo Complete!")
     print("=" * 60)

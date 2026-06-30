@@ -5,31 +5,25 @@ Tests state machine monitoring, audit trails, Prometheus metrics,
 explainability engine, and health monitoring for the micro-loan platform.
 """
 
-import sys
 import os
-import time
-import json
-import numpy as np
-from typing import Dict, Any
+import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from core.monitoring.state_monitor import (
-    StateMachineMonitor, StateTransition, AnomalyAlert,
-    AgentState, VALID_TRANSITIONS,
-)
-from core.monitoring.audit_trail import AuditTrail, AuditEntry, AuditEventType
-from core.monitoring.metrics import (
-    MetricsRegistry, Counter, Gauge, Histogram,
-    default_registry, setup_default_metrics,
-)
+from core.monitoring.audit_trail import AuditEntry, AuditEventType, AuditTrail
 from core.monitoring.explainability import (
-    ExplainabilityEngine, ExplainabilityReport, FeatureImportance,
-    CounterfactualExplanation, ConfidenceInterval,
+    ExplainabilityEngine,
 )
 from core.monitoring.health_monitor import (
-    HealthMonitor, HealthCheck, SystemAlert, ResourceMetrics,
-    HealthStatus, AlertSeverity,
+    HealthMonitor,
+    ResourceMetrics,
+)
+from core.monitoring.metrics import (
+    MetricsRegistry,
+)
+from core.monitoring.state_monitor import (
+    AgentState,
+    StateMachineMonitor,
 )
 
 
@@ -45,12 +39,12 @@ def test_state_machine_monitor():
     monitor.start_transition(AgentState.IDLE, AgentState.DATA_INGESTION)
     monitor.end_transition()
     assert monitor.current_state == AgentState.DATA_INGESTION
-    print(f"   ✅ IDLE -> DATA_INGESTION")
+    print("   ✅ IDLE -> DATA_INGESTION")
 
     monitor.start_transition(AgentState.DATA_INGESTION, AgentState.CASH_FLOW_ANALYSIS)
     monitor.end_transition()
     assert monitor.current_state == AgentState.CASH_FLOW_ANALYSIS
-    print(f"   ✅ DATA_INGESTION -> CASH_FLOW_ANALYSIS")
+    print("   ✅ DATA_INGESTION -> CASH_FLOW_ANALYSIS")
 
     monitor.start_transition(AgentState.CASH_FLOW_ANALYSIS, AgentState.RISK_ASSESSMENT)
     monitor.end_transition()
@@ -87,7 +81,7 @@ def test_state_machine_monitor():
     monitor.end_transition()
     alerts = monitor.get_active_alerts()
     # Should not raise anomaly for valid IDLE->ERROR
-    print(f"   ✅ Valid error transition handled")
+    print("   ✅ Valid error transition handled")
 
     # Export
     export_path = monitor.export_transitions()
@@ -193,7 +187,7 @@ def test_prometheus_metrics():
     assert "counters" in all_metrics
     assert "gauges" in all_metrics
     assert "histograms" in all_metrics
-    print(f"   ✅ All metrics retrieved")
+    print("   ✅ All metrics retrieved")
     print()
 
 
@@ -226,7 +220,7 @@ def test_explainability_engine():
     assert len(report.counterfactuals) > 0
     assert report.confidence_interval is not None
     assert report.narrative != ""
-    print(f"   ✅ Report generated for borrower B001")
+    print("   ✅ Report generated for borrower B001")
     print(f"   ✅ Feature importance: {len(report.feature_importance)} features")
     print(f"   ✅ Counterfactuals: {len(report.counterfactuals)} scenarios")
     print(f"   ✅ Confidence interval: [{report.confidence_interval.lower:.2%}, {report.confidence_interval.upper:.2%}]")
@@ -236,7 +230,7 @@ def test_explainability_engine():
     d = report.to_dict()
     assert d["borrower_id"] == "B001"
     assert d["prediction_value"] == 0.75
-    print(f"   ✅ Report serialization")
+    print("   ✅ Report serialization")
     print()
 
 
@@ -251,7 +245,7 @@ def test_health_monitor():
     # Resource metrics
     metrics = monitor.collect_resource_metrics()
     assert isinstance(metrics, ResourceMetrics)
-    print(f"   ✅ Resource metrics collected")
+    print("   ✅ Resource metrics collected")
 
     # Health check
     health = monitor.check_health()
@@ -293,12 +287,12 @@ def test_audit_entry_integrity():
     )
 
     assert entry.verify_integrity() is True
-    print(f"   ✅ Entry hash verified")
+    print("   ✅ Entry hash verified")
 
     # Tamper detection
     entry.details["key"] = "tampered"
     assert entry.verify_integrity() is False
-    print(f"   ✅ Tampering detected")
+    print("   ✅ Tampering detected")
     print()
 
 

@@ -2,17 +2,19 @@
 
 import logging
 import time
-from typing import Any, Dict, List
+from typing import Any
 
 import gradio as gr
 
 from ...core.types import ProcessingStatus
-from ...github.file_loader import (discover_repository_files,
-                                   load_files_from_github)
+from ...github.file_loader import discover_repository_files, load_files_from_github
 from ...rag.ingestion import ingest_documents_async
-from ..components.common import (create_file_selector, create_progress_display,
-                                 create_status_textbox,
-                                 format_progress_display)
+from ..components.common import (
+    create_file_selector,
+    create_progress_display,
+    create_status_textbox,
+    format_progress_display,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -235,8 +237,8 @@ class IngestionTab:
     async def _start_file_loading_generator(
         self,
         repo_url: str,
-        selected_files: List[str],
-        current_progress: Dict[str, Any],
+        selected_files: list[str],
+        current_progress: dict[str, Any],
         branch: str = "main",
     ):
         """Start file loading with real-time generator updates."""
@@ -375,7 +377,7 @@ class IngestionTab:
                 gr.Button(interactive=False),
             )
 
-    async def _start_vector_ingestion(self, current_progress: Dict[str, Any]):
+    async def _start_vector_ingestion(self, current_progress: dict[str, Any]):
         """Start vector ingestion process."""
         if current_progress.get("step") != "file_loading_complete":
             error_progress = {
@@ -481,7 +483,7 @@ class IngestionTab:
             }
             return error_progress, format_progress_display(error_progress)
 
-    def _refresh_progress(self, current_progress: Dict[str, Any]):
+    def _refresh_progress(self, current_progress: dict[str, Any]):
         """Refresh progress display."""
         return format_progress_display(current_progress)
 

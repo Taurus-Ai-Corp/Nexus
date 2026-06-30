@@ -1,21 +1,22 @@
-from typing import Dict, List, Optional, Any
-from .base import make_freshdesk_request, handle_freshdesk_error, remove_none_values
 import logging
+from typing import Any
+
+from .base import handle_freshdesk_error, make_freshdesk_request, remove_none_values
 
 logger = logging.getLogger(__name__)
 
 async def create_company(
     name: str,
-    domains: Optional[List[str]] = None,
-    description: Optional[str] = None,
-    note: Optional[str] = None,
-    health_score: Optional[str] = None,
-    account_tier: Optional[str] = None,
-    renewal_date: Optional[str] = None,
-    industry: Optional[str] = None,
-    custom_fields: Optional[Dict[str, Any]] = None,
+    domains: list[str] | None = None,
+    description: str | None = None,
+    note: str | None = None,
+    health_score: str | None = None,
+    account_tier: str | None = None,
+    renewal_date: str | None = None,
+    industry: str | None = None,
+    custom_fields: dict[str, Any] | None = None,
     lookup_parameter: str = "display_id"
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Create a new company in Freshdesk.
     
@@ -48,16 +49,16 @@ async def create_company(
             "custom_fields": custom_fields or {},
             "lookup_parameter": lookup_parameter
         }
-        
+
         company_data = remove_none_values(company_data)
-        
+
         response = await make_freshdesk_request("POST", "/companies", data=company_data)
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "create", "company")
 
-async def get_company_by_id(company_id: int) -> Dict[str, Any]:
+async def get_company_by_id(company_id: int) -> dict[str, Any]:
     """
     Retrieve a company by ID.
     
@@ -74,10 +75,10 @@ async def get_company_by_id(company_id: int) -> Dict[str, Any]:
         return handle_freshdesk_error(e, "retrieve", "company")
 
 async def list_companies(
-    updated_since: Optional[str] = None,
+    updated_since: str | None = None,
     page: int = 1,
     per_page: int = 30
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     List all companies with optional filtering.
     
@@ -93,18 +94,18 @@ async def list_companies(
         params = {
             "updated_since": updated_since,
             "page": page,
-            "per_page": min(per_page, 100) 
+            "per_page": min(per_page, 100)
         }
-        
+
         params = remove_none_values(params)
-        
+
         response = await make_freshdesk_request(
             "GET",
             "/companies",
             options={"query_params": params}
         )
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "list", "companies")
 
@@ -112,7 +113,7 @@ async def filter_companies(
     query: str,
     page: int = 1,
     per_page: int = 30
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Filter companies using a query string.
     
@@ -130,30 +131,30 @@ async def filter_companies(
             "page": page,
             "per_page": min(per_page, 30)
         }
-        
+
         response = await make_freshdesk_request(
             "GET",
             "/search/companies",
             options={"query_params": params}
         )
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "search", "companies")
 
 async def update_company(
     company_id: int,
-    name: Optional[str] = None,
-    domains: Optional[List[str]] = None,
-    description: Optional[str] = None,
-    note: Optional[str] = None,
-    health_score: Optional[str] = None,
-    account_tier: Optional[str] = None,
-    renewal_date: Optional[str] = None,
-    industry: Optional[str] = None,
-    custom_fields: Optional[Dict[str, Any]] = None,
-    lookup_parameter: Optional[str] = None
-) -> Dict[str, Any]:
+    name: str | None = None,
+    domains: list[str] | None = None,
+    description: str | None = None,
+    note: str | None = None,
+    health_score: str | None = None,
+    account_tier: str | None = None,
+    renewal_date: str | None = None,
+    industry: str | None = None,
+    custom_fields: dict[str, Any] | None = None,
+    lookup_parameter: str | None = None
+) -> dict[str, Any]:
     """
     Update an existing company.
     
@@ -186,23 +187,23 @@ async def update_company(
             "custom_fields": custom_fields,
             "lookup_parameter": lookup_parameter
         }
-        
+
         update_data = remove_none_values(update_data)
-        
+
         if not update_data:
             raise ValueError("No fields to update")
-            
+
         response = await make_freshdesk_request(
             "PUT",
             f"/companies/{company_id}",
             data=update_data
         )
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "update", "company")
 
-async def delete_company(company_id: int) -> Dict[str, Any]:
+async def delete_company(company_id: int) -> dict[str, Any]:
     """
     Delete a company.
     
@@ -220,7 +221,7 @@ async def delete_company(company_id: int) -> Dict[str, Any]:
     except Exception as e:
         return handle_freshdesk_error(e, "delete", "company")
 
-async def search_companies_by_name(name: str) -> Dict[str, Any]:
+async def search_companies_by_name(name: str) -> dict[str, Any]:
     """
     Search for companies by name (autocomplete).
     

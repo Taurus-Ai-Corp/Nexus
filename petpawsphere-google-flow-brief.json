@@ -1,0 +1,217 @@
+{
+  "status": "success",
+  "endpoint": "/api/omni/brief",
+  "brief_id": "flow-1781772080551",
+  "client": "PetPawSphere",
+  "platform": "Google Flow",
+  "archetype": "ugc",
+  "category": "pet",
+  "brand": {
+    "name": "PetPawSphere",
+    "colors": {
+      "warm_paper": "#f5f0e4",
+      "green": "#00843D",
+      "red": "#CE1126",
+      "black": "#0e0e0e"
+    },
+    "tagline": "Where every paw finds its trusted path.",
+    "market": "UAE-first, Arabic bilingual, PDPL-compliant",
+    "business_model": "AI-native pet application and platform. PetPawSphere does NOT own physical breeding centers or facilities. It facilitates connections between independent licensed/verified breeders and pet owners. Breeders integrate with the platform and receive branded merchandise (e.g., green PetPawSphere t-shirts, M1 materials) for their own facilities. PetPawSphere does NOT hold breeding licenses.",
+    "positioning_rule": "Never imply PetPawSphere owns breeding facilities, veterinary clinics, or holds animal-related licenses. Always show breeders as independent partners using the AI app."
+  },
+  "cast": {
+    "amina": {
+      "name": "Amina",
+      "role": "Emirati pet owner, 28, warm, tech-savvy",
+      "species": "human",
+      "look": "hijab in warm paper tone, soft natural makeup, casual linen outfit, relaxed smile, modern Dubai apartment",
+      "voice": "friendly, confident, bilingual Arabic-English"
+    },
+    "khalid": {
+      "name": "Khalid",
+      "role": "Verified breeder, 35, professional, trustworthy",
+      "species": "human",
+      "look": "neat beard, polo shirt in PetPawSphere green, standing in clean breeder facility",
+      "voice": "authoritative, calm, Arabic-first"
+    },
+    "luna": {
+      "name": "Luna",
+      "role": "Persian kitten, fluffy, playful",
+      "species": "cat",
+      "look": "cream Persian kitten, big green eyes, paw raised, warm paper backdrop"
+    },
+    "simba": {
+      "name": "Simba",
+      "role": "Golden retriever, friendly family dog",
+      "species": "dog",
+      "look": "golden retriever, happy expression, collar with subtle green accent, Dubai park"
+    }
+  },
+  "bible_prompt": "12s UGC style review video, filmed on smartphone, natural window light, handheld selfie angle.\nProduct @img1: Preserve the exact product shape, warm paper, green #00843D, red #CE1126, clean app UI finish, iPhone/Android screen showing pet match UI, modern Arabic-ready sans-serif, PetPawSphere wordmark, label placement, proportions, and packaging identity exactly. Do not change the product branding, text layout, color, smartphone app interface, structure, or proportions.\nHook: Amina holds phone to camera, smiling. Show: phone screen shows AI breed match. Demo: scan a pet photo. Result: perfect match pops up with green check. Verdict: Amina gives thumbs up, CTA appears.\nCAMERA: Handheld selfie angle, each jump cut slightly different angle.\nLIGHTING: natural window light, warm kitchen.\nAUDIO: Phone mic, room ambience, no music.\nThe product from @(img1) must remain visually unchanged in every shot. Maintain product design and label details throughout.\nThe overall feel is premium, trustworthy, UAE family-friendly, bilingual Arabic-English.",
+  "flow_session_plan": {
+    "project_name": "PetPawSphere Launch Campaign — 2026-06",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Create new project",
+        "details": "Name it \"PetPawSphere Launch Campaign\""
+      },
+      {
+        "step": 2,
+        "action": "Set recurring cast",
+        "details": "Add Amina, Khalid, Luna, Simba with their descriptions and voices"
+      },
+      {
+        "step": 3,
+        "action": "Upload reference images",
+        "details": "Use Nexus campaign assets as image references for product UI and brand colors"
+      },
+      {
+        "step": 4,
+        "action": "Generate scenes",
+        "details": [
+          {
+            "scene": "hero_match",
+            "title": "AI Breed Detection Match",
+            "prompt": "Close-up of @Amina holding an iPhone. Screen shows PetPawSphere app with AI breed detection result: \"94% match — Persian kitten\". Warm paper and green color palette. Natural living room, UAE apartment. Soft window light. 9:16 vertical, premium UGC feel.",
+            "cast": [
+              "amina"
+            ],
+            "output": "9:16 video, 8s",
+            "tools": [
+              "Video Resizer",
+              "Type Overlays"
+            ]
+          },
+          {
+            "scene": "breeder_trust",
+            "title": "Licensed Breeder on the Platform",
+            "prompt": "@Khalid, an independent licensed breeder partner, stands in HIS OWN clean modern pet facility. He wears the green PetPawSphere merchandise polo. He shows how his breeder profile appears inside the PetPawSphere app. Phone screen shows an in-app green trust badge. Trustworthy, calm, Arabic-first tone. The facility is owned by the breeder; PetPawSphere is the AI platform that connects breeders and pet owners. 9:16 vertical.",
+            "cast": [
+              "khalid"
+            ],
+            "output": "9:16 video, 8s",
+            "tools": [
+              "Arabic Text Overlay",
+              "Type Overlays"
+            ],
+            "messaging_rule": "Khalid is an independent breeder partner using PetPawSphere. The facility is his. PetPawSphere provides the AI app and branded merchandise only."
+          },
+          {
+            "scene": "family_moment",
+            "title": "AI Helps a Family Care for Their Pet",
+            "prompt": "Emirati family sitting on a warm paper-toned sofa in their own home. @Simba the golden retriever rests his head on a child's lap. @Amina smiles while holding phone showing a PetPawSphere AI care reminder. Natural window light, premium lifestyle. PetPawSphere is the AI pet app that helps families, not a clinic or facility. 9:16 vertical.",
+            "cast": [
+              "amina",
+              "simba"
+            ],
+            "output": "9:16 video, 10s",
+            "tools": [
+              "Arabic Text Overlay",
+              "Type Overlays"
+            ],
+            "messaging_rule": "PetPawSphere is an AI-native app that helps pet owners. No implication that PetPawSphere owns a veterinary clinic, facility, or holds animal licenses."
+          }
+        ]
+      },
+      {
+        "step": 5,
+        "action": "Apply Flow tools",
+        "details": [
+          "Video Resizer → 9:16",
+          "Type Overlays → bilingual CTA",
+          "MOCCAE Trust Badge Overlay",
+          "Shader Effects → warm premium grade"
+        ]
+      },
+      {
+        "step": 6,
+        "action": "Download best variants",
+        "details": "3 video variants + 2 image variants per scene"
+      },
+      {
+        "step": 7,
+        "action": "Return to Nexus",
+        "details": "POST to /api/omni/ingest with files + metadata"
+      }
+    ]
+  },
+  "scenes": [
+    {
+      "scene": "hero_match",
+      "title": "AI Breed Detection Match",
+      "prompt": "Close-up of @Amina holding an iPhone. Screen shows PetPawSphere app with AI breed detection result: \"94% match — Persian kitten\". Warm paper and green color palette. Natural living room, UAE apartment. Soft window light. 9:16 vertical, premium UGC feel.",
+      "cast": [
+        "amina"
+      ],
+      "output": "9:16 video, 8s",
+      "tools": [
+        "Video Resizer",
+        "Type Overlays"
+      ]
+    },
+  {
+    "scene": "breeder_trust",
+    "title": "Licensed Breeder on the Platform",
+    "prompt": "@Khalid, an independent licensed breeder partner, stands in HIS OWN clean modern pet facility. He wears the green PetPawSphere merchandise polo. He shows how his breeder profile appears inside the PetPawSphere app. Phone screen shows an in-app green trust badge. Trustworthy, calm, Arabic-first tone. The facility is owned by the breeder; PetPawSphere is the AI platform that connects breeders and pet owners. 9:16 vertical.",
+    "cast": [
+      "khalid"
+    ],
+    "output": "9:16 video, 8s",
+    "tools": [
+      "Arabic Text Overlay",
+      "Type Overlays"
+    ],
+    "messaging_rule": "Khalid is an independent breeder partner using PetPawSphere. The facility is his. PetPawSphere provides the AI app and branded merchandise only."
+    },
+  {
+    "scene": "family_moment",
+    "title": "AI Helps a Family Care for Their Pet",
+    "prompt": "Emirati family sitting on a warm paper-toned sofa in their own home. @Simba the golden retriever rests his head on a child's lap. @Amina smiles while holding phone showing a PetPawSphere AI care reminder. Natural window light, premium lifestyle. PetPawSphere is the AI pet app that helps families, not a clinic or facility. 9:16 vertical.",
+    "cast": [
+      "amina",
+      "simba"
+    ],
+    "output": "9:16 video, 10s",
+    "tools": [
+      "Arabic Text Overlay",
+      "Type Overlays"
+    ],
+    "messaging_rule": "PetPawSphere is an AI-native app that helps pet owners. No implication that PetPawSphere owns a veterinary clinic, facility, or holds animal licenses."
+  }
+  ],
+  "custom_tools_to_build": [
+    "PetPawSphere Ad Pack — 3 video variants from one product shot",
+    "Licensed Breeder Trust Badge — in-app trust graphic for partner breeder profiles",
+    "Arabic Text Overlay — bilingual CTA (Arabic + English)",
+    "Vertical 9:16 Resizer — one-click format conversion"
+  ],
+  "export_settings": {
+    "video": {
+      "format": "MP4",
+      "resolution": "1080×1920",
+      "aspect_ratio": "9:16",
+      "duration": "8-10s"
+    },
+    "image": {
+      "format": "PNG/JPEG",
+      "resolution": "1080×1350",
+      "aspect_ratio": "4:5"
+    }
+  },
+  "verified_flow_features": {
+    "persistent_characters": true,
+    "multi_image_anchors": true,
+    "edit_prompt_box": true,
+    "omni_flash_9x16_video": true,
+    "variant_generation": true,
+    "prompt_tree": true,
+    "note": "Features like Storyboard Studio, Video Resizer, Shader Effects, and V2V Omni Flash Video Editing may exist in some Flow builds but were not present in the user's session (Jun 18, 2026). Only list features you can actually see."
+  },
+  "prompt_tree_guidance": [
+    "List the Details: start with main subject, add subdetails to the tree",
+    "AI Writes the Rest: let Flow translate the tree into an optimized prompt",
+    "Make Edits: edit the tree after generation to iterate"
+  ],
+  "instruction_file_v3": "/Users/taurus_ai/Documents/Nexus-Platform/google-flow-browser-use-prompt-v3.md"
+}

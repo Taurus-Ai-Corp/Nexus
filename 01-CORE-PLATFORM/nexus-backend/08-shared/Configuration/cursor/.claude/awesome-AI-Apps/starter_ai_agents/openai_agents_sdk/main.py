@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import asyncio
 import os
+
 import resend
-from openai import AsyncOpenAI
 from agents import (
     Agent,
     Model,
@@ -14,6 +14,7 @@ from agents import (
     function_tool,
     set_tracing_disabled,
 )
+from openai import AsyncOpenAI
 
 # Load environment variables
 resend.api_key = os.getenv("RESEND_API_KEY")
@@ -87,7 +88,7 @@ async def main():
         run_config=RunConfig(model_provider=CUSTOM_MODEL_PROVIDER),
     )
     print(result.final_output)
- 
+
 
 if __name__ == "__main__":
     asyncio.run(main())

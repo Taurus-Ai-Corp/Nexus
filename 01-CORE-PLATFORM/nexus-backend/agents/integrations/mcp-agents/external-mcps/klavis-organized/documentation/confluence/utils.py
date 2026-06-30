@@ -1,6 +1,6 @@
 import re
 
-from errors import ToolExecutionError, RetryableToolError
+from errors import RetryableToolError, ToolExecutionError
 
 
 def remove_none_values(data: dict) -> dict:
@@ -87,4 +87,4 @@ def build_hierarchy(transformed_children: list, parent_id: str, parent_node: dic
             parent["children"].append(child)
 
     # Set the direct children on the parent node
-    parent_node["children"] = direct_children 
+    parent_node["children"] = direct_children

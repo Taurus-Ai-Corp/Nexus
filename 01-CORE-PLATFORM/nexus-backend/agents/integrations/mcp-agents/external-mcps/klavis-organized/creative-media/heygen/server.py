@@ -1,14 +1,13 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from contextvars import ContextVar
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,14 +15,18 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
     auth_token_context,
+    heygen_delete_video,
+    heygen_generate_avatar_video,
+    heygen_get_avatar_groups,
+    heygen_get_avatar_video_status,
+    heygen_get_avatars_in_avatar_group,
     heygen_get_remaining_credits,
-    heygen_get_voices, heygen_get_voice_locales, heygen_get_avatar_groups, heygen_get_avatars_in_avatar_group, heygen_list_avatars,
-    heygen_generate_avatar_video, heygen_get_avatar_video_status,
-    heygen_list_videos, heygen_delete_video
+    heygen_get_voice_locales,
+    heygen_get_voices,
+    heygen_list_avatars,
+    heygen_list_videos,
 )
 
 # Configure logging
@@ -36,7 +39,7 @@ HEYGEN_MCP_SERVER_PORT = int(os.getenv("HEYGEN_MCP_SERVER_PORT", "5000"))
 def extract_api_key(request_or_scope) -> str:
     """Extract API key from headers or environment."""
     api_key = os.getenv("API_KEY")
-    
+
     if not api_key:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -52,7 +55,7 @@ def extract_api_key(request_or_scope) -> str:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
         else:
             auth_data = None
-        
+
         if auth_data:
             try:
                 # Parse the JSON auth data to extract token
@@ -61,7 +64,7 @@ def extract_api_key(request_or_scope) -> str:
             except (json.JSONDecodeError, TypeError) as e:
                 logger.warning(f"Failed to parse auth data JSON: {e}")
                 api_key = ""
-    
+
     return api_key or ""
 
 @click.command()
@@ -268,7 +271,7 @@ def main(
     async def call_tool(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
-        
+
         # Account Management
         if name == "heygen_get_remaining_credits":
             try:
@@ -287,11 +290,11 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Assets - Voices
         elif name == "heygen_get_voices":
             limit = arguments.get("limit", 20)
-            
+
             try:
                 result = await heygen_get_voices(limit)
                 return [
@@ -308,10 +311,10 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "heygen_get_voice_locales":
             limit = arguments.get("limit", 20)
-            
+
             try:
                 result = await heygen_get_voice_locales(limit)
                 return [
@@ -328,7 +331,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Assets - Avatars
         elif name == "heygen_get_avatar_groups":
             try:
@@ -347,7 +350,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "heygen_get_avatars_in_avatar_group":
             group_id = arguments.get("group_id")
             if not group_id:
@@ -357,7 +360,7 @@ def main(
                         text="Error: group_id parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await heygen_get_avatars_in_avatar_group(group_id)
                 return [
@@ -374,10 +377,10 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "heygen_list_avatars":
             limit = arguments.get("limit", 20)
-            
+
             try:
                 result = await heygen_list_avatars(limit)
                 return [
@@ -394,13 +397,13 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Generation
         elif name == "heygen_generate_avatar_video":
             avatar_id = arguments.get("avatar_id")
             text = arguments.get("text")
             voice_id = arguments.get("voice_id")
-            
+
             if not avatar_id or not text or not voice_id:
                 return [
                     types.TextContent(
@@ -408,12 +411,12 @@ def main(
                         text="Error: avatar_id, text, and voice_id parameters are required",
                     )
                 ]
-            
+
             background_color = arguments.get("background_color", "#ffffff")
             width = arguments.get("width", 1280)
             height = arguments.get("height", 720)
             avatar_style = arguments.get("avatar_style", "normal")
-            
+
             try:
                 result = await heygen_generate_avatar_video(
                     avatar_id, text, voice_id, background_color, width, height, avatar_style
@@ -432,7 +435,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "heygen_get_avatar_video_status":
             video_id = arguments.get("video_id")
             if not video_id:
@@ -442,7 +445,7 @@ def main(
                         text="Error: video_id parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await heygen_get_avatar_video_status(video_id)
                 return [
@@ -459,12 +462,12 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Management
         elif name == "heygen_list_videos":
             limit = arguments.get("limit", 20)
             offset = arguments.get("offset", 0)
-            
+
             try:
                 result = await heygen_list_videos(limit, offset)
                 return [
@@ -481,7 +484,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "heygen_delete_video":
             video_id = arguments.get("video_id")
             if not video_id:
@@ -491,7 +494,7 @@ def main(
                         text="Error: video_id parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await heygen_delete_video(video_id)
                 return [
@@ -508,7 +511,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         else:
             return [
                 types.TextContent(
@@ -530,7 +533,7 @@ def main(
         async def sse_handler(scope: Scope, receive: Receive, send: Send) -> None:
             # Extract auth token from headers (allow None - will be handled at tool level)
             auth_token = extract_api_key(request)
-            
+
             # Set the auth token in context for this request (can be None/empty)
             token = auth_token_context.set(auth_token or "")
             try:
@@ -549,7 +552,7 @@ def main(
     async def handle_streamable_http(scope: Scope, receive: Receive, send: Send) -> None:
         # Extract auth token from headers (allow None - will be handled at tool level)
         auth_token = extract_api_key(scope)
-        
+
         # Set the auth token in context for this request (can be None/empty)
         token = auth_token_context.set(auth_token or "")
         try:
@@ -574,7 +577,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],

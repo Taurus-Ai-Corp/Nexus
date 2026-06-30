@@ -1,7 +1,8 @@
-import os
 import logging
+import os
+from typing import Any
+
 import httpx
-from typing import Dict, Any
 from errors import QuickBooksError
 
 logger = logging.getLogger(__name__)
@@ -27,7 +28,7 @@ class QuickBooksHTTPClient:
         """Check if client is properly configured."""
         return bool(self.access_token and self.company_id)
 
-    async def _make_request(self, method: str, endpoint: str, **kwargs) -> Dict[str, Any]:
+    async def _make_request(self, method: str, endpoint: str, **kwargs) -> dict[str, Any]:
         if not self.is_configured():
             raise ValueError("QuickBooks client not properly configured")
 
@@ -76,11 +77,11 @@ class QuickBooksHTTPClient:
                 original_exception=e,
             )
 
-    async def _get(self, endpoint: str, params: Dict[str, Any] = None) -> Dict[str, Any]:
+    async def _get(self, endpoint: str, params: dict[str, Any] = None) -> dict[str, Any]:
         """GET request."""
         return await self._make_request('GET', endpoint, params=params)
 
-    async def _post(self, endpoint: str, data: Dict[str, Any], params: Dict[str, Any] = None) -> Dict[str, Any]:
+    async def _post(self, endpoint: str, data: dict[str, Any], params: dict[str, Any] = None) -> dict[str, Any]:
         """POST request."""
         return await self._make_request('POST', endpoint, params=params, json=data)
 

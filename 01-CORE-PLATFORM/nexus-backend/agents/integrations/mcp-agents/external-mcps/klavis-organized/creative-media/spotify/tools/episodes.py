@@ -1,16 +1,14 @@
-from typing import List, Dict
+
 from spotipy import Spotify
-from .base import get_spotify_client, get_user_spotify_client , process_episode_info
 
-
-
+from .base import get_spotify_client, get_user_spotify_client, process_episode_info
 
 
 def get_episodes_info(
-    episode_ids: List[str],
+    episode_ids: list[str],
     sp: Spotify = None,
     market: str = None
-) -> List[Dict]:
+) -> list[dict]:
     """
     Get catalog information for multiple episodes.
 
@@ -35,7 +33,7 @@ def get_episodes_info(
 
 
 def save_episodes_for_current_user(
-    episode_ids: List[str],
+    episode_ids: list[str],
     sp: Spotify = None
 ) -> str:
     """
@@ -67,7 +65,7 @@ def get_user_saved_episodes(
     sp: Spotify = None,
     limit: int = 20,
     offset: int = 0
-) -> List[Dict]:
+) -> list[dict]:
     """
     Fetch episodes saved in the current user's library.
 
@@ -101,7 +99,7 @@ def get_user_saved_episodes(
 
 
 def remove_episodes_for_current_user(
-    episode_ids: List[str],
+    episode_ids: list[str],
     sp: Spotify = None
 ) -> str:
     """
@@ -130,9 +128,9 @@ def remove_episodes_for_current_user(
 
 
 def check_user_saved_episodes(
-    episode_ids: List[str],
+    episode_ids: list[str],
     sp: Spotify = None
-) -> List[bool] | dict:
+) -> list[bool] | dict:
     """
     Check if one or more episodes are saved in the user's library.
 

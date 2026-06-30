@@ -1,8 +1,9 @@
-import os
 import logging
+import os
 import ssl
-from typing import Any, Dict, Optional
 from contextvars import ContextVar
+from typing import Any
+
 import aiohttp
 
 # Configure logging
@@ -37,7 +38,7 @@ def _get_mailchimp_base_url() -> str:
     datacenter = _extract_datacenter_from_api_key(api_key)
     return f"https://{datacenter}.api.mailchimp.com/3.0"
 
-def _get_mailchimp_headers() -> Dict[str, str]:
+def _get_mailchimp_headers() -> dict[str, str]:
     """Create standard headers for Mailchimp API calls."""
     return {
         "Content-Type": "application/json"
@@ -48,10 +49,10 @@ def _get_ssl_context():
     return ssl.create_default_context()
 
 async def make_mailchimp_request(
-    method: str, 
-    endpoint: str, 
-    json_data: Optional[Dict] = None, 
-    params: Optional[Dict] = None,
+    method: str,
+    endpoint: str,
+    json_data: dict | None = None,
+    params: dict | None = None,
     expect_empty_response: bool = False
 ) -> Any:
     """
@@ -71,16 +72,16 @@ async def make_mailchimp_request(
     url = f"{base_url}{endpoint}"
     headers = _get_mailchimp_headers()
     api_key = get_mailchimp_api_key()
-    
+
     # Mailchimp uses HTTP Basic Auth with 'anystring' as username and API key as password
     auth = aiohttp.BasicAuth('anystring', api_key)
-    
+
     connector = aiohttp.TCPConnector(ssl=_get_ssl_context())
     async with aiohttp.ClientSession(headers=headers, connector=connector, auth=auth) as session:
         try:
             async with session.request(method, url, json=json_data, params=params) as response:
                 response.raise_for_status()
-                
+
                 if expect_empty_response:
                     if response.status in [200, 201, 204]:
                         return None
@@ -97,7 +98,7 @@ async def make_mailchimp_request(
                         text_content = await response.text()
                         logger.warning(f"Received non-JSON response for {method} {endpoint}: {text_content[:100]}...")
                         return {"raw_content": text_content}
-                        
+
         except aiohttp.ClientResponseError as e:
             logger.error(f"Mailchimp API request failed: {e.status} {e.message} for {method} {url}")
             error_details = e.message

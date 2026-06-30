@@ -1,0 +1,1 @@
+{"body":"Low-risk cosmetic update: changes the root ``package.json`` ``name`` field from ``q-grid-platform`` to ``gridera`` to align the on-disk identity with the GRIDERA brand. No workspace paths, package names, or build tooling are affected.","title":"Rename monorepo package.json name: q-grid-platform → gridera"}

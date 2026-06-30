@@ -1,14 +1,18 @@
 import asyncio
 import json
-from dataclasses import dataclass
 import logging
-from typing import Any, Dict, Optional, cast
 from contextvars import ContextVar
+from dataclasses import dataclass
 from functools import wraps
+from typing import Any, cast
 
 import httpx
 
-from .constants import ASANA_API_VERSION, ASANA_BASE_URL, ASANA_MAX_CONCURRENT_REQUESTS, ASANA_MAX_TIMEOUT_SECONDS
+from .constants import (
+    ASANA_API_VERSION,
+    ASANA_BASE_URL,
+    ASANA_MAX_CONCURRENT_REQUESTS,
+)
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -87,7 +91,7 @@ def clean_asana_response(func):
 
 async def get_unique_workspace_id_or_raise_error() -> str:
     client = get_asana_client()
-    
+
     response = await client.get("/workspaces")
     workspaces = response["data"]
 
@@ -168,8 +172,8 @@ class AsanaClient:
     async def get(
         self,
         endpoint: str,
-        params: Optional[dict] = None,
-        headers: Optional[dict] = None,
+        params: dict | None = None,
+        headers: dict | None = None,
         api_version: str | None = None,
     ) -> dict:
         default_headers = {
@@ -195,10 +199,10 @@ class AsanaClient:
     async def post(
         self,
         endpoint: str,
-        data: Optional[dict] = None,
-        json_data: Optional[dict] = None,
-        files: Optional[dict] = None,
-        headers: Optional[dict] = None,
+        data: dict | None = None,
+        json_data: dict | None = None,
+        files: dict | None = None,
+        headers: dict | None = None,
         api_version: str | None = None,
     ) -> dict:
         default_headers = {
@@ -232,9 +236,9 @@ class AsanaClient:
     async def put(
         self,
         endpoint: str,
-        data: Optional[dict] = None,
-        json_data: Optional[dict] = None,
-        headers: Optional[dict] = None,
+        data: dict | None = None,
+        json_data: dict | None = None,
+        headers: dict | None = None,
         api_version: str | None = None,
     ) -> dict:
         headers = headers or {}
@@ -256,7 +260,7 @@ class AsanaClient:
 
     async def get_current_user(self) -> dict:
         response = await self.get("/users/me")
-        return cast(dict, response["data"]) 
+        return cast(dict, response["data"])
 
 
 def get_asana_client() -> AsanaClient:
@@ -269,4 +273,4 @@ def get_auth_token() -> str:
     try:
         return auth_token_context.get()
     except LookupError:
-        raise RuntimeError("Authentication token not found in request context") 
+        raise RuntimeError("Authentication token not found in request context")

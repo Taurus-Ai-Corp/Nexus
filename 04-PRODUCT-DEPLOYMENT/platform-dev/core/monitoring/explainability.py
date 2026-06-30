@@ -5,10 +5,11 @@ Provides feature importance, counterfactual explanations, confidence intervals,
 and natural language narratives for all AI agent decisions.
 """
 
-import numpy as np
-from typing import Dict, Any, Optional, List, Tuple
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
+from typing import Any
+
+import numpy as np
 
 
 @dataclass
@@ -17,7 +18,7 @@ class FeatureImportance:
     importance: float
     direction: str = "neutral"
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -28,7 +29,7 @@ class CounterfactualExplanation:
     suggested_value: float
     estimated_impact: str
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -38,7 +39,7 @@ class ConfidenceInterval:
     upper: float
     confidence_level: float = 0.95
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -46,13 +47,13 @@ class ConfidenceInterval:
 class ExplainabilityReport:
     borrower_id: str = ""
     prediction_value: float = 0.0
-    feature_importance: List[FeatureImportance] = field(default_factory=list)
-    counterfactuals: List[CounterfactualExplanation] = field(default_factory=list)
-    confidence_interval: Optional[ConfidenceInterval] = None
+    feature_importance: list[FeatureImportance] = field(default_factory=list)
+    counterfactuals: list[CounterfactualExplanation] = field(default_factory=list)
+    confidence_interval: ConfidenceInterval | None = None
     narrative: str = ""
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "borrower_id": self.borrower_id,
             "prediction_value": self.prediction_value,
@@ -67,16 +68,16 @@ class ExplainabilityReport:
 class ExplainabilityEngine:
     """Generates explanations for AI predictions."""
 
-    def __init__(self, feature_names: Optional[List[str]] = None):
+    def __init__(self, feature_names: list[str] | None = None):
         self.feature_names = feature_names or []
 
     def explain_prediction(
         self,
         borrower_id: str,
         prediction: float,
-        features: Dict[str, Any],
+        features: dict[str, Any],
         model=None,
-        shap_values: Optional[np.ndarray] = None,
+        shap_values: np.ndarray | None = None,
         confidence: float = 0.0,
     ) -> ExplainabilityReport:
         importance = self._compute_feature_importance(features, shap_values)
@@ -96,8 +97,8 @@ class ExplainabilityEngine:
         )
 
     def _compute_feature_importance(
-        self, features: Dict[str, Any], shap_values: Optional[np.ndarray] = None,
-    ) -> List[FeatureImportance]:
+        self, features: dict[str, Any], shap_values: np.ndarray | None = None,
+    ) -> list[FeatureImportance]:
         importance = []
         for i, (name, value) in enumerate(features.items()):
             if isinstance(value, (int, float)):
@@ -118,8 +119,8 @@ class ExplainabilityEngine:
         return current_prediction + delta * sensitivity
 
     def _generate_counterfactual(
-        self, features: Dict[str, Any], prediction: float, importance: List[FeatureImportance],
-    ) -> List[CounterfactualExplanation]:
+        self, features: dict[str, Any], prediction: float, importance: list[FeatureImportance],
+    ) -> list[CounterfactualExplanation]:
         counterfactuals = []
         for imp in importance[:3]:
             current_val = features.get(imp.feature, 0)
@@ -151,9 +152,9 @@ class ExplainabilityEngine:
     def _generate_narrative(
         self,
         prediction: float,
-        importance: List[FeatureImportance],
-        counterfactuals: List[CounterfactualExplanation],
-        ci: Optional[ConfidenceInterval],
+        importance: list[FeatureImportance],
+        counterfactuals: list[CounterfactualExplanation],
+        ci: ConfidenceInterval | None,
     ) -> str:
         narrative = f"Prediction: {prediction:.2%}. "
         if importance:

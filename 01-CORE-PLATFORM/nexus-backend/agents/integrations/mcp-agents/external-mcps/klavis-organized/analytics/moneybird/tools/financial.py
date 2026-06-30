@@ -1,5 +1,6 @@
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
+
 from .base import make_request
 
 # Configure logging
@@ -7,10 +8,10 @@ logger = logging.getLogger(__name__)
 
 async def moneybird_list_financial_accounts(
     administration_id: str
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """List all financial accounts in Moneybird."""
     logger.info("Executing tool: moneybird_list_financial_accounts")
-    
+
     try:
         return await make_request("GET", administration_id, "/financial_accounts")
     except Exception as e:
@@ -19,18 +20,18 @@ async def moneybird_list_financial_accounts(
 
 async def moneybird_list_products(
     administration_id: str,
-    query: Optional[str] = None,
-    page: Optional[int] = None
-) -> Dict[str, Any]:
+    query: str | None = None,
+    page: int | None = None
+) -> dict[str, Any]:
     """List all products in Moneybird."""
     logger.info("Executing tool: moneybird_list_products")
-    
+
     params = {}
     if query:
         params["query"] = query
     if page:
         params["page"] = page
-    
+
     try:
         return await make_request("GET", administration_id, "/products", params=params)
     except Exception as e:

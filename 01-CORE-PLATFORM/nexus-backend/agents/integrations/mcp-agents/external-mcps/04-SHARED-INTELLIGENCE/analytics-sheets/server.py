@@ -1,31 +1,30 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
 from contextvars import ContextVar
+from typing import Any
 
 import click
 import mcp.types as types
-from mcp.server.lowlevel import Server
-from mcp.server.sse import SseServerTransport
-from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
-from starlette.applications import Starlette
-from starlette.responses import Response
-from starlette.routing import Mount, Route
-from starlette.types import Receive, Scope, Send
 from dotenv import load_dotenv
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+from mcp.server.lowlevel import Server
+from mcp.server.sse import SseServerTransport
+from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
 from models import (
     SheetDataInput,
     Spreadsheet,
     SpreadsheetProperties,
 )
+from starlette.applications import Starlette
+from starlette.responses import Response
+from starlette.routing import Mount, Route
+from starlette.types import Receive, Scope, Send
 from utils import (
     create_sheet,
     parse_get_spreadsheet_response,
@@ -46,7 +45,7 @@ auth_token_context: ContextVar[str] = ContextVar('auth_token')
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -60,10 +59,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -115,7 +114,7 @@ context = Context()
 async def create_spreadsheet_tool(
     title: str = "Untitled spreadsheet",
     data: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create a new spreadsheet with the provided title and data in its first sheet."""
     logger.info(f"Executing tool: create_spreadsheet with title: {title}")
     try:
@@ -158,13 +157,13 @@ async def create_spreadsheet_tool(
         logger.exception(f"Error executing tool create_spreadsheet: {e}")
         raise e
 
-async def get_spreadsheet_tool(spreadsheet_id: str) -> Dict[str, Any]:
+async def get_spreadsheet_tool(spreadsheet_id: str) -> dict[str, Any]:
     """Get the user entered values and formatted values for all cells in all sheets in the spreadsheet."""
     logger.info(f"Executing tool: get_spreadsheet with spreadsheet_id: {spreadsheet_id}")
     try:
         access_token = get_auth_token()
         service = get_sheets_service(access_token)
-        
+
         response = (
             service.spreadsheets()
             .get(
@@ -189,13 +188,13 @@ async def write_to_cell_tool(
     row: int,
     value: str,
     sheet_name: str = "Sheet1",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Write a value to a single cell in a spreadsheet."""
     logger.info(f"Executing tool: write_to_cell with spreadsheet_id: {spreadsheet_id}, cell: {column}{row}")
     try:
         access_token = get_auth_token()
         service = get_sheets_service(access_token)
-        
+
         validate_write_to_cell_params(service, spreadsheet_id, sheet_name, column, row)
 
         range_ = f"'{sheet_name}'!{column.upper()}{row}"
@@ -227,24 +226,24 @@ async def write_to_cell_tool(
         logger.exception(f"Error executing tool write_to_cell: {e}")
         raise e
 
-async def list_all_sheets_tool() -> Dict[str, Any]:
+async def list_all_sheets_tool() -> dict[str, Any]:
     """List all Google Sheets spreadsheets in the user's Google Drive."""
     logger.info("Executing tool: list_all_sheets")
     try:
         access_token = get_auth_token()
         service = get_drive_service(access_token)
-        
+
         # Search for Google Sheets files (mimeType for Google Sheets)
         query = "mimeType='application/vnd.google-apps.spreadsheet'"
-        
+
         results = service.files().list(
             q=query,
             fields="files(id,name,createdTime,modifiedTime,owners,webViewLink)",
             orderBy="modifiedTime desc"
         ).execute()
-        
+
         files = results.get('files', [])
-        
+
         spreadsheets = []
         for file in files:
             spreadsheet_info = {
@@ -253,16 +252,16 @@ async def list_all_sheets_tool() -> Dict[str, Any]:
                 "createdTime": file.get('createdTime'),
                 "modifiedTime": file.get('modifiedTime'),
                 "webViewLink": file.get('webViewLink'),
-                "owners": [owner.get('displayName', owner.get('emailAddress', 'Unknown')) 
+                "owners": [owner.get('displayName', owner.get('emailAddress', 'Unknown'))
                           for owner in file.get('owners', [])]
             }
             spreadsheets.append(spreadsheet_info)
-        
+
         return {
             "spreadsheets": spreadsheets,
             "total_count": len(spreadsheets)
         }
-        
+
     except HttpError as e:
         logger.error(f"Google Drive API error: {e}")
         error_detail = json.loads(e.content.decode('utf-8'))
@@ -376,7 +375,7 @@ def main(
     @app.call_tool()
     async def call_tool(
         name: str, arguments: dict
-    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:     
+    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         if name == "google_sheets_create_spreadsheet":
             title = arguments.get("title")
             data = arguments.get("data")
@@ -387,7 +386,7 @@ def main(
                         text="Error: title parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await create_spreadsheet_tool(title, data)
                 return [
@@ -404,7 +403,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_sheets_get_spreadsheet":
             spreadsheet_id = arguments.get("spreadsheet_id")
             if not spreadsheet_id:
@@ -414,7 +413,7 @@ def main(
                         text="Error: spreadsheet_id parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await get_spreadsheet_tool(spreadsheet_id)
                 return [
@@ -431,14 +430,14 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_sheets_write_to_cell":
             spreadsheet_id = arguments.get("spreadsheet_id")
             column = arguments.get("column")
             row = arguments.get("row")
             value = arguments.get("value")
             sheet_name = arguments.get("sheet_name", "Sheet1")
-            
+
             if not all([spreadsheet_id, column, row is not None, value is not None]):
                 return [
                     types.TextContent(
@@ -446,7 +445,7 @@ def main(
                         text="Error: spreadsheet_id, column, row, and value parameters are required",
                     )
                 ]
-            
+
             try:
                 result = await write_to_cell_tool(spreadsheet_id, column, row, value, sheet_name)
                 return [
@@ -463,7 +462,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "google_sheets_list_all_sheets":
             try:
                 result = await list_all_sheets_tool()
@@ -481,7 +480,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         return [
             types.TextContent(
                 type="text",
@@ -494,10 +493,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -509,7 +508,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -524,10 +523,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -552,7 +551,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -570,4 +569,4 @@ def main(
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

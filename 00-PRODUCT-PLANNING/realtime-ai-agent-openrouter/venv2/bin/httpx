@@ -1,0 +1,6 @@
+#!/Users/taurus_ai/Documents/Nexus-Platform/00-PRODUCT-PLANNING/realtime-ai-agent-openrouter/venv2/bin/python3.12
+import sys
+from httpx import main
+if __name__ == '__main__':
+    sys.argv[0] = sys.argv[0].removesuffix('.exe')
+    sys.exit(main())

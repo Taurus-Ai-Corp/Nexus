@@ -4,17 +4,16 @@
 Taurus AI Corp - Webflow API integration for Web-land-Dash project
 """
 
-import sys
 import os
-from typing import Dict, List, Any
+import sys
 from datetime import datetime
+from typing import Any
 
 # Add parent directory to path for imports
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
+
 import requests
-import json
-from datetime import datetime, timedelta
 
 # Webflow Configuration - MUST be set via environment variables
 # ⚠️ CRITICAL: Never hardcode credentials in source code
@@ -224,8 +223,8 @@ class WebLandDashWebflowIntegration:
         self.dash_service = get_service("web_land_dash", self.client)
 
     def sync_dashboard_configurations(
-        self, dashboards: List[Dict[str, Any]]
-    ) -> Dict[str, Any]:
+        self, dashboards: list[dict[str, Any]]
+    ) -> dict[str, Any]:
         """
         Sync dashboard configurations from external systems
 
@@ -272,8 +271,8 @@ class WebLandDashWebflowIntegration:
             return {"success": False, "error": str(e)}
 
     def sync_widget_configurations(
-        self, widgets: List[Dict[str, Any]]
-    ) -> Dict[str, Any]:
+        self, widgets: list[dict[str, Any]]
+    ) -> dict[str, Any]:
         """
         Sync widget configurations from external systems
 
@@ -305,7 +304,7 @@ class WebLandDashWebflowIntegration:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def sync_user_data(self, users: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def sync_user_data(self, users: list[dict[str, Any]]) -> dict[str, Any]:
         """
         Sync user data from external systems
 
@@ -338,8 +337,8 @@ class WebLandDashWebflowIntegration:
             return {"success": False, "error": str(e)}
 
     def sync_platform_analytics(
-        self, analytics_data: List[Dict[str, Any]]
-    ) -> Dict[str, Any]:
+        self, analytics_data: list[dict[str, Any]]
+    ) -> dict[str, Any]:
         """
         Sync platform analytics data
 
@@ -374,8 +373,8 @@ class WebLandDashWebflowIntegration:
             return {"success": False, "error": str(e)}
 
     def create_dashboard_from_template(
-        self, template_name: str, customizations: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, template_name: str, customizations: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Create dashboard from template with customizations
 
@@ -498,7 +497,7 @@ class WebLandDashWebflowIntegration:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def export_dashboard_configuration(self, dashboard_id: str) -> Dict[str, Any]:
+    def export_dashboard_configuration(self, dashboard_id: str) -> dict[str, Any]:
         """
         Export dashboard configuration for backup or migration
 
@@ -522,8 +521,8 @@ class WebLandDashWebflowIntegration:
             return {"success": False, "error": str(e)}
 
     def update_dashboard_layout(
-        self, dashboard_id: str, layout_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, dashboard_id: str, layout_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Update dashboard layout configuration
 
@@ -561,7 +560,7 @@ class WebLandDashWebflowIntegration:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def get_platform_analytics_report(self) -> Dict[str, Any]:
+    def get_platform_analytics_report(self) -> dict[str, Any]:
         """
         Generate platform analytics report
 

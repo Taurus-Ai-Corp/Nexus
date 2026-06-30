@@ -1,0 +1,20 @@
+From 4ece70d7b6bd2bc9222dd29805816727097972fe Mon Sep 17 00:00:00 2001
+From: Taurus AI <213408987+Taas-ai@users.noreply.github.com>
+Date: Thu, 25 Jun 2026 05:07:49 -0400
+Subject: [PATCH] Rename monorepo package.json name: q-grid-platform -> gridera
+
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 1ff77bd..61de002 100644
+--- a/package.json
++++ b/package.json
+@@ -1,5 +1,5 @@
+ {
+-  "name": "q-grid-platform",
++  "name": "gridera",
+   "private": true,
+   "packageManager": "pnpm@9.15.4",
+   "engines": {

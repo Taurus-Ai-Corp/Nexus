@@ -1,11 +1,12 @@
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
+
 from .base import make_clickup_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
-async def get_lists(folder_id: Optional[str] = None, space_id: Optional[str] = None) -> Dict[str, Any]:
+async def get_lists(folder_id: str | None = None, space_id: str | None = None) -> dict[str, Any]:
     """Get all lists in a folder or space."""
     logger.info(f"Executing tool: get_lists with folder_id: {folder_id}, space_id: {space_id}")
     try:
@@ -21,15 +22,15 @@ async def get_lists(folder_id: Optional[str] = None, space_id: Optional[str] = N
         raise e
 
 async def create_list(
-    folder_id: Optional[str] = None, 
-    space_id: Optional[str] = None,
-    name: str = None, 
-    content: Optional[str] = None,
-    due_date: Optional[str] = None,
-    priority: Optional[int] = None,
-    assignee: Optional[str] = None,
-    status: Optional[str] = None
-) -> Dict[str, Any]:
+    folder_id: str | None = None,
+    space_id: str | None = None,
+    name: str = None,
+    content: str | None = None,
+    due_date: str | None = None,
+    priority: int | None = None,
+    assignee: str | None = None,
+    status: str | None = None
+) -> dict[str, Any]:
     """Create a new list in a folder or space."""
     logger.info(f"Executing tool: create_list with name: {name}")
     try:
@@ -44,7 +45,7 @@ async def create_list(
             data["assignee"] = assignee
         if status:
             data["status"] = status
-            
+
         if folder_id:
             result = await make_clickup_request(f"folder/{folder_id}/list", "POST", data)
         elif space_id:
@@ -57,14 +58,14 @@ async def create_list(
         raise e
 
 async def update_list(
-    list_id: str, 
-    name: Optional[str] = None, 
-    content: Optional[str] = None,
-    due_date: Optional[str] = None,
-    priority: Optional[int] = None,
-    assignee: Optional[str] = None,
+    list_id: str,
+    name: str | None = None,
+    content: str | None = None,
+    due_date: str | None = None,
+    priority: int | None = None,
+    assignee: str | None = None,
     unset_status: bool = False
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Update an existing list."""
     logger.info(f"Executing tool: update_list with list_id: {list_id}")
     try:
@@ -81,9 +82,9 @@ async def update_list(
             data["assignee"] = assignee
         if unset_status:
             data["unset_status"] = unset_status
-            
+
         result = await make_clickup_request(f"list/{list_id}", "PUT", data)
         return result
     except Exception as e:
         logger.exception(f"Error executing tool update_list: {e}")
-        raise e 
+        raise e

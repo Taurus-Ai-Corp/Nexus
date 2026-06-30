@@ -1,12 +1,12 @@
 import logging
-from typing import Any, Dict, List
+from typing import Any
 
 from .auth import get_tavily_client
 
 logger = logging.getLogger(__name__)
 
 
-def tavily_extract(arguments: Dict[str, Any]) -> Dict[str, Any]:
+def tavily_extract(arguments: dict[str, Any]) -> dict[str, Any]:
     """
     Extract Web Content — fetch and parse content from one or more URLs.
     Expected args: urls (List[str]), extract_depth, include_images, format, include_favicon
@@ -17,7 +17,7 @@ def tavily_extract(arguments: Dict[str, Any]) -> Dict[str, Any]:
     if not urls or not isinstance(urls, list):
         raise RuntimeError("Parameter 'urls' (list) is required for tavily_extract")
 
-    params: Dict[str, Any] = {
+    params: dict[str, Any] = {
         "urls": urls,
         "extract_depth": arguments.get("extract_depth", "basic"),
         "include_images": arguments.get("include_images", False),

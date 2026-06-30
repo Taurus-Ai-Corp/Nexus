@@ -1,0 +1,13 @@
+{
+  "slug": "popup-kiosk",
+  "original": "Architectural concept render of a small boutique pop-up shop shaped like a letter C, warm terracotta and cream exterior with subtle brass metal trim, glass front windows showing warm wooden interior with seating area, soft ambient lighting, minimalist modern design, clean lines, pure background, realistic architectural visualization, natural materials",
+  "enhanced": "A photorealistic architectural concept render of a small boutique pop-up shop shaped like the letter C, featuring a warm terracotta and cream exterior with subtle brass metal trim, glass front windows revealing a warm wooden interior with a seating area, soft ambient lighting, minimalist modern design with clean lines, pure background, and realistic architectural visualization using natural materials, captured from a straight-on perspective to emphasize symmetry and clean geometry, with soft golden hour lighting enhancing the terracotta tones and avoiding harsh shadows, framed to highlight the C-shaped structure as the main subject, shot in 48MP high-resolution HEIF Max with natural photographic style, low saturation and high contrast for depth, and realistic material textures with visible pores and fine lines on the terracotta surface.",
+  "provider": "black-forest-labs/FLUX.1-schnell",
+  "status": "completed",
+  "params": {
+    "steps": 8,
+    "guidance": 5.0,
+    "size": "1024x768"
+  },
+  "raw_size_bytes": 109408
+}

@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /preview-landing.html
-Disallow: /preview-v2.html
-Disallow: /media-approvals.html
-
-Sitemap: https://mater-maria.vercel.app/sitemap.xml

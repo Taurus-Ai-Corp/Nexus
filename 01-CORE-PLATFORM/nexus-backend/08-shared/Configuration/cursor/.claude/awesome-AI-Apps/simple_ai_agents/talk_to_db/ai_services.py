@@ -1,9 +1,10 @@
-import os
 import json
+import os
 import re
-from langchain_nebius import ChatNebius
-from langchain_core.prompts import ChatPromptTemplate
+
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_nebius import ChatNebius
 
 # Database schema information
 DB_SCHEMA = """

@@ -6,15 +6,13 @@ Complete activation of 25+ external service connectors with unified management
 
 import asyncio
 import json
-import subprocess
-import sys
+import logging
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
-import logging
-from dataclasses import dataclass, asdict
+from typing import Any
+
 import aiofiles
-import aiohttp
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -28,37 +26,37 @@ class MCPConnector:
     service: str  # external service name
     protocol: str  # http, websocket, grpc
     config_path: str
-    dependencies: List[str]
-    capabilities: List[str]
+    dependencies: list[str]
+    capabilities: list[str]
     priority: int = 5
     status: str = "inactive"
-    endpoint: Optional[str] = None
+    endpoint: str | None = None
     api_key_required: bool = False
-    
+
 @dataclass
 class ActivationResult:
     """MCP activation result"""
     connector_name: str
     status: str  # activated, failed, skipped
-    endpoint: Optional[str]
-    error_message: Optional[str] = None
-    activated_at: Optional[str] = None
+    endpoint: str | None
+    error_message: str | None = None
+    activated_at: str | None = None
 
 class MCPActivationSystem:
     """
     Comprehensive MCP integration activation and management system
     """
-    
+
     def __init__(self):
         self.base_path = Path("/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP")
         self.mcp_path = self.base_path / "BizFlow-Orchestrator" / "agents" / "integrations" / "mcp-agents"
-        self.activation_results: List[ActivationResult] = []
-        self.active_connectors: Dict[str, MCPConnector] = {}
-        
+        self.activation_results: list[ActivationResult] = []
+        self.active_connectors: dict[str, MCPConnector] = {}
+
         # Define all available MCP connectors
         self.mcp_connectors = self._define_mcp_connectors()
-    
-    def _define_mcp_connectors(self) -> Dict[str, MCPConnector]:
+
+    def _define_mcp_connectors(self) -> dict[str, MCPConnector]:
         """Define all available MCP connectors"""
         connectors = {
             # Communication & Collaboration
@@ -74,7 +72,7 @@ class MCPActivationSystem:
                 api_key_required=True
             ),
             "slack_mcp": MCPConnector(
-                name="slack_mcp", 
+                name="slack_mcp",
                 type="server",
                 service="Slack",
                 protocol="websocket",
@@ -86,7 +84,7 @@ class MCPActivationSystem:
             ),
             "discord_mcp": MCPConnector(
                 name="discord_mcp",
-                type="server", 
+                type="server",
                 service="Discord",
                 protocol="websocket",
                 config_path="discord-mcp/config.json",
@@ -94,14 +92,14 @@ class MCPActivationSystem:
                 capabilities=["message_send", "server_management", "bot_commands"],
                 priority=6
             ),
-            
+
             # Development & DevOps
             "github_mcp": MCPConnector(
                 name="github_mcp",
                 type="server",
                 service="GitHub",
                 protocol="http",
-                config_path="github-mcp/config.json", 
+                config_path="github-mcp/config.json",
                 dependencies=["PyGithub", "requests"],
                 capabilities=["repo_management", "issue_tracking", "pr_management", "code_analysis"],
                 priority=9,
@@ -128,13 +126,13 @@ class MCPActivationSystem:
                 capabilities=["container_management", "image_building", "registry_access"],
                 priority=7
             ),
-            
+
             # Design & Creative
             "figma_mcp": MCPConnector(
                 name="figma_mcp",
                 type="server",
                 service="Figma",
-                protocol="http", 
+                protocol="http",
                 config_path="figma-mcp/config.json",
                 dependencies=["requests", "pillow"],
                 capabilities=["design_export", "component_management", "team_collaboration"],
@@ -162,7 +160,7 @@ class MCPActivationSystem:
                 capabilities=["css_generation", "utility_management", "theme_customization"],
                 priority=6
             ),
-            
+
             # Business & CRM
             "hubspot_mcp": MCPConnector(
                 name="hubspot_mcp",
@@ -197,7 +195,7 @@ class MCPActivationSystem:
                 priority=7,
                 api_key_required=True
             ),
-            
+
             # Data & Storage
             "supabase_mcp": MCPConnector(
                 name="supabase_mcp",
@@ -222,7 +220,7 @@ class MCPActivationSystem:
             ),
             "redis_mcp": MCPConnector(
                 name="redis_mcp",
-                type="server", 
+                type="server",
                 service="Redis",
                 protocol="tcp",
                 config_path="redis-mcp/config.json",
@@ -230,7 +228,7 @@ class MCPActivationSystem:
                 capabilities=["cache_management", "session_storage", "pub_sub", "data_structures"],
                 priority=8
             ),
-            
+
             # E-commerce & Payments
             "shopify_mcp": MCPConnector(
                 name="shopify_mcp",
@@ -254,7 +252,7 @@ class MCPActivationSystem:
                 priority=8,
                 api_key_required=True
             ),
-            
+
             # Analytics & Monitoring
             "google_analytics_mcp": MCPConnector(
                 name="google_analytics_mcp",
@@ -278,7 +276,7 @@ class MCPActivationSystem:
                 priority=7,
                 api_key_required=True
             ),
-            
+
             # Social Media
             "twitter_mcp": MCPConnector(
                 name="twitter_mcp",
@@ -295,14 +293,14 @@ class MCPActivationSystem:
                 name="linkedin_mcp",
                 type="server",
                 service="LinkedIn",
-                protocol="http", 
+                protocol="http",
                 config_path="linkedin-mcp/config.json",
                 dependencies=["linkedin-api", "requests"],
                 capabilities=["profile_management", "content_posting", "network_analysis", "company_pages"],
                 priority=7,
                 api_key_required=True
             ),
-            
+
             # Content & Documentation
             "notion_mcp": MCPConnector(
                 name="notion_mcp",
@@ -326,7 +324,7 @@ class MCPActivationSystem:
                 priority=6,
                 api_key_required=True
             ),
-            
+
             # AI & ML Services
             "openai_mcp": MCPConnector(
                 name="openai_mcp",
@@ -351,53 +349,53 @@ class MCPActivationSystem:
                 api_key_required=True
             ),
         }
-        
+
         return connectors
-    
-    async def activate_all_mcp_connectors(self) -> List[ActivationResult]:
+
+    async def activate_all_mcp_connectors(self) -> list[ActivationResult]:
         """Activate all MCP connectors in priority order"""
         logger.info("🚀 Starting complete MCP connector activation...")
-        
+
         # Sort by priority (highest first)
         sorted_connectors = sorted(
-            self.mcp_connectors.values(), 
-            key=lambda x: x.priority, 
+            self.mcp_connectors.values(),
+            key=lambda x: x.priority,
             reverse=True
         )
-        
+
         # Create base directories
         await self._setup_mcp_infrastructure()
-        
+
         activation_results = []
-        
+
         for connector in sorted_connectors:
             result = await self._activate_connector(connector)
             activation_results.append(result)
             self.activation_results.append(result)
-            
+
             if result.status == "activated":
                 self.active_connectors[connector.name] = connector
                 logger.info(f"✅ Activated: {connector.name} ({connector.service})")
             else:
                 logger.warning(f"❌ Failed: {connector.name} - {result.error_message}")
-        
+
         # Generate MCP registry
         await self._generate_mcp_registry()
-        
+
         return activation_results
-    
+
     async def _setup_mcp_infrastructure(self):
         """Set up MCP infrastructure directories and base configs"""
         logger.info("🏗️ Setting up MCP infrastructure...")
-        
+
         # Create main MCP directory
         self.mcp_path.mkdir(parents=True, exist_ok=True)
-        
+
         # Create category directories
         categories = ["communication", "development", "design", "business", "data", "ecommerce", "analytics", "social", "ai"]
         for category in categories:
             (self.mcp_path / category).mkdir(exist_ok=True)
-        
+
         # Create global MCP configuration
         global_config = {
             "mcp_version": "1.0.0",
@@ -411,43 +409,43 @@ class MCPActivationSystem:
                 "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
             }
         }
-        
+
         config_path = self.mcp_path / "global_config.json"
         async with aiofiles.open(config_path, 'w') as f:
             await f.write(json.dumps(global_config, indent=2))
-    
+
     async def _activate_connector(self, connector: MCPConnector) -> ActivationResult:
         """Activate a single MCP connector"""
         try:
             logger.info(f"🔧 Activating {connector.name}...")
-            
+
             # Determine category directory
             category = self._get_connector_category(connector.service)
             connector_dir = self.mcp_path / category / connector.name
             connector_dir.mkdir(exist_ok=True)
-            
+
             # Create connector configuration
             await self._create_connector_config(connector, connector_dir)
-            
+
             # Create connector implementation
             await self._create_connector_implementation(connector, connector_dir)
-            
+
             # Install dependencies
             await self._install_connector_dependencies(connector)
-            
+
             # Create startup script
             await self._create_connector_startup_script(connector, connector_dir)
-            
+
             # Assign endpoint port
             endpoint = f"http://localhost:{9000 + hash(connector.name) % 1000}"
-            
+
             return ActivationResult(
                 connector_name=connector.name,
                 status="activated",
                 endpoint=endpoint,
                 activated_at=datetime.now().isoformat()
             )
-            
+
         except Exception as e:
             return ActivationResult(
                 connector_name=connector.name,
@@ -455,12 +453,12 @@ class MCPActivationSystem:
                 endpoint=None,
                 error_message=str(e)
             )
-    
+
     def _get_connector_category(self, service: str) -> str:
         """Determine connector category based on service"""
         category_map = {
             "Gmail": "communication",
-            "Slack": "communication", 
+            "Slack": "communication",
             "Discord": "communication",
             "GitHub": "development",
             "Vercel": "development",
@@ -485,9 +483,9 @@ class MCPActivationSystem:
             "OpenAI": "ai",
             "Anthropic": "ai"
         }
-        
+
         return category_map.get(service, "general")
-    
+
     async def _create_connector_config(self, connector: MCPConnector, connector_dir: Path):
         """Create connector configuration file"""
         config = {
@@ -512,12 +510,12 @@ class MCPActivationSystem:
             "environment_variables": self._get_required_env_vars(connector),
             "created_at": datetime.now().isoformat()
         }
-        
+
         config_path = connector_dir / "config.json"
         async with aiofiles.open(config_path, 'w') as f:
             await f.write(json.dumps(config, indent=2))
-    
-    def _get_required_env_vars(self, connector: MCPConnector) -> List[str]:
+
+    def _get_required_env_vars(self, connector: MCPConnector) -> list[str]:
         """Get required environment variables for connector"""
         env_var_map = {
             "gmail_mcp": ["GMAIL_CLIENT_ID", "GMAIL_CLIENT_SECRET"],
@@ -541,9 +539,9 @@ class MCPActivationSystem:
             "openai_mcp": ["OPENAI_API_KEY"],
             "anthropic_mcp": ["ANTHROPIC_API_KEY"]
         }
-        
+
         return env_var_map.get(connector.name, [])
-    
+
     async def _create_connector_implementation(self, connector: MCPConnector, connector_dir: Path):
         """Create basic connector implementation"""
         implementation = f'''#!/usr/bin/env python3
@@ -657,29 +655,29 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 '''
-        
+
         impl_path = connector_dir / f"{connector.name}.py"
         async with aiofiles.open(impl_path, 'w') as f:
             await f.write(implementation)
-    
+
     async def _install_connector_dependencies(self, connector: MCPConnector):
         """Install connector dependencies"""
         if not connector.dependencies:
             return
-        
+
         try:
             # Create requirements file
             requirements_path = self.mcp_path / f"{connector.name}_requirements.txt"
             async with aiofiles.open(requirements_path, 'w') as f:
                 await f.write('\\n'.join(connector.dependencies))
-            
+
             # Install dependencies (in production, use virtual environments)
             logger.info(f"📦 Installing dependencies for {connector.name}...")
             # subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(requirements_path)])
-            
+
         except Exception as e:
             logger.warning(f"⚠️ Failed to install dependencies for {connector.name}: {e}")
-    
+
     async def _create_connector_startup_script(self, connector: MCPConnector, connector_dir: Path):
         """Create connector startup script"""
         startup_script = f'''#!/bin/bash
@@ -696,14 +694,14 @@ python {connector.name}.py
 
 echo "🛑 {connector.service} MCP Connector stopped"
 '''
-        
+
         script_path = connector_dir / "start.sh"
         async with aiofiles.open(script_path, 'w') as f:
             await f.write(startup_script)
-        
+
         # Make script executable
         script_path.chmod(0o755)
-    
+
     async def _generate_mcp_registry(self):
         """Generate comprehensive MCP registry"""
         registry = {
@@ -735,24 +733,24 @@ echo "🛑 {connector.service} MCP Connector stopped"
                 "configuration": "Configure API keys and settings through environment variables"
             }
         }
-        
+
         registry_path = self.mcp_path / "mcp_registry.json"
         async with aiofiles.open(registry_path, 'w') as f:
             await f.write(json.dumps(registry, indent=2))
-        
+
         logger.info(f"📋 MCP registry generated: {registry_path}")
-    
-    async def generate_activation_report(self) -> Dict[str, Any]:
+
+    async def generate_activation_report(self) -> dict[str, Any]:
         """Generate comprehensive activation report"""
         successful = [r for r in self.activation_results if r.status == "activated"]
         failed = [r for r in self.activation_results if r.status == "failed"]
-        
+
         # Category breakdown
         category_stats = {}
         for connector in self.active_connectors.values():
             category = self._get_connector_category(connector.service)
             category_stats[category] = category_stats.get(category, 0) + 1
-        
+
         report = {
             "activation_summary": {
                 "total_connectors": len(self.mcp_connectors),
@@ -771,29 +769,29 @@ echo "🛑 {connector.service} MCP Connector stopped"
             "failed_activations": [asdict(r) for r in failed],
             "next_steps": [
                 "Configure API keys for connectors requiring authentication",
-                "Test connector health checks and capability execution", 
+                "Test connector health checks and capability execution",
                 "Integrate connectors with main orchestration system",
                 "Set up monitoring and alerting for connector health"
             ],
             "generated_at": datetime.now().isoformat()
         }
-        
+
         report_path = self.mcp_path / "activation_report.json"
         async with aiofiles.open(report_path, 'w') as f:
             await f.write(json.dumps(report, indent=2))
-        
+
         return report
 
 async def main():
     """Main MCP activation process"""
     activator = MCPActivationSystem()
-    
+
     # Activate all MCP connectors
     activation_results = await activator.activate_all_mcp_connectors()
-    
+
     # Generate comprehensive report
     report = await activator.generate_activation_report()
-    
+
     print("\\n🎉 MCP INTEGRATION ACTIVATION COMPLETE!")
     print("=" * 60)
     print(f"📊 Total Connectors: {report['activation_summary']['total_connectors']}")

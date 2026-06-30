@@ -1,6 +1,8 @@
-import httpx
-from .base import get_brave_client
 import logging
+
+import httpx
+
+from .base import get_brave_client
 
 # Configure logging
 logger = logging.getLogger(__name__)

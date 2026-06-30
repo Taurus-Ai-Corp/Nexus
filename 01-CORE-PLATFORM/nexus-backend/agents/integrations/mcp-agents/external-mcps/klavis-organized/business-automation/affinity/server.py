@@ -1,14 +1,13 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from contextvars import ContextVar
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,16 +15,31 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
     auth_token_context,
+    get_a_single_list_entry_on_a_list,
+    get_all_companies,
+    get_all_list_entries_on_a_list,
+    get_all_notes,
+    get_all_opportunities,
+    get_all_persons,
+    get_company_fields_metadata,
+    get_company_list_entries,
+    get_company_lists,
     get_current_user,
-    get_all_list_entries_on_a_list, get_metadata_on_all_lists, get_metadata_on_a_single_list, get_metadata_on_a_single_list_fields, get_a_single_list_entry_on_a_list,
-    get_all_persons, get_single_person, get_person_fields_metadata, get_person_lists, get_person_list_entries, search_persons,
-    get_all_companies, get_single_company, get_company_fields_metadata, get_company_lists, get_company_list_entries, search_organizations,
-    get_all_opportunities, get_single_opportunity, search_opportunities,
-    get_all_notes, get_specific_note
+    get_metadata_on_a_single_list,
+    get_metadata_on_a_single_list_fields,
+    get_metadata_on_all_lists,
+    get_person_fields_metadata,
+    get_person_list_entries,
+    get_person_lists,
+    get_single_company,
+    get_single_opportunity,
+    get_single_person,
+    get_specific_note,
+    search_opportunities,
+    search_organizations,
+    search_persons,
 )
 
 # Configure logging
@@ -38,7 +52,7 @@ AFFINITY_MCP_SERVER_PORT = int(os.getenv("AFFINITY_MCP_SERVER_PORT", "5000"))
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -52,10 +66,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -632,7 +646,7 @@ def main(
     async def call_tool(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
-        
+
         # Auth
         if name == "affinity_get_current_user":
             try:
@@ -651,7 +665,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Lists
         elif name == "affinity_get_all_list_entries_on_a_list":
             list_id = arguments.get("list_id")
@@ -662,12 +676,12 @@ def main(
                         text="Error: list_id parameter is required",
                     )
                 ]
-            
+
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
             field_ids = arguments.get("field_ids")
             field_types = arguments.get("field_types")
-            
+
             try:
                 result = await get_all_list_entries_on_a_list(list_id, cursor, limit, field_ids, field_types)
                 return [
@@ -684,11 +698,11 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_metadata_on_all_lists":
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
-            
+
             try:
                 result = await get_metadata_on_all_lists(cursor, limit)
                 return [
@@ -705,7 +719,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_metadata_on_a_single_list":
             list_id = arguments.get("list_id")
             if not list_id:
@@ -715,7 +729,7 @@ def main(
                         text="Error: list_id parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await get_metadata_on_a_single_list(list_id)
                 return [
@@ -732,7 +746,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_metadata_on_a_single_list_fields":
             list_id = arguments.get("list_id")
             if not list_id:
@@ -742,10 +756,10 @@ def main(
                         text="Error: list_id parameter is required",
                     )
                 ]
-            
+
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
-            
+
             try:
                 result = await get_metadata_on_a_single_list_fields(list_id, cursor, limit)
                 return [
@@ -762,7 +776,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_a_single_list_entry_on_a_list":
             list_id = arguments.get("list_id")
             list_entry_id = arguments.get("list_entry_id")
@@ -773,10 +787,10 @@ def main(
                         text="Error: list_id and list_entry_id parameters are required",
                     )
                 ]
-            
+
             field_ids = arguments.get("field_ids")
             field_types = arguments.get("field_types")
-            
+
             try:
                 result = await get_a_single_list_entry_on_a_list(list_id, list_entry_id, field_ids, field_types)
                 return [
@@ -793,7 +807,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Persons
         elif name == "affinity_get_all_persons":
             cursor = arguments.get("cursor")
@@ -801,7 +815,7 @@ def main(
             ids = arguments.get("ids")
             field_ids = arguments.get("field_ids")
             field_types = arguments.get("field_types")
-            
+
             try:
                 result = await get_all_persons(cursor, limit, ids, field_ids, field_types)
                 return [
@@ -818,7 +832,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_single_person":
             person_id = arguments.get("person_id")
             if not person_id:
@@ -828,10 +842,10 @@ def main(
                         text="Error: person_id parameter is required",
                     )
                 ]
-            
+
             field_ids = arguments.get("field_ids")
             field_types = arguments.get("field_types")
-            
+
             try:
                 result = await get_single_person(person_id, field_ids, field_types)
                 return [
@@ -848,11 +862,11 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_person_fields_metadata":
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
-            
+
             try:
                 result = await get_person_fields_metadata(cursor, limit)
                 return [
@@ -869,7 +883,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_person_lists":
             person_id = arguments.get("person_id")
             if not person_id:
@@ -879,10 +893,10 @@ def main(
                         text="Error: person_id parameter is required",
                     )
                 ]
-            
+
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
-            
+
             try:
                 result = await get_person_lists(person_id, cursor, limit)
                 return [
@@ -899,7 +913,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_person_list_entries":
             person_id = arguments.get("person_id")
             if not person_id:
@@ -909,10 +923,10 @@ def main(
                         text="Error: person_id parameter is required",
                     )
                 ]
-            
+
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
-            
+
             try:
                 result = await get_person_list_entries(person_id, cursor, limit)
                 return [
@@ -929,7 +943,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Companies
         elif name == "affinity_get_all_companies":
             cursor = arguments.get("cursor")
@@ -937,7 +951,7 @@ def main(
             ids = arguments.get("ids")
             field_ids = arguments.get("field_ids")
             field_types = arguments.get("field_types")
-            
+
             try:
                 result = await get_all_companies(cursor, limit, ids, field_ids, field_types)
                 return [
@@ -954,7 +968,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_single_company":
             company_id = arguments.get("company_id")
             if not company_id:
@@ -964,10 +978,10 @@ def main(
                         text="Error: company_id parameter is required",
                     )
                 ]
-            
+
             field_ids = arguments.get("field_ids")
             field_types = arguments.get("field_types")
-            
+
             try:
                 result = await get_single_company(company_id, field_ids, field_types)
                 return [
@@ -984,11 +998,11 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_company_fields_metadata":
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
-            
+
             try:
                 result = await get_company_fields_metadata(cursor, limit)
                 return [
@@ -1005,7 +1019,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_company_lists":
             company_id = arguments.get("company_id")
             if not company_id:
@@ -1015,10 +1029,10 @@ def main(
                         text="Error: company_id parameter is required",
                     )
                 ]
-            
+
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
-            
+
             try:
                 result = await get_company_lists(company_id, cursor, limit)
                 return [
@@ -1035,7 +1049,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_company_list_entries":
             company_id = arguments.get("company_id")
             if not company_id:
@@ -1045,10 +1059,10 @@ def main(
                         text="Error: company_id parameter is required",
                     )
                 ]
-            
+
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
-            
+
             try:
                 result = await get_company_list_entries(company_id, cursor, limit)
                 return [
@@ -1066,13 +1080,13 @@ def main(
                     )
                 ]
 
-        
+
         # Opportunities
         elif name == "affinity_get_all_opportunities":
             cursor = arguments.get("cursor")
             limit = arguments.get("limit")
             ids = arguments.get("ids")
-            
+
             try:
                 result = await get_all_opportunities(cursor, limit, ids)
                 return [
@@ -1089,7 +1103,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_single_opportunity":
             opportunity_id = arguments.get("opportunity_id")
             if not opportunity_id:
@@ -1115,7 +1129,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Search Tools
         elif name == "affinity_search_persons":
             term = arguments.get("term")
@@ -1125,7 +1139,7 @@ def main(
             with_current_organizations = arguments.get("with_current_organizations")
             page_size = arguments.get("page_size")
             page_token = arguments.get("page_token")
-            
+
             try:
                 result = await search_persons(term, with_interaction_dates, with_interaction_persons, with_opportunities, with_current_organizations, page_size, page_token)
                 return [
@@ -1142,7 +1156,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_search_organizations":
             term = arguments.get("term")
             with_interaction_dates = arguments.get("with_interaction_dates")
@@ -1150,7 +1164,7 @@ def main(
             with_opportunities = arguments.get("with_opportunities")
             page_size = arguments.get("page_size")
             page_token = arguments.get("page_token")
-            
+
             try:
                 result = await search_organizations(term, with_interaction_dates, with_interaction_persons, with_opportunities, page_size, page_token)
                 return [
@@ -1167,12 +1181,12 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_search_opportunities":
             term = arguments.get("term")
             page_size = arguments.get("page_size")
             page_token = arguments.get("page_token")
-            
+
             try:
                 result = await search_opportunities(term, page_size, page_token)
                 return [
@@ -1189,7 +1203,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Notes
         elif name == "affinity_get_all_notes":
             person_id = arguments.get("person_id")
@@ -1197,10 +1211,10 @@ def main(
             opportunity_id = arguments.get("opportunity_id")
             page_size = arguments.get("page_size")
             page_token = arguments.get("page_token")
-            
+
             try:
                 result = await get_all_notes(person_id, organization_id, opportunity_id, page_size, page_token)
-                
+
                 if isinstance(result, dict) and "error" in result:
                     return [
                         types.TextContent(
@@ -1208,7 +1222,7 @@ def main(
                             text=f"API Error: {result.get('error', 'Unknown error occurred')}",
                         )
                     ]
-                
+
                 if isinstance(result, dict) and "data" in result and result.get("data") is None:
                     return [
                         types.TextContent(
@@ -1216,7 +1230,7 @@ def main(
                             text="No notes found for the specified criteria. The API returned an empty result.",
                         )
                     ]
-                    
+
                 return [
                     types.TextContent(
                         type="text",
@@ -1231,7 +1245,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "affinity_get_specific_note":
             note_id = arguments.get("note_id")
             if not note_id:
@@ -1258,7 +1272,7 @@ def main(
                     )
                 ]
 
-        
+
         else:
             return [
                 types.TextContent(
@@ -1272,10 +1286,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -1287,7 +1301,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -1302,10 +1316,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -1330,7 +1344,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -1348,4 +1362,4 @@ def main(
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

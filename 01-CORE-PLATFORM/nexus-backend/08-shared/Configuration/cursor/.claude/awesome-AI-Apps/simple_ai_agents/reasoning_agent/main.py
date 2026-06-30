@@ -1,8 +1,9 @@
+import os
 from textwrap import dedent
+
 from agno.agent import Agent
 from agno.models.nebius import Nebius
 from agno.tools.reasoning import ReasoningTools
-import os
 from dotenv import load_dotenv
 
 load_dotenv()

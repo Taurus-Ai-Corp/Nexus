@@ -1,6 +1,7 @@
-import httpx
-import logging
 import json
+import logging
+
+import httpx
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -44,7 +45,7 @@ async def hackerNews_topstories_ids() -> list:
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
             response.raise_for_status()  # Raise an exception for 4xx/5xx responses
-            logger.info(f"Successfully fetched item")
+            logger.info("Successfully fetched item")
             return response.json()  # This returns a dict
     except httpx.RequestError as e:
         logger.error(f"Could not get topstories: {e}")
@@ -69,7 +70,7 @@ async def hackerNews_newstories_ids() -> list:
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
             response.raise_for_status()  # Raise an exception for 4xx/5xx responses
-            logger.info(f"Successfully fetched item")
+            logger.info("Successfully fetched item")
             return response.json()  # This returns a dict
     except httpx.RequestError as e:
         logger.error(f"Could not get newstories: {e}")
@@ -94,7 +95,7 @@ async def hackerNews_askstories_ids() -> list:
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
             response.raise_for_status()  # Raise an exception for 4xx/5xx responses
-            logger.info(f"Successfully fetched item")
+            logger.info("Successfully fetched item")
             return response.json()  # This returns a dict
     except httpx.RequestError as e:
         logger.error(f"Could not get askstories: {e}")
@@ -119,7 +120,7 @@ async def hackerNews_showstories_ids() -> list:
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
             response.raise_for_status()  # Raise an exception for 4xx/5xx responses
-            logger.info(f"Successfully fetched item")
+            logger.info("Successfully fetched item")
             return response.json()  # This returns a dict
     except httpx.RequestError as e:
         logger.error(f"Could not get showstories: {e}")
@@ -144,7 +145,7 @@ async def hackerNews_jobstories_ids() -> list:
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
             response.raise_for_status()  # Raise an exception for 4xx/5xx responses
-            logger.info(f"Successfully fetched item")
+            logger.info("Successfully fetched item")
             return response.json()  # This returns a dict
     except httpx.RequestError as e:
         logger.error(f"Could not get jobstories: {e}")
@@ -169,7 +170,7 @@ async def hackerNews_updates_ids() -> dict:
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
             response.raise_for_status()  # Raise an exception for 4xx/5xx responses
-            logger.info(f"Successfully fetched item")
+            logger.info("Successfully fetched item")
             return response.json()  # This returns a dict
     except httpx.RequestError as e:
         logger.error(f"Could not get updates: {e}")
@@ -194,7 +195,7 @@ async def hackerNews_beststories_ids() -> list:
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
             response.raise_for_status()  # Raise an exception for 4xx/5xx responses
-            logger.info(f"Successfully fetched item")
+            logger.info("Successfully fetched item")
             return response.json()  # This returns a dict
     except httpx.RequestError as e:
         logger.error(f"Could not get beststories: {e}")

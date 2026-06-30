@@ -1,7 +1,7 @@
 import logging
 import os
 from contextvars import ContextVar
-from typing import Optional
+
 from dotenv import load_dotenv
 
 # Load env vars from .env
@@ -32,7 +32,7 @@ def get_auth_token() -> str:
             raise RuntimeError("No Brave auth token found in context or environment")
         return token
 
-def get_brave_client() -> Optional[dict]:
+def get_brave_client() -> dict | None:
     """
     Return a Brave client config (e.g., base_url and headers) ready to use.
     """

@@ -1,1 +1,1 @@
-# Close CRM MCP Server 
+# Close CRM MCP Server

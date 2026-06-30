@@ -1,17 +1,12 @@
-import json
-from tabnanny import verbose
+import os
 from textwrap import dedent
-from typing import Dict, AsyncIterator, Optional, List, Any
+
 from agno.agent import Agent
 from agno.models.nebius import Nebius
 from agno.storage.sqlite import SqliteStorage
-from agno.utils.log import logger
-import os
-from agno.utils.pprint import pprint_run_response
-from dotenv import load_dotenv
-import asyncio
 from agno.tools.firecrawl import FirecrawlTools
-from agno.tools.reasoning import ReasoningTools
+from agno.utils.log import logger
+from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
@@ -152,14 +147,14 @@ def NewsletterGenerator(topic: str, search_limit: int = 5, time_range: str = "qd
         search_limit (int): Maximum number of articles to search and analyze
         time_range (str): Time range for article search (e.g., "qdr:w" for past week)
     """
-    
+
     try:
         # Update search parameters
         newsletter_agent.tools[0].search_params.update({
             "limit": search_limit,
             "tbs": time_range
         })
-        
+
         response = newsletter_agent.run(topic)
         return response
     except Exception as e:

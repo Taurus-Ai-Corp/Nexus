@@ -3,18 +3,19 @@ Usage tracking and user profile tools for OpenRouter MCP Server.
 """
 
 import logging
-from typing import Dict, Any, Optional
-from datetime import datetime, date
-from .base import get_client, validate_required_params, OpenRouterToolExecutionError
+from datetime import datetime
+from typing import Any
+
+from .base import OpenRouterToolExecutionError, get_client, validate_required_params
 
 logger = logging.getLogger(__name__)
 
 
 async def get_usage(
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
-    limit: Optional[int] = 100,
-) -> Dict[str, Any]:
+    start_date: str | None = None,
+    end_date: str | None = None,
+    limit: int | None = 100,
+) -> dict[str, Any]:
     """
     Get usage statistics for the authenticated user.
     
@@ -33,7 +34,7 @@ async def get_usage(
                 additional_prompt_content="Limit must be between 1 and 1000.",
                 developer_message=f"Invalid limit: {limit}",
             )
-        
+
         if start_date:
             try:
                 datetime.strptime(start_date, "%Y-%m-%d")
@@ -43,7 +44,7 @@ async def get_usage(
                     additional_prompt_content="Start date must be in YYYY-MM-DD format.",
                     developer_message=f"Invalid start_date format: {start_date}",
                 )
-        
+
         if end_date:
             try:
                 datetime.strptime(end_date, "%Y-%m-%d")
@@ -53,9 +54,9 @@ async def get_usage(
                     additional_prompt_content="End date must be in YYYY-MM-DD format.",
                     developer_message=f"Invalid end_date format: {end_date}",
                 )
-        
+
         client = get_client()
-        
+
         params = {}
         if start_date:
             params["start_date"] = start_date
@@ -63,11 +64,11 @@ async def get_usage(
             params["end_date"] = end_date
         if limit is not None:
             params["limit"] = limit
-        
+
         response = await client.get("/auth/key", params=params)
-        
-        logger.info(f"Successfully retrieved usage statistics")
-        
+
+        logger.info("Successfully retrieved usage statistics")
+
         return {
             "success": True,
             "data": response,
@@ -80,7 +81,7 @@ async def get_usage(
                 "currency": "USD",
             },
         }
-        
+
     except OpenRouterToolExecutionError:
         raise
     except Exception as e:
@@ -92,7 +93,7 @@ async def get_usage(
         )
 
 
-async def get_user_profile() -> Dict[str, Any]:
+async def get_user_profile() -> dict[str, Any]:
     """
     Get the current user's profile information.
     
@@ -101,11 +102,11 @@ async def get_user_profile() -> Dict[str, Any]:
     """
     try:
         client = get_client()
-        
+
         response = await client.get("/auth/key")
-        
+
         logger.info("Successfully retrieved user profile")
-        
+
         return {
             "success": True,
             "data": response,
@@ -118,7 +119,7 @@ async def get_user_profile() -> Dict[str, Any]:
                 "created_at": response.get("created_at"),
             },
         }
-        
+
     except OpenRouterToolExecutionError:
         raise
     except Exception as e:
@@ -130,7 +131,7 @@ async def get_user_profile() -> Dict[str, Any]:
         )
 
 
-async def get_credits() -> Dict[str, Any]:
+async def get_credits() -> dict[str, Any]:
     """
     Get the current user's credit balance.
     
@@ -139,17 +140,17 @@ async def get_credits() -> Dict[str, Any]:
     """
     try:
         client = get_client()
-        
+
         # Use the correct endpoint as per OpenRouter API documentation
         response = await client.get("/credits")
-        
+
         # Extract data from response according to API spec
         data = response.get("data", {})
         total_credits = data.get("total_credits", 0)
         total_usage = data.get("total_usage", 0)
-        
+
         logger.info(f"Successfully retrieved credit balance: {total_credits} credits, {total_usage} used")
-        
+
         return {
             "success": True,
             "total_credits": total_credits,
@@ -158,7 +159,7 @@ async def get_credits() -> Dict[str, Any]:
             "currency": "USD",
             "data": response,
         }
-        
+
     except OpenRouterToolExecutionError:
         raise
     except Exception as e:
@@ -170,7 +171,7 @@ async def get_credits() -> Dict[str, Any]:
         )
 
 
-async def get_api_key_info() -> Dict[str, Any]:
+async def get_api_key_info() -> dict[str, Any]:
     """
     Get information about the current API key.
     
@@ -179,11 +180,11 @@ async def get_api_key_info() -> Dict[str, Any]:
     """
     try:
         client = get_client()
-        
+
         response = await client.get("/auth/key")
-        
+
         logger.info("Successfully retrieved API key information")
-        
+
         return {
             "success": True,
             "data": response,
@@ -196,7 +197,7 @@ async def get_api_key_info() -> Dict[str, Any]:
                 "is_active": response.get("is_active", True),
             },
         }
-        
+
     except OpenRouterToolExecutionError:
         raise
     except Exception as e:
@@ -211,8 +212,8 @@ async def get_api_key_info() -> Dict[str, Any]:
 async def get_cost_estimate(
     model: str,
     input_tokens: int,
-    output_tokens: Optional[int] = None,
-) -> Dict[str, Any]:
+    output_tokens: int | None = None,
+) -> dict[str, Any]:
     """
     Estimate the cost for a specific model and token usage.
     
@@ -226,35 +227,35 @@ async def get_cost_estimate(
     """
     try:
         validate_required_params({"model": model, "input_tokens": input_tokens}, ["model", "input_tokens"])
-        
+
         if input_tokens < 0:
             raise OpenRouterToolExecutionError(
                 "Invalid input_tokens parameter",
                 additional_prompt_content="Input tokens must be a non-negative number.",
                 developer_message=f"Invalid input_tokens: {input_tokens}",
             )
-        
+
         if output_tokens is not None and output_tokens < 0:
             raise OpenRouterToolExecutionError(
                 "Invalid output_tokens parameter",
                 additional_prompt_content="Output tokens must be a non-negative number.",
                 developer_message=f"Invalid output_tokens: {output_tokens}",
             )
-        
+
         client = get_client()
-        
+
         model_response = await client.get(f"/models/{model}")
         pricing = model_response.get("pricing", {})
-        
+
         input_cost_per_1k = pricing.get("input", 0)
         output_cost_per_1k = pricing.get("output", 0)
-        
+
         input_cost = (input_tokens / 1000) * input_cost_per_1k
         output_cost = (output_tokens or 0) / 1000 * output_cost_per_1k
         total_cost = input_cost + output_cost
-        
+
         logger.info(f"Cost estimate for {model}: ${total_cost:.6f}")
-        
+
         return {
             "success": True,
             "model": model,
@@ -271,7 +272,7 @@ async def get_cost_estimate(
                 "currency": "USD",
             },
         }
-        
+
     except OpenRouterToolExecutionError:
         raise
     except Exception as e:
@@ -280,4 +281,4 @@ async def get_cost_estimate(
             f"Failed to estimate cost: {str(e)}",
             additional_prompt_content="There was an error estimating the cost. Please check the model ID and try again.",
             developer_message=f"Unexpected error: {str(e)}",
-        ) 
+        )

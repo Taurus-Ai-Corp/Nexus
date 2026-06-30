@@ -1,12 +1,12 @@
 import logging
-from typing import Any, Dict
+from typing import Any
 
 from .auth import get_tavily_client
 
 logger = logging.getLogger(__name__)
 
 
-def tavily_map(arguments: Dict[str, Any]) -> Dict[str, Any]:
+def tavily_map(arguments: dict[str, Any]) -> dict[str, Any]:
     """
     Generate Website Map — discover reachable URLs from a root without heavy extraction.
     Expected args include: url (required), max_depth, max_breadth, limit,
@@ -18,7 +18,7 @@ def tavily_map(arguments: Dict[str, Any]) -> Dict[str, Any]:
     if not url:
         raise RuntimeError("Parameter 'url' is required for tavily_map")
 
-    params: Dict[str, Any] = {
+    params: dict[str, Any] = {
         "url": url,
         "max_depth": arguments.get("max_depth", 1),
         "max_breadth": arguments.get("max_breadth", 20),

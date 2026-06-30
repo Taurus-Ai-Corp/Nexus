@@ -1,21 +1,20 @@
-import os
 import base64
-import json
-import uuid
-import logging
 import contextlib
+import json
+import logging
+import os
+import uuid
 from collections.abc import AsyncIterator
-from typing import List, Optional, Dict, Any
 from contextvars import ContextVar
 
 import click
+import mcp.types as types
 from dotenv import load_dotenv
-from googleapiclient.discovery import build
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request as GoogleRequest
 from google.oauth2 import service_account
-import mcp.types as types
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -40,7 +39,7 @@ auth_token_context: ContextVar[str] = ContextVar('auth_token')
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -54,10 +53,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -100,12 +99,12 @@ def get_credentials():
     if os.path.exists('service-account.json'):
         return service_account.Credentials.from_service_account_file(
             'service-account.json', scopes=SCOPES)
-    
+
     # Check if we have saved credentials
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_info(
             json.loads(open('token.json').read()), SCOPES)
-    
+
     # If there are no valid credentials, or they're expired
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -118,11 +117,11 @@ def get_credentials():
                 creds = flow.run_local_server(port=0)
             else:
                 raise Exception("No credentials found. Please set up credentials.")
-        
+
         # Save the credentials
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
-    
+
     return creds
 
 async def create_presentation(title: str) -> str:
@@ -138,20 +137,20 @@ async def create_presentation(title: str) -> str:
     try:
         creds = get_credentials()
         service = build('slides', 'v1', credentials=creds)
-        
+
         presentation = {
             'title': title
         }
-        
+
         presentation = service.presentations().create(body=presentation).execute()
         presentation_id = presentation.get('presentationId')
-        
+
         return f"Presentation created: https://docs.google.com/presentation/d/{presentation_id}/edit"
     except Exception as e:
         logger.error(f"Error creating presentation: {e}")
         return f"Error creating presentation: {str(e)}"
 
-async def add_slide(presentation_id: str, title: Optional[str] = None, content: Optional[str] = None) -> str:
+async def add_slide(presentation_id: str, title: str | None = None, content: str | None = None) -> str:
     """
     Adds a new slide to an existing presentation.
     
@@ -166,7 +165,7 @@ async def add_slide(presentation_id: str, title: Optional[str] = None, content: 
     try:
         creds = get_credentials()
         service = build('slides', 'v1', credentials=creds)
-        
+
         # Create a blank slide
         requests = [
             {
@@ -179,18 +178,18 @@ async def add_slide(presentation_id: str, title: Optional[str] = None, content: 
                 }
             }
         ]
-        
+
         response = service.presentations().batchUpdate(
             presentationId=presentation_id,
             body={'requests': requests}
         ).execute()
-        
+
         slide_id = response.get('replies', [{}])[0].get('createSlide', {}).get('objectId')
-        
+
         # If title or content provided, add them in a second request
         if title or content:
             content_requests = []
-            
+
             if title:
                 content_requests.append({
                     'insertText': {
@@ -199,7 +198,7 @@ async def add_slide(presentation_id: str, title: Optional[str] = None, content: 
                         'text': title
                     }
                 })
-            
+
             if content:
                 content_requests.append({
                     'insertText': {
@@ -208,13 +207,13 @@ async def add_slide(presentation_id: str, title: Optional[str] = None, content: 
                         'text': content
                     }
                 })
-                
+
             if content_requests:
                 service.presentations().batchUpdate(
                     presentationId=presentation_id,
                     body={'requests': content_requests}
                 ).execute()
-        
+
         return f"Slide added to presentation: https://docs.google.com/presentation/d/{presentation_id}/edit"
     except Exception as e:
         logger.error(f"Error adding slide: {e}")
@@ -230,29 +229,29 @@ async def list_presentations() -> str:
     try:
         creds = get_credentials()
         drive_service = build('drive', 'v3', credentials=creds)
-        
+
         # Query for Google Slides files
         results = drive_service.files().list(
             q="mimeType='application/vnd.google-apps.presentation'",
             pageSize=10,
             fields="files(id, name, webViewLink)"
         ).execute()
-        
+
         presentations = results.get('files', [])
-        
+
         if not presentations:
             return "No presentations found."
-        
+
         result = "Available presentations:\n\n"
         for p in presentations:
             result += f"- {p.get('name')}: {p.get('webViewLink')}\n"
-        
+
         return result
     except Exception as e:
         logger.error(f"Error listing presentations: {e}")
         return f"Error listing presentations: {str(e)}"
-        
-async def get_presentation(presentation_id: str, fields: Optional[str] = None) -> str:
+
+async def get_presentation(presentation_id: str, fields: str | None = None) -> str:
     """
     Retrieves detailed information about a specific presentation.
     
@@ -266,17 +265,17 @@ async def get_presentation(presentation_id: str, fields: Optional[str] = None) -
     try:
         creds = get_credentials()
         service = build('slides', 'v1', credentials=creds)
-        
+
         # Set default fields if none specified
         if not fields:
             fields = "presentationId,title,revisionId,slides,pageSize"
-            
+
         # Retrieve the presentation
         presentation = service.presentations().get(
             presentationId=presentation_id,
             fields=fields
         ).execute()
-        
+
         # Format the response
         title = presentation.get('title', 'Untitled')
         slide_count = len(presentation.get('slides', []))
@@ -284,25 +283,25 @@ async def get_presentation(presentation_id: str, fields: Optional[str] = None) -
         page_size = presentation.get('pageSize', {})
         width = page_size.get('width', {}).get('magnitude', 0)
         height = page_size.get('height', {}).get('magnitude', 0)
-        
+
         result = f"Presentation: {title}\n"
         result += f"ID: {presentation_id}\n"
         result += f"Slides: {slide_count}\n"
         result += f"Revision ID: {revision_id}\n"
         result += f"Page Size: {width}x{height}\n\n"
-        
+
         if 'slides' in fields.split(',') and slide_count > 0:
             result += "Slide Overview:\n"
             for i, slide in enumerate(presentation.get('slides', [])):
                 slide_id = slide.get('objectId', 'Unknown')
                 result += f"Slide {i+1} (ID: {slide_id})\n"
-        
+
         return result
     except Exception as e:
         logger.error(f"Error retrieving presentation: {e}")
         return f"Error retrieving presentation: {str(e)}"
-        
-async def batch_update_presentation(presentation_id: str, requests: List[Dict]) -> str:
+
+async def batch_update_presentation(presentation_id: str, requests: list[dict]) -> str:
     """
     Applies a series of updates to a presentation.
     This is the primary method for modifying slides (adding text, shapes, images, creating slides, etc.)
@@ -317,29 +316,29 @@ async def batch_update_presentation(presentation_id: str, requests: List[Dict]) 
     try:
         creds = get_credentials()
         service = build('slides', 'v1', credentials=creds)
-        
+
         # Execute the batch update
         response = service.presentations().batchUpdate(
             presentationId=presentation_id,
             body={'requests': requests}
         ).execute()
-        
+
         # Format the response
         replies = response.get('replies', [])
         result = f"Successfully applied {len(replies)} updates to presentation\n"
         result += f"Presentation URL: https://docs.google.com/presentation/d/{presentation_id}/edit\n\n"
-        
+
         # Add information about created slides if any
-        created_slides = [r.get('createSlide', {}).get('objectId') 
+        created_slides = [r.get('createSlide', {}).get('objectId')
                          for r in replies if 'createSlide' in r]
         if created_slides:
             result += f"Created {len(created_slides)} new slides with IDs: {', '.join(created_slides)}\n"
-        
+
         return result
     except Exception as e:
         logger.error(f"Error updating presentation: {e}")
         return f"Error updating presentation: {str(e)}"
-        
+
 async def summarize_presentation(presentation_id: str, include_notes: bool = False) -> str:
     """
     Extracts and formats all text content from a presentation for easier summarization.
@@ -354,65 +353,65 @@ async def summarize_presentation(presentation_id: str, include_notes: bool = Fal
     try:
         creds = get_credentials()
         service = build('slides', 'v1', credentials=creds)
-        
+
         # Retrieve the presentation with all text elements
         presentation = service.presentations().get(
             presentationId=presentation_id
         ).execute()
-        
+
         title = presentation.get('title', 'Untitled')
         slides = presentation.get('slides', [])
-        
+
         result = f"Summary of: {title}\n"
         result += f"Total Slides: {len(slides)}\n\n"
-        
+
         # Process each slide
         for i, slide in enumerate(slides):
             slide_id = slide.get('objectId', 'Unknown')
             result += f"Slide {i+1} (ID: {slide_id}):\n"
-            
+
             # Extract text from text elements
             text_elements = []
             page_elements = slide.get('pageElements', [])
-            
+
             for element in page_elements:
                 if 'shape' in element and 'text' in element['shape']:
                     shape_text = ""
                     text_runs = element['shape']['text'].get('textElements', [])
-                    
+
                     for text_run in text_runs:
                         if 'textRun' in text_run and 'content' in text_run['textRun']:
                             shape_text += text_run['textRun']['content']
-                    
+
                     if shape_text.strip():
                         text_elements.append(shape_text.strip())
-            
+
             # Add the text content
             if text_elements:
                 for text in text_elements:
                     result += f"  {text}\n"
             else:
                 result += "  [No text content]\n"
-            
+
             # Add speaker notes if requested
             if include_notes and 'slideProperties' in slide and 'notesPage' in slide['slideProperties']:
                 notes_page = slide['slideProperties']['notesPage']
                 notes_text = ""
-                
+
                 if 'pageElements' in notes_page:
                     for element in notes_page['pageElements']:
                         if 'shape' in element and 'text' in element['shape']:
                             text_runs = element['shape']['text'].get('textElements', [])
-                            
+
                             for text_run in text_runs:
                                 if 'textRun' in text_run and 'content' in text_run['textRun']:
                                     notes_text += text_run['textRun']['content']
-                
+
                 if notes_text.strip():
                     result += f"  Notes: {notes_text.strip()}\n"
-            
+
             result += "\n"
-        
+
         return result
     except Exception as e:
         logger.error(f"Error summarizing presentation: {e}")
@@ -559,7 +558,7 @@ def main(
 
         if name == "create_presentation":
             title = arguments.get("title")
-            
+
             if not title:
                 return [
                     types.TextContent(
@@ -567,7 +566,7 @@ def main(
                         text="Error: 'title' parameter is required"
                     )
                 ]
-            
+
             try:
                 result = await create_presentation(title)
                 return [
@@ -584,12 +583,12 @@ def main(
                         text=f"Error: {str(e)}"
                     )
                 ]
-                
+
         elif name == "add_slide":
             presentation_id = arguments.get("presentation_id")
             title = arguments.get("title")
             content = arguments.get("content")
-            
+
             if not presentation_id:
                 return [
                     types.TextContent(
@@ -597,7 +596,7 @@ def main(
                         text="Error: 'presentation_id' parameter is required"
                     )
                 ]
-            
+
             try:
                 result = await add_slide(presentation_id, title, content)
                 return [
@@ -614,7 +613,7 @@ def main(
                         text=f"Error: {str(e)}"
                     )
                 ]
-                
+
         elif name == "list_presentations":
             try:
                 result = await list_presentations()
@@ -632,11 +631,11 @@ def main(
                         text=f"Error: {str(e)}"
                     )
                 ]
-        
+
         elif name == "get_presentation":
             presentation_id = arguments.get("presentation_id")
             fields = arguments.get("fields")
-            
+
             if not presentation_id:
                 return [
                     types.TextContent(
@@ -644,7 +643,7 @@ def main(
                         text="Error: 'presentation_id' parameter is required"
                     )
                 ]
-            
+
             try:
                 result = await get_presentation(presentation_id, fields)
                 return [
@@ -661,11 +660,11 @@ def main(
                         text=f"Error: {str(e)}"
                     )
                 ]
-        
+
         elif name == "batch_update_presentation":
             presentation_id = arguments.get("presentation_id")
             requests = arguments.get("requests")
-            
+
             if not presentation_id:
                 return [
                     types.TextContent(
@@ -673,7 +672,7 @@ def main(
                         text="Error: 'presentation_id' parameter is required"
                     )
                 ]
-            
+
             if not requests:
                 return [
                     types.TextContent(
@@ -681,7 +680,7 @@ def main(
                         text="Error: 'requests' parameter is required"
                     )
                 ]
-            
+
             try:
                 result = await batch_update_presentation(presentation_id, requests)
                 return [
@@ -698,11 +697,11 @@ def main(
                         text=f"Error: {str(e)}"
                     )
                 ]
-        
+
         elif name == "summarize_presentation":
             presentation_id = arguments.get("presentation_id")
             include_notes = arguments.get("include_notes", False)
-            
+
             if not presentation_id:
                 return [
                     types.TextContent(
@@ -710,7 +709,7 @@ def main(
                         text="Error: 'presentation_id' parameter is required"
                     )
                 ]
-            
+
             try:
                 result = await summarize_presentation(presentation_id, include_notes)
                 return [
@@ -740,10 +739,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -755,7 +754,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -770,10 +769,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:

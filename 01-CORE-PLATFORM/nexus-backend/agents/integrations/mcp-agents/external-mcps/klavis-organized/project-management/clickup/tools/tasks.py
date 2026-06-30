@@ -1,5 +1,6 @@
 import logging
-from typing import Any, Dict, Optional, List
+from typing import Any
+
 from .base import make_clickup_request
 
 # Configure logging
@@ -13,17 +14,17 @@ async def get_tasks(
     order_by: str = "created",
     reverse: bool = False,
     subtasks: bool = False,
-    statuses: Optional[List[str]] = None,
+    statuses: list[str] | None = None,
     include_markdown_description: bool = False,
-    assignees: Optional[List[str]] = None,
-    tags: Optional[List[str]] = None,
-    due_date_gt: Optional[int] = None,
-    due_date_lt: Optional[int] = None,
-    date_created_gt: Optional[int] = None,
-    date_created_lt: Optional[int] = None,
-    date_updated_gt: Optional[int] = None,
-    date_updated_lt: Optional[int] = None
-) -> Dict[str, Any]:
+    assignees: list[str] | None = None,
+    tags: list[str] | None = None,
+    due_date_gt: int | None = None,
+    due_date_lt: int | None = None,
+    date_created_gt: int | None = None,
+    date_created_lt: int | None = None,
+    date_updated_gt: int | None = None,
+    date_updated_lt: int | None = None
+) -> dict[str, Any]:
     """Get tasks from a list with optional filtering."""
     logger.info(f"Executing tool: get_tasks with list_id: {list_id}")
     try:
@@ -36,7 +37,7 @@ async def get_tasks(
             "subtasks": str(subtasks).lower(),
             "include_markdown_description": str(include_markdown_description).lower()
         }
-        
+
         if statuses:
             params["statuses[]"] = statuses
         if assignees:
@@ -55,14 +56,14 @@ async def get_tasks(
             params["date_updated_gt"] = date_updated_gt
         if date_updated_lt:
             params["date_updated_lt"] = date_updated_lt
-            
+
         result = await make_clickup_request(f"list/{list_id}/task", params=params)
         return result
     except Exception as e:
         logger.exception(f"Error executing tool get_tasks: {e}")
         raise e
 
-async def get_task_by_id(task_id: str, custom_task_ids: bool = False, team_id: Optional[str] = None, include_subtasks: bool = False) -> Dict[str, Any]:
+async def get_task_by_id(task_id: str, custom_task_ids: bool = False, team_id: str | None = None, include_subtasks: bool = False) -> dict[str, Any]:
     """Get a specific task by ID."""
     logger.info(f"Executing tool: get_task_by_id with task_id: {task_id}")
     try:
@@ -72,7 +73,7 @@ async def get_task_by_id(task_id: str, custom_task_ids: bool = False, team_id: O
         }
         if team_id:
             params["team_id"] = team_id
-            
+
         result = await make_clickup_request(f"task/{task_id}", params=params)
         return result
     except Exception as e:
@@ -82,28 +83,28 @@ async def get_task_by_id(task_id: str, custom_task_ids: bool = False, team_id: O
 async def create_task(
     list_id: str,
     name: str,
-    description: Optional[str] = None,
-    assignees: Optional[List[str]] = None,
-    tags: Optional[List[str]] = None,
-    status: Optional[str] = None,
-    priority: Optional[int] = None,
-    due_date: Optional[int] = None,
+    description: str | None = None,
+    assignees: list[str] | None = None,
+    tags: list[str] | None = None,
+    status: str | None = None,
+    priority: int | None = None,
+    due_date: int | None = None,
     due_date_time: bool = False,
-    time_estimate: Optional[int] = None,
-    start_date: Optional[int] = None,
+    time_estimate: int | None = None,
+    start_date: int | None = None,
     start_date_time: bool = False,
     notify_all: bool = True,
-    parent: Optional[str] = None,
-    links_to: Optional[str] = None,
+    parent: str | None = None,
+    links_to: str | None = None,
     check_required_custom_fields: bool = True,
     custom_task_ids: bool = False,
-    team_id: Optional[str] = None
-) -> Dict[str, Any]:
+    team_id: str | None = None
+) -> dict[str, Any]:
     """Create a new task."""
     logger.info(f"Executing tool: create_task with name: {name}")
     try:
         data = {"name": name}
-        
+
         if description:
             data["description"] = description
         if assignees:
@@ -132,13 +133,13 @@ async def create_task(
             data["links_to"] = links_to
         if check_required_custom_fields is not None:
             data["check_required_custom_fields"] = check_required_custom_fields
-            
+
         params = {
             "custom_task_ids": str(custom_task_ids).lower()
         }
         if team_id:
             params["team_id"] = team_id
-            
+
         result = await make_clickup_request(f"list/{list_id}/task", "POST", data, params)
         return result
     except Exception as e:
@@ -147,26 +148,26 @@ async def create_task(
 
 async def update_task(
     task_id: str,
-    name: Optional[str] = None,
-    description: Optional[str] = None,
-    status: Optional[str] = None,
-    priority: Optional[int] = None,
-    due_date: Optional[int] = None,
-    due_date_time: Optional[bool] = None,
-    parent: Optional[str] = None,
-    time_estimate: Optional[int] = None,
-    start_date: Optional[int] = None,
-    start_date_time: Optional[bool] = None,
-    assignees: Optional[Dict[str, Any]] = None,
-    archived: Optional[bool] = None,
+    name: str | None = None,
+    description: str | None = None,
+    status: str | None = None,
+    priority: int | None = None,
+    due_date: int | None = None,
+    due_date_time: bool | None = None,
+    parent: str | None = None,
+    time_estimate: int | None = None,
+    start_date: int | None = None,
+    start_date_time: bool | None = None,
+    assignees: dict[str, Any] | None = None,
+    archived: bool | None = None,
     custom_task_ids: bool = False,
-    team_id: Optional[str] = None
-) -> Dict[str, Any]:
+    team_id: str | None = None
+) -> dict[str, Any]:
     """Update an existing task."""
     logger.info(f"Executing tool: update_task with task_id: {task_id}")
     try:
         data = {}
-        
+
         if name:
             data["name"] = name
         if description is not None:
@@ -191,13 +192,13 @@ async def update_task(
             data["assignees"] = assignees
         if archived is not None:
             data["archived"] = archived
-            
+
         params = {
             "custom_task_ids": str(custom_task_ids).lower()
         }
         if team_id:
             params["team_id"] = team_id
-            
+
         result = await make_clickup_request(f"task/{task_id}", "PUT", data, params)
         return result
     except Exception as e:
@@ -209,7 +210,7 @@ async def search_tasks(
     query: str,
     start: int = 0,
     limit: int = 20
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Search for tasks by text query."""
     logger.info(f"Executing tool: search_tasks with query: {query}")
     try:
@@ -218,9 +219,9 @@ async def search_tasks(
             "start": start,
             "limit": limit
         }
-        
+
         result = await make_clickup_request(f"team/{team_id}/task", params=params)
         return result
     except Exception as e:
         logger.exception(f"Error executing tool search_tasks: {e}")
-        raise e 
+        raise e

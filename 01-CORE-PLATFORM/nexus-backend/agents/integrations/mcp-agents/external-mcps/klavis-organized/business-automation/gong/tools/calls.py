@@ -1,16 +1,16 @@
 import logging
-from datetime import datetime, timezone, timedelta
-from typing import Any, Dict, Optional, List
+from datetime import datetime, timedelta, timezone
+from typing import Any
 
 from .base import get, post
 
 logger = logging.getLogger(__name__)
 
 async def list_calls(
-    from_date: Optional[str] = None,
-    to_date: Optional[str] = None,
+    from_date: str | None = None,
+    to_date: str | None = None,
     limit: int = 50,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """List calls in Gong between two datetimes (inclusive).
 
     If dates are not provided, defaults to the last 30 days.
@@ -30,7 +30,7 @@ async def list_calls(
     logger.info("Listing calls from %s to %s (limit=%s)", from_date, to_date, limit)
     return await get("/v2/calls", params=params)
 
-async def add_new_call(call_data: Dict[str, Any]) -> Dict[str, Any]:
+async def add_new_call(call_data: dict[str, Any]) -> dict[str, Any]:
     """Add a new call record to Gong.
 
     The required structure of `call_data` is documented in the Gong API. At a minimum,
@@ -40,4 +40,4 @@ async def add_new_call(call_data: Dict[str, Any]) -> Dict[str, Any]:
         raise ValueError("call_data cannot be empty")
 
     logger.info("Adding new call to Gong")
-    return await post("/v2/calls", call_data) 
+    return await post("/v2/calls", call_data)

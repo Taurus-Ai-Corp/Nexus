@@ -1,39 +1,38 @@
-import os
+import asyncio
 import json
 import logging
-import asyncio
-from typing import Any, Dict
+import os
+from typing import Any
 
 import click
-from dotenv import load_dotenv
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.stdio import stdio_server
-
 from tools import (
-    mailchimp_token_context,
-    ping_mailchimp,
+    add_member_tags,
+    add_member_to_audience,
+    create_audience,
+    create_campaign,
+    delete_audience,
+    delete_campaign,
+    delete_member,
     get_account_info,
     get_all_audiences,
-    create_audience,
-    get_audience_info,
-    update_audience,
-    delete_audience,
-    get_audience_members,
-    add_member_to_audience,
-    get_member_info,
-    update_member,
-    delete_member,
-    add_member_tags,
-    remove_member_tags,
-    get_member_activity,
     get_all_campaigns,
-    create_campaign,
+    get_audience_info,
+    get_audience_members,
     get_campaign_info,
-    set_campaign_content,
-    send_campaign,
+    get_member_activity,
+    get_member_info,
+    mailchimp_token_context,
+    ping_mailchimp,
+    remove_member_tags,
     schedule_campaign,
-    delete_campaign,
+    send_campaign,
+    set_campaign_content,
+    update_audience,
+    update_member,
 )
 
 # Load env early
@@ -47,14 +46,14 @@ MAILCHIMP_API_KEY = os.getenv("MAILCHIMP_API_KEY") or ""
 async def run_server(log_level: str = "INFO"):
     """Run the Mailchimp MCP server with stdio transport for Claude Desktop."""
     logging.getLogger().setLevel(getattr(logging, log_level.upper(), logging.INFO))
-    
+
     # Set the API key in context
     if MAILCHIMP_API_KEY:
         mailchimp_token_context.set(MAILCHIMP_API_KEY)
         logger.info("Mailchimp API key configured")
     else:
         logger.warning("No Mailchimp API key found in environment")
-    
+
     app = Server("mailchimp-mcp-server")
 
     # ----------------------------- Tool Registry -----------------------------#
@@ -73,7 +72,7 @@ async def run_server(log_level: str = "INFO"):
                 description="Get Account Information - retrieve comprehensive account details.",
                 inputSchema={"type": "object", "properties": {}}
             ),
-            
+
             # Audience/List management tools
             types.Tool(
                 name="mailchimp_get_all_audiences",
@@ -157,7 +156,7 @@ async def run_server(log_level: str = "INFO"):
                     "properties": {"list_id": {"type": "string"}}
                 }
             ),
-            
+
             # Member/Contact management tools
             types.Tool(
                 name="mailchimp_get_audience_members",
@@ -288,7 +287,7 @@ async def run_server(log_level: str = "INFO"):
                     }
                 }
             ),
-            
+
             # Campaign management tools
             types.Tool(
                 name="mailchimp_get_all_campaigns",
@@ -395,22 +394,22 @@ async def run_server(log_level: str = "INFO"):
                 }
             ),
         ]
-        
+
         logger.info(f"Returning {len(tools)} tools")
         return tools
 
     # ---------------------------- Tool Dispatcher ----------------------------#
     @app.call_tool()
-    async def call_tool(name: str, arguments: Dict[str, Any]) -> list[types.TextContent]:
+    async def call_tool(name: str, arguments: dict[str, Any]) -> list[types.TextContent]:
         logger.info(f"Calling tool: {name}")
-        
+
         try:
             # Auth/Account tools
             if name == "mailchimp_ping":
                 result = await ping_mailchimp()
             elif name == "mailchimp_get_account_info":
                 result = await get_account_info()
-            
+
             # Audience tools
             elif name == "mailchimp_get_all_audiences":
                 result = await get_all_audiences(
@@ -458,7 +457,7 @@ async def run_server(log_level: str = "INFO"):
                 if not arguments.get("list_id"):
                     raise ValueError("Missing required argument: list_id")
                 result = await delete_audience(arguments["list_id"])
-            
+
             # Member tools
             elif name == "mailchimp_get_audience_members":
                 if not arguments.get("list_id"):
@@ -521,7 +520,7 @@ async def run_server(log_level: str = "INFO"):
                 if not arguments.get("list_id") or not arguments.get("email_address"):
                     raise ValueError("Missing required arguments: list_id and email_address")
                 result = await get_member_activity(arguments["list_id"], arguments["email_address"], arguments.get("count", 10))
-            
+
             # Campaign tools
             elif name == "mailchimp_get_all_campaigns":
                 result = await get_all_campaigns(
@@ -593,7 +592,7 @@ async def run_server(log_level: str = "INFO"):
                 if not arguments.get("campaign_id"):
                     raise ValueError("Missing required argument: campaign_id")
                 result = await delete_campaign(arguments["campaign_id"])
-            
+
             else:
                 error_msg = f"Unknown tool: {name}"
                 logger.error(error_msg)

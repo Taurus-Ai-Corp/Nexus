@@ -8,30 +8,38 @@ Security fixes applied:
 - P3: robots.txt, security.txt
 """
 
-import os
 import json
 import math
-import numpy as np
-from pathlib import Path
-from typing import Dict, Any, Optional, List
+import os
 from datetime import datetime
+from pathlib import Path
+from typing import Any
 
-from fastapi import FastAPI, HTTPException, Depends, Request
-from fastapi.responses import HTMLResponse, FileResponse, PlainTextResponse
-
-from core.pricing.microloan_env import MicroLoanPricingEnv
+import numpy as np
 from core.pricing.synthetic_data import (
-    generate_borrowers, borrowers_to_env_array, generate_training_dataset,
     SEGMENT_PROFILES,
+    borrowers_to_env_array,
+    generate_borrowers,
 )
 from core.pricing.training_pipeline import (
-    train_ppo, evaluate_model, generate_price_recommendation, ExperimentTracker,
+    evaluate_model,
+    generate_price_recommendation,
+    train_ppo,
 )
 from core.security import (
-    authenticate_request, limiter, TrainRequest, EvaluateRequest, RecommendRequest,
-    apply_security_middleware, api_key_manager, create_access_token,
-    hash_password, verify_password, SECURITY_HEADERS, ROBOTS_TXT, SECURITY_TXT,
+    ROBOTS_TXT,
+    SECURITY_TXT,
+    TrainRequest,
+    api_key_manager,
+    apply_security_middleware,
+    authenticate_request,
+    create_access_token,
+    hash_password,
+    limiter,
+    verify_password,
 )
+from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi.responses import FileResponse, HTMLResponse, PlainTextResponse
 
 # Environment
 IS_PRODUCTION = os.environ.get("ENVIRONMENT", "development") == "production"
@@ -127,7 +135,7 @@ async def health(request: Request):
 async def train_endpoint(
     req: TrainRequest,
     request: Request,
-    auth: Dict[str, Any] = Depends(authenticate_request),
+    auth: dict[str, Any] = Depends(authenticate_request),
 ):
     borrowers = _load_or_generate_borrowers()
     env_array = borrowers_to_env_array(borrowers)
@@ -146,7 +154,7 @@ async def evaluate_endpoint(
     experiment_name: str,
     n_episodes: int = 100,
     request: Request = None,
-    auth: Dict[str, Any] = Depends(authenticate_request),
+    auth: dict[str, Any] = Depends(authenticate_request),
 ):
     model = _load_model()
     if model is None:
@@ -164,7 +172,7 @@ async def recommend_endpoint(
     borrower_id: str,
     loan_amount: float,
     request: Request = None,
-    auth: Dict[str, Any] = Depends(authenticate_request),
+    auth: dict[str, Any] = Depends(authenticate_request),
 ):
     model = _load_model()
     borrowers = _load_or_generate_borrowers()
@@ -189,7 +197,7 @@ async def recommend_endpoint(
 @limiter.limit("30/minute")
 async def status_endpoint(
     request: Request,
-    auth: Dict[str, Any] = Depends(authenticate_request),
+    auth: dict[str, Any] = Depends(authenticate_request),
 ):
     model = _load_model()
     has_model = model is not None
@@ -263,7 +271,7 @@ async def create_token(
 async def create_api_key(
     name: str,
     request: Request,
-    auth: Dict[str, Any] = Depends(authenticate_request),
+    auth: dict[str, Any] = Depends(authenticate_request),
 ):
     result = api_key_manager.create_key(name)
     return result
@@ -272,7 +280,7 @@ async def create_api_key(
 @app.get("/auth/api-keys")
 async def list_api_keys(
     request: Request,
-    auth: Dict[str, Any] = Depends(authenticate_request),
+    auth: dict[str, Any] = Depends(authenticate_request),
 ):
     return api_key_manager.list_keys()
 
@@ -281,7 +289,7 @@ async def list_api_keys(
 async def revoke_api_key(
     key: str,
     request: Request,
-    auth: Dict[str, Any] = Depends(authenticate_request),
+    auth: dict[str, Any] = Depends(authenticate_request),
 ):
     success = api_key_manager.revoke_key(key)
     return {"revoked": success}

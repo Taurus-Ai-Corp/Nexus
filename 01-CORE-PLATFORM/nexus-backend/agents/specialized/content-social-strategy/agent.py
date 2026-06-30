@@ -4,24 +4,20 @@ TAURUS AI CORP - Content & Social Strategy Agent
 Creates and manages content for scaling BizFlow™ across social media platforms
 """
 
-import asyncio
 import json
-import re
 import random
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
+from datetime import datetime
 from enum import Enum
-import aiofiles
-import aiohttp
-from fastapi import FastAPI, WebSocket, HTTPException, BackgroundTasks
-from fastapi.middleware.cors import CORSMiddleware
+from typing import Any
+
 import redis.asyncio as redis
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
-import openai
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from jinja2 import Template
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import sessionmaker
+
 
 class ContentType(Enum):
     CASE_STUDY = "case_study"
@@ -53,18 +49,18 @@ class ContentPiece:
     platform: SocialPlatform
     business_vertical: BusinessVertical
     content_body: str
-    metadata: Dict[str, Any]
-    performance_metrics: Dict[str, float]
+    metadata: dict[str, Any]
+    performance_metrics: dict[str, float]
     created_at: datetime
-    scheduled_for: Optional[datetime] = None
+    scheduled_for: datetime | None = None
 
 @dataclass
 class ContentCalendar:
     month: str
     year: int
-    content_schedule: Dict[str, List[ContentPiece]]
-    themes: List[str]
-    campaign_goals: Dict[str, str]
+    content_schedule: dict[str, list[ContentPiece]]
+    themes: list[str]
+    campaign_goals: dict[str, str]
 
 class ContentSocialStrategyAgent:
     """
@@ -74,23 +70,23 @@ class ContentSocialStrategyAgent:
     - Generating video scripts, blog posts, and marketing materials
     - Building content templates for different business verticals
     """
-    
+
     def __init__(self):
         self.name = "content-social-strategy"
         self.description = "Content creation for scaling BizFlow™ across social media"
-        self.redis_client: Optional[redis.Redis] = None
-        self.db_session: Optional[AsyncSession] = None
+        self.redis_client: redis.Redis | None = None
+        self.db_session: AsyncSession | None = None
         self.content_templates = {}
         self.content_calendar = {}
-        
-    async def initialize(self, config: Dict[str, Any]):
+
+    async def initialize(self, config: dict[str, Any]):
         """Initialize agent with configuration"""
         # Redis connection for content caching
         self.redis_client = redis.from_url(
             config.get('redis_url', 'redis://localhost:6379'),
             decode_responses=True
         )
-        
+
         # Database connection for content storage
         engine = create_async_engine(
             config.get('database_url', 'postgresql+asyncpg://user:pass@localhost/taurus'),
@@ -98,13 +94,13 @@ class ContentSocialStrategyAgent:
         )
         async_session = sessionmaker(engine, class_=AsyncSession)
         self.db_session = async_session()
-        
+
         # Load content templates
         await self._load_content_templates()
-        
+
         # Initialize content calendar
         await self._initialize_content_calendar()
-        
+
         print(f"✅ {self.name} agent initialized successfully")
 
     async def _load_content_templates(self):
@@ -138,9 +134,9 @@ Our AI-powered automation platform helped them:
 
 *"BizFlow™ transformed our entire operation. The ROI was immediate and continues to grow."* - {testimonial_author}, {title}
                     """,
-                    "variables": ["company_name", "percentage", "industry", "challenge_1", "challenge_2", "challenge_3", 
-                                "solution_1", "solution_2", "solution_3", "timeframe", "revenue_increase", 
-                                "conversion_increase", "response_time_reduction", "cost_savings", "features_list", 
+                    "variables": ["company_name", "percentage", "industry", "challenge_1", "challenge_2", "challenge_3",
+                                "solution_1", "solution_2", "solution_3", "timeframe", "revenue_increase",
+                                "conversion_increase", "response_time_reduction", "cost_savings", "features_list",
                                 "testimonial_author", "title"]
                 },
                 "saas": {
@@ -168,7 +164,7 @@ Our platform delivered:
 *"BizFlow™ didn't just help us scale - it made our growth sustainable and profitable."* - {ceo_name}, CEO
                     """,
                     "variables": ["start_users", "end_users", "company_name", "saas_category", "lead_scoring_improvement",
-                                "onboarding_time_reduction", "churn_reduction", "timeframe", "mrr_growth", 
+                                "onboarding_time_reduction", "churn_reduction", "timeframe", "mrr_growth",
                                 "satisfaction_score", "automation_percentage", "ceo_name"]
                 }
             },
@@ -229,7 +225,7 @@ NOTES:
         self.content_calendar = {
             "weekly_themes": {
                 "monday": "Case Study Monday - Client Success Stories",
-                "tuesday": "Tech Tuesday - BizFlow™ Feature Spotlights", 
+                "tuesday": "Tech Tuesday - BizFlow™ Feature Spotlights",
                 "wednesday": "Wisdom Wednesday - Industry Insights & Trends",
                 "thursday": "Transformation Thursday - Before/After Stories",
                 "friday": "Feature Friday - Behind-the-Scenes Development",
@@ -245,15 +241,15 @@ NOTES:
             }
         }
 
-    async def create_case_study(self, vertical: BusinessVertical, data: Dict[str, Any]) -> ContentPiece:
+    async def create_case_study(self, vertical: BusinessVertical, data: dict[str, Any]) -> ContentPiece:
         """Generate case study content for specific business vertical"""
         try:
             template_data = self.content_templates["case_study"][vertical.value]
             template = Template(template_data["template"])
-            
+
             # Fill in template variables with provided data
             content_body = template.render(**data)
-            
+
             content_piece = ContentPiece(
                 content_id=f"case_study_{vertical.value}_{int(datetime.now().timestamp())}",
                 title=f"{data.get('company_name', 'Client')} Success Story",
@@ -270,32 +266,32 @@ NOTES:
                 performance_metrics={},
                 created_at=datetime.now()
             )
-            
+
             # Cache the content
             await self._cache_content(content_piece)
-            
+
             return content_piece
-            
+
         except Exception as e:
             print(f"❌ Case study creation failed: {e}")
             raise
 
-    async def generate_social_media_posts(self, platform: SocialPlatform, vertical: BusinessVertical, 
-                                        count: int = 5) -> List[ContentPiece]:
+    async def generate_social_media_posts(self, platform: SocialPlatform, vertical: BusinessVertical,
+                                        count: int = 5) -> list[ContentPiece]:
         """Generate multiple social media posts for a platform and vertical"""
         try:
             posts = []
             templates = self.content_templates["social_post"][platform.value]
-            
+
             for i in range(count):
                 template = random.choice(templates)
-                
+
                 # Generate sample data for the template
                 sample_data = await self._generate_sample_data(vertical, platform)
-                
+
                 # Fill template with data
                 content_body = template.format(**sample_data)
-                
+
                 post = ContentPiece(
                     content_id=f"social_{platform.value}_{vertical.value}_{int(datetime.now().timestamp())}_{i}",
                     title=f"{platform.value.title()} Post for {vertical.value.title()}",
@@ -312,17 +308,17 @@ NOTES:
                     performance_metrics={},
                     created_at=datetime.now()
                 )
-                
+
                 posts.append(post)
                 await self._cache_content(post)
-            
+
             return posts
-            
+
         except Exception as e:
             print(f"❌ Social media post generation failed: {e}")
             raise
 
-    async def _generate_sample_data(self, vertical: BusinessVertical, platform: SocialPlatform) -> Dict[str, Any]:
+    async def _generate_sample_data(self, vertical: BusinessVertical, platform: SocialPlatform) -> dict[str, Any]:
         """Generate sample data for content templates"""
         data_sets = {
             "ecommerce": {
@@ -334,14 +330,14 @@ NOTES:
                 "hashtag2": "AIAutomation",
                 "hashtag3": "BizFlowSuccess",
                 "benefit_1": "Automated inventory management",
-                "benefit_2": "Personalized customer journeys", 
+                "benefit_2": "Personalized customer journeys",
                 "benefit_3": "Smart pricing optimization",
                 "hours": random.choice(["25", "30", "40"]),
                 "roi": random.choice(["4.2", "5.1", "3.8"])
             },
             "saas": {
                 "vertical": "SaaS",
-                "metric": "user growth", 
+                "metric": "user growth",
                 "percentage": random.choice(["890", "650", "450", "720"]),
                 "timeframe": random.choice(["6 months", "1 year", "8 months"]),
                 "hashtag1": "SaaSGrowth",
@@ -359,7 +355,7 @@ NOTES:
                 "percentage": random.choice(["280", "195", "315", "240"]),
                 "timeframe": random.choice(["3 months", "4 months", "5 months"]),
                 "hashtag1": "LocalBusiness",
-                "hashtag2": "CommunityGrowth", 
+                "hashtag2": "CommunityGrowth",
                 "hashtag3": "LocalSEO",
                 "benefit_1": "Automated review management",
                 "benefit_2": "Local SEO optimization",
@@ -368,17 +364,17 @@ NOTES:
                 "roi": random.choice(["3.5", "4.1", "2.9"])
             }
         }
-        
+
         return data_sets.get(vertical.value, data_sets["ecommerce"])
 
-    async def create_video_script(self, platform: SocialPlatform, vertical: BusinessVertical, 
+    async def create_video_script(self, platform: SocialPlatform, vertical: BusinessVertical,
                                 topic: str, duration: int = 8) -> ContentPiece:
         """Create video script for specified platform and topic"""
         try:
             if platform == SocialPlatform.YOUTUBE:
                 template_data = self.content_templates["video_script"]["youtube"]
                 template = Template(template_data["template"])
-                
+
                 script_data = {
                     "title": f"How {vertical.value.title()} Businesses Are Using AI to {topic}",
                     "duration": duration,
@@ -394,7 +390,7 @@ NOTES:
                     "broll_suggestions": "Dashboard screenshots, client testimonials, before/after metrics",
                     "seo_tags": f"{vertical.value}, AI automation, business growth, {topic}"
                 }
-                
+
                 content_body = template.render(**script_data)
             else:
                 # For other platforms, create shorter script
@@ -413,7 +409,7 @@ CTA (25-30s): Link in bio to learn more!
 
 #AI #Automation #{vertical.value.title()}
                 """
-            
+
             script = ContentPiece(
                 content_id=f"video_script_{platform.value}_{vertical.value}_{int(datetime.now().timestamp())}",
                 title=f"{platform.value.title()} Script: {topic}",
@@ -430,15 +426,15 @@ CTA (25-30s): Link in bio to learn more!
                 performance_metrics={},
                 created_at=datetime.now()
             )
-            
+
             await self._cache_content(script)
             return script
-            
+
         except Exception as e:
             print(f"❌ Video script creation failed: {e}")
             raise
 
-    async def generate_monthly_content_calendar(self, year: int, month: int, 
+    async def generate_monthly_content_calendar(self, year: int, month: int,
                                               vertical: BusinessVertical = None) -> ContentCalendar:
         """Generate complete monthly content calendar"""
         try:
@@ -447,35 +443,35 @@ CTA (25-30s): Link in bio to learn more!
                 next_month = datetime(year + 1, 1, 1)
             else:
                 next_month = datetime(year, month + 1, 1)
-            
+
             days_in_month = (next_month - datetime(year, month, 1)).days
-            
+
             content_schedule = {}
-            
+
             for day in range(1, days_in_month + 1):
                 date = datetime(year, month, day)
                 day_name = date.strftime("%A").lower()
-                
+
                 # Get theme for the day
                 theme = self.content_calendar["weekly_themes"].get(day_name, "General Content")
-                
+
                 daily_content = []
-                
+
                 # Generate content based on day theme
                 if "Case Study" in theme:
                     case_study_data = await self._generate_case_study_data(vertical or BusinessVertical.GENERAL)
                     case_study = await self.create_case_study(vertical or BusinessVertical.ECOMMERCE, case_study_data)
                     daily_content.append(case_study)
-                
+
                 elif "Feature" in theme or "Tech" in theme:
                     # Generate feature spotlight posts
                     posts = await self.generate_social_media_posts(
-                        SocialPlatform.LINKEDIN, 
-                        vertical or BusinessVertical.GENERAL, 
+                        SocialPlatform.LINKEDIN,
+                        vertical or BusinessVertical.GENERAL,
                         2
                     )
                     daily_content.extend(posts)
-                
+
                 elif "Wisdom" in theme or "Strategy" in theme:
                     # Generate thought leadership content
                     script = await self.create_video_script(
@@ -484,9 +480,9 @@ CTA (25-30s): Link in bio to learn more!
                         "Strategic Planning"
                     )
                     daily_content.append(script)
-                
+
                 content_schedule[f"{year}-{month:02d}-{day:02d}"] = daily_content
-            
+
             calendar = ContentCalendar(
                 month=f"{year}-{month:02d}",
                 year=year,
@@ -499,24 +495,24 @@ CTA (25-30s): Link in bio to learn more!
                     "conversions": "Drive 100+ demo requests"
                 }
             )
-            
+
             # Cache the calendar
             await self._cache_content_calendar(calendar)
-            
+
             return calendar
-            
+
         except Exception as e:
             print(f"❌ Content calendar generation failed: {e}")
             raise
 
-    async def _generate_case_study_data(self, vertical: BusinessVertical) -> Dict[str, Any]:
+    async def _generate_case_study_data(self, vertical: BusinessVertical) -> dict[str, Any]:
         """Generate realistic case study data"""
         company_names = {
             "ecommerce": ["StyleHub", "TechGadgets Pro", "FreshMarket Online"],
             "saas": ["DataFlow Solutions", "CloudSync Pro", "AnalyticsMaster"],
             "local_business": ["Downtown Cafe", "Elite Fitness Center", "Neighborhood Pharmacy"]
         }
-        
+
         return {
             "company_name": random.choice(company_names.get(vertical.value, ["Sample Company"])),
             "percentage": random.choice(["340", "275", "420", "185"]),
@@ -563,24 +559,24 @@ CTA (25-30s): Link in bio to learn more!
         except Exception as e:
             print(f"⚠️ Failed to cache calendar: {e}")
 
-    async def get_content_analytics(self) -> Dict[str, Any]:
+    async def get_content_analytics(self) -> dict[str, Any]:
         """Get content performance analytics"""
         try:
             if not self.redis_client:
                 return {"error": "Redis not available"}
-            
+
             # Get all content keys
             keys = await self.redis_client.keys("content:*")
             content_pieces = []
-            
+
             for key in keys:
                 data = await self.redis_client.get(key)
                 if data:
                     content_pieces.append(json.loads(data))
-            
+
             if not content_pieces:
                 return {"message": "No content data available"}
-            
+
             # Calculate analytics
             analytics = {
                 "total_content_pieces": len(content_pieces),
@@ -591,19 +587,19 @@ CTA (25-30s): Link in bio to learn more!
                 "top_performing_content": [],
                 "content_health_score": 85
             }
-            
+
             # Group by type, platform, vertical
             for piece in content_pieces:
                 content_type = piece.get('content_type', 'unknown')
                 platform = piece.get('platform', 'unknown')
                 vertical = piece.get('business_vertical', 'unknown')
-                
+
                 analytics["content_by_type"][content_type] = analytics["content_by_type"].get(content_type, 0) + 1
                 analytics["content_by_platform"][platform] = analytics["content_by_platform"].get(platform, 0) + 1
                 analytics["content_by_vertical"][vertical] = analytics["content_by_vertical"].get(vertical, 0) + 1
-            
+
             return analytics
-            
+
         except Exception as e:
             return {"error": f"Analytics generation failed: {e}"}
 

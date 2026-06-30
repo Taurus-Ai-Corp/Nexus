@@ -1,0 +1,97 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      product:
+        description: 'Product to release'
+        required: true
+        type: choice
+        options:
+          - all
+          - gridera
+          - lendgrid
+          - core
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build & Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci --legacy-peer-deps
+      - run: npm run typecheck
+      - run: npm run build
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            CHANGES=$(git log --pretty=format:"- %s" HEAD | grep -v -iE "ip-protection|patent|disclosure|defensive.pub|feat\\(ip\\)|feat\\(pd\\)")
+          else
+            CHANGES=$(git log --pretty=format:"- %s" ${LAST_TAG}..HEAD | grep -v -iE "ip-protection|patent|disclosure|defensive.pub|feat\\(ip\\)|feat\\(pd\\)")
+          fi
+          echo "changes<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Get version
+        id: version
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          echo "current=$CURRENT" >> $GITHUB_OUTPUT
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          case "${{ github.event.inputs.version }}" in
+            major) NEW="$((MAJOR+1)).0.0" ;;
+            minor) NEW="${MAJOR}.$((MINOR+1)).0" ;;
+            patch) NEW="${MAJOR}.${MINOR}.$((PATCH+1))" ;;
+          esac
+          echo "new=$NEW" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const release = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `v${{ steps.version.outputs.new }}`,
+              name: `Q-GRID Platform v${{ steps.version.outputs.new }}`,
+              body: `## Release v${{ steps.version.outputs.new }}\n\n### Product: ${{ github.event.inputs.product }}\n\n### Changes\n\n${{ steps.changelog.outputs.changes }}\n\n---\n\nBuilt by [Taurus AI Corp](https://taurusai.io) | [Q-GRID Platform](https://q-grid.net)`,
+              draft: false,
+              prerelease: false
+            });
+            console.log(`Release created: ${release.data.html_url}`);

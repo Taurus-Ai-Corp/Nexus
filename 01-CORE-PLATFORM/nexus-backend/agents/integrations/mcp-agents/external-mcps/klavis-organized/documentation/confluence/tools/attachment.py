@@ -25,7 +25,7 @@ async def get_attachments_for_page(
     params = remove_none_values({
         "limit": max(1, min(limit, 250)),
     })
-    
+
     # Only add cursor parameter if pagination_token has a value
     if pagination_token:
         params["cursor"] = pagination_token
@@ -48,16 +48,16 @@ async def list_attachments(
 ) -> Annotated[dict, "The attachments"]:
     """List attachments in a workspace"""
     client = ConfluenceClientV2()
-    
+
     # Handle sort_order - use default if None
     if sort_order is None:
         sort_order = AttachmentSortOrder.CREATED_DATE_DESCENDING
-    
+
     params = remove_none_values({
         "sort": sort_order.to_api_value(),
         "limit": max(1, min(limit, 250)),
     })
-    
+
     # Only add cursor parameter if pagination_token has a value
     if pagination_token:
         params["cursor"] = pagination_token
@@ -70,6 +70,6 @@ async def get_attachment(
 ) -> Annotated[dict, "The attachment"]:
     """Get a specific attachment by its ID"""
     client = ConfluenceClientV2()
-    
+
     response = await client.get(f"attachments/{attachment_id}")
-    return client.transform_attachment_response(response) 
+    return client.transform_attachment_response(response)

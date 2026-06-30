@@ -1,16 +1,16 @@
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from .base import post
 
 logger = logging.getLogger(__name__)
 
 async def get_extensive_data(
-    call_ids: List[str],
-    cursor: Optional[str] = None,
+    call_ids: list[str],
+    cursor: str | None = None,
     include_parties: bool = True,
     include_transcript: bool = False,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Retrieve extensive call data for one or more call IDs.
 
     Parameters
@@ -30,7 +30,7 @@ async def get_extensive_data(
 
     logger.info("Executing get_extensive_data for %s calls", len(call_ids))
 
-    exposed_fields: Dict[str, Any] = {
+    exposed_fields: dict[str, Any] = {
         "content": {},
     }
     if include_parties:
@@ -38,7 +38,7 @@ async def get_extensive_data(
     if include_transcript:
         exposed_fields["content"]["transcript"] = True
 
-    payload: Dict[str, Any] = {
+    payload: dict[str, Any] = {
         "callIds": call_ids,
         "contentSelector": {
             "context": "Extended",
@@ -48,4 +48,4 @@ async def get_extensive_data(
     if cursor:
         payload["cursor"] = cursor
 
-    return await post("/v2/calls/extensive", payload) 
+    return await post("/v2/calls/extensive", payload)

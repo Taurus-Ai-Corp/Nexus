@@ -1,14 +1,13 @@
-import streamlit as st
+import base64
 import os
-from llama_index.core import SimpleDirectoryReader, Settings, VectorStoreIndex
+import shutil
+import tempfile
+
+import streamlit as st
+from dotenv import load_dotenv
+from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex
 from llama_index.embeddings.nebius import NebiusEmbedding
 from llama_index.llms.nebius import NebiusLLM
-from dotenv import load_dotenv
-import tempfile
-import shutil
-import base64
-from PyPDF2 import PdfReader
-import io
 
 # Load environment variables
 load_dotenv()
@@ -32,12 +31,12 @@ def run_rag_completion(
             model_name=embedding_model,
             api_key=os.getenv("NEBIUS_API_KEY")
         )
-        
+
         Settings.llm = llm
         Settings.embed_model = embed_model
-        
+
         # Step 1: Analyze the resume
-        analysis_prompt = f"""
+        analysis_prompt = """
         Analyze this resume in detail. Focus on:
         1. Key skills and expertise
         2. Professional experience and achievements
@@ -47,10 +46,10 @@ def run_rag_completion(
         
         Provide a concise analysis in bullet points.
         """
-        
+
         index = VectorStoreIndex.from_documents(documents)
         resume_analysis = index.as_query_engine(similarity_top_k=5).query(analysis_prompt)
-        
+
         # Step 2: Generate optimization suggestions
         optimization_prompt = f"""
         Based on the resume analysis and job requirements, provide specific, actionable improvements.
@@ -79,11 +78,11 @@ def run_rag_completion(
 
         Keep all points concise and actionable. Do not include any thinking process or analysis.
         """
-        
+
         optimization_suggestions = index.as_query_engine(similarity_top_k=5).query(optimization_prompt)
-        
+
         return str(optimization_suggestions)
-    except Exception as e:
+    except Exception:
         raise
 
 def display_pdf_preview(pdf_file):
@@ -100,7 +99,7 @@ def display_pdf_preview(pdf_file):
 
 def main():
     st.set_page_config(page_title="Resume Optimizer", layout="wide")
-    
+
     # Initialize session states
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -110,24 +109,24 @@ def main():
         st.session_state.temp_dir = None
     if "current_pdf" not in st.session_state:
         st.session_state.current_pdf = None
-    
+
     # Header
     st.title("📝 Resume Optimizer")
     st.caption("Powered by Nebius AI")
-    
+
     # Sidebar for configuration
     with st.sidebar:
         st.image("./Nebius.png", width=150)
-        
+
         # Model selection
         generative_model = st.selectbox(
             "Generative Model",
             ["Qwen/Qwen3-235B-A22B", "deepseek-ai/DeepSeek-V3"],
             index=0
         )
-        
+
         st.divider()
-        
+
         # Resume upload
         st.subheader("Upload Resume")
         uploaded_file = st.file_uploader(
@@ -135,7 +134,7 @@ def main():
             type="pdf",
             accept_multiple_files=False
         )
-        
+
         # Handle PDF upload and processing
         if uploaded_file is not None:
             if uploaded_file != st.session_state.current_pdf:
@@ -144,17 +143,17 @@ def main():
                     if not os.getenv("NEBIUS_API_KEY"):
                         st.error("Missing Nebius API key")
                         st.stop()
-                    
+
                     # Create temporary directory for the PDF
                     if st.session_state.temp_dir:
                         shutil.rmtree(st.session_state.temp_dir)
                     st.session_state.temp_dir = tempfile.mkdtemp()
-                    
+
                     # Save uploaded PDF to temp directory
                     file_path = os.path.join(st.session_state.temp_dir, uploaded_file.name)
                     with open(file_path, "wb") as f:
                         f.write(uploaded_file.getbuffer())
-                    
+
                     with st.spinner("Loading Resume..."):
                         documents = SimpleDirectoryReader(st.session_state.temp_dir).load_data()
                         st.session_state.docs_loaded = True
@@ -163,15 +162,15 @@ def main():
                         display_pdf_preview(uploaded_file)
                 except Exception as e:
                     st.error(f"Error: {str(e)}")
-    
+
     # Main content area
     col1, col2 = st.columns([1, 1])
-    
+
     with col1:
         st.subheader("Job Information")
         job_title = st.text_input("Job Title")
         job_description = st.text_area("Job Description", height=200)
-        
+
         st.subheader("Optimization Options")
         optimization_type = st.selectbox(
             "Select Optimization Type",
@@ -185,7 +184,7 @@ def main():
                 "Career Gap Framing"
             ]
         )
-        
+
         if st.button("Optimize Resume"):
             if not st.session_state.docs_loaded:
                 st.error("Please upload your resume first")
@@ -193,7 +192,7 @@ def main():
             if not job_title or not job_description:
                 st.error("Please provide both job title and description")
                 st.stop()
-            
+
             # Generate optimization prompt based on selection
             prompts = {
                 "ATS Keyword Optimizer": "Identify and optimize ATS keywords. Focus on exact matches and semantic variations from the job description.",
@@ -204,7 +203,7 @@ def main():
                 "Technical Skills Showcase": "Organize technical skills based on job requirements. Highlight key competencies.",
                 "Career Gap Framing": "Address career gaps professionally. Focus on growth and relevant experience."
             }
-            
+
             with st.spinner("Analyzing resume and generating suggestions..."):
                 try:
                     response = run_rag_completion(
@@ -220,9 +219,9 @@ def main():
                     st.session_state.messages.append({"role": "assistant", "content": response})
                 except Exception as e:
                     st.error(f"Error: {str(e)}")
-            
+
             st.divider()
-    
+
     with col2:
         st.subheader("Optimization Results")
         for message in st.session_state.messages:

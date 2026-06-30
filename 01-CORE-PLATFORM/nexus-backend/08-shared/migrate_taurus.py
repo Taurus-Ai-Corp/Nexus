@@ -4,23 +4,22 @@
 Generated: 2025-09-22T21:55:23.989115
 """
 
-import os
 import shutil
-import json
 from pathlib import Path
+
 
 def migrate_taurus_structure():
     """Execute TAURUS AI CORP migration"""
     print("🚀 Starting TAURUS AI CORP migration...")
-    
+
     root_dir = Path("/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP")
-    
+
     # Create backup
     backup_dir = root_dir / "BACKUP_BEFORE_MIGRATION"
     if not backup_dir.exists():
         print("📦 Creating backup...")
         shutil.copytree(root_dir, backup_dir, ignore=shutil.ignore_patterns('BACKUP_*'))
-    
+
     # Migration operations
     migrations = {
   "bizflow_migrations": [
@@ -150,20 +149,20 @@ def migrate_taurus_structure():
   "conflicts": [],
   "recommendations": []
 }
-    
+
     success_count = 0
     error_count = 0
-    
+
     for migration_type, items in migrations.items():
         print(f"\n📁 Processing {migration_type}...")
         for item in items:
             try:
                 source = Path(item["source"])
                 target = Path(item["target"])
-                
+
                 # Create target directory if needed
                 target.parent.mkdir(parents=True, exist_ok=True)
-                
+
                 if source.exists():
                     if item["type"] == "folder":
                         shutil.move(str(source), str(target))
@@ -173,28 +172,28 @@ def migrate_taurus_structure():
                     success_count += 1
                 else:
                     print(f"⚠️  Source not found: {source}")
-                    
+
             except Exception as e:
                 print(f"❌ Error moving {item['source']}: {e}")
                 error_count += 1
-    
-    print(f"\n🎉 Migration complete!")
+
+    print("\n🎉 Migration complete!")
     print(f"✅ Success: {success_count}")
     print(f"❌ Errors: {error_count}")
-    
+
     # Create symlinks for shared resources
     create_shared_symlinks()
-    
+
     # Generate documentation
     generate_master_documentation()
 
 def create_shared_symlinks():
     """Create symlinks for shared resources"""
     print("🔗 Creating shared resource symlinks...")
-    
+
     bizflow_shared = Path("/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Agentic_Intelligent_Orchestrator/08-shared")
     neovibe_shared = Path("/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/NeoVibe-Vibe_Marketing_Studio/10-shared")
-    
+
     if bizflow_shared.exists():
         for item in bizflow_shared.iterdir():
             target = neovibe_shared / item.name
@@ -205,7 +204,7 @@ def create_shared_symlinks():
 def generate_master_documentation():
     """Generate master documentation"""
     print("📚 Generating master documentation...")
-    
+
     docs_content = """# 🏰 TAURUS AI CORP - Master Index
 
 ## 📁 New Structure
@@ -242,7 +241,7 @@ All shared resources are accessible from both units via symlinks.
 
 Generated: 2025-09-22T21:55:23.989717
 """
-    
+
     with open("/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/MASTER_INDEX.md", "w") as f:
         f.write(docs_content)
 

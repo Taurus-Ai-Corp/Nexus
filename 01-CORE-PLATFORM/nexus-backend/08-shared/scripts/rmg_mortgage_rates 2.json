@@ -1,8 +1,0 @@
-{
-  "title": "MyRMG Homeowner Portal Login | RMG",
-  "content": "```markdown\n# Welcome, Please Login To Your Account\n\n## Username\n<input type=\"text\" placeholder=\"Username\">\n\n## Password\n<input type=\"password\" placeholder=\"Password\">\n<div id=\"view-password\"></div>\n\n### Remember Me\n\n<button id=\"login__button\" class=\"button button--secondary\">Log In</button>\n<button class=\"button button--secondary\">Register</button>\n\n## Having trouble signing in?\n\n[Need assistance?](/myrmg/help)\n\n![RMG Logo](/myrmg/assets/tenants/RM/images/logo-inverted-en.png)\n\nRMG - The Better Way To Manage Your Mortgage\n\nSign Up To Start Managing Your Mortgage Now\n\n<button class=\"button button--secondary\">Register</button>\n\n---\n\n## We value your privacy\n\nBy clicking “Accept All”, you consent to our use of cookies and other technologies that collect information about website visitor activity to enhance your browsing experience, analyze our website usage and traffic, and serve personalized ads. View our [Privacy page](https://www.rmgmortgages.ca/privacy-policy-rmg) to learn more.\n\n<button class=\"button button--secondary\">Accept All</button>\n<button class=\"button button--secondary\">Reject All</button>\n```\n",
-  "url": "https://www.rmgmortgages.ca/myrmg/mortgage/9337482.1/mortgage-renewal/rates",
-  "usage": {
-    "tokens": 12000
-  }
-}

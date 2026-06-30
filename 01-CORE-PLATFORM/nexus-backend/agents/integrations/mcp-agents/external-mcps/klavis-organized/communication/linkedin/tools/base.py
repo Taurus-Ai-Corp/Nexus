@@ -1,8 +1,9 @@
-import os
 import logging
+import os
 import ssl
-from typing import Any, Dict, Optional
 from contextvars import ContextVar
+from typing import Any
+
 import aiohttp
 
 # Configure logging
@@ -26,7 +27,7 @@ def get_linkedin_access_token() -> str:
             raise RuntimeError("LinkedIn access token not found in request context or environment")
         return token
 
-def _get_linkedin_headers() -> Dict[str, str]:
+def _get_linkedin_headers() -> dict[str, str]:
     """Create standard headers for LinkedIn API calls."""
     access_token = get_linkedin_access_token()
     return {
@@ -40,9 +41,9 @@ def _get_ssl_context():
     return ssl.create_default_context()
 
 async def make_linkedin_request(
-    method: str, 
-    endpoint: str, 
-    json_data: Optional[Dict] = None, 
+    method: str,
+    endpoint: str,
+    json_data: dict | None = None,
     expect_empty_response: bool = False
 ) -> Any:
     """
@@ -59,13 +60,13 @@ async def make_linkedin_request(
     """
     url = f"{LINKEDIN_API_BASE}{endpoint}"
     headers = _get_linkedin_headers()
-    
+
     connector = aiohttp.TCPConnector(ssl=_get_ssl_context())
     async with aiohttp.ClientSession(headers=headers, connector=connector) as session:
         try:
             async with session.request(method, url, json=json_data) as response:
                 response.raise_for_status()
-                
+
                 if expect_empty_response:
                     if response.status in [200, 201, 204]:
                         return None
@@ -82,7 +83,7 @@ async def make_linkedin_request(
                         text_content = await response.text()
                         logger.warning(f"Received non-JSON response for {method} {endpoint}: {text_content[:100]}...")
                         return {"raw_content": text_content}
-                        
+
         except aiohttp.ClientResponseError as e:
             logger.error(f"LinkedIn API request failed: {e.status} {e.message} for {method} {url}")
             error_details = e.message

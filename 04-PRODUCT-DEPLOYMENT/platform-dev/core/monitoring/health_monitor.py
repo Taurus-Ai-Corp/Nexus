@@ -6,12 +6,13 @@ for anomalies, and system health checks.
 """
 
 import os
-import time
 import threading
-from typing import Dict, Any, Optional, List, Callable
-from dataclasses import dataclass, field, asdict
+import time
+from collections.abc import Callable
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from enum import Enum
+from typing import Any
 
 
 class HealthStatus(str, Enum):
@@ -36,7 +37,7 @@ class HealthCheck:
     latency_ms: float = 0.0
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -48,9 +49,9 @@ class SystemAlert:
     message: str
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
     acknowledged: bool = False
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -64,7 +65,7 @@ class ResourceMetrics:
     requests_per_second: float = 0.0
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -74,11 +75,11 @@ class HealthMonitor:
     def __init__(self, check_interval: int = 60, alert_threshold: int = 3):
         self.check_interval = check_interval
         self.alert_threshold = alert_threshold
-        self._checks: Dict[str, Callable] = {}
-        self._alerts: List[SystemAlert] = []
-        self._resource_history: List[ResourceMetrics] = []
-        self._request_counts: Dict[str, int] = {}
-        self._error_counts: Dict[str, int] = {}
+        self._checks: dict[str, Callable] = {}
+        self._alerts: list[SystemAlert] = []
+        self._resource_history: list[ResourceMetrics] = []
+        self._request_counts: dict[str, int] = {}
+        self._error_counts: dict[str, int] = {}
         self._start_time = time.time()
         self._lock = threading.Lock()
 
@@ -117,7 +118,7 @@ class HealthMonitor:
             self._resource_history = self._resource_history[-500:]
         return metrics
 
-    def check_health(self) -> Dict[str, Any]:
+    def check_health(self) -> dict[str, Any]:
         checks = {}
         for name, check_fn in self._checks.items():
             try:
@@ -186,7 +187,7 @@ class HealthMonitor:
         severity: AlertSeverity,
         title: str,
         message: str,
-        metadata: Optional[Dict] = None,
+        metadata: dict | None = None,
     ):
         import hashlib
         alert_id = hashlib.sha256(f"{title}:{time.time()}".encode()).hexdigest()[:12]
@@ -201,9 +202,9 @@ class HealthMonitor:
 
     def get_alerts(
         self,
-        severity: Optional[AlertSeverity] = None,
-        acknowledged: Optional[bool] = None,
-    ) -> List[SystemAlert]:
+        severity: AlertSeverity | None = None,
+        acknowledged: bool | None = None,
+    ) -> list[SystemAlert]:
         alerts = self._alerts
         if severity:
             alerts = [a for a in alerts if a.severity == severity]

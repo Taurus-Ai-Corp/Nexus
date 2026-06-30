@@ -1,8 +1,9 @@
-import finnhub
-import time
-import requests
-import dotenv 
 import os
+import time
+
+import dotenv
+import finnhub
+import requests
 
 dotenv.load_dotenv()
 
@@ -24,7 +25,7 @@ def fetch_news():
         news_stack=[]
         for news in news_list[:10]:
             news_stack.append([news['headline'],news['url']])
-        print("✅ Data fetching done successfully!")   
+        print("✅ Data fetching done successfully!")
         return news_stack
     except Exception as e:
         print(f"❌ Error fetching news: {e}")

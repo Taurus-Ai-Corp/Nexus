@@ -18,10 +18,14 @@ Date: 2026-04-24
 """
 
 from pathlib import Path
-from multi_agent_pipeline import Pipeline, PipelineStep, PipelineExecutor
-from multi_agent_pipeline import AgentRegistry, PipelineConfig
-import json
-import os
+
+from multi_agent_pipeline import (
+    AgentRegistry,
+    Pipeline,
+    PipelineConfig,
+    PipelineExecutor,
+    PipelineStep,
+)
 
 # ============================================================================
 # AGENT DEFINITIONS (Local execution)
@@ -32,7 +36,7 @@ class IngestAgent:
     def run(self, input_data: dict) -> dict:
         url = input_data.get("url")
         output_path = Path(input_data.get("output_path"))
-        
+
         # For now, assume files are already ingested (we did this manually)
         if output_path.exists():
             text = output_path.read_text(encoding="utf-8")
@@ -49,16 +53,16 @@ class ChunkAgent:
     def run(self, input_data: dict) -> dict:
         texts = input_data.get("texts", [])
         chunks = []
-        
+
         for text_data in texts:
             text = text_data.get("text", "")
             source = text_data.get("source", "")
-            
+
             # Simple chunking by sections (for now)
             # In production, use RLM recursive decomposition
             words = text.split()
             chunk_size = 500
-            
+
             for i in range(0, len(words), chunk_size):
                 chunk_text = " ".join(words[i:i + chunk_size])
                 chunks.append({
@@ -67,7 +71,7 @@ class ChunkAgent:
                     "text": chunk_text,
                     "word_count": len(chunk_text.split())
                 })
-        
+
         return {
             "success": True,
             "chunks": chunks,
@@ -79,7 +83,7 @@ class MCQGenAgent:
     def run(self, input_data: dict) -> dict:
         chunks = input_data.get("chunks", [])
         mcqs = []
-        
+
         # In production, use rlm_rlm_sub_query with Ollama
         # For now, return placeholder
         for chunk in chunks[:10]:  # Limit for testing
@@ -90,7 +94,7 @@ class MCQGenAgent:
                 "explanation": f"Based on {chunk['source']}",
                 "source": chunk["source"]
             })
-        
+
         return {
             "success": True,
             "mcqs": mcqs,
@@ -106,10 +110,10 @@ def create_omvic_local_pipeline() -> Pipeline:
         pipeline_id="omvic-local-v1",
         name="OMVIC QBank Generator (Local)"
     )
-    
+
     # Load ingested texts
     data_dir = Path(__file__).parent / "prototypes" / "omvic-rag-mcq" / "data" / "sources"
-    
+
     sources = []
     if data_dir.exists():
         for md_file in data_dir.glob("*.md"):
@@ -119,7 +123,7 @@ def create_omvic_local_pipeline() -> Pipeline:
                 "text": text,
                 "word_count": len(text.split())
             })
-    
+
     # Step 1: Chunk all sources
     pipeline.add_step(PipelineStep(
         step_id="chunk-all-sources",
@@ -131,7 +135,7 @@ def create_omvic_local_pipeline() -> Pipeline:
             ]
         }
     ))
-    
+
     # Step 2: Generate MCQs
     pipeline.add_step(PipelineStep(
         step_id="generate-mcqs",
@@ -141,7 +145,7 @@ def create_omvic_local_pipeline() -> Pipeline:
         },
         depends_on=["chunk-all-sources"]
     ))
-    
+
     # Step 3: Save MCQs to file
     pipeline.add_step(PipelineStep(
         step_id="save-mcqs",
@@ -152,7 +156,7 @@ def create_omvic_local_pipeline() -> Pipeline:
         },
         depends_on=["generate-mcqs"]
     ))
-    
+
     return pipeline
 
 # ============================================================================
@@ -165,10 +169,10 @@ if __name__ == "__main__":
     registry.register("IngestAgent", IngestAgent())
     registry.register("ChunkAgent", ChunkAgent())
     registry.register("MCQGenAgent", MCQGenAgent())
-    
+
     # Create pipeline
     pipeline = create_omvic_local_pipeline()
-    
+
     # Validate
     errors = pipeline.validate()
     if errors:
@@ -176,18 +180,18 @@ if __name__ == "__main__":
         for err in errors:
             print(f"  - {err}")
         exit(1)
-    
+
     # Visualize
     print(pipeline.visualize())
-    
+
     # Execute
     config = PipelineConfig(
         max_parallel=2,
         retry_delay_ms=1000
     )
-    
+
     executor = PipelineExecutor(registry, config)
-    
+
     # Note: HEDERA pipeline uses asyncio
     # For now, just show the plan
     print("\n=== Pipeline Plan ===")
@@ -195,7 +199,7 @@ if __name__ == "__main__":
     for step in pipeline.steps:
         deps = pipeline._effective_deps(step)
         print(f"  [{step.step_id}] -> depends on: {list(deps)}")
-    
+
     print("\n=== Ingestion Summary ===")
     print(f"Total sources: {len(sources)}")
     total_words = sum(s["word_count"] for s in sources)

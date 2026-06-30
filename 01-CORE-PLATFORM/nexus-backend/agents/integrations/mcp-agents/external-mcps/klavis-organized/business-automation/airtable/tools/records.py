@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Dict
+from typing import Any
 
 from .base import make_airtable_request
 
@@ -14,9 +14,9 @@ async def list_records(
     filter_by_formula: str | None = None,
     max_records: int | None = None,
     page_size: int | None = None,
-    sort: list[Dict[str, str]] | None = None,
+    sort: list[dict[str, str]] | None = None,
     return_fields_by_field_id: bool | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get all records from a table with optional filtering and formatting."""
     endpoint = f"{base_id}/{table_id}"
 
@@ -68,7 +68,7 @@ async def list_records(
     return await make_airtable_request("GET", endpoint)
 
 
-async def get_record(base_id: str, table_id: str, record_id: str) -> Dict[str, Any]:
+async def get_record(base_id: str, table_id: str, record_id: str) -> dict[str, Any]:
     """Get a single record from a table."""
     endpoint = f"{base_id}/{table_id}/{record_id}"
     logger.info(
@@ -80,10 +80,10 @@ async def get_record(base_id: str, table_id: str, record_id: str) -> Dict[str, A
 async def create_records(
     base_id: str,
     table_id: str,
-    records: list[Dict[str, Any]],
+    records: list[dict[str, Any]],
     typecast: bool | None = None,
     return_fields_by_field_id: bool | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create one or multiple records in a table."""
     endpoint = f"{base_id}/{table_id}"
 
@@ -102,11 +102,11 @@ async def create_records(
 async def update_records(
     base_id: str,
     table_id: str,
-    records: list[Dict[str, Any]],
+    records: list[dict[str, Any]],
     typecast: bool | None = None,
     return_fields_by_field_id: bool | None = None,
-    perform_upsert: Dict[str, Any] | None = None,
-) -> Dict[str, Any]:
+    perform_upsert: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Update one or multiple records in a table, with optional upsert functionality."""
     endpoint = f"{base_id}/{table_id}"
 
@@ -133,7 +133,7 @@ async def delete_records(
     base_id: str,
     table_id: str,
     record_ids: list[str],
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Delete multiple records from a table."""
     endpoint = f"{base_id}/{table_id}"
 

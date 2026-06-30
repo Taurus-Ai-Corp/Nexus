@@ -1,15 +1,16 @@
 import logging
-from typing import Any, Dict, Optional, List
-from .base import make_v2_request, make_http_request
+from typing import Any
+
+from .base import make_http_request, make_v2_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 async def get_all_opportunities(
-    cursor: Optional[str] = None,
-    limit: Optional[int] = None,
-    ids: Optional[List[int]] = None
-) -> Dict[str, Any]:
+    cursor: str | None = None,
+    limit: int | None = None,
+    ids: list[int] | None = None
+) -> dict[str, Any]:
     """Get all Opportunities in Affinity.
     
     Returns basic information but NOT field data on each Opportunity.
@@ -29,13 +30,13 @@ async def get_all_opportunities(
             params["limit"] = limit
         if ids:
             params["ids"] = ids
-            
+
         return await make_v2_request("GET", "/opportunities", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_all_opportunities: {e}")
         raise e
 
-async def get_single_opportunity(opportunity_id: int) -> Dict[str, Any]:
+async def get_single_opportunity(opportunity_id: int) -> dict[str, Any]:
     """Get a single Opportunity by ID.
     
     Returns basic information but NOT field data on the Opportunity.
@@ -52,10 +53,10 @@ async def get_single_opportunity(opportunity_id: int) -> Dict[str, Any]:
         raise e
 
 async def search_opportunities(
-    term: Optional[str] = None,
-    page_size: Optional[int] = None,
-    page_token: Optional[str] = None
-) -> Dict[str, Any]:
+    term: str | None = None,
+    page_size: int | None = None,
+    page_token: str | None = None
+) -> dict[str, Any]:
     """Search for opportunities in Affinity.
     
     Searches your team's data and fetches all the opportunities that meet the search criteria.
@@ -75,10 +76,9 @@ async def search_opportunities(
             params["page_size"] = page_size
         if page_token:
             params["page_token"] = page_token
-            
+
         return await make_http_request("GET", "/opportunities", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool search_opportunities: {e}")
         raise e
 
- 

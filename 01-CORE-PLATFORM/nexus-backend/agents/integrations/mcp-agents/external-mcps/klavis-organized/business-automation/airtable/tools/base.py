@@ -1,6 +1,5 @@
 import logging
 import os
-from typing import Optional
 from contextvars import ContextVar
 
 import aiohttp
@@ -51,7 +50,7 @@ def _get_airtable_headers() -> dict:
 async def make_airtable_request(
     method: str,
     endpoint: str,
-    json_data: Optional[dict] = None,
+    json_data: dict | None = None,
     expect_empty_response: bool = False,
 ) -> dict | None:
     """Make a request to the Airtable API."""

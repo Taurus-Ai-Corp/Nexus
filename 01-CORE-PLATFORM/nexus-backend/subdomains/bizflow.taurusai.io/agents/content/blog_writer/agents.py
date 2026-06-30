@@ -10,18 +10,16 @@ Requirements:
 - Set DIGITAL_OCEAN_ENDPOINT and DIGITAL_OCEAN_AGENT_ACCESS_KEY in environment or .env file
 """
 
-import os
-import tempfile
-from pathlib import Path
 import json
-from typing import Dict, Any, List
+import os
+from typing import Any
+
 import openai
-from dotenv import load_dotenv
 
 # Document processing imports
 import pypdf
 from docx import Document
-import io
+from dotenv import load_dotenv
 
 # Memori imports
 from memori import Memori, create_memory_tool
@@ -107,7 +105,7 @@ def extract_text_from_txt(txt_file) -> str:
         raise Exception(f"Error reading TXT: {e}")
 
 
-def analyze_writing_style(text: str) -> Dict[str, Any]:
+def analyze_writing_style(text: str) -> dict[str, Any]:
     """Analyze writing style using Digital Ocean AI"""
     try:
         prompt = f"""
@@ -181,7 +179,7 @@ def analyze_writing_style(text: str) -> Dict[str, Any]:
 
 
 def store_writing_style_in_memori(
-    memory_system, style_analysis: Dict[str, Any], original_text: str
+    memory_system, style_analysis: dict[str, Any], original_text: str
 ):
     """Store writing style analysis in Memori as a simple conversation"""
     try:

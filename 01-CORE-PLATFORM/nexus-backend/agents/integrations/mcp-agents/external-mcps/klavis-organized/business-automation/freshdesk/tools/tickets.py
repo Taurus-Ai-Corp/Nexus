@@ -1,7 +1,13 @@
 import logging
-from typing import Dict, List, Optional, Any, Union
 from datetime import datetime
-from .base import make_freshdesk_request, handle_freshdesk_error, remove_none_values, handle_freshdesk_attachments
+from typing import Any
+
+from .base import (
+    handle_freshdesk_attachments,
+    handle_freshdesk_error,
+    make_freshdesk_request,
+    remove_none_values,
+)
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -33,17 +39,17 @@ async def create_ticket(
     subject: str,
     description: str,
     email: str,
-    name: Optional[str] = None,
+    name: str | None = None,
     priority: int = PRIORITY_MEDIUM,
     status: int = STATUS_OPEN,
     source: int = SOURCE_PORTAL,
-    tags: Optional[List[str]] = None,
-    custom_fields: Optional[Dict[str, Any]] = None,
-    cc_emails: Optional[List[str]] = None,
-    responder_id: Optional[int] = None,
-    parent_id: Optional[int] = None,
+    tags: list[str] | None = None,
+    custom_fields: dict[str, Any] | None = None,
+    cc_emails: list[str] | None = None,
+    responder_id: int | None = None,
+    parent_id: int | None = None,
     **kwargs
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Create a new ticket in Freshdesk.
     
@@ -96,11 +102,11 @@ async def create_ticket(
         # Handle attachments if provided
         if attachments:
             options["files"] = handle_freshdesk_attachments("attachments[]", attachments)
-        
+
         logger.info(f"Creating ticket with data: {ticket_data}")
         response = await make_freshdesk_request("POST", "/tickets", data=ticket_data, options=options)
         return response
-        
+
     except Exception as e:
         logger.error(f"Failed to create ticket: {str(e)}")
         return handle_freshdesk_error(e, "create", "ticket")
@@ -111,18 +117,18 @@ async def create_ticket_with_attachments(
     subject: str,
     description: str,
     email: str,
-    name: Optional[str] = None,
+    name: str | None = None,
     priority: int = PRIORITY_MEDIUM,
     status: int = STATUS_OPEN,
     source: int = SOURCE_PORTAL,
-    tags: Optional[List[str]] = None,
-    custom_fields: Optional[Dict[str, Any]] = None,
-    cc_emails: Optional[List[str]] = None,
-    attachments: Optional[List[Dict[str, Any]]] = None,
-    responder_id: Optional[int] = None,
-    parent_id: Optional[int] = None,
+    tags: list[str] | None = None,
+    custom_fields: dict[str, Any] | None = None,
+    cc_emails: list[str] | None = None,
+    attachments: list[dict[str, Any]] | None = None,
+    responder_id: int | None = None,
+    parent_id: int | None = None,
     **kwargs
-): 
+):
     try:
        return await create_ticket(
            subject=subject,
@@ -144,7 +150,7 @@ async def create_ticket_with_attachments(
         return handle_freshdesk_error(e, "create", "ticket")
 
 
-async def get_ticket_by_id(ticket_id: int, include: str = None) -> Dict[str, Any]:
+async def get_ticket_by_id(ticket_id: int, include: str = None) -> dict[str, Any]:
     """
     Retrieve a ticket by its ID.
     
@@ -159,25 +165,25 @@ async def get_ticket_by_id(ticket_id: int, include: str = None) -> Dict[str, Any
         endpoint = f"/tickets/{ticket_id}"
         if include:
             endpoint += f"?include={include}"
-            
+
         response = await make_freshdesk_request("GET", endpoint)
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "retrieve", "ticket")
 
 
 async def update_ticket(
     ticket_id: int,
-    subject: Optional[str] = None,
-    description: Optional[str] = None,
-    priority: Optional[int] = None,
-    status: Optional[int] = None,
-    tags: Optional[List[str]] = None,
-    custom_fields: Optional[Dict[str, Any]] = None,
-    attachments: Optional[List[Dict[str, Any]]] = None,
+    subject: str | None = None,
+    description: str | None = None,
+    priority: int | None = None,
+    status: int | None = None,
+    tags: list[str] | None = None,
+    custom_fields: dict[str, Any] | None = None,
+    attachments: list[dict[str, Any]] | None = None,
     **kwargs
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Update an existing ticket.
     
@@ -207,12 +213,12 @@ async def update_ticket(
             "custom_fields": custom_fields,
             **kwargs
         }
-        
+
         update_data = remove_none_values(update_data)
-        
+
         if not update_data:
             raise ValueError("No fields to update")
-            
+
         logger.info(f"Updating ticket {ticket_id} with data: {update_data}")
 
         options = {}
@@ -222,12 +228,12 @@ async def update_ticket(
 
         response = await make_freshdesk_request("PUT", f"/tickets/{ticket_id}", data=update_data, options=options)
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "update", "ticket")
 
 
-async def delete_ticket(ticket_id: int) -> Dict[str, Any]:
+async def delete_ticket(ticket_id: int) -> dict[str, Any]:
     """
     Delete a ticket.
     
@@ -239,16 +245,16 @@ async def delete_ticket(ticket_id: int) -> Dict[str, Any]:
     """
     try:
         endpoint = f"/tickets/{ticket_id}"
-            
+
         await make_freshdesk_request("DELETE", endpoint)
         return {"success": True, "message": f"Ticket {ticket_id} deleted successfully"}
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "delete", "ticket")
 
 
 
-async def delete_multiple_tickets(ticket_ids: List[int]) -> Dict[str, Any]: 
+async def delete_multiple_tickets(ticket_ids: list[int]) -> dict[str, Any]:
     """
     Delete multiple tickets.
     
@@ -276,7 +282,7 @@ async def delete_multiple_tickets(ticket_ids: List[int]) -> Dict[str, Any]:
         return handle_freshdesk_error(e, "delete", "tickets")
 
 
-async def delete_attachment(attachment_id: int) -> Dict[str, Any]:
+async def delete_attachment(attachment_id: int) -> dict[str, Any]:
     """
     Delete an attachment from a ticket.
     
@@ -288,32 +294,32 @@ async def delete_attachment(attachment_id: int) -> Dict[str, Any]:
     """
     try:
         endpoint = f"/attachments/{attachment_id}"
-            
+
         await make_freshdesk_request("DELETE", endpoint)
         return {"success": True, "message": f"Attachment {attachment_id} deleted successfully"}
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "delete", "attachment")
-    
+
 
 async def list_tickets(
-    status: Optional[int] = None,
-    priority: Optional[int] = None,
-    requester_id: Optional[int] = None,
-    agent_id: Optional[int] = None,
-    email: Optional[str] = None,
-    group_id: Optional[int] = None,
-    company_id: Optional[int] = None,
-    ticket_type: Optional[str] = None,
-    updated_since: Optional[Union[str, datetime]] = None,
-    due_by: Optional[Union[str, datetime]] = None,
+    status: int | None = None,
+    priority: int | None = None,
+    requester_id: int | None = None,
+    agent_id: int | None = None,
+    email: str | None = None,
+    group_id: int | None = None,
+    company_id: int | None = None,
+    ticket_type: str | None = None,
+    updated_since: str | datetime | None = None,
+    due_by: str | datetime | None = None,
     page: int = 1,
     per_page: int = 30,
-    order_type: Optional[str] = "desc",
-    order_by: Optional[str] = "created_at",
-    include: Optional[str] = None,
+    order_type: str | None = "desc",
+    order_by: str | None = "created_at",
+    include: str | None = None,
     **filters
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     List tickets with optional filtering.
     
@@ -355,7 +361,7 @@ async def list_tickets(
             "order_type": order_type,
             "order_by": order_by,
             "include": include,
-            **filters 
+            **filters
         }
 
         if ticket_type is not None:
@@ -374,17 +380,17 @@ async def list_tickets(
         if (params.get("created_since")):
             if isinstance(params.get("created_since"), datetime):
                 params["created_since"] = params.get("created_since").isoformat()
-        
+
         params = remove_none_values(params)
-        
+
         response = await make_freshdesk_request(
-            "GET", 
-            "/tickets", 
+            "GET",
+            "/tickets",
             options={"query_params": params}
         )
-        
+
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "list", "tickets")
 
@@ -393,12 +399,12 @@ async def add_note_to_ticket(
     ticket_id: int,
     body: str,
     private: bool = False,
-    user_id: Optional[int] = None,
-    incoming: Optional[bool] = False,
-    notify_emails: Optional[List[str]] = None,
-    attachments: Optional[List[Dict[str, Any]]] = None
-    
-) -> Dict[str, Any]:
+    user_id: int | None = None,
+    incoming: bool | None = False,
+    notify_emails: list[str] | None = None,
+    attachments: list[dict[str, Any]] | None = None
+
+) -> dict[str, Any]:
     """
     Add a note to a ticket.
     
@@ -422,9 +428,9 @@ async def add_note_to_ticket(
             "notify_emails": notify_emails,
             "user_id": user_id,
         }
-        
+
         note_data = remove_none_values(note_data)
-            
+
         options = {}
 
         if attachments:
@@ -437,7 +443,7 @@ async def add_note_to_ticket(
             options=options
         )
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "add_note_to", "ticket")
 
@@ -445,12 +451,12 @@ async def add_note_to_ticket(
 async def reply_to_a_ticket(
     ticket_id: int,
     body: str,
-    user_id: Optional[int] = None,
-    cc_emails: Optional[List[str]] = None,
-    bcc_emails: Optional[List[str]] = None,
-    from_email: Optional[str] = None,
-    attachments: Optional[List[Dict[str, Any]]] = None
-) -> Dict[str, Any]:
+    user_id: int | None = None,
+    cc_emails: list[str] | None = None,
+    bcc_emails: list[str] | None = None,
+    from_email: str | None = None,
+    attachments: list[dict[str, Any]] | None = None
+) -> dict[str, Any]:
     """
     Reply to a ticket.
     
@@ -474,9 +480,9 @@ async def reply_to_a_ticket(
             "bcc_emails": bcc_emails or [],
             "from_email": from_email
         }
-        
+
         data = remove_none_values(data)
-            
+
         options = {}
 
         if attachments:
@@ -489,7 +495,7 @@ async def reply_to_a_ticket(
             options=options
         )
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "reply_to", "ticket")
 
@@ -497,8 +503,8 @@ async def reply_to_a_ticket(
 async def update_note(
     note_id: int,
     body: str,
-    attachments: Optional[List[Dict[str, Any]]] = None
-) -> Dict[str, Any]:
+    attachments: list[dict[str, Any]] | None = None
+) -> dict[str, Any]:
     """
     Update a note or reply to a ticket.
     
@@ -514,9 +520,9 @@ async def update_note(
         note_data = {
             "body": body,
         }
-        
+
         note_data = remove_none_values(note_data)
-            
+
         options = {}
 
         if attachments:
@@ -529,14 +535,14 @@ async def update_note(
             options=options
         )
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "update", "note")
 
 
 async def delete_note(
     note_id: int,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Delete a note or reply to a ticket.
     
@@ -552,7 +558,7 @@ async def delete_note(
             f"/conversations/{note_id}",
         )
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "delete", "note")
 
@@ -561,7 +567,7 @@ async def filter_tickets(
     query: str,
     page: int = 1,
     per_page: int = 30
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Filter tickets using a query string.
     
@@ -579,25 +585,25 @@ async def filter_tickets(
             "page": page,
             "per_page": min(per_page, 30)
         }
-        
+
         response = await make_freshdesk_request(
             "GET",
             "/search/tickets",
             options={"query_params": params}
         )
-        
+
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "filter", "tickets")
 
 
 
 async def merge_tickets(
-    primary_ticket_id: int, 
-    ticket_ids: List[int], 
-    convert_recepients_to_cc: Optional[bool] = None,
-) -> Dict[str, Any]:
+    primary_ticket_id: int,
+    ticket_ids: list[int],
+    convert_recepients_to_cc: bool | None = None,
+) -> dict[str, Any]:
     """
     Merge two tickets.
     
@@ -620,7 +626,7 @@ async def merge_tickets(
 
         await make_freshdesk_request(
             "PUT",
-            f"/tickets/merge",
+            "/tickets/merge",
             data=merge_data
         )
         return {"success": True, "message": f"Ticket {primary_ticket_id} merged into {ticket_ids}"}
@@ -628,7 +634,7 @@ async def merge_tickets(
         return handle_freshdesk_error(e, "merge", "tickets")
 
 
-async def restore_ticket(ticket_id: int) -> Dict[str, Any]:
+async def restore_ticket(ticket_id: int) -> dict[str, Any]:
     """
     Restore a deleted ticket.
     
@@ -645,7 +651,7 @@ async def restore_ticket(ticket_id: int) -> Dict[str, Any]:
         return handle_freshdesk_error(e, "restore", "ticket")
 
 
-async def watch_ticket(ticket_id: int, user_id: Optional[int] = None) -> Dict[str, Any]:
+async def watch_ticket(ticket_id: int, user_id: int | None = None) -> dict[str, Any]:
     """
     Watch a ticket.
     
@@ -662,7 +668,7 @@ async def watch_ticket(ticket_id: int, user_id: Optional[int] = None) -> Dict[st
         }
 
         data = remove_none_values(data)
-        
+
         await make_freshdesk_request(
             "POST",
             f"/tickets/{ticket_id}/watch",
@@ -673,7 +679,7 @@ async def watch_ticket(ticket_id: int, user_id: Optional[int] = None) -> Dict[st
         return handle_freshdesk_error(e, "watch", "ticket")
 
 
-async def unwatch_ticket(ticket_id: int) -> Dict[str, Any]:
+async def unwatch_ticket(ticket_id: int) -> dict[str, Any]:
     """
     Unwatch a ticket.
     
@@ -691,13 +697,13 @@ async def unwatch_ticket(ticket_id: int) -> Dict[str, Any]:
 
 async def forward_ticket(
     ticket_id: int,
-    to_emails: List[str],
-    cc_emails: Optional[List[str]] = None,
-    bcc_emails: Optional[List[str]] = None,
-    body: Optional[str] = None,
-    subject: Optional[str] = None,
+    to_emails: list[str],
+    cc_emails: list[str] | None = None,
+    bcc_emails: list[str] | None = None,
+    body: str | None = None,
+    subject: str | None = None,
     **kwargs
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Forward a ticket to additional email addresses.
     
@@ -722,9 +728,9 @@ async def forward_ticket(
             "subject": subject,
             **kwargs
         }
-        
+
         data = remove_none_values(data)
-    
+
         await make_freshdesk_request(
             "POST",
             f"/tickets/{ticket_id}/forward",
@@ -735,7 +741,7 @@ async def forward_ticket(
         return handle_freshdesk_error(e, "forward", "ticket")
 
 
-async def get_archived_ticket(ticket_id: int) -> Dict[str, Any]:
+async def get_archived_ticket(ticket_id: int) -> dict[str, Any]:
     """
     Retrieve an archived ticket by its ID.
     
@@ -752,7 +758,7 @@ async def get_archived_ticket(ticket_id: int) -> Dict[str, Any]:
         return handle_freshdesk_error(e, "retrieve", "archived ticket")
 
 
-async def delete_archived_ticket(ticket_id: int) -> Dict[str, Any]:
+async def delete_archived_ticket(ticket_id: int) -> dict[str, Any]:
     """
     Permanently delete an archived ticket.
     

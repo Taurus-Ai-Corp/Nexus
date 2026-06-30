@@ -1,0 +1,255 @@
+{
+  "changed": [
+    {
+      "path": "\"08-DOCUMENTATION/NeoVibe by Taurus AI \\342\\200\\224 Business Structure \u0026 Strategy 2.pdf\"",
+      "status": "modified"
+    },
+    {
+      "path": ".gitignore",
+      "hash": "56537ebe03160a28fdb6e59ae18f408d6f8aba609df73c45917c9358fd3bad52",
+      "size": 8,
+      "status": "untracked"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/03-integrations/N8N/n8n-workflows/linkedin-automation/vertex-ai-integration.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/candidate_analyser/main.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/main.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/scripts/create_search_indexes.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/scripts/test_vector_search.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/config/nebius_client.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/config/openrouter_client.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/models/__init__.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/models/corpus_manager.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/research/adk_research_agent.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/scrapers/__init__.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/scrapers/conference_detector.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/scrapers/parallel_crawler.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/ui/conference_talk_app.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_agnositc_cfp_generator/src/ui/prompts.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_talk_abstract_generator/adk_research_agent.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_talk_abstract_generator/couchbase_utils.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_talk_abstract_generator/crawl_talks.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_talk_abstract_generator/embeddinggeneration.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_talk_abstract_generator/extract_events.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/conference_talk_abstract_generator/talk_suggestions_app.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/deep_researcher_agent/agents.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/deep_researcher_agent/app.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/deep_researcher_agent/server.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/finance_service_agent/app.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/finance_service_agent/controllers/agents.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/finance_service_agent/controllers/ask.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/finance_service_agent/controllers/stockAgent.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/finance_service_agent/controllers/stockNews.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/finance_service_agent/controllers/topStocks.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/finance_service_agent/routes/agentRoutes.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/finance_service_agent/routes/stockRoutes.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/finance_service_agent/utils/redisCache.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/job_finder_agent/app.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/job_finder_agent/job_agents.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/job_finder_agent/mcp_server.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/price_monitoring_agent/agents/crewai_agents.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/price_monitoring_agent/app.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/price_monitoring_agent/notifier/email_notifier.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/price_monitoring_agent/scheduler.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/price_monitoring_agent/tools/custom_tools.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/startup_idea_validator_agent/app.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/startup_idea_validator_agent/main.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/advance_ai_agents/trend_analyzer_agent/agent.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/demo-github-mcp.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/custom_mcp_server/mcp-client.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/custom_mcp_server/mcp-server.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/core/config.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/database/mongodb.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/database/repository.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/github/client.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/github/file_loader.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/github/parser.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/rag/ingestion.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/rag/models.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/rag/query.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/ui/components/common.py",
+      "status": "modified"
+    },
+    {
+      "path": ".worktrees/comply-redirect-feat/01-CORE-PLATFORM/bizflow-backend/08-shared/Configuration/cursor/.claude/awesome-AI-Apps/mcp_ai_agents/doc_mcp/src/ui/tabs/ingestion.py",
+      "status": "modified"
+    }
+  ],
+  "risk_files": [],
+  "recent_events": [],
+  "next_steps": [
+    "Run tests covering changed files before handoff."
+  ],
+  "open_questions": [
+    "Live watch state was unavailable; timeline may be incomplete.",
+    "Dependency graph context was unavailable; risk files may be incomplete."
+  ]
+}

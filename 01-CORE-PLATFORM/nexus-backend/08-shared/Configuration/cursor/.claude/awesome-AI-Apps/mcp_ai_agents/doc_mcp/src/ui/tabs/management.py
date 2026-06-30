@@ -1,7 +1,7 @@
 """Repository management tab implementation."""
 
 import logging
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 import gradio as gr
 
@@ -144,7 +144,7 @@ class ManagementTab:
 
         return tab
 
-    def _load_repository_stats(self) -> Dict[str, Any]:
+    def _load_repository_stats(self) -> dict[str, Any]:
         """Load repository statistics."""
         try:
             return repository_manager.get_repository_stats()
@@ -152,7 +152,7 @@ class ManagementTab:
             logger.error(f"Failed to load repository stats: {e}")
             return {"error": f"Failed to load statistics: {str(e)}"}
 
-    def _load_repository_details(self) -> Tuple[List[List], List[str]]:
+    def _load_repository_details(self) -> tuple[list[list], list[str]]:
         """Load repository details for table and dropdown."""
         try:
             details = repository_manager.get_repository_details()
@@ -191,7 +191,7 @@ class ManagementTab:
             logger.error(f"Error loading repository details: {e}")
             return [["Error loading repositories", 0, str(e), "error"]], []
 
-    def _refresh_all_data(self) -> Tuple[List[List], gr.Dropdown]:
+    def _refresh_all_data(self) -> tuple[list[list], gr.Dropdown]:
         """Refresh both table and dropdown data."""
         try:
             table_data, dropdown_choices = self._load_repository_details()
@@ -231,7 +231,7 @@ class ManagementTab:
 
     def _delete_repository(
         self, repo_name: str, confirmed: bool
-    ) -> Tuple[str, gr.Dropdown, gr.Checkbox, List[List]]:
+    ) -> tuple[str, gr.Dropdown, gr.Checkbox, list[list]]:
         """Delete the selected repository."""
         if not repo_name:
             table_data, dropdown_choices = self._load_repository_details()

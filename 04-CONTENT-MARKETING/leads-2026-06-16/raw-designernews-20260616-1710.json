@@ -1,0 +1,6 @@
+Retrieving project…
+Retrieving project…
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   257  100   157  100   100    718    457 --:--:-- --:--:-- --:--:--  1178
+{"query":"design jobs","url":"https://www.designernews.co/?format=rss","results":{"rss":[]},"errors":{"rss":"RSS fetch 500"},"ts":"2026-06-16T20:57:17.526Z"}

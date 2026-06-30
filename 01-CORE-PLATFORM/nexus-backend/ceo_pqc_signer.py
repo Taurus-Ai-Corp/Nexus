@@ -5,9 +5,9 @@ Client-side utility to sign Telegram commands with ML-DSA-65.
 Usage: python3 ceo_pqc_signer.py "/analyze https://github.com"
 """
 
-import sys
 import os
-import base64
+import sys
+
 from pqc_executive_security import PQCSecurityProvider
 
 

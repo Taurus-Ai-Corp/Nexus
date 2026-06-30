@@ -1,10 +1,10 @@
 import logging
 import os
+from typing import Any
 
-from typing import Any, Dict, Optional
+from utils.rate_limiter import rate_limited
 
 from .base import make_coinbase_request
-from utils.rate_limiter import rate_limited
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ EXCHANGE_URL = os.getenv("COINBASE_EXCHANGE_URL")
 
 
 @rate_limited(api_type="products")
-async def coinbase_get_product_details(product_id: str) -> Dict[str, Any]:
+async def coinbase_get_product_details(product_id: str) -> dict[str, Any]:
     """
     Get detailed product information.
     Uses moderate rate limits for product information endpoints.
@@ -50,8 +50,8 @@ async def coinbase_get_historical_prices(
     symbol: str,
     start: str,
     end: str,
-    granularity: Optional[int] = 3600
-) -> Dict[str, Any]:
+    granularity: int | None = 3600
+) -> dict[str, Any]:
     """
     Get historical price data for cryptocurrencies.
     Uses moderate rate limits for product information endpoints.

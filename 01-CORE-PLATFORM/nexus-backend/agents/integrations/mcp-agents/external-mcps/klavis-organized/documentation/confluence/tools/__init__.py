@@ -1,4 +1,4 @@
-from .attachment import get_attachments_for_page, list_attachments, get_attachment
+from .attachment import get_attachment, get_attachments_for_page, list_attachments
 from .page import (
     create_page,
     get_page,
@@ -29,4 +29,4 @@ __all__ = [
     "get_space",
     "get_space_hierarchy",
     "list_spaces",
-] 
+]

@@ -7,13 +7,13 @@ Implements "Executive Intent" provenance for regulatory compliance.
 HCS Topic: 0.0.8076305 (TAURUS AI Governance)
 """
 
-import os
+import hashlib
 import json
 import logging
-import hashlib
+import os
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
-from typing import Optional, Dict, Any
-from dataclasses import dataclass, asdict
+from typing import Any
 
 logger = logging.getLogger("HederaGovernance")
 logging.basicConfig(level=logging.INFO)
@@ -31,7 +31,7 @@ class GovernanceMessage:
     action_risk: float
     approved: bool
     execution_hash: str
-    metadata: Dict[str, Any]
+    metadata: dict[str, Any]
 
 
 class HederaHCSGovernance:
@@ -65,8 +65,7 @@ class HederaHCSGovernance:
             return self.client
 
         try:
-            from hiero import Client, AccountId, PrivateKey, TopicId
-            from hiero import Network
+            from hiero import AccountId, Client, Network, PrivateKey, TopicId
 
             if self.network == "mainnet":
                 client = Client.for_mainnet()
@@ -102,8 +101,8 @@ class HederaHCSGovernance:
         pqc_verified: bool,
         action_risk: float,
         approved: bool,
-        metadata: Dict[str, Any] = None,
-    ) -> Optional[str]:
+        metadata: dict[str, Any] = None,
+    ) -> str | None:
         """
         Mirror an executive command to Hedera HCS.
 
@@ -140,7 +139,7 @@ class HederaHCSGovernance:
             return self._store_locally(governance_msg)
 
         try:
-            from hiero import TopicMessageSubmitTransaction, TopicId
+            from hiero import TopicId, TopicMessageSubmitTransaction
 
             topic_id = TopicId.fromString(self.topic_id)
 
@@ -181,7 +180,7 @@ class HederaHCSGovernance:
             return []
 
         try:
-            from hiero import TopicMessageQuery, TopicId
+            from hiero import TopicId, TopicMessageQuery
 
             topic_id = TopicId.fromString(self.topic_id)
             messages = []
@@ -222,7 +221,7 @@ if __name__ == "__main__":
         )
 
         print(f"\n{'=' * 60}")
-        print(f"🏛️ HCS GOVERNANCE SUBMISSION")
+        print("🏛️ HCS GOVERNANCE SUBMISSION")
         print(f"{'=' * 60}")
         print(f"Transaction ID: {tx_id}")
         print(f"{'=' * 60}\n")

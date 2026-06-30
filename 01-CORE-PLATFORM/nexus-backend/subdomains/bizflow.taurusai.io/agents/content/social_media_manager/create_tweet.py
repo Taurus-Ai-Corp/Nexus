@@ -1,6 +1,7 @@
 import os
-from dotenv import load_dotenv
+
 from composio import Composio
+from dotenv import load_dotenv
 from openai import OpenAI
 
 # Load environment variables
@@ -45,7 +46,7 @@ def create_tweet(tweet_text):
             result = composio.provider.handle_tool_calls(
                 user_id=user_id, response=completion
             )
-            print(f"✅ Tweet created successfully!")
+            print("✅ Tweet created successfully!")
             print(f"Result: {result}")
             return True
         else:

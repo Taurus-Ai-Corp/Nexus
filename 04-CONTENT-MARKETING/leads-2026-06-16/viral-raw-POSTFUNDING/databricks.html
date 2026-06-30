@@ -1,0 +1,46 @@
+Title: Databricks Launches LTAP: The First Lake Transactional/Analytical Processing Architecture
+
+URL Source: https://www.databricks.com/company/newsroom/press-releases/databricks-launches-ltap-first-lake-transactionalanalytical
+
+Published Time: Tue, 06/16/2026 - 05:23
+
+Markdown Content:
+*   Databricks today launched LTAP (Lake Transactional/Analytical Processing), a new data processing architecture that unifies OLAP and OLTP on a single copy of data in the lake, eliminating ETL, replicas, and pipelines by design.
+*   Lakebase, the foundation of the LTAP architecture, now serves thousands of customers and handles 12 million database launches per day across the platform.
+*   Databricks is the world's first LTAP platform. It combines Lakebase (serverless Postgres on open object storage) with the Lakehouse under a single governance model, source of truth, and storage layer for all operational, analytical, and streaming data.
+
+**DATA + AI SUMMIT – June 16, 2026** – [Databricks](https://www.databricks.com/), the Data and AI company, today introduced Lake Transactional/Analytical Processing (LTAP), a new data processing architecture that unifies transactions, analytics, streaming, and operational data on a single copy of storage in the lake. With LTAP, enterprises have a single governed foundation to read, reason, and act on, without pipelines, replicas, or the ETL overhead that has defined data infrastructure for decades. Powered by major advances in Lakebase, LTAP provides a new data foundation for the AI application era.
+
+**The New Data Foundation for the Agentic Era**
+
+For four decades, transactional and analytical workloads have lived in separate systems: operational databases served applications, analytical systems answered questions. Bridging them meant building CDC pipelines that are brittle and prone to breaking under pressure. That was already a bad tradeoff when humans wrote software at human speed. Today, AI helps developers write ~50x more applications than ever before, many of which are powered by agents that need to read, reason, and act on data in near real time. The old architecture wasn't built for this.
+
+The data industry has tried to solve the problem of disparate systems before. HTAP promised to unify transactional and analytical data in a single engine, but collapsed workload isolation in the process, compromised performance for both, and left organizations with a massive, expensive proprietary footprint. Zero ETL took a different approach, hiding the CDC pipeline rather than eliminating it. The underlying architectural problem remained.
+
+LTAP takes a fundamentally different approach: rather than forcing both workloads into one engine or concealing the pipeline, it unifies data at the storage layer. All operational data is immediately queryable and available in the lake for analytics, with no pipelines. Transactional and analytical workloads scale independently with full performance and strict isolation. And because LTAP is built on open standards, it works with any application that speaks Postgres and any reader that understands open table formats like Iceberg and Delta.
+
+_“For decades, complicated data infrastructure was a tax that teams were forced to pay,” said Ali Ghodsi, Co-founder and CEO of Databricks. “Then agents arrived. In a matter of months, organizations effectively doubled their workforce, just not with humans. Agents write code, make calls, and run loops at a pace human teams never could. The infrastructure that powered the last era of computing is now the bottleneck that no one can afford. LTAP removes it.”_
+
+**Lakebase Adds Disaster Recovery, Git-Style Branching & Snapshots**
+
+The first step toward LTAP was Lakebase, which brought Postgres-native transactions to object storage, the same layer powering the Lakehouse. By separating compute from storage, Lakebase transforms the economics of running thousands of applications and agents at once. Launched just last year, Lakebase already serves thousands of customers, including Block, Ensemble, Superhuman, and Zillow, and handles 12 million database launches per day.
+
+Today, Databricks announced new capabilities that extend Lakebase for enterprise AI at scale. New cross-cloud, cross-region disaster recovery lets organizations build more resilient data architectures, which is increasingly important as agents take on mission-critical operations. Additionally, new git-style branching and snapshots enable safe experimentation against production data, while autonomous database operations let agents monitor health, detect slowdowns, propose indexes, and assist with recovery.
+
+**How LTAP Completes the Architecture**
+
+Lakebase and the Lakehouse already shared a storage layer, but each maintained its own copy of data in its own format. LTAP closes that gap. Lakebase stores data directly in Unity Catalog, using the same open formats as the Lakehouse. The result is a cleaner architecture, defined by three properties that together eliminate the tradeoffs that have defined enterprise data infrastructure for decades:
+
+*   **Unified governance, one source of truth**: All operational, analytical, and streaming data live on open object storage in open formats — Delta and Iceberg — without transformation or degradation. Everything is governed through Unity Catalog with a single identity, permissions, and audit model, so every engine reads the same copy and agents share a single governed surface to act on.
+*   **No performance tradeoffs, for any workload**: Transactional workloads run in standard Postgres with full ACID semantics. Analytical workloads run across the full Lakehouse at any scale and concurrency. Each scales independently, and because there's no data movement between systems, operational and analytical results are always in sync — with no copies or shadow infrastructure.
+*   **No ETL pipelines (even hidden ones)**: There are no pipelines synchronizing operational and analytical stores, replicas to maintain, or connectors moving data between systems. The architecture eliminates the ETL layer entirely, reducing operational costs of keeping systems in sync while ensuring data stays current.
+
+_“For the health systems we serve, speed and accuracy in the revenue cycle directly affect their ability to deliver care,” said Grant Veazey, CTO, Ensemble. “Our early investment with Databricks helped us build a governed foundation supporting more than two petabytes of clean, harmonized revenue cycle data. Lakebase and LTAP extend that foundation by unifying operational and analytical workloads on a single layer, giving our RCM-native AI the real-time access it needs to perform in live operations. This translates into stronger financial performance for providers and more recovered revenue flowing back to emergency departments, NICUs, and other critical care services.”_
+
+**Availability**
+
+LTAP is coming soon as a part of Lakebase.
+
+**About Databricks**
+
+Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on Databricks to build and scale data and AI apps, analytics, and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Lakebase, Genie, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on [LinkedIn](https://www.linkedin.com/company/databricks), [X](https://x.com/databricks), [YouTube](https://www.youtube.com/@Databricks), and [Instagram](https://www.instagram.com/databricksinc/?hl=en).

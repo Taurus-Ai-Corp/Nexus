@@ -1,6 +1,7 @@
-import logging
 import hashlib
-from typing import Any, Dict, List, Optional
+import logging
+from typing import Any
+
 from .base import make_mailchimp_request
 
 # Configure logging
@@ -11,12 +12,12 @@ def _get_subscriber_hash(email: str) -> str:
     return hashlib.md5(email.lower().encode()).hexdigest()
 
 async def get_audience_members(
-    list_id: str, 
-    count: int = 10, 
+    list_id: str,
+    count: int = 10,
     offset: int = 0,
-    status: Optional[str] = None,
-    since_timestamp_opt: Optional[str] = None
-) -> Dict[str, Any]:
+    status: str | None = None,
+    since_timestamp_opt: str | None = None
+) -> dict[str, Any]:
     """Get members from a specific audience (list)."""
     logger.info(f"Executing tool: get_audience_members with list_id: {list_id}, count: {count}, offset: {offset}")
     try:
@@ -25,20 +26,20 @@ async def get_audience_members(
             "count": count,
             "offset": offset
         }
-        
+
         if status:
             params["status"] = status
         if since_timestamp_opt:
             params["since_timestamp_opt"] = since_timestamp_opt
-        
+
         members_data = await make_mailchimp_request("GET", endpoint, params=params)
-        
+
         result = {
             "list_id": list_id,
             "total_items": members_data.get("total_items"),
             "members": []
         }
-        
+
         for member in members_data.get("members", []):
             member_info = {
                 "id": member.get("id"),
@@ -71,7 +72,7 @@ async def get_audience_members(
                 "tags": member.get("tags", [])
             }
             result["members"].append(member_info)
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool get_audience_members: {e}")
@@ -85,26 +86,26 @@ async def add_member_to_audience(
     list_id: str,
     email_address: str,
     status: str = "subscribed",
-    merge_fields: Optional[Dict[str, str]] = None,
-    interests: Optional[Dict[str, bool]] = None,
-    language: Optional[str] = None,
-    vip: Optional[bool] = None,
-    tags: Optional[List[str]] = None,
-    ip_signup: Optional[str] = None,
-    timestamp_signup: Optional[str] = None,
-    ip_opt: Optional[str] = None,
-    timestamp_opt: Optional[str] = None
-) -> Dict[str, Any]:
+    merge_fields: dict[str, str] | None = None,
+    interests: dict[str, bool] | None = None,
+    language: str | None = None,
+    vip: bool | None = None,
+    tags: list[str] | None = None,
+    ip_signup: str | None = None,
+    timestamp_signup: str | None = None,
+    ip_opt: str | None = None,
+    timestamp_opt: str | None = None
+) -> dict[str, Any]:
     """Add a new member to an audience or update existing member."""
     logger.info(f"Executing tool: add_member_to_audience with list_id: {list_id}, email: {email_address}")
     try:
         endpoint = f"/lists/{list_id}/members"
-        
+
         payload = {
             "email_address": email_address,
             "status": status
         }
-        
+
         if merge_fields:
             payload["merge_fields"] = merge_fields
         if interests:
@@ -123,9 +124,9 @@ async def add_member_to_audience(
             payload["ip_opt"] = ip_opt
         if timestamp_opt:
             payload["timestamp_opt"] = timestamp_opt
-        
+
         member_data = await make_mailchimp_request("POST", endpoint, json_data=payload)
-        
+
         result = {
             "id": member_data.get("id"),
             "email_address": member_data.get("email_address"),
@@ -153,7 +154,7 @@ async def add_member_to_audience(
             "tags": member_data.get("tags", []),
             "list_id": list_id
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool add_member_to_audience: {e}")
@@ -165,15 +166,15 @@ async def add_member_to_audience(
             "exception": str(e)
         }
 
-async def get_member_info(list_id: str, email_address: str) -> Dict[str, Any]:
+async def get_member_info(list_id: str, email_address: str) -> dict[str, Any]:
     """Get information about a specific audience member."""
     logger.info(f"Executing tool: get_member_info with list_id: {list_id}, email: {email_address}")
     try:
         subscriber_hash = _get_subscriber_hash(email_address)
         endpoint = f"/lists/{list_id}/members/{subscriber_hash}"
-        
+
         member_data = await make_mailchimp_request("GET", endpoint)
-        
+
         result = {
             "id": member_data.get("id"),
             "email_address": member_data.get("email_address"),
@@ -206,7 +207,7 @@ async def get_member_info(list_id: str, email_address: str) -> Dict[str, Any]:
             "list_id": list_id,
             "subscriber_hash": subscriber_hash
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool get_member_info: {e}")
@@ -220,24 +221,24 @@ async def get_member_info(list_id: str, email_address: str) -> Dict[str, Any]:
 async def update_member(
     list_id: str,
     email_address: str,
-    status: Optional[str] = None,
-    merge_fields: Optional[Dict[str, str]] = None,
-    interests: Optional[Dict[str, bool]] = None,
-    language: Optional[str] = None,
-    vip: Optional[bool] = None,
-    ip_opt: Optional[str] = None,
-    timestamp_opt: Optional[str] = None
-) -> Dict[str, Any]:
+    status: str | None = None,
+    merge_fields: dict[str, str] | None = None,
+    interests: dict[str, bool] | None = None,
+    language: str | None = None,
+    vip: bool | None = None,
+    ip_opt: str | None = None,
+    timestamp_opt: str | None = None
+) -> dict[str, Any]:
     """Update an existing audience member or add if not exists."""
     logger.info(f"Executing tool: update_member with list_id: {list_id}, email: {email_address}")
     try:
         subscriber_hash = _get_subscriber_hash(email_address)
         endpoint = f"/lists/{list_id}/members/{subscriber_hash}"
-        
+
         payload = {
             "email_address": email_address
         }
-        
+
         if status:
             payload["status"] = status
         if merge_fields:
@@ -252,9 +253,9 @@ async def update_member(
             payload["ip_opt"] = ip_opt
         if timestamp_opt:
             payload["timestamp_opt"] = timestamp_opt
-        
+
         member_data = await make_mailchimp_request("PATCH", endpoint, json_data=payload)
-        
+
         result = {
             "id": member_data.get("id"),
             "email_address": member_data.get("email_address"),
@@ -272,7 +273,7 @@ async def update_member(
             "list_id": list_id,
             "updated_fields": [k for k in payload.keys() if k != "email_address"]
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool update_member: {e}")
@@ -283,15 +284,15 @@ async def update_member(
             "exception": str(e)
         }
 
-async def delete_member(list_id: str, email_address: str) -> Dict[str, Any]:
+async def delete_member(list_id: str, email_address: str) -> dict[str, Any]:
     """Delete/permanently remove a member from an audience."""
     logger.info(f"Executing tool: delete_member with list_id: {list_id}, email: {email_address}")
     try:
         subscriber_hash = _get_subscriber_hash(email_address)
         endpoint = f"/lists/{list_id}/members/{subscriber_hash}"
-        
+
         await make_mailchimp_request("DELETE", endpoint, expect_empty_response=True)
-        
+
         result = {
             "status": "success",
             "message": f"Member {email_address} has been permanently deleted from audience {list_id}",
@@ -300,7 +301,7 @@ async def delete_member(list_id: str, email_address: str) -> Dict[str, Any]:
             "subscriber_hash": subscriber_hash,
             "warning": "This action is permanent. Consider using update_member with status 'unsubscribed' instead."
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool delete_member: {e}")
@@ -311,19 +312,19 @@ async def delete_member(list_id: str, email_address: str) -> Dict[str, Any]:
             "exception": str(e)
         }
 
-async def add_member_tags(list_id: str, email_address: str, tags: List[str]) -> Dict[str, Any]:
+async def add_member_tags(list_id: str, email_address: str, tags: list[str]) -> dict[str, Any]:
     """Add tags to a specific audience member."""
     logger.info(f"Executing tool: add_member_tags with list_id: {list_id}, email: {email_address}, tags: {tags}")
     try:
         subscriber_hash = _get_subscriber_hash(email_address)
         endpoint = f"/lists/{list_id}/members/{subscriber_hash}/tags"
-        
+
         payload = {
             "tags": [{"name": tag, "status": "active"} for tag in tags]
         }
-        
+
         await make_mailchimp_request("POST", endpoint, json_data=payload, expect_empty_response=True)
-        
+
         result = {
             "status": "success",
             "message": f"Tags added to member {email_address}",
@@ -332,7 +333,7 @@ async def add_member_tags(list_id: str, email_address: str, tags: List[str]) -> 
             "tags_added": tags,
             "tags_count": len(tags)
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool add_member_tags: {e}")
@@ -344,19 +345,19 @@ async def add_member_tags(list_id: str, email_address: str, tags: List[str]) -> 
             "exception": str(e)
         }
 
-async def remove_member_tags(list_id: str, email_address: str, tags: List[str]) -> Dict[str, Any]:
+async def remove_member_tags(list_id: str, email_address: str, tags: list[str]) -> dict[str, Any]:
     """Remove tags from a specific audience member."""
     logger.info(f"Executing tool: remove_member_tags with list_id: {list_id}, email: {email_address}, tags: {tags}")
     try:
         subscriber_hash = _get_subscriber_hash(email_address)
         endpoint = f"/lists/{list_id}/members/{subscriber_hash}/tags"
-        
+
         payload = {
             "tags": [{"name": tag, "status": "inactive"} for tag in tags]
         }
-        
+
         await make_mailchimp_request("POST", endpoint, json_data=payload, expect_empty_response=True)
-        
+
         result = {
             "status": "success",
             "message": f"Tags removed from member {email_address}",
@@ -365,7 +366,7 @@ async def remove_member_tags(list_id: str, email_address: str, tags: List[str]) 
             "tags_removed": tags,
             "tags_count": len(tags)
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool remove_member_tags: {e}")
@@ -377,17 +378,17 @@ async def remove_member_tags(list_id: str, email_address: str, tags: List[str]) 
             "exception": str(e)
         }
 
-async def get_member_activity(list_id: str, email_address: str, count: int = 10) -> Dict[str, Any]:
+async def get_member_activity(list_id: str, email_address: str, count: int = 10) -> dict[str, Any]:
     """Get the last 50 events of a member's activity on a specific list."""
     logger.info(f"Executing tool: get_member_activity with list_id: {list_id}, email: {email_address}")
     try:
         subscriber_hash = _get_subscriber_hash(email_address)
         endpoint = f"/lists/{list_id}/members/{subscriber_hash}/activity"
-        
+
         params = {"count": count}
-        
+
         activity_data = await make_mailchimp_request("GET", endpoint, params=params)
-        
+
         result = {
             "email_id": activity_data.get("email_id"),
             "list_id": activity_data.get("list_id"),
@@ -397,7 +398,7 @@ async def get_member_activity(list_id: str, email_address: str, count: int = 10)
             "total_items": activity_data.get("total_items"),
             "activity": []
         }
-        
+
         for activity in activity_data.get("activity", []):
             activity_info = {
                 "action": activity.get("action"),
@@ -409,7 +410,7 @@ async def get_member_activity(list_id: str, email_address: str, count: int = 10)
                 "parent_campaign": activity.get("parent_campaign")
             }
             result["activity"].append(activity_info)
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool get_member_activity: {e}")

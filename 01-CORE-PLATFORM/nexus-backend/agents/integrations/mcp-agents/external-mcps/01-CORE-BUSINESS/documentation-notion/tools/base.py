@@ -1,6 +1,6 @@
 import os
-from typing import Optional
 from contextvars import ContextVar
+
 from notion_client import Client
 
 # Context variable to store auth token for the current request
@@ -16,19 +16,19 @@ def get_notion_client() -> Client:
             return Client(auth=token)
     except LookupError:
         pass
-    
+
     # Fall back to environment variable
     token = os.getenv("NOTION_API_KEY")
     if not token:
         raise ValueError("Notion API key not found. Please set NOTION_API_KEY environment variable or provide x-auth-token header.")
-    
+
     return Client(auth=token)
 
 
 def handle_notion_error(error: Exception) -> dict:
     """Handle Notion API errors and return formatted error response."""
     error_msg = str(error)
-    
+
     if "Unauthorized" in error_msg:
         return {
             "error": "Authentication failed. Please check your Notion API key.",
@@ -70,16 +70,16 @@ def clean_notion_response(response: dict) -> dict:
     """Clean up Notion API response by removing unnecessary fields."""
     if isinstance(response, dict):
         # Remove common unnecessary fields
-        cleaned = {k: v for k, v in response.items() 
+        cleaned = {k: v for k, v in response.items()
                   if k not in ['request_id', 'developer_survey']}
-        
+
         # Recursively clean nested dictionaries
         for key, value in cleaned.items():
             if isinstance(value, dict):
                 cleaned[key] = clean_notion_response(value)
             elif isinstance(value, list):
-                cleaned[key] = [clean_notion_response(item) if isinstance(item, dict) else item 
+                cleaned[key] = [clean_notion_response(item) if isinstance(item, dict) else item
                               for item in value]
-        
+
         return cleaned
-    return response 
+    return response

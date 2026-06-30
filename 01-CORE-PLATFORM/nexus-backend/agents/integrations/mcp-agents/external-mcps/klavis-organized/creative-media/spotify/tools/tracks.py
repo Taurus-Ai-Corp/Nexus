@@ -1,15 +1,13 @@
-from typing import List, Dict, Optional, Union
+
 from spotipy import Spotify
-from .base import get_spotify_client, get_user_spotify_client , process_track_info
 
-
-
+from .base import get_spotify_client, get_user_spotify_client, process_track_info
 
 
 def get_tracks_info(
-    track_ids: List[str],
-    sp: Optional[Spotify] = None
-) -> Union[List[Dict], Dict]:
+    track_ids: list[str],
+    sp: Spotify | None = None
+) -> list[dict] | dict:
     """
     Get detailed information about one or multiple tracks.
 
@@ -37,10 +35,10 @@ def get_tracks_info(
 
 
 def get_user_saved_tracks(
-    sp: Optional[Spotify] = None,
+    sp: Spotify | None = None,
     limit: int = 20,
     offset: int = 0
-) -> Union[List[Dict], Dict]:
+) -> list[dict] | dict:
     """
     Fetch the current user's saved tracks (Liked Songs).
 
@@ -58,7 +56,7 @@ def get_user_saved_tracks(
 
         response = sp.current_user_saved_tracks(limit=limit, offset=offset)
         items = response.get("items", [])
-        saved_tracks: List[Dict] = []
+        saved_tracks: list[dict] = []
 
         for item in items:
             track = item.get("track")
@@ -75,8 +73,8 @@ def get_user_saved_tracks(
 
 
 def save_tracks_for_current_user(
-    track_ids: List[str],
-    sp: Optional[Spotify] = None
+    track_ids: list[str],
+    sp: Spotify | None = None
 ) -> str:
     """
     Save one or more tracks to the current user's library.
@@ -104,9 +102,9 @@ def save_tracks_for_current_user(
 
 
 def check_user_saved_tracks(
-    track_ids: List[str],
-    sp: Optional[Spotify] = None
-) -> Union[List[bool], Dict]:
+    track_ids: list[str],
+    sp: Spotify | None = None
+) -> list[bool] | dict:
     """
     Check if tracks are saved in the current user's library.
 
@@ -122,7 +120,7 @@ def check_user_saved_tracks(
             sp, _ = get_user_spotify_client()
 
         MAX_IDS_PER_CALL = 50
-        saved_statuses: List[bool] = []
+        saved_statuses: list[bool] = []
         for i in range(0, len(track_ids), MAX_IDS_PER_CALL):
             chunk = track_ids[i:i + MAX_IDS_PER_CALL]
             result = sp.current_user_saved_tracks_contains(tracks=chunk)
@@ -134,8 +132,8 @@ def check_user_saved_tracks(
 
 
 def remove_user_saved_tracks(
-    track_ids: List[str],
-    sp: Optional[Spotify] = None
+    track_ids: list[str],
+    sp: Spotify | None = None
 ) -> str:
     """
     Remove one or more tracks from the current user's saved tracks.

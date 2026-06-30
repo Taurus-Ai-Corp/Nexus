@@ -1,13 +1,13 @@
-import os
 import base64
-import logging
 import contextlib
 import json
+import logging
+import os
 from collections.abc import AsyncIterator
 
 import click
-from dotenv import load_dotenv
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -15,14 +15,13 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-
 from tools import (
-    mem0_api_key_context,
     add_memory,
+    delete_memory,
     get_all_memories,
+    mem0_api_key_context,
     search_memories,
     update_memory,
-    delete_memory,
 )
 
 load_dotenv()
@@ -36,7 +35,7 @@ MEM0_MCP_SERVER_PORT = int(os.getenv("MEM0_MCP_SERVER_PORT", "5000"))
 def extract_api_key(request_or_scope) -> str:
     """Extract API key from headers or environment."""
     api_key = os.getenv("API_KEY")
-    
+
     if not api_key:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -52,7 +51,7 @@ def extract_api_key(request_or_scope) -> str:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
         else:
             auth_data = None
-        
+
         if auth_data:
             try:
                 # Parse the JSON auth data to extract token
@@ -61,7 +60,7 @@ def extract_api_key(request_or_scope) -> str:
             except (json.JSONDecodeError, TypeError) as e:
                 logger.warning(f"Failed to parse auth data JSON: {e}")
                 api_key = ""
-    
+
     return api_key or ""
 
 @click.command()
@@ -208,7 +207,7 @@ def main(
     async def call_tool(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
-        
+
         if name == "mem0_add_memory":
             content = arguments.get("content")
             user_id = arguments.get("user_id")
@@ -235,7 +234,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "mem0_get_all_memories":
             user_id = arguments.get("user_id")
             page = arguments.get("page", 1)
@@ -256,7 +255,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "mem0_search_memories":
             query = arguments.get("query")
             user_id = arguments.get("user_id")
@@ -284,7 +283,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "mem0_update_memory":
             memory_id = arguments.get("memory_id")
             data = arguments.get("data")
@@ -312,7 +311,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "mem0_delete_memory":
             memory_id = arguments.get("memory_id")
             user_id = arguments.get("user_id")
@@ -340,7 +339,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         else:
             return [
                 types.TextContent(
@@ -354,10 +353,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract API key from headers
         api_key = extract_api_key(request)
-        
+
         # Set the API key in context for this request
         token = mem0_api_key_context.set(api_key or "")
         try:
@@ -369,7 +368,7 @@ def main(
                 )
         finally:
             mem0_api_key_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -384,10 +383,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract API key from headers
         api_key = extract_api_key(scope)
-        
+
         # Set the API key in context for this request
         token = mem0_api_key_context.set(api_key or "")
         try:
@@ -412,7 +411,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],

@@ -1,0 +1,21 @@
+Reframe the existing breeder_trust scene inside the project "PetPawSphere Launch Campaign — 2026-06".
+
+CRITICAL POSITIONING RULE:
+PetPawSphere is an AI-native pet application/platform. It does NOT own physical breeding centers, clinics, or facilities. It connects independent licensed/verified breeders with pet owners. Breeders use their own facilities and may receive PetPawSphere branded merchandise (green polo, M1 materials). PetPawSphere does NOT hold breeding or veterinary licenses. The scene must NOT imply PetPawSphere owns the facility.
+
+SCENE TO EDIT: breeder_trust (existing clip titled "Pet breeder showing pet app")
+GOAL: Remove facility-ownership implication while keeping the trustworthy breeder message.
+
+Paste this exact text into the "Describe your edits" box:
+
+"Reframe the scene: Khalid is an independent licensed breeder partner, and this is HIS OWN clean modern breeding facility. He is wearing PetPawSphere branded merchandise (green polo). The PetPawSphere brand should appear only as the app on the phone screen and as the small logo on his shirt. Remove or replace any signage, wall text, or background element that says 'PetPawSphere Dubai • Happy Homes' or implies PetPawSphere owns or operates the facility. Keep the cream Persian kitten sitting calmly on the stainless counter, the in-app green trust badge on the phone screen, the warm-paper/green brand palette, and Khalid's trustworthy Arabic-first presentation."
+
+EXPECTED OUTCOME:
+- Facility clearly belongs to Khalid, the independent breeder partner
+- PetPawSphere appears only as the AI app and branded merchandise
+- Trust message preserved without license/facility misrepresentation
+
+After the edit renders, report back:
+1. Whether the edit succeeded or required a second attempt
+2. Whether any remaining signage still implies facility ownership
+3. Whether the final clip is on-brand and policy-safe

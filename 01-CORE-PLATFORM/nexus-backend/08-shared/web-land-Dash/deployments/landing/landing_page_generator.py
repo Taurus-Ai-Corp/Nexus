@@ -4,12 +4,10 @@
 Uses Onlook Visual Agent and competitive research to create high-converting landing pages
 """
 
-import sys
-import os
-import asyncio
 import json
-from datetime import datetime
-from typing import Dict, List, Any, Optional
+import os
+import sys
+from typing import Any
 
 # Add paths for agent integration
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../TaurusAI-BizFlow-Service-package/agents'))
@@ -18,25 +16,25 @@ class TaurusAILandingPageGenerator:
     """
     World-class landing page generator using competitive research and AI design
     """
-    
+
     def __init__(self):
         self.domain_config = {
             "main_domain": "taurusai.io",
             "landing_domain": "bizflow.taurusai.io",
             "dashboard_domain": "vibeEmpire.taurusai.io"
         }
-        
+
         self.competitive_insights = self._load_competitive_insights()
         self.value_propositions = self._define_value_propositions()
         self.target_audiences = self._define_target_audiences()
-    
-    def _load_competitive_insights(self) -> Dict[str, Any]:
+
+    def _load_competitive_insights(self) -> dict[str, Any]:
         """Load insights from competitive research"""
-        
+
         return {
             "market_gaps": [
                 "Limited AI automation capabilities",
-                "Generic, one-size-fits-all solutions", 
+                "Generic, one-size-fits-all solutions",
                 "Lack of multi-cultural expertise",
                 "Poor real-time analytics",
                 "High content production costs"
@@ -61,14 +59,14 @@ class TaurusAILandingPageGenerator:
                 "Zero-cost local AI processing"
             ]
         }
-    
-    def _define_value_propositions(self) -> Dict[str, Any]:
+
+    def _define_value_propositions(self) -> dict[str, Any]:
         """Define unique value propositions based on competitive analysis"""
-        
+
         return {
             "primary": "Transform Your Marketing with AI That Actually Works",
             "secondary": "Cut costs by 90%, increase results by 300%, and dominate your market with authentic AI-powered marketing",
-            
+
             "key_benefits": [
                 {
                     "title": "90% Cost Reduction",
@@ -77,7 +75,7 @@ class TaurusAILandingPageGenerator:
                     "proof": "Save $50,000+ annually on content creation"
                 },
                 {
-                    "title": "300% ROI Improvement", 
+                    "title": "300% ROI Improvement",
                     "description": "Data-driven optimization delivers 3x better results than traditional agencies",
                     "icon": "📈",
                     "proof": "Average client sees 300% ROI increase in 90 days"
@@ -107,7 +105,7 @@ class TaurusAILandingPageGenerator:
                     "proof": "Set it once, profit forever"
                 }
             ],
-            
+
             "social_proof": [
                 {
                     "metric": "150+",
@@ -115,7 +113,7 @@ class TaurusAILandingPageGenerator:
                     "context": "for our clients"
                 },
                 {
-                    "metric": "$2M+", 
+                    "metric": "$2M+",
                     "label": "Revenue Generated",
                     "context": "through our campaigns"
                 },
@@ -131,10 +129,10 @@ class TaurusAILandingPageGenerator:
                 }
             ]
         }
-    
-    def _define_target_audiences(self) -> Dict[str, Any]:
+
+    def _define_target_audiences(self) -> dict[str, Any]:
         """Define target audience segments"""
-        
+
         return {
             "primary": {
                 "title": "Growth-Focused SMEs",
@@ -169,11 +167,11 @@ class TaurusAILandingPageGenerator:
                 ]
             }
         }
-    
+
     def generate_landing_page_html(self) -> str:
         """Generate the complete landing page HTML"""
-        
-        return f"""<!DOCTYPE html>
+
+        return """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,73 +210,73 @@ class TaurusAILandingPageGenerator:
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){{dataLayer.push(arguments);}}
+        function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'GA_TRACKING_ID');
     </script>
     
     <!-- Custom Styles -->
     <style>
-        * {{ font-family: 'Inter', sans-serif; }}
+        * { font-family: 'Inter', sans-serif; }
         
-        .hero-gradient {{
+        .hero-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }}
+        }
         
-        .glass-effect {{
+        .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-        }}
+        }
         
-        .benefit-card {{
+        .benefit-card {
             transition: all 0.3s ease;
             transform: translateY(0);
-        }}
+        }
         
-        .benefit-card:hover {{
+        .benefit-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }}
+        }
         
-        .cta-button {{
+        .cta-button {
             background: linear-gradient(45deg, #ff6b6b, #ee5a24);
             transition: all 0.3s ease;
-        }}
+        }
         
-        .cta-button:hover {{
+        .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
-        }}
+        }
         
-        .pulse-animation {{
+        .pulse-animation {
             animation: pulse 2s infinite;
-        }}
+        }
         
-        @keyframes pulse {{
-            0%, 100% {{ opacity: 1; }}
-            50% {{ opacity: 0.7; }}
-        }}
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
         
-        .floating-animation {{
+        .floating-animation {
             animation: float 3s ease-in-out infinite;
-        }}
+        }
         
-        @keyframes float {{
-            0%, 100% {{ transform: translateY(0px); }}
-            50% {{ transform: translateY(-10px); }}
-        }}
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
         
-        .scroll-reveal {{
+        .scroll-reveal {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s ease;
-        }}
+        }
         
-        .scroll-reveal.revealed {{
+        .scroll-reveal.revealed {
             opacity: 1;
             transform: translateY(0);
-        }}
+        }
     </style>
 </head>
 <body class="bg-gray-50" x-data="landingPageData()">
@@ -754,128 +752,128 @@ class TaurusAILandingPageGenerator:
     </div>
     
     <script>
-        function landingPageData() {{
-            return {{
+        function landingPageData() {
+            return {
                 mobileMenuOpen: false,
                 showDemoModal: false,
                 
-                demoForm: {{
+                demoForm: {
                     name: '',
                     email: '',
                     company: '',
                     market: ''
-                }},
+                },
                 
                 benefits: [
-                    {{
+                    {
                         icon: '💰',
                         title: '90% Cost Reduction',
                         description: 'Our AI automation cuts content production costs by 90% while improving quality',
                         proof: 'Save $50,000+ annually'
-                    }},
-                    {{
+                    },
+                    {
                         icon: '📈', 
                         title: '300% ROI Improvement',
                         description: 'Data-driven optimization delivers 3x better results than traditional agencies',
                         proof: '300% ROI increase in 90 days'
-                    }},
-                    {{
+                    },
+                    {
                         icon: '🌍',
                         title: 'Multi-Cultural Expertise',
                         description: 'Native-level marketing for UAE, USA, Canada, and India markets',
                         proof: 'Fluent in 8+ languages'
-                    }},
-                    {{
+                    },
+                    {
                         icon: '🔍',
                         title: 'Real-Time Intelligence',
                         description: 'AI-powered competitive analysis and market insights updated every hour',
                         proof: '10,000+ data points daily'
-                    }},
-                    {{
+                    },
+                    {
                         icon: '✨',
                         title: 'Authentic Content',
                         description: 'No AI-slop. Unique, brand-building content that converts',
                         proof: '94% brand consistency score'
-                    }},
-                    {{
+                    },
+                    {
                         icon: '🤖',
                         title: 'Complete Automation',
                         description: 'From strategy to execution, everything runs on autopilot',
                         proof: 'Set it once, profit forever'
-                    }}
+                    }
                 ],
                 
                 socialProof: [
-                    {{ metric: '150+', label: 'Qualified Leads Generated Monthly', context: 'for our clients' }},
-                    {{ metric: '$2M+', label: 'Revenue Generated', context: 'through our campaigns' }},
-                    {{ metric: '87%', label: 'Cost Savings Achieved', context: 'vs traditional agencies' }},
-                    {{ metric: '4.8/5', label: 'Client Satisfaction Score', context: 'based on 200+ reviews' }}
+                    { metric: '150+', label: 'Qualified Leads Generated Monthly', context: 'for our clients' },
+                    { metric: '$2M+', label: 'Revenue Generated', context: 'through our campaigns' },
+                    { metric: '87%', label: 'Cost Savings Achieved', context: 'vs traditional agencies' },
+                    { metric: '4.8/5', label: 'Client Satisfaction Score', context: 'based on 200+ reviews' }
                 ],
                 
-                openDemo() {{
+                openDemo() {
                     this.showDemoModal = true;
-                    gtag('event', 'demo_requested', {{
+                    gtag('event', 'demo_requested', {
                         event_category: 'engagement',
                         event_label: 'hero_cta'
-                    }});
-                }},
+                    });
+                },
                 
-                openCalculator() {{
+                openCalculator() {
                     window.open('https://vibeEmpire.taurusai.io/calculator', '_blank');
-                    gtag('event', 'calculator_opened', {{
+                    gtag('event', 'calculator_opened', {
                         event_category: 'engagement'
-                    }});
-                }},
+                    });
+                },
                 
-                selectPlan(plan) {{
-                    gtag('event', 'plan_selected', {{
+                selectPlan(plan) {
+                    gtag('event', 'plan_selected', {
                         event_category: 'conversion',
                         event_label: plan
-                    }});
-                    window.open(`https://vibeEmpire.taurusai.io/signup?plan=${{plan}}`, '_blank');
-                }},
+                    });
+                    window.open(`https://vibeEmpire.taurusai.io/signup?plan=${plan}`, '_blank');
+                },
                 
-                scrollToProof() {{
-                    document.getElementById('proof').scrollIntoView({{ behavior: 'smooth' }});
-                }},
+                scrollToProof() {
+                    document.getElementById('proof').scrollIntoView({ behavior: 'smooth' });
+                },
                 
-                submitDemo() {{
+                submitDemo() {
                     // Here you would integrate with your CRM/email service
-                    gtag('event', 'demo_submitted', {{
+                    gtag('event', 'demo_submitted', {
                         event_category: 'conversion',
                         event_label: this.demoForm.market
-                    }});
+                    });
                     
                     alert('Thank you! We\\'ll contact you within 24 hours to schedule your demo.');
                     this.showDemoModal = false;
                     
                     // Reset form
-                    this.demoForm = {{ name: '', email: '', company: '', market: '' }};
-                }},
+                    this.demoForm = { name: '', email: '', company: '', market: '' };
+                },
                 
                 // Initialize scroll reveal animation
-                init() {{
-                    const observer = new IntersectionObserver((entries) => {{
-                        entries.forEach((entry) => {{
-                            if (entry.isIntersecting) {{
+                init() {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
                                 entry.target.classList.add('revealed');
-                            }}
-                        }});
-                    }});
+                            }
+                        });
+                    });
                     
-                    document.querySelectorAll('.scroll-reveal').forEach((el) => {{
+                    document.querySelectorAll('.scroll-reveal').forEach((el) => {
                         observer.observe(el);
-                    }});
-                }}
-            }}
-        }}
+                    });
+                }
+            }
+        }
     </script>
 </body>
 </html>"""
-    
+
     def generate_roi_calculator_page(self) -> str:
         """Generate ROI calculator page"""
-        
+
         return """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1001,20 +999,20 @@ class TaurusAILandingPageGenerator:
     </script>
 </body>
 </html>"""
-    
+
     def save_landing_page_files(self, output_dir: str = "../landing-page"):
         """Save all landing page files"""
-        
+
         # Create main landing page
         landing_html = self.generate_landing_page_html()
         with open(f"{output_dir}/index.html", 'w') as f:
             f.write(landing_html)
-        
+
         # Create ROI calculator
         calculator_html = self.generate_roi_calculator_page()
         with open(f"{output_dir}/calculator.html", 'w') as f:
             f.write(calculator_html)
-        
+
         # Create landing page configuration
         config = {
             "domain": self.domain_config,
@@ -1031,10 +1029,10 @@ class TaurusAILandingPageGenerator:
                 "competitive intelligence marketing"
             ]
         }
-        
+
         with open(f"{output_dir}/landing_config.json", 'w') as f:
             json.dump(config, f, indent=2)
-        
+
         print("✅ Landing page files generated successfully!")
         print(f"📁 Files saved to: {output_dir}/")
         print("🌐 Landing page: index.html")
@@ -1044,37 +1042,37 @@ class TaurusAILandingPageGenerator:
 def main():
     """Main function to generate the landing page"""
     print("🎨 Generating World-Class Landing Page for TaurusAI...")
-    
+
     # Create landing page generator
     generator = TaurusAILandingPageGenerator()
-    
+
     # Generate and save all files
     generator.save_landing_page_files()
-    
+
     # Display summary
     print("\n" + "="*80)
     print("🎨 WORLD-CLASS LANDING PAGE GENERATED")
     print("="*80)
-    
+
     print(f"🎯 Value Propositions: {len(generator.value_propositions['key_benefits'])}")
     print(f"📊 Social Proof Metrics: {len(generator.value_propositions['social_proof'])}")
     print(f"👥 Target Audiences: {len(generator.target_audiences)}")
     print(f"🔍 Competitive Insights: {len(generator.competitive_insights['market_gaps'])}")
-    
-    print(f"\n🌐 Domains:")
+
+    print("\n🌐 Domains:")
     print(f"   • Landing: {generator.domain_config['landing_domain']}")
     print(f"   • Dashboard: {generator.domain_config['dashboard_domain']}")
     print(f"   • Main: {generator.domain_config['main_domain']}")
-    
-    print(f"\n🎯 Key Features:")
+
+    print("\n🎯 Key Features:")
     print("   • Mobile-first responsive design")
     print("   • SEO-optimized with UAE-specific keywords")
     print("   • Interactive ROI calculator")
     print("   • Social proof and testimonials")
     print("   • Multi-step lead capture")
     print("   • Performance tracking and analytics")
-    
-    print(f"\n✅ Landing page ready for deployment!")
+
+    print("\n✅ Landing page ready for deployment!")
 
 if __name__ == "__main__":
     main()

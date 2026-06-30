@@ -6,26 +6,21 @@ Analyzes component choices and performance trade-offs across the platform
 
 import asyncio
 import json
-import time
 import statistics
+from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
 from enum import Enum
+from pathlib import Path
+from typing import Any
+
 import aiofiles
-import aiohttp
-import pandas as pd
-from fastapi import FastAPI, WebSocket, HTTPException, BackgroundTasks
-from fastapi.middleware.cors import CORSMiddleware
-import redis.asyncio as redis
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
 import psutil
-import matplotlib.pyplot as plt
-import seaborn as sns
-from io import BytesIO
-import base64
+import redis.asyncio as redis
+from fastapi import FastAPI, HTTPException, WebSocket
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import sessionmaker
+
 
 class ComponentType(Enum):
     WEBFLOW = "webflow"
@@ -36,17 +31,17 @@ class ComponentType(Enum):
 class PerformanceAnalysis:
     component_id: str
     component_type: ComponentType
-    metrics: Dict[str, float]
+    metrics: dict[str, float]
     score: float
     recommendation: str
-    trade_offs: Dict[str, Any]
-    cost_benefit: Dict[str, float]
+    trade_offs: dict[str, Any]
+    cost_benefit: dict[str, float]
     timestamp: datetime
 
 @dataclass
 class ComparisonReport:
-    webflow_metrics: Dict[str, float]
-    custom_metrics: Dict[str, float]
+    webflow_metrics: dict[str, float]
+    custom_metrics: dict[str, float]
     winner: ComponentType
     performance_gain: float
     maintenance_cost: float
@@ -61,23 +56,23 @@ class PerformanceAnalysisAgent:
     - Generating performance reports and recommendations
     - Cost-benefit analysis of component choices
     """
-    
+
     def __init__(self):
         self.name = "performance-analysis"
         self.description = "Analyzer of component choices and performance trade-offs"
-        self.redis_client: Optional[redis.Redis] = None
-        self.db_session: Optional[AsyncSession] = None
+        self.redis_client: redis.Redis | None = None
+        self.db_session: AsyncSession | None = None
         self.analysis_cache = {}
         self.benchmarks = {}
-        
-    async def initialize(self, config: Dict[str, Any]):
+
+    async def initialize(self, config: dict[str, Any]):
         """Initialize agent with configuration"""
         # Redis connection for metrics storage
         self.redis_client = redis.from_url(
             config.get('redis_url', 'redis://localhost:6379'),
             decode_responses=True
         )
-        
+
         # Database connection for historical analysis
         engine = create_async_engine(
             config.get('database_url', 'postgresql+asyncpg://user:pass@localhost/taurus'),
@@ -85,10 +80,10 @@ class PerformanceAnalysisAgent:
         )
         async_session = sessionmaker(engine, class_=AsyncSession)
         self.db_session = async_session()
-        
+
         # Load performance benchmarks
         await self._load_benchmarks()
-        
+
         print(f"✅ {self.name} agent initialized successfully")
 
     async def _load_benchmarks(self):
@@ -115,14 +110,14 @@ class PerformanceAnalysisAgent:
         try:
             # Analyze Webflow component
             webflow_metrics = await self._analyze_webflow_component(webflow_component)
-            
+
             # Analyze custom component
             custom_metrics = await self._analyze_custom_component(custom_component)
-            
+
             # Calculate performance scores
             webflow_score = await self._calculate_performance_score(webflow_metrics, "webflow")
             custom_score = await self._calculate_performance_score(custom_metrics, "custom_react")
-            
+
             # Determine winner and calculate gains
             if custom_score > webflow_score:
                 winner = ComponentType.CUSTOM_REACT
@@ -130,18 +125,18 @@ class PerformanceAnalysisAgent:
             else:
                 winner = ComponentType.WEBFLOW
                 performance_gain = ((webflow_score - custom_score) / custom_score) * 100
-            
+
             # Calculate maintenance cost difference
             maintenance_cost = await self._calculate_maintenance_cost_difference(winner)
-            
+
             # Generate recommendation
             recommendation = await self._generate_comparison_recommendation(
                 webflow_score, custom_score, maintenance_cost, performance_gain
             )
-            
+
             # Calculate confidence based on score difference
             confidence = min(abs(custom_score - webflow_score) / 10, 1.0)
-            
+
             report = ComparisonReport(
                 webflow_metrics=webflow_metrics,
                 custom_metrics=custom_metrics,
@@ -151,24 +146,24 @@ class PerformanceAnalysisAgent:
                 recommendation=recommendation,
                 confidence=confidence
             )
-            
+
             # Cache the analysis
             await self._cache_comparison(webflow_component, custom_component, report)
-            
+
             return report
-            
+
         except Exception as e:
             print(f"❌ Component comparison failed: {e}")
             raise
 
-    async def _analyze_webflow_component(self, component_id: str) -> Dict[str, float]:
+    async def _analyze_webflow_component(self, component_id: str) -> dict[str, float]:
         """Analyze Webflow component performance"""
         # Mock Webflow analysis - in production, use Webflow API
         base_metrics = self.benchmarks["webflow"].copy()
-        
+
         # Add some variance based on component complexity
         complexity_factor = len(component_id) / 100  # Simple heuristic
-        
+
         return {
             "lighthouse_score": base_metrics["lighthouse_score"] - complexity_factor * 5,
             "load_time": base_metrics["load_time"] + complexity_factor * 0.3,
@@ -179,21 +174,21 @@ class PerformanceAnalysisAgent:
             "development_time_hours": 4
         }
 
-    async def _analyze_custom_component(self, component_path: str) -> Dict[str, float]:
+    async def _analyze_custom_component(self, component_path: str) -> dict[str, float]:
         """Analyze custom React component performance"""
         # Mock custom component analysis
         base_metrics = self.benchmarks["custom_react"].copy()
-        
+
         try:
             # Analyze file size and complexity
             if Path(component_path).exists():
-                async with aiofiles.open(component_path, 'r') as f:
+                async with aiofiles.open(component_path) as f:
                     content = await f.read()
                     lines = len(content.split('\n'))
                     complexity_factor = lines / 1000
             else:
                 complexity_factor = 0.1  # Low complexity for mock
-            
+
             return {
                 "lighthouse_score": base_metrics["lighthouse_score"] - complexity_factor * 3,
                 "load_time": base_metrics["load_time"] + complexity_factor * 0.2,
@@ -203,7 +198,7 @@ class PerformanceAnalysisAgent:
                 "conversion_impact": 1.15,  # Custom components often convert better
                 "development_time_hours": 16
             }
-            
+
         except Exception:
             # Return default metrics if analysis fails
             return {
@@ -216,7 +211,7 @@ class PerformanceAnalysisAgent:
                 "development_time_hours": 12
             }
 
-    async def _calculate_performance_score(self, metrics: Dict[str, float], component_type: str) -> float:
+    async def _calculate_performance_score(self, metrics: dict[str, float], component_type: str) -> float:
         """Calculate weighted performance score"""
         weights = {
             "lighthouse_score": 0.25,
@@ -226,7 +221,7 @@ class PerformanceAnalysisAgent:
             "accessibility_score": 0.15,
             "conversion_impact": 0.10
         }
-        
+
         score = 0
         score += metrics["lighthouse_score"] * weights["lighthouse_score"]
         score += (5.0 - metrics["load_time"]) * 20 * weights["load_time"]  # Invert load time
@@ -234,48 +229,48 @@ class PerformanceAnalysisAgent:
         score += metrics["seo_score"] * weights["seo_score"]
         score += metrics["accessibility_score"] * weights["accessibility_score"]
         score += metrics["conversion_impact"] * 100 * weights["conversion_impact"]
-        
+
         return max(0, min(100, score))
 
     async def _calculate_maintenance_cost_difference(self, winner: ComponentType) -> float:
         """Calculate monthly maintenance cost difference"""
         webflow_cost = self.benchmarks["webflow"]["maintenance_hours_per_month"] * 50  # $50/hour
         custom_cost = self.benchmarks["custom_react"]["maintenance_hours_per_month"] * 50
-        
+
         if winner == ComponentType.WEBFLOW:
             return custom_cost - webflow_cost  # Positive = custom costs more
         else:
             return webflow_cost - custom_cost  # Positive = webflow costs more
 
-    async def _generate_comparison_recommendation(self, webflow_score: float, custom_score: float, 
+    async def _generate_comparison_recommendation(self, webflow_score: float, custom_score: float,
                                                maintenance_cost: float, performance_gain: float) -> str:
         """Generate recommendation based on analysis"""
         recommendations = []
-        
+
         if abs(custom_score - webflow_score) < 5:
             recommendations.append("Performance difference is minimal")
-            
+
             if maintenance_cost > 200:  # $200/month difference
                 recommendations.append("Choose Webflow for lower maintenance costs")
             else:
                 recommendations.append("Either option is viable based on team preferences")
-        
+
         elif custom_score > webflow_score:
             recommendations.append(f"Custom component performs {performance_gain:.1f}% better")
-            
+
             if maintenance_cost > 300:
                 recommendations.append("Consider if performance gain justifies higher maintenance costs")
             else:
                 recommendations.append("Recommend custom component for superior performance")
-        
+
         else:
             recommendations.append(f"Webflow component performs {performance_gain:.1f}% better")
             recommendations.append("Recommend Webflow for better performance and lower maintenance")
-        
+
         # Add specific optimization suggestions
         if webflow_score < 80 and custom_score < 80:
             recommendations.append("Both options need optimization - consider hybrid approach")
-        
+
         return "; ".join(recommendations)
 
     async def _cache_comparison(self, webflow_comp: str, custom_comp: str, report: ComparisonReport):
@@ -291,7 +286,7 @@ class PerformanceAnalysisAgent:
         except Exception as e:
             print(f"⚠️ Failed to cache comparison: {e}")
 
-    async def monitor_site_performance(self) -> Dict[str, Any]:
+    async def monitor_site_performance(self) -> dict[str, Any]:
         """Monitor overall site performance metrics"""
         try:
             # Collect real-time metrics
@@ -305,7 +300,7 @@ class PerformanceAnalysisAgent:
                 "performance_alerts": await self._check_performance_alerts(),
                 "component_health": await self._assess_component_health()
             }
-            
+
             # Store in Redis for real-time access
             if self.redis_client:
                 await self.redis_client.setex(
@@ -313,23 +308,23 @@ class PerformanceAnalysisAgent:
                     300,  # 5 minute TTL
                     json.dumps(metrics)
                 )
-            
+
             return metrics
-            
+
         except Exception as e:
             print(f"❌ Performance monitoring failed: {e}")
             return {"error": str(e)}
 
-    async def _check_performance_alerts(self) -> List[Dict[str, Any]]:
+    async def _check_performance_alerts(self) -> list[dict[str, Any]]:
         """Check for performance-related alerts"""
         alerts = []
-        
+
         try:
             if self.redis_client:
                 # Check recent comparisons for concerning patterns
                 keys = await self.redis_client.keys("comparison:*")
                 recent_keys = sorted(keys)[-5:]  # Last 5 comparisons
-                
+
                 poor_performers = 0
                 for key in recent_keys:
                     data = await self.redis_client.get(key)
@@ -338,7 +333,7 @@ class PerformanceAnalysisAgent:
                         if (comparison.get('webflow_metrics', {}).get('lighthouse_score', 100) < 70 or
                             comparison.get('custom_metrics', {}).get('lighthouse_score', 100) < 70):
                             poor_performers += 1
-                
+
                 if poor_performers >= 3:
                     alerts.append({
                         "type": "performance_degradation",
@@ -346,7 +341,7 @@ class PerformanceAnalysisAgent:
                         "severity": "high",
                         "action": "Review and optimize underperforming components"
                     })
-        
+
         except Exception as e:
             alerts.append({
                 "type": "monitoring_error",
@@ -354,34 +349,34 @@ class PerformanceAnalysisAgent:
                 "severity": "medium",
                 "action": "Check monitoring system health"
             })
-        
+
         return alerts
 
-    async def _assess_component_health(self) -> Dict[str, Any]:
+    async def _assess_component_health(self) -> dict[str, Any]:
         """Assess overall component ecosystem health"""
         try:
             health_score = 85  # Base score
             issues = []
-            
+
             # Check system resources
             cpu = psutil.cpu_percent()
             memory = psutil.virtual_memory().percent
-            
+
             if cpu > 80:
                 health_score -= 10
                 issues.append("High CPU usage detected")
-            
+
             if memory > 80:
                 health_score -= 10
                 issues.append("High memory usage detected")
-            
+
             return {
                 "overall_score": health_score,
                 "status": "healthy" if health_score > 70 else "needs_attention",
                 "issues": issues,
                 "recommendations": await self._get_health_recommendations(health_score, issues)
             }
-            
+
         except Exception as e:
             return {
                 "overall_score": 0,
@@ -390,52 +385,52 @@ class PerformanceAnalysisAgent:
                 "recommendations": ["Check monitoring system"]
             }
 
-    async def _get_health_recommendations(self, score: float, issues: List[str]) -> List[str]:
+    async def _get_health_recommendations(self, score: float, issues: list[str]) -> list[str]:
         """Get recommendations based on health assessment"""
         recommendations = []
-        
+
         if score < 50:
             recommendations.append("Critical: Immediate attention required")
             recommendations.append("Review all component implementations")
         elif score < 70:
             recommendations.append("Warning: Performance optimization needed")
             recommendations.append("Focus on high-impact components first")
-        
+
         if "High CPU usage" in issues:
             recommendations.append("Optimize component rendering cycles")
             recommendations.append("Consider component lazy loading")
-        
+
         if "High memory usage" in issues:
             recommendations.append("Review memory leaks in components")
             recommendations.append("Implement proper cleanup in useEffect hooks")
-        
+
         if not recommendations:
             recommendations.append("System performing well - maintain current practices")
-        
+
         return recommendations
 
-    async def generate_performance_dashboard_data(self) -> Dict[str, Any]:
+    async def generate_performance_dashboard_data(self) -> dict[str, Any]:
         """Generate data for performance dashboard"""
         try:
             if not self.redis_client:
                 return {"error": "Redis not available"}
-            
+
             # Get recent comparison data
             keys = await self.redis_client.keys("comparison:*")
             comparisons = []
-            
+
             for key in sorted(keys)[-10:]:  # Last 10 comparisons
                 data = await self.redis_client.get(key)
                 if data:
                     comparisons.append(json.loads(data))
-            
+
             if not comparisons:
                 return {"message": "No comparison data available"}
-            
+
             # Calculate statistics
             webflow_scores = [c['webflow_metrics']['lighthouse_score'] for c in comparisons if 'webflow_metrics' in c]
             custom_scores = [c['custom_metrics']['lighthouse_score'] for c in comparisons if 'custom_metrics' in c]
-            
+
             dashboard_data = {
                 "summary": {
                     "total_comparisons": len(comparisons),
@@ -451,18 +446,18 @@ class PerformanceAnalysisAgent:
                 "alerts": await self._check_performance_alerts(),
                 "recommendations": await self._get_strategic_recommendations()
             }
-            
+
             return dashboard_data
-            
+
         except Exception as e:
             return {"error": f"Dashboard generation failed: {e}"}
 
-    async def _get_performance_trends(self) -> List[Dict[str, Any]]:
+    async def _get_performance_trends(self) -> list[dict[str, Any]]:
         """Get performance trends over time"""
         # Mock trend data - in production, analyze historical data
         trends = []
         base_date = datetime.now() - timedelta(days=30)
-        
+
         for i in range(30):
             date = base_date + timedelta(days=i)
             trends.append({
@@ -471,10 +466,10 @@ class PerformanceAnalysisAgent:
                 "custom_avg": 89 + (i * 0.1) + (i % 5),   # Slight upward trend with variance
                 "overall_health": 80 + (i * 0.3) + (i % 4)
             })
-        
+
         return trends
 
-    async def _get_cost_analysis(self) -> Dict[str, Any]:
+    async def _get_cost_analysis(self) -> dict[str, Any]:
         """Analyze cost implications of component choices"""
         return {
             "monthly_savings_webflow": 250,  # Average monthly savings choosing Webflow
@@ -486,7 +481,7 @@ class PerformanceAnalysisAgent:
             }
         }
 
-    async def _get_strategic_recommendations(self) -> List[str]:
+    async def _get_strategic_recommendations(self) -> list[str]:
         """Get strategic recommendations for component architecture"""
         return [
             "Prioritize Webflow for marketing pages requiring frequent updates",

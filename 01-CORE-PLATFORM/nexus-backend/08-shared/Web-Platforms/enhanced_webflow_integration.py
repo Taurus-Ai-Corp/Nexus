@@ -5,20 +5,19 @@ Template cloning system built on existing Webflow integration
 """
 
 import asyncio
-import logging
-from datetime import datetime
-from typing import Dict, List, Optional, Any
 import json
+import logging
 import os
-import requests
-from pathlib import Path
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import uvicorn
 
 # Import existing Webflow configuration
 import sys
+from datetime import datetime
+from typing import Any
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
 sys.path.append("/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/Web-Platforms/webflow-integration")
 
 logger = logging.getLogger(__name__)
@@ -31,26 +30,26 @@ class WebflowTemplate(BaseModel):
     description: str
     source_url: str
     preview_url: str
-    features: List[str]
-    customization_options: Dict[str, Any]
+    features: list[str]
+    customization_options: dict[str, Any]
     cloning_status: str = "available"
     created_at: datetime = None
-    
+
 class TemplateCustomization(BaseModel):
     customization_id: str
     template_id: str
     site_id: str
-    customizations: Dict[str, Any]
+    customizations: dict[str, Any]
     status: str = "pending"
     created_at: datetime = None
     completed_at: datetime = None
-    
+
 class ClonedSite(BaseModel):
     site_id: str
     original_template_id: str
     site_name: str
     domain: str
-    customizations_applied: Dict[str, Any]
+    customizations_applied: dict[str, Any]
     status: str
     webflow_site_id: str
     created_at: datetime = None
@@ -60,11 +59,11 @@ class EnhancedWebflowIntegration:
     Enhanced Webflow Integration with Template Cloning System
     Built on existing Webflow API integration
     """
-    
+
     def __init__(self):
         self.name = "Enhanced Webflow Integration"
         self.version = "2.0.0"
-        
+
         # Use existing Webflow credentials
         self.webflow_config = {
             "client_id": "f1f4344f7074e4f1f0dd50b1b2867873c17778f877f6f7a07a7882e79bf06828",
@@ -73,12 +72,12 @@ class EnhancedWebflowIntegration:
             "base_url": "https://api.webflow.com/v2",
             "redirect_uri": "http://localhost:8168/callback"
         }
-        
+
         self.templates_library = {}
         self.cloned_sites = {}
         self.customizations = {}
         self.cms_collections = {}
-        
+
         # Premium templates from prompt requirements
         self.premium_templates = {
             "untitled-ui": {
@@ -88,7 +87,7 @@ class EnhancedWebflowIntegration:
                 "source_url": "https://untitled-ui.webflow.io",
                 "features": [
                     "Dark Mode Support",
-                    "Component Library", 
+                    "Component Library",
                     "Responsive Design",
                     "Advanced Animations",
                     "Dashboard Layouts"
@@ -214,38 +213,38 @@ class EnhancedWebflowIntegration:
                 }
             }
         }
-        
+
     async def initialize_enhanced_integration(self):
         """Initialize enhanced Webflow integration"""
         logger.info("🌐 Initializing Enhanced Webflow Integration...")
-        
+
         # Verify existing Webflow connection
         await self._verify_webflow_connection()
-        
+
         # Load premium templates
         await self._load_premium_templates()
-        
+
         # Initialize CMS collections
         await self._initialize_cms_collections()
-        
+
         # Set up template cloning system
         await self._setup_template_cloning_system()
-        
+
         # Initialize brand asset integration
         await self._setup_brand_asset_integration()
-        
+
         logger.info("✅ Enhanced Webflow Integration initialized successfully")
-        
+
     async def _verify_webflow_connection(self):
         """Verify connection to Webflow API using existing credentials"""
         logger.info("🔗 Verifying Webflow API connection...")
-        
+
         headers = {
             "Authorization": f"Bearer {self.webflow_config['access_token']}",
             "Accept": "application/json",
             "Content-Type": "application/json"
         }
-        
+
         try:
             # Mock API call verification
             self.webflow_connection = {
@@ -258,17 +257,17 @@ class EnhancedWebflowIntegration:
                 },
                 "verified_at": datetime.now()
             }
-            
+
             logger.info("✅ Webflow API connection verified")
-            
+
         except Exception as e:
             logger.error(f"❌ Webflow API connection failed: {e}")
             raise
-            
+
     async def _load_premium_templates(self):
         """Load premium templates into library"""
         logger.info("📚 Loading premium templates...")
-        
+
         for template_id, template_data in self.premium_templates.items():
             webflow_template = WebflowTemplate(
                 template_id=template_id,
@@ -282,16 +281,16 @@ class EnhancedWebflowIntegration:
                 cloning_status="available",
                 created_at=datetime.now()
             )
-            
+
             self.templates_library[template_id] = webflow_template
             logger.info(f"  📋 Loaded template: {template_data['name']}")
-            
+
         logger.info(f"✅ Loaded {len(self.premium_templates)} premium templates")
-        
+
     async def _initialize_cms_collections(self):
         """Initialize CMS collections for dynamic content"""
         logger.info("📊 Initializing CMS collections...")
-        
+
         # Define CMS collections based on prompt requirements
         cms_collections = {
             "case_studies": {
@@ -342,7 +341,7 @@ class EnhancedWebflowIntegration:
                 ]
             }
         }
-        
+
         for collection_id, collection_data in cms_collections.items():
             self.cms_collections[collection_id] = {
                 "id": collection_id,
@@ -351,18 +350,18 @@ class EnhancedWebflowIntegration:
                 "status": "configured",
                 "created_at": datetime.now()
             }
-            
+
         logger.info(f"✅ Initialized {len(cms_collections)} CMS collections")
-        
+
     async def _setup_template_cloning_system(self):
         """Set up template cloning system"""
         logger.info("🔄 Setting up template cloning system...")
-        
+
         self.cloning_system = {
             "supported_templates": list(self.premium_templates.keys()),
             "cloning_process": [
                 "template_selection",
-                "customization_configuration", 
+                "customization_configuration",
                 "site_creation",
                 "content_population",
                 "asset_integration",
@@ -383,13 +382,13 @@ class EnhancedWebflowIntegration:
                 "accessibility_compliance"
             ]
         }
-        
+
         logger.info("✅ Template cloning system configured")
-        
+
     async def _setup_brand_asset_integration(self):
         """Set up brand asset integration system"""
         logger.info("🎨 Setting up brand asset integration...")
-        
+
         self.brand_asset_integration = {
             "supported_formats": ["svg", "png", "jpg", "webp", "woff2", "woff"],
             "asset_types": {
@@ -416,37 +415,37 @@ class EnhancedWebflowIntegration:
                 "responsive_optimization": True
             }
         }
-        
+
         logger.info("✅ Brand asset integration configured")
-        
-    async def clone_template(self, template_id: str, customization_config: Dict[str, Any], site_config: Dict[str, Any]) -> ClonedSite:
+
+    async def clone_template(self, template_id: str, customization_config: dict[str, Any], site_config: dict[str, Any]) -> ClonedSite:
         """Clone a template with customizations"""
         logger.info(f"🔄 Cloning template: {template_id}")
-        
+
         if template_id not in self.templates_library:
             raise ValueError(f"Template {template_id} not found in library")
-            
+
         template = self.templates_library[template_id]
-        
+
         # Generate unique site ID
         site_id = f"site_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-        
+
         # Step 1: Create new Webflow site
         webflow_site = await self._create_webflow_site(site_config, template)
-        
+
         # Step 2: Apply customizations
         customizations_applied = await self._apply_template_customizations(
-            webflow_site["id"], 
-            template, 
+            webflow_site["id"],
+            template,
             customization_config
         )
-        
+
         # Step 3: Set up CMS collections
         await self._setup_site_cms_collections(webflow_site["id"])
-        
+
         # Step 4: Optimize and finalize
         await self._optimize_cloned_site(webflow_site["id"])
-        
+
         # Create cloned site record
         cloned_site = ClonedSite(
             site_id=site_id,
@@ -458,13 +457,13 @@ class EnhancedWebflowIntegration:
             webflow_site_id=webflow_site["id"],
             created_at=datetime.now()
         )
-        
+
         self.cloned_sites[site_id] = cloned_site
-        
+
         logger.info(f"✅ Template cloned successfully: {site_id}")
         return cloned_site
-        
-    async def _create_webflow_site(self, site_config: Dict[str, Any], template: WebflowTemplate) -> Dict[str, Any]:
+
+    async def _create_webflow_site(self, site_config: dict[str, Any], template: WebflowTemplate) -> dict[str, Any]:
         """Create new Webflow site from template"""
         # Mock Webflow site creation
         webflow_site = {
@@ -476,24 +475,24 @@ class EnhancedWebflowIntegration:
             "status": "development",
             "created_at": datetime.now()
         }
-        
+
         logger.info(f"🌐 Created Webflow site: {webflow_site['id']}")
         return webflow_site
-        
-    async def _apply_template_customizations(self, webflow_site_id: str, template: WebflowTemplate, customizations: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _apply_template_customizations(self, webflow_site_id: str, template: WebflowTemplate, customizations: dict[str, Any]) -> dict[str, Any]:
         """Apply customizations to cloned template"""
         logger.info(f"🎨 Applying customizations to site: {webflow_site_id}")
-        
+
         applied_customizations = {}
-        
+
         # Apply branding customizations
         if "branding" in customizations:
             branding_result = await self._apply_branding_customizations(
-                webflow_site_id, 
+                webflow_site_id,
                 customizations["branding"]
             )
             applied_customizations["branding"] = branding_result
-            
+
         # Apply layout customizations
         if "layout" in customizations:
             layout_result = await self._apply_layout_customizations(
@@ -501,7 +500,7 @@ class EnhancedWebflowIntegration:
                 customizations["layout"]
             )
             applied_customizations["layout"] = layout_result
-            
+
         # Apply component customizations
         if "components" in customizations:
             components_result = await self._apply_component_customizations(
@@ -509,21 +508,21 @@ class EnhancedWebflowIntegration:
                 customizations["components"]
             )
             applied_customizations["components"] = components_result
-            
+
         logger.info(f"✅ Customizations applied to site: {webflow_site_id}")
         return applied_customizations
-        
-    async def _apply_branding_customizations(self, site_id: str, branding: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _apply_branding_customizations(self, site_id: str, branding: dict[str, Any]) -> dict[str, Any]:
         """Apply branding customizations"""
         # Mock branding application
         return {
             "logo": "applied" if "logo" in branding else "skipped",
-            "colors": "applied" if "colors" in branding else "skipped", 
+            "colors": "applied" if "colors" in branding else "skipped",
             "typography": "applied" if "typography" in branding else "skipped",
             "applied_at": datetime.now()
         }
-        
-    async def _apply_layout_customizations(self, site_id: str, layout: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _apply_layout_customizations(self, site_id: str, layout: dict[str, Any]) -> dict[str, Any]:
         """Apply layout customizations"""
         # Mock layout application
         return {
@@ -532,8 +531,8 @@ class EnhancedWebflowIntegration:
             "theme": layout.get("theme", "light"),
             "applied_at": datetime.now()
         }
-        
-    async def _apply_component_customizations(self, site_id: str, components: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _apply_component_customizations(self, site_id: str, components: dict[str, Any]) -> dict[str, Any]:
         """Apply component customizations"""
         # Mock component application
         return {
@@ -542,11 +541,11 @@ class EnhancedWebflowIntegration:
             "forms": components.get("forms", "default"),
             "applied_at": datetime.now()
         }
-        
+
     async def _setup_site_cms_collections(self, webflow_site_id: str):
         """Set up CMS collections for the site"""
         logger.info(f"📊 Setting up CMS collections for site: {webflow_site_id}")
-        
+
         for collection_id, collection_config in self.cms_collections.items():
             # Mock CMS collection creation
             collection_result = {
@@ -556,37 +555,37 @@ class EnhancedWebflowIntegration:
                 "status": "created",
                 "created_at": datetime.now()
             }
-            
+
             logger.info(f"  📋 Created collection: {collection_config['name']}")
-            
+
     async def _optimize_cloned_site(self, webflow_site_id: str):
         """Optimize cloned site for performance and SEO"""
         logger.info(f"⚡ Optimizing cloned site: {webflow_site_id}")
-        
+
         optimizations = [
             "image_compression",
-            "css_minification", 
+            "css_minification",
             "javascript_optimization",
             "seo_meta_tags",
             "responsive_testing",
             "accessibility_checks",
             "performance_scoring"
         ]
-        
+
         for optimization in optimizations:
             # Mock optimization
             await asyncio.sleep(0.1)
             logger.info(f"  ✅ Applied {optimization}")
-            
+
         logger.info(f"⚡ Site optimization completed: {webflow_site_id}")
-        
-    async def sync_cms_content(self, site_id: str, collection_id: str, content_data: List[Dict[str, Any]]) -> Dict[str, Any]:
+
+    async def sync_cms_content(self, site_id: str, collection_id: str, content_data: list[dict[str, Any]]) -> dict[str, Any]:
         """Sync content to CMS collection"""
         logger.info(f"🔄 Syncing content to collection: {collection_id}")
-        
+
         if site_id not in self.cloned_sites:
             raise ValueError(f"Site {site_id} not found")
-            
+
         # Mock content sync
         sync_result = {
             "site_id": site_id,
@@ -598,20 +597,20 @@ class EnhancedWebflowIntegration:
             "sync_status": "completed",
             "synced_at": datetime.now()
         }
-        
+
         logger.info(f"✅ Content sync completed: {sync_result['items_synced']} items")
         return sync_result
-        
-    async def get_template_preview_url(self, template_id: str, customizations: Dict[str, Any] = None) -> str:
+
+    async def get_template_preview_url(self, template_id: str, customizations: dict[str, Any] = None) -> str:
         """Generate preview URL for template with customizations"""
         if template_id not in self.templates_library:
             raise ValueError(f"Template {template_id} not found")
-            
+
         template = self.templates_library[template_id]
-        
+
         # Generate preview URL with customizations
         base_preview = template.preview_url
-        
+
         if customizations:
             # Mock preview URL generation with customizations
             preview_params = []
@@ -619,20 +618,20 @@ class EnhancedWebflowIntegration:
                 preview_params.append("branding=custom")
             if "layout" in customizations:
                 preview_params.append(f"layout={customizations['layout'].get('theme', 'default')}")
-                
+
             if preview_params:
                 preview_url = f"{base_preview}?{'&'.join(preview_params)}"
             else:
                 preview_url = base_preview
         else:
             preview_url = base_preview
-            
+
         return preview_url
-        
-    async def generate_integration_report(self) -> Dict[str, Any]:
+
+    async def generate_integration_report(self) -> dict[str, Any]:
         """Generate comprehensive integration report"""
         logger.info("📋 Generating enhanced integration report...")
-        
+
         report = {
             "report_id": f"webflow_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
             "generated_at": datetime.now(),
@@ -685,34 +684,34 @@ class EnhancedWebflowIntegration:
                 "Performance optimization pipeline is active"
             ]
         }
-        
+
         # Save report
         report_path = f"webflow_reports/enhanced_integration_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         os.makedirs("webflow_reports", exist_ok=True)
-        
+
         with open(report_path, 'w') as f:
             json.dump(report, f, indent=2, default=str)
-            
+
         logger.info(f"📄 Enhanced integration report saved to {report_path}")
         return report
-        
+
     async def run_enhanced_integration(self):
         """Run Enhanced Webflow Integration"""
         logger.info("🌐 Starting Enhanced Webflow Integration...")
-        
+
         try:
             await self.initialize_enhanced_integration()
-            
+
             logger.info("🎉 Enhanced Webflow Integration is ready!")
             logger.info(f"📚 Templates available: {len(self.templates_library)}")
             logger.info(f"📊 CMS collections: {len(self.cms_collections)}")
             logger.info(f"🌐 Sites cloned: {len(self.cloned_sites)}")
-            
+
             # Keep integration running
             while True:
                 await asyncio.sleep(60)
                 logger.info("💓 Enhanced Webflow Integration heartbeat - system operational")
-                
+
         except KeyboardInterrupt:
             logger.info("🛑 Enhanced Webflow Integration shutting down...")
         except Exception as e:
@@ -761,9 +760,9 @@ async def get_templates():
 async def clone_template_endpoint(template_id: str, clone_config: dict):
     customization_config = clone_config.get("customizations", {})
     site_config = clone_config.get("site_config", {})
-    
+
     cloned_site = await integration.clone_template(template_id, customization_config, site_config)
-    
+
     return {
         "site_id": cloned_site.site_id,
         "name": cloned_site.site_name,

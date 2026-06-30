@@ -1,10 +1,12 @@
-import os
-import json
-import streamlit as st
-from dotenv import load_dotenv
-from agents.crewai_agents import run_agents
-from datetime import datetime
 import base64
+import json
+import os
+from datetime import datetime
+
+import streamlit as st
+from agents.crewai_agents import run_agents
+from dotenv import load_dotenv
+
 load_dotenv("api.env")
 
 # Page config
@@ -51,7 +53,7 @@ with st.sidebar:
         st.session_state["TWILIO_PHONE_NUMBER"] = os.getenv("TWILIO_PHONE_NUMBER","")
         st.session_state["TWILIO_WHATSAPP_NUMBER"] = os.getenv("TWILIO_WHATSAPP_NUMBER","")
         st.success("Keys saved for this session")
-    
+
     st.markdown("#### ⚙️ Configuration")
     max_products = st.slider("Max Products to Track", min_value=1, max_value=10, value=5, help="Maximum number of products you can track")
     notification_method = st.selectbox("Notification Method", ["None", "Twilio SMS", "Twilio WhatsApp"], help="How to receive price alerts")

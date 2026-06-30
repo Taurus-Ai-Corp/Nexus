@@ -1,18 +1,20 @@
 import os
-from crewai.tools import BaseTool
-from typing import Dict, Callable, Optional
-from pydantic import Field
-from notifier.email_notifier import send_notification
+from collections.abc import Callable
+
 from agents.decision_logic import is_significant_change
+from crewai.tools import BaseTool
 from dotenv import load_dotenv
+from notifier.email_notifier import send_notification
+from pydantic import Field
+
 load_dotenv("api.env")
 
 class DecisionTool(BaseTool):
-    previous_data: Dict = Field(default_factory=dict)
+    previous_data: dict = Field(default_factory=dict)
     name: str = "DecisionTool"
     description: str = "Compares new and old product data for meaningful changes."
 
-    def _run(self, new_data: Dict) -> bool:
+    def _run(self, new_data: dict) -> bool:
         try:
             change_detected = is_significant_change(self.previous_data, new_data)
             self.previous_data = new_data
@@ -23,11 +25,11 @@ class DecisionTool(BaseTool):
 
 class NotifyTool(BaseTool):
     generate_message_fn: Callable = Field(...)
-    default_recipient: Optional[Dict[str, str]] = Field(default_factory=dict)
+    default_recipient: dict[str, str] | None = Field(default_factory=dict)
     name: str = "NotifyTool"
     description: str = "Send alert via SMS and WhatsApp when product change detected."
 
-    def _run(self, scraped_data: Dict, recipient: Optional[Dict[str, str]] = None) -> Dict:
+    def _run(self, scraped_data: dict, recipient: dict[str, str] | None = None) -> dict:
         try:
             message = self.generate_message_fn(scraped_data)
             if recipient is None:

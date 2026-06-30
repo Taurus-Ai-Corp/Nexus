@@ -137,4 +137,4 @@ class TagColor(Enum):
 
 class ReturnType(Enum):
     FULL_ITEMS_DATA = "full_items_data"
-    ITEMS_COUNT = "items_count" 
+    ITEMS_COUNT = "items_count"

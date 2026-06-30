@@ -1,20 +1,19 @@
-import os
-import logging
 import contextlib
-import uuid
+import datetime
+import logging
+import os
 import tempfile
+import uuid
 from collections.abc import AsyncIterator
-from typing import Annotated
 
 import click
-import pypandoc
-import datetime
 import google.auth
+import mcp.types as types
+import pypandoc
+from dotenv import load_dotenv
 from google.auth.transport import requests
 from google.cloud import storage
 from google.cloud.exceptions import NotFound
-from dotenv import load_dotenv
-import mcp.types as types
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -22,7 +21,6 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from pydantic import Field
 
 load_dotenv()
 
@@ -101,7 +99,7 @@ async def convert_markdown_to_file(markdown_text: str, output_format: str) -> st
         The converted file url.
     """
     if output_format not in ["pdf", "docx", "doc", "html", "html5"]:
-        return f"Unsupported format. Only pdf, docx, doc, html and html5 are supported."
+        return "Unsupported format. Only pdf, docx, doc, html and html5 are supported."
     with tempfile.NamedTemporaryFile(
         delete=True, suffix=f".{output_format}", delete_on_close=True
     ) as temp_file:
@@ -179,11 +177,11 @@ def main(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         ctx = app.request_context
-        
+
         if name == "convert_markdown_to_file":
             markdown_text = arguments.get("markdown_text")
             output_format = arguments.get("output_format")
-            
+
             if not markdown_text or not output_format:
                 return [
                     types.TextContent(
@@ -191,7 +189,7 @@ def main(
                         text="Error: Both markdown_text and output_format parameters are required",
                     )
                 ]
-                
+
             try:
                 result = await convert_markdown_to_file(markdown_text, output_format)
                 return [
@@ -208,14 +206,14 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         return [
             types.TextContent(
                 type="text",
                 text=f"Unknown tool: {name}",
             )
         ]
-        
+
     # Set up SSE transport
     sse = SseServerTransport("/messages/")
 
@@ -260,7 +258,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],

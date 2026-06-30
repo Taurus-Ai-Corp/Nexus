@@ -1,7 +1,11 @@
 import logging
-from typing import Dict, List, Optional, Any, Union
-from datetime import datetime
-from .base import make_freshdesk_request, handle_freshdesk_error, remove_none_values, handle_freshdesk_attachments
+from typing import Any
+
+from .base import (
+    handle_freshdesk_error,
+    make_freshdesk_request,
+    remove_none_values,
+)
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -11,15 +15,15 @@ async def create_thread(
     thread_type: str,
     parent_id: int,
     parent_type: str = "ticket",
-    title: Optional[str] = None,
-    created_by: Optional[str] = None,
-    anchor_id: Optional[int] = None,
-    anchor_type: Optional[str] = None,
-    participants_emails: Optional[List[str]] = None,
-    participants_agents: Optional[List[str]] = None,
-    additional_info: Optional[Dict[str, Any]] = None,
+    title: str | None = None,
+    created_by: str | None = None,
+    anchor_id: int | None = None,
+    anchor_type: str | None = None,
+    participants_emails: list[str] | None = None,
+    participants_agents: list[str] | None = None,
+    additional_info: dict[str, Any] | None = None,
     **kwargs
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Create a new thread in Freshdesk.
     
@@ -68,23 +72,23 @@ async def create_thread(
                 thread_data["participants"]["agents"] = participants_agents
 
         thread_data = remove_none_values(thread_data)
-        
+
         logger.info(f"Creating thread with data: {thread_data}")
-        
+
         response = await make_freshdesk_request(
             method="POST",
             endpoint="/collaboration/threads",
             data=thread_data
         )
-        
-        logger.info(f"Successfully created thread")
+
+        logger.info("Successfully created thread")
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "create", "thread")
 
 
-async def get_thread_by_id(thread_id: int) -> Dict[str, Any]:
+async def get_thread_by_id(thread_id: int) -> dict[str, Any]:
     """
     Get a thread by its ID.
     
@@ -96,25 +100,25 @@ async def get_thread_by_id(thread_id: int) -> Dict[str, Any]:
     """
     try:
         logger.info(f"Retrieving thread with ID: {thread_id}")
-        
+
         response = await make_freshdesk_request(
             method="GET",
             endpoint=f"/collaboration/threads/{thread_id}"
         )
-        
-        logger.info(f"Successfully retrieved thread")
+
+        logger.info("Successfully retrieved thread")
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "get", "thread")
 
 
 async def update_thread(
     thread_id: int,
-    title: Optional[str] = None,
-    description: Optional[str] = None,
+    title: str | None = None,
+    description: str | None = None,
     **kwargs
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Update a thread in Freshdesk.
     
@@ -133,25 +137,25 @@ async def update_thread(
             "description": description,
             **kwargs
         }
-        
+
         thread_data = remove_none_values(thread_data)
-        
+
         logger.info(f"Updating thread {thread_id} with data: {thread_data}")
-        
+
         response = await make_freshdesk_request(
             method="PUT",
             endpoint=f"/collaboration/threads/{thread_id}",
             data=thread_data
         )
-        
-        logger.info(f"Successfully updated thread")
+
+        logger.info("Successfully updated thread")
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "update", "thread")
 
 
-async def delete_thread(thread_id: int) -> Dict[str, Any]:
+async def delete_thread(thread_id: int) -> dict[str, Any]:
     """
     Delete a thread from Freshdesk.
     Note: This is an irreversible action!
@@ -164,15 +168,15 @@ async def delete_thread(thread_id: int) -> Dict[str, Any]:
     """
     try:
         logger.info(f"Deleting thread with ID: {thread_id}")
-        
+
         response = await make_freshdesk_request(
             method="DELETE",
             endpoint=f"/collaboration/threads/{thread_id}"
         )
-        
-        logger.info(f"Successfully deleted thread")
+
+        logger.info("Successfully deleted thread")
         return {"success": True, "message": f"Thread {thread_id} deleted successfully"}
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "delete", "thread")
 
@@ -180,18 +184,18 @@ async def delete_thread(thread_id: int) -> Dict[str, Any]:
 async def create_thread_message(
     thread_id: int,
     body: str,
-    body_text: Optional[str] = None,
-    attachment_ids: Optional[List[int]] = None,
-    inline_attachment_ids: Optional[List[int]] = None,
-    participants_email_to: Optional[List[str]] = None,
-    participants_email_cc: Optional[List[str]] = None,
-    participants_email_bcc: Optional[List[str]] = None,
-    participants_email_from: Optional[str] = None,
-    additional_info: Optional[Dict[str, Any]] = None,
-    full_message: Optional[str] = None,
-    full_message_text: Optional[str] = None,
+    body_text: str | None = None,
+    attachment_ids: list[int] | None = None,
+    inline_attachment_ids: list[int] | None = None,
+    participants_email_to: list[str] | None = None,
+    participants_email_cc: list[str] | None = None,
+    participants_email_bcc: list[str] | None = None,
+    participants_email_from: str | None = None,
+    additional_info: dict[str, Any] | None = None,
+    full_message: str | None = None,
+    full_message_text: str | None = None,
     **kwargs
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Create a new message for a thread.
     
@@ -231,7 +235,7 @@ async def create_thread_message(
             message_data["participants"] = {
                 "email": {}
             }
-            
+
             if participants_email_to:
                 message_data["participants"]["email"]["to"] = participants_email_to
             if participants_email_cc:
@@ -242,23 +246,23 @@ async def create_thread_message(
                 message_data["participants"]["email"]["from"] = participants_email_from
 
         message_data = remove_none_values(message_data)
-        
+
         logger.info(f"Creating message for thread {thread_id} with data: {message_data}")
-        
+
         response = await make_freshdesk_request(
             method="POST",
             endpoint="/collaboration/messages",
             data=message_data
         )
-        
-        logger.info(f"Successfully created thread message")
+
+        logger.info("Successfully created thread message")
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "create", "thread message")
 
 
-async def get_thread_message_by_id(message_id: int) -> Dict[str, Any]:
+async def get_thread_message_by_id(message_id: int) -> dict[str, Any]:
     """
     Get a thread message by its ID.
     
@@ -270,28 +274,28 @@ async def get_thread_message_by_id(message_id: int) -> Dict[str, Any]:
     """
     try:
         logger.info(f"Retrieving thread message with ID: {message_id}")
-        
+
         response = await make_freshdesk_request(
             method="GET",
             endpoint=f"/collaboration/messages/{message_id}"
         )
-        
-        logger.info(f"Successfully retrieved thread message")
+
+        logger.info("Successfully retrieved thread message")
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "get", "thread message")
 
 
 async def update_thread_message(
     message_id: int,
-    body: Optional[str] = None,
-    body_text: Optional[str] = None,
-    attachment_ids: Optional[List[int]] = None,
-    inline_attachment_ids: Optional[List[int]] = None,
-    additional_info: Optional[Dict[str, Any]] = None,
+    body: str | None = None,
+    body_text: str | None = None,
+    attachment_ids: list[int] | None = None,
+    inline_attachment_ids: list[int] | None = None,
+    additional_info: dict[str, Any] | None = None,
     **kwargs
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Update a thread message.
     
@@ -316,25 +320,25 @@ async def update_thread_message(
             "additional_info": additional_info,
             **kwargs
         }
-        
+
         message_data = remove_none_values(message_data)
-        
+
         logger.info(f"Updating thread message {message_id} with data: {message_data}")
-        
+
         response = await make_freshdesk_request(
             method="PUT",
             endpoint=f"/collaboration/messages/{message_id}",
             data=message_data
         )
-        
-        logger.info(f"Successfully updated thread message")
+
+        logger.info("Successfully updated thread message")
         return response
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "update", "thread message")
 
 
-async def delete_thread_message(message_id: int) -> Dict[str, Any]:
+async def delete_thread_message(message_id: int) -> dict[str, Any]:
     """
     Delete a thread message.
     Note: This is an irreversible action!
@@ -347,14 +351,14 @@ async def delete_thread_message(message_id: int) -> Dict[str, Any]:
     """
     try:
         logger.info(f"Deleting thread message with ID: {message_id}")
-        
+
         response = await make_freshdesk_request(
             method="DELETE",
             endpoint=f"/collaboration/messages/{message_id}"
         )
-        
-        logger.info(f"Successfully deleted thread message")
+
+        logger.info("Successfully deleted thread message")
         return {"success": True, "message": f"Thread message {message_id} deleted successfully"}
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "delete", "thread message")

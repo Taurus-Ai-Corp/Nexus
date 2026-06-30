@@ -3,33 +3,31 @@ Comprehensive Security Audit & Stress Test for Phase 1 + Phase 2
 Tests integration, security, performance, and edge cases.
 """
 
-import sys
 import os
-import time
+import sys
 import threading
-import json
+import time
 from datetime import datetime, timedelta
-from typing import Dict, List
 
 # Add the core directory to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'core'))
 
 from analysis.cash_flow_analyzer import CashFlowAnalyzer
-from reminders.reminder_engine import ReminderEngine
-from integration.data_layer import DataIntegrationLayer
-from compliance.dpdp_compliance import DPDPComplianceSuite, ConsentPurpose
 from compliance.aadhaar_ekyc import AadhaareKYCIntegration
-from compliance.upi_integration import UPIPaymentFlow, UPICreditLine
+from compliance.dpdp_compliance import ConsentPurpose, DPDPComplianceSuite
+from compliance.upi_integration import UPICreditLine, UPIPaymentFlow
+from integration.data_layer import DataIntegrationLayer
+from reminders.reminder_engine import ReminderEngine
 
 
 class SecurityAuditor:
     """Performs security checks on all components."""
-    
+
     def __init__(self):
         self.vulnerabilities = []
         self.security_score = 100
-        
-    def check_aadhaar_tokenization(self, ekyc_integration: AadhaareKYCIntegration) -> Dict:
+
+    def check_aadhaar_tokenization(self, ekyc_integration: AadhaareKYCIntegration) -> dict:
         """Verify raw Aadhaar is never stored."""
         # Check token vault
         for token, data in ekyc_integration.token_vault.token_map.items():
@@ -41,7 +39,7 @@ class SecurityAuditor:
                     "recommendation": "Remove raw Aadhaar immediately"
                 })
                 self.security_score -= 50
-                
+
         # Check KYC records
         for token, record in ekyc_integration.kyc_records.items():
             if 'aadhaar_number' in record:
@@ -52,7 +50,7 @@ class SecurityAuditor:
                     "recommendation": "Remove raw Aadhaar immediately"
                 })
                 self.security_score -= 50
-                
+
         # Check auth logs
         for log in ekyc_integration.uidai_auth.auth_logs:
             if 'aadhaar_number' in log:
@@ -63,37 +61,37 @@ class SecurityAuditor:
                     "recommendation": "Remove raw Aadhaar from logs"
                 })
                 self.security_score -= 30
-                
+
         return {
             "raw_aadhaar_stored": len([v for v in self.vulnerabilities if "Raw Aadhaar" in v["issue"]]) == 0,
             "tokenization_active": len(ekyc_integration.token_vault.token_map) > 0,
             "compliance_status": "compliant" if self.security_score >= 80 else "non-compliant"
         }
-    
-    def check_consent_management(self, dpdp_compliance: DPDPComplianceSuite) -> Dict:
+
+    def check_consent_management(self, dpdp_compliance: DPDPComplianceSuite) -> dict:
         """Verify consent is properly obtained before data processing."""
         issues = []
-        
+
         for principal_id in dpdp_compliance.data_store:
             # Check if consent exists for loan processing
             if not dpdp_compliance.consent_manager.check_consent(
                 principal_id, ConsentPurpose.LOAN_PROCESSING
             ):
                 issues.append(f"Principal {principal_id} missing loan processing consent")
-                
+
             # Check if consent exists for cash flow analysis
             if not dpdp_compliance.consent_manager.check_consent(
                 principal_id, ConsentPurpose.CASH_FLOW_ANALYSIS
             ):
                 issues.append(f"Principal {principal_id} missing cash flow analysis consent")
-                
+
         return {
             "consent_coverage": 100 - (len(issues) * 10),
             "issues": issues,
             "compliance_status": "compliant" if len(issues) == 0 else "non-compliant"
         }
-    
-    def check_data_encryption(self) -> Dict:
+
+    def check_data_encryption(self) -> dict:
         """Verify encryption is enabled for all data stores."""
         # In production, this would check AWS KMS, RDS encryption, etc.
         return {
@@ -102,8 +100,8 @@ class SecurityAuditor:
             "key_rotation_enabled": True,
             "compliance_status": "compliant"
         }
-    
-    def check_access_controls(self) -> Dict:
+
+    def check_access_controls(self) -> dict:
         """Verify proper access controls are in place."""
         return {
             "rbac_implemented": True,
@@ -112,8 +110,8 @@ class SecurityAuditor:
             "mfa_enabled": True,
             "compliance_status": "compliant"
         }
-    
-    def generate_security_report(self) -> Dict:
+
+    def generate_security_report(self) -> dict:
         """Generate comprehensive security report."""
         return {
             "report_time": datetime.now().isoformat(),
@@ -129,16 +127,16 @@ class SecurityAuditor:
 
 class StressTester:
     """Performs stress testing on all components."""
-    
+
     def __init__(self):
         self.results = {}
-        
-    def test_concurrent_reminder_generation(self, reminder_engine: ReminderEngine, num_threads: int = 10) -> Dict:
+
+    def test_concurrent_reminder_generation(self, reminder_engine: ReminderEngine, num_threads: int = 10) -> dict:
         """Test reminder generation under concurrent load."""
         start_time = time.time()
         errors = []
         successful = []
-        
+
         def generate_reminders(thread_id: int):
             try:
                 for i in range(100):
@@ -153,18 +151,18 @@ class StressTester:
                     successful.append(reminder)
             except Exception as e:
                 errors.append(str(e))
-                
+
         threads = []
         for t in range(num_threads):
             thread = threading.Thread(target=generate_reminders, args=(t,))
             threads.append(thread)
             thread.start()
-            
+
         for thread in threads:
             thread.join()
-            
+
         elapsed = time.time() - start_time
-        
+
         return {
             "test": "concurrent_reminder_generation",
             "threads": num_threads,
@@ -174,34 +172,34 @@ class StressTester:
             "reminders_per_second": len(successful) / elapsed if elapsed > 0 else 0,
             "status": "passed" if len(errors) == 0 else "failed"
         }
-    
-    def test_large_dataset_processing(self, data_layer: DataIntegrationLayer, num_borrowers: int = 10000) -> Dict:
+
+    def test_large_dataset_processing(self, data_layer: DataIntegrationLayer, num_borrowers: int = 10000) -> dict:
         """Test data processing with large datasets."""
         start_time = time.time()
-        
+
         # Generate large dataset
         sample_data = data_layer.generate_sample_data(num_borrowers=num_borrowers)
         gen_time = time.time() - start_time
-        
+
         # Export data
         start_time = time.time()
         borrowers_path = data_layer.export_borrower_data(sample_data['borrowers'])
         loans_path = data_layer.export_loan_portfolio(sample_data['loans'])
         transactions_path = data_layer.export_transaction_data(sample_data['transactions'])
         export_time = time.time() - start_time
-        
+
         # Load and validate
         start_time = time.time()
         loaded_borrowers = data_layer.load_borrower_data(borrowers_path)
         loaded_loans = data_layer.load_loan_portfolio(loans_path)
         loaded_transactions = data_layer.load_transaction_data(transactions_path)
         load_time = time.time() - start_time
-        
+
         # Get summary
         start_time = time.time()
         summary = data_layer.get_portfolio_summary()
         summary_time = time.time() - start_time
-        
+
         return {
             "test": "large_dataset_processing",
             "num_borrowers": num_borrowers,
@@ -214,13 +212,13 @@ class StressTester:
             "total_time": gen_time + export_time + load_time + summary_time,
             "status": "passed" if len(loaded_borrowers) == num_borrowers else "failed"
         }
-    
-    def test_concurrent_upi_transactions(self, upi_flow: UPIPaymentFlow, num_transactions: int = 100) -> Dict:
+
+    def test_concurrent_upi_transactions(self, upi_flow: UPIPaymentFlow, num_transactions: int = 100) -> dict:
         """Test UPI transaction processing under load."""
         start_time = time.time()
         errors = []
         successful = []
-        
+
         def process_transactions(thread_id: int):
             try:
                 for i in range(num_transactions // 10):
@@ -232,7 +230,7 @@ class StressTester:
                         remarks=f"EMI payment {i}",
                         validity_minutes=30
                     )
-                    
+
                     # Approve request
                     approve_result = upi_flow.approve_collect_request(
                         collect_result["txn_id"], payer_approval=True
@@ -240,18 +238,18 @@ class StressTester:
                     successful.append(approve_result)
             except Exception as e:
                 errors.append(str(e))
-                
+
         threads = []
         for t in range(10):
             thread = threading.Thread(target=process_transactions, args=(t,))
             threads.append(thread)
             thread.start()
-            
+
         for thread in threads:
             thread.join()
-            
+
         elapsed = time.time() - start_time
-        
+
         return {
             "test": "concurrent_upi_transactions",
             "total_transactions": len(successful),
@@ -260,21 +258,22 @@ class StressTester:
             "transactions_per_second": len(successful) / elapsed if elapsed > 0 else 0,
             "status": "passed" if len(errors) == 0 else "failed"
         }
-    
-    def test_memory_usage(self) -> Dict:
+
+    def test_memory_usage(self) -> dict:
         """Test memory usage under load."""
-        import psutil
         import os
-        
+
+        import psutil
+
         process = psutil.Process(os.getpid())
         memory_before = process.memory_info().rss / 1024 / 1024  # MB
-        
+
         # Run some operations
         data_layer = DataIntegrationLayer()
         sample_data = data_layer.generate_sample_data(num_borrowers=5000)
-        
+
         memory_after = process.memory_info().rss / 1024 / 1024  # MB
-        
+
         return {
             "test": "memory_usage",
             "memory_before_mb": memory_before,
@@ -289,7 +288,7 @@ def run_comprehensive_tests():
     print("=" * 80)
     print("COMPREHENSIVE SECURITY AUDIT & STRESS TEST - Phase 1 + Phase 2")
     print("=" * 80)
-    
+
     # Initialize all components
     print("\n1. Initializing all components...")
     cash_flow_analyzer = CashFlowAnalyzer()
@@ -302,16 +301,16 @@ def run_comprehensive_tests():
     security_auditor = SecurityAuditor()
     stress_tester = StressTester()
     print("   ✅ All components initialized")
-    
+
     # Test 1: Security Audit
     print("\n2. Running Security Audit...")
-    
+
     # Test Aadhaar tokenization
     aadhaar_result = aadhaar_ekyc.complete_ekyc_flow("123456789015")
     security_result = security_auditor.check_aadhaar_tokenization(aadhaar_ekyc)
     print(f"   ✅ Aadhaar Tokenization: {security_result['compliance_status']}")
     print(f"   ✅ Raw Aadhaar Stored: {security_result['raw_aadhaar_stored']}")
-    
+
     # Test consent management
     dpdp_result = dpdp_compliance.onboard_principal(
         principal_id="SECURITY_TEST_001",
@@ -325,54 +324,54 @@ def run_comprehensive_tests():
     consent_result = security_auditor.check_consent_management(dpdp_compliance)
     print(f"   ✅ Consent Coverage: {consent_result['consent_coverage']}%")
     print(f"   ✅ Consent Compliance: {consent_result['compliance_status']}")
-    
+
     # Test encryption
     encryption_result = security_auditor.check_data_encryption()
     print(f"   ✅ Encryption at Rest: {encryption_result['encryption_at_rest']}")
     print(f"   ✅ Encryption in Transit: {encryption_result['encryption_in_transit']}")
-    
+
     # Test access controls
     access_result = security_auditor.check_access_controls()
     print(f"   ✅ RBAC Implemented: {access_result['rbac_implemented']}")
     print(f"   ✅ MFA Enabled: {access_result['mfa_enabled']}")
-    
+
     # Generate security report
     security_report = security_auditor.generate_security_report()
     print(f"   ✅ Security Score: {security_report['security_score']}/100")
     print(f"   ✅ Overall Status: {security_report['overall_status']}")
-    
+
     # Test 2: Stress Testing
     print("\n3. Running Stress Tests...")
-    
+
     # Test concurrent reminder generation
     reminder_stress = stress_tester.test_concurrent_reminder_generation(
         reminder_engine, num_threads=10
     )
     print(f"   ✅ Concurrent Reminders: {reminder_stress['reminders_per_second']:.0f}/sec")
     print(f"   ✅ Errors: {reminder_stress['errors']}")
-    
+
     # Test large dataset processing
     dataset_stress = stress_tester.test_large_dataset_processing(
         data_layer, num_borrowers=5000
     )
     print(f"   ✅ Large Dataset (5000 borrowers): {dataset_stress['total_time']:.2f}s")
     print(f"   ✅ Status: {dataset_stress['status']}")
-    
+
     # Test concurrent UPI transactions
     upi_stress = stress_tester.test_concurrent_upi_transactions(
         upi_flow, num_transactions=100
     )
     print(f"   ✅ Concurrent UPI Transactions: {upi_stress['transactions_per_second']:.0f}/sec")
     print(f"   ✅ Errors: {upi_stress['errors']}")
-    
+
     # Test memory usage
     memory_stress = stress_tester.test_memory_usage()
     print(f"   ✅ Memory Usage: {memory_stress['memory_used_mb']:.1f}MB")
     print(f"   ✅ Status: {memory_stress['status']}")
-    
+
     # Test 3: Integration Testing
     print("\n4. Running Integration Tests...")
-    
+
     # Test Phase 1 + Phase 2 integration
     integration_result = test_phase1_phase2_integration(
         cash_flow_analyzer, reminder_engine, data_layer,
@@ -382,30 +381,30 @@ def run_comprehensive_tests():
     print(f"   ✅ Borrowers Processed: {integration_result['borrowers_processed']}")
     print(f"   ✅ Reminders Generated: {integration_result['reminders_generated']}")
     print(f"   ✅ UPI Settlements: {integration_result['upi_settlements']}")
-    
+
     # Test 4: Edge Cases & Error Handling
     print("\n5. Testing Edge Cases & Error Handling...")
-    
+
     edge_cases = test_edge_cases(
         cash_flow_analyzer, reminder_engine, data_layer,
         dpdp_compliance, aadhaar_ekyc, upi_flow, credit_line
     )
     print(f"   ✅ Edge Cases Passed: {edge_cases['passed']}")
     print(f"   ✅ Edge Cases Failed: {edge_cases['failed']}")
-    
+
     # Test 5: Code Simplification Check
     print("\n6. Checking Code Simplification...")
-    
+
     simplification_result = check_code_simplification()
     print(f"   ✅ Code Complexity: {simplification_result['complexity']}")
     print(f"   ✅ DRY Compliance: {simplification_result['dry_compliance']}")
     print(f"   ✅ Error Handling: {simplification_result['error_handling']}")
-    
+
     # Generate final report
     print("\n" + "=" * 80)
     print("COMPREHENSIVE TEST REPORT")
     print("=" * 80)
-    
+
     final_report = {
         "security_audit": security_report,
         "stress_tests": {
@@ -426,7 +425,7 @@ def run_comprehensive_tests():
             edge_cases['failed'] == 0
         ) else "needs_attention"
     }
-    
+
     print(f"\nSecurity Score: {security_report['security_score']}/100")
     print(f"Stress Tests: {'✅ PASSED' if all([
         reminder_stress['status'] == 'passed',
@@ -437,25 +436,25 @@ def run_comprehensive_tests():
     print(f"Integration: {'✅ PASSED' if integration_result['status'] == 'passed' else '❌ FAILED'}")
     print(f"Edge Cases: {'✅ PASSED' if edge_cases['failed'] == 0 else '❌ FAILED'}")
     print(f"Code Simplification: {'✅ PASSED' if simplification_result['dry_compliance'] else '❌ FAILED'}")
-    
+
     print(f"\nOverall Status: {'✅ ALL TESTS PASSED' if final_report['overall_status'] == 'passed' else '❌ NEEDS ATTENTION'}")
-    
+
     return final_report
 
 
 def test_phase1_phase2_integration(
     cash_flow_analyzer, reminder_engine, data_layer,
     dpdp_compliance, aadhaar_ekyc, upi_flow, credit_line
-) -> Dict:
+) -> dict:
     """Test Phase 1 + Phase 2 integration."""
     borrowers_processed = 0
     reminders_generated = 0
     upi_settlements = 0
-    
+
     # Onboard 10 borrowers with full compliance
     for i in range(10):
         principal_id = f"BORROWER_{i:03d}"
-        
+
         # DPDP onboarding
         dpdp_compliance.onboard_principal(
             principal_id=principal_id,
@@ -466,10 +465,10 @@ def test_phase1_phase2_integration(
                 "kyc_status": "pending"
             }
         )
-        
+
         # Aadhaar eKYC
         aadhaar_ekyc.complete_ekyc_flow("123456789015")
-        
+
         # Process loan application
         dpdp_compliance.process_loan_application(
             principal_id=principal_id,
@@ -480,7 +479,7 @@ def test_phase1_phase2_integration(
                 "term_days": 90
             }
         )
-        
+
         # Generate reminder
         reminder = reminder_engine.generate_reminder(
             borrower_name=f"Borrower {i}",
@@ -491,7 +490,7 @@ def test_phase1_phase2_integration(
             language="en"
         )
         reminders_generated += 1
-        
+
         # Create UPI AutoPay mandate
         mandate_result = upi_flow.create_autopay_mandate(
             payer_vpa=f"borrower{i}@paytm",
@@ -501,18 +500,18 @@ def test_phase1_phase2_integration(
             start_date=datetime.now() + timedelta(days=7),
             end_date=datetime.now() + timedelta(days=365)
         )
-        
+
         # Approve mandate
         upi_flow.approve_autopay_mandate(mandate_result["mandate_id"], payer_approval=True)
-        
+
         # Execute collection
         upi_flow.mandates[mandate_result["mandate_id"]]["next_collection_date"] = datetime.now().isoformat()
         collection_result = upi_flow.execute_autopay_collection(mandate_result["mandate_id"])
         if collection_result.get("status") == "collection_success":
             upi_settlements += 1
-            
+
         borrowers_processed += 1
-        
+
     return {
         "status": "passed",
         "borrowers_processed": borrowers_processed,
@@ -524,11 +523,11 @@ def test_phase1_phase2_integration(
 def test_edge_cases(
     cash_flow_analyzer, reminder_engine, data_layer,
     dpdp_compliance, aadhaar_ekyc, upi_flow, credit_line
-) -> Dict:
+) -> dict:
     """Test edge cases and error handling."""
     passed = 0
     failed = 0
-    
+
     # Test 1: Invalid Aadhaar format
     try:
         result = aadhaar_ekyc.token_vault.tokenize_aadhaar("12345678901")  # 11 digits
@@ -538,7 +537,7 @@ def test_edge_cases(
             failed += 1
     except:
         failed += 1
-        
+
     # Test 2: Expired OTP
     try:
         otp_result = aadhaar_ekyc.uidai_auth.generate_otp("987654321098")
@@ -552,7 +551,7 @@ def test_edge_cases(
             failed += 1
     except:
         failed += 1
-        
+
     # Test 3: Insufficient credit limit
     try:
         credit_result = credit_line.create_credit_line(
@@ -570,7 +569,7 @@ def test_edge_cases(
             failed += 1
     except:
         failed += 1
-        
+
     # Test 4: Missing consent for loan processing
     try:
         dpdp_compliance.onboard_principal(
@@ -587,7 +586,7 @@ def test_edge_cases(
         for consent in consent_history:
             if consent["purpose"] == "loan_processing":
                 dpdp_compliance.consent_manager.revoke_consent("NO_CONSENT_001", consent["consent_id"])
-                
+
         # Try to process loan without consent
         result = dpdp_compliance.process_loan_application(
             principal_id="NO_CONSENT_001",
@@ -604,7 +603,7 @@ def test_edge_cases(
             failed += 1
     except:
         failed += 1
-        
+
     # Test 5: Zero loan amount reminder
     try:
         result = reminder_engine.generate_reminder(
@@ -619,7 +618,7 @@ def test_edge_cases(
             failed += 1
     except:
         failed += 1
-        
+
     # Test 6: Empty data handling
     try:
         empty_analyzer = CashFlowAnalyzer()
@@ -629,7 +628,7 @@ def test_edge_cases(
         passed += 1
     except:
         failed += 1
-        
+
     return {
         "passed": passed,
         "failed": failed,
@@ -637,11 +636,11 @@ def test_edge_cases(
     }
 
 
-def check_code_simplification() -> Dict:
+def check_code_simplification() -> dict:
     """Check code simplification and best practices."""
     # In production, this would use tools like radon, pylint, etc.
     # For now, we'll do basic checks
-    
+
     checks = {
         "functions_under_50_lines": True,  # Manual check
         "no_duplicate_code": True,  # DRY principle
@@ -651,7 +650,7 @@ def check_code_simplification() -> Dict:
         "no_hardcoded_secrets": True,  # Security check
         "configurable_parameters": True  # No magic numbers
     }
-    
+
     return {
         "complexity": "low" if all(checks.values()) else "medium",
         "dry_compliance": checks["no_duplicate_code"],
@@ -665,10 +664,10 @@ def check_code_simplification() -> Dict:
 if __name__ == "__main__":
     print("🔍 Comprehensive Security Audit & Stress Test")
     print("=" * 80)
-    
+
     # Run all tests
     results = run_comprehensive_tests()
-    
+
     # Print final summary
     print("\n" + "=" * 80)
     print("FINAL SUMMARY")
@@ -678,20 +677,20 @@ if __name__ == "__main__":
     print(f"High Issues: {results['security_audit']['high_issues']}")
     print(f"Medium Issues: {results['security_audit']['medium_issues']}")
     print(f"Low Issues: {results['security_audit']['low_issues']}")
-    
-    print(f"\nStress Tests:")
+
+    print("\nStress Tests:")
     print(f"  - Reminder Generation: {results['stress_tests']['reminder_generation']['reminders_per_second']:.0f}/sec")
     print(f"  - Large Dataset: {results['stress_tests']['large_dataset']['total_time']:.2f}s")
     print(f"  - UPI Transactions: {results['stress_tests']['upi_transactions']['transactions_per_second']:.0f}/sec")
     print(f"  - Memory Usage: {results['stress_tests']['memory_usage']['memory_used_mb']:.1f}MB")
-    
+
     print(f"\nIntegration: {results['integration_test']['status']}")
     print(f"Edge Cases: {results['edge_cases']['passed']}/{results['edge_cases']['total']} passed")
     print(f"Code Simplification: {results['code_simplification']['status']}")
-    
+
     print(f"\nOverall Status: {results['overall_status']}")
     print("=" * 80)
-    
+
     if results['overall_status'] == 'passed':
         print("✅ ALL TESTS PASSED - Platform is ready for pilot deployment!")
     else:

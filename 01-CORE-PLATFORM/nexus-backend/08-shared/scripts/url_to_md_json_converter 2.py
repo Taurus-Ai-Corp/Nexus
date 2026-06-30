@@ -13,13 +13,14 @@ Examples:
 """
 
 import argparse
-import requests
 import json
 import sys
-import os
 from datetime import datetime
-from urllib.parse import urlparse
 from pathlib import Path
+from urllib.parse import urlparse
+
+import requests
+
 
 class JinaAIConverter:
     def __init__(self, api_key="jina_492c48beb31643e3b5a81c4052fa0628fS7ORRidO2zZAueI2W9OgX1QPDML"):

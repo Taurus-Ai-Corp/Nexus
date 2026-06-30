@@ -3,16 +3,18 @@
 import asyncio
 import base64
 import logging
-from typing import Dict, List, Optional, Tuple
 
 import aiohttp
 import requests
 from aiohttp import ClientTimeout
 
 from ..core.config import settings
-from ..core.exceptions import (GitHubAuthenticationError, GitHubError,
-                               GitHubRateLimitError,
-                               GitHubRepositoryNotFoundError)
+from ..core.exceptions import (
+    GitHubAuthenticationError,
+    GitHubError,
+    GitHubRateLimitError,
+    GitHubRepositoryNotFoundError,
+)
 from ..core.types import GitHubFileInfo
 from .parser import build_github_api_url, parse_github_url
 
@@ -22,7 +24,7 @@ logger = logging.getLogger(__name__)
 class GitHubClient:
     """GitHub API client with authentication and error handling."""
 
-    def __init__(self, token: Optional[str] = None):
+    def __init__(self, token: str | None = None):
         self.token = token or settings.github_api_key
         self.headers = {
             "Accept": "application/vnd.github.v3+json",
@@ -52,9 +54,9 @@ class GitHubClient:
         self,
         repo_url: str,
         branch: str = "main",
-        file_extensions: Optional[List[str]] = None,
+        file_extensions: list[str] | None = None,
         include_sha: bool = False,
-    ) -> Tuple[List[str], str] | Tuple[List[Dict[str, str]], str]:
+    ) -> tuple[list[str], str] | tuple[list[dict[str, str]], str]:
         """Get repository file tree with optional extension filtering."""
 
         if file_extensions is None:
@@ -176,10 +178,10 @@ class GitHubClient:
     async def get_multiple_files(
         self,
         repo_url: str,
-        file_paths: List[str],
+        file_paths: list[str],
         branch: str = "main",
         max_concurrent: int = None,
-    ) -> Tuple[List[GitHubFileInfo], List[str]]:
+    ) -> tuple[list[GitHubFileInfo], list[str]]:
         """Get multiple files concurrently."""
 
         if max_concurrent is None:
@@ -189,7 +191,7 @@ class GitHubClient:
 
         async def fetch_single_file(
             file_path: str,
-        ) -> Tuple[Optional[GitHubFileInfo], Optional[str]]:
+        ) -> tuple[GitHubFileInfo | None, str | None]:
             async with semaphore:
                 try:
                     file_info = await self.get_file_content(repo_url, file_path, branch)

@@ -1,11 +1,12 @@
 import logging
-from typing import Any, Dict, List
+from typing import Any
+
 from .base import get_salesforce_conn
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
-async def execute_soql_query(query: str) -> Dict[str, Any]:
+async def execute_soql_query(query: str) -> dict[str, Any]:
     """Execute a SOQL query on Salesforce."""
     logger.info(f"Executing tool: execute_soql_query with query: {query}")
     try:
@@ -16,7 +17,7 @@ async def execute_soql_query(query: str) -> Dict[str, Any]:
         logger.exception(f"Error executing SOQL query: {e}")
         raise e
 
-async def execute_tooling_query(query: str) -> Dict[str, Any]:
+async def execute_tooling_query(query: str) -> dict[str, Any]:
     """Execute a query against the Salesforce Tooling API."""
     logger.info(f"Executing tool: execute_tooling_query with query: {query}")
     try:
@@ -27,14 +28,14 @@ async def execute_tooling_query(query: str) -> Dict[str, Any]:
         logger.exception(f"Error executing tooling query: {e}")
         raise e
 
-async def describe_object(object_name: str, detailed: bool = False) -> Dict[str, Any]:
+async def describe_object(object_name: str, detailed: bool = False) -> dict[str, Any]:
     """Get detailed metadata about a Salesforce object."""
     logger.info(f"Executing tool: describe_object with object_name: {object_name}")
     try:
         sf = get_salesforce_conn()
         sobject = getattr(sf, object_name)
         result = sobject.describe()
-        
+
         if detailed and object_name.endswith('__c'):
             # For custom objects, get additional metadata if requested
             metadata_result = sf.restful(f"sobjects/{object_name}/describe/")
@@ -42,27 +43,27 @@ async def describe_object(object_name: str, detailed: bool = False) -> Dict[str,
                 "describe": dict(result),
                 "metadata": metadata_result
             }
-        
+
         return dict(result)
     except Exception as e:
         logger.exception(f"Error describing object: {e}")
         raise e
 
-async def get_component_source(metadata_type: str, component_names: List[str]) -> Dict[str, Any]:
+async def get_component_source(metadata_type: str, component_names: list[str]) -> dict[str, Any]:
     """Retrieve metadata components from Salesforce."""
     logger.info(f"Executing tool: get_component_source with type: {metadata_type}")
     try:
         sf = get_salesforce_conn()
-        
+
         # Valid metadata types
         valid_types = [
             'CustomObject', 'Flow', 'FlowDefinition', 'CustomField',
             'ValidationRule', 'ApexClass', 'ApexTrigger', 'WorkflowRule', 'Layout'
         ]
-        
+
         if metadata_type not in valid_types:
             raise ValueError(f"Invalid metadata type: {metadata_type}")
-        
+
         # Use Tooling API for metadata queries
         results = []
         for name in component_names:
@@ -76,7 +77,7 @@ async def get_component_source(metadata_type: str, component_names: List[str]) -
                 else:
                     # For other types, use general metadata query
                     query = f"SELECT Id, DeveloperName FROM {metadata_type} WHERE DeveloperName = '{name}'"
-                
+
                 result = sf.toolingexecute(f"query/?q={query}")
                 results.append({
                     "name": name,
@@ -89,8 +90,8 @@ async def get_component_source(metadata_type: str, component_names: List[str]) -
                     "type": metadata_type,
                     "error": str(e)
                 })
-        
+
         return {"results": results}
     except Exception as e:
         logger.exception(f"Error retrieving metadata: {e}")
-        raise e 
+        raise e

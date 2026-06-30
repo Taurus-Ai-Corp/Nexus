@@ -1,7 +1,7 @@
+import base64
+
 import streamlit as st
 from agents import DeepResearcherAgent
-import time
-import base64
 
 st.set_page_config(
     page_title="Deep Research Agent",

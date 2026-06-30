@@ -1,14 +1,13 @@
-import os
-import logging
 import contextlib
+import logging
+import os
 import tempfile
 from collections.abc import AsyncIterator
-from typing import Annotated
 
 import click
+import mcp.types as types
 import requests
 from markitdown import MarkItDown
-import mcp.types as types
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,7 +15,6 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from pydantic import Field
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -36,7 +34,7 @@ async def convert_document_to_markdown(uri: str) -> str:
         The markdown representation of the resource.
     """
     if not uri.startswith("http") and not uri.startswith("https"):
-        return f"Unsupported uri. Only http:, https: are supported."
+        return "Unsupported uri. Only http:, https: are supported."
 
     response = requests.get(uri)
     if response.status_code == 200:
@@ -106,10 +104,10 @@ def main(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         ctx = app.request_context
-        
+
         if name == "convert_document_to_markdown":
             uri = arguments.get("uri")
-            
+
             if not uri:
                 return [
                     types.TextContent(
@@ -117,7 +115,7 @@ def main(
                         text="Error: URI parameter is required",
                     )
                 ]
-                
+
             try:
                 result = await convert_document_to_markdown(uri)
                 return [
@@ -134,14 +132,14 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         return [
             types.TextContent(
                 type="text",
                 text=f"Unknown tool: {name}",
             )
         ]
-        
+
     # Set up SSE transport
     sse = SseServerTransport("/messages/")
 
@@ -186,7 +184,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],

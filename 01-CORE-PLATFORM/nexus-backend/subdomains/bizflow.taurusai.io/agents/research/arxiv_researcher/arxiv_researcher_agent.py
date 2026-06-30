@@ -3,7 +3,6 @@ Arxiv Researcher Agent for BizFlow-Orchestrator
 Category: Research
 """
 
-import os
 import sys
 from pathlib import Path
 
@@ -13,12 +12,12 @@ sys.path.insert(0, str(agent_dir))
 
 class ArxivResearcherAgent:
     """Arxiv Researcher Agent wrapper for BizFlow-Orchestrator"""
-    
+
     def __init__(self):
         self.name = "arxiv_researcher"
         self.category = "research"
         self.capabilities = self._get_capabilities()
-        
+
     def _get_capabilities(self):
         """Get agent capabilities"""
         return [
@@ -26,7 +25,7 @@ class ArxivResearcherAgent:
             "Process research related requests",
             "Integrate with BizFlow-Orchestrator"
         ]
-    
+
     async def execute_task(self, task_data):
         """Execute a task using this agent"""
         try:
@@ -39,14 +38,14 @@ class ArxivResearcherAgent:
                 result = await app(task_data)
             else:
                 result = {"status": "error", "message": "No main entry point found"}
-            
+
             return {
                 "status": "success",
                 "agent": self.name,
                 "category": self.category,
                 "result": result
             }
-            
+
         except Exception as e:
             return {
                 "status": "error",
@@ -54,7 +53,7 @@ class ArxivResearcherAgent:
                 "category": self.category,
                 "error": str(e)
             }
-    
+
     def get_info(self):
         """Get agent information"""
         return {

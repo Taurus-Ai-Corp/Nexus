@@ -1,13 +1,18 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
 
 import click
 import mcp.types as types
+
+# Import context for auth token
+from client import auth_token_context
+from dotenv import load_dotenv
+from enums import convert_sort_by_to_enum, convert_sort_order_to_enum, convert_update_mode_to_enum
+from errors import AuthenticationError, InvalidTokenError, TokenExpiredError, ToolExecutionError
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -15,30 +20,28 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
-from errors import ToolExecutionError, AuthenticationError, TokenExpiredError, InvalidTokenError
 
 # Import tools
 from tools import (
     # Page tools
-    create_page, get_page, get_pages_by_id, list_pages, rename_page, 
-    update_page_content,
+    create_page,
     # Space tools
-    create_space, get_space, get_space_hierarchy, list_spaces,
+    create_space,
+    get_attachment,
+    # Attachment tools
+    get_attachments_for_page,
+    get_page,
+    get_pages_by_id,
+    get_space,
+    get_space_hierarchy,
+    list_attachments,
+    list_pages,
+    list_spaces,
+    rename_page,
     # Search tools
     search_content,
-    # Attachment tools
-    get_attachments_for_page, list_attachments, get_attachment,
+    update_page_content,
 )
-
-from enums import (
-    convert_sort_by_to_enum, convert_sort_order_to_enum, convert_update_mode_to_enum
-)
-
-# Import context for auth token
-from client import auth_token_context
-
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -50,7 +53,7 @@ CONFLUENCE_MCP_SERVER_PORT = int(os.getenv("CONFLUENCE_MCP_SERVER_PORT", "5000")
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -64,10 +67,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -184,7 +187,7 @@ def main(
                         "sort_by": {
                             "type": "string",
                             "description": "The order of the pages to sort by. Defaults to created-date-newest-to-oldest",
-                            "enum": ["id-ascending", "id-descending", "title-ascending", "title-descending", 
+                            "enum": ["id-ascending", "id-descending", "title-ascending", "title-descending",
                                    "created-date-oldest-to-newest", "created-date-newest-to-oldest",
                                    "modified-date-oldest-to-newest", "modified-date-newest-to-oldest"],
                         },
@@ -526,13 +529,13 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
-        
+
         try:
             async with sse.connect_sse(
                 request.scope, request.receive, request._send
@@ -542,7 +545,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -557,13 +560,13 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
-        
+
         try:
             await session_manager.handle_request(scope, receive, send)
         finally:
@@ -586,7 +589,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -612,4 +615,4 @@ def main(
         return 1
 
 if __name__ == "__main__":
-    exit(main()) 
+    exit(main())

@@ -1,14 +1,13 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from contextvars import ContextVar
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,15 +15,20 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
     auth_token_context,
+    moneybird_create_contact,
+    moneybird_create_contact_person,
+    moneybird_create_sales_invoice,
+    moneybird_get_contact,
+    moneybird_get_sales_invoice,
     moneybird_list_administrations,
-    moneybird_list_contacts, moneybird_get_contact, moneybird_create_contact, moneybird_create_contact_person,
-    moneybird_list_sales_invoices, moneybird_get_sales_invoice, moneybird_create_sales_invoice,
-    moneybird_list_financial_accounts, moneybird_list_products,
-    moneybird_list_projects, moneybird_list_time_entries
+    moneybird_list_contacts,
+    moneybird_list_financial_accounts,
+    moneybird_list_products,
+    moneybird_list_projects,
+    moneybird_list_sales_invoices,
+    moneybird_list_time_entries,
 )
 
 # Configure logging
@@ -37,7 +41,7 @@ MONEYBIRD_MCP_SERVER_PORT = int(os.getenv("MONEYBIRD_MCP_SERVER_PORT", "5000"))
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -53,7 +57,7 @@ def extract_access_token(request_or_scope) -> str:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
         else:
             auth_data = None
-        
+
         if auth_data:
             try:
                 # Parse the JSON auth data to extract access_token
@@ -62,7 +66,7 @@ def extract_access_token(request_or_scope) -> str:
             except (json.JSONDecodeError, TypeError) as e:
                 logger.warning(f"Failed to parse auth data JSON: {e}")
                 return ""
-    
+
     return ""
 
 @click.command()
@@ -397,7 +401,7 @@ def main(
     async def call_tool(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
-        
+
         # Administration
         if name == "moneybird_list_administrations":
             try:
@@ -416,7 +420,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Contacts
         if name == "moneybird_list_contacts":
             administration_id = arguments.get("administration_id")
@@ -427,10 +431,10 @@ def main(
                         text="Error: administration_id parameter is required",
                     )
                 ]
-            
+
             query = arguments.get("query")
             page = arguments.get("page")
-            
+
             try:
                 result = await moneybird_list_contacts(administration_id, query, page)
                 return [
@@ -447,7 +451,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "moneybird_get_contact":
             administration_id = arguments.get("administration_id")
             contact_id = arguments.get("contact_id")
@@ -458,7 +462,7 @@ def main(
                         text="Error: administration_id and contact_id parameters are required",
                     )
                 ]
-            
+
             try:
                 result = await moneybird_get_contact(administration_id, contact_id)
                 return [
@@ -475,7 +479,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "moneybird_create_contact":
             administration_id = arguments.get("administration_id")
             contact_data = arguments.get("contact_data")
@@ -486,7 +490,7 @@ def main(
                         text="Error: administration_id and contact_data parameters are required",
                     )
                 ]
-            
+
             try:
                 result = await moneybird_create_contact(administration_id, contact_data)
                 return [
@@ -503,7 +507,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "moneybird_create_contact_person":
             administration_id = arguments.get("administration_id")
             contact_id = arguments.get("contact_id")
@@ -515,7 +519,7 @@ def main(
                         text="Error: administration_id, contact_id, and contact_person_data parameters are required",
                     )
                 ]
-            
+
             try:
                 result = await moneybird_create_contact_person(administration_id, contact_id, contact_person_data)
                 return [
@@ -532,7 +536,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Sales Invoices
         elif name == "moneybird_list_sales_invoices":
             administration_id = arguments.get("administration_id")
@@ -543,14 +547,14 @@ def main(
                         text="Error: administration_id parameter is required",
                     )
                 ]
-            
+
             state = arguments.get("state")
             period = arguments.get("period")
             contact_id = arguments.get("contact_id")
             created_after = arguments.get("created_after")
             updated_after = arguments.get("updated_after")
             page = arguments.get("page")
-            
+
             try:
                 result = await moneybird_list_sales_invoices(administration_id, state, period, contact_id, created_after, updated_after, page)
                 return [
@@ -567,7 +571,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "moneybird_get_sales_invoice":
             administration_id = arguments.get("administration_id")
             invoice_id = arguments.get("invoice_id")
@@ -578,7 +582,7 @@ def main(
                         text="Error: administration_id and invoice_id parameters are required",
                     )
                 ]
-            
+
             try:
                 result = await moneybird_get_sales_invoice(administration_id, invoice_id)
                 return [
@@ -595,7 +599,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "moneybird_create_sales_invoice":
             administration_id = arguments.get("administration_id")
             invoice_data = arguments.get("invoice_data")
@@ -606,7 +610,7 @@ def main(
                         text="Error: administration_id and invoice_data parameters are required",
                     )
                 ]
-            
+
             try:
                 result = await moneybird_create_sales_invoice(administration_id, invoice_data)
                 return [
@@ -623,7 +627,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Financial
         elif name == "moneybird_list_financial_accounts":
             administration_id = arguments.get("administration_id")
@@ -634,7 +638,7 @@ def main(
                         text="Error: administration_id parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await moneybird_list_financial_accounts(administration_id)
                 return [
@@ -651,7 +655,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "moneybird_list_products":
             administration_id = arguments.get("administration_id")
             if not administration_id:
@@ -661,10 +665,10 @@ def main(
                         text="Error: administration_id parameter is required",
                     )
                 ]
-            
+
             query = arguments.get("query")
             page = arguments.get("page")
-            
+
             try:
                 result = await moneybird_list_products(administration_id, query, page)
                 return [
@@ -681,7 +685,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Projects & Time
         elif name == "moneybird_list_projects":
             administration_id = arguments.get("administration_id")
@@ -692,10 +696,10 @@ def main(
                         text="Error: administration_id parameter is required",
                     )
                 ]
-            
+
             state = arguments.get("state")
             page = arguments.get("page")
-            
+
             try:
                 result = await moneybird_list_projects(administration_id, state, page)
                 return [
@@ -712,7 +716,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "moneybird_list_time_entries":
             administration_id = arguments.get("administration_id")
             if not administration_id:
@@ -722,13 +726,13 @@ def main(
                         text="Error: administration_id parameter is required",
                     )
                 ]
-            
+
             period = arguments.get("period")
             contact_id = arguments.get("contact_id")
             project_id = arguments.get("project_id")
             user_id = arguments.get("user_id")
             page = arguments.get("page")
-            
+
             try:
                 result = await moneybird_list_time_entries(administration_id, period, contact_id, project_id, user_id, page)
                 return [
@@ -745,7 +749,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         else:
             return [
                 types.TextContent(
@@ -759,7 +763,7 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract access token from headers
         access_token = extract_access_token(request)
 
@@ -774,7 +778,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -789,7 +793,7 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract access token from headers
         access_token = extract_access_token(scope)
 
@@ -817,7 +821,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],

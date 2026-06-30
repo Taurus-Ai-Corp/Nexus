@@ -7,71 +7,67 @@ FastAPI-based microservices architecture with multi-tenant support
 import asyncio
 import json
 import logging
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional
-from contextlib import asynccontextmanager
-
-import uvicorn
-from fastapi import (
-    FastAPI,
-    HTTPException,
-    Depends,
-    BackgroundTasks,
-    WebSocket,
-    WebSocketDisconnect,
-    Request,
-)
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi.responses import JSONResponse
-from slowapi import Limiter
-from slowapi.util import get_remote_address
-from slowapi.errors import RateLimitExceeded
-import redis.asyncio as redis
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
-import jwt
-from datetime import datetime, timedelta
-import bcrypt
-import uuid
 import os
-import structlog
-
-from auth import (
-    hash_password,
-    verify_password,
-    create_access_token,
-    verify_token,
-    verify_telegram_auth,
-)
 
 # Import our specialized agents
 import sys
+import uuid
+from contextlib import asynccontextmanager
+from datetime import datetime, timedelta
+from typing import Any
+
+import bcrypt
+import jwt
+import redis.asyncio as redis
+import uvicorn
+from auth import (
+    create_access_token,
+    hash_password,
+    verify_password,
+    verify_telegram_auth,
+    verify_token,
+)
+from fastapi import (
+    BackgroundTasks,
+    Depends,
+    FastAPI,
+    HTTPException,
+    Request,
+    WebSocket,
+    WebSocketDisconnect,
+)
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.responses import JSONResponse
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from slowapi import Limiter
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import sessionmaker
 
 sys.path.append(
     "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents"
 )
 
-from specialized.intelligence_research.agent import IntelligenceResearchAgent
-from specialized.webflow_integration_master.agent import WebflowIntegrationMasterAgent
+from specialized.content_social_strategy.agent import ContentSocialStrategyAgent
 from specialized.custom_component_performance.agent import (
     CustomComponentPerformanceAgent,
 )
+from specialized.intelligence_research.agent import IntelligenceResearchAgent
 from specialized.performance_analysis.agent import PerformanceAnalysisAgent
-from specialized.content_social_strategy.agent import ContentSocialStrategyAgent
 from specialized.realtime_intelligence_dashboard.agent import (
     RealtimeIntelligenceDashboardAgent,
 )
+from specialized.webflow_integration_master.agent import WebflowIntegrationMasterAgent
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Global variables
-redis_client: Optional[redis.Redis] = None
-db_session: Optional[AsyncSession] = None
+redis_client: redis.Redis | None = None
+db_session: AsyncSession | None = None
 agent_instances = {}
 
 # Security
@@ -142,10 +138,9 @@ app.add_middleware(
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # Security Headers Middleware
-from middleware.security_headers import SecurityHeadersMiddleware
-
 # Sentry Error Tracking
 import sentry_sdk
+from middleware.security_headers import SecurityHeadersMiddleware
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
@@ -170,10 +165,10 @@ app.add_middleware(
 )
 
 # Database Models and Schemas (simplified)
-from pydantic import BaseModel, EmailStr, validator
-from typing import Union
-from enum import Enum
 import re
+from enum import Enum
+
+from pydantic import BaseModel, EmailStr, validator
 
 
 class UserRole(str, Enum):
@@ -235,7 +230,7 @@ class UserLogin(BaseModel):
 
 class Token(BaseModel):
     access_token: str
-    token_type: str = "bearer"
+    token_type: str = "bearer"  # noqa: S105
     user_id: str
     expires_at: datetime
 
@@ -244,23 +239,23 @@ class AgentTask(BaseModel):
     task_id: str
     agent_name: str
     task_type: str
-    parameters: Dict[str, Any]
-    scheduled_for: Optional[datetime] = None
+    parameters: dict[str, Any]
+    scheduled_for: datetime | None = None
 
 
 class CampaignCreate(BaseModel):
     name: str
     description: str
     business_vertical: BusinessVertical
-    target_metrics: Dict[str, Any]
-    automation_config: Dict[str, Any]
+    target_metrics: dict[str, Any]
+    automation_config: dict[str, Any]
 
 
 # Connection Manager for WebSockets
 class ConnectionManager:
     def __init__(self):
-        self.active_connections: List[WebSocket] = []
-        self.user_connections: Dict[str, WebSocket] = {}
+        self.active_connections: list[WebSocket] = []
+        self.user_connections: dict[str, WebSocket] = {}
 
     async def connect(self, websocket: WebSocket, user_id: str = None):
         await websocket.accept()
@@ -591,7 +586,7 @@ async def login_user(request: Request, login_data: UserLogin):
 
 @app.post("/api/auth/telegram", response_model=Token)
 @limiter.limit("3/minute")
-async def login_telegram(request: Request, auth_data: Dict[str, Any]):
+async def login_telegram(request: Request, auth_data: dict[str, Any]):
     """Authenticate CEO via Telegram Login Widget"""
     try:
         # Get bot token from environment
@@ -738,7 +733,7 @@ async def create_agent_task(
         raise HTTPException(status_code=500, detail="Task creation failed")
 
 
-async def execute_agent_task(agent_name: str, task_data: Dict[str, Any]):
+async def execute_agent_task(agent_name: str, task_data: dict[str, Any]):
     """Execute agent task"""
     try:
         task_id = task_data["task_id"]

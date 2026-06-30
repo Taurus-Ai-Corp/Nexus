@@ -1,24 +1,25 @@
 import logging
-from typing import Any, Dict
+from typing import Any
+
 from .base import make_mailchimp_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
-async def ping_mailchimp() -> Dict[str, Any]:
+async def ping_mailchimp() -> dict[str, Any]:
     """Test the connection to Mailchimp API and verify authentication."""
     logger.info("Executing tool: ping_mailchimp")
     try:
         endpoint = "/ping"
-        
+
         ping_data = await make_mailchimp_request("GET", endpoint)
-        
+
         result = {
             "status": "success",
             "health_status": ping_data.get("health_status"),
             "message": "Mailchimp API connection successful"
         }
-        
+
         return result
     except Exception as e:
         logger.exception(f"Error executing tool ping_mailchimp: {e}")
@@ -28,14 +29,14 @@ async def ping_mailchimp() -> Dict[str, Any]:
             "error": str(e)
         }
 
-async def get_account_info() -> Dict[str, Any]:
+async def get_account_info() -> dict[str, Any]:
     """Get information about the Mailchimp account."""
     logger.info("Executing tool: get_account_info")
     try:
         endpoint = "/"
-        
+
         account_data = await make_mailchimp_request("GET", endpoint)
-        
+
         account_info = {
             "account_id": account_data.get("account_id"),
             "account_name": account_data.get("account_name"),
@@ -54,7 +55,7 @@ async def get_account_info() -> Dict[str, Any]:
             "pro_enabled": account_data.get("pro_enabled"),
             "last_login": account_data.get("last_login")
         }
-        
+
         return account_info
     except Exception as e:
         logger.exception(f"Error executing tool get_account_info: {e}")

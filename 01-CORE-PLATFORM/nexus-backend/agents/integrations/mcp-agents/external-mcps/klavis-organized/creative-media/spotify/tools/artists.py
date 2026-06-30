@@ -1,13 +1,15 @@
+
 from spotipy import Spotify
-from typing import List, Dict
-from .base import get_spotify_client , process_artists_info , process_artist_albums , process_artist_top_tracks
+
+from .base import (
+    get_spotify_client,
+    process_artist_albums,
+    process_artist_top_tracks,
+    process_artists_info,
+)
 
 
-
-
-
-
-def get_artists_info(artist_ids: List[str], sp: Spotify = None) -> List[Dict]:
+def get_artists_info(artist_ids: list[str], sp: Spotify = None) -> list[dict]:
     """
     Get catalog information for multiple artists by their Spotify IDs.
 
@@ -38,7 +40,7 @@ def get_artist_albums(
     limit: int = 20,
     offset: int = 0,
     market: str = None
-) -> List[Dict]:
+) -> list[dict]:
     """
     Retrieve information about an artist's albums.
 
@@ -76,7 +78,7 @@ def get_artist_top_tracks(
     artist_id: str,
     sp: Spotify = None,
     country: str = None
-) -> List[Dict]:
+) -> list[dict]:
     """
     Get an artist's top tracks by country.
 

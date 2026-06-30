@@ -1,12 +1,10 @@
 import os
-from dotenv import load_dotenv
 
 # AI assistant imports
 from agno.agent import Agent
 from agno.models.nebius import Nebius
-from agno.tools.yfinance import YFinanceTools
 from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.agent import Agent, RunResponse
+from agno.tools.yfinance import YFinanceTools
 
 NEBIUS_API_KEY = os.getenv("NEBIUS_API_KEY")
 
@@ -36,9 +34,9 @@ financial_agent = Agent(
     tools=[
         YFinanceTools(stock_price=True,
                     analyst_recommendations=True,
-                    stock_fundamentals=True, 
-                    company_info=True, 
-                    technical_indicators=True, 
+                    stock_fundamentals=True,
+                    company_info=True,
+                    technical_indicators=True,
                     historical_prices=True,
                     key_financial_ratios = True,
                     income_statements = True,

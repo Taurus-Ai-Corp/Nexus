@@ -4,15 +4,13 @@
 Real-time AI agent orchestration and management system
 """
 
-import asyncio
 import json
 import logging
 from datetime import datetime
-from typing import Dict, List, Optional
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+
 import uvicorn
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # Configure logging
@@ -40,27 +38,27 @@ class Agent(BaseModel):
     id: str
     name: str
     status: str
-    capabilities: List[str]
+    capabilities: list[str]
     last_seen: datetime
-    performance_metrics: Dict
+    performance_metrics: dict
 
 class Campaign(BaseModel):
     id: str
     name: str
     status: str
-    agents_involved: List[str]
+    agents_involved: list[str]
     created_at: datetime
-    metrics: Dict
+    metrics: dict
 
 # In-memory storage (replace with database in production)
-agents: Dict[str, Agent] = {}
-campaigns: Dict[str, Campaign] = {}
-websocket_connections: List[WebSocket] = []
+agents: dict[str, Agent] = {}
+campaigns: dict[str, Campaign] = {}
+websocket_connections: list[WebSocket] = []
 
 # WebSocket connection manager
 class ConnectionManager:
     def __init__(self):
-        self.active_connections: List[WebSocket] = []
+        self.active_connections: list[WebSocket] = []
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
@@ -133,7 +131,7 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             data = await websocket.receive_text()
             message = json.loads(data)
-            
+
             # Handle different message types
             if message.get("type") == "ping":
                 await websocket.send_text(json.dumps({"type": "pong"}))
@@ -152,7 +150,7 @@ async def websocket_endpoint(websocket: WebSocket):
 @app.on_event("startup")
 async def startup_event():
     logger.info("🚀 Starting TAURUS AI CORP. Registry Server...")
-    
+
     # Initialize sample agents
     sample_agents = [
         Agent(
@@ -204,10 +202,10 @@ async def startup_event():
             performance_metrics={"success_rate": 0.94, "avg_response_time": 2.3}
         )
     ]
-    
+
     for agent in sample_agents:
         agents[agent.id] = agent
-    
+
     logger.info(f"✅ Initialized {len(agents)} agents")
     logger.info("🏰 TAURUS AI CORP. Registry Server ready!")
 

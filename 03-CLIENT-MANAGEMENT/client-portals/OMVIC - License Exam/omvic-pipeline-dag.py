@@ -16,9 +16,14 @@ Date: 2026-04-24
 """
 
 from pathlib import Path
-from multi_agent_pipeline import Pipeline, PipelineStep, PipelineExecutor
-from multi_agent_pipeline import AgentRegistry, PipelineConfig
-from multi_agent_pipeline.handoff_schemas import MCQSchema, ReviewSchema
+
+from multi_agent_pipeline import (
+    AgentRegistry,
+    Pipeline,
+    PipelineConfig,
+    PipelineExecutor,
+    PipelineStep,
+)
 
 # ============================================================================
 # PIPELINE DEFINITION
@@ -36,16 +41,16 @@ def create_omvic_pipeline() -> Pipeline:
     Level 4: [index-supabase]
     Level 5: [deploy-b2b-api]
     """
-    
+
     pipeline = Pipeline(
         pipeline_id="omvic-qbank-v1",
         name="OMVIC License Exam QBank Generator"
     )
-    
+
     # ========================================================================
     # LEVEL 0: INGESTION (All sources in parallel)
     # ========================================================================
-    
+
     # Source 1: MVDA 2002 (Motor Vehicle Dealers Act)
     pipeline.add_step(PipelineStep(
         step_id="ingest-mvda-2002",
@@ -59,7 +64,7 @@ def create_omvic_pipeline() -> Pipeline:
         retry_count=3,
         timeout_seconds=600
     ))
-    
+
     # Source 2: MVDA Reg 333/08 (General)
     pipeline.add_step(PipelineStep(
         step_id="ingest-mvda-reg-333",
@@ -73,7 +78,7 @@ def create_omvic_pipeline() -> Pipeline:
         retry_count=3,
         timeout_seconds=600
     ))
-    
+
     # Source 3: MVDA Reg 332/08 (Code of Ethics)
     pipeline.add_step(PipelineStep(
         step_id="ingest-mvda-reg-332",
@@ -87,7 +92,7 @@ def create_omvic_pipeline() -> Pipeline:
         retry_count=3,
         timeout_seconds=600
     ))
-    
+
     # Source 4: CPA 2002 (Consumer Protection Act)
     pipeline.add_step(PipelineStep(
         step_id="ingest-cpa-2002",
@@ -101,7 +106,7 @@ def create_omvic_pipeline() -> Pipeline:
         retry_count=3,
         timeout_seconds=600
     ))
-    
+
     # Source 5: CPA Reg 17/05
     pipeline.add_step(PipelineStep(
         step_id="ingest-cpa-reg-17",
@@ -115,7 +120,7 @@ def create_omvic_pipeline() -> Pipeline:
         retry_count=3,
         timeout_seconds=600
     ))
-    
+
     # Source 6: OMVIC About
     pipeline.add_step(PipelineStep(
         step_id="ingest-omvic-about",
@@ -129,7 +134,7 @@ def create_omvic_pipeline() -> Pipeline:
         retry_count=2,
         timeout_seconds=300
     ))
-    
+
     # Source 7: OMVIC Registration
     pipeline.add_step(PipelineStep(
         step_id="ingest-omvic-registration",
@@ -143,11 +148,11 @@ def create_omvic_pipeline() -> Pipeline:
         retry_count=2,
         timeout_seconds=300
     ))
-    
+
     # ========================================================================
     # LEVEL 1: CHUNKING (After all ingestion complete)
     # ========================================================================
-    
+
     pipeline.add_step(PipelineStep(
         step_id="chunk-all-sources",
         agent_type="ChunkAgent",
@@ -167,17 +172,17 @@ def create_omvic_pipeline() -> Pipeline:
         },
         depends_on=[
             "ingest-mvda-2002", "ingest-mvda-reg-333", "ingest-mvda-reg-332",
-            "ingest-cpa-2002", "ingest-cpa-reg-17", 
+            "ingest-cpa-2002", "ingest-cpa-reg-17",
             "ingest-omvic-about", "ingest-omvic-registration"
         ],
         retry_count=2,
         timeout_seconds=900
     ))
-    
+
     # ========================================================================
     # LEVEL 2: MCQ GENERATION (Parallel per chunk)
     # ========================================================================
-    
+
     pipeline.add_step(PipelineStep(
         step_id="generate-mcqs",
         agent_type="MCQGenAgent",
@@ -202,11 +207,11 @@ def create_omvic_pipeline() -> Pipeline:
         retry_count=3,
         timeout_seconds=1200
     ))
-    
+
     # ========================================================================
     # LEVEL 3: REVIEW (Human-in-the-loop)
     # ========================================================================
-    
+
     pipeline.add_step(PipelineStep(
         step_id="review-mcqs",
         agent_type="ReviewAgent",
@@ -220,11 +225,11 @@ def create_omvic_pipeline() -> Pipeline:
         condition="review-mcqs.result.acceptance_rate < 0.80 ? regenerate-from-chunk : proceed",
         timeout_seconds=1800
     ))
-    
+
     # ========================================================================
     # LEVEL 4: INDEX TO SUPABASE (After review passes)
     # ========================================================================
-    
+
     pipeline.add_step(PipelineStep(
         step_id="index-supabase",
         agent_type="IndexAgent",
@@ -239,11 +244,11 @@ def create_omvic_pipeline() -> Pipeline:
         retry_count=2,
         timeout_seconds=600
     ))
-    
+
     # ========================================================================
     # LEVEL 5: DEPLOY B2B API (Final step)
     # ========================================================================
-    
+
     pipeline.add_step(PipelineStep(
         step_id="deploy-b2b-api",
         agent_type="IndexAgent",
@@ -256,7 +261,7 @@ def create_omvic_pipeline() -> Pipeline:
         depends_on=["index-supabase"],
         timeout_seconds=300
     ))
-    
+
     return pipeline
 
 
@@ -267,7 +272,7 @@ def create_omvic_pipeline() -> Pipeline:
 if __name__ == "__main__":
     # Create pipeline
     pipeline = create_omvic_pipeline()
-    
+
     # Validate
     errors = pipeline.validate()
     if errors:
@@ -275,10 +280,10 @@ if __name__ == "__main__":
         for err in errors:
             print(f"  - {err}")
         exit(1)
-    
+
     # Visualize
     print(pipeline.visualize())
-    
+
     # Set up registry and config
     registry = AgentRegistry()
     config = PipelineConfig(
@@ -286,17 +291,17 @@ if __name__ == "__main__":
         retry_delay_ms=1000,
         checkpoint_enabled=True
     )
-    
+
     # Execute
     executor = PipelineExecutor(registry, config)
     report = executor.execute(pipeline)
-    
+
     # Save report
     report.save(Path("omvic-pipeline-report.json"))
-    
+
     print(f"\nPipeline completed: {'SUCCESS' if report.success else 'FAILED'}")
     print(f"Duration: {report.total_duration_seconds:.2f}s")
-    
+
     if not report.success:
         print(f"Error: {report.error}")
         exit(1)

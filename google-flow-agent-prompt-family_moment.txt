@@ -1,0 +1,67 @@
+Generate the next PetPawSphere scene inside the existing project "PetPawSphere Launch Campaign — 2026-06".
+
+CRITICAL POSITIONING RULE:
+PetPawSphere is an AI-native pet application/platform. It does NOT own physical breeding centers, clinics, or facilities. It connects independent licensed/verified breeders with pet owners. Breeders use their own facilities and receive PetPawSphere branded merchandise. PetPawSphere does NOT hold breeding or veterinary licenses. Do NOT imply the facility or pet-care location is owned by PetPawSphere.
+
+SCENE: family_moment
+TITLE: AI Helps a Family Care for Their Pet
+OUTPUT: 9:16 vertical video, 10 seconds, Omni Flash
+
+BRAND LOCK:
+- Client: PetPawSphere
+- Tagline: Where every paw finds its trusted path.
+- Colors: warm paper #f5f0e4, green #00843D, red #CE1126, black #0e0e0e
+- Market: UAE-first, Arabic-English bilingual, premium but approachable
+- Core message: AI app helps families care for pets at home
+
+POLICY GUARDRAIL:
+Realistic human faces combined with verification/credential framing can trip the prominent-people filter. Keep all people as fictional PetPawSphere characters, avoid official credentials or ministry text, and treat any badges as in-app trust graphics only.
+
+CAST:
+- @Amina — Emirati pet owner, 28, warm, tech-savvy, hijab warm paper tone, linen outfit, bilingual (already exists as recurring character)
+- @Simba — golden retriever, happy expression, collar with subtle green accent, family dog (create if missing)
+- One fictional child character, sitting on sofa next to Amina
+
+PROMPT TREE — paste this into the generation field, then let Flow expand it:
+
+Subject: warm family moment at home with AI pet app
+├── Cast: @Amina (recurring)
+│   └── Detail: warm paper-toned hijab, linen outfit, relaxed smile, holding phone
+├── Fictional family member: young child character
+│   └── Detail: sitting on warm paper-toned sofa in their own home, gently resting hand on dog
+├── Pet: @Simba golden retriever
+│   └── Detail: happy expression, collar with subtle green accent, resting head on child's lap
+├── Product: phone screen showing PetPawSphere AI care reminder
+│   └── Detail: in-app green reminder graphic, clean app UI, warm-paper background
+├── Setting: modern Emirati family living room, warm paper-toned sofa, soft golden-hour window light
+├── Camera: vertical 9:16 smartphone shot, wide living-room frame, handheld feel
+├── Motion: family settles on sofa → dog rests head on child → Amina smiles at phone → care reminder appears
+└── Tone: gentle, emotional, premium lifestyle, family-friendly, no immodest content
+
+POSITIONING SUBTLETIES TO BAKE IN:
+- The home belongs to the family, not PetPawSphere.
+- PetPawSphere appears only as the AI app on the phone.
+- No clinic, hospital, or facility signage.
+- Any badge or reminder is an in-app graphic, not an official credential.
+
+ANCHORS — attach these reference images if available:
+1. @Amina character reference
+2. Golden retriever reference image
+3. PetPawSphere app UI reference showing care reminder
+4. Warm-paper + green brand style reference
+5. Modern family living room reference
+
+REQUEST:
+- Generate x2 variants
+- 9:16 aspect ratio
+- 10 seconds
+- Omni Flash model
+- Premium family-lifestyle UGC feel
+
+If a variant fails, that is expected and not charged. Keep the cleanest successful variant.
+
+After generation, do not download or post anywhere. Just report back:
+1. Whether @Simba character had to be created or already existed
+2. How many variants rendered successfully
+3. Any prompt-tree edits you made to get past policy filters
+4. Whether the final clip clearly positions PetPawSphere as the AI app, not a physical facility

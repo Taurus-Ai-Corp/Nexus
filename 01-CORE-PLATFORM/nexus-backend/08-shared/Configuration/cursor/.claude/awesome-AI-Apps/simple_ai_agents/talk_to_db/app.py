@@ -1,12 +1,13 @@
-import streamlit as st
-import os
-import pandas as pd
-from dotenv import load_dotenv
 import base64
+import os
+
+import pandas as pd
+import streamlit as st
+from ai_services import explain_results, translate_to_sql
 
 # Import functionality from separate modules
-from database import parse_connection_string, execute_query
-from ai_services import translate_to_sql, explain_results
+from database import execute_query, parse_connection_string
+from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
@@ -23,7 +24,7 @@ if "query_history" not in st.session_state:
 with open("./assets/langchain.png", "rb") as langchain_file:
     langchain_base64 = base64.b64encode(langchain_file.read()).decode()
 
-with open("./assets/gibson.svg", "r", encoding="utf-8") as gibson_file:
+with open("./assets/gibson.svg", encoding="utf-8") as gibson_file:
     gibson_svg = gibson_file.read().replace('\n', '').replace('\r', '').replace('  ', '').replace('"', "'")
 
 gibson_svg_inline = f'<span style="height:80px; width:200px; display:inline-block; vertical-align:middle; margin-left:8px;margin-top:20px;margin-right:8px;">{gibson_svg}</span>'
@@ -46,7 +47,7 @@ def main():
     # Sidebar for configuration
     with st.sidebar:
         st.image("./assets/nebius.png", width=150)
- 
+
 
         # Nebius API Key input
         nebius_key = st.text_input(

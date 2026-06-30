@@ -5,8 +5,8 @@ Enhanced with Gemini Executive Layer (GEL) for real-time intelligence.
 """
 
 import asyncio
-import json
 import logging
+
 from gemini_executive_layer import GeminiExecutiveLayer
 
 logging.basicConfig(level=logging.INFO)
@@ -14,20 +14,20 @@ logger = logging.getLogger("KeralaMarketV2")
 
 async def run_v2_strategy():
     gel = GeminiExecutiveLayer()
-    
+
     print("🚀 STARTING KERALA MARKET ENTRY V2 (Executive Mode)")
     print("=" * 60)
-    
+
     # STEP 1: REAL-TIME SEARCH (Delegated to Gemini)
     # In reality, this would call 'gemini "[USE GENERALIST] Find 5 real tech startups in Kochi, Kerala..."'
     print("🔍 STEP 1: Delegating Real-Time Lead Discovery to Gemini...")
-    
+
     # We'll simulate the response from Gemini for the PoC
     search_prompt = "Find 5 real tech startups in Kochi, Kerala, including their industry and pain points."
-    
-    # If the gemini binary were present, we'd do: 
+
+    # If the gemini binary were present, we'd do:
     # real_leads_json = await gel.ask_gemini(search_prompt)
-    
+
     # Simulated high-quality results from a Gemini search
     real_leads = [
         {
@@ -71,18 +71,18 @@ async def run_v2_strategy():
             "contact_info": "digital@vguard.in"
         }
     ]
-    
+
     print(f"✅ Gemini found {len(real_leads)} high-intent leads.")
 
     # STEP 2: SYNC TO GWS BRIDGE (Real Action)
     print("\n📊 STEP 2: Syncing real leads to GWS Bridge Leads Sheet...")
     await gel.sync_to_leads_sheet(real_leads)
-    
+
     # STEP 3: EXECUTIVE ANALYSIS & PROPOSAL (Delegated)
     print("\n📝 STEP 3: Generating tailored AI Marketing Proposals...")
     for lead in real_leads[:2]: # Just top 2 for demonstration
         proposal_prompt = f"Generate a 500-word AI Marketing Strategy for {lead['name']} focusing on their pain point: {lead['pain_points']}."
-        
+
         # Simulated Gemini analysis
         proposal_content = f"""
 ## Executive Summary for {lead['name']}
@@ -99,7 +99,7 @@ Using the Taurus BizFlow Ecosystem, we will deploy 10 specialized agents to:
 - 40% reduction in manual overhead.
 - 2x increase in lead conversion within 90 days.
         """
-        
+
         doc_status = await gel.create_proposal_doc(lead['name'], proposal_content)
         print(f"✅ Created Google Doc for {lead['name']}: {doc_status}")
 

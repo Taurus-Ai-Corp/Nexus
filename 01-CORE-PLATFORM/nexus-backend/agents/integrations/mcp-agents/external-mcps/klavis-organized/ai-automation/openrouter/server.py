@@ -1,13 +1,13 @@
+import base64
 import contextlib
+import json
 import logging
 import os
-import json
-import base64
 from collections.abc import AsyncIterator
-from typing import Any, Dict
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -15,15 +15,13 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
-from tools.base import OpenRouterToolExecutionError, auth_token_context
+from tools import chat as chat_tools
+from tools import comparison as comparison_tools
 
 # Import tools
 from tools import models as model_tools
-from tools import chat as chat_tools
 from tools import usage as usage_tools
-from tools import comparison as comparison_tools
+from tools.base import OpenRouterToolExecutionError, auth_token_context
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -36,7 +34,7 @@ OPENROUTER_MCP_SERVER_PORT = int(os.getenv("OPENROUTER_MCP_SERVER_PORT", "5000")
 def extract_api_key(request_or_scope) -> str:
     """Extract API key from headers or environment."""
     api_key = os.getenv("API_KEY")
-    
+
     if not api_key:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -52,7 +50,7 @@ def extract_api_key(request_or_scope) -> str:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
         else:
             auth_data = None
-        
+
         if auth_data:
             try:
                 # Parse the JSON auth data to extract token
@@ -61,7 +59,7 @@ def extract_api_key(request_or_scope) -> str:
             except (json.JSONDecodeError, TypeError) as e:
                 logger.warning(f"Failed to parse auth data JSON: {e}")
                 api_key = ""
-    
+
     return api_key or ""
 
 
@@ -157,7 +155,7 @@ def main(
                     "required": ["model_id"],
                 },
             ),
-            
+
             types.Tool(
                 name="openrouter_create_chat_completion",
                 description="Create a chat completion using OpenRouter",
@@ -368,7 +366,7 @@ def main(
                     "required": ["model", "prompt"],
                 },
             ),
-            
+
             types.Tool(
                 name="openrouter_get_usage",
                 description="Get usage statistics for the authenticated user",
@@ -444,7 +442,7 @@ def main(
                     "required": ["model", "input_tokens"],
                 },
             ),
-            
+
             types.Tool(
                 name="openrouter_compare_models",
                 description="Compare multiple models by running the same prompt through each",
@@ -546,14 +544,14 @@ def main(
                 result = await model_tools.search_models(**arguments)
             elif name == "openrouter_get_model_pricing":
                 result = await model_tools.get_model_pricing(**arguments)
-            
+
             elif name == "openrouter_create_chat_completion":
                 result = await chat_tools.create_chat_completion(**arguments)
             elif name == "openrouter_create_chat_completion_stream":
                 result = await chat_tools.create_chat_completion_stream(**arguments)
             elif name == "openrouter_create_completion":
                 result = await chat_tools.create_completion(**arguments)
-            
+
             elif name == "openrouter_get_usage":
                 result = await usage_tools.get_usage(**arguments)
             elif name == "openrouter_get_user_profile":
@@ -564,7 +562,7 @@ def main(
                 result = await usage_tools.get_api_key_info(**arguments)
             elif name == "openrouter_get_cost_estimate":
                 result = await usage_tools.get_cost_estimate(**arguments)
-            
+
             elif name == "openrouter_compare_models":
                 result = await comparison_tools.compare_models(**arguments)
             elif name == "openrouter_analyze_model_performance":
@@ -603,10 +601,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract API key from headers
         api_key = extract_api_key(request)
-        
+
         # Set the API key in context for this request
         token = auth_token_context.set(api_key)
         try:
@@ -618,7 +616,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -633,10 +631,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract API key from headers
         api_key = extract_api_key(scope)
-        
+
         # Set the API key in context for this request
         token = auth_token_context.set(api_key)
         try:
@@ -660,7 +658,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -687,4 +685,4 @@ def main(
 
 
 if __name__ == "__main__":
-    exit(main()) 
+    exit(main())

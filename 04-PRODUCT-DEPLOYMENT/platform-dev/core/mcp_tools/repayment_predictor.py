@@ -6,16 +6,20 @@ SHAP-based feature importance and counterfactual explanations.
 """
 
 import time
-import numpy as np
-from typing import Dict, Any, Optional, List, Tuple
 from pathlib import Path
-import joblib
-import xgboost as xgb
-import shap
+from typing import Any
 
+import joblib
+import numpy as np
+import shap
+import xgboost as xgb
 from core.mcp_tools.base import (
-    MCPTool, ToolInput, ToolOutput, ToolExplanation,
-    ToolCategory, ConfidenceLevel, ToolExplanation,
+    ConfidenceLevel,
+    MCPTool,
+    ToolCategory,
+    ToolExplanation,
+    ToolInput,
+    ToolOutput,
 )
 
 FEATURE_NAMES = [
@@ -37,13 +41,13 @@ class RepaymentPredictionEnhancer(MCPTool):
     category = ToolCategory.prediction
     description = "Predicts repayment probability using XGBoost with SHAP explanations"
 
-    def __init__(self, model_path: Optional[str] = None):
-        self.model: Optional[xgb.XGBClassifier] = None
-        self.shap_explainer: Optional[shap.TreeExplainer] = None
+    def __init__(self, model_path: str | None = None):
+        self.model: xgb.XGBClassifier | None = None
+        self.shap_explainer: shap.TreeExplainer | None = None
         self.model_path = Path(model_path) if model_path else Path("models/repayment_model.pkl")
         self.is_trained = False
 
-    def _prepare_features(self, features: Dict[str, Any]) -> np.ndarray:
+    def _prepare_features(self, features: dict[str, Any]) -> np.ndarray:
         feature_vector = []
         for name in FEATURE_NAMES:
             val = features.get(name, 0.0)
@@ -124,7 +128,7 @@ class RepaymentPredictionEnhancer(MCPTool):
                 error_message=str(e),
             )
 
-    def _fallback_prediction(self, features: Dict[str, Any]) -> float:
+    def _fallback_prediction(self, features: dict[str, Any]) -> float:
         dti = features.get("debt_to_income", 0.5)
         credit = features.get("credit_score", 650)
         income = features.get("monthly_income", 10000)
@@ -159,12 +163,12 @@ class RepaymentPredictionEnhancer(MCPTool):
 
         return max(0.0, min(1.0, 0.5 + raw * 0.5))
 
-    def _compute_shap(self, X: np.ndarray) -> Optional[np.ndarray]:
+    def _compute_shap(self, X: np.ndarray) -> np.ndarray | None:
         if self.shap_explainer is None:
             return None
         return self.shap_explainer.shap_values(X)
 
-    def _shap_to_importance(self, shap_values: np.ndarray) -> List[Dict[str, Any]]:
+    def _shap_to_importance(self, shap_values: np.ndarray) -> list[dict[str, Any]]:
         importance = []
         abs_values = np.abs(shap_values).mean(axis=0) if shap_values.ndim > 1 else np.abs(shap_values)
         for i, name in enumerate(ALL_FEATURES):
@@ -177,10 +181,10 @@ class RepaymentPredictionEnhancer(MCPTool):
         importance.sort(key=lambda x: x["importance"], reverse=True)
         return importance
 
-    def _get_top_factors(self, importance: List[Dict[str, Any]], n: int = 5) -> List[str]:
+    def _get_top_factors(self, importance: list[dict[str, Any]], n: int = 5) -> list[str]:
         return [f["feature"] for f in importance[:n]]
 
-    def _generate_counterfactual(self, X: np.ndarray, current_prob: float) -> List[Dict[str, Any]]:
+    def _generate_counterfactual(self, X: np.ndarray, current_prob: float) -> list[dict[str, Any]]:
         scenarios = []
         if current_prob < 0.7:
             scenarios.append({
@@ -210,7 +214,7 @@ class RepaymentPredictionEnhancer(MCPTool):
             return "very_high_risk"
 
     def _generate_narrative(
-        self, prob: float, risk: str, factors: List[str], counterfactuals: List[Dict],
+        self, prob: float, risk: str, factors: list[str], counterfactuals: list[dict],
     ) -> str:
         risk_desc = {
             "very_low_risk": "excellent repayment capacity",
@@ -226,7 +230,7 @@ class RepaymentPredictionEnhancer(MCPTool):
             narrative += f"Improvement: {counterfactuals[0]['change']}. "
         return narrative
 
-    def train(self, features: List[Dict[str, Any]], labels: List[Any], **kwargs) -> Dict[str, Any]:
+    def train(self, features: list[dict[str, Any]], labels: list[Any], **kwargs) -> dict[str, Any]:
         start = time.time()
         X = np.array([self._prepare_features(f).flatten() for f in features])
         y = np.array(labels)
@@ -253,7 +257,7 @@ class RepaymentPredictionEnhancer(MCPTool):
             "training_time_seconds": train_time,
         }
 
-    def save_model(self, path: Optional[str] = None) -> str:
+    def save_model(self, path: str | None = None) -> str:
         save_path = Path(path) if path else self.model_path
         save_path.parent.mkdir(parents=True, exist_ok=True)
         joblib.dump({
@@ -263,7 +267,7 @@ class RepaymentPredictionEnhancer(MCPTool):
         }, save_path)
         return str(save_path)
 
-    def load_model(self, path: Optional[str] = None) -> bool:
+    def load_model(self, path: str | None = None) -> bool:
         load_path = Path(path) if path else self.model_path
         if not load_path.exists():
             return False

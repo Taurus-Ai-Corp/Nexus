@@ -1,29 +1,26 @@
 #!/usr/bin/env python3
 
+import base64
 import contextlib
-import os
 import json
 import logging
-import base64
+import os
 from collections.abc import AsyncIterator
-from datetime import datetime
-from typing import Any, Dict, List, Sequence, Optional
 from contextvars import ContextVar
+from datetime import datetime
 
 import click
+import mcp.types as types
 import stripe
 from dotenv import load_dotenv
-
-import mcp.types as types
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
+from pydantic import AnyUrl
 from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from pydantic import AnyUrl
-
 from tools import get_stripe_tools
 
 load_dotenv()
@@ -51,7 +48,7 @@ auth_token_context: ContextVar[str] = ContextVar('auth_token')
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -65,10 +62,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -97,7 +94,7 @@ class StripeManager:
     def __init__(self):
         logger.info("🔄 Initializing StripeManager")
         self.audit_entries = []  # MUST be first line in __init__
-        
+
         # Verify API key works
         logger.info("✅ Stripe configured")
         logger.debug("Test connection...")
@@ -122,7 +119,7 @@ class StripeManager:
         logger.debug("Generating audit log with %d entries", len(self.audit_entries))
         if not self.audit_entries:
             return "No Stripe operations performed yet."
-        
+
         report = "📋 Stripe Operations Audit Log 📋\n\n"
         for entry in self.audit_entries:
             report += f"[{entry['timestamp']}]\n"
@@ -157,7 +154,7 @@ def main(
 
     # Create the Stripe manager
     manager = StripeManager()
-    
+
     # Create the MCP server instance
     app = Server("stripe-mcp-server")
 
@@ -185,10 +182,10 @@ def main(
     @app.call_tool()
     async def call_tool(
         name: str, arguments: dict
-    ) -> List[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         ctx = app.request_context
         logger.debug("=== RECEIVED JSON-RPC callTool request ===")
-        
+
         try:
             if name.startswith("customer_"):
                 result = await handle_customer_operations(manager, name, arguments)
@@ -248,11 +245,11 @@ def main(
             )
             manager.log_operation("customer_create", args)
             return json.dumps(customer, default=custom_json_serializer)
-        
+
         elif name == "customer_retrieve":
             customer = stripe.Customer.retrieve(args["customer_id"])
             return json.dumps(customer, default=custom_json_serializer)
-        
+
         elif name == "customer_update":
             customer = stripe.Customer.modify(
                 args["customer_id"],
@@ -260,7 +257,7 @@ def main(
             )
             manager.log_operation("customer_update", args)
             return json.dumps(customer, default=custom_json_serializer)
-        
+
         raise ValueError(f"Unknown customer operation: {name}")
 
     async def handle_payment_operations(manager, name: str, args: dict) -> str:
@@ -275,14 +272,14 @@ def main(
             )
             manager.log_operation("payment_intent_create", args)
             return json.dumps(intent, default=custom_json_serializer)
-        
+
         elif name == "charge_list":
             charges = stripe.Charge.list(
                 limit=args.get("limit", 10),
                 customer=args.get("customer_id")
             )
             return json.dumps(charges, default=custom_json_serializer)
-        
+
         raise ValueError(f"Unknown payment operation: {name}")
 
     async def handle_refund_operations(manager, name: str, args: dict) -> str:
@@ -295,7 +292,7 @@ def main(
             )
             manager.log_operation("refund_create", args)
             return json.dumps(refund, default=custom_json_serializer)
-        
+
         raise ValueError(f"Unknown refund operation: {name}")
 
     # Set up SSE transport
@@ -303,10 +300,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -318,7 +315,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -333,10 +330,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -361,7 +358,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],

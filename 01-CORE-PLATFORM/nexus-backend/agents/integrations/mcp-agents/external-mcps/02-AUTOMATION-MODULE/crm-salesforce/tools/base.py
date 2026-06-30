@@ -1,6 +1,7 @@
 import logging
-from typing import Any, Dict
 from contextvars import ContextVar
+from typing import Any
+
 from simple_salesforce import Salesforce
 from simple_salesforce.exceptions import SalesforceError
 
@@ -20,15 +21,15 @@ def get_salesforce_conn() -> Salesforce:
     try:
         access_token = access_token_context.get()
         instance_url = instance_url_context.get()
-        
+
         if not access_token or not instance_url:
             raise RuntimeError("Salesforce access token and instance URL are required. Provide them via x-auth-token and x-instance-url headers.")
-        
+
         return get_salesforce_connection(access_token, instance_url)
     except LookupError:
         raise RuntimeError("Salesforce credentials not found in request context")
 
-def handle_salesforce_error(e: Exception, operation: str, object_type: str = "") -> Dict[str, Any]:
+def handle_salesforce_error(e: Exception, operation: str, object_type: str = "") -> dict[str, Any]:
     """Handle Salesforce errors and return standardized error response."""
     if isinstance(e, SalesforceError):
         logger.error(f"Salesforce API error during {operation}: {e}")
@@ -54,7 +55,7 @@ def handle_salesforce_error(e: Exception, operation: str, object_type: str = "")
             "message": f"Failed to {operation} {object_type}".strip()
         }
 
-def format_success_response(record_id: str, operation: str, object_type: str, data: Dict[str, Any] = None) -> Dict[str, Any]:
+def format_success_response(record_id: str, operation: str, object_type: str, data: dict[str, Any] = None) -> dict[str, Any]:
     """Format a successful operation response."""
     response = {
         "success": True,
@@ -70,17 +71,17 @@ def create_case_insensitive_like_conditions(search_term: str, *field_names: str)
     """Create case-insensitive LIKE conditions for multiple fields."""
     if not search_term or not field_names:
         return ""
-    
+
     variations = [
         search_term.lower(),
         search_term.upper(),
         search_term.capitalize(),
         search_term
     ]
-    
+
     all_conditions = []
     for field_name in field_names:
         field_conditions = [f"{field_name} LIKE '%{variation}%'" for variation in set(variations)]
         all_conditions.extend(field_conditions)
-    
-    return " OR ".join(all_conditions) 
+
+    return " OR ".join(all_conditions)

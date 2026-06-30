@@ -1,16 +1,16 @@
 import logging
+from typing import Any
 
-from typing import Any, Dict, Optional
+from utils.rate_limiter import rate_limited
 
 from .base import make_coinbase_request
-from utils.rate_limiter import rate_limited
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 
 @rate_limited(api_type="accounts")
-async def coinbase_get_accounts() -> Dict[str, Any]:
+async def coinbase_get_accounts() -> dict[str, Any]:
     """
     List user's cryptocurrency accounts.
     Uses conservative rate limits for authenticated account endpoints.
@@ -24,7 +24,7 @@ async def coinbase_get_accounts() -> Dict[str, Any]:
 
 
 @rate_limited(api_type="accounts")
-async def coinbase_get_account_balance(account_id: str) -> Dict[str, Any]:
+async def coinbase_get_account_balance(account_id: str) -> dict[str, Any]:
     """
     Get balance for a specific account.
     Uses conservative rate limits for authenticated account endpoints.
@@ -42,10 +42,10 @@ async def coinbase_get_account_balance(account_id: str) -> Dict[str, Any]:
 @rate_limited(api_type="accounts")
 async def coinbase_get_transactions(
     account_id: str,
-    limit: Optional[int] = 25,
-    before: Optional[str] = None,
-    after: Optional[str] = None
-) -> Dict[str, Any]:
+    limit: int | None = 25,
+    before: str | None = None,
+    after: str | None = None
+) -> dict[str, Any]:
     """
     Get transaction history for an account.
     Uses conservative rate limits for authenticated account endpoints.
@@ -78,7 +78,7 @@ async def coinbase_get_transactions(
 
 
 @rate_limited(api_type="accounts")
-async def coinbase_get_portfolio_value() -> Dict[str, Any]:
+async def coinbase_get_portfolio_value() -> dict[str, Any]:
     """
     Get total portfolio value across all accounts.
     Uses conservative rate limits for authenticated account endpoints.

@@ -36,7 +36,6 @@ from livekit import agents
 from livekit.agents import Agent, AgentServer, AgentSession
 from livekit.plugins import groq as groq_plugin
 from livekit.plugins import silero
-
 from src.integrations.livekit_plugins import build_tts_with_local_fallbacks
 
 logger = logging.getLogger(__name__)

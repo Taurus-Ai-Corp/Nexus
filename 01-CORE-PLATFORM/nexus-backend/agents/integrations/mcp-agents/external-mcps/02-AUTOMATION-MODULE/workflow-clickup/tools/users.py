@@ -1,11 +1,12 @@
 import logging
-from typing import Any, Dict
+from typing import Any
+
 from .base import make_clickup_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
-async def get_user() -> Dict[str, Any]:
+async def get_user() -> dict[str, Any]:
     """Get the current user's information."""
     logger.info("Executing tool: get_user")
     try:
@@ -15,7 +16,7 @@ async def get_user() -> Dict[str, Any]:
         logger.exception(f"Error executing tool get_user: {e}")
         raise e
 
-async def get_team_members(team_id: str) -> Dict[str, Any]:
+async def get_team_members(team_id: str) -> dict[str, Any]:
     """Get all team members."""
     logger.info(f"Executing tool: get_team_members with team_id: {team_id}")
     try:
@@ -23,4 +24,4 @@ async def get_team_members(team_id: str) -> Dict[str, Any]:
         return result
     except Exception as e:
         logger.exception(f"Error executing tool get_team_members: {e}")
-        raise e 
+        raise e

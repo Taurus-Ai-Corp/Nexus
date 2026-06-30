@@ -7,10 +7,8 @@ Implements "Biometric-State Dependent Autonomy" for executive command control.
 
 import asyncio
 import logging
-import json
-from datetime import datetime, timedelta
-from typing import Dict, Optional, Tuple
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 
 logger = logging.getLogger("NeuromorphicGovernance")
@@ -61,7 +59,7 @@ class NeuromorphicGovernor:
         gcr_api_url: str = "https://Taurus-Ai-Corp-gcfd-coherence-tracker.hf.space/api/predict",
     ):
         self.gcr_api_url = gcr_api_url
-        self.last_state: Optional[CognitiveState] = None
+        self.last_state: CognitiveState | None = None
         self.state_history: list = []
 
     async def fetch_gcr_score(self, user_id: str = "ceo") -> float:
@@ -159,7 +157,7 @@ class NeuromorphicGovernor:
 
         return state
 
-    def should_require_confirmation(self, action_risk: float = 0.5) -> Tuple[bool, str]:
+    def should_require_confirmation(self, action_risk: float = 0.5) -> tuple[bool, str]:
         """
         Determine if an action requires manual confirmation.
 
@@ -206,7 +204,7 @@ if __name__ == "__main__":
         state = await governor.get_current_state()
 
         print(f"\n{'=' * 50}")
-        print(f"🧠 NEUROMORPHIC GOVERNANCE STATE")
+        print("🧠 NEUROMORPHIC GOVERNANCE STATE")
         print(f"{'=' * 50}")
         print(f"GCR Score: {state.gcr_score:.3f}")
         print(f"Autonomy Level: {state.autonomy_level.value}")

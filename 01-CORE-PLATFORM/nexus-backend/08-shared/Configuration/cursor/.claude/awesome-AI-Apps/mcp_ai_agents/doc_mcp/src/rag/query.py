@@ -2,11 +2,10 @@
 
 import logging
 import time
-from typing import Any, Dict
+from typing import Any
 
 from llama_index.core import Settings, VectorStoreIndex
-from llama_index.core.vector_stores import (FilterOperator, MetadataFilter,
-                                            MetadataFilters)
+from llama_index.core.vector_stores import FilterOperator, MetadataFilter, MetadataFilters
 from llama_index.embeddings.nebius import NebiusEmbedding
 from llama_index.llms.nebius import NebiusLLM
 
@@ -48,7 +47,7 @@ class QueryRetriever:
 
     def make_query(
         self, query: str, mode: str = "default", top_k: int = None
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Execute query against the repository documents.
 

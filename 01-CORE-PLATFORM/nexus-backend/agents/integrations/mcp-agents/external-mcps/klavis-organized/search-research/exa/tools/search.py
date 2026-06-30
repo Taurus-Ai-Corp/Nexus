@@ -1,5 +1,6 @@
 import logging
-from typing import List, Optional, Dict, Any
+from typing import Any
+
 from .base import get_exa_client
 
 # Configure logging
@@ -9,18 +10,18 @@ logger = logging.getLogger(__name__)
 async def exa_search(
     query: str,
     num_results: int = 10,
-    include_domains: Optional[List[str]] = None,
-    exclude_domains: Optional[List[str]] = None,
-    start_crawl_date: Optional[str] = None,
-    end_crawl_date: Optional[str] = None,
-    start_published_date: Optional[str] = None,
-    end_published_date: Optional[str] = None,
+    include_domains: list[str] | None = None,
+    exclude_domains: list[str] | None = None,
+    start_crawl_date: str | None = None,
+    end_crawl_date: str | None = None,
+    start_published_date: str | None = None,
+    end_published_date: str | None = None,
     use_autoprompt: bool = True,
     type: str = "neural",
-    category: Optional[str] = None,
-    include_text: Optional[List[str]] = None,
-    exclude_text: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    category: str | None = None,
+    include_text: list[str] | None = None,
+    exclude_text: list[str] | None = None
+) -> dict[str, Any]:
     """
     Perform an Exa search query using neural or keyword search.
 
@@ -77,7 +78,7 @@ async def exa_search(
 
         logger.info(f"Sending Exa search request: {query}")
         result = client.search_and_contents(**search_params)
-        
+
         # Convert to dict for JSON serialization
         response = {
             "results": [
@@ -94,7 +95,7 @@ async def exa_search(
             ],
             "autoprompt_string": result.autoprompt_string if hasattr(result, 'autoprompt_string') else None
         }
-        
+
         logger.info("Received Exa search response")
         return response
 
@@ -104,11 +105,11 @@ async def exa_search(
 
 
 async def exa_get_contents(
-    ids: List[str],
+    ids: list[str],
     text: bool = True,
-    highlights: Optional[Dict[str, Any]] = None,
-    summary: Optional[Dict[str, Any]] = None
-) -> Dict[str, Any]:
+    highlights: dict[str, Any] | None = None,
+    summary: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """
     Get contents for specific Exa search result IDs.
 
@@ -139,7 +140,7 @@ async def exa_get_contents(
 
         logger.info(f"Getting Exa contents for {len(ids)} IDs")
         result = client.get_contents(**params)
-        
+
         # Convert to dict for JSON serialization
         response = {
             "results": [
@@ -156,7 +157,7 @@ async def exa_get_contents(
                 for r in result.results
             ]
         }
-        
+
         logger.info("Received Exa contents response")
         return response
 
@@ -168,17 +169,17 @@ async def exa_get_contents(
 async def exa_find_similar(
     url: str,
     num_results: int = 10,
-    include_domains: Optional[List[str]] = None,
-    exclude_domains: Optional[List[str]] = None,
-    start_crawl_date: Optional[str] = None,
-    end_crawl_date: Optional[str] = None,
-    start_published_date: Optional[str] = None,
-    end_published_date: Optional[str] = None,
+    include_domains: list[str] | None = None,
+    exclude_domains: list[str] | None = None,
+    start_crawl_date: str | None = None,
+    end_crawl_date: str | None = None,
+    start_published_date: str | None = None,
+    end_published_date: str | None = None,
     exclude_source_domain: bool = True,
-    category: Optional[str] = None,
-    include_text: Optional[List[str]] = None,
-    exclude_text: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    category: str | None = None,
+    include_text: list[str] | None = None,
+    exclude_text: list[str] | None = None
+) -> dict[str, Any]:
     """
     Find pages similar to a given URL.
 
@@ -233,7 +234,7 @@ async def exa_find_similar(
 
         logger.info(f"Finding similar pages to: {url}")
         result = client.find_similar(**params)
-        
+
         # Convert to dict for JSON serialization
         response = {
             "results": [
@@ -248,7 +249,7 @@ async def exa_find_similar(
                 for r in result.results
             ]
         }
-        
+
         logger.info("Received Exa find similar response")
         return response
 
@@ -259,18 +260,18 @@ async def exa_find_similar(
 
 async def exa_answer(
     query: str,
-    include_domains: Optional[List[str]] = None,
-    exclude_domains: Optional[List[str]] = None,
-    start_crawl_date: Optional[str] = None,
-    end_crawl_date: Optional[str] = None,
-    start_published_date: Optional[str] = None,
-    end_published_date: Optional[str] = None,
+    include_domains: list[str] | None = None,
+    exclude_domains: list[str] | None = None,
+    start_crawl_date: str | None = None,
+    end_crawl_date: str | None = None,
+    start_published_date: str | None = None,
+    end_published_date: str | None = None,
     use_autoprompt: bool = True,
     type: str = "neural",
-    category: Optional[str] = None,
-    include_text: Optional[List[str]] = None,
-    exclude_text: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    category: str | None = None,
+    include_text: list[str] | None = None,
+    exclude_text: list[str] | None = None
+) -> dict[str, Any]:
     """
     Get a direct answer to a question by performing a search and extracting key information.
     
@@ -329,7 +330,7 @@ async def exa_answer(
 
         logger.info(f"Getting Exa answer-style search for: {query}")
         result = client.search_and_contents(**search_params)
-        
+
         # Format as answer-style response
         response = {
             "query": query,
@@ -350,7 +351,7 @@ async def exa_answer(
             "autoprompt_string": result.autoprompt_string if hasattr(result, 'autoprompt_string') else None,
             "total_sources": len(result.results)
         }
-        
+
         logger.info("Received Exa answer-style response")
         return response
 
@@ -362,18 +363,18 @@ async def exa_answer(
 async def exa_research(
     query: str,
     num_results: int = 10,
-    include_domains: Optional[List[str]] = None,
-    exclude_domains: Optional[List[str]] = None,
-    start_crawl_date: Optional[str] = None,
-    end_crawl_date: Optional[str] = None,
-    start_published_date: Optional[str] = None,
-    end_published_date: Optional[str] = None,
+    include_domains: list[str] | None = None,
+    exclude_domains: list[str] | None = None,
+    start_crawl_date: str | None = None,
+    end_crawl_date: str | None = None,
+    start_published_date: str | None = None,
+    end_published_date: str | None = None,
     use_autoprompt: bool = True,
     type: str = "neural",
-    category: Optional[str] = None,
-    include_text: Optional[List[str]] = None,
-    exclude_text: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    category: str | None = None,
+    include_text: list[str] | None = None,
+    exclude_text: list[str] | None = None
+) -> dict[str, Any]:
     """
     Automate in-depth web research and receive structured JSON results with citations.
 
@@ -430,10 +431,10 @@ async def exa_research(
             search_params["exclude_text"] = exclude_text
 
         logger.info(f"Conducting Exa research for: {query}")
-        
+
         # Get search results with content
         result = client.search_and_contents(**search_params)
-        
+
         # Structure the research response
         response = {
             "query": query,
@@ -455,7 +456,7 @@ async def exa_research(
             "total_sources": len(result.results),
             "research_timestamp": "Generated via Exa Research API"
         }
-        
+
         logger.info("Completed Exa research")
         return response
 

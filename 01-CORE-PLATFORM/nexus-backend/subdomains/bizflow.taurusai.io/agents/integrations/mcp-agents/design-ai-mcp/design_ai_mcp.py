@@ -5,12 +5,9 @@ Free AI-powered design automation using OpenAI, Anthropic, and local models
 """
 
 import asyncio
-import json
 import os
-import sys
-from pathlib import Path
-from typing import Any, Dict, List, Optional
-import requests
+from typing import Any
+
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -22,21 +19,21 @@ class DesignAIMCP:
         self.openai_api_key = os.getenv("OPENAI_API_KEY", "")
         self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY", "")
         self.huggingface_api_key = os.getenv("HUGGINGFACE_API_KEY", "")
-        
-        # Webflow integration (using existing credentials)
-        self.webflow_client_id = "f1f4344f7074e4f1f0dd50b1b2867873c17778f877f6f7a07a7882e79bf06828"
-        self.webflow_client_secret = "a2ae2e2baa88203e069c004a0452272c1fc8f3846d8687c27de13a34a684c097"
-        
+
+        # Webflow integration
+        self.webflow_client_id = os.getenv("WEBFLOW_CLIENT_ID", "")
+        self.webflow_client_secret = os.getenv("WEBFLOW_CLIENT_SECRET", "")
+
         # Design system templates
         self.design_templates = self._load_design_templates()
-        
-    def _load_design_templates(self) -> Dict[str, Any]:
+
+    def _load_design_templates(self) -> dict[str, Any]:
         """Load design system templates"""
         return {
             "modern": {
                 "colors": {
                     "primary": "#3B82F6",
-                    "secondary": "#10B981", 
+                    "secondary": "#10B981",
                     "accent": "#F59E0B",
                     "neutral": "#6B7280"
                 },
@@ -47,7 +44,7 @@ class DesignAIMCP:
                 },
                 "spacing": {
                     "xs": "0.25rem",
-                    "sm": "0.5rem", 
+                    "sm": "0.5rem",
                     "md": "1rem",
                     "lg": "1.5rem",
                     "xl": "2rem"
@@ -68,7 +65,7 @@ class DesignAIMCP:
                 "spacing": {
                     "xs": "0.125rem",
                     "sm": "0.25rem",
-                    "md": "0.5rem", 
+                    "md": "0.5rem",
                     "lg": "1rem",
                     "xl": "2rem"
                 }
@@ -89,18 +86,18 @@ class DesignAIMCP:
                     "xs": "0.25rem",
                     "sm": "0.5rem",
                     "md": "1rem",
-                    "lg": "1.5rem", 
+                    "lg": "1.5rem",
                     "xl": "3rem"
                 }
             }
         }
-    
-    async def generate_design_brief(self, project_type: str, target_audience: str, brand_guidelines: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def generate_design_brief(self, project_type: str, target_audience: str, brand_guidelines: dict[str, Any]) -> dict[str, Any]:
         """Generate design brief using free AI services"""
         try:
             # Use local template-based generation (free)
             template = self._select_template(brand_guidelines)
-            
+
             brief = {
                 "project_overview": {
                     "type": project_type,
@@ -141,7 +138,7 @@ class DesignAIMCP:
                     "browser_support": "Chrome, Firefox, Safari, Edge"
                 }
             }
-            
+
             return {
                 "success": True,
                 "project_type": project_type,
@@ -150,25 +147,25 @@ class DesignAIMCP:
                 "template_used": template["name"],
                 "timestamp": asyncio.get_event_loop().time()
             }
-            
+
         except Exception as e:
             return {
                 "success": False,
                 "error": f"Design brief generation failed: {str(e)}"
             }
-    
-    def _select_template(self, brand_guidelines: Dict[str, Any]) -> Dict[str, Any]:
+
+    def _select_template(self, brand_guidelines: dict[str, Any]) -> dict[str, Any]:
         """Select appropriate design template based on brand guidelines"""
         brand_personality = brand_guidelines.get("brand_personality", "modern").lower()
-        
+
         if "minimal" in brand_personality or "clean" in brand_personality:
             return {**self.design_templates["minimal"], "name": "minimal", "style": "Clean and minimal"}
         elif "vibrant" in brand_personality or "creative" in brand_personality:
             return {**self.design_templates["vibrant"], "name": "vibrant", "style": "Bold and vibrant"}
         else:
             return {**self.design_templates["modern"], "name": "modern", "style": "Modern and professional"}
-    
-    async def generate_ui_components(self, component_type: str, design_system: Dict[str, Any], requirements: str) -> Dict[str, Any]:
+
+    async def generate_ui_components(self, component_type: str, design_system: dict[str, Any], requirements: str) -> dict[str, Any]:
         """Generate UI component specifications"""
         try:
             components = {
@@ -218,20 +215,20 @@ class DesignAIMCP:
                 "card": {
                     "basic": {
                         "html": f'<div class="card">{requirements}</div>',
-                        "css": f"""
-.card {{
+                        "css": """
+.card {
     background: white;
     border-radius: 0.75rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     margin: 1rem 0;
     transition: all 0.2s ease;
-}}
+}
 
-.card:hover {{
+.card:hover {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
-}}
+}
 """,
                         "variants": ["elevated", "outlined", "filled"],
                         "accessibility": ["Semantic HTML", "ARIA landmarks", "Focus management"]
@@ -262,7 +259,7 @@ class DesignAIMCP:
                     }
                 }
             }
-            
+
             if component_type in components:
                 return {
                     "success": True,
@@ -278,14 +275,14 @@ class DesignAIMCP:
                     "error": f"Component type '{component_type}' not supported",
                     "supported_types": list(components.keys())
                 }
-                
+
         except Exception as e:
             return {
                 "success": False,
                 "error": f"Component generation failed: {str(e)}"
             }
-    
-    async def analyze_design_trends(self, market: str, industry: str) -> Dict[str, Any]:
+
+    async def analyze_design_trends(self, market: str, industry: str) -> dict[str, Any]:
         """Analyze design trends using free resources"""
         try:
             # Use predefined trend data (free alternative to AI API)
@@ -329,16 +326,16 @@ class DesignAIMCP:
                     }
                 }
             }
-            
+
             market_lower = market.lower()
             industry_lower = industry.lower()
-            
+
             if market_lower in trends_data and industry_lower in trends_data[market_lower]:
                 trend_info = trends_data[market_lower][industry_lower]
             else:
                 # Default to modern trends
                 trend_info = trends_data["canada"]["technology"]
-            
+
             return {
                 "success": True,
                 "market": market,
@@ -346,14 +343,14 @@ class DesignAIMCP:
                 "trends": trend_info,
                 "timestamp": asyncio.get_event_loop().time()
             }
-            
+
         except Exception as e:
             return {
                 "success": False,
                 "error": f"Trend analysis failed: {str(e)}"
             }
-    
-    async def optimize_content_for_culture(self, content: str, target_culture: str, content_type: str) -> Dict[str, Any]:
+
+    async def optimize_content_for_culture(self, content: str, target_culture: str, content_type: str) -> dict[str, Any]:
         """Optimize content for specific cultural context"""
         try:
             cultural_adaptations = {
@@ -379,13 +376,13 @@ class DesignAIMCP:
                     "content_tone": "Professional, friendly, inclusive"
                 }
             }
-            
+
             culture_lower = target_culture.lower()
             if culture_lower in cultural_adaptations:
                 adaptations = cultural_adaptations[culture_lower]
             else:
                 adaptations = cultural_adaptations["canada"]  # Default
-            
+
             optimized_content = {
                 "original": content,
                 "cultural_adaptations": adaptations,
@@ -396,7 +393,7 @@ class DesignAIMCP:
                     f"Include {adaptations['imagery']} imagery style"
                 ]
             }
-            
+
             return {
                 "success": True,
                 "original_content": content,
@@ -405,14 +402,14 @@ class DesignAIMCP:
                 "optimized_content": optimized_content,
                 "timestamp": asyncio.get_event_loop().time()
             }
-            
+
         except Exception as e:
             return {
                 "success": False,
                 "error": f"Cultural optimization failed: {str(e)}"
             }
-    
-    async def generate_webflow_landing_page(self, page_data: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def generate_webflow_landing_page(self, page_data: dict[str, Any]) -> dict[str, Any]:
         """Generate Webflow landing page using existing integration"""
         try:
             # Use existing Webflow integration
@@ -423,7 +420,7 @@ class DesignAIMCP:
                 "page_name": page_data.get("name", "New Landing Page"),
                 "page_slug": page_data.get("slug", "new-landing-page")
             }
-            
+
             # Generate page structure
             page_structure = {
                 "hero_section": {
@@ -436,7 +433,7 @@ class DesignAIMCP:
                     "title": "Why Choose Us",
                     "features": page_data.get("features", [
                         "Feature 1: Professional Service",
-                        "Feature 2: 24/7 Support", 
+                        "Feature 2: 24/7 Support",
                         "Feature 3: Affordable Pricing"
                     ])
                 },
@@ -450,7 +447,7 @@ class DesignAIMCP:
                     "cta_button": "Start Your Journey"
                 }
             }
-            
+
             return {
                 "success": True,
                 "webflow_config": webflow_config,
@@ -458,7 +455,7 @@ class DesignAIMCP:
                 "integration_ready": True,
                 "timestamp": asyncio.get_event_loop().time()
             }
-            
+
         except Exception as e:
             return {
                 "success": False,
@@ -469,13 +466,13 @@ async def main():
     """Main function for testing the Design AI MCP server"""
     print("🏰 TAURUS AI CORP. - Design AI MCP Server")
     print("=" * 50)
-    
+
     # Initialize Design AI MCP
     design_ai = DesignAIMCP()
-    
+
     # Test basic functionality
     print("🧪 Testing Design AI MCP Server...")
-    
+
     # Test design brief generation
     print("\n1. Testing design brief generation...")
     brand_guidelines = {
@@ -483,28 +480,28 @@ async def main():
         "primary_color": "#3B82F6",
         "target_audience": "tech professionals"
     }
-    
+
     brief = await design_ai.generate_design_brief("landing page", "tech professionals", brand_guidelines)
     if brief["success"]:
         print("✅ Design brief generation working")
         print(f"Template used: {brief['template_used']}")
     else:
         print(f"❌ Design brief generation failed: {brief['error']}")
-    
+
     # Test UI component generation
     print("\n2. Testing UI component generation...")
     design_system = {
         "colors": {"primary": "#3B82F6", "secondary": "#10B981"},
         "typography": {"body": "Inter", "heading": "Poppins"}
     }
-    
+
     component = await design_ai.generate_ui_components("button", design_system, "Click Me")
     if component["success"]:
         print("✅ UI component generation working")
         print(f"Component type: {component['component_type']}")
     else:
         print(f"❌ UI component generation failed: {component['error']}")
-    
+
     # Test trend analysis
     print("\n3. Testing trend analysis...")
     trends = await design_ai.analyze_design_trends("UAE", "technology")
@@ -513,7 +510,7 @@ async def main():
         print(f"Market: {trends['market']}, Industry: {trends['industry']}")
     else:
         print(f"❌ Trend analysis failed: {trends['error']}")
-    
+
     print("\n🎉 Design AI MCP Server test completed!")
 
 if __name__ == "__main__":

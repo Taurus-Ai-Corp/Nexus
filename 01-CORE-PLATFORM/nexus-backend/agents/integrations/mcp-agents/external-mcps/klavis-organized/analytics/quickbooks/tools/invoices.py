@@ -1,6 +1,7 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from mcp.types import Tool
+
 from .http_client import QuickBooksHTTPClient
 
 # Minimal properties for invoice creation (required by QuickBooks)
@@ -349,7 +350,7 @@ void_invoice_tool = Tool(
 )
 
 
-def mcp_object_to_invoice_data(**kwargs) -> Dict[str, Any]:
+def mcp_object_to_invoice_data(**kwargs) -> dict[str, Any]:
     """
     Convert MCP object format to QuickBooks invoice data format.
     This function transforms the flat MCP structure to the nested format expected by QuickBooks API.
@@ -543,7 +544,7 @@ def mcp_object_to_invoice_data(**kwargs) -> Dict[str, Any]:
     return invoice_data
 
 
-def invoice_data_to_mcp_object(invoice_data: Dict[str, Any]) -> Dict[str, Any]:
+def invoice_data_to_mcp_object(invoice_data: dict[str, Any]) -> dict[str, Any]:
     """
     Convert QuickBooks invoice data format to MCP object format.
     This function flattens the nested QuickBooks structure to the flat format expected by MCP tools.
@@ -738,7 +739,7 @@ class InvoiceManager:
     def __init__(self, client: QuickBooksHTTPClient):
         self.client = client
 
-    async def create_invoice(self, **kwargs) -> Dict[str, Any]:
+    async def create_invoice(self, **kwargs) -> dict[str, Any]:
         """Create a new invoice with comprehensive property support."""
         invoice_data = mcp_object_to_invoice_data(**kwargs)
 
@@ -751,12 +752,12 @@ class InvoiceManager:
         response = await self.client._post('invoice', invoice_data)
         return invoice_data_to_mcp_object(response['Invoice'])
 
-    async def get_invoice(self, Id: str) -> Dict[str, Any]:
+    async def get_invoice(self, Id: str) -> dict[str, Any]:
         """Get a specific invoice by ID."""
         response = await self.client._get(f"invoice/{Id}")
         return invoice_data_to_mcp_object(response['Invoice'])
 
-    async def list_invoices(self, MaxResults: int = 100, StartPosition: int = 1) -> List[Dict[str, Any]]:
+    async def list_invoices(self, MaxResults: int = 100, StartPosition: int = 1) -> list[dict[str, Any]]:
         """List all invoices with comprehensive properties and pagination support."""
         query = f"select * from Invoice STARTPOSITION {StartPosition} MAXRESULTS {MaxResults}"
         response = await self.client._get('query', params={'query': query})
@@ -768,7 +769,7 @@ class InvoiceManager:
         invoices = response['QueryResponse']['Invoice']
         return [invoice_data_to_mcp_object(invoice) for invoice in invoices]
 
-    async def search_invoices(self, **kwargs) -> List[Dict[str, Any]]:
+    async def search_invoices(self, **kwargs) -> list[dict[str, Any]]:
         """
         Search invoices with various filters and pagination support.
 
@@ -945,7 +946,7 @@ class InvoiceManager:
 
         return results
 
-    async def update_invoice(self, **kwargs) -> Dict[str, Any]:
+    async def update_invoice(self, **kwargs) -> dict[str, Any]:
         """Update an existing invoice with comprehensive property support."""
         Id = kwargs.get('Id')
         if not Id:
@@ -966,7 +967,7 @@ class InvoiceManager:
         response = await self.client._post('invoice', invoice_data)
         return invoice_data_to_mcp_object(response['Invoice'])
 
-    async def delete_invoice(self, Id: str) -> Dict[str, Any]:
+    async def delete_invoice(self, Id: str) -> dict[str, Any]:
         """Delete an invoice."""
         # Auto-fetch current sync token
         current_invoice_response = await self.client._get(f"invoice/{Id}")
@@ -984,7 +985,7 @@ class InvoiceManager:
         }
         return await self.client._post("invoice", delete_data, params={'operation': 'delete'})
 
-    async def send_invoice(self, Id: str, SendTo: str = None) -> Dict[str, Any]:
+    async def send_invoice(self, Id: str, SendTo: str = None) -> dict[str, Any]:
         """
         Send an invoice via email with delivery info and email status updates.
 
@@ -1018,7 +1019,7 @@ class InvoiceManager:
 
         return response
 
-    async def void_invoice(self, Id: str) -> Dict[str, Any]:
+    async def void_invoice(self, Id: str) -> dict[str, Any]:
         """
         Void an existing invoice in QuickBooks.
 

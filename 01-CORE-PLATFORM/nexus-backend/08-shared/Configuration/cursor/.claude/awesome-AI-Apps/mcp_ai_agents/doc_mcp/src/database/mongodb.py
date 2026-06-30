@@ -1,7 +1,6 @@
 """MongoDB client wrapper with connection management."""
 
 import logging
-from typing import Optional
 
 from pymongo import MongoClient
 from pymongo.collection import Collection
@@ -17,8 +16,8 @@ class MongoDBClient:
     """MongoDB client wrapper with connection management."""
 
     def __init__(self):
-        self._client: Optional[MongoClient] = None
-        self._db: Optional[Database] = None
+        self._client: MongoClient | None = None
+        self._db: Database | None = None
 
     @property
     def client(self) -> MongoClient:

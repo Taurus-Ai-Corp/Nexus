@@ -1,7 +1,6 @@
 """File loading logic for GitHub repositories."""
 
 import logging
-from typing import Dict, List, Tuple
 
 from llama_index.core import Document
 
@@ -53,8 +52,8 @@ def create_document_from_file_info(
 
 
 async def load_files_from_github(
-    repo_url: str, file_paths: List[str], branch: str = "main", max_concurrent: int = 10
-) -> Tuple[List[Document], List[str]]:
+    repo_url: str, file_paths: list[str], branch: str = "main", max_concurrent: int = 10
+) -> tuple[list[Document], list[str]]:
     """
     Load multiple files from GitHub repository.
 
@@ -104,9 +103,9 @@ async def load_files_from_github(
 def discover_repository_files(
     repo_url: str,
     branch: str = "main",
-    file_extensions: List[str] = None,
+    file_extensions: list[str] = None,
     include_sha: bool = True,
-) -> Tuple[List[str], str] | Tuple[List[Dict[str, str]], str]:
+) -> tuple[list[str], str] | tuple[list[dict[str, str]], str]:
     """
     Discover files in a GitHub repository.
 
@@ -134,8 +133,8 @@ def discover_repository_files_with_changes(
     repo_url: str,
     repo_name: str,
     branch: str = "main",
-    file_extensions: List[str] = None,
-) -> Dict[str, any]:
+    file_extensions: list[str] = None,
+) -> dict[str, any]:
     """
     Discover files and detect changes compared to stored repository state.
 

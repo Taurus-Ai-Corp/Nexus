@@ -1,6 +1,5 @@
 """Pydantic models for RAG operations."""
 
-from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -29,7 +28,7 @@ class QueryResponse(BaseModel):
     """Query response model."""
 
     response: str = Field(description="AI-generated response")
-    source_nodes: List[SourceNode] = Field(description="Source citations")
+    source_nodes: list[SourceNode] = Field(description="Source citations")
     repository: str = Field(description="Queried repository")
     mode: QueryMode = Field(description="Search mode used")
     processing_time: float = Field(description="Query processing time in seconds")
@@ -42,6 +41,6 @@ class IngestionProgress(BaseModel):
     processed_documents: int = Field(description="Documents processed so far")
     current_phase: str = Field(description="Current processing phase")
     elapsed_time: float = Field(description="Elapsed time in seconds")
-    estimated_remaining: Optional[float] = Field(
+    estimated_remaining: float | None = Field(
         default=None, description="Estimated remaining time"
     )

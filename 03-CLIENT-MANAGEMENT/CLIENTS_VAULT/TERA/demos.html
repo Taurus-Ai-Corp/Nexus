@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cherish Inc — Demo Samples by NEXUS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F4EF;--surface:#FFFFFF;--cream:#FAF8F4;--ink:#14110F;--ink-muted:#6B655E;--accent:#B85C38;--accent-warm:#C97B5C;--border:#E3DED4;--dark:#1A1714;--ease-out:cubic-bezier(0.23,1,0.32,1);--font-display:'DM Serif Display',Georgia,serif;--font-body:'Plus Jakarta Sans',system-ui,sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--font-display);margin:0;font-weight:400;letter-spacing:-0.02em;line-height:0.98}
+h1{font-size:clamp(2.8rem,6vw,5rem);text-wrap:balance}
+h2{font-size:clamp(2rem,4vw,3.2rem);text-wrap:balance}
+h3{font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.05}
+p{line-height:1.65;color:var(--ink-muted);text-wrap:pretty}
+.mono{font-family:var(--font-mono);font-size:0.7rem;font-weight:500;text-transform:uppercase;letter-spacing:0.18em}
+.container{max-width:1280px;margin:0 auto;padding:0 clamp(1rem,4vw,3rem)}
+
+.header-pill{display:flex;justify-content:space-between;align-items:center;max-width:1280px;margin:0 auto;padding:0.85rem 1.2rem;background:rgba(246,244,239,0.88);border:1px solid var(--border);border-radius:999px;backdrop-filter:blur(12px)}
+.logo{font-family:var(--font-display);font-size:1.35rem;letter-spacing:-0.02em}
+.logo span{font-family:var(--font-body);font-weight:500;color:var(--ink-muted)}
+header a{font-size:0.85rem;font-weight:500;color:var(--ink-muted);transition:color 150ms var(--ease-out)}
+header a:hover{color:var(--ink)}
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:0.9rem 1.6rem;border-radius:999px;background:var(--ink);color:var(--surface);font-size:0.85rem;font-weight:600;border:1.5px solid var(--ink);transition:transform 160ms var(--ease-out),background 200ms var(--ease-out);cursor:pointer}
+.btn:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-1px)}
+.btn:active{transform:scale(0.97)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--border)}
+.btn-ghost:hover{background:var(--cream);border-color:var(--ink-muted)}
+
+.hero{padding:clamp(3rem,6vw,5rem) 0 clamp(2rem,5vw,4rem)}
+.hero .mono{color:var(--accent);margin-bottom:1.2rem}
+.hero h1{margin-bottom:1.4rem;max-width:800px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{font-size:1.05rem;max-width:600px}
+
+.section{padding:clamp(3rem,6vw,5rem) 0}
+.section-header{margin-bottom:3rem}
+.section-header .num{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.18em;color:var(--accent);margin-bottom:1rem}
+.section-header h2{margin-bottom:1rem}
+.section-header p{font-size:0.95rem;max-width:520px}
+
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(480px,1fr));gap:2rem}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:1.2rem;overflow:hidden;transition:transform 250ms var(--ease-out),border-color 200ms var(--ease-out)}
+.card:hover{transform:translateY(-3px);border-color:var(--accent-warm)}
+.card-visual{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;background:var(--cream)}
+.card-visual .placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;gap:0.8rem}
+.card-visual .placeholder .icon{font-size:3rem;opacity:0.5}
+.card-visual .placeholder .caption{font-size:0.8rem;color:var(--ink-muted);max-width:280px;line-height:1.5}
+.card-body{padding:2rem}
+.card-body .tag{display:inline-block;font-family:var(--font-mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);border:1px solid var(--border);border-radius:4px;padding:0.25rem 0.6rem;margin-bottom:1rem;font-weight:500;background:var(--cream)}
+.card-body h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:0.6rem}
+.card-body p{font-size:0.85rem;line-height:1.7;margin-bottom:0.8rem}
+.card-body .prompt{background:var(--cream);border:1px solid var(--border);border-radius:0.8rem;padding:1.2rem;font-size:0.75rem;line-height:1.7;color:var(--ink-muted);font-family:var(--font-mono);position:relative;margin-top:0.8rem}
+.card-body .prompt::before{content:'PROMPT';position:absolute;top:-0.5rem;left:0.8rem;background:var(--cream);padding:0 0.4rem;font-size:0.55rem;font-weight:500;letter-spacing:0.12em;color:var(--accent);font-family:var(--font-mono)}
+.theme-row{display:flex;gap:0.5rem;margin:0.8rem 0}
+.swatch{width:2rem;height:2rem;border-radius:50%;border:2px solid var(--border)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;width:100%;height:100%}
+.compare-panel{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center}
+.compare-panel.before{background:var(--bg)}
+.compare-panel.after{background:linear-gradient(135deg,var(--cream),#f0e8e0)}
+.compare-panel .lbl{font-family:var(--font-mono);font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1rem;font-weight:500}
+.compare-panel.before .lbl{color:var(--ink-muted)}
+.compare-panel.after .lbl{color:var(--accent)}
+.compare-panel .icon-img{font-size:3rem;margin-bottom:0.8rem;line-height:1}
+.compare-panel .sub{font-size:0.7rem;color:var(--ink-muted);max-width:160px;line-height:1.5}
+
+.promo-card{background:var(--surface);border:1px solid var(--border);border-radius:1.2rem;padding:3rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:2rem}
+.promo-card .promo-visual{display:flex;align-items:center;justify-content:center;min-height:200px;background:var(--cream);border-radius:0.8rem;border:1px solid var(--border);flex-direction:column;gap:0.8rem;padding:2rem;text-align:center}
+.promo-card .promo-content h3{font-family:var(--font-display);font-size:1.5rem;margin-bottom:0.8rem}
+.promo-card .promo-content p{color:var(--ink-muted);font-size:0.9rem;line-height:1.7;margin-bottom:1rem}
+
+.prompt-block{background:var(--cream);border:1px solid var(--border);border-radius:1rem;padding:2rem;margin-top:2rem}
+.prompt-block .prompt-label{font-family:var(--font-mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent);margin-bottom:1rem;font-weight:500}
+.prompt-block pre{font-family:var(--font-mono);font-size:0.75rem;line-height:1.8;color:var(--ink-muted);white-space:pre-wrap;word-break:break-word}
+
+.brand-board{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto auto;gap:3px;width:100%;height:100%;padding:1rem;background:var(--bg)}
+.brand-board .panel{background:var(--surface);border-radius:0.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;min-height:70px}
+.brand-board .panel.logo{grid-column:1;grid-row:1/3}
+.brand-board .panel.palette{grid-column:2/4;display:flex;gap:0.5rem;flex-direction:row;flex-wrap:wrap}
+.brand-board .panel.palette .dot{width:1.8rem;height:1.8rem;border-radius:50%;border:1px solid var(--border)}
+.brand-board .panel.typo{grid-column:2;grid-row:2}
+.brand-board .panel.mockup{grid-column:3;grid-row:2}
+.brand-board .panel.tagline{grid-column:1/4;grid-row:3}
+.brand-board .panel span{font-size:0.6rem;color:var(--ink-muted)}
+.brand-board .panel.logo span{font-size:1.4rem;font-weight:700;color:var(--accent);letter-spacing:2px}
+.brand-board .panel.typo span{font-family:var(--font-display);font-size:1.2rem}
+.brand-board .panel.tagline span{font-size:0.8rem;font-style:italic;color:var(--ink)}
+
+.divider{height:1px;background:var(--border);max-width:1280px;margin:0 auto}
+
+.next-steps{padding:clamp(3rem,6vw,5rem) 0;background:var(--surface);border-top:1px solid var(--border)}
+.next-steps .mono{color:var(--accent);margin-bottom:1rem;text-align:center}
+.next-steps h2{text-align:center;margin-bottom:1rem}
+.next-steps p{text-align:center;max-width:540px;margin:0 auto 3rem}
+.next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.next-card{background:var(--bg);border:1px solid var(--border);border-radius:1.2rem;padding:2rem;text-align:center}
+.next-card .num{font-family:var(--font-display);font-size:2.2rem;color:var(--accent);opacity:0.5;margin-bottom:0.8rem}
+.next-card h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:0.6rem}
+.next-card p{font-size:0.8rem;text-align:center;margin:0}
+
+footer{padding:2rem 0;border-top:1px solid var(--border);background:var(--surface)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;font-size:0.8rem;color:var(--ink-muted)}
+.footer-inner strong{color:var(--ink);font-weight:600}
+
+@media(max-width:768px){
+  .hero{padding:2rem 0 1.5rem}
+  .section{padding:2rem 0}
+  .grid-2{grid-template-columns:1fr}
+  .promo-card{grid-template-columns:1fr;padding:1.5rem}
+  .brand-board{grid-template-columns:1fr 1fr}
+  .brand-board .panel.logo{grid-column:1/3}
+  .brand-board .panel.tagline{grid-column:1/3}
+  .next-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header style="position:sticky;top:0;z-index:50;padding:1rem 0">
+  <div class="header-pill">
+    <div class="logo">Cherish <span>Inc</span> / NEXUS <span>by Taurus Ai</span></div>
+    <a href="./index.html">← Back to Package</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="mono">Demo Samples</div>
+    <h1>What high-end <em>visual strategy</em> looks like for your brand</h1>
+    <p>Six sample concepts created with the same premium prompt engineering we use for client campaigns. Each includes the exact prompt — ready to run in Midjourney, DALL-E, or your tool of choice.</p>
+    <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:var(--cream);border:1px solid var(--border);border-radius:0.8rem;font-size:0.8rem;line-height:1.7;color:var(--ink-muted);border-left:3px solid var(--accent)">
+      <strong style="color:var(--ink);font-weight:600">Visual Reference Samples.</strong> The images on this page are conceptual samples generated from brief prompts to illustrate creative direction and visual tone. Final production assets are crafted from client-provided photography, brand documentation, and detailed creative briefs, yielding significantly higher fidelity, accuracy, and real-world applicability.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="num">01</div>
+      <h2>Professional Headshot Suite</h2>
+      <p>10 headshot styles — from high-fashion editorial to warm approachable — all keeping facial features consistent while transforming the brand presence.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-visual">
+          <img src="assets/headshot-fashion.jpg" alt="High-Fashion Headshot" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-body">
+          <span class="tag">Headshot</span>
+          <h3>1. High-Fashion Headshot</h3>
+          <p>Dramatic, editorial-grade portrait with sharp contrast and defined features. Perfect for speaking engagements, media kits, and LinkedIn.</p>
+          <div class="prompt">Create a high-fashion close-up headshot of Tera Gillen-Petrozzi. KEEP THE FACIAL FEATURES THE SAME AS IN THE ORIGINAL. A dark, professional outfit blends into a black background. Face is sharply lit. Confident expression, minimal smile. Strong contrast, defined eyes. Camera: Phase One XF, 100mm. --ar 3:4 --v 7</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-visual">
+          <img src="assets/headshot-chiaroscuro.jpg" alt="Chiaroscuro Portrait" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-body">
+          <span class="tag">Headshot</span>
+          <h3>2. Chiaroscuro Portrait</h3>
+          <p>Hyper-realistic 8K cinematic black-and-white with dramatic shadow play. Conveys depth, wisdom, and gravitas — ideal for book author pages.</p>
+          <div class="prompt">Hyper-realistic 8K cinematic black-and-white portrait of Tera Gillen-Petrozzi in dramatic chiaroscuro style. Seated at three-quarter angle, leaning slightly forward. One side of face sharply illuminated, opposite side fading into deep velvety black shadow. Contemplative expression. --ar 3:4 --v 7</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-visual">
+          <img src="assets/headshot-ceo.jpg" alt="CEO Portrait" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-body">
+          <span class="tag">Headshot</span>
+          <h3>3. CEO / Business Portrait</h3>
+          <p>Contemporary executive presence — approachable yet authoritative. Best for the "About" page, press features, and corporate partnerships.</p>
+          <div class="prompt">Contemporary CEO portrait of Tera Gillen-Petrozzi. Standing with weight shifted, leaning lightly against a modern architectural element. One hand casually in pocket, tailored navy suit, baby blue shirt. Confident, approachable yet authoritative smile. Background: modern office lobby, soft gradient. --ar 3:4 --v 7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="num">02</div>
+      <h2>Brand Identity Board — Cherish Inc</h2>
+      <p>A complete 3×3 brand system board: logo concept, color palette, typography, digital application, and physical mockups on one premium presentation canvas.</p>
+    </div>
+    <div class="card">
+      <div class="card-visual" style="padding:0;min-height:380px;background:var(--bg)">
+        <img src="assets/brand-board.jpg" alt="Cherish Inc Brand Board" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div class="card-body">
+        <span class="tag">Brand Identity</span>
+        <h3>Cherish Inc — Premium Brand Board</h3>
+        <p>A 9-panel brand guidelines board presenting logo mark (abstract C + nurturing gesture), curated palette (ink, terracotta, warm, paper), typography pairing (DM Serif Display + Jakarta Sans), digital/print mockups, and brand essence tagline.</p>
+        <div class="prompt">Create a premium brand-kit overview image for "Cherish Inc". A financial coaching & mindset brand targeting millennial women seeking financial freedom. Core metaphor: a protected, nurtured growth — combining a soft abstract "C" with a nurturing embrace gesture using negative space. 3×3 grid on a warm paper canvas with terracotta and warm accents. Panels: logo cover with wordmark + icon, construction geometry showing the negative-space "C", digital application (website header), brand essence tagline "Financial freedom starts within", color system (ink, terracotta, warm, paper), typography (DM Serif Display + Jakarta Sans), physical application (journal + bookmark mockup), image direction (sunlit minimalist workspace), system detail (UI chips, button states, icon row). --ar 4:3 --v 7</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="num">03</div>
+      <h2>Marketing Asset Concepts</h2>
+      <p>High-end product and lifestyle photography — with floating elements, frozen motion, and clean negative space for copy overlay.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-visual">
+          <img src="assets/book-thrive.jpg" alt="Thrive Book Promotion" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-body">
+          <span class="tag">Product Photography</span>
+          <h3>"Thrive" Book Promotion</h3>
+          <p>Advertising-style lifestyle flat lay with the book as the hero. Warm earthy tones, selective soft focus, and generous negative space for text and CTA overlay.</p>
+          <div class="prompt">Advertising-style product photography of a hardcover book titled "Thrive" by Tera Gillen-Petrozzi arranged on a warm oak desk, with dried eucalyptus sprigs and a ceramic coffee cup. The book is propped open slightly, pages catching golden hour window light. Clean negative space on the right side for text overlay. High-resolution with selective soft focus, dramatic natural lighting, warm earthy palette. --ar 3:2 --v 7</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-visual">
+          <img src="assets/financial-freedom.jpg" alt="Financial Freedom Campaign" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-body">
+          <span class="tag">Campaign Image</span>
+          <h3>Financial Freedom Campaign Hero</h3>
+          <p>A cinematic metaphor image — coins frozen mid-air as they rise from an open hand. Moody, aspirational, high-end. Perfect for the coaching program landing page.</p>
+          <div class="prompt">Cinematic advertising-style photograph of an open hand releasing golden coins that float upward in suspended animation. Dark moody studio background with a warm golden glow emanating from below. Each coin frozen in mid-air with sharp detail. Shallow depth of field, dramatic key lighting. Clean negative space at the top for headline text overlay. High-end luxury financial metaphor. --ar 16:9 --v 7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="num">04</div>
+      <h2>LinkedIn Authority System</h2>
+      <p>A complete LinkedIn content and positioning strategy — profile rewrite, content engine, high-engagement posts, and DM conversion system. Based on the Justin Welsh operator framework.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-visual">
+          <div class="placeholder" style="padding:1rem;align-items:flex-start;text-align:left">
+            <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.8rem">
+              <div style="width:3rem;height:3rem;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--surface);font-weight:600">TG</div>
+              <div><div style="font-size:0.9rem;font-weight:600">Tera Gillen-Petrozzi</div><div style="font-size:0.7rem;color:var(--ink-muted)">Financial Coach · Publisher · Author of "Thrive"</div></div>
+            </div>
+            <div style="font-size:0.8rem;color:var(--ink);line-height:1.6;border-left:2px solid var(--accent);padding-left:0.8rem">"I help millennial women stop surviving their finances and start building a future they're excited about. Author of Thrive. Publisher of LaSalle Living."</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <span class="tag">LinkedIn Profile</span>
+          <h3>Profile-as-Landing-Page Rewrite</h3>
+          <p>Headline and About section engineered for one specific reader — who, in 12 seconds, books a call, subscribes, or remembers you. No resume-speak; pure landing page copy.</p>
+          <div class="prompt">Act as a LinkedIn profile strategist trained on Justin Welsh's principle that your profile is not a resume — it is the highest-converting landing page you will ever own. Rebuild Tera Gillen-Petrozzi's profile as a landing page. Rewrite headline to answer: who you help, what you help them achieve, and what makes you different. Rewrite About section with: hook (relatable pain point), story (your transformation), proof (credibility markers), offer (how you help), call to action (next step). Use short sentences, white space, and line breaks for scannability.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-visual">
+          <div class="placeholder" style="align-items:flex-start;text-align:left;padding:1.5rem">
+            <div style="font-family:var(--font-mono);font-size:0.55rem;font-weight:500;color:var(--accent);margin-bottom:0.5rem;letter-spacing:0.15em">Content Engine</div>
+            <div style="font-size:0.8rem;color:var(--ink);line-height:1.7;border-left:2px solid var(--border);padding-left:0.8rem">
+              <strong style="color:var(--accent)">Format 1:</strong> Contrarian Take<br>
+              "Everyone says you need a budget to build wealth. I say a budget is the last thing you need."<br><br>
+              <strong style="color:var(--accent)">Format 2:</strong> Personal Story → Lesson<br>
+              "I went from broke single mom to financially free. Here's what nobody told me."<br><br>
+              <strong style="color:var(--accent)">Format 3:</strong> Tactical How-To<br>
+              "The 3-number system that replaced my budget and grew my savings by 40%."
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <span class="tag">Content Strategy</span>
+          <h3>Authority Compounding Content Engine</h3>
+          <p>Three repeating content formats designed for pattern recognition and compounding authority. Operators who win on LinkedIn are the most pattern-recognizable, not the most prolific.</p>
+          <div class="prompt">Act as a LinkedIn content strategist applying Welsh's principle that authority compounds when you publish a small number of repeating content formats with religious consistency. Build a content engine for Tera Gillen-Petrozzi (financial coach). Identify three core formats: 1) Contrarian take that challenges a common money myth, 2) Personal story that reveals a vulnerability and ends with a universal lesson, 3) Tactical how-to with a specific system. For each format, provide the headline hook pattern, the structure template, and a complete sample post written in her voice. Include a 4-week posting calendar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="num">05</div>
+      <h2>3D Brand Experience Concepts</h2>
+      <p>Isometric luxury brand installations — pop-up shops, product displays, and immersive environments built around your brand identity.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-visual">
+          <img src="assets/popup-kiosk.jpg" alt="Brand Pop-Up Experience" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-body">
+          <span class="tag">3D Render</span>
+          <h3>Brand Pop-Up Experience</h3>
+          <p>A luxury pop-up shop shaped like the Cherish Inc brand mark. Polished materials, warm neon silhouette, museum-grade glass. Creates an unforgettable brand touchpoint.</p>
+          <div class="prompt">3D isometric render of a luxury pop-up shop kiosk shaped exactly like the Cherish Inc logo mark (abstract "C" with a nurturing gesture). Constructed from high-end polished architectural materials in warm terracotta with subtle brass accents. Thin glowing warm LED strips trace the entire outer silhouette. Large seamless museum-grade glass windows showcase a warm inviting interior with coaching consultation space. Soft warm interior lighting contrasts with the cool exterior. Minimalist, high-end, boutique. --ar 16:9 --v 7</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-visual">
+          <img src="assets/brand-figurine.jpg" alt="Miniature Brand Figurine" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-body">
+          <span class="tag">Figurine</span>
+          <h3>Miniature Brand Figurine</h3>
+          <p>A collectible-quality isometric figurine of Tera as the brand mascot. Holding her book "Thrive," dressed in her signature coaching style. Great for website hero, social avatars, merchandise.</p>
+          <div class="prompt">Miniature full-body isometric realistic figurine of Tera Gillen-Petrozzi in professional coaching attire (tailored blazer, dark jeans, minimalist jewelry), holding her book "Thrive" in one hand and a ceramic coffee cup in the other, standing confidently on a pure white background, soft studio lighting from above, subtle shadow beneath, 4K resolution, Pixar-meets-Wes Anderson quality. --ar 3:4 --v 7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="num">06</div>
+      <h2>LaSalle Living Magazine</h2>
+      <p>Editorial and promotional concepts for the magazine — cover design, advertising templates, and brand elevation for the community publication.</p>
+    </div>
+    <div class="promo-card">
+      <div class="promo-visual" style="padding:0;overflow:hidden">
+        <img src="assets/magazine-cover.jpg" alt="Magazine Cover Concept" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div class="promo-content">
+        <h3>Editorial Cover & Inside Spread</h3>
+        <p>High-end magazine cover design with seasonal community photography, clean typographic hierarchy, and premium paper-texture finish. Includes inside spread layout with full-bleed imagery and pull quotes.</p>
+        <div class="prompt" style="position:relative;background:var(--cream);border:1px solid var(--border);border-radius:0.8rem;padding:1.2rem;font-size:0.75rem;line-height:1.7;color:var(--ink-muted);font-family:var(--font-mono)">Advertising-style editorial photography for a community magazine cover. A warm, inviting scene of a local LaSalle, Ontario farmers market in golden hour light, with community members shopping at wooden stalls filled with fresh produce and flowers. Warm amber and green palette. Clean white space at the top for magazine masthead and cover lines. High-resolution photo manipulation with selective soft focus, warm dramatic lighting. --ar 4:5 --v 7</div>
+      </div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-label">Complete LaSalle Living Brand Identity Prompt</div>
+      <pre>Act as a Creative Director at Pentagram. Build a comprehensive brand identity system for "LaSalle Living Magazine", a community lifestyle publication serving LaSalle, Ontario. Target audience: local families and small business owners aged 30–65 who value community connection. Develop a clear brand strategy including narrative, archetype (The Everyman + The Sage), tone of voice matrix (warm, informative, community-first), and messaging hierarchy. Create three distinct logo concepts with variations (wordmark + icon, stacked, horizontal) and detailed usage guidelines. Define complete color system: terracotta (#B85C38), deep ink (#14110F), cream (#F6F4EF), warm (#C97B5C) — with Hex, Pantone, CMYK, and RGB values and strategic reasoning. Establish typography: primary serif for headings (DM Serif Display), primary sans for body (Plus Jakarta Sans), with sizing and usage rules.</pre>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="next-steps">
+  <div class="container">
+    <div class="mono">Ready to launch</div>
+    <h2>What happens next</h2>
+    <p>Every concept on this page was generated from a single prompt. The real deliverable is a full strategy — not just images, but a visual system that makes your brand unmistakable.</p>
+    <div class="next-grid">
+      <div class="next-card">
+        <div class="num">01</div>
+        <h3>Brand Strategy Session</h3>
+        <p>We define your visual north star — audience, positioning, competitive landscape, and the one feeling every piece of content should evoke.</p>
+      </div>
+      <div class="next-card">
+        <div class="num">02</div>
+        <h3>Asset Production</h3>
+        <p>Headshots, brand board, product photography, social templates — all generated, refined, and delivered in your brand's custom style.</p>
+      </div>
+      <div class="next-card">
+        <div class="num">03</div>
+        <h3>Systems & Deployment</h3>
+        <p>Reusable templates, prompt libraries, brand guidelines document — so Cherish Inc and LaSalle Living maintain consistency across every channel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div><strong>NEXUS</strong> by Taurus Ai — <span>Windsor, Ontario</span></div>
+    <div>
+      <a href="mailto:admin@taurusai.io" style="color:var(--ink-muted);text-decoration:underline">admin@taurusai.io</a>
+      <span style="color:var(--border);margin:0 0.5rem">·</span>
+      <span style="color:var(--ink-muted)">+1 519-331-3285</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

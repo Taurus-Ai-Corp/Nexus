@@ -1,0 +1,19 @@
+LEAD PULL SUMMARY — 20260616-1720
+================================
+
+Sources scraped via /api/research (preview: nexus-creative-editorial-j9l7m1id3):
+  1. TechCrunch Startups RSS       → 18 stories  → 9 FUNDED leads
+  2. Crunchbase News RSS           → 10 stories  → 10 M&A/acquisition leads
+  3. Hacker News (newest) RSS      → 20 stories  → 1 founder-led leads
+  4. BetaList RSS                  → 0 items (feed not parseable)
+  5. YC Work at a Startup          → 0 items (RSS not public)
+
+Output files in this folder:
+  leads-tc-funded-startups-20260616-1720.csv   ← BEST for outbound (just raised, actively spending on growth)
+  leads-crunchbase-news-20260616-1720.csv      ← For enterprise PQC/compliance pitches
+  leads-hn-showlaunch-20260616-1720.csv        ← For SMB SaaS / design tools / founder GTM
+
+NEXT ACTIONS YOU CAN TAKE FROM THESE CSVs:
+  - Open in Excel/Numbers, sort by amount_raised
+  - For each funded lead, find CEO on LinkedIn, send "saw you raised $X" opener
+  - For Show HN leads, the founder is the buyer; the comment thread is where they ask "what do you use for X?"

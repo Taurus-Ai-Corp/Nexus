@@ -1,0 +1,292 @@
+name: IP Protection Bot
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        type: choice
+        options:
+          - full-pipeline
+          - prepare-arxiv
+          - prepare-zenodo
+          - timestamp-hedera
+          - update-crm
+          - generate-hf-assets
+          - audit-ip-status
+      patent_number:
+        description: 'Patent number (001 or 002)'
+        required: false
+        type: choice
+        options:
+          - both
+          - '001'
+          - '002'
+        default: 'both'
+  schedule:
+    - cron: '0 9 * * 1'  # Weekly Monday 9 AM UTC
+
+concurrency:
+  group: ip-protection
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # =============================================
+  # STAGE 1: Prepare Defensive Publications
+  # =============================================
+  prepare-publications:
+    name: Prepare Publications
+    if: >-
+      github.event_name == 'workflow_dispatch' && (
+        github.event.inputs.action == 'full-pipeline' ||
+        github.event.inputs.action == 'prepare-arxiv' ||
+        github.event.inputs.action == 'prepare-zenodo'
+      )
+    runs-on: ubuntu-latest
+    outputs:
+      arxiv_ready: ${{ steps.arxiv.outputs.ready }}
+      zenodo_ready: ${{ steps.zenodo.outputs.ready }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Generate arXiv paper drafts
+        id: arxiv
+        run: |
+          node DOCS/IP-PROTECTION/scripts/generate-arxiv-paper.js \
+            --source products/gridera/Q-GRID-COMPLY-PRD-ARCHITECTURE.md \
+            --patent ${{ github.event.inputs.patent_number || 'both' }} \
+            --obfuscation-level standard
+          echo "ready=true" >> $GITHUB_OUTPUT
+
+      - name: Generate Zenodo metadata
+        id: zenodo
+        run: |
+          node DOCS/IP-PROTECTION/scripts/generate-zenodo-metadata.js \
+            --title "Q-GRID Comply: Enterprise PQC Migration Architecture" \
+            --creators "Taurus AI Corp" \
+            --license "CC-BY-SA-4.0"
+          echo "ready=true" >> $GITHUB_OUTPUT
+
+      - name: Generate TDCommons disclosures
+        run: |
+          node DOCS/IP-PROTECTION/scripts/generate-tdcommons.js \
+            --patent ${{ github.event.inputs.patent_number || 'both' }}
+
+      - name: Generate SSRN papers
+        run: |
+          node DOCS/IP-PROTECTION/scripts/generate-ssrn-paper.js \
+            --patent ${{ github.event.inputs.patent_number || 'both' }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: publication-artifacts
+          path: |
+            artifacts/arxiv/
+            artifacts/zenodo/
+            artifacts/tdcommons/
+            artifacts/ssrn/
+          retention-days: 90
+
+  # =============================================
+  # STAGE 2: Human Approval Gate
+  # =============================================
+  approve-publications:
+    name: Human Review Required
+    needs: prepare-publications
+    runs-on: ubuntu-latest
+    environment: ip-review
+    steps:
+      - name: Publication Review Gate
+        run: |
+          echo "============================================"
+          echo "  HUMAN APPROVAL REQUIRED"
+          echo "============================================"
+          echo ""
+          echo "Review the publication artifacts before proceeding."
+          echo "arXiv ready: ${{ needs.prepare-publications.outputs.arxiv_ready }}"
+          echo "Zenodo ready: ${{ needs.prepare-publications.outputs.zenodo_ready }}"
+          echo ""
+          echo "CHECKLIST:"
+          echo "  [ ] Trade secrets properly obfuscated"
+          echo "  [ ] Patent claim language accurate"
+          echo "  [ ] No API keys or credentials exposed"
+          echo "  [ ] Publication content reviewed for accuracy"
+          echo ""
+          echo "Approve this environment to proceed."
+
+  # =============================================
+  # STAGE 3: Blockchain Timestamping
+  # =============================================
+  timestamp-hedera:
+    name: Hedera HCS Timestamp
+    needs: approve-publications
+    if: >-
+      github.event.inputs.action == 'full-pipeline' ||
+      github.event.inputs.action == 'timestamp-hedera'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: publication-artifacts
+          path: artifacts/
+
+      - name: Timestamp publications on Hedera HCS
+        env:
+          HEDERA_NETWORK: ${{ secrets.HEDERA_NETWORK || 'testnet' }}
+          HEDERA_OPERATOR_ID: ${{ secrets.HEDERA_OPERATOR_ID }}
+          HEDERA_OPERATOR_KEY: ${{ secrets.HEDERA_OPERATOR_KEY }}
+        run: |
+          node DOCS/IP-PROTECTION/scripts/hedera-timestamp.js \
+            --topic-name ip-protection-audit-trail \
+            --artifacts-dir artifacts/ \
+            --sign-with-mldsa true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hedera-receipts
+          path: artifacts/hedera-receipts/
+          retention-days: 365
+
+  # =============================================
+  # STAGE 4: Update CRM (ClickUp)
+  # =============================================
+  update-crm:
+    name: Update ClickUp CRM
+    needs: timestamp-hedera
+    if: >-
+      github.event.inputs.action == 'full-pipeline' ||
+      github.event.inputs.action == 'update-crm'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm ci
+
+      - name: Update ClickUp IP Tracking
+        env:
+          CLICKUP_API_TOKEN: ${{ secrets.CLICKUP_API_TOKEN }}
+        run: |
+          node DOCS/IP-PROTECTION/scripts/update-clickup.js \
+            --action filing-milestone \
+            --patent ${{ github.event.inputs.patent_number || 'both' }} \
+            --status publication-complete
+
+  # =============================================
+  # STAGE 5: HuggingFace Assets
+  # =============================================
+  generate-hf-assets:
+    name: Generate HuggingFace Assets
+    needs: approve-publications
+    if: >-
+      github.event.inputs.action == 'full-pipeline' ||
+      github.event.inputs.action == 'generate-hf-assets'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm ci
+
+      - name: Generate HuggingFace model cards
+        run: |
+          node DOCS/IP-PROTECTION/scripts/generate-hf-model-card.js \
+            --model CryptoGuard-7B \
+            --org Taurus-BizFlow
+
+      - name: Generate Gradio Space config
+        run: |
+          node DOCS/IP-PROTECTION/scripts/generate-hf-space.js \
+            --space Q-GRID-Crypto-Scanner \
+            --org Taurus-BizFlow
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hf-assets
+          path: artifacts/huggingface/
+
+  # =============================================
+  # STAGE 6: Internet Archive Wayback Snapshots
+  # =============================================
+  archive-wayback:
+    name: Archive to Wayback Machine
+    needs: approve-publications
+    if: >-
+      github.event.inputs.action == 'full-pipeline'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm ci
+
+      - name: Submit URLs to Internet Archive
+        run: |
+          node DOCS/IP-PROTECTION/scripts/archive-wayback.js
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wayback-archives
+          path: artifacts/wayback/
+
+  # =============================================
+  # STAGE 7: Weekly IP Audit (scheduled)
+  # =============================================
+  ip-audit:
+    name: Weekly IP Audit
+    if: >-
+      github.event_name == 'schedule' ||
+      github.event.inputs.action == 'audit-ip-status'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm ci
+
+      - name: Run IP status audit
+        id: audit
+        continue-on-error: true
+        run: |
+          node DOCS/IP-PROTECTION/scripts/audit-ip-status.js \
+            --check-arxiv \
+            --check-zenodo \
+            --check-hedera \
+            --report-to-clickup
+
+      - name: Create issue if audit found problems
+        if: steps.audit.outcome == 'failure'
+        uses: actions/github-script@v8
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '[IP Protection] Weekly audit found issues - ' + new Date().toISOString().split('T')[0],
+              body: '## IP Protection Audit Alert\n\nThe weekly IP protection audit found issues that need attention.\n\n**Check the [workflow run](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId + ')** for details.\n\n### Action Required\n- [ ] Review audit findings\n- [ ] Verify all defensive publications are accessible\n- [ ] Check Hedera timestamps are valid\n- [ ] Update ClickUp with current status',
+              labels: ['ip-protection', 'urgent']
+            });

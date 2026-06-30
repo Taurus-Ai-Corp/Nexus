@@ -1,0 +1,214 @@
+Title: GitHub - superset-sh/superset: Code Editor for the AI Agents Era - Run an army of Claude Code, Codex, etc. on your machine
+
+URL Source: https://github.com/superset-sh/superset
+
+Markdown Content:
+## Code 10x Faster With No Switching Cost
+
+[](https://github.com/superset-sh/superset#code-10x-faster-with-no-switching-cost)
+Superset orchestrates CLI-based coding agents across isolated git worktrees, with built-in terminal, review, and open-in-editor workflows.
+
+*   **Run multiple agents simultaneously** without context switching overhead
+*   **Isolate each task** in its own git worktree so agents don't interfere with each other
+*   **Monitor all your agents** from one place and get notified when they need attention
+*   **Review and edit changes quickly** with the built-in diff viewer and editor
+*   **Open any workspace where you need it** with one-click handoff to your editor or terminal
+
+Wait less, ship more.
+
+## Features
+
+[](https://github.com/superset-sh/superset#features)
+| Feature | Description |
+| --- | --- |
+| **Parallel Execution** | Run 10+ coding agents simultaneously on your machine |
+| **Worktree Isolation** | Each task gets its own branch and working directory |
+| **Agent Monitoring** | Track agent status and get notified when changes are ready |
+| **Built-in Diff Viewer** | Inspect and edit agent changes without leaving the app |
+| **Workspace Presets** | Automate env setup, dependency installation, and more |
+| **Universal Compatibility** | Works with any CLI agent that runs in a terminal |
+| **Quick Context Switching** | Jump between tasks as they need your attention |
+| **IDE Integration** | Open any workspace in your favorite editor with one click |
+
+## Supported Agents
+
+[](https://github.com/superset-sh/superset#supported-agents)
+Superset works with any CLI-based coding agent, including:
+
+| Agent | Status |
+| --- | --- |
+| [![Image 1](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/amp.svg)](https://github.com/superset-sh/superset/blob/main/packages/ui/src/assets/icons/preset-icons/amp.svg)[Amp Code](https://ampcode.com/) | Fully supported |
+| [![Image 2](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/claude.svg)](https://github.com/superset-sh/superset/blob/main/packages/ui/src/assets/icons/preset-icons/claude.svg)[Claude Code](https://github.com/anthropics/claude-code) | Fully supported |
+| ![Image 3](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/codex.svg)[OpenAI Codex CLI](https://github.com/openai/codex) | Fully supported |
+| [![Image 4](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/cursor.svg)](https://github.com/superset-sh/superset/blob/main/packages/ui/src/assets/icons/preset-icons/cursor.svg)[Cursor Agent](https://docs.cursor.com/agent) | Fully supported |
+| ![Image 5](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/droid.svg)[Droid](https://www.factory.ai/) | Fully supported |
+| [![Image 6](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/gemini.svg)](https://github.com/superset-sh/superset/blob/main/packages/ui/src/assets/icons/preset-icons/gemini.svg)[Gemini CLI](https://github.com/google-gemini/gemini-cli) | Fully supported |
+| ![Image 7](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/copilot.svg)[GitHub Copilot](https://github.com/features/copilot) | Fully supported |
+| ![Image 8](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/mastracode.svg)[Mastra Code](https://mastra.ai/) | Fully supported |
+| ![Image 9](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/opencode.svg)[OpenCode](https://github.com/opencode-ai/opencode) | Fully supported |
+| ![Image 10](https://github.com/superset-sh/superset/raw/main/packages/ui/src/assets/icons/preset-icons/pi.svg)[Pi](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) | Fully supported |
+| Any other CLI agent | Works without configuration |
+
+If it runs in a terminal, it runs on Superset
+
+## Requirements
+
+[](https://github.com/superset-sh/superset#requirements)
+| Requirement | Details |
+| --- | --- |
+| **OS** | macOS (Windows/Linux untested) |
+| **Runtime** | [Bun](https://bun.sh/) v1.0+ |
+| **Version Control** | Git 2.20+ |
+| **GitHub CLI** | [gh](https://cli.github.com/) |
+| **Caddy** | [caddy](https://caddyserver.com/docs/install) (for dev server) |
+
+## Install
+
+[](https://github.com/superset-sh/superset#install)
+**[Download Superset for macOS](https://github.com/superset-sh/superset/releases/latest)**
+
+Builds for Windows and Linux are not yet available.
+
+## Development
+
+[](https://github.com/superset-sh/superset#development)
+Want to hack on Superset or contribute a PR? Spin up a local dev environment in one command:
+
+git clone https://github.com/superset-sh/superset.git
+cd superset
+./.superset/setup.local.sh
+bun run dev
+
+No Neon account or third-party credentials needed — `setup.local.sh` brings up a local Postgres + Electric stack via Docker and seeds a dev account. Sign in with the **"Sign in as dev"** button (or `admin@local.test` / `supersetdev`).
+
+Prereqs: `bun`, `docker`, `jq`, `caddy` (`brew install jq caddy && caddy trust`).
+
+See [**DEVELOPMENT.md**](https://github.com/superset-sh/superset/blob/main/DEVELOPMENT.md) for the full guide — what the setup script does, manual setup against real services, common commands, troubleshooting, and how to build the desktop app. Contribution process lives in [**CONTRIBUTING.md**](https://github.com/superset-sh/superset/blob/main/CONTRIBUTING.md).
+
+## Keyboard Shortcuts
+
+[](https://github.com/superset-sh/superset#keyboard-shortcuts)
+All shortcuts are customizable via **Settings > Keyboard Shortcuts** (`⌘/`). See [full documentation](https://docs.superset.sh/keyboard-shortcuts).
+
+### Workspace Navigation
+
+[](https://github.com/superset-sh/superset#workspace-navigation)
+| Shortcut | Action |
+| --- | --- |
+| `⌘1-9` | Switch to workspace 1-9 |
+| `⌘⌥↑/↓` | Previous/next workspace |
+| `⌘N` | New workspace |
+| `⌘⇧N` | Quick create workspace |
+| `⌘⇧O` | Open project |
+
+### Terminal
+
+[](https://github.com/superset-sh/superset#terminal)
+| Shortcut | Action |
+| --- | --- |
+| `⌘T` | New tab |
+| `⌘W` | Close pane/terminal |
+| `⌘D` | Split right |
+| `⌘⇧D` | Split down |
+| `⌘K` | Clear terminal |
+| `⌘F` | Find in terminal |
+| `⌘⌥←/→` | Previous/next tab |
+| `Ctrl+1-9` | Open preset 1-9 |
+
+### Layout
+
+[](https://github.com/superset-sh/superset#layout)
+| Shortcut | Action |
+| --- | --- |
+| `⌘B` | Toggle workspaces sidebar |
+| `⌘L` | Toggle changes panel |
+| `⌘O` | Open in external app |
+| `⌘⇧C` | Copy path |
+
+## Configuration
+
+[](https://github.com/superset-sh/superset#configuration)
+Configure workspace setup and teardown in `.superset/config.json`. See [full documentation](https://docs.superset.sh/setup-teardown-scripts).
+
+{
+  "setup": ["./.superset/setup.sh"],
+  "teardown": ["./.superset/teardown.sh"]
+}
+
+| Option | Type | Description |
+| --- | --- | --- |
+| `setup` | `string[]` | Commands to run when creating a workspace |
+| `teardown` | `string[]` | Commands to run when deleting a workspace |
+
+### Example setup script
+
+[](https://github.com/superset-sh/superset#example-setup-script)
+
+#!/bin/bash
+# .superset/setup.sh
+
+# Copy environment variables
+cp ../.env .env
+
+# Install dependencies
+bun install
+
+# Run any other setup tasks
+echo "Workspace ready!"
+
+Scripts have access to environment variables:
+
+*   `SUPERSET_WORKSPACE_NAME` — Name of the workspace
+*   `SUPERSET_ROOT_PATH` — Path to the main repository
+
+## Mastra Dependencies
+
+[](https://github.com/superset-sh/superset#mastra-dependencies)
+This repo uses the published upstream `mastracode` and `@mastra/*` packages directly. Avoid adding custom tarball overrides unless there is a repo-specific blocker.
+
+## Tech Stack
+
+[](https://github.com/superset-sh/superset#tech-stack)
+[![Image 11: Electron](https://camo.githubusercontent.com/00a7544372408b41a0e840ca75822a1ec8281f1846461f24804496822bb1df91/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f456c656374726f6e2d3139313937303f6c6f676f3d456c656374726f6e266c6f676f436f6c6f723d7768697465)](https://www.electronjs.org/)[![Image 12: React](https://camo.githubusercontent.com/8dfc7ceb3ce548eb1ab7c5f71ce22f9e432e9ca6e715d495754fff95bb5df914/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f52656163742d2532333230323332612e7376673f6c6f676f3d7265616374266c6f676f436f6c6f723d253233363144414642)](https://reactjs.org/)[![Image 13: TailwindCSS](https://camo.githubusercontent.com/f29f706effb8a6579eb5cfacec4a820cb492fe5c0a831e0da281559a646b8b02/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5461696c77696e646373732d2532333338423241432e7376673f6c6f676f3d7461696c77696e642d637373266c6f676f436f6c6f723d7768697465)](https://tailwindcss.com/)[![Image 14: Bun](https://camo.githubusercontent.com/f2ca4160f769ee2eaf16f7fd0013f6a399224d9ff25ffb589885a33b18b7e16c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f42756e2d3030303030303f6c6f676f3d62756e266c6f676f436f6c6f723d7768697465)](https://bun.sh/)[![Image 15: Turborepo](https://camo.githubusercontent.com/faaf9ff8ad45f544b3c4315aa8b1c3caae9397cfa08f83b1de46cf8dda8ed75c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f547572626f7265706f2d4546343434343f6c6f676f3d747572626f7265706f266c6f676f436f6c6f723d7768697465)](https://turbo.build/)[![Image 16: Vite](https://camo.githubusercontent.com/d8d7f2bb6f367ea268b7911fc93d8248591a4176a181c5a78568288f5ab175c7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f566974652d2532333634364346462e7376673f6c6f676f3d76697465266c6f676f436f6c6f723d7768697465)](https://vitejs.dev/)[![Image 17: Biome](https://camo.githubusercontent.com/71e73ca1e251e714973828622fae9ca90e465a9d67ac584e8dbf19ea2a1ccd67/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f42696f6d652d3333394146303f6c6f676f3d62696f6d65266c6f676f436f6c6f723d7768697465)](https://biomejs.dev/)[![Image 18: Drizzle ORM](https://camo.githubusercontent.com/fcdf0ca2398c871197febc13615350d8f9cc8151a7001e6c4fc5b2872d4d7fb4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4472697a7a6c652532304f524d2d4646453837333f6c6f676f3d6472697a7a6c65266c6f676f436f6c6f723d626c61636b)](https://orm.drizzle.team/)[![Image 19: Neon](https://camo.githubusercontent.com/5dac23282aa37e7b1d488729abec81c77877a142af4f800794caaf6878638089/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4e656f6e2d3030453943413f6c6f676f3d6e656f6e266c6f676f436f6c6f723d7768697465)](https://neon.tech/)[![Image 20: tRPC](https://camo.githubusercontent.com/4a45411cdede19d8ad3c3764dee8171e2a229d98676e00dad257ba6ef72ac612/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f745250432d3235393642453f6c6f676f3d74727063266c6f676f436f6c6f723d7768697465)](https://trpc.io/)
+
+## Private by Default
+
+[](https://github.com/superset-sh/superset#private-by-default)
+*   **Source Available** — Full source is available on GitHub under Elastic License 2.0 (ELv2).
+*   **Explicit Connections** — You choose which agents, providers, and integrations to connect.
+
+## Contributing
+
+[](https://github.com/superset-sh/superset#contributing)
+We welcome contributions! If you have a suggestion that would make Superset better:
+
+1.   Fork the repository
+2.   Create your feature branch (`git checkout -b feature/amazing-feature`)
+3.   Commit your changes (`git commit -m 'Add amazing feature'`)
+4.   Push to the branch (`git push origin feature/amazing-feature`)
+5.   Open a Pull Request
+
+You can also [open issues](https://github.com/superset-sh/superset/issues) for bugs or feature requests.
+
+See [CONTRIBUTING.md](https://github.com/superset-sh/superset/blob/main/CONTRIBUTING.md) for detailed instructions and code of conduct.
+
+[![Image 21](https://camo.githubusercontent.com/ccb3ac9f66b057e6d8e5fcab5a4bb4754560e8d504ca8d689e3c00a657fe301d/68747470733a2f2f636f6e747269622e726f636b732f696d6167653f7265706f3d73757065727365742d73682f7375706572736574)](https://github.com/superset-sh/superset/graphs/contributors)
+## Community
+
+[](https://github.com/superset-sh/superset#community)
+Join the Superset community to get help, share feedback, and connect with other users:
+
+*   **[Discord](https://discord.gg/cZeD9WYcV7)** — Chat with the team and community
+*   **[Twitter](https://x.com/superset_sh)** — Follow for updates and announcements
+*   **[GitHub Issues](https://github.com/superset-sh/superset/issues)** — Report bugs and request features
+*   **[GitHub Discussions](https://github.com/superset-sh/superset/discussions)** — Ask questions and share ideas
+
+### Team
+
+[](https://github.com/superset-sh/superset#team)
+[![Image 22: Avi Twitter](https://camo.githubusercontent.com/176ffd1ca41943d6795e73f5886a981cc3917361ce05bac6b14c89baa3c388a9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4176692d406176696d616b6573726f626f74732d3535353f6c6f676f3d78)](https://x.com/avimakesrobots)[![Image 23: Kiet Twitter](https://camo.githubusercontent.com/308b5b515016f25d4529936a0f93b3723ceeb3b3904e8ad6f61362bf371848fd/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4b6965742d40666c79616b6965742d3535353f6c6f676f3d78)](https://x.com/flyakiet)[![Image 24: Satya Twitter](https://camo.githubusercontent.com/aa185500b26dc403b9e7256978722a182225375670cf9a84480edc6333834092/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f53617479612d40736164646c655f5f706164646c652d3535353f6c6f676f3d78)](https://x.com/saddle_paddle)
+
+## License
+
+[](https://github.com/superset-sh/superset#license)
+Distributed under the Elastic License 2.0 (ELv2). See [LICENSE.md](https://github.com/superset-sh/superset/blob/main/LICENSE.md) for more information.

@@ -1,0 +1,13 @@
+{
+  "slug": "book-thrive",
+  "original": "Shot on iPhone 17 Pro Max, natural everyday photography, candid moment, real human with natural skin texture, visible pores, fine lines and natural imperfections, no artificial lighting, available light only, no airbrushing, no CGI, no AI artifacts, natural color temperature, realistic shadows, authentic appearance, real photograph not computer generated, organic skin tones, Product photo of a hardcover book titled 'Thrive' on a wooden table near a window, book slightly open with pages catching daylight, dried eucalyptus sprig beside it, white coffee mug nearby, warm earthy tones, natural daylight from window, casual lifestyle flat lay, realistic shadows and highlights, cozy warm atmosphere, natural color palette terracotta and cream, everyday setting, ('natural skin texture, visible pores, subtle wrinkles, natural hair strands, no airbrushing, minimal makeup, real person, candid expression, iPhone 17 Pro Max portrait mode, natural depth of field, realistic colors, everyday authentic look, not AI generated, real photograph quality',)",
+  "enhanced": "A photorealistic, candid lifestyle flat lay shot on an iPhone 17 Pro Max in portrait mode, capturing a hardcover book titled \"Thrive\" slightly open on a rustic wooden table near a window, with pages catching soft natural daylight. Beside the book lies a dried eucalyptus sprig and a white ceramic coffee mug, all bathed in warm earthy tones of terracotta and cream. The scene features realistic shadows and highlights from the window light, creating a cozy, authentic atmosphere with no artificial lighting or airbrushing. The image must look like a genuine photograph, not AI-generated, with organic skin tones, natural depth of field, and subtle imperfections that reflect everyday life. The composition emphasizes natural color temperature, realistic skin texture with visible pores and fine lines, subtle wrinkles, and natural hair strands, all captured with the iPhone 17 Pro Max's portrait mode for a realistic, candid expression. The lighting is purely available daylight, enhancing the warm, earthy palette and creating a lifelike, unedited appearance. The final result should feel like a real photo taken in a casual, everyday setting, with no CGI, no plastic look, and no AI artifacts.",
+  "provider": "black-forest-labs/FLUX.1-schnell",
+  "status": "completed",
+  "params": {
+    "steps": 8,
+    "guidance": 5.0,
+    "size": "1024x768"
+  },
+  "raw_size_bytes": 113230
+}

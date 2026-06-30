@@ -1,14 +1,13 @@
+import base64
 import contextlib
+import json
 import logging
 import os
-import json
-import base64
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from contextvars import ContextVar
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,17 +15,29 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
     auth_token_context,
-    get_teams, get_workspaces,
-    get_spaces, create_space, update_space,
-    get_folders, create_folder, update_folder,
-    get_lists, create_list, update_list,
-    get_tasks, get_task_by_id, create_task, update_task, search_tasks,
-    get_comments, create_comment, update_comment,
-    get_user, get_team_members
+    create_comment,
+    create_folder,
+    create_list,
+    create_space,
+    create_task,
+    get_comments,
+    get_folders,
+    get_lists,
+    get_spaces,
+    get_task_by_id,
+    get_tasks,
+    get_team_members,
+    get_teams,
+    get_user,
+    get_workspaces,
+    search_tasks,
+    update_comment,
+    update_folder,
+    update_list,
+    update_space,
+    update_task,
 )
 
 # Configure logging
@@ -39,7 +50,7 @@ CLICKUP_MCP_SERVER_PORT = int(os.getenv("CLICKUP_MCP_SERVER_PORT", "5000"))
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -55,7 +66,7 @@ def extract_access_token(request_or_scope) -> str:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
         else:
             auth_data = None
-        
+
         if auth_data:
             try:
                 # Parse the JSON auth data to extract access_token
@@ -64,7 +75,7 @@ def extract_access_token(request_or_scope) -> str:
             except (json.JSONDecodeError, TypeError) as e:
                 logger.warning(f"Failed to parse auth data JSON: {e}")
                 return ""
-    
+
     return ""
 
 @click.command()
@@ -114,7 +125,7 @@ def main(
                     "properties": {},
                 },
             ),
-            
+
             # Space tools
             types.Tool(
                 name="clickup_get_spaces",
@@ -183,7 +194,7 @@ def main(
                     },
                 },
             ),
-            
+
             # Folder tools
             types.Tool(
                 name="clickup_get_folders",
@@ -235,7 +246,7 @@ def main(
                     },
                 },
             ),
-            
+
             # List tools
             types.Tool(
                 name="clickup_get_lists",
@@ -335,7 +346,7 @@ def main(
                     },
                 },
             ),
-            
+
             # Task tools - continuing from line 316
             types.Tool(
                 name="clickup_get_tasks",
@@ -491,7 +502,7 @@ def main(
                     },
                 },
             ),
-            
+
             # Comment tools
             types.Tool(
                 name="clickup_get_comments",
@@ -548,7 +559,7 @@ def main(
                     },
                 },
             ),
-            
+
             # User tools
             types.Tool(
                 name="clickup_get_user",
@@ -578,23 +589,23 @@ def main(
     async def call_tool(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
-        
+
         try:
             if name == "clickup_get_teams":
                 result = await get_teams()
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_get_workspaces":
                 result = await get_workspaces()
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_get_spaces":
                 team_id = arguments.get("team_id")
                 if not team_id:
                     return [types.TextContent(type="text", text="Error: team_id parameter is required")]
                 result = await get_spaces(team_id)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_create_space":
                 team_id = arguments.get("team_id")
                 name = arguments.get("name")
@@ -604,7 +615,7 @@ def main(
                 private = arguments.get("private", False)
                 result = await create_space(team_id, name, color, private)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_update_space":
                 space_id = arguments.get("space_id")
                 if not space_id:
@@ -614,14 +625,14 @@ def main(
                 private = arguments.get("private")
                 result = await update_space(space_id, name, color, private)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_get_folders":
                 space_id = arguments.get("space_id")
                 if not space_id:
                     return [types.TextContent(type="text", text="Error: space_id parameter is required")]
                 result = await get_folders(space_id)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_create_folder":
                 space_id = arguments.get("space_id")
                 name = arguments.get("name")
@@ -629,7 +640,7 @@ def main(
                     return [types.TextContent(type="text", text="Error: space_id and name parameters are required")]
                 result = await create_folder(space_id, name)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_update_folder":
                 folder_id = arguments.get("folder_id")
                 name = arguments.get("name")
@@ -637,7 +648,7 @@ def main(
                     return [types.TextContent(type="text", text="Error: folder_id and name parameters are required")]
                 result = await update_folder(folder_id, name)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_get_lists":
                 folder_id = arguments.get("folder_id")
                 space_id = arguments.get("space_id")
@@ -645,7 +656,7 @@ def main(
                     return [types.TextContent(type="text", text="Error: either folder_id or space_id parameter is required")]
                 result = await get_lists(folder_id, space_id)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_create_list":
                 folder_id = arguments.get("folder_id")
                 space_id = arguments.get("space_id")
@@ -661,7 +672,7 @@ def main(
                 status = arguments.get("status")
                 result = await create_list(folder_id, space_id, name, content, due_date, priority, assignee, status)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_update_list":
                 list_id = arguments.get("list_id")
                 if not list_id:
@@ -674,7 +685,7 @@ def main(
                 unset_status = arguments.get("unset_status", False)
                 result = await update_list(list_id, name, content, due_date, priority, assignee, unset_status)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_get_tasks":
                 list_id = arguments.get("list_id")
                 if not list_id:
@@ -685,7 +696,7 @@ def main(
                 subtasks = arguments.get("subtasks", False)
                 result = await get_tasks(list_id, archived, include_closed, page, subtasks=subtasks)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_get_task_by_id":
                 task_id = arguments.get("task_id")
                 if not task_id:
@@ -693,7 +704,7 @@ def main(
                 include_subtasks = arguments.get("include_subtasks", False)
                 result = await get_task_by_id(task_id, include_subtasks=include_subtasks)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_create_task":
                 list_id = arguments.get("list_id")
                 name = arguments.get("name")
@@ -706,7 +717,7 @@ def main(
                 due_date = arguments.get("due_date")
                 result = await create_task(list_id, name, description, assignees, None, status, priority, due_date)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_update_task":
                 task_id = arguments.get("task_id")
                 if not task_id:
@@ -718,7 +729,7 @@ def main(
                 due_date = arguments.get("due_date")
                 result = await update_task(task_id, name, description, status, priority, due_date)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_search_tasks":
                 team_id = arguments.get("team_id")
                 query = arguments.get("query")
@@ -728,14 +739,14 @@ def main(
                 limit = arguments.get("limit", 20)
                 result = await search_tasks(team_id, query, start, limit)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_get_comments":
                 task_id = arguments.get("task_id")
                 if not task_id:
                     return [types.TextContent(type="text", text="Error: task_id parameter is required")]
                 result = await get_comments(task_id)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_create_comment":
                 task_id = arguments.get("task_id")
                 comment_text = arguments.get("comment_text")
@@ -744,7 +755,7 @@ def main(
                 notify_all = arguments.get("notify_all", True)
                 result = await create_comment(task_id, comment_text, notify_all=notify_all)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_update_comment":
                 comment_id = arguments.get("comment_id")
                 comment_text = arguments.get("comment_text")
@@ -752,21 +763,21 @@ def main(
                     return [types.TextContent(type="text", text="Error: comment_id and comment_text parameters are required")]
                 result = await update_comment(comment_id, comment_text)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_get_user":
                 result = await get_user()
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             elif name == "clickup_get_team_members":
                 team_id = arguments.get("team_id")
                 if not team_id:
                     return [types.TextContent(type="text", text="Error: team_id parameter is required")]
                 result = await get_team_members(team_id)
                 return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
             else:
                 return [types.TextContent(type="text", text=f"Unknown tool: {name}")]
-                
+
         except Exception as e:
             logger.exception(f"Error executing tool {name}: {e}")
             return [types.TextContent(type="text", text=f"Error: {str(e)}")]
@@ -776,10 +787,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract access token from headers
         access_token = extract_access_token(request)
-        
+
         # Set the access token in context for this request
         token = auth_token_context.set(access_token)
         try:
@@ -791,7 +802,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -806,10 +817,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract access token from headers
         access_token = extract_access_token(scope)
-        
+
         # Set the access token in context for this request
         token = auth_token_context.set(access_token)
         try:
@@ -834,7 +845,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -852,4 +863,4 @@ def main(
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

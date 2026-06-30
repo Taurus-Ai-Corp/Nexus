@@ -3,17 +3,16 @@ Comprehensive Integration Test for Phase 1 Components
 Tests cash flow analysis, reminder engine, and data integration together.
 """
 
-import sys
 import os
+import sys
 from datetime import datetime, timedelta
-from typing import Dict, List
 
 # Add the core directory to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'core'))
 
 from analysis.cash_flow_analyzer import CashFlowAnalyzer
-from reminders.reminder_engine import ReminderEngine
 from integration.data_layer import DataIntegrationLayer
+from reminders.reminder_engine import ReminderEngine
 
 
 def test_end_to_end_workflow():
@@ -21,14 +20,14 @@ def test_end_to_end_workflow():
     print("=" * 60)
     print("TESTING: End-to-End Workflow")
     print("=" * 60)
-    
+
     # Step 1: Initialize components
     print("\n1. Initializing components...")
     data_layer = DataIntegrationLayer(data_dir="./test_data")
     analyzer = CashFlowAnalyzer()
     reminder_engine = ReminderEngine()
     print("   ✅ Components initialized")
-    
+
     # Step 2: Generate sample data
     print("\n2. Generating sample data...")
     sample_data = data_layer.generate_sample_data(num_borrowers=20)
@@ -36,30 +35,30 @@ def test_end_to_end_workflow():
     loans_df = sample_data['loans']
     transactions_df = sample_data['transactions']
     print(f"   ✅ Generated {len(borrowers_df)} borrowers, {len(loans_df)} loans, {len(transactions_df)} transactions")
-    
+
     # Step 3: Export and reload data
     print("\n3. Testing data export/import...")
     borrowers_path = data_layer.export_borrower_data(borrowers_df)
     loans_path = data_layer.export_loan_portfolio(loans_df)
     transactions_path = data_layer.export_transaction_data(transactions_df)
-    
+
     # Reload and validate
     loaded_borrowers = data_layer.load_borrower_data(borrowers_path)
     loaded_loans = data_layer.load_loan_portfolio(loans_path)
     loaded_transactions = data_layer.load_transaction_data(transactions_path)
-    
+
     assert len(loaded_borrowers) == len(borrowers_df), "Borrower count mismatch"
     assert len(loaded_loans) == len(loans_df), "Loan count mismatch"
     assert len(loaded_transactions) == len(transactions_df), "Transaction count mismatch"
     print("   ✅ Data export/import validated")
-    
+
     # Step 4: Test portfolio summary
     print("\n4. Testing portfolio summary...")
     summary = data_layer.get_portfolio_summary()
     assert 'total_loans' in summary, "Missing total_loans in summary"
     assert 'collection_efficiency' in summary, "Missing collection_efficiency in summary"
     print(f"   ✅ Portfolio summary: {summary['total_loans']} loans, {summary['collection_efficiency']}% efficiency")
-    
+
     # Step 5: Test borrower segmentation
     print("\n5. Testing borrower segmentation...")
     test_cases = [
@@ -69,25 +68,25 @@ def test_end_to_end_workflow():
         {"business_type": "Restaurant", "primary_income_source": "Food Service", "expected": "hotelier"},
         {"business_type": "Vegetable Vendor", "primary_income_source": "Daily Sales", "expected": "grocer"},
     ]
-    
+
     for case in test_cases:
         result = analyzer.segment_borrower(case)
         assert result == case['expected'], f"Segmentation failed for {case['business_type']}: got {result}, expected {case['expected']}"
     print(f"   ✅ All {len(test_cases)} segmentation tests passed")
-    
+
     # Step 6: Test cash flow analysis
     print("\n6. Testing cash flow analysis...")
     # Create a test borrower with known patterns
     test_borrower_id = "TEST_BORR_001"
     analyzer.borrower_data = transactions_df.copy()
-    
+
     # Add a test borrower with specific patterns
     test_transactions = []
     base_date = datetime.now() - timedelta(days=30)
     for i in range(30):
         current_date = base_date + timedelta(days=i)
         day_of_week = current_date.weekday()
-        
+
         # Income every day
         test_transactions.append({
             'transaction_id': f"TEST_TXN_{i*2}",
@@ -97,7 +96,7 @@ def test_end_to_end_workflow():
             'type': 'income',
             'status': 'completed'
         })
-        
+
         # Expenses on specific days (Monday and Thursday)
         if day_of_week in [0, 3]:  # Monday=0, Thursday=3
             test_transactions.append({
@@ -108,17 +107,17 @@ def test_end_to_end_workflow():
                 'type': 'expense',
                 'status': 'completed'
             })
-    
+
     import pandas as pd
     test_df = pd.DataFrame(test_transactions)
     analyzer.borrower_data = pd.concat([transactions_df, test_df], ignore_index=True)
-    
+
     analysis = analyzer.analyze_cash_flow_patterns(test_borrower_id)
     assert 'income_frequency_per_day' in analysis, "Missing income_frequency_per_day"
     assert 'peak_income_days' in analysis, "Missing peak_income_days"
     assert 'suggested_repayment_days' in analysis, "Missing suggested_repayment_days"
     print(f"   ✅ Cash flow analysis: {analysis['income_frequency_per_day']} txns/day, peaks on {analysis['peak_income_days']}")
-    
+
     # Step 7: Test repayment suggestion
     print("\n7. Testing repayment suggestion...")
     suggestion = analyzer.generate_repayment_suggestion(
@@ -130,11 +129,11 @@ def test_end_to_end_workflow():
     assert 'suggested_repayment_dates' in suggestion, "Missing suggested_repayment_dates"
     assert len(suggestion['suggested_repayment_dates']) > 0, "No repayment dates suggested"
     print(f"   ✅ Repayment suggestion: EMI ₹{suggestion['suggested_emi']:,.2f}, {len(suggestion['suggested_repayment_dates'])} dates")
-    
+
     # Step 8: Test reminder generation
     print("\n8. Testing reminder generation...")
     due_date = datetime.now() + timedelta(days=2)
-    
+
     # Test English reminder
     en_reminder = reminder_engine.generate_reminder(
         borrower_name="Rajesh Kumar",
@@ -151,7 +150,7 @@ def test_end_to_end_workflow():
     assert 'Rajesh' in en_reminder['message'], "Borrower name not in message"
     assert '5,000' in en_reminder['message'], "Loan amount not in message"
     print(f"   ✅ English reminder: {en_reminder['channel']}, scheduled {en_reminder['scheduled_time']}")
-    
+
     # Test Hindi reminder
     hi_reminder = reminder_engine.generate_reminder(
         borrower_name="सuresh Patel",
@@ -163,8 +162,8 @@ def test_end_to_end_workflow():
     )
     assert 'message' in hi_reminder, "Missing message in Hindi reminder"
     assert 'प्रिय' in hi_reminder['message'], "Hindi greeting not in message"
-    print(f"   ✅ Hindi reminder generated successfully")
-    
+    print("   ✅ Hindi reminder generated successfully")
+
     # Test batch reminder generation
     print("\n9. Testing batch reminder generation...")
     batch_borrowers = [
@@ -195,25 +194,25 @@ def test_end_to_end_workflow():
             'cash_flow_insights': analysis
         }
     ]
-    
+
     batch_reminders = reminder_engine.generate_reminder_batch(batch_borrowers)
     assert len(batch_reminders) == len(batch_borrowers), "Batch reminder count mismatch"
     for reminder in batch_reminders:
         assert 'message' in reminder, "Missing message in batch reminder"
         assert 'channel' in reminder, "Missing channel in batch reminder"
     print(f"   ✅ Batch reminders: {len(batch_reminders)} generated successfully")
-    
+
     # Step 10: Test channel selection logic
     print("\n10. Testing channel selection logic...")
     small_loan = reminder_engine._determine_channel(3000, 'trader')
     medium_loan = reminder_engine._determine_channel(15000, 'grocer')
     large_loan = reminder_engine._determine_channel(30000, 'hotelier')
-    
+
     assert small_loan == 'sms', f"Small loan should use SMS, got {small_loan}"
     assert medium_loan == 'whatsapp', f"Medium loan should use WhatsApp, got {medium_loan}"
     assert large_loan == 'whatsapp+sms', f"Large loan should use both, got {large_loan}"
     print("   ✅ Channel selection: SMS (<₹5k), WhatsApp (₹5k-25k), Both (>₹25k)")
-    
+
     # Step 11: Test timing optimization
     print("\n11. Testing timing optimization...")
     upcoming_time = reminder_engine._calculate_optimal_time(
@@ -231,15 +230,15 @@ def test_end_to_end_workflow():
         'overdue',
         analysis
     )
-    
+
     assert upcoming_time < datetime.now() + timedelta(days=5), "Upcoming reminder should be sent before due date"
     assert reminder_time < datetime.now() + timedelta(days=3), "Reminder should be sent before due date"
     print("   ✅ Timing optimization: Upcoming (2 days before), Reminder (1 day before), Overdue (immediate)")
-    
+
     print("\n" + "=" * 60)
     print("ALL TESTS PASSED ✅")
     print("=" * 60)
-    
+
     return {
         'borrowers': len(borrowers_df),
         'loans': len(loans_df),
@@ -254,11 +253,11 @@ def test_edge_cases():
     print("\n" + "=" * 60)
     print("TESTING: Edge Cases & Error Handling")
     print("=" * 60)
-    
+
     analyzer = CashFlowAnalyzer()
     reminder_engine = ReminderEngine()
     data_layer = DataIntegrationLayer(data_dir="./test_data_edge")
-    
+
     # Test 1: Empty data handling
     print("\n1. Testing empty data handling...")
     try:
@@ -267,7 +266,7 @@ def test_edge_cases():
         print("   ❌ Should have raised ValueError")
     except ValueError as e:
         print(f"   ✅ Empty data handled correctly: {str(e)[:50]}...")
-    
+
     # Test 2: Invalid segment handling
     print("\n2. Testing invalid segment handling...")
     reminder = reminder_engine.generate_reminder(
@@ -278,7 +277,7 @@ def test_edge_cases():
     )
     assert 'message' in reminder, "Should still generate reminder for unknown segment"
     print("   ✅ Invalid segment handled gracefully")
-    
+
     # Test 3: Zero loan amount
     print("\n3. Testing zero loan amount...")
     reminder = reminder_engine.generate_reminder(
@@ -289,7 +288,7 @@ def test_edge_cases():
     )
     assert 'message' in reminder, "Should handle zero loan amount"
     print("   ✅ Zero loan amount handled")
-    
+
     # Test 4: Past due date
     print("\n4. Testing past due date...")
     reminder = reminder_engine.generate_reminder(
@@ -301,7 +300,7 @@ def test_edge_cases():
     )
     assert 'message' in reminder, "Should handle overdue reminder"
     print("   ✅ Past due date handled")
-    
+
     # Test 5: Schema validation
     print("\n5. Testing schema validation...")
     try:
@@ -311,7 +310,7 @@ def test_edge_cases():
         print("   ❌ Should have raised ValueError")
     except ValueError as e:
         print(f"   ✅ Schema validation caught error: {str(e)[:50]}...")
-    
+
     print("\n" + "=" * 60)
     print("EDGE CASE TESTS PASSED ✅")
     print("=" * 60)
@@ -322,9 +321,9 @@ def test_performance():
     print("\n" + "=" * 60)
     print("TESTING: Performance with Large Datasets")
     print("=" * 60)
-    
+
     import time
-    
+
     # Test 1: Large data generation
     print("\n1. Testing large data generation (1000 borrowers)...")
     data_layer = DataIntegrationLayer(data_dir="./test_data_perf")
@@ -332,7 +331,7 @@ def test_performance():
     sample_data = data_layer.generate_sample_data(num_borrowers=1000)
     gen_time = time.time() - start_time
     print(f"   ✅ Generated 1000 borrowers in {gen_time:.2f}s")
-    
+
     # Test 2: Large batch reminder generation
     print("\n2. Testing large batch reminder generation (100 reminders)...")
     reminder_engine = ReminderEngine()
@@ -346,12 +345,12 @@ def test_performance():
             'reminder_type': 'upcoming',
             'language': ['en', 'hi'][i % 2]
         })
-    
+
     start_time = time.time()
     batch_reminders = reminder_engine.generate_reminder_batch(batch_borrowers)
     batch_time = time.time() - start_time
     print(f"   ✅ Generated 100 reminders in {batch_time:.2f}s ({100/batch_time:.0f} reminders/sec)")
-    
+
     # Test 3: Portfolio summary calculation
     print("\n3. Testing portfolio summary calculation...")
     data_layer.export_loan_portfolio(sample_data['loans'], "./test_data_perf/large_loans.csv")
@@ -359,11 +358,11 @@ def test_performance():
     summary = data_layer.get_portfolio_summary()
     summary_time = time.time() - start_time
     print(f"   ✅ Calculated portfolio summary in {summary_time:.2f}s")
-    
+
     print("\n" + "=" * 60)
     print("PERFORMANCE TESTS PASSED ✅")
     print("=" * 60)
-    
+
     return {
         'data_generation_time': gen_time,
         'batch_reminder_time': batch_time,
@@ -374,39 +373,39 @@ def test_performance():
 if __name__ == "__main__":
     print("🧪 NeoVibe Micro-Loan AI Agent - Phase 1 Integration Tests")
     print("=" * 60)
-    
+
     # Run main workflow tests
     workflow_results = test_end_to_end_workflow()
-    
+
     # Run edge case tests
     test_edge_cases()
-    
+
     # Run performance tests
     perf_results = test_performance()
-    
+
     # Print final summary
     print("\n" + "=" * 60)
     print("TEST SUMMARY")
     print("=" * 60)
-    print(f"Workflow Tests: ✅ PASSED")
+    print("Workflow Tests: ✅ PASSED")
     print(f"  - Borrowers processed: {workflow_results['borrowers']}")
     print(f"  - Loans processed: {workflow_results['loans']}")
     print(f"  - Transactions processed: {workflow_results['transactions']}")
     print(f"  - Reminders generated: {workflow_results['reminders_generated']}")
     print(f"  - Collection efficiency: {workflow_results['collection_efficiency']}%")
-    
-    print(f"\nEdge Case Tests: ✅ PASSED")
-    print(f"  - Empty data handling: ✅")
-    print(f"  - Invalid segment handling: ✅")
-    print(f"  - Zero loan amount: ✅")
-    print(f"  - Past due date: ✅")
-    print(f"  - Schema validation: ✅")
-    
-    print(f"\nPerformance Tests: ✅ PASSED")
+
+    print("\nEdge Case Tests: ✅ PASSED")
+    print("  - Empty data handling: ✅")
+    print("  - Invalid segment handling: ✅")
+    print("  - Zero loan amount: ✅")
+    print("  - Past due date: ✅")
+    print("  - Schema validation: ✅")
+
+    print("\nPerformance Tests: ✅ PASSED")
     print(f"  - Data generation (1000 borrowers): {perf_results['data_generation_time']:.2f}s")
     print(f"  - Batch reminders (100): {perf_results['batch_reminder_time']:.2f}s")
     print(f"  - Portfolio summary: {perf_results['summary_calculation_time']:.2f}s")
-    
+
     print("\n" + "=" * 60)
     print("ALL PHASE 1 TESTS PASSED ✅")
     print("=" * 60)

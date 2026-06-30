@@ -1,11 +1,12 @@
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
+
 from .base import make_linkedin_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
-async def get_profile_info(person_id: Optional[str] = None) -> Dict[str, Any]:
+async def get_profile_info(person_id: str | None = None) -> dict[str, Any]:
     """Get LinkedIn profile information. If person_id is None, gets current user's profile."""
     logger.info(f"Executing tool: get_profile_info with person_id: {person_id}")
     try:
@@ -15,10 +16,10 @@ async def get_profile_info(person_id: Optional[str] = None) -> Dict[str, Any]:
         else:
             # Use the working userinfo endpoint for current user
             endpoint = "/userinfo"
-        
+
         # Get basic profile info
         profile_data = await make_linkedin_request("GET", endpoint)
-        
+
         profile_info = {
             "id": profile_data.get("sub"),
             "firstName": profile_data.get("given_name"),
@@ -28,7 +29,7 @@ async def get_profile_info(person_id: Optional[str] = None) -> Dict[str, Any]:
             "email_verified": profile_data.get("email_verified"),
             "locale": profile_data.get("locale")
         }
-        
+
         return profile_info
     except Exception as e:
         logger.exception(f"Error executing tool get_profile_info: {e}")

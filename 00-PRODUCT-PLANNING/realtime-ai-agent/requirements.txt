@@ -1,0 +1,6 @@
+google-genai==2.8.0
+opencv-python==4.10.0.84
+pillow==10.4.0
+python-dotenv==1.0.1
+pyaudio==0.2.14
+numpy==2.0.1

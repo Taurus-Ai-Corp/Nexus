@@ -10,19 +10,17 @@ import json
 import logging
 import os
 import subprocess
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass, asdict
-from datetime import datetime
 import sys
+from dataclasses import asdict, dataclass
+from datetime import datetime
 from pathlib import Path
-import tempfile
-import shutil
+from typing import Any
 
 # Add registry to path
 registry_path = Path(__file__).parent.parent
 sys.path.insert(0, str(registry_path))
 
-from registry.agent_registry import BaseAgent, AgentMetadata
+from registry.agent_registry import AgentMetadata, BaseAgent
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -32,11 +30,11 @@ class OnlookDesignRequest:
     """Data structure for Onlook visual design requests"""
     design_type: str  # landing_page, ui_component, marketing_asset, prototype
     prompt: str  # AI design prompt
-    brand_guidelines: Dict[str, Any]  # Brand colors, fonts, style
+    brand_guidelines: dict[str, Any]  # Brand colors, fonts, style
     target_audience: str  # Target audience for design
-    conversion_goals: List[str]  # Specific conversion objectives
-    content_sections: List[Dict[str, Any]]  # Structured content for the design
-    technical_requirements: Dict[str, Any]  # Next.js, TailwindCSS specific requirements
+    conversion_goals: list[str]  # Specific conversion objectives
+    content_sections: list[dict[str, Any]]  # Structured content for the design
+    technical_requirements: dict[str, Any]  # Next.js, TailwindCSS specific requirements
     output_format: str  # nextjs_project, component_code, deployed_url
 
 @dataclass
@@ -44,56 +42,56 @@ class OnlookDesignResult:
     """Data structure for Onlook design results"""
     design_type: str
     success: bool
-    generated_code: Optional[str]
-    component_files: Dict[str, str]  # filename: code content
-    preview_url: Optional[str]
-    design_insights: List[str]
-    optimization_suggestions: List[str]
-    conversion_features: List[str]
-    technical_details: Dict[str, Any]
+    generated_code: str | None
+    component_files: dict[str, str]  # filename: code content
+    preview_url: str | None
+    design_insights: list[str]
+    optimization_suggestions: list[str]
+    conversion_features: list[str]
+    technical_details: dict[str, Any]
     creation_timestamp: datetime
-    error_message: Optional[str] = None
+    error_message: str | None = None
 
 class OnlookVisualAgent(BaseAgent):
     """
     AI-powered visual development agent using Onlook's visual-first approach
     Specialized for creating high-converting landing pages and marketing interfaces
     """
-    
+
     def __init__(self):
         self.initialized = False
         self.work_directory = None
         self.project_templates = {}
         self.generated_projects = []
         self.onlook_available = False
-        
-    async def initialize(self, config: Dict[str, Any]) -> bool:
+
+    async def initialize(self, config: dict[str, Any]) -> bool:
         """Initialize Onlook Visual Development Agent"""
-        
+
         try:
             logger.info("🎨 Initializing Onlook Visual Development Agent")
-            
+
             # Set up work directory
             self.work_directory = config.get("work_directory", "/tmp/onlook_projects")
             os.makedirs(self.work_directory, exist_ok=True)
-            
+
             # Check for required tools
             await self._check_dependencies(config)
-            
+
             # Initialize project templates
             await self._initialize_templates(config)
-            
+
             self.initialized = True
             logger.info("✅ Onlook Visual Development Agent initialized successfully")
             return True
-            
+
         except Exception as e:
             logger.error(f"❌ Failed to initialize Onlook Visual Agent: {e}")
             return False
-    
-    async def _check_dependencies(self, config: Dict[str, Any]):
+
+    async def _check_dependencies(self, config: dict[str, Any]):
         """Check for required dependencies"""
-        
+
         # Check for Node.js and npm
         try:
             result = subprocess.run(["node", "--version"], capture_output=True, text=True)
@@ -103,7 +101,7 @@ class OnlookVisualAgent(BaseAgent):
                 logger.warning("⚠️ Node.js not found - required for Next.js projects")
         except FileNotFoundError:
             logger.warning("⚠️ Node.js not installed")
-        
+
         # Check for npm/yarn
         try:
             result = subprocess.run(["npm", "--version"], capture_output=True, text=True)
@@ -111,16 +109,16 @@ class OnlookVisualAgent(BaseAgent):
                 logger.info(f"✅ npm available: {result.stdout.strip()}")
         except FileNotFoundError:
             logger.warning("⚠️ npm not installed")
-        
+
         # Note: Onlook itself would be a separate application, not a Python package
         # We simulate its capabilities through code generation and project setup
         self.onlook_available = True  # Assume available for demonstration
-        
+
         logger.info("🔧 Dependencies checked")
-    
-    async def _initialize_templates(self, config: Dict[str, Any]):
+
+    async def _initialize_templates(self, config: dict[str, Any]):
         """Initialize project templates for different use cases"""
-        
+
         self.project_templates = {
             "landing_page": {
                 "name": "High-Converting Landing Page",
@@ -131,7 +129,7 @@ class OnlookVisualAgent(BaseAgent):
             },
             "ui_component": {
                 "name": "Reusable UI Component",
-                "description": "Standalone component for marketing interfaces", 
+                "description": "Standalone component for marketing interfaces",
                 "components": ["component", "variants", "props"],
                 "tailwind_config": "component-library",
                 "next_features": ["typescript", "storybook"]
@@ -151,21 +149,21 @@ class OnlookVisualAgent(BaseAgent):
                 "next_features": ["hot-reload", "dev-tools"]
             }
         }
-        
+
         logger.info(f"📚 Initialized {len(self.project_templates)} project templates")
-    
-    async def execute(self, task_data: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def execute(self, task_data: dict[str, Any]) -> dict[str, Any]:
         """Execute Onlook visual development task"""
-        
+
         if not self.initialized:
             return {"error": "Agent not initialized", "success": False}
-        
+
         try:
             logger.info("🎨 Executing Onlook visual development task")
-            
+
             # Parse task data into OnlookDesignRequest
             design_request = self._parse_design_request(task_data)
-            
+
             # Route to appropriate design method
             if design_request.design_type == "landing_page":
                 result = await self._create_landing_page(design_request)
@@ -191,13 +189,13 @@ class OnlookVisualAgent(BaseAgent):
                     creation_timestamp=datetime.now(),
                     error_message=f"Unsupported design type: {design_request.design_type}"
                 )
-            
+
             # Store generated project
             if result.success:
                 self.generated_projects.append(result)
-            
+
             return asdict(result)
-            
+
         except Exception as e:
             logger.error(f"❌ Onlook visual development failed: {e}")
             return {
@@ -206,10 +204,10 @@ class OnlookVisualAgent(BaseAgent):
                 "error": str(e),
                 "creation_timestamp": datetime.now().isoformat()
             }
-    
-    def _parse_design_request(self, task_data: Dict[str, Any]) -> OnlookDesignRequest:
+
+    def _parse_design_request(self, task_data: dict[str, Any]) -> OnlookDesignRequest:
         """Parse task data into OnlookDesignRequest"""
-        
+
         return OnlookDesignRequest(
             design_type=task_data.get("design_type", "landing_page"),
             prompt=task_data.get("prompt", ""),
@@ -220,28 +218,28 @@ class OnlookVisualAgent(BaseAgent):
             technical_requirements=task_data.get("technical_requirements", {}),
             output_format=task_data.get("output_format", "nextjs_project")
         )
-    
+
     async def _create_landing_page(self, request: OnlookDesignRequest) -> OnlookDesignResult:
         """Create a high-converting landing page using Onlook-inspired approach"""
-        
+
         try:
             logger.info(f"🚀 Creating landing page: {request.prompt[:50]}...")
-            
+
             # Generate landing page structure
             page_structure = self._design_landing_page_structure(request)
-            
+
             # Generate Next.js code with TailwindCSS
             generated_code = self._generate_nextjs_landing_page(request, page_structure)
-            
+
             # Create component files
             component_files = self._create_landing_page_components(request, page_structure)
-            
+
             # Generate optimization insights
             insights = self._analyze_landing_page_design(request, page_structure)
-            
+
             # Create project directory
             project_path = await self._create_project_directory(request, "landing_page")
-            
+
             return OnlookDesignResult(
                 design_type="landing_page",
                 success=True,
@@ -253,13 +251,13 @@ class OnlookVisualAgent(BaseAgent):
                 conversion_features=insights["conversion_features"],
                 technical_details={
                     "framework": "Next.js 14",
-                    "styling": "TailwindCSS", 
+                    "styling": "TailwindCSS",
                     "features": ["SSR", "SEO-optimized", "Mobile-first"],
                     "project_path": str(project_path)
                 },
                 creation_timestamp=datetime.now()
             )
-            
+
         except Exception as e:
             logger.error(f"❌ Failed to create landing page: {e}")
             return OnlookDesignResult(
@@ -275,26 +273,26 @@ class OnlookVisualAgent(BaseAgent):
                 creation_timestamp=datetime.now(),
                 error_message=str(e)
             )
-    
+
     async def _create_ui_component(self, request: OnlookDesignRequest) -> OnlookDesignResult:
         """Create reusable UI component"""
-        
+
         try:
             logger.info(f"🧩 Creating UI component: {request.prompt[:50]}...")
-            
+
             # Generate component structure
             component_design = self._design_ui_component(request)
-            
+
             # Generate React/Next.js component code
             component_code = self._generate_react_component(request, component_design)
-            
+
             # Create supporting files
             component_files = {
                 "component.tsx": component_code,
                 "component.stories.tsx": self._generate_storybook_story(request, component_design),
                 "types.ts": self._generate_component_types(component_design)
             }
-            
+
             return OnlookDesignResult(
                 design_type="ui_component",
                 success=True,
@@ -311,7 +309,7 @@ class OnlookVisualAgent(BaseAgent):
                 },
                 creation_timestamp=datetime.now()
             )
-            
+
         except Exception as e:
             logger.error(f"❌ Failed to create UI component: {e}")
             return OnlookDesignResult(
@@ -327,19 +325,19 @@ class OnlookVisualAgent(BaseAgent):
                 creation_timestamp=datetime.now(),
                 error_message=str(e)
             )
-    
+
     async def _create_marketing_asset(self, request: OnlookDesignRequest) -> OnlookDesignResult:
         """Create marketing visual asset"""
-        
+
         try:
             logger.info(f"📱 Creating marketing asset: {request.prompt[:50]}...")
-            
+
             # Design marketing asset
             asset_design = self._design_marketing_asset(request)
-            
+
             # Generate interactive marketing interface
             asset_code = self._generate_marketing_interface(request, asset_design)
-            
+
             return OnlookDesignResult(
                 design_type="marketing_asset",
                 success=True,
@@ -356,7 +354,7 @@ class OnlookVisualAgent(BaseAgent):
                 },
                 creation_timestamp=datetime.now()
             )
-            
+
         except Exception as e:
             logger.error(f"❌ Failed to create marketing asset: {e}")
             return OnlookDesignResult(
@@ -372,19 +370,19 @@ class OnlookVisualAgent(BaseAgent):
                 creation_timestamp=datetime.now(),
                 error_message=str(e)
             )
-    
+
     async def _create_prototype(self, request: OnlookDesignRequest) -> OnlookDesignResult:
         """Create interactive prototype"""
-        
+
         try:
             logger.info(f"🎯 Creating prototype: {request.prompt[:50]}...")
-            
+
             # Design prototype structure
             prototype_design = self._design_prototype(request)
-            
+
             # Generate prototype code
             prototype_code = self._generate_prototype_code(request, prototype_design)
-            
+
             return OnlookDesignResult(
                 design_type="prototype",
                 success=True,
@@ -401,7 +399,7 @@ class OnlookVisualAgent(BaseAgent):
                 },
                 creation_timestamp=datetime.now()
             )
-            
+
         except Exception as e:
             logger.error(f"❌ Failed to create prototype: {e}")
             return OnlookDesignResult(
@@ -417,19 +415,19 @@ class OnlookVisualAgent(BaseAgent):
                 creation_timestamp=datetime.now(),
                 error_message=str(e)
             )
-    
+
     async def _generate_ai_design(self, request: OnlookDesignRequest) -> OnlookDesignResult:
         """Generate design using AI-powered approach similar to Onlook"""
-        
+
         try:
             logger.info(f"🤖 Generating AI-powered design: {request.prompt[:50]}...")
-            
+
             # Simulate AI design generation (in real implementation, this would use AI models)
             ai_design = self._simulate_ai_design_generation(request)
-            
+
             # Generate code from AI design
             generated_code = self._generate_code_from_ai_design(request, ai_design)
-            
+
             return OnlookDesignResult(
                 design_type="ai_design_generation",
                 success=True,
@@ -446,7 +444,7 @@ class OnlookVisualAgent(BaseAgent):
                 },
                 creation_timestamp=datetime.now()
             )
-            
+
         except Exception as e:
             logger.error(f"❌ Failed to generate AI design: {e}")
             return OnlookDesignResult(
@@ -462,10 +460,10 @@ class OnlookVisualAgent(BaseAgent):
                 creation_timestamp=datetime.now(),
                 error_message=str(e)
             )
-    
-    def _design_landing_page_structure(self, request: OnlookDesignRequest) -> Dict[str, Any]:
+
+    def _design_landing_page_structure(self, request: OnlookDesignRequest) -> dict[str, Any]:
         """Design landing page structure based on request"""
-        
+
         # Base structure optimized for conversion
         structure = {
             "sections": [
@@ -475,7 +473,7 @@ class OnlookVisualAgent(BaseAgent):
                     "elements": ["headline", "subheadline", "cta_primary", "hero_image"]
                 },
                 {
-                    "name": "value_proposition", 
+                    "name": "value_proposition",
                     "purpose": "explain_benefits",
                     "elements": ["benefits_list", "social_proof", "trust_indicators"]
                 },
@@ -502,24 +500,24 @@ class OnlookVisualAgent(BaseAgent):
                 "fast_loading_optimization"
             ]
         }
-        
+
         # Customize based on request
         if "B2B" in request.target_audience:
             structure["sections"].insert(2, {
                 "name": "enterprise_features",
-                "purpose": "address_business_needs", 
+                "purpose": "address_business_needs",
                 "elements": ["integration_logos", "security_badges", "roi_calculator"]
             })
-        
+
         return structure
-    
-    def _generate_nextjs_landing_page(self, request: OnlookDesignRequest, structure: Dict[str, Any]) -> str:
+
+    def _generate_nextjs_landing_page(self, request: OnlookDesignRequest, structure: dict[str, Any]) -> str:
         """Generate Next.js landing page code"""
-        
+
         # Brand colors from request
         brand_colors = request.brand_guidelines.get("brand_colors", ["#1E40AF", "#EF4444", "#10B981"])
         primary_color = brand_colors[0] if brand_colors else "#1E40AF"
-        
+
         # Generate landing page component
         landing_page_code = f"""
 import React from 'react';
@@ -556,12 +554,12 @@ export default function LandingPage({{ campaign = 'default', market = 'global' }
   );
 }}
 """
-        
+
         return landing_page_code
-    
+
     def _generate_hero_section(self, request: OnlookDesignRequest, primary_color: str) -> str:
         """Generate hero section JSX"""
-        
+
         return f"""
         {'{/* Hero Section */}'}
         <section className="relative overflow-hidden bg-white pt-16 pb-20 sm:pt-24 sm:pb-24">
@@ -598,16 +596,16 @@ export default function LandingPage({{ campaign = 'default', market = 'global' }
           </div>
         </section>
 """
-    
+
     def _generate_features_section(self, request: OnlookDesignRequest) -> str:
         """Generate features section JSX"""
-        
+
         features = [
             {"title": "AI-Powered", "description": "Leverage advanced AI for better results"},
             {"title": "Easy Integration", "description": "Seamlessly integrate with existing systems"},
             {"title": "Real-time Analytics", "description": "Track performance and optimize in real-time"}
         ]
-        
+
         return """
         {'{/* Features Section */}'}
         <section className="py-16 bg-gray-50 overflow-hidden lg:py-24">
@@ -639,10 +637,10 @@ export default function LandingPage({{ campaign = 'default', market = 'global' }
           </div>
         </section>
 """
-    
+
     def _generate_testimonials_section(self, request: OnlookDesignRequest) -> str:
         """Generate testimonials section JSX"""
-        
+
         return """
         {'{/* Testimonials Section */}'}
         <section className="py-16 bg-white overflow-hidden lg:py-24">
@@ -668,10 +666,10 @@ export default function LandingPage({{ campaign = 'default', market = 'global' }
           </div>
         </section>
 """
-    
+
     def _generate_cta_section(self, request: OnlookDesignRequest, primary_color: str) -> str:
         """Generate final CTA section JSX"""
-        
+
         return f"""
         {'{/* Final CTA Section */}'}
         <section className="py-16 sm:py-24" style={{{{ backgroundColor: '{primary_color}' }}}}>
@@ -695,22 +693,22 @@ export default function LandingPage({{ campaign = 'default', market = 'global' }
           </div>
         </section>
 """
-    
-    def _create_landing_page_components(self, request: OnlookDesignRequest, structure: Dict[str, Any]) -> Dict[str, str]:
+
+    def _create_landing_page_components(self, request: OnlookDesignRequest, structure: dict[str, Any]) -> dict[str, str]:
         """Create supporting component files"""
-        
+
         component_files = {
             "layout.tsx": self._generate_layout_component(request),
             "seo.tsx": self._generate_seo_component(request),
             "analytics.tsx": self._generate_analytics_component(request),
             "tailwind.config.js": self._generate_tailwind_config(request)
         }
-        
+
         return component_files
-    
+
     def _generate_layout_component(self, request: OnlookDesignRequest) -> str:
         """Generate layout component"""
-        
+
         return """
 import React from 'react';
 
@@ -734,10 +732,10 @@ export default function Layout({ children, campaign, market }: LayoutProps) {
   );
 }
 """
-    
+
     def _generate_seo_component(self, request: OnlookDesignRequest) -> str:
         """Generate SEO component"""
-        
+
         return f"""
 import Head from 'next/head';
 
@@ -766,10 +764,10 @@ export default function SEO({{
   );
 }}
 """
-    
+
     def _generate_analytics_component(self, request: OnlookDesignRequest) -> str:
         """Generate analytics component"""
-        
+
         return """
 import { useEffect } from 'react';
 
@@ -791,12 +789,12 @@ export default function Analytics({ campaign, market, event }: AnalyticsProps) {
   return null;
 }
 """
-    
+
     def _generate_tailwind_config(self, request: OnlookDesignRequest) -> str:
         """Generate Tailwind configuration"""
-        
+
         brand_colors = request.brand_guidelines.get("brand_colors", ["#1E40AF", "#EF4444", "#10B981"])
-        
+
         return f"""
 /** @type {{import('tailwindcss').Config}} */
 module.exports = {{
@@ -823,10 +821,10 @@ module.exports = {{
   ],
 }}
 """
-    
-    def _analyze_landing_page_design(self, request: OnlookDesignRequest, structure: Dict[str, Any]) -> Dict[str, List[str]]:
+
+    def _analyze_landing_page_design(self, request: OnlookDesignRequest, structure: dict[str, Any]) -> dict[str, list[str]]:
         """Analyze landing page design for optimization insights"""
-        
+
         return {
             "design_insights": [
                 "Mobile-first responsive design implemented",
@@ -836,7 +834,7 @@ module.exports = {{
             ],
             "optimization_suggestions": [
                 "Implement A/B testing for headline variations",
-                "Add loading animation for better UX", 
+                "Add loading animation for better UX",
                 "Include social proof elements",
                 "Optimize images for faster loading"
             ],
@@ -847,22 +845,22 @@ module.exports = {{
                 "Multiple conversion opportunities"
             ]
         }
-    
+
     async def _create_project_directory(self, request: OnlookDesignRequest, design_type: str) -> Path:
         """Create project directory structure"""
-        
+
         project_name = f"{design_type}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         project_path = Path(self.work_directory) / project_name
         project_path.mkdir(exist_ok=True)
-        
+
         # Create basic Next.js structure
         (project_path / "pages").mkdir(exist_ok=True)
         (project_path / "components").mkdir(exist_ok=True)
         (project_path / "styles").mkdir(exist_ok=True)
-        
+
         return project_path
-    
-    def _design_ui_component(self, request: OnlookDesignRequest) -> Dict[str, Any]:
+
+    def _design_ui_component(self, request: OnlookDesignRequest) -> dict[str, Any]:
         """Design UI component structure"""
         return {
             "type": "react_component",
@@ -870,34 +868,34 @@ module.exports = {{
             "styling": "tailwindcss",
             "accessibility": True
         }
-    
-    def _generate_react_component(self, request: OnlookDesignRequest, design: Dict[str, Any]) -> str:
+
+    def _generate_react_component(self, request: OnlookDesignRequest, design: dict[str, Any]) -> str:
         """Generate React component code"""
-        return f"""
+        return """
 import React from 'react';
 
-interface ComponentProps {{
+interface ComponentProps {
   variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   children: React.ReactNode;
-}}
+}
 
-export default function Component({{ 
+export default function Component({ 
   variant = 'primary',
   size = 'md', 
   disabled = false,
   children 
-}}: ComponentProps) {{
+}: ComponentProps) {
   return (
-    <div className={{`component-base component-${{variant}} component-${{size}} ${{disabled ? 'opacity-50' : ''}}`}}>
-      {{children}}
+    <div className={`component-base component-${variant} component-${size} ${disabled ? 'opacity-50' : ''}`}>
+      {children}
     </div>
   );
-}}
+}
 """
-    
-    def _generate_storybook_story(self, request: OnlookDesignRequest, design: Dict[str, Any]) -> str:
+
+    def _generate_storybook_story(self, request: OnlookDesignRequest, design: dict[str, Any]) -> str:
         """Generate Storybook story"""
         return """
 import type { Meta, StoryObj } from '@storybook/react';
@@ -922,8 +920,8 @@ export const Primary: Story = {
   },
 };
 """
-    
-    def _generate_component_types(self, design: Dict[str, Any]) -> str:
+
+    def _generate_component_types(self, design: dict[str, Any]) -> str:
         """Generate TypeScript types"""
         return """
 export interface ComponentProps {
@@ -936,8 +934,8 @@ export interface ComponentProps {
 export type ComponentVariant = ComponentProps['variant'];
 export type ComponentSize = ComponentProps['size'];
 """
-    
-    def _design_marketing_asset(self, request: OnlookDesignRequest) -> Dict[str, Any]:
+
+    def _design_marketing_asset(self, request: OnlookDesignRequest) -> dict[str, Any]:
         """Design marketing asset structure"""
         return {
             "type": "marketing_interface",
@@ -945,8 +943,8 @@ export type ComponentSize = ComponentProps['size'];
             "animations": True,
             "responsive": True
         }
-    
-    def _generate_marketing_interface(self, request: OnlookDesignRequest, design: Dict[str, Any]) -> str:
+
+    def _generate_marketing_interface(self, request: OnlookDesignRequest, design: dict[str, Any]) -> str:
         """Generate marketing interface code"""
         return f"""
 import React from 'react';
@@ -963,16 +961,16 @@ export default function MarketingAsset() {{
   );
 }}
 """
-    
-    def _design_prototype(self, request: OnlookDesignRequest) -> Dict[str, Any]:
+
+    def _design_prototype(self, request: OnlookDesignRequest) -> dict[str, Any]:
         """Design prototype structure"""
         return {
             "type": "interactive_prototype",
             "interactions": ["click", "hover", "scroll"],
             "states": ["default", "active", "loading"]
         }
-    
-    def _generate_prototype_code(self, request: OnlookDesignRequest, design: Dict[str, Any]) -> str:
+
+    def _generate_prototype_code(self, request: OnlookDesignRequest, design: dict[str, Any]) -> str:
         """Generate prototype code"""
         return f"""
 import React, {{ useState }} from 'react';
@@ -995,8 +993,8 @@ export default function Prototype() {{
   );
 }}
 """
-    
-    def _simulate_ai_design_generation(self, request: OnlookDesignRequest) -> Dict[str, Any]:
+
+    def _simulate_ai_design_generation(self, request: OnlookDesignRequest) -> dict[str, Any]:
         """Simulate AI design generation"""
         return {
             "ai_suggestions": [
@@ -1007,8 +1005,8 @@ export default function Prototype() {{
             "layout_optimization": "conversion-focused",
             "design_system": "modern_minimalist"
         }
-    
-    def _generate_code_from_ai_design(self, request: OnlookDesignRequest, ai_design: Dict[str, Any]) -> str:
+
+    def _generate_code_from_ai_design(self, request: OnlookDesignRequest, ai_design: dict[str, Any]) -> str:
         """Generate code from AI design"""
         return f"""
 import React from 'react';
@@ -1047,8 +1045,8 @@ export default function AIGeneratedDesign() {{
   );
 }}
 """
-    
-    def get_capabilities(self) -> List[str]:
+
+    def get_capabilities(self) -> list[str]:
         """Return list of capabilities this agent provides"""
         return [
             "landing_page_creation",
@@ -1067,7 +1065,7 @@ export default function AIGeneratedDesign() {{
             "accessibility_compliance",
             "performance_optimization"
         ]
-    
+
     def get_metadata(self) -> AgentMetadata:
         """Return agent metadata for registry"""
         return AgentMetadata(
@@ -1092,26 +1090,26 @@ export default function AIGeneratedDesign() {{
             author="onlook-dev / Taurus AI Corp Integration",
             status="active"
         )
-    
+
     async def health_check(self) -> bool:
         """Perform health check on the agent"""
         try:
             if not self.initialized:
                 return False
-            
+
             # Check if work directory exists
             if self.work_directory and os.path.exists(self.work_directory):
                 return True
-            
+
             return False
-            
+
         except Exception as e:
             logger.error(f"Health check failed: {e}")
             return False
-    
-    def get_project_stats(self) -> Dict[str, Any]:
+
+    def get_project_stats(self) -> dict[str, Any]:
         """Get project generation statistics"""
-        
+
         return {
             "total_projects": len(self.generated_projects),
             "project_types": list(set(project.design_type for project in self.generated_projects)),
@@ -1120,15 +1118,15 @@ export default function AIGeneratedDesign() {{
             "available_templates": list(self.project_templates.keys()),
             "last_generation": max(p.creation_timestamp for p in self.generated_projects) if self.generated_projects else None
         }
-    
-    async def create_campaign_landing_pages(self, campaign_data: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def create_campaign_landing_pages(self, campaign_data: dict[str, Any]) -> dict[str, Any]:
         """
         Create complete set of landing pages for a marketing campaign
         Specialized method for NEXUS campaign deployment
         """
-        
+
         logger.info("🚀 Creating Campaign Landing Pages")
-        
+
         campaign_pages = {
             "campaign_id": campaign_data.get("id", f"campaign_{datetime.now().strftime('%Y%m%d_%H%M%S')}"),
             "pages_created": [],
@@ -1136,7 +1134,7 @@ export default function AIGeneratedDesign() {{
             "creation_errors": [],
             "deployment_ready": False
         }
-        
+
         # Define landing page variations for different audiences/markets
         page_variations = [
             {
@@ -1158,7 +1156,7 @@ export default function AIGeneratedDesign() {{
                 "focus": "enterprise_features"
             }
         ]
-        
+
         # Create each landing page variation
         for variation in page_variations:
             try:
@@ -1185,9 +1183,9 @@ export default function AIGeneratedDesign() {{
                     },
                     "output_format": "nextjs_project"
                 }
-                
+
                 page_result = await self.execute(page_request)
-                
+
                 if page_result.get("success"):
                     campaign_pages["pages_created"].append({
                         "name": variation["name"],
@@ -1197,46 +1195,46 @@ export default function AIGeneratedDesign() {{
                     })
                 else:
                     campaign_pages["creation_errors"].append(f"{variation['name']}: {page_result.get('error', 'Unknown error')}")
-                
+
             except Exception as e:
                 campaign_pages["creation_errors"].append(f"{variation['name']}: {str(e)}")
-        
+
         campaign_pages["total_pages"] = len(campaign_pages["pages_created"])
         campaign_pages["deployment_ready"] = len(campaign_pages["creation_errors"]) == 0
-        
+
         logger.info(f"✅ Campaign Landing Pages: {campaign_pages['total_pages']} pages created")
-        
+
         return campaign_pages
 
 # Example usage and testing
 async def main():
     """Test Onlook Visual Development Agent"""
-    
+
     # Test configuration
     config = {
         "work_directory": "/tmp/onlook_test",
         "ai_provider": "anthropic"
     }
-    
+
     agent = OnlookVisualAgent()
-    
+
     # Test initialization
     success = await agent.initialize(config)
     print(f"🔧 Initialization: {'✅ Success' if success else '❌ Failed'}")
-    
+
     if success:
         # Test capabilities
         capabilities = agent.get_capabilities()
         print(f"🛠️ Capabilities: {', '.join(capabilities)}")
-        
+
         # Test project stats
         stats = agent.get_project_stats()
         print(f"📊 Project Stats: {stats}")
-        
+
         # Test health check
         health = await agent.health_check()
         print(f"🏥 Health Check: {'✅ Healthy' if health else '❌ Unhealthy'}")
-    
+
     # Display metadata
     metadata = agent.get_metadata()
     print(f"📋 Agent: {metadata.name} v{metadata.version}")

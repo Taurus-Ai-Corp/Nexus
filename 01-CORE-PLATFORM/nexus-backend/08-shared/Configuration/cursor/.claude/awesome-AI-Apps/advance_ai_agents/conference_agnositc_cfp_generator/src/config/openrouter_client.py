@@ -2,10 +2,10 @@
 Hybrid client for OpenRouter (Grok-4) and Together AI (embeddings)
 """
 import os
+
+from dotenv import load_dotenv
 from openai import OpenAI
 from together import Together
-from typing import List, Dict, Any
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -28,7 +28,7 @@ class OpenRouterClient:
 
         self.chat_model = os.getenv("GROK_MODEL", "x-ai/grok-4:online")
         self.embedding_model = os.getenv("EMBEDDING_MODEL", "BAAI/bge-large-en-v1.5")
-    def generate_embedding(self, text: str) -> List[float]:
+    def generate_embedding(self, text: str) -> list[float]:
         """Generate embedding using Together AI (BGE-Large)"""
         try:
             response = self.together_client.embeddings.create(
@@ -39,8 +39,8 @@ class OpenRouterClient:
         except Exception as e:
             print(f"Error generating embedding: {str(e)}")
             raise
-    
-    def chat_completion(self, messages: List[Dict], temperature: float = 0.7, max_tokens: int = 2048) -> str:
+
+    def chat_completion(self, messages: list[dict], temperature: float = 0.7, max_tokens: int = 2048) -> str:
         """Generate chat completion using Grok-4 online via OpenRouter"""
         try:
             response = self.openrouter_client.chat.completions.create(
@@ -54,8 +54,8 @@ class OpenRouterClient:
         except Exception as e:
             print(f"Error in chat completion: {str(e)}")
             raise
-    
-    def batch_embeddings(self, texts: List[str]) -> List[List[float]]:
+
+    def batch_embeddings(self, texts: list[str]) -> list[list[float]]:
         """Generate embeddings for multiple texts using Together AI"""
         try:
             response = self.together_client.embeddings.create(

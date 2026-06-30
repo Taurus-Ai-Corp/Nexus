@@ -1,6 +1,7 @@
-import os
-import logging
 import asyncio
+import logging
+import os
+
 from agents.mcp import MCPServerStdio
 
 logger = logging.getLogger(__name__)
@@ -9,10 +10,10 @@ _mcp_server = None
 async def initialize_mcp_server():
     """Initialize MCP server."""
     global _mcp_server
-    
+
     if _mcp_server:
         return _mcp_server
-    
+
     try:
         server = MCPServerStdio(
             cache_tools_list=False,
@@ -26,11 +27,11 @@ async def initialize_mcp_server():
                 }
             }
         )
-        
+
         await asyncio.wait_for(server.__aenter__(), timeout=10)
         _mcp_server = server
         return server
-            
+
     except Exception as e:
         logger.error(f"Error initializing MCP server: {e}")
         return None
@@ -41,4 +42,4 @@ async def wait_for_initialization():
 
 def get_mcp_server():
     """Get the current MCP server instance."""
-    return _mcp_server 
+    return _mcp_server

@@ -1,20 +1,12 @@
+import base64
 import os
-from openai import OpenAI
-import streamlit as st
-import os
-from dotenv import load_dotenv
-import tempfile
 import shutil
-import base64
-import io
-import re
-import mimetypes
-from openai import OpenAI
-import base64
-import os
 import tempfile
-from PIL import Image
+
 import fitz  # PyMuPDF for PDF to image
+import streamlit as st
+from dotenv import load_dotenv
+from openai import OpenAI
 
 load_dotenv()
 

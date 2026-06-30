@@ -1,0 +1,43 @@
+{
+  "source": "Perplexity + Browser snapshot of labs.google/flow",
+  "google_flow_url": "https://labs.google/fx/tools/flow",
+  "key_capabilities": [
+    "Video generation via Veo 2 / Veo 3.1 (up to ~8-10 sec clips)",
+    "Image generation via Nano Banana",
+    "Video-to-video editing via Gemini Omni",
+    "Character consistency with recurring cast and voices",
+    "Natural language custom tools",
+    "Type Overlays, Video Resizer, Image Editor, Storyboard Studio, Shader Effects, Mockup, Ribbit",
+    "Project agent for brainstorming and asset organization"
+  ],
+  "models": [
+    {
+      "name": "Gemini Omni",
+      "role": "Multimodal video/image creation and editing from any reference"
+    },
+    {
+      "name": "Veo 2 / Veo 3.1",
+      "role": "Video generation, 720p/1080p/4K, 16:9 and 9:16"
+    },
+    {
+      "name": "Nano Banana",
+      "role": "Image generation"
+    },
+    {
+      "name": "Gemini Omni Flash",
+      "role": "Agentic reasoning, character consistency, voice matching"
+    }
+  ],
+  "official_api": false,
+  "api_alternative": "Gemini API veo-3.1-generate-preview for direct Veo video generation; Vertex AI for enterprise",
+  "third_party_api": "useapi.net claims unofficial Google Flow REST API (experimental, not Google)",
+  "automation_options": [
+    "Browser automation via Playwright/Selenium on the web UI",
+    "Chrome extension automation tools (third-party)",
+    "Manual workflow + export + ingest into Nexus backend",
+    "Gemini API for Veo 3.1 direct programmatic video generation"
+  ],
+  "access_requirements": "Google AI Plus / Pro / Ultra subscription, 18+, supported region",
+  "browser_recommendation": "Chromium-based desktop browser",
+  "commercial_rights": "Unclear from public sources; must review Google Flow Terms of Service before using generated assets in paid ads"
+}

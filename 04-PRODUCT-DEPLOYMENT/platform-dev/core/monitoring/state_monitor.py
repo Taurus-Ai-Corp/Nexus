@@ -5,14 +5,14 @@ Tracks agent state transitions, logs decision paths, detects anomalies
 in agent behavior, and provides visualizable state machine representations.
 """
 
-import time
 import hashlib
 import json
-from enum import Enum
-from typing import Dict, Any, Optional, List, Tuple
-from dataclasses import dataclass, field, asdict
-from datetime import datetime
+import time
 from collections import defaultdict
+from dataclasses import asdict, dataclass, field
+from datetime import datetime
+from enum import Enum
+from typing import Any
 
 
 class AgentState(str, Enum):
@@ -28,7 +28,7 @@ class AgentState(str, Enum):
     ERROR = "error"
 
 
-VALID_TRANSITIONS: Dict[str, List[str]] = {
+VALID_TRANSITIONS: dict[str, list[str]] = {
     AgentState.IDLE: [AgentState.DATA_INGESTION, AgentState.ERROR],
     AgentState.DATA_INGESTION: [AgentState.CASH_FLOW_ANALYSIS, AgentState.ERROR],
     AgentState.CASH_FLOW_ANALYSIS: [AgentState.RISK_ASSESSMENT, AgentState.ERROR],
@@ -65,7 +65,7 @@ class StateTransition:
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
     duration_ms: float = 0.0
     agent_id: str = ""
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
     transition_hash: str = ""
 
     def __post_init__(self):
@@ -73,7 +73,7 @@ class StateTransition:
             raw = f"{self.from_state}:{self.to_state}:{self.timestamp}:{self.agent_id}"
             self.transition_hash = hashlib.sha256(raw.encode()).hexdigest()[:16]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -85,9 +85,9 @@ class AnomalyAlert:
     description: str
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
     resolved: bool = False
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -97,14 +97,14 @@ class StateMachineMonitor:
     def __init__(self, agent_id: str = "default", loop_threshold: int = 5):
         self.agent_id = agent_id
         self.loop_threshold = loop_threshold
-        self.transitions: List[StateTransition] = []
-        self.alerts: List[AnomalyAlert] = []
+        self.transitions: list[StateTransition] = []
+        self.alerts: list[AnomalyAlert] = []
         self.current_state: str = AgentState.IDLE
-        self.transition_start_time: Optional[float] = None
-        self.state_counts: Dict[str, int] = defaultdict(int)
-        self.recent_states: List[str] = []
+        self.transition_start_time: float | None = None
+        self.state_counts: dict[str, int] = defaultdict(int)
+        self.recent_states: list[str] = []
 
-    def start_transition(self, from_state: str, to_state: str, metadata: Optional[Dict] = None):
+    def start_transition(self, from_state: str, to_state: str, metadata: dict | None = None):
         if to_state not in VALID_TRANSITIONS.get(from_state, []):
             self._raise_anomaly(
                 "invalid_transition",
@@ -120,7 +120,7 @@ class StateMachineMonitor:
         self.recent_states.append(to_state)
         self._check_loop_anomaly()
 
-    def end_transition(self, metadata: Optional[Dict] = None):
+    def end_transition(self, metadata: dict | None = None):
         if self.transition_start_time is None:
             return
 
@@ -136,7 +136,7 @@ class StateMachineMonitor:
         self.transitions.append(transition)
         self.transition_start_time = None
 
-    def _raise_anomaly(self, alert_type: str, severity: str, description: str, metadata: Optional[Dict] = None):
+    def _raise_anomaly(self, alert_type: str, severity: str, description: str, metadata: dict | None = None):
         alert = AnomalyAlert(
             alert_id=hashlib.sha256(f"{alert_type}:{time.time()}".encode()).hexdigest()[:12],
             alert_type=alert_type,
@@ -158,7 +158,7 @@ class StateMachineMonitor:
                 metadata={"state": recent[0], "count": self.loop_threshold},
             )
 
-    def get_state_distribution(self) -> Dict[str, int]:
+    def get_state_distribution(self) -> dict[str, int]:
         return dict(self.state_counts)
 
     def get_error_rate(self) -> float:
@@ -168,7 +168,7 @@ class StateMachineMonitor:
         errors = sum(1 for t in self.transitions if t.to_state == AgentState.ERROR)
         return errors / total
 
-    def get_avg_duration(self, state: Optional[str] = None) -> float:
+    def get_avg_duration(self, state: str | None = None) -> float:
         transitions = self.transitions
         if state:
             transitions = [t for t in transitions if t.to_state == state]
@@ -176,13 +176,13 @@ class StateMachineMonitor:
             return 0.0
         return sum(t.duration_ms for t in transitions) / len(transitions)
 
-    def get_transition_graph(self) -> Dict[str, Dict[str, int]]:
-        graph: Dict[str, Dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    def get_transition_graph(self) -> dict[str, dict[str, int]]:
+        graph: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
         for t in self.transitions:
             graph[t.from_state][t.to_state] += 1
         return {k: dict(v) for k, v in graph.items()}
 
-    def get_active_alerts(self, severity: Optional[str] = None) -> List[AnomalyAlert]:
+    def get_active_alerts(self, severity: str | None = None) -> list[AnomalyAlert]:
         alerts = [a for a in self.alerts if not a.resolved]
         if severity:
             alerts = [a for a in alerts if a.severity == severity]
@@ -194,7 +194,7 @@ class StateMachineMonitor:
                 alert.resolved = True
                 break
 
-    def get_health_summary(self) -> Dict[str, Any]:
+    def get_health_summary(self) -> dict[str, Any]:
         total_transitions = len(self.transitions)
         error_rate = self.get_error_rate()
         active_alerts = len(self.get_active_alerts())
@@ -217,8 +217,7 @@ class StateMachineMonitor:
             "state_distribution": self.get_state_distribution(),
         }
 
-    def export_transitions(self, path: Optional[str] = None) -> str:
-        import json
+    def export_transitions(self, path: str | None = None) -> str:
         from pathlib import Path
         export_path = Path(path) if path else Path("monitoring/transitions.json")
         export_path.parent.mkdir(parents=True, exist_ok=True)

@@ -1,13 +1,13 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict, List
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -15,35 +15,27 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
     # Base
     auth_token_context,
-
-    # Both Items (Files & Folders)
-    onedrive_rename_item,
-    onedrive_move_item,
-    onedrive_delete_item,
-
-    # Files
-    onedrive_read_file_content,
     onedrive_create_file,
-
     # Folders
     onedrive_create_folder,
-
+    onedrive_delete_item,
+    onedrive_get_item_by_id,
+    onedrive_list_inside_folder,
     # Search & List
     onedrive_list_root_files_folders,
-    onedrive_list_inside_folder,
-    onedrive_search_item_by_name,
-    onedrive_search_folder_by_name,
-    onedrive_get_item_by_id,
-
     #Sharing
     onedrive_list_shared_items,
+    onedrive_move_item,
+    # Files
+    onedrive_read_file_content,
+    # Both Items (Files & Folders)
+    onedrive_rename_item,
+    onedrive_search_folder_by_name,
+    onedrive_search_item_by_name,
 )
-
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -55,7 +47,7 @@ ONEDRIVE_MCP_SERVER_PORT = int(os.getenv("ONEDRIVE_MCP_SERVER_PORT", "5000"))
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -71,7 +63,7 @@ def extract_access_token(request_or_scope) -> str:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
         else:
             auth_data = None
-        
+
         if auth_data:
             try:
                 # Parse the JSON auth data to extract access_token
@@ -80,7 +72,7 @@ def extract_access_token(request_or_scope) -> str:
             except (json.JSONDecodeError, TypeError) as e:
                 logger.warning(f"Failed to parse auth data JSON: {e}")
                 return ""
-    
+
     return ""
 
 @click.command()
@@ -275,7 +267,7 @@ def main(
     @app.call_tool()
     async def call_tool(
             name: str, arguments: dict
-    ) -> List[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
 
         # File Operations
         if name == "onedrive_rename_item":

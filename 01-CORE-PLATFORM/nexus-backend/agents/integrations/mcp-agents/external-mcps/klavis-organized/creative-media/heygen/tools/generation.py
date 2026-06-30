@@ -2,18 +2,20 @@
 Video generation tools for HeyGen API.
 """
 
-from typing import Dict, Any, Optional
+from typing import Any
+
 from .base import make_request
+
 
 async def heygen_generate_avatar_video(
     avatar_id: str,
     text: str,
     voice_id: str,
-    background_color: Optional[str] = "#ffffff",
-    width: Optional[int] = 1280,
-    height: Optional[int] = 720,
-    avatar_style: Optional[str] = "normal"
-) -> Dict[str, Any]:
+    background_color: str | None = "#ffffff",
+    width: int | None = 1280,
+    height: int | None = 720,
+    avatar_style: str | None = "normal"
+) -> dict[str, Any]:
     """
     Generate a new avatar video with the specified avatar, text, and voice.
     
@@ -31,7 +33,7 @@ async def heygen_generate_avatar_video(
     """
     if len(text) > 1500:
         raise ValueError("Text input must be less than 1500 characters")
-    
+
     video_data = {
         "video_inputs": [
             {
@@ -56,10 +58,10 @@ async def heygen_generate_avatar_video(
             "height": height
         }
     }
-    
+
     return await make_request("POST", "/v2/video/generate", data=video_data)
 
-async def heygen_get_avatar_video_status(video_id: str) -> Dict[str, Any]:
+async def heygen_get_avatar_video_status(video_id: str) -> dict[str, Any]:
     """
     Retrieve the status of a video generated via the HeyGen API.
     

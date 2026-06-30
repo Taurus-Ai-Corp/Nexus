@@ -5,14 +5,13 @@ Immutable logging of all AI agent actions, user-accessible audit views,
 and regulatory compliance reporting (DPDP Act 2023, RBI guidelines).
 """
 
-import json
 import hashlib
-import time
-from typing import Dict, Any, Optional, List
-from dataclasses import dataclass, field, asdict
-from datetime import datetime, timedelta
-from pathlib import Path
+import json
+from dataclasses import asdict, dataclass, field
+from datetime import datetime
 from enum import Enum
+from pathlib import Path
+from typing import Any
 
 
 class AuditEventType(str, Enum):
@@ -39,12 +38,12 @@ class AuditEventType(str, Enum):
 class AuditEntry:
     event_type: str
     actor: str
-    borrower_id: Optional[str] = None
-    details: Dict[str, Any] = field(default_factory=dict)
+    borrower_id: str | None = None
+    details: dict[str, Any] = field(default_factory=dict)
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
     previous_hash: str = ""
     entry_hash: str = ""
-    ip_address: Optional[str] = None
+    ip_address: str | None = None
 
     def compute_hash(self) -> str:
         raw = json.dumps({
@@ -64,24 +63,24 @@ class AuditEntry:
     def verify_integrity(self) -> bool:
         return self.entry_hash == self.compute_hash()
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
 class AuditTrail:
     """Immutable audit trail with SHA-256 chain verification."""
 
-    def __init__(self, storage_path: Optional[str] = None):
-        self.entries: List[AuditEntry] = []
+    def __init__(self, storage_path: str | None = None):
+        self.entries: list[AuditEntry] = []
         self.storage_path = Path(storage_path) if storage_path else Path("audit/chain.jsonl")
 
     def log(
         self,
         event_type: AuditEventType,
         actor: str,
-        borrower_id: Optional[str] = None,
-        details: Optional[Dict[str, Any]] = None,
-        ip_address: Optional[str] = None,
+        borrower_id: str | None = None,
+        details: dict[str, Any] | None = None,
+        ip_address: str | None = None,
         auto_save: bool = True,
     ) -> AuditEntry:
         prev_hash = self.entries[-1].entry_hash if self.entries else "genesis"
@@ -99,7 +98,7 @@ class AuditTrail:
             self.save()
         return entry
 
-    def verify_chain(self) -> Dict[str, Any]:
+    def verify_chain(self) -> dict[str, Any]:
         if not self.entries:
             return {"valid": True, "entries": 0, "message": "Empty chain"}
 
@@ -124,13 +123,13 @@ class AuditTrail:
 
     def query(
         self,
-        event_type: Optional[str] = None,
-        actor: Optional[str] = None,
-        borrower_id: Optional[str] = None,
-        start_time: Optional[str] = None,
-        end_time: Optional[str] = None,
+        event_type: str | None = None,
+        actor: str | None = None,
+        borrower_id: str | None = None,
+        start_time: str | None = None,
+        end_time: str | None = None,
         limit: int = 100,
-    ) -> List[AuditEntry]:
+    ) -> list[AuditEntry]:
         results = self.entries
         if event_type:
             results = [e for e in results if e.event_type == event_type]
@@ -144,15 +143,15 @@ class AuditTrail:
             results = [e for e in results if e.timestamp <= end_time]
         return results[:limit]
 
-    def get_borrower_audit(self, borrower_id: str) -> List[AuditEntry]:
+    def get_borrower_audit(self, borrower_id: str) -> list[AuditEntry]:
         return self.query(borrower_id=borrower_id)
 
     def get_compliance_report(
         self,
-        start_date: Optional[str] = None,
-        end_date: Optional[str] = None,
-        event_types: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
+        start_date: str | None = None,
+        end_date: str | None = None,
+        event_types: list[str] | None = None,
+    ) -> dict[str, Any]:
         entries = self.entries
         if start_date:
             entries = [e for e in entries if e.timestamp >= start_date]
@@ -161,8 +160,8 @@ class AuditTrail:
         if event_types:
             entries = [e for e in entries if e.event_type in event_types]
 
-        by_type: Dict[str, int] = {}
-        by_actor: Dict[str, int] = {}
+        by_type: dict[str, int] = {}
+        by_actor: dict[str, int] = {}
         for e in entries:
             by_type[e.event_type] = by_type.get(e.event_type, 0) + 1
             by_actor[e.actor] = by_actor.get(e.actor, 0) + 1
@@ -192,10 +191,10 @@ class AuditTrail:
                     entry = AuditEntry(**data)
                     self.entries.append(entry)
 
-    def get_stats(self) -> Dict[str, Any]:
-        by_type: Dict[str, int] = {}
-        by_actor: Dict[str, int] = {}
-        by_borrower: Dict[str, int] = {}
+    def get_stats(self) -> dict[str, Any]:
+        by_type: dict[str, int] = {}
+        by_actor: dict[str, int] = {}
+        by_borrower: dict[str, int] = {}
         for e in self.entries:
             by_type[e.event_type] = by_type.get(e.event_type, 0) + 1
             by_actor[e.actor] = by_actor.get(e.actor, 0) + 1

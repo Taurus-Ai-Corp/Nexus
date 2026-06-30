@@ -5,22 +5,22 @@ Creates world-class website without external dependencies
 """
 
 import json
-import os
 from datetime import datetime
-from typing import Dict, List, Any
+from typing import Any
+
 
 class BizFlowWebsiteGenerator:
     """
     Simplified website generator for BizFlow multi-layer website
     """
-    
+
     def __init__(self):
         self.website_layers = self._define_website_layers()
         self.design_system = self._define_design_system()
-        
-    def _define_website_layers(self) -> Dict[str, Any]:
+
+    def _define_website_layers(self) -> dict[str, Any]:
         """Define the multi-layer website architecture"""
-        
+
         return {
             "main_landing": {
                 "name": "Main Landing Page",
@@ -43,7 +43,7 @@ class BizFlowWebsiteGenerator:
                 "design_style": "Modern, professional, conversion-focused",
                 "conversion_goals": ["demo_requests", "trial_signups", "consultation_bookings"]
             },
-            
+
             "features_showcase": {
                 "name": "Features & Capabilities",
                 "purpose": "Detailed feature demonstration and education",
@@ -65,7 +65,7 @@ class BizFlowWebsiteGenerator:
                 "design_style": "Interactive, technical, demonstration-focused",
                 "conversion_goals": ["feature_exploration", "technical_understanding", "integration_interest"]
             },
-            
+
             "solutions_industry": {
                 "name": "Industry Solutions",
                 "purpose": "Industry-specific marketing solutions",
@@ -88,7 +88,7 @@ class BizFlowWebsiteGenerator:
                 "design_style": "Professional, industry-focused, solution-oriented",
                 "conversion_goals": ["industry_solution_interest", "case_study_engagement", "custom_solution_requests"]
             },
-            
+
             "resources_education": {
                 "name": "Resources & Education",
                 "purpose": "Thought leadership and educational content",
@@ -111,7 +111,7 @@ class BizFlowWebsiteGenerator:
                 "design_style": "Educational, resource-rich, community-focused",
                 "conversion_goals": ["content_consumption", "resource_downloads", "webinar_registrations"]
             },
-            
+
             "about_company": {
                 "name": "About & Company",
                 "purpose": "Company story, team, and credibility",
@@ -133,7 +133,7 @@ class BizFlowWebsiteGenerator:
                 "design_style": "Professional, trustworthy, company-focused",
                 "conversion_goals": ["company_trust", "partnership_inquiries", "career_applications"]
             },
-            
+
             "pricing_plans": {
                 "name": "Pricing & Plans",
                 "purpose": "Transparent pricing and plan comparison",
@@ -155,7 +155,7 @@ class BizFlowWebsiteGenerator:
                 "design_style": "Transparent, value-focused, conversion-oriented",
                 "conversion_goals": ["plan_selection", "trial_signups", "enterprise_inquiries"]
             },
-            
+
             "contact_support": {
                 "name": "Contact & Support",
                 "purpose": "Customer support and contact information",
@@ -178,10 +178,10 @@ class BizFlowWebsiteGenerator:
                 "conversion_goals": ["support_requests", "contact_inquiries", "customer_satisfaction"]
             }
         }
-    
-    def _define_design_system(self) -> Dict[str, Any]:
+
+    def _define_design_system(self) -> dict[str, Any]:
         """Define comprehensive design system"""
-        
+
         return {
             "color_palette": {
                 "primary": ["#667eea", "#764ba2", "#f093fb"],
@@ -222,12 +222,12 @@ class BizFlowWebsiteGenerator:
                 "large": "1440px"
             }
         }
-    
-    def generate_website_architecture(self) -> Dict[str, Any]:
+
+    def generate_website_architecture(self) -> dict[str, Any]:
         """Generate the complete website architecture"""
-        
+
         print("🏗️ Generating website architecture...")
-        
+
         website_architecture = {
             "timestamp": datetime.now().isoformat(),
             "architecture_type": "multi_layer_intelligent",
@@ -238,33 +238,33 @@ class BizFlowWebsiteGenerator:
             "design_system": self.design_system,
             "technical_specifications": {}
         }
-        
+
         # Generate architecture for each layer
         for layer_id, layer_config in self.website_layers.items():
             print(f"📄 Generating architecture for {layer_config['name']}...")
-            
+
             layer_architecture = self._generate_layer_architecture(layer_config)
             website_architecture["page_architecture"][layer_id] = layer_architecture
-        
+
         # Generate navigation structure
         website_architecture["navigation_structure"] = self._generate_navigation_structure()
-        
+
         # Generate content strategy
         website_architecture["content_strategy"] = self._generate_content_strategy()
-        
+
         # Generate technical specifications
         website_architecture["technical_specifications"] = self._generate_technical_specifications()
-        
+
         # Save architecture
         self._save_website_architecture(website_architecture)
-        
+
         print("✅ Website architecture generated successfully!")
-        
+
         return website_architecture
-    
-    def _generate_layer_architecture(self, layer: Dict[str, Any]) -> Dict[str, Any]:
+
+    def _generate_layer_architecture(self, layer: dict[str, Any]) -> dict[str, Any]:
         """Generate architecture for a specific website layer"""
-        
+
         return {
             "name": layer["name"],
             "purpose": layer["purpose"],
@@ -295,10 +295,10 @@ class BizFlowWebsiteGenerator:
                 "internal_linking": "cross_page_relevance"
             }
         }
-    
-    def _generate_navigation_structure(self) -> Dict[str, Any]:
+
+    def _generate_navigation_structure(self) -> dict[str, Any]:
         """Generate website navigation structure"""
-        
+
         return {
             "main_navigation": [
                 {"label": "Features", "url": "/features", "dropdown": ["AI Automation", "Social Media", "Content Marketing"]},
@@ -320,10 +320,10 @@ class BizFlowWebsiteGenerator:
                 "bottom_navigation": False
             }
         }
-    
-    def _generate_content_strategy(self) -> Dict[str, Any]:
+
+    def _generate_content_strategy(self) -> dict[str, Any]:
         """Generate comprehensive content strategy"""
-        
+
         return {
             "content_pillars": [
                 "AI Marketing Automation",
@@ -354,10 +354,10 @@ class BizFlowWebsiteGenerator:
                 "content_optimization": "Semantic SEO with user intent focus"
             }
         }
-    
-    def _generate_technical_specifications(self) -> Dict[str, Any]:
+
+    def _generate_technical_specifications(self) -> dict[str, Any]:
         """Generate technical specifications"""
-        
+
         return {
             "frontend_framework": "Next.js 14 with React 18",
             "styling_framework": "Tailwind CSS with custom design system",
@@ -387,20 +387,20 @@ class BizFlowWebsiteGenerator:
                 "performance_tests": "Lighthouse CI integration"
             }
         }
-    
-    def _save_website_architecture(self, architecture: Dict[str, Any]):
+
+    def _save_website_architecture(self, architecture: dict[str, Any]):
         """Save website architecture to file"""
-        
+
         filename = f"../assets/website_architecture_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        
+
         with open(filename, 'w') as f:
             json.dump(architecture, f, indent=2, default=str)
-        
+
         print(f"💾 Website architecture saved to: {filename}")
-    
+
     def generate_features_page(self) -> str:
         """Generate the features showcase page"""
-        
+
         return """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -571,10 +571,10 @@ class BizFlowWebsiteGenerator:
     </footer>
 </body>
 </html>"""
-    
+
     def generate_solutions_page(self) -> str:
         """Generate the solutions page"""
-        
+
         return """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -758,65 +758,65 @@ class BizFlowWebsiteGenerator:
     </footer>
 </body>
 </html>"""
-    
+
     def save_all_pages(self):
         """Save all generated website pages"""
-        
+
         # Create main landing page
         with open("bizflow_main_landing.html", 'w') as f:
             f.write(self._get_main_landing_content())
-        
+
         # Create features page
         with open("features-showcase.html", 'w') as f:
             f.write(self.generate_features_page())
-        
+
         # Create solutions page
         with open("solutions-industry.html", 'w') as f:
             f.write(self.generate_solutions_page())
-        
+
         # Create other pages (simplified versions)
         self._create_simplified_pages()
-        
+
         print("✅ All website pages generated successfully!")
-    
+
     def _get_main_landing_content(self) -> str:
         """Get the main landing page content"""
-        
+
         # Read the existing main landing page
         try:
-            with open("bizflow_main_landing.html", 'r') as f:
+            with open("bizflow_main_landing.html") as f:
                 return f.read()
         except FileNotFoundError:
             return "<!-- Main landing page content -->"
-    
+
     def _create_simplified_pages(self):
         """Create simplified versions of other pages"""
-        
+
         pages = {
             "resources-education.html": "<!-- Resources & Education Page -->",
             "about-company.html": "<!-- About & Company Page -->",
             "pricing-plans.html": "<!-- Pricing & Plans Page -->",
             "contact-support.html": "<!-- Contact & Support Page -->"
         }
-        
+
         for filename, content in pages.items():
             with open(filename, 'w') as f:
                 f.write(content)
-    
-    def generate_complete_website(self) -> Dict[str, Any]:
+
+    def generate_complete_website(self) -> dict[str, Any]:
         """Generate the complete multi-layer website"""
-        
+
         print("🌐 Generating complete multi-layer website...")
-        
+
         # 1. Generate website architecture
         website_architecture = self.generate_website_architecture()
-        
+
         # 2. Generate all website pages
         self.save_all_pages()
-        
+
         # 3. Create deployment configuration
         deployment_config = self._create_deployment_config()
-        
+
         complete_website = {
             "generation_timestamp": datetime.now().isoformat(),
             "website_architecture": website_architecture,
@@ -825,60 +825,60 @@ class BizFlowWebsiteGenerator:
             "deployment_configuration": deployment_config,
             "website_status": "ready_for_deployment"
         }
-        
+
         # Save complete website
         self._save_complete_website(complete_website)
-        
+
         print("✅ Complete website generated successfully!")
-        
+
         return complete_website
-    
-    def _create_deployment_config(self) -> Dict[str, Any]:
+
+    def _create_deployment_config(self) -> dict[str, Any]:
         """Create deployment configuration"""
-        
+
         return {
             "vercel_config": "Updated vercel.json with multi-layer routing",
             "environment_variables": "Production-ready configuration",
             "domain_configuration": "Ready for custom domain setup",
             "performance_monitoring": "Analytics and performance tracking configured"
         }
-    
-    def _save_complete_website(self, website: Dict[str, Any]):
+
+    def _save_complete_website(self, website: dict[str, Any]):
         """Save complete website to file"""
-        
+
         filename = f"../assets/complete_website_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        
+
         with open(filename, 'w') as f:
             json.dump(website, f, indent=2, default=str)
-        
+
         print(f"💾 Complete website saved to: {filename}")
 
 def main():
     """Main function to generate the complete multi-layer website"""
     print("🏗️ BizFlow™ Multi-Layer Website Generator - Simplified Version")
     print("="*80)
-    
+
     # Create website generator
     generator = BizFlowWebsiteGenerator()
-    
+
     # Generate complete website
     complete_website = generator.generate_complete_website()
-    
+
     # Display results
     print("\n" + "="*80)
     print("🎉 WEBSITE GENERATION COMPLETE!")
     print("="*80)
-    
+
     print(f"🌐 Website Layers: {complete_website['total_pages']}")
     print(f"📄 Total Pages Generated: {complete_website['total_pages']}")
     print(f"🎨 Design System: {len(complete_website['design_system']['component_library'])} components")
-    print(f"🚀 Deployment Configuration: Ready for Vercel deployment")
-    
-    print(f"\n🏗️ Architecture Generated:")
+    print("🚀 Deployment Configuration: Ready for Vercel deployment")
+
+    print("\n🏗️ Architecture Generated:")
     for layer_id, layer_arch in complete_website['website_architecture']['page_architecture'].items():
         print(f"   • {layer_arch['name']}: {layer_arch['purpose']}")
-    
-    print(f"\n📁 Files Created:")
+
+    print("\n📁 Files Created:")
     print("   • bizflow_main_landing.html (Main landing page)")
     print("   • features-showcase.html (Features page)")
     print("   • solutions-industry.html (Solutions page)")
@@ -887,8 +887,8 @@ def main():
     print("   • pricing-plans.html (Pricing page)")
     print("   • contact-support.html (Contact page)")
     print("   • vercel.json (Deployment config)")
-    
-    print(f"\n✅ Your world-class multi-layer website is ready!")
+
+    print("\n✅ Your world-class multi-layer website is ready!")
     print("🚀 Deploy to Vercel and dominate your market!")
 
 if __name__ == "__main__":

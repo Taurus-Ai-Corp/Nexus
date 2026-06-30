@@ -1,12 +1,12 @@
 import logging
-from typing import Any, Dict, List
+from typing import Any
 
 from .auth import get_tavily_client
 
 logger = logging.getLogger(__name__)
 
 
-def tavily_crawl(arguments: Dict[str, Any]) -> Dict[str, Any]:
+def tavily_crawl(arguments: dict[str, Any]) -> dict[str, Any]:
     """
     Crawl Website — start from a root URL and follow links with depth/breadth controls.
     Expected args include: url (required), max_depth, max_breadth, limit,
@@ -19,7 +19,7 @@ def tavily_crawl(arguments: Dict[str, Any]) -> Dict[str, Any]:
     if not url:
         raise RuntimeError("Parameter 'url' is required for tavily_crawl")
 
-    params: Dict[str, Any] = {
+    params: dict[str, Any] = {
         "url": url,
         "max_depth": arguments.get("max_depth", 1),
         "max_breadth": arguments.get("max_breadth", 20),

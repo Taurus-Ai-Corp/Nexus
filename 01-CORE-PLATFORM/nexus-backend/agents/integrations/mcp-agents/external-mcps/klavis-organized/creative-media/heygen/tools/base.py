@@ -3,11 +3,12 @@ Base HTTP client for HeyGen API with authentication and error handling.
 """
 
 import os
-import httpx
-from typing import Dict, Any, Optional
 from contextvars import ContextVar
+from typing import Any
 
-auth_token_context: ContextVar[Optional[str]] = ContextVar('auth_token', default=None)
+import httpx
+
+auth_token_context: ContextVar[str | None] = ContextVar('auth_token', default=None)
 
 HEYGEN_API_ENDPOINT = "https://api.heygen.com"
 
@@ -26,7 +27,7 @@ def get_auth_token() -> str:
             raise RuntimeError("No HeyGen API key found in context or environment")
         return token
 
-def get_headers() -> Dict[str, str]:
+def get_headers() -> dict[str, str]:
     """Get standard headers for HeyGen API requests."""
     return {
         "X-Api-Key": get_auth_token(),
@@ -35,11 +36,11 @@ def get_headers() -> Dict[str, str]:
     }
 
 async def make_request(
-    method: str, 
-    endpoint: str, 
-    data: Optional[Dict[str, Any]] = None,
-    params: Optional[Dict[str, Any]] = None
-) -> Dict[str, Any]:
+    method: str,
+    endpoint: str,
+    data: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """
     Make an HTTP request to the HeyGen API.
     
@@ -57,7 +58,7 @@ async def make_request(
     """
     url = f"{HEYGEN_API_ENDPOINT}{endpoint}"
     headers = get_headers()
-    
+
     async with httpx.AsyncClient(timeout=60.0) as client:
         try:
             if method.upper() == "GET":
@@ -68,15 +69,15 @@ async def make_request(
                 response = await client.delete(url, headers=headers, params=params)
             else:
                 raise ValueError(f"Unsupported HTTP method: {method}")
-            
+
             response.raise_for_status()
-            
+
             # Some endpoints may return empty response (like delete)
             if response.status_code == 204 or not response.content:
                 return {"success": True}
-                
+
             return response.json()
-            
+
         except httpx.HTTPStatusError as e:
             error_detail = "Unknown error"
             try:
@@ -87,7 +88,7 @@ async def make_request(
                     error_detail = str(error_response)
             except:
                 error_detail = e.response.text if hasattr(e.response, 'text') else str(e)
-            
+
             raise RuntimeError(f"HeyGen API error ({e.response.status_code}): {error_detail}")
         except Exception as e:
             raise RuntimeError(f"HeyGen API request failed: {str(e)}")

@@ -1,14 +1,19 @@
 import asyncio
 import json
-from dataclasses import dataclass
 import logging
-from typing import Any, Dict, Optional, cast
 from contextvars import ContextVar
+from dataclasses import dataclass
 from functools import wraps
+from typing import Any, cast
 
 import httpx
 
-from .constants import CLOSE_API_VERSION, CLOSE_BASE_URL, CLOSE_MAX_CONCURRENT_REQUESTS, CLOSE_MAX_TIMEOUT_SECONDS
+from .constants import (
+    CLOSE_API_VERSION,
+    CLOSE_BASE_URL,
+    CLOSE_MAX_CONCURRENT_REQUESTS,
+    CLOSE_MAX_TIMEOUT_SECONDS,
+)
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -52,7 +57,7 @@ def remove_none_values(data: dict[str, Any]) -> dict[str, Any]:
     return {k: v for k, v in data.items() if v is not None}
 
 
-def format_currency_from_cents(amount_cents: Optional[int], currency: str = "USD") -> Optional[str]:
+def format_currency_from_cents(amount_cents: int | None, currency: str = "USD") -> str | None:
     """Convert cents to formatted currency string."""
     if amount_cents is None:
         return None
@@ -65,10 +70,10 @@ def format_currency_from_cents(amount_cents: Optional[int], currency: str = "USD
 def format_opportunity_values(opportunity: dict[str, Any]) -> dict[str, Any]:
     """Format opportunity monetary values from cents to readable currency strings."""
     formatted_opp = opportunity.copy()
-    
+
     # List of fields that contain monetary values in cents
     money_fields = ['value', 'expected_value', 'annualized_value', 'annualized_expected_value']
-    
+
     for field in money_fields:
         if field in formatted_opp and formatted_opp[field] is not None:
             # Store original value with _cents suffix for reference
@@ -76,14 +81,14 @@ def format_opportunity_values(opportunity: dict[str, Any]) -> dict[str, Any]:
             # Replace with formatted dollar amount
             currency = formatted_opp.get('value_currency', 'USD')
             formatted_opp[field] = format_currency_from_cents(formatted_opp[field], currency)
-    
+
     return formatted_opp
 
 
 def format_leads_response(response: dict[str, Any]) -> dict[str, Any]:
     """Format lead response to convert opportunity values from cents to dollars."""
     formatted_response = response.copy()
-    
+
     if 'leads' in formatted_response:
         formatted_leads = []
         for lead in formatted_response['leads']:
@@ -95,7 +100,7 @@ def format_leads_response(response: dict[str, Any]) -> dict[str, Any]:
                 formatted_lead['opportunities'] = formatted_opportunities
             formatted_leads.append(formatted_lead)
         formatted_response['leads'] = formatted_leads
-    
+
     return formatted_response
 
 
@@ -114,7 +119,7 @@ def clean_close_response(func):
     def response_cleaner(data: dict[str, Any]) -> dict[str, Any]:
         # Close API uses 'id' natively, no need to convert like Asana's 'gid'
         # But we can clean up other response format inconsistencies if needed
-        
+
         for k, v in data.items():
             if isinstance(v, dict):
                 data[k] = response_cleaner(v)
@@ -155,7 +160,7 @@ class CloseClient:
     def _build_error_messages(self, response: httpx.Response) -> tuple[str, str]:
         try:
             data = response.json()
-            
+
             if "error" in data:
                 error_message = data["error"]
                 developer_message = f"{error_message} (HTTP status code: {response.status_code})"
@@ -202,8 +207,8 @@ class CloseClient:
     async def get(
         self,
         endpoint: str,
-        params: Optional[dict] = None,
-        headers: Optional[dict] = None,
+        params: dict | None = None,
+        headers: dict | None = None,
         api_version: str | None = None,
     ) -> dict:
         default_headers = {
@@ -230,10 +235,10 @@ class CloseClient:
     async def post(
         self,
         endpoint: str,
-        data: Optional[dict] = None,
-        json_data: Optional[dict] = None,
-        files: Optional[dict] = None,
-        headers: Optional[dict] = None,
+        data: dict | None = None,
+        json_data: dict | None = None,
+        files: dict | None = None,
+        headers: dict | None = None,
         api_version: str | None = None,
     ) -> dict:
         default_headers = {
@@ -268,9 +273,9 @@ class CloseClient:
     async def put(
         self,
         endpoint: str,
-        data: Optional[dict] = None,
-        json_data: Optional[dict] = None,
-        headers: Optional[dict] = None,
+        data: dict | None = None,
+        json_data: dict | None = None,
+        headers: dict | None = None,
         api_version: str | None = None,
     ) -> dict:
         headers = headers or {}
@@ -295,7 +300,7 @@ class CloseClient:
     async def delete(
         self,
         endpoint: str,
-        headers: Optional[dict] = None,
+        headers: dict | None = None,
         api_version: str | None = None,
     ) -> dict:
         headers = headers or {}
@@ -311,7 +316,7 @@ class CloseClient:
         async with self._semaphore, httpx.AsyncClient() as client:  # type: ignore[union-attr]
             response = await client.delete(**kwargs)  # type: ignore[arg-type]
             self._raise_for_status(response)
-        
+
         # Some DELETE responses may be empty
         if response.text:
             return cast(dict, response.json())
@@ -336,4 +341,4 @@ def get_auth_token() -> str:
         raise CloseToolExecutionError(
             "Authentication required. Please provide a Close access token.",
             "No Close access token found in request context. The access token should be provided in the Authorization header."
-        ) 
+        )

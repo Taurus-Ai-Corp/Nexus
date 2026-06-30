@@ -8,20 +8,19 @@ A Streamlit application featuring two AI agents:
 This file contains the Streamlit interface while the agent logic is in agents.py
 """
 
-import streamlit as st
-import base64
 import os
+
+import streamlit as st
 from agents import (
-    initialize_memori,
-    create_memory_tool_instance,
-    extract_text_from_pdf,
-    extract_text_from_docx,
-    extract_text_from_txt,
     analyze_writing_style,
-    store_writing_style_in_memori,
+    create_memory_tool_instance,
+    extract_text_from_docx,
+    extract_text_from_pdf,
+    extract_text_from_txt,
     generate_blog_with_style,
-    get_stored_writing_style,
+    initialize_memori,
     save_generated_blog,
+    store_writing_style_in_memori,
 )
 
 # Page configuration
@@ -40,7 +39,7 @@ if "style_analysis" not in st.session_state:
 if "text_content" not in st.session_state:
     st.session_state.text_content = None
 
-with open("./assets/gibson.svg", "r", encoding="utf-8") as gibson_file:
+with open("./assets/gibson.svg", encoding="utf-8") as gibson_file:
     gibson_svg = (
         gibson_file.read()
         .replace("\n", "")

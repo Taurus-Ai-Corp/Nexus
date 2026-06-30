@@ -1,11 +1,11 @@
+import logging
+from contextvars import ContextVar
 from enum import Enum
 from typing import Any
 from urllib.parse import parse_qs, urlparse
-from contextvars import ContextVar
-import logging
 
 import httpx
-from errors import ToolExecutionError, AuthenticationError, TokenExpiredError, InvalidTokenError
+from errors import AuthenticationError, InvalidTokenError, TokenExpiredError, ToolExecutionError
 
 # Single auth token context for the entire application
 auth_token_context: ContextVar[str] = ContextVar('auth_token')
@@ -52,15 +52,15 @@ class ConfluenceClient:
             "Authorization": f"Bearer {self.token}",
             "Accept": "application/json"
         }
-        
-        logger.info(f"Fetching cloud ID from accessible-resources endpoint")
-        
+
+        logger.info("Fetching cloud ID from accessible-resources endpoint")
+
         try:
             async with httpx.AsyncClient() as client:
                 resp = await client.get(self.ACCESSIBLE_RESOURCES_URL, headers=headers)
                 resp.raise_for_status()
                 resp_json = resp.json()
-                
+
                 if len(resp_json) == 0:
                     raise ToolExecutionError(
                         message="No workspaces found for the authenticated user.",
@@ -116,20 +116,20 @@ class ConfluenceClient:
 
     async def request(self, method: str, path: str, **kwargs: Any) -> Any:
         cloud_id = await self._ensure_cloud_id()
-                
+
         headers = {
             "Accept": "application/json",
             "Authorization": f"Bearer {self.token}",
         }
-        
+
         # Merge with any additional headers from kwargs
         if 'headers' in kwargs:
             headers.update(kwargs.pop('headers'))
-        
+
         async with httpx.AsyncClient() as client:
             url = f"{self.BASE_URL}/{cloud_id}/{self.api_version}/{path.lstrip('/')}"
             logger.debug(f"Making {method} request to: {url}")
-                
+
             try:
                 response = await client.request(
                     method,
@@ -658,7 +658,7 @@ class ConfluenceClientV2(ConfluenceClient):
     def create_space_tree(self, space: dict) -> dict:
         """Create a space tree structure from space data."""
         space_data = space.get("space", {})
-        
+
         return {
             "id": space_data.get("id"),
             "key": space_data.get("key"),
@@ -672,7 +672,7 @@ class ConfluenceClientV2(ConfluenceClient):
     def convert_root_pages_to_tree_nodes(self, pages: list) -> list:
         """Convert root pages to tree nodes."""
         tree_nodes = []
-        
+
         for page in pages:
             node = {
                 "id": page.get("id"),
@@ -683,7 +683,7 @@ class ConfluenceClientV2(ConfluenceClient):
                 "children": []
             }
             tree_nodes.append(node)
-        
+
         return tree_nodes
 
     async def process_page_descendants(self, root_children: list, base_url: str) -> None:
@@ -697,7 +697,7 @@ class ConfluenceClientV2(ConfluenceClient):
                         "expand": "ancestors"
                     }
                     response = await self.get(f"content/{root_child['id']}/descendant", params=params)
-                    
+
                     # Process descendants into hierarchy
                     descendants = response.get("page", {}).get("results", [])
                     if descendants:
@@ -711,20 +711,20 @@ class ConfluenceClientV2(ConfluenceClient):
                                 "parent_id": None,
                                 "children": []
                             }
-                            
+
                             # Determine parent ID from ancestors
                             ancestors = desc.get("ancestors", [])
                             if ancestors:
                                 child_node["parent_id"] = ancestors[-1].get("id")
-                            
+
                             # Build URL
                             child_node["url"] = build_child_url(base_url, child_node) or ""
-                            
+
                             transformed_children.append(child_node)
-                        
+
                         # Build hierarchy
                         build_hierarchy(transformed_children, root_child["id"], root_child)
-                
+
                 except Exception:
                     # Log the error but continue processing other pages
-                    continue 
+                    continue

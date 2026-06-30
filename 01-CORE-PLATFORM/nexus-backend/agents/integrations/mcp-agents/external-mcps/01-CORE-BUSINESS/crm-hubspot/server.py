@@ -1,13 +1,13 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -15,40 +15,38 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
     auth_token_context,
-    # Properties
-    hubspot_list_properties,
-    hubspot_search_by_property,
-    hubspot_create_property,
-    # Contacts
-    hubspot_get_contacts,
-    hubspot_get_contact_by_id,
+    hubspot_create_companies,
     hubspot_create_contact,
-    hubspot_update_contact_by_id,
+    hubspot_create_deal,
+    # Notes
+    hubspot_create_note,
+    hubspot_create_property,
+    hubspot_create_ticket,
+    hubspot_delete_company_by_id,
     hubspot_delete_contact_by_id,
+    hubspot_delete_deal_by_id,
+    hubspot_delete_ticket_by_id,
     # Companies
     hubspot_get_companies,
     hubspot_get_company_by_id,
-    hubspot_create_companies,
-    hubspot_update_company_by_id,
-    hubspot_delete_company_by_id,
+    hubspot_get_contact_by_id,
+    # Contacts
+    hubspot_get_contacts,
+    hubspot_get_deal_by_id,
     # Deals
     hubspot_get_deals,
-    hubspot_get_deal_by_id,
-    hubspot_create_deal,
-    hubspot_update_deal_by_id,
-    hubspot_delete_deal_by_id,
+    hubspot_get_ticket_by_id,
     # Tickets
     hubspot_get_tickets,
-    hubspot_get_ticket_by_id,
-    hubspot_create_ticket,
+    # Properties
+    hubspot_list_properties,
+    hubspot_search_by_property,
+    hubspot_update_company_by_id,
+    hubspot_update_contact_by_id,
+    hubspot_update_deal_by_id,
     hubspot_update_ticket_by_id,
-    hubspot_delete_ticket_by_id,
-    # Notes
-    hubspot_create_note,
 )
 
 # Configure logging
@@ -61,7 +59,7 @@ HUBSPOT_MCP_SERVER_PORT = int(os.getenv("HUBSPOT_MCP_SERVER_PORT", "5000"))
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -75,10 +73,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -595,7 +593,7 @@ def main(
     async def call_tool(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
-        
+
         # Properties
         if name == "hubspot_list_properties":
             try:
@@ -615,7 +613,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_search_by_property":
             object_type = arguments.get("object_type")
             property_name = arguments.get("property_name")
@@ -650,7 +648,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_create_property":
             try:
                 result = await hubspot_create_property(
@@ -673,7 +671,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Contacts
         elif name == "hubspot_get_contacts":
             try:
@@ -693,7 +691,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_get_contact_by_id":
             contact_id = arguments.get("contact_id")
             if not contact_id:
@@ -719,7 +717,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_create_contact":
             try:
                 result = await hubspot_create_contact(arguments["properties"])
@@ -737,7 +735,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_update_contact_by_id":
             contact_id = arguments.get("contact_id")
             updates = arguments.get("updates")
@@ -767,7 +765,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_delete_contact_by_id":
             contact_id = arguments.get("contact_id")
             if not contact_id:
@@ -793,7 +791,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Companies
         elif name == "hubspot_get_companies":
             try:
@@ -813,7 +811,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_get_company_by_id":
             company_id = arguments.get("company_id")
             if not company_id:
@@ -839,7 +837,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_create_companies":
             try:
                 result = await hubspot_create_companies(arguments["properties"])
@@ -857,7 +855,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_update_company_by_id":
             company_id = arguments.get("company_id")
             updates = arguments.get("updates")
@@ -887,7 +885,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_delete_company_by_id":
             company_id = arguments.get("company_id")
             if not company_id:
@@ -913,7 +911,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Deals
         elif name == "hubspot_get_deals":
             try:
@@ -933,7 +931,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_get_deal_by_id":
             deal_id = arguments.get("deal_id")
             if not deal_id:
@@ -959,7 +957,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_create_deal":
             try:
                 result = await hubspot_create_deal(arguments["properties"])
@@ -977,7 +975,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_update_deal_by_id":
             deal_id = arguments.get("deal_id")
             updates = arguments.get("updates")
@@ -1007,7 +1005,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_delete_deal_by_id":
             deal_id = arguments.get("deal_id")
             if not deal_id:
@@ -1033,7 +1031,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         # Tickets
         elif name == "hubspot_get_tickets":
             try:
@@ -1053,7 +1051,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_get_ticket_by_id":
             ticket_id = arguments.get("ticket_id")
             if not ticket_id:
@@ -1079,7 +1077,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_create_ticket":
             try:
                 result = await hubspot_create_ticket(arguments["properties"])
@@ -1097,7 +1095,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_update_ticket_by_id":
             ticket_id = arguments.get("ticket_id")
             updates = arguments.get("updates")
@@ -1127,7 +1125,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_delete_ticket_by_id":
             ticket_id = arguments.get("ticket_id")
             if not ticket_id:
@@ -1153,7 +1151,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "hubspot_create_note":
             note_body = arguments.get("note_body")
             if not note_body:
@@ -1187,7 +1185,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         else:
             return [
                 types.TextContent(
@@ -1201,10 +1199,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -1216,7 +1214,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -1231,10 +1229,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -1259,7 +1257,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],

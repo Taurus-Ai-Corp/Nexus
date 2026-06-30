@@ -1,16 +1,17 @@
-import httpx
 import logging
 import os
-from typing import Tuple, Union, Dict, Any
+import uuid
+
+import httpx
+
 from .base import get_onedrive_client
 from .onedrive_explore import onedrive_list_inside_folder
-import uuid
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 
-async def onedrive_read_file_content(file_id: str) -> Union[str, Tuple[str, int, str]]:
+async def onedrive_read_file_content(file_id: str) -> str | tuple[str, int, str]:
     """
     Read the content of a file from OneDrive.
 
@@ -42,7 +43,7 @@ async def onedrive_create_file(
         new_file_name: str,
         data: str = None,
         if_exists: str = 'error'
-) -> Union[Tuple[str, Dict], Tuple[str]]:
+) -> tuple[str, dict] | tuple[str]:
     """
     Create a new file in a specific OneDrive folder.
 

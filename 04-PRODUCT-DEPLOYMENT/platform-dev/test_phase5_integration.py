@@ -10,35 +10,42 @@ Tests the complete micro-loan platform lifecycle:
 6. API endpoint validation
 """
 
-import sys
 import os
-import time
-import json
+import sys
+
 import numpy as np
-from typing import Dict, Any, List
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from core.pricing.microloan_env import MicroLoanPricingEnv
-from core.pricing.synthetic_data import (
-    generate_borrowers, borrowers_to_env_array, generate_training_dataset,
-    SEGMENT_PROFILES, ECONOMIC_SCENARIOS,
-)
-from core.pricing.training_pipeline import (
-    train_ppo, evaluate_model, generate_price_recommendation, ExperimentTracker,
-)
-from core.mcp_tools.base import ToolInput, ToolOutput, ToolCategory, ConfidenceLevel
-from core.mcp_tools.repayment_predictor import RepaymentPredictionEnhancer
+from core.mcp_tools.base import ToolInput
 from core.mcp_tools.early_warning import EarlyWarningSystem
-from core.mcp_tools.registry import MCPToolRegistry, default_registry
-from core.monitoring.state_monitor import StateMachineMonitor, AgentState
-from core.monitoring.audit_trail import AuditTrail, AuditEventType
-from core.monitoring.metrics import MetricsRegistry, setup_default_metrics
+from core.mcp_tools.registry import MCPToolRegistry
+from core.mcp_tools.repayment_predictor import RepaymentPredictionEnhancer
+from core.monitoring.audit_trail import AuditEventType, AuditTrail
 from core.monitoring.explainability import ExplainabilityEngine
 from core.monitoring.health_monitor import HealthMonitor
+from core.monitoring.metrics import setup_default_metrics
+from core.monitoring.state_monitor import AgentState, StateMachineMonitor
+from core.pricing.microloan_env import MicroLoanPricingEnv
+from core.pricing.synthetic_data import (
+    ECONOMIC_SCENARIOS,
+    borrowers_to_env_array,
+    generate_borrowers,
+)
+from core.pricing.training_pipeline import (
+    evaluate_model,
+    generate_price_recommendation,
+    train_ppo,
+)
 from core.security import (
-    hash_password, verify_password, create_access_token, verify_token,
-    APIKeyManager, TrainRequest, EvaluateRequest, RecommendRequest,
+    APIKeyManager,
+    EvaluateRequest,
+    RecommendRequest,
+    TrainRequest,
+    create_access_token,
+    hash_password,
+    verify_password,
+    verify_token,
 )
 from pydantic import ValidationError
 
@@ -96,7 +103,7 @@ def test_pricing_environment():
         assert obs is not None
         assert isinstance(reward, (int, float, np.floating))
 
-    print(f"   ✅ 10 random steps completed")
+    print("   ✅ 10 random steps completed")
     print(f"   ✅ Action space: {env.action_space}")
     print(f"   ✅ Observation space: {env.observation_space}")
     print()
@@ -277,7 +284,7 @@ def test_monitoring_integration():
 
     print(f"   ✅ {len(transitions)} state transitions tracked")
     print(f"   ✅ {len(trail.entries)} audit entries logged")
-    print(f"   ✅ Explainability report generated")
+    print("   ✅ Explainability report generated")
     print(f"   ✅ Health status: {health_status['status']}")
     print(f"   ✅ Audit chain: {chain['message']}")
     print()
@@ -451,7 +458,7 @@ def test_full_platform_lifecycle():
     payload = verify_token(token)
     print(f"   6. Security: token verified for {payload['sub']}")
 
-    print(f"\n   ✅ Full platform lifecycle completed successfully")
+    print("\n   ✅ Full platform lifecycle completed successfully")
     print()
 
 

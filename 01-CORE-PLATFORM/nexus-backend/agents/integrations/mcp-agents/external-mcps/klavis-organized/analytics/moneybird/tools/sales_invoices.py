@@ -1,5 +1,6 @@
 import logging
-from typing import Any, Dict, Optional, List
+from typing import Any
+
 from .base import make_request
 
 # Configure logging
@@ -7,16 +8,16 @@ logger = logging.getLogger(__name__)
 
 async def moneybird_list_sales_invoices(
     administration_id: str,
-    state: Optional[str] = None,
-    period: Optional[str] = None,
-    contact_id: Optional[str] = None,
-    created_after: Optional[str] = None,
-    updated_after: Optional[str] = None,
-    page: Optional[int] = None
-) -> Dict[str, Any]:
+    state: str | None = None,
+    period: str | None = None,
+    contact_id: str | None = None,
+    created_after: str | None = None,
+    updated_after: str | None = None,
+    page: int | None = None
+) -> dict[str, Any]:
     """List all sales invoices in Moneybird."""
     logger.info("Executing tool: moneybird_list_sales_invoices")
-    
+
     params = {}
     if state:
         params["filter"] = f"state:{state}"
@@ -30,7 +31,7 @@ async def moneybird_list_sales_invoices(
         params["updated_after"] = updated_after
     if page:
         params["page"] = page
-    
+
     try:
         return await make_request("GET", administration_id, "/sales_invoices", params=params)
     except Exception as e:
@@ -40,10 +41,10 @@ async def moneybird_list_sales_invoices(
 async def moneybird_get_sales_invoice(
     administration_id: str,
     invoice_id: str
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get details for a specific sales invoice by ID."""
     logger.info(f"Executing tool: moneybird_get_sales_invoice for invoice_id: {invoice_id}")
-    
+
     try:
         return await make_request("GET", administration_id, f"/sales_invoices/{invoice_id}")
     except Exception as e:
@@ -52,11 +53,11 @@ async def moneybird_get_sales_invoice(
 
 async def moneybird_create_sales_invoice(
     administration_id: str,
-    invoice_data: Dict[str, Any]
-) -> Dict[str, Any]:
+    invoice_data: dict[str, Any]
+) -> dict[str, Any]:
     """Create a new sales invoice in Moneybird."""
     logger.info("Executing tool: moneybird_create_sales_invoice")
-    
+
     try:
         return await make_request("POST", administration_id, "/sales_invoices", data=invoice_data)
     except Exception as e:

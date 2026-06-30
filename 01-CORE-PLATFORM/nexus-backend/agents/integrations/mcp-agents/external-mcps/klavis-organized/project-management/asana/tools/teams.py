@@ -1,21 +1,21 @@
-from typing import Annotated, Any, Dict
 import logging
+from typing import Any
 
-from .constants import TEAM_OPT_FIELDS
 from .base import (
+    AsanaToolExecutionError,
     get_asana_client,
     get_next_page,
     get_unique_workspace_id_or_raise_error,
     remove_none_values,
-    AsanaToolExecutionError,
 )
+from .constants import TEAM_OPT_FIELDS
 
 logger = logging.getLogger(__name__)
 
 
 async def get_team_by_id(
     team_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get an Asana team by its ID"""
     try:
         client = get_asana_client()
@@ -37,7 +37,7 @@ async def list_teams_the_current_user_is_a_member_of(
     workspace_id: str | None = None,
     limit: int = 100,
     next_page_token: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """List teams in Asana that the current user is a member of"""
     try:
         limit = max(1, min(100, limit))
@@ -73,7 +73,7 @@ async def list_teams(
     workspace_id: str | None = None,
     limit: int = 100,
     next_page_token: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """List teams in an Asana workspace"""
     try:
         limit = max(1, min(100, limit))

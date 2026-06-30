@@ -1,0 +1,297 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  # Test Job
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: qgrid_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run TypeScript check
+        run: pnpm run check
+
+      - name: Run unit tests
+        run: pnpm run test
+        env:
+          NODE_ENV: test
+          DATABASE_URL: postgresql://test:test@localhost:5432/qgrid_test
+
+      - name: Generate coverage report
+        run: pnpm run test:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+      - name: Check test coverage threshold
+        run: |
+          COVERAGE=$(grep -oP 'Lines.*?\K[0-9.]+' coverage/coverage-final.json || echo "0")
+          echo "Test coverage: $COVERAGE%"
+          if (( $(echo "$COVERAGE < 60" | bc -l) )); then
+            echo "❌ Coverage below 60% threshold"
+            exit 1
+          fi
+          echo "✅ Coverage meets minimum threshold"
+
+  # Build Job
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build frontend
+        run: pnpm run build 2>&1 | tee build.log
+
+      - name: Check build size
+        run: |
+          SIZE=$(du -sh dist/public | cut -f1)
+          echo "Build size: $SIZE"
+          if [ "$SIZE" -gt "10M" ]; then
+            echo "⚠️ Warning: Build exceeds 10MB"
+          fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: build-artifacts
+          path: dist/
+          retention-days: 5
+
+  # Lint Job
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check TypeScript types
+        run: pnpm run check
+
+  # Security Job
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Run pnpm audit
+        run: pnpm audit --audit-level=moderate
+        continue-on-error: true
+
+      - name: Check for hardcoded secrets
+        run: |
+          if grep -r "PRIVATE_KEY" server/ --include="*.ts" | grep -v "__tests__" | grep -v ".example"; then
+            echo "❌ Found potential hardcoded private keys"
+            exit 1
+          fi
+          echo "✅ No hardcoded secrets detected"
+
+  # Deploy to Staging (only on develop branch)
+  deploy-staging:
+    needs: [test, build, lint, security]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to staging
+        run: |
+          echo "📦 Deploying to staging environment..."
+          # Deployment commands would go here
+          echo "✅ Staging deployment initiated"
+
+  # Create Release (only on main branch)
+  release:
+    needs: [test, build, lint, security]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create release notes
+        run: |
+          echo "## Release Notes" > release.md
+          git log $(git describe --tags --abbrev=0)..HEAD --oneline >> release.md || true
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          body_path: release.md
+          draft: false
+          prerelease: false
+
+  # Notification Job
+  notify:
+    runs-on: ubuntu-latest
+    needs: [test, build, lint, security]
+    if: always()
+
+    steps:
+      - name: Check job status
+        run: |
+          if [ "${{ needs.test.result }}" != "success" ]; then
+            echo "❌ Tests failed"
+            exit 1
+          fi
+          if [ "${{ needs.build.result }}" != "success" ]; then
+            echo "❌ Build failed"
+            exit 1
+          fi
+          echo "✅ All CI checks passed"
+
+      - name: Send Slack notification (on failure)
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "text": "CI/CD Pipeline Failed ❌",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Q-GRID CI/CD Failed*\nBranch: `${{ github.ref }}`\nCommit: `${{ github.sha }}`"
+                  }
+                }
+              ]
+            }
+
+      - name: Send Slack notification (on success)
+        if: success()
+        uses: slackapi/slack-github-action@v1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "text": "CI/CD Pipeline Passed ✅",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Q-GRID CI/CD Passed*\nBranch: `${{ github.ref }}`\nAll tests and builds successful!"
+                  }
+                }
+              ]
+            }

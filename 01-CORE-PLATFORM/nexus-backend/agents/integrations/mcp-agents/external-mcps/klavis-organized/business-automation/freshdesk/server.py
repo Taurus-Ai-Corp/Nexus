@@ -1,14 +1,13 @@
+import base64
 import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from contextvars import ContextVar
-import base64
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,82 +15,71 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
-
 from tools import (
-
+    add_note_to_ticket,
     # Context variables
     auth_token_context,
-    domain_context,
-
-    # Ticket tools
-    create_ticket,
-    update_ticket,
-    delete_ticket,
-    get_ticket_by_id,
-    list_tickets,
-    add_note_to_ticket,
-    filter_tickets,
-    merge_tickets,
-    restore_ticket,
-    watch_ticket,
-    unwatch_ticket,
-    forward_ticket,
-    get_archived_ticket,
-    delete_archived_ticket,
-    delete_attachment,
-    create_ticket_with_attachments,
-    delete_multiple_tickets,
-    reply_to_a_ticket,
-    update_note,
-    delete_note,
-    
-    # Contact tools
-
-    create_contact,
-    get_contact_by_id,
-    list_contacts,
-    update_contact,
-    delete_contact,
-    search_contacts_by_name,
-    filter_contacts,
-    make_contact_agent,
-    restore_contact,
-    send_contact_invite,
-    merge_contacts,
-
+    bulk_create_agents,
+    create_agent,
     # Company tools
     create_company,
-    get_company_by_id,
-    list_companies,
-    update_company,
-    delete_company,
-    filter_companies,
-    search_companies_by_name,
-
-    # Account tools
-    get_current_account,
-    
-    # Agent tools
-    list_agents,
-    get_agent_by_id,
-    get_current_agent,
-    create_agent,
-    update_agent,
-    delete_agent,
-    search_agents,
-    bulk_create_agents,
-    
+    # Contact tools
+    create_contact,
     # Thread tools
     create_thread,
-    get_thread_by_id,
-    update_thread,
-    delete_thread,
     create_thread_message,
+    # Ticket tools
+    create_ticket,
+    create_ticket_with_attachments,
+    delete_agent,
+    delete_archived_ticket,
+    delete_attachment,
+    delete_company,
+    delete_contact,
+    delete_multiple_tickets,
+    delete_note,
+    delete_thread,
+    delete_thread_message,
+    delete_ticket,
+    domain_context,
+    filter_companies,
+    filter_contacts,
+    filter_tickets,
+    forward_ticket,
+    get_agent_by_id,
+    get_archived_ticket,
+    get_company_by_id,
+    get_contact_by_id,
+    # Account tools
+    get_current_account,
+    get_current_agent,
+    get_thread_by_id,
     get_thread_message_by_id,
+    get_ticket_by_id,
+    # Agent tools
+    list_agents,
+    list_companies,
+    list_contacts,
+    list_tickets,
+    make_contact_agent,
+    merge_contacts,
+    merge_tickets,
+    reply_to_a_ticket,
+    restore_contact,
+    restore_ticket,
+    search_agents,
+    search_companies_by_name,
+    search_contacts_by_name,
+    send_contact_invite,
+    unwatch_ticket,
+    update_agent,
+    update_company,
+    update_contact,
+    update_note,
+    update_thread,
     update_thread_message,
-    delete_thread_message
+    update_ticket,
+    watch_ticket,
 )
 
 # Configure logging
@@ -99,26 +87,26 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 FRESHDESK_MCP_SERVER_PORT = int(os.getenv("FRESHDESK_MCP_SERVER_PORT", "5000"))
 
-def extract_credentials(request_or_scope) -> Dict[str, str]:
+def extract_credentials(request_or_scope) -> dict[str, str]:
     """Extract API key and domain from headers or environment."""
     api_key = os.getenv("API_KEY")
     domain = os.getenv("DOMAIN")
     auth_data = None
-    
+
     # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
     if hasattr(request_or_scope, 'headers'):
         # SSE request object
         header_value = request_or_scope.headers.get(b'x-auth-data')
         if header_value:
             auth_data = base64.b64decode(header_value).decode('utf-8')
-            
+
     elif isinstance(request_or_scope, dict) and 'headers' in request_or_scope:
         # StreamableHTTP scope object
         headers = dict(request_or_scope.get("headers", []))
         header_value = headers.get(b'x-auth-data')
         if header_value:
-            auth_data = base64.b64decode(header_value).decode('utf-8') 
-    
+            auth_data = base64.b64decode(header_value).decode('utf-8')
+
     # If no API key from environment, try to parse from auth_data
     if not api_key and auth_data:
         try:
@@ -129,7 +117,7 @@ def extract_credentials(request_or_scope) -> Dict[str, str]:
         except (json.JSONDecodeError, TypeError) as e:
             logger.warning(f"Failed to parse auth data JSON: {e}")
             api_key = ""
-    
+
     return {
         'api_key': api_key or "",
         'domain': domain or "",
@@ -137,18 +125,18 @@ def extract_credentials(request_or_scope) -> Dict[str, str]:
 
 
 attachment_schema = {
-    "type": "array", 
+    "type": "array",
     "items":{
-        "type": "object" , 
+        "type": "object" ,
         "properties": {
             "type": {
-                "type": "string", 
-                "enum": ["url", "file", "base64", "local"], 
+                "type": "string",
+                "enum": ["url", "file", "base64", "local"],
                 "default": "local",
                 "description": "Type of the attachment (e.g., 'file')."
-            }, 
+            },
             "content": {
-                "type": "string", 
+                "type": "string",
                 "description": "Base64 encoded content of the attachment or URL of the attachment."
             },
             "name": {
@@ -165,7 +153,7 @@ attachment_schema = {
                 "description": "Encoding of the attachment content. Default is 'utf-8'."
             }
         }
-    }, 
+    },
     "description": "List of attachment objects with 'type' and 'content' fields."
 }
 
@@ -271,7 +259,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                         "type": "integer",
                         "description": "ID of the group to assign the ticket to."
                     },
-                    
+
                 },
                 "required": ["subject", "description", "email"]
             }
@@ -521,8 +509,8 @@ def main(port: int, log_level: str, json_response: bool) -> int:
             }
         ),
         types.Tool(
-            name="freshdesk_filter_tickets", 
-            description="Use ticket fields to filter through tickets and get a list of tickets matching the specified ticket fields.", 
+            name="freshdesk_filter_tickets",
+            description="Use ticket fields to filter through tickets and get a list of tickets matching the specified ticket fields.",
             inputSchema={
             "type": "object",
             "properties": {
@@ -548,70 +536,70 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 "type": "object",
                 "properties": {
                     "subject": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "The subject of the ticket (required)."
                     },
                     "description": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "The HTML content of the ticket (required)."
                     },
                     "email": {
-                        "type": "string", 
-                        "format": "email", 
+                        "type": "string",
+                        "format": "email",
                         "description": "Email address of the requester (required)."
                     },
                     "name": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Name of the requester."
                     },
                     "priority": {
-                        "type": "integer", 
-                        "enum": [1, 2, 3, 4], 
+                        "type": "integer",
+                        "enum": [1, 2, 3, 4],
                         "description": "Priority of the ticket (1=Low, 2=Medium, 3=High, 4=Urgent). Default is 2 (Medium)."
                     },
                     "status": {
-                        "type": "integer", 
-                        "enum": [2, 3, 4, 5], 
+                        "type": "integer",
+                        "enum": [2, 3, 4, 5],
                         "description": "Status of the ticket (2=Open, 3=Pending, 4=Resolved, 5=Closed). Default is 2 (Open)."
                     },
                     "source": {
-                        "type": "integer", 
-                        "enum": [1, 2, 3, 7, 9, 10], 
+                        "type": "integer",
+                        "enum": [1, 2, 3, 7, 9, 10],
                         "description": "Source of the ticket (1=Email, 2=Portal, 3=Phone, 7=Chat, 9=Feedback, 10=Outbound Email). Default is 2 (Portal)."
                     },
                     "tags": {
-                        "type": "array", 
-                        "items": {"type": "string"}, 
+                        "type": "array",
+                        "items": {"type": "string"},
                         "description": "List of tags to associate with the ticket."
                     },
-                    "custom_fields": {  
-                        "type": "object", 
+                    "custom_fields": {
+                        "type": "object",
                         "description": "Key-value pairs of custom fields."
                     },
                     "cc_emails": {
-                        "type": "array", 
-                        "items": {"type": "string", "format": "email"}, 
+                        "type": "array",
+                        "items": {"type": "string", "format": "email"},
                         "description": "List of email addresses to CC."
                     },
                     "attachments": attachment_schema,
                     "due_by": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Due date for the ticket (ISO 8601 format)."
                     },
                     "fr_due_by": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Due date for the ticket (ISO 8601 format)."
                     },
                     "group_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "ID of the group."
                     },
                     "responder_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "ID of the responder."
                     },
                     "parent_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "ID of the parent ticket. If provided, the ticket will be created as a child of the parent ticket."
                     }
                 },
@@ -654,74 +642,74 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 "type": "object",
                 "properties": {
                     "status": {
-                        "type": "integer", 
-                        "enum": [2, 3, 4, 5], 
+                        "type": "integer",
+                        "enum": [2, 3, 4, 5],
                         "description": "Filter by status (2=Open, 3=Pending, 4=Resolved, 5=Closed)."
                     },
                     "priority": {
-                        "type": "integer", 
-                        "enum": [1, 2, 3, 4], 
+                        "type": "integer",
+                        "enum": [1, 2, 3, 4],
                         "description": "Filter by priority (1=Low, 2=Medium, 3=High, 4=Urgent)."
                     },
                     "requester_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "Filter by requester ID."
                     },
                     "email": {
-                        "type": "string", 
-                        "format": "email", 
+                        "type": "string",
+                        "format": "email",
                         "description": "Filter by email address."
                     },
                     "agent_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "Filter by agent ID (ID of the agent to whom the ticket has been assigned)."
                     },
                     "company_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "Filter by company ID."
                     },
                     "group_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "Filter by group ID."
                     },
                     "ticket_type": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Filter by ticket type."
                     },
                     "updated_since": {
-                        "type": "string", 
-                        "format": "date-time", 
+                        "type": "string",
+                        "format": "date-time",
                         "description": "Only return tickets updated since this date (ISO 8601 format)."
                     },
                     "created_since": {
-                        "type": "string", 
-                        "format": "date-time", 
+                        "type": "string",
+                        "format": "date-time",
                         "description": "Only return tickets created since this date (ISO 8601 format)."
                     },
                     "due_by": {
-                        "type": "string", 
-                        "format": "date-time", 
+                        "type": "string",
+                        "format": "date-time",
                         "description": "Only return tickets due by this date (ISO 8601 format)."
                     },
                     "order_by": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Order by (created_at, updated_at, priority, status). Default is created_at."
                     },
                     "order_type": {
-                        "type": "string", 
-                        "enum": ["asc", "desc"], 
+                        "type": "string",
+                        "enum": ["asc", "desc"],
                         "description": "Order type (asc or desc). Default is desc."
                     },
                     "include": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Include additional data (stats, requester, description)."
                     },
                     "page": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "Page number for pagination. Default is 1."
                     },
                     "per_page": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "Number of results per page (max 100). Default is 30."
                     }
                 }
@@ -802,24 +790,24 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 "type": "object",
                 "properties": {
                     "name": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Name of the contact"
                     },
                     "email": {
-                        "type": "string", 
-                        "format": "email", 
+                        "type": "string",
+                        "format": "email",
                         "description": "Primary email address"
                     },
                     "phone": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Telephone number"
                     },
                     "company_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "ID of the company"
                     },
                     "description": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Description of the contact"
                     }
                 },
@@ -844,36 +832,36 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 "type": "object",
                 "properties": {
                     "email": {
-                        "type": "string", 
-                        "format": "email", 
+                        "type": "string",
+                        "format": "email",
                         "description": "Filter by email"
                     },
                     "phone": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Filter by phone number"
                     },
                     "mobile": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Filter by mobile number"
                     },
                     "company_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "Filter by company ID"
                     },
                     "state": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Filter by state (verified, unverified, blocked, deleted)"
                     },
                     "updated_since": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Filter by last updated date (ISO 8601 format)"
                     },
                     "page": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "Page number for pagination. Default is 1."
                     },
                     "per_page": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "Number of results per page (max 100). Default is 30."
                     }
                 }
@@ -886,53 +874,53 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 "type": "object",
                 "properties": {
                     "contact_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "ID of the contact to update"
                     },
                     "name": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "New name"
                     },
                     "email": {
-                        "type": "string", 
-                        "format": "email", 
+                        "type": "string",
+                        "format": "email",
                         "description": "New primary email"
                     },
                     "phone": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "New phone number"
                     },
                     "mobile": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "New mobile number"
                     },
                     "company_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "New company ID"
                     },
                     "description": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "New description"
                     },
                     "job_title": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "New job title"
                     },
                     "tags": {
-                        "type": "array", 
-                        "items": {"type": "string"}, 
+                        "type": "array",
+                        "items": {"type": "string"},
                         "description": "Updated list of tags"
                     },
                     "custom_fields": {
-                        "type": "object", 
+                        "type": "object",
                         "description": "Updated custom fields"
                     },
                     "avatar_path": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Path to new avatar image file"
                     },
                     "address": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Address of the contact"
                     }
                 },
@@ -946,17 +934,17 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 "type": "object",
                 "properties": {
                     "contact_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "ID of the contact to delete"
                     },
                     "hard_delete": {
-                        "type": "boolean", 
-                        "default": False, 
+                        "type": "boolean",
+                        "default": False,
                         "description": "If true, permanently delete the contact"
                     },
                     "force": {
-                        "type": "boolean", 
-                        "default": False, 
+                        "type": "boolean",
+                        "default": False,
                         "description": "If true, force hard delete even if not soft deleted first"
                     }
                 },
@@ -981,16 +969,16 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 "type": "object",
                 "properties": {
                     "query": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Filter query using this format - contact_field:integer OR contact_field:'string' AND contact_field:boolean e.g. {query: 'field_name:field_value'} - name:John Doe"
                     },
                     "page": {
-                        "type": "integer", 
-                        "description": "Page number (1-based)", 
+                        "type": "integer",
+                        "description": "Page number (1-based)",
                         "default": 1
                     },
                     "updated_since": {
-                        "type": "string", 
+                        "type": "string",
                         "description": "Filter by last updated date (ISO 8601 format)"
                     }
                 },
@@ -1045,38 +1033,38 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 "type": "object",
                 "properties": {
                     "primary_contact_id": {
-                        "type": "integer", 
+                        "type": "integer",
                         "description": "ID of the primary contact to merge into"
                     },
                     "secondary_contact_ids": {
-                        "type": "array", 
-                        "items": {"type": "integer"}, 
+                        "type": "array",
+                        "items": {"type": "integer"},
                         "description": "List of contact IDs to merge into the primary contact"
                     },
                     "contact_data": {
-                        "type": "object", 
+                        "type": "object",
                         "description": "Optional dictionary of fields to update on the primary contact",
                         "properties": {
                             "email": {
-                                "type": "string", 
+                                "type": "string",
                                 "description": "Primary email address of the contact."
                             },
                             "phone": {
-                                "type": "string", 
+                                "type": "string",
                                 "description": "Phone number of the contact."
-                            }, 
+                            },
                             "mobile": {
-                                "type": "string", 
+                                "type": "string",
                                 "description": "Mobile number of the contact."
                             },
                             "company_ids": {
-                                "type": "array", 
-                                "items": {"type": "integer"}, 
+                                "type": "array",
+                                "items": {"type": "integer"},
                                 "description": "IDs of the companies associated with the contact"
                             },
                             "other_emails": {
-                                "type": "array", 
-                                "items": {"type": "string"}, 
+                                "type": "array",
+                                "items": {"type": "string"},
                                 "description": "Additional emails associated with the contact"
                             },
                         }
@@ -1307,30 +1295,30 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "type": "object",
                     "properties": {
                         "email": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "Filter by email address"
                         },
                         "mobile": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "Filter by mobile number"
                         },
                         "phone": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "Filter by phone number"
                         },
                         "state": {
-                            "type": "string", 
-                            "enum": ["fulltime", "occasional"], 
+                            "type": "string",
+                            "enum": ["fulltime", "occasional"],
                             "description": "Filter by agent state"
                         },
                         "page": {
-                            "type": "integer", 
-                            "description": "Page number (1-based)", 
+                            "type": "integer",
+                            "description": "Page number (1-based)",
                             "default": 1
                         },
                         "per_page": {
-                            "type": "integer", 
-                            "description": "Number of results per page (max 100)", 
+                            "type": "integer",
+                            "description": "Number of results per page (max 100)",
                             "default": 30
                         },
                     },
@@ -1343,7 +1331,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "type": "object",
                     "properties": {
                         "agent_id": {
-                            "type": "integer", 
+                            "type": "integer",
                             "description": "ID of the agent to retrieve"
                         },
                     },
@@ -1365,60 +1353,60 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "type": "object",
                     "properties": {
                         "email": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "Email address of the agent"
                         },
                         "name": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "Name of the agent"
                         },
                         "ticket_scope": {
-                            "type": "integer", 
-                            "enum": [1, 2, 3], 
+                            "type": "integer",
+                            "enum": [1, 2, 3],
                             "description": "Ticket permission (1=Global, 2=Group, 3=Restricted)"
                         },
                         "role_ids": {
-                            "type": "array", 
-                            "items": {"type": "integer"}, 
+                            "type": "array",
+                            "items": {"type": "integer"},
                             "description": "List of role IDs for the agent"
                         },
                         "group_ids": {
-                            "type": "array", 
-                            "items": {"type": "integer"}, 
+                            "type": "array",
+                            "items": {"type": "integer"},
                             "description": "List of group IDs the agent belongs to"
                         },
                         "skill_ids": {
-                            "type": "array", 
-                            "items": {"type": "integer"}, 
+                            "type": "array",
+                            "items": {"type": "integer"},
                             "description": "List of skill IDs for the agent"
                         },
                         "occasional": {
-                            "type": "boolean", 
-                            "description": "Whether the agent is occasional (True) or full-time (False)", 
+                            "type": "boolean",
+                            "description": "Whether the agent is occasional (True) or full-time (False)",
                             "default": False
                         },
                         "signature": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "HTML signature for the agent"
                         },
                         "language": {
-                            "type": "string", 
-                            "description": "Language code (default: 'en')", 
+                            "type": "string",
+                            "description": "Language code (default: 'en')",
                             "default": "en"
                         },
                         "time_zone": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "Time zone for the agent"
                         },
                         "agent_type": {
-                            "type": "integer", 
-                            "enum": [1, 2, 3], 
-                            "description": "Type of agent (1=Support, 2=Field, 3=Collaborator)", 
+                            "type": "integer",
+                            "enum": [1, 2, 3],
+                            "description": "Type of agent (1=Support, 2=Field, 3=Collaborator)",
                             "default": 1
                         },
                         "focus_mode": {
-                            "type": "boolean", 
-                            "description": "Whether focus mode is enabled", 
+                            "type": "boolean",
+                            "description": "Whether focus mode is enabled",
                             "default": True
                         },
                     },
@@ -1432,51 +1420,51 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "type": "object",
                     "properties": {
                         "agent_id": {
-                            "type": "integer", 
+                            "type": "integer",
                             "description": "ID of the agent to update"
                         },
                         "email": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "New email address"
                         },
                         "ticket_scope": {
-                            "type": "integer", 
-                            "enum": [1, 2, 3], 
+                            "type": "integer",
+                            "enum": [1, 2, 3],
                             "description": "New ticket permission (1=Global, 2=Group, 3=Restricted)"
                         },
                         "role_ids": {
-                            "type": "array", 
-                            "items": {"type": "integer"}, 
+                            "type": "array",
+                            "items": {"type": "integer"},
                             "description": "New list of role IDs"
                         },
                         "group_ids": {
-                            "type": "array", 
-                            "items": {"type": "integer"}, 
+                            "type": "array",
+                            "items": {"type": "integer"},
                             "description": "New list of group IDs"
                         },
                         "skill_ids": {
-                            "type": "array", 
-                            "items": {"type": "integer"}, 
+                            "type": "array",
+                            "items": {"type": "integer"},
                             "description": "New list of skill IDs"
                         },
                         "occasional": {
-                            "type": "boolean", 
+                            "type": "boolean",
                             "description": "Whether the agent is occasional"
                         },
                         "signature": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "New HTML signature"
                         },
                         "language": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "New language code"
                         },
                         "time_zone": {
-                            "type": "string", 
+                            "type": "string",
                             "description": "New time zone"
                         },
                         "focus_mode": {
-                            "type": "boolean", 
+                            "type": "boolean",
                             "description": "Whether focus mode is enabled"
                         },
                     },
@@ -1517,55 +1505,55 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                                 "type": "object",
                                 "properties": {
                                     "email": {
-                                        "type": "string", 
+                                        "type": "string",
                                         "description": "Email address of the agent"
                                     },
                                     "name": {
-                                        "type": "string", 
+                                        "type": "string",
                                         "description": "Name of the agent"
                                     },
                                     "ticket_scope": {
-                                        "type": "integer", 
-                                        "enum": [1, 2, 3], 
+                                        "type": "integer",
+                                        "enum": [1, 2, 3],
                                         "description": "Ticket permission (1=Global, 2=Group, 3=Restricted)"
                                     },
                                     "role_ids": {
-                                        "type": "array", 
-                                        "items": {"type": "integer"}, 
+                                        "type": "array",
+                                        "items": {"type": "integer"},
                                         "description": "List of role IDs for the agent"
                                     },
                                     "group_ids": {
-                                        "type": "array", 
-                                        "items": {"type": "integer"}, 
+                                        "type": "array",
+                                        "items": {"type": "integer"},
                                         "description": "List of group IDs the agent belongs to"
                                     },
                                     "skill_ids": {
-                                        "type": "array", 
-                                        "items": {"type": "integer"}, 
+                                        "type": "array",
+                                        "items": {"type": "integer"},
                                         "description": "List of skill IDs for the agent"
                                     },
                                     "occasional": {
-                                        "type": "boolean", 
+                                        "type": "boolean",
                                         "description": "Whether the agent is occasional (True) or full-time (False)"
                                     },
                                     "signature": {
-                                        "type": "string", 
+                                        "type": "string",
                                         "description": "HTML signature for the agent"
                                     },
                                     "language": {
-                                        "type": "string", 
+                                        "type": "string",
                                         "description": "Language code (default: 'en')"
                                     },
                                     "time_zone": {
-                                        "type": "string", 
+                                        "type": "string",
                                         "description": "Time zone for the agent"
                                     },
                                     "agent_type": {
-                                        "type": "integer", 
+                                        "type": "integer",
                                         "description": "Type of agent (1=Support, 2=Field, 3=Collaborator)"
                                     },
                                     "focus_mode": {
-                                        "type": "boolean", 
+                                        "type": "boolean",
                                         "description": "Whether focus mode is enabled (default: True)"
                                     },
                                 },
@@ -1577,7 +1565,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "required": ["agents_data"],
                 },
             ),
-            
+
             # Thread tools
             types.Tool(
                 name="freshdesk_create_thread",
@@ -1633,7 +1621,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "required": ["thread_type", "parent_id"]
                 }
             ),
-            
+
             types.Tool(
                 name="freshdesk_get_thread_by_id",
                 description="Get a thread by its ID.",
@@ -1648,7 +1636,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "required": ["thread_id"]
                 }
             ),
-            
+
             types.Tool(
                 name="freshdesk_update_thread",
                 description="Update a thread in Freshdesk.",
@@ -1671,7 +1659,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "required": ["thread_id"]
                 }
             ),
-            
+
             types.Tool(
                 name="freshdesk_delete_thread",
                 description="Delete a thread from Freshdesk. Note: This is an irreversible action!",
@@ -1686,7 +1674,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "required": ["thread_id"]
                 }
             ),
-            
+
             types.Tool(
                 name="freshdesk_create_thread_message",
                 description="Create a new message for a thread.",
@@ -1751,7 +1739,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "required": ["thread_id", "body"]
                 }
             ),
-            
+
             types.Tool(
                 name="freshdesk_get_thread_message_by_id",
                 description="Get a thread message by its ID.",
@@ -1766,7 +1754,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "required": ["message_id"]
                 }
             ),
-            
+
             types.Tool(
                 name="freshdesk_update_thread_message",
                 description="Update a thread message.",
@@ -1803,7 +1791,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                     "required": ["message_id"]
                 }
             ),
-            
+
             types.Tool(
                 name="freshdesk_delete_thread_message",
                 description="Delete a thread message. Note: This is an irreversible action!",
@@ -1819,7 +1807,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 }
             ),
         ]
-    
+
     @app.call_tool()
     async def call_tool(name: str, arguments: dict) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         try:
@@ -1902,7 +1890,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 result = await filter_companies(**arguments)
             elif name == "freshdesk_search_companies_by_name":
                 result = await search_companies_by_name(**arguments)
-                
+
             elif name == "freshdesk_get_current_account":
                 result = await get_current_account()
 
@@ -1922,7 +1910,7 @@ def main(port: int, log_level: str, json_response: bool) -> int:
                 result = await search_agents(**arguments)
             elif name == "freshdesk_bulk_create_agents":
                 result = await bulk_create_agents(**arguments)
-                
+
             # Thread tools
             elif name == "freshdesk_create_thread":
                 result = await create_thread(**arguments)
@@ -1946,11 +1934,11 @@ def main(port: int, log_level: str, json_response: bool) -> int:
             if isinstance(result, dict) and result.get("error") :
                 logger.error(f"Error executing tool {name}: {result.get('error')}")
                 return [types.TextContent(type="text", text=f"{result.get('error')}")]
-            
+
             logger.info(f"Tool {name} executed successfully with arguments: {arguments}")
 
             return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-            
+
         except ValueError as e:
             logger.exception(f"Error executing tool {name}: {e}")
             return [types.TextContent(type="text", text=f"Error: {str(e)}")]
@@ -1963,10 +1951,10 @@ def main(port: int, log_level: str, json_response: bool) -> int:
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract credentials (API key, domain, auth token) from headers
         credentials = extract_credentials(request)
-        
+
         # Set the API key, auth token and domain in context for this request
         auth_token = auth_token_context.set(credentials['api_key'])
         domain_token = domain_context.set(credentials['domain'])
@@ -1988,10 +1976,10 @@ def main(port: int, log_level: str, json_response: bool) -> int:
 
     async def handle_streamable_http(scope: Scope, receive: Receive, send: Send) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract credentials (API key, domain, auth token) from headers
         credentials = extract_credentials(scope)
-        
+
          # Set the API key, auth token and domain in context for this request
         auth_token = auth_token_context.set(credentials['api_key'])
         domain_token = domain_context.set(credentials['domain'])
@@ -2034,4 +2022,4 @@ def main(port: int, log_level: str, json_response: bool) -> int:
     return 0
 
 if __name__ == "__main__":
-    main() 
+    main()

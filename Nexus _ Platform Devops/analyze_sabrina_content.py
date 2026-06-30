@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 import json
 
+
 def analyze_sabrina_content():
-    with open('sabrina_agents_content.json', 'r') as f:
+    with open('sabrina_agents_content.json') as f:
         data = json.load(f)
-    
+
     # Extract key information
     content = json.loads(data['raw_content'])
     features = content['data']['features']
-    
+
     print(f'Total templates found: {len(features)}')
     print('\nTemplate categories and examples:')
-    
+
     categories = {}
     for feature in features:
         name = feature['name']
@@ -34,11 +35,11 @@ def analyze_sabrina_content():
             category = 'AI Assistants & Bots'
         else:
             category = 'General Automation'
-        
+
         if category not in categories:
             categories[category] = []
         categories[category].append(name)
-    
+
     # Print categorized templates
     for category, templates in categories.items():
         print(f'\n{category} ({len(templates)} templates):')
@@ -46,18 +47,18 @@ def analyze_sabrina_content():
             print(f'  - {template}')
         if len(templates) > 5:
             print(f'  ... and {len(templates) - 5} more')
-    
+
     print(f'\nTotal categories: {len(categories)}')
-    
+
     # Extract tools/integrations mentioned
     tools = set()
     for feature in features:
         if 'tools' in feature:
             tools.update(feature['tools'])
-    
+
     print(f'\nKey integrations found ({len(tools)}):')
     print(', '.join(sorted(tools)[:20]))  # Show first 20
-    
+
     return categories, tools
 
 if __name__ == "__main__":

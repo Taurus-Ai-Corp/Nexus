@@ -1,7 +1,7 @@
 import logging
 import os
 from contextvars import ContextVar
-from typing import Optional
+
 from dotenv import load_dotenv
 from exa_py import Exa
 
@@ -33,7 +33,7 @@ def get_auth_token() -> str:
             raise RuntimeError("No Exa auth token found in context or environment")
         return token
 
-def get_exa_client() -> Optional[Exa]:
+def get_exa_client() -> Exa | None:
     """
     Return an Exa client instance ready to use.
     """

@@ -1,6 +1,7 @@
 import logging
-from typing import Any, Dict, Optional
 from contextvars import ContextVar
+from typing import Any
+
 import httpx
 
 # Configure logging
@@ -19,21 +20,21 @@ def get_auth_token() -> str:
         raise RuntimeError("Authentication token not found in request context")
 
 async def make_clickup_request(
-    endpoint: str, 
-    method: str = "GET", 
-    data: Optional[Dict[str, Any]] = None,
-    params: Optional[Dict[str, Any]] = None
-) -> Dict[str, Any]:
+    endpoint: str,
+    method: str = "GET",
+    data: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Make a REST API request to ClickUp API."""
     access_token = get_auth_token()
-    
+
     headers = {
         "Authorization": access_token,
         "Content-Type": "application/json"
     }
-    
+
     url = f"{CLICKUP_API_BASE_URL}/{endpoint.lstrip('/')}"
-    
+
     async with httpx.AsyncClient() as client:
         if method.upper() == "GET":
             response = await client.get(url, headers=headers, params=params)
@@ -45,6 +46,6 @@ async def make_clickup_request(
             response = await client.delete(url, headers=headers, params=params)
         else:
             raise ValueError(f"Unsupported HTTP method: {method}")
-        
+
         response.raise_for_status()
-        return response.json() 
+        return response.json()

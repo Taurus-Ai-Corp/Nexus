@@ -3,35 +3,34 @@
 Orchestrates comprehensive SEO workflows using Claude MCP and multiple agents
 """
 
-import asyncio
 import logging
-from typing import Dict, List, Any, Optional
 from datetime import datetime, timedelta
 from enum import Enum
+from typing import Any
 
-from ..mcps.claude_seo_mcp import ClaudeSEOMCP, MarketRegion, SEOTaskType
-from ..agents.vibe_marketing_agent import VibeMarketingAgent, ContentType, TargetMarket
-from ..registry.hybrid_orchestrator import HybridOrchestrator
+from ..agents.vibe_marketing_agent import ContentType, TargetMarket, VibeMarketingAgent
 from ..database.supabase_integration import get_supabase_integration
+from ..mcps.claude_seo_mcp import ClaudeSEOMCP, MarketRegion
+from ..registry.hybrid_orchestrator import HybridOrchestrator
 
 logger = logging.getLogger(__name__)
 
 class SEOCampaignType(Enum):
     LOCAL_BUSINESS = "local_business"
     ECOMMERCE = "ecommerce"
-    CONTENT_MARKETING = "content_marketing" 
+    CONTENT_MARKETING = "content_marketing"
     ENTERPRISE = "enterprise"
     STARTUP_LAUNCH = "startup_launch"
 
 class SEOIntelligenceConnector:
     """Comprehensive SEO intelligence orchestration system"""
-    
+
     def __init__(self):
         self.claude_seo_mcp = ClaudeSEOMCP()
         self.vibe_marketing_agent = VibeMarketingAgent()
         self.orchestrator = None  # Will be injected
         self.supabase = get_supabase_integration()
-        
+
         # Campaign templates
         self.campaign_templates = {
             SEOCampaignType.LOCAL_BUSINESS: {
@@ -53,58 +52,58 @@ class SEOIntelligenceConnector:
                 "kpis": ["product_page_rankings", "organic_revenue", "shopping_clicks"]
             }
         }
-    
+
     async def initialize(self):
         """Initialize the SEO Intelligence Connector"""
         logger.info("🔍 Initializing SEO Intelligence Connector...")
-        
+
         try:
             await self.claude_seo_mcp.initialize()
             await self.vibe_marketing_agent.initialize()
             await self.supabase.initialize()
-            
+
             logger.info("✅ SEO Intelligence Connector ready")
         except Exception as e:
             logger.error(f"❌ SEO connector initialization failed: {e}")
-    
+
     def set_orchestrator(self, orchestrator: HybridOrchestrator):
         """Set the hybrid orchestrator for multi-agent coordination"""
         self.orchestrator = orchestrator
-    
-    async def launch_comprehensive_seo_campaign(self, 
+
+    async def launch_comprehensive_seo_campaign(self,
                                               business_domain: str,
-                                              target_keywords: List[str],
+                                              target_keywords: list[str],
                                               campaign_type: SEOCampaignType,
-                                              target_regions: List[MarketRegion],
-                                              duration_weeks: int = 12) -> Dict[str, Any]:
+                                              target_regions: list[MarketRegion],
+                                              duration_weeks: int = 12) -> dict[str, Any]:
         """Launch a comprehensive SEO campaign with multi-agent coordination"""
-        
+
         campaign_id = f"seo-{campaign_type.value}-{int(datetime.now().timestamp())}"
         logger.info(f"🚀 Launching SEO campaign: {campaign_id}")
-        
+
         try:
             campaign_template = self.campaign_templates.get(campaign_type, {})
-            
+
             # Phase 1: Intelligence Gathering
             intelligence_phase = await self._execute_intelligence_phase(
                 target_keywords, target_regions, business_domain
             )
-            
+
             # Phase 2: Content Strategy & Creation
             content_phase = await self._execute_content_phase(
                 intelligence_phase, campaign_template, target_regions
             )
-            
+
             # Phase 3: Technical Optimization
             technical_phase = await self._execute_technical_phase(
                 business_domain, intelligence_phase
             )
-            
+
             # Phase 4: Performance Monitoring Setup
             monitoring_phase = await self._setup_performance_monitoring(
                 campaign_id, target_keywords, target_regions
             )
-            
+
             # Compile campaign results
             campaign_results = {
                 "campaign_id": campaign_id,
@@ -122,25 +121,25 @@ class SEOIntelligenceConnector:
                 "next_review_date": (datetime.now() + timedelta(weeks=2)).isoformat(),
                 "estimated_completion": (datetime.now() + timedelta(weeks=duration_weeks)).isoformat()
             }
-            
+
             # Store campaign data
             await self._store_campaign_data(campaign_results)
-            
+
             logger.info(f"✅ SEO campaign launched successfully: {campaign_id}")
             return campaign_results
-            
+
         except Exception as e:
             logger.error(f"❌ SEO campaign launch failed: {e}")
             return {"error": str(e), "campaign_id": campaign_id, "status": "failed"}
-    
-    async def _execute_intelligence_phase(self, 
-                                        target_keywords: List[str],
-                                        target_regions: List[MarketRegion],
-                                        business_domain: str) -> Dict[str, Any]:
+
+    async def _execute_intelligence_phase(self,
+                                        target_keywords: list[str],
+                                        target_regions: list[MarketRegion],
+                                        business_domain: str) -> dict[str, Any]:
         """Execute comprehensive SEO intelligence gathering"""
-        
+
         logger.info("🧠 Executing SEO intelligence phase...")
-        
+
         intelligence_results = {
             "keyword_research": {},
             "competitor_analysis": {},
@@ -148,7 +147,7 @@ class SEOIntelligenceConnector:
             "content_gaps": {},
             "technical_opportunities": {}
         }
-        
+
         try:
             # Multi-region keyword research
             for region in target_regions:
@@ -162,7 +161,7 @@ class SEOIntelligenceConnector:
                     "high_opportunity_keywords": [k for k in keywords if k.difficulty_score < 50],
                     "trending_keywords": [k for k in keywords if k.trending_score > 0.7]
                 }
-            
+
             # Competitor intelligence (simulate for multiple competitors)
             competitor_domains = self._get_competitor_domains(business_domain)
             for region in target_regions:
@@ -171,40 +170,40 @@ class SEOIntelligenceConnector:
                     industry=business_domain,
                     region=region
                 )
-                
+
                 intelligence_results["competitor_analysis"][region.value] = {
                     "competitors_analyzed": len(competitor_insights),
                     "content_gaps_identified": sum(len(c.content_gaps) for c in competitor_insights),
                     "keyword_opportunities": sum(len(c.top_keywords) for c in competitor_insights)
                 }
-            
+
             # Market insights aggregation
             intelligence_results["market_insights"] = await self._generate_market_insights(
                 target_keywords, target_regions, business_domain
             )
-            
+
             logger.info("✅ Intelligence phase completed")
             return intelligence_results
-            
+
         except Exception as e:
             logger.error(f"❌ Intelligence phase failed: {e}")
             return {"error": str(e)}
-    
-    async def _execute_content_phase(self, 
-                                   intelligence_data: Dict[str, Any],
-                                   campaign_template: Dict[str, Any],
-                                   target_regions: List[MarketRegion]) -> Dict[str, Any]:
+
+    async def _execute_content_phase(self,
+                                   intelligence_data: dict[str, Any],
+                                   campaign_template: dict[str, Any],
+                                   target_regions: list[MarketRegion]) -> dict[str, Any]:
         """Execute comprehensive content creation and optimization"""
-        
+
         logger.info("📝 Executing SEO content phase...")
-        
+
         content_results = {
             "content_strategy": {},
             "content_created": {},
             "optimization_applied": {},
             "content_calendar": {}
         }
-        
+
         try:
             # Generate content strategies for each region
             for region in target_regions:
@@ -214,19 +213,19 @@ class SEOIntelligenceConnector:
                     region=region,
                     content_type="blog"
                 )
-                
+
                 content_results["content_strategy"][region.value] = {
                     "strategy_generated": True,
                     "content_pieces_planned": len(strategy.get("content_calendar", [])),
                     "keyword_coverage": len(strategy.get("keyword_mapping", {}))
                 }
-            
+
             # Create region-specific content using Vibe Marketing Agent
             content_types = campaign_template.get("content_types", [ContentType.BLOG_ARTICLE])
-            
+
             for region in target_regions:
                 target_market = self._convert_region_to_market(region)
-                
+
                 for content_type in content_types:
                     # This would integrate with the Vibe Marketing Agent
                     content_results["content_created"][f"{region.value}_{content_type.value}"] = {
@@ -235,7 +234,7 @@ class SEOIntelligenceConnector:
                         "seo_score": 88.5,   # Would be calculated
                         "region_adaptation": True
                     }
-            
+
             # Content optimization recommendations
             content_results["optimization_applied"] = {
                 "title_optimization": True,
@@ -245,39 +244,39 @@ class SEOIntelligenceConnector:
                 "schema_markup": True,
                 "regional_adaptation": True
             }
-            
+
             logger.info("✅ Content phase completed")
             return content_results
-            
+
         except Exception as e:
             logger.error(f"❌ Content phase failed: {e}")
             return {"error": str(e)}
-    
-    async def _execute_technical_phase(self, 
+
+    async def _execute_technical_phase(self,
                                      business_domain: str,
-                                     intelligence_data: Dict[str, Any]) -> Dict[str, Any]:
+                                     intelligence_data: dict[str, Any]) -> dict[str, Any]:
         """Execute technical SEO optimization"""
-        
+
         logger.info("🔧 Executing technical SEO phase...")
-        
+
         technical_results = {
             "audit_completed": False,
             "issues_identified": 0,
             "optimizations_applied": [],
             "performance_improvements": {}
         }
-        
+
         try:
             # Technical SEO audit (would use actual domain)
             domain = f"{business_domain.lower().replace(' ', '')}.com"
             audit_results = await self.claude_seo_mcp.audit_technical_seo(domain)
-            
+
             technical_results = {
                 "audit_completed": True,
                 "issues_identified": len(audit_results.get("issues", [])),
                 "optimizations_applied": [
                     "page_speed_optimization",
-                    "mobile_responsiveness", 
+                    "mobile_responsiveness",
                     "schema_markup_implementation",
                     "xml_sitemap_optimization"
                 ],
@@ -287,22 +286,22 @@ class SEOIntelligenceConnector:
                     "core_web_vitals": "All green"
                 }
             }
-            
+
             logger.info("✅ Technical phase completed")
             return technical_results
-            
+
         except Exception as e:
             logger.error(f"❌ Technical phase failed: {e}")
             return {"error": str(e)}
-    
-    async def _setup_performance_monitoring(self, 
+
+    async def _setup_performance_monitoring(self,
                                           campaign_id: str,
-                                          target_keywords: List[str],
-                                          target_regions: List[MarketRegion]) -> Dict[str, Any]:
+                                          target_keywords: list[str],
+                                          target_regions: list[MarketRegion]) -> dict[str, Any]:
         """Setup comprehensive SEO performance monitoring"""
-        
+
         logger.info("📊 Setting up SEO performance monitoring...")
-        
+
         monitoring_setup = {
             "tracking_configured": True,
             "keywords_monitored": len(target_keywords),
@@ -310,20 +309,20 @@ class SEOIntelligenceConnector:
             "reporting_frequency": "weekly",
             "alerts_configured": [
                 "ranking_drops",
-                "traffic_anomalies", 
+                "traffic_anomalies",
                 "technical_issues",
                 "competitor_changes"
             ],
             "dashboard_url": f"https://seo-dashboard.taurus-ai.com/{campaign_id}"
         }
-        
+
         return monitoring_setup
-    
-    async def get_campaign_performance(self, campaign_id: str) -> Dict[str, Any]:
+
+    async def get_campaign_performance(self, campaign_id: str) -> dict[str, Any]:
         """Get comprehensive SEO campaign performance metrics"""
-        
+
         logger.info(f"📈 Retrieving performance for campaign: {campaign_id}")
-        
+
         try:
             # This would fetch real performance data
             performance = {
@@ -348,33 +347,33 @@ class SEOIntelligenceConnector:
                     "Build more topical authority content"
                 ]
             }
-            
+
             return performance
-            
+
         except Exception as e:
             logger.error(f"❌ Performance retrieval failed: {e}")
             return {"error": str(e)}
-    
+
     def _get_primary_language(self, region: MarketRegion) -> str:
         """Get primary language for region"""
         language_map = {
             MarketRegion.UAE: "en",
-            MarketRegion.INDIA: "en", 
+            MarketRegion.INDIA: "en",
             MarketRegion.CANADA: "en",
             MarketRegion.GLOBAL: "en"
         }
         return language_map.get(region, "en")
-    
-    def _get_competitor_domains(self, business_domain: str) -> List[str]:
+
+    def _get_competitor_domains(self, business_domain: str) -> list[str]:
         """Get competitor domains for analysis"""
         # This would be dynamic based on industry/domain
         return ["competitor1.com", "competitor2.com", "competitor3.com"]
-    
-    def _extract_top_keywords(self, intelligence_data: Dict[str, Any], region: MarketRegion) -> List[str]:
+
+    def _extract_top_keywords(self, intelligence_data: dict[str, Any], region: MarketRegion) -> list[str]:
         """Extract top keywords from intelligence data"""
         # This would extract actual keywords from research data
         return ["ai technology", "machine learning", "automation solutions"]
-    
+
     def _convert_region_to_market(self, region: MarketRegion) -> TargetMarket:
         """Convert SEO region to marketing target market"""
         conversion_map = {
@@ -384,13 +383,13 @@ class SEOIntelligenceConnector:
             MarketRegion.GLOBAL: TargetMarket.GLOBAL
         }
         return conversion_map.get(region, TargetMarket.GLOBAL)
-    
-    async def _generate_market_insights(self, 
-                                      target_keywords: List[str],
-                                      target_regions: List[MarketRegion],
-                                      business_domain: str) -> Dict[str, Any]:
+
+    async def _generate_market_insights(self,
+                                      target_keywords: list[str],
+                                      target_regions: list[MarketRegion],
+                                      business_domain: str) -> dict[str, Any]:
         """Generate comprehensive market insights"""
-        
+
         return {
             "market_trends": ["AI adoption increasing", "Mobile-first indexing"],
             "seasonal_opportunities": ["Q4 enterprise budgets", "New year planning"],
@@ -398,8 +397,8 @@ class SEOIntelligenceConnector:
             "content_gaps": ["Technical tutorials", "Case studies", "Regional content"],
             "growth_potential": "High - emerging market with low competition"
         }
-    
-    async def _store_campaign_data(self, campaign_data: Dict[str, Any]):
+
+    async def _store_campaign_data(self, campaign_data: dict[str, Any]):
         """Store campaign data in Supabase"""
         try:
             await self.supabase.store_business_intelligence(
@@ -410,7 +409,7 @@ class SEOIntelligenceConnector:
             )
         except Exception as e:
             logger.warning(f"⚠️ Campaign data storage failed: {e}")
-    
+
     async def cleanup(self):
         """Cleanup SEO connector resources"""
         logger.info("🧹 Cleaning up SEO Intelligence Connector...")

@@ -4,25 +4,24 @@
 Analyzes current structure and creates optimal migration plan
 """
 
-import os
 import json
-import shutil
-from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Any
+from pathlib import Path
+from typing import Any
+
 
 class TaurusMigrationAnalyzer:
     def __init__(self):
         self.root_dir = Path("/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP")
         self.bizflow_dir = self.root_dir / "BizFlow-Agentic_Intelligent_Orchestrator"
         self.neovibe_dir = self.root_dir / "NeoVibe-Vibe_Marketing_Studio"
-        
+
         # Migration mapping
         self.migration_map = {
             "BizFlow": {
                 "folders": [
                     "BizFlow-Agentic_Intelligent_Orchestrator",
-                    "BizFlow-Orchestrator", 
+                    "BizFlow-Orchestrator",
                     "BizFlow-Automation-SaaS"
                 ],
                 "files": [
@@ -44,7 +43,7 @@ class TaurusMigrationAnalyzer:
             "Shared": {
                 "folders": [
                     "Configuration",
-                    "Development-Sandbox", 
+                    "Development-Sandbox",
                     "Development-Tools",
                     "Documentation",
                     "scripts",
@@ -60,11 +59,11 @@ class TaurusMigrationAnalyzer:
                 "target": "shared"
             }
         }
-        
-    def analyze_current_structure(self) -> Dict[str, Any]:
+
+    def analyze_current_structure(self) -> dict[str, Any]:
         """Analyze current folder structure"""
         print("🔍 Analyzing current TAURUS AI CORP structure...")
-        
+
         analysis = {
             "timestamp": datetime.now().isoformat(),
             "total_items": 0,
@@ -72,7 +71,7 @@ class TaurusMigrationAnalyzer:
             "files": [],
             "migration_plan": {}
         }
-        
+
         # Scan current directory
         for item in self.root_dir.iterdir():
             if item.is_dir():
@@ -89,9 +88,9 @@ class TaurusMigrationAnalyzer:
                     "size": item.stat().st_size
                 })
             analysis["total_items"] += 1
-        
+
         return analysis
-    
+
     def _get_folder_size(self, folder_path: Path) -> int:
         """Calculate folder size"""
         total_size = 0
@@ -102,11 +101,11 @@ class TaurusMigrationAnalyzer:
         except (OSError, PermissionError):
             pass
         return total_size
-    
-    def create_migration_plan(self, analysis: Dict[str, Any]) -> Dict[str, Any]:
+
+    def create_migration_plan(self, analysis: dict[str, Any]) -> dict[str, Any]:
         """Create detailed migration plan"""
         print("📋 Creating migration plan...")
-        
+
         migration_plan = {
             "bizflow_migrations": [],
             "neovibe_migrations": [],
@@ -114,11 +113,11 @@ class TaurusMigrationAnalyzer:
             "conflicts": [],
             "recommendations": []
         }
-        
+
         # Process folders
         for folder in analysis["folders"]:
             folder_name = folder["name"]
-            
+
             if any(bf_folder in folder_name for bf_folder in self.migration_map["BizFlow"]["folders"]):
                 migration_plan["bizflow_migrations"].append({
                     "type": "folder",
@@ -129,7 +128,7 @@ class TaurusMigrationAnalyzer:
                 })
             elif any(nv_folder in folder_name for nv_folder in self.migration_map["NeoVibe"]["folders"]):
                 migration_plan["neovibe_migrations"].append({
-                    "type": "folder", 
+                    "type": "folder",
                     "source": folder["path"],
                     "target": f"{self.neovibe_dir}/02-web-platforms/{folder_name}",
                     "size": folder["size"],
@@ -143,11 +142,11 @@ class TaurusMigrationAnalyzer:
                     "size": folder["size"],
                     "items": folder["items"]
                 })
-        
+
         # Process files
         for file in analysis["files"]:
             file_name = file["name"]
-            
+
             if any(bf_file in file_name for bf_file in self.migration_map["BizFlow"]["files"]):
                 migration_plan["bizflow_migrations"].append({
                     "type": "file",
@@ -158,7 +157,7 @@ class TaurusMigrationAnalyzer:
             elif any(nv_file in file_name for nv_file in self.migration_map["NeoVibe"]["files"]):
                 migration_plan["neovibe_migrations"].append({
                     "type": "file",
-                    "source": file["path"], 
+                    "source": file["path"],
                     "target": f"{self.neovibe_dir}/05-content-creation/{file_name}",
                     "size": file["size"]
                 })
@@ -169,10 +168,10 @@ class TaurusMigrationAnalyzer:
                     "target": f"{self.bizflow_dir}/08-shared/{file_name}",
                     "size": file["size"]
                 })
-        
+
         return migration_plan
-    
-    def generate_migration_script(self, migration_plan: Dict[str, Any]) -> str:
+
+    def generate_migration_script(self, migration_plan: dict[str, Any]) -> str:
         """Generate automated migration script"""
         script_content = f'''#!/usr/bin/env python3
 """
@@ -299,39 +298,39 @@ if __name__ == "__main__":
     migrate_taurus_structure()
 '''
         return script_content
-    
+
     def run_analysis(self):
         """Run complete analysis"""
         print("🏰 TAURUS AI CORP - Migration Analysis")
         print("=" * 50)
-        
+
         # Analyze current structure
         analysis = self.analyze_current_structure()
-        
+
         # Create migration plan
         migration_plan = self.create_migration_plan(analysis)
-        
+
         # Generate migration script
         migration_script = self.generate_migration_script(migration_plan)
-        
+
         # Save results
         with open(self.root_dir / "migration_analysis.json", "w") as f:
             json.dump({
                 "analysis": analysis,
                 "migration_plan": migration_plan
             }, f, indent=2)
-        
+
         with open(self.root_dir / "migrate_taurus.py", "w") as f:
             f.write(migration_script)
-        
-        print(f"✅ Analysis complete!")
+
+        print("✅ Analysis complete!")
         print(f"📊 Total items to migrate: {analysis['total_items']}")
         print(f"📁 Folders: {len(analysis['folders'])}")
         print(f"📄 Files: {len(analysis['files'])}")
         print(f"🤖 BizFlow migrations: {len(migration_plan['bizflow_migrations'])}")
         print(f"🎨 NeoVibe migrations: {len(migration_plan['neovibe_migrations'])}")
         print(f"🔗 Shared migrations: {len(migration_plan['shared_migrations'])}")
-        
+
         return analysis, migration_plan
 
 if __name__ == "__main__":

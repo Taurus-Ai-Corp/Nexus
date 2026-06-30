@@ -1,8 +1,8 @@
-import httpx
-import json
 import logging
-from .base import get_calcom_client
 
+import httpx
+
+from .base import get_calcom_client
 
 # Configure logging
 logger = logging.getLogger(__name__)

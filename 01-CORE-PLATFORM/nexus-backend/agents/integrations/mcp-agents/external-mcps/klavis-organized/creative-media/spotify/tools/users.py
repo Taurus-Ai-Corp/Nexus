@@ -1,9 +1,10 @@
-from typing import List, Dict, Union, Optional
+
 from spotipy import Spotify
-from .base import get_user_spotify_client, get_spotify_client , process_top_artist_info
+
+from .base import get_spotify_client, get_user_spotify_client, process_top_artist_info
 
 
-def get_current_user_profile(sp: Optional[Spotify] = None) -> Dict:
+def get_current_user_profile(sp: Spotify | None = None) -> dict:
     """
     Get the current Spotify user's profile details.
 
@@ -25,7 +26,7 @@ def get_current_user_profile(sp: Optional[Spotify] = None) -> Dict:
 
 
 
-def process_top_track_info(track: Dict) -> Dict:
+def process_top_track_info(track: dict) -> dict:
     """Extract relevant info from a Spotify track object."""
     return {
         "id": track.get("id"),
@@ -46,12 +47,12 @@ def process_top_track_info(track: Dict) -> Dict:
 
 
 def get_current_user_top_items(
-    sp: Optional[Spotify] = None,
+    sp: Spotify | None = None,
     item_type: str = "artists",  # or "tracks"
     time_range: str = "medium_term",
     limit: int = 20,
     offset: int = 0,
-) -> List[Dict]:
+) -> list[dict]:
     """
     Return the current user's top artists or tracks (processed).
 
@@ -77,7 +78,7 @@ def get_current_user_top_items(
     raise ValueError(f"item_type must be 'artists' or 'tracks', got {item_type}")
 
 
-def get_spotify_user_public_profile(user_id: str, sp: Optional[Spotify] = None) -> Dict:
+def get_spotify_user_public_profile(user_id: str, sp: Spotify | None = None) -> dict:
     """
     Get public profile information for a Spotify user by user ID.
 
@@ -100,7 +101,7 @@ def get_spotify_user_public_profile(user_id: str, sp: Optional[Spotify] = None) 
 def follow_playlist(
     playlist_id: str,
     public: bool = True,
-    sp: Optional[Spotify] = None,
+    sp: Spotify | None = None,
 ) -> str:
     """
     Follow a playlist as the current authenticated user.
@@ -125,7 +126,7 @@ def follow_playlist(
 
 def unfollow_playlist(
     playlist_id: str,
-    sp: Optional[Spotify] = None,
+    sp: Spotify | None = None,
 ) -> str:
     """
     Unfollow a playlist as the current authenticated user.
@@ -148,10 +149,10 @@ def unfollow_playlist(
 
 
 def get_current_user_followed_artists(
-    sp: Optional[Spotify] = None,
+    sp: Spotify | None = None,
     limit: int = 20,
-    after: Optional[str] = None,
-) -> Union[List[Dict], Dict]:
+    after: str | None = None,
+) -> list[dict] | dict:
     """
     Retrieve artists followed by the current user.
 
@@ -174,8 +175,8 @@ def get_current_user_followed_artists(
 
 
 def follow_artists_or_users(
-    ids: List[str],
-    sp: Optional[Spotify] = None,
+    ids: list[str],
+    sp: Spotify | None = None,
     type_: str = "artist",  # "artist" or "user"
 ) -> str:
     """
@@ -209,9 +210,9 @@ def follow_artists_or_users(
 
 
 def unfollow_artists_or_users(
-    ids: List[str],
+    ids: list[str],
     type_: str = "artist",  # "artist" or "user"
-    sp: Optional[Spotify] = None,
+    sp: Spotify | None = None,
 ) -> str:
     """
     Unfollow one or more artists or Spotify users.
@@ -244,10 +245,10 @@ def unfollow_artists_or_users(
 
 
 def check_user_follows(
-    ids: List[str],
+    ids: list[str],
     follow_type: str = "artist",  # "artist" or "user"
-    sp: Optional[Spotify] = None,
-) -> Union[List[bool], Dict]:
+    sp: Spotify | None = None,
+) -> list[bool] | dict:
     """
     Check if the current user follows given artists or users.
 

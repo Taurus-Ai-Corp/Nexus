@@ -186,18 +186,18 @@ async def list_pages(
     validate_ids(space_ids, max_length=100)
     limit = max(1, min(limit, 250))
     client = ConfluenceClientV2()
-    
+
     # Handle sort_by - use default if None
     if sort_by is None:
         sort_by = PageSortOrder.CREATED_DATE_DESCENDING
-    
+
     params = remove_none_values({
         "space-id": space_ids,
         "sort": sort_by.to_api_value(),
         "body-format": BodyFormat.STORAGE.to_api_value(),
         "limit": limit,
     })
-    
+
     # Only add cursor parameter if pagination_token has a value
     if pagination_token:
         params["cursor"] = pagination_token
@@ -205,4 +205,3 @@ async def list_pages(
     return client.transform_list_pages_response(pages)
 
 
- 

@@ -1,11 +1,13 @@
 # import necessary python libraries
+import os
+
 from agno.agent import Agent
 from agno.models.nebius import Nebius
-from agno.tools.yfinance import YFinanceTools
-from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.playground import Playground, serve_playground_app
-import os
+from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.yfinance import YFinanceTools
 from dotenv import load_dotenv
+
 # load environment variables
 load_dotenv()
 # create the AI finance agent

@@ -1,14 +1,15 @@
-from typing import List, Dict, Optional
+
 from spotipy import Spotify
-from .base import get_spotify_client , process_spotify_items
+
+from .base import get_spotify_client, process_spotify_items
 
 
 def search_tracks(
     query: str,
     type: str = "track",
     limit: int = 10,
-    sp: Optional[Spotify] = None
-) -> List[Dict]:
+    sp: Spotify | None = None
+) -> list[dict]:
     """
     Search Spotify for items of the given type and return simplified metadata.
 

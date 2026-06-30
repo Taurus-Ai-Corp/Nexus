@@ -1,6 +1,6 @@
 import os
 from contextvars import ContextVar
-from typing import Dict, Tuple, Any ,List, Optional , Union
+from typing import Any
 
 import spotipy
 from spotipy import Spotify
@@ -23,7 +23,7 @@ AUTHORIZATION_SCOPE = (
 DEFAULT_REDIRECT_URI = "https://www.google.com"
 
 
-def get_user_spotify_client() -> Tuple[Spotify, Dict[str, Any]]:
+def get_user_spotify_client() -> tuple[Spotify, dict[str, Any]]:
     """
     Create a user-authenticated Spotipy client (Authorization Code flow).
 
@@ -137,7 +137,7 @@ def process_album_tracks(tracks):
         })
     return output
 
-def process_artists_info(artists: List[dict]) -> List[dict]:
+def process_artists_info(artists: list[dict]) -> list[dict]:
     """
     Process a list of Spotify artist objects to extract key metadata.
 
@@ -162,7 +162,7 @@ def process_artists_info(artists: List[dict]) -> List[dict]:
         })
     return output
 
-def process_artist_albums(albums: List[dict]) -> List[dict]:
+def process_artist_albums(albums: list[dict]) -> list[dict]:
     """
     Process a list of Spotify album objects to extract key metadata.
 
@@ -188,7 +188,7 @@ def process_artist_albums(albums: List[dict]) -> List[dict]:
     return output
 
 
-def process_artist_top_tracks(tracks: List[dict]) -> List[dict]:
+def process_artist_top_tracks(tracks: list[dict]) -> list[dict]:
     """
     Process a list of Spotify track objects to extract top track metadata.
 
@@ -244,7 +244,7 @@ def process_episode_info(episode: dict) -> dict:
         "uri": episode.get("uri"),
     }
 
-def process_playlists(playlists: List[Dict]) -> List[Dict]:
+def process_playlists(playlists: list[dict]) -> list[dict]:
     """
     Extract relevant info from a list of Spotify playlists.
 
@@ -273,7 +273,7 @@ def process_playlists(playlists: List[Dict]) -> List[Dict]:
         })
     return processed
 
-def process_spotify_items(items: List[dict], type: str) -> List[dict]:
+def process_spotify_items(items: list[dict], type: str) -> list[dict]:
     """
     Process Spotify API items and extract relevant fields based on type.
 
@@ -382,7 +382,7 @@ def process_spotify_items(items: List[dict], type: str) -> List[dict]:
 
     return output
 
-def process_shows(shows: List[Dict]) -> List[Dict]:
+def process_shows(shows: list[dict]) -> list[dict]:
     """
     Extract relevant information from a list of Spotify show objects.
 
@@ -412,7 +412,7 @@ def process_shows(shows: List[Dict]) -> List[Dict]:
         })
     return processed
 
-def process_episodes(episodes: List[Dict]) -> List[Dict]:
+def process_episodes(episodes: list[dict]) -> list[dict]:
     """
     Extract relevant information from a list of Spotify episode objects.
 
@@ -446,7 +446,7 @@ def process_episodes(episodes: List[Dict]) -> List[Dict]:
     return processed
 
 
-def process_saved_shows(input_data: List[Dict]) -> List[Dict]:
+def process_saved_shows(input_data: list[dict]) -> list[dict]:
     """
     Process a list of saved shows, extracting relevant information.
 
@@ -479,7 +479,7 @@ def process_saved_shows(input_data: List[Dict]) -> List[Dict]:
         })
     return processed
 
-def process_track_info(track_info: Dict) -> Optional[Dict]:
+def process_track_info(track_info: dict) -> dict | None:
     """
     Extract relevant details from a Spotify track object.
 
@@ -505,7 +505,7 @@ def process_track_info(track_info: Dict) -> Optional[Dict]:
     }
 
 
-def process_top_artist_info(artist: Dict) -> Dict:
+def process_top_artist_info(artist: dict) -> dict:
     """Extract relevant info from a Spotify artist object."""
     return {
         "id": artist.get("id"),

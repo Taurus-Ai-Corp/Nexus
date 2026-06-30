@@ -4,15 +4,16 @@ TAURUS AI CORP - Authentication and Authorization
 JWT-based authentication with multi-tenant support
 """
 
-import jwt
-import bcrypt
 import hashlib
 import hmac
 import os
 from datetime import datetime, timedelta
-from typing import Optional, Dict, Any
-from fastapi import HTTPException, Depends
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from typing import Any
+
+import bcrypt
+import jwt
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 # Security configuration
 SECRET_KEY = os.getenv("JWT_SECRET_KEY")
@@ -27,7 +28,7 @@ REFRESH_TOKEN_EXPIRE_DAYS = 7
 security = HTTPBearer()
 
 
-def verify_telegram_auth(auth_data: Dict[str, Any], bot_token: str) -> bool:
+def verify_telegram_auth(auth_data: dict[str, Any], bot_token: str) -> bool:
     """
     Verifies the data received from the Telegram Login Widget.
     Implementation of: https://core.telegram.org/widgets/login#checking-authorization
@@ -66,7 +67,7 @@ def verify_telegram_auth(auth_data: Dict[str, Any], bot_token: str) -> bool:
         return False
 
 
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> tuple:
+def create_access_token(data: dict, expires_delta: timedelta | None = None) -> tuple:
     """Create JWT access token"""
     to_encode = data.copy()
 
@@ -98,7 +99,7 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)) 
 
         # Check token type
         token_type = payload.get("type")
-        if token_type != "access_token":
+        if token_type != "access_token":  # noqa: S105
             raise HTTPException(
                 status_code=401,
                 detail="Invalid token type",

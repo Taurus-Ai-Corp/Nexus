@@ -2,10 +2,9 @@
 
 import logging
 import time
-from typing import Callable, List, Optional
+from collections.abc import Callable
 
-from llama_index.core import (Document, Settings, StorageContext,
-                              VectorStoreIndex)
+from llama_index.core import Document, Settings, StorageContext, VectorStoreIndex
 from llama_index.core.text_splitter import SentenceSplitter
 from llama_index.embeddings.nebius import NebiusEmbedding
 from llama_index.llms.nebius import NebiusLLM
@@ -23,7 +22,7 @@ class DocumentIngestionPipeline:
     """Handles document ingestion with progress tracking."""
 
     def __init__(
-        self, progress_callback: Optional[Callable[[IngestionProgress], None]] = None
+        self, progress_callback: Callable[[IngestionProgress], None] | None = None
     ):
         self.progress_callback = progress_callback
         self.text_splitter = SentenceSplitter(chunk_size=settings.chunk_size)
@@ -47,10 +46,10 @@ class DocumentIngestionPipeline:
 
     async def ingest_documents(
         self,
-        documents: List[Document],
+        documents: list[Document],
         repo_name: str,
-        branch: Optional[str] = "main",
-        files_with_sha: Optional[List[dict]] = None,
+        branch: str | None = "main",
+        files_with_sha: list[dict] | None = None,
     ) -> bool:
         """
         Ingest documents into the vector store.
@@ -126,11 +125,11 @@ class DocumentIngestionPipeline:
 
 
 async def ingest_documents_async(
-    documents: List[Document],
+    documents: list[Document],
     repo_name: str,
-    progress_callback: Optional[Callable[[IngestionProgress], None]] = None,
-    branch: Optional[str] = "main",
-    files_with_sha: Optional[List[dict]] = None,
+    progress_callback: Callable[[IngestionProgress], None] | None = None,
+    branch: str | None = "main",
+    files_with_sha: list[dict] | None = None,
 ) -> bool:
     """
     Async wrapper for document ingestion.
@@ -152,7 +151,7 @@ async def reingest_changed_files(
     repo_name: str,
     changes: dict,
     branch: str = "main",
-    progress_callback: Optional[Callable[[IngestionProgress], None]] = None,
+    progress_callback: Callable[[IngestionProgress], None] | None = None,
 ) -> bool:
     """
     Reingest only changed files for efficient updates.

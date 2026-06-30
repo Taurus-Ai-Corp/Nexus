@@ -4,23 +4,22 @@
 Creates a comprehensive AI-powered marketing dashboard with all features from launch strategy
 """
 
-import sys
-import os
 import json
+import os
+import sys
 from datetime import datetime
-from typing import Dict, List, Any, Optional
+from typing import Any
 
 # Add paths for agent integration
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../TaurusAI-BizFlow-Service-package/agents'))
 
-from create_advanced_platform import create_advanced_ai_platform, create_specialized_platforms
 
 class TaurusAIDashboardPlatform:
     """
     Advanced AI-powered marketing dashboard platform
     Integrates all features from the launch strategy and lead generation plan
     """
-    
+
     def __init__(self):
         self.platform_config = {
             "name": "TaurusAI Vibe Empire Dashboard",
@@ -30,20 +29,20 @@ class TaurusAIDashboardPlatform:
             "version": "1.0.0",
             "launch_date": datetime.now().isoformat()
         }
-        
+
         self.dashboard_features = self._define_dashboard_features()
         self.ai_capabilities = self._define_ai_capabilities()
         self.business_metrics = self._define_business_metrics()
-    
-    def _define_dashboard_features(self) -> Dict[str, Any]:
+
+    def _define_dashboard_features(self) -> dict[str, Any]:
         """Define comprehensive dashboard features based on launch strategy"""
-        
+
         return {
             "executive_overview": {
                 "name": "Executive Command Center",
                 "components": [
                     "real_time_revenue_tracking",
-                    "lead_generation_pipeline", 
+                    "lead_generation_pipeline",
                     "campaign_performance_overview",
                     "market_intelligence_feed",
                     "competitive_analysis_dashboard",
@@ -51,13 +50,13 @@ class TaurusAIDashboardPlatform:
                 ],
                 "kpis": [
                     "monthly_recurring_revenue",
-                    "customer_acquisition_cost", 
+                    "customer_acquisition_cost",
                     "lifetime_value",
                     "conversion_rates",
                     "market_share_growth"
                 ]
             },
-            
+
             "ai_content_studio": {
                 "name": "AI Content Generation Hub",
                 "components": [
@@ -76,7 +75,7 @@ class TaurusAIDashboardPlatform:
                     "content_performance_prediction"
                 ]
             },
-            
+
             "lead_generation_engine": {
                 "name": "Automated Lead Generation System",
                 "components": [
@@ -94,7 +93,7 @@ class TaurusAIDashboardPlatform:
                     "7_day_first_revenue_timeline"
                 ]
             },
-            
+
             "market_intelligence": {
                 "name": "Real-time Market Intelligence",
                 "components": [
@@ -108,7 +107,7 @@ class TaurusAIDashboardPlatform:
                 "markets": ["UAE", "USA", "Canada", "India"],
                 "update_frequency": "real_time"
             },
-            
+
             "automation_center": {
                 "name": "Marketing Automation Hub",
                 "components": [
@@ -126,7 +125,7 @@ class TaurusAIDashboardPlatform:
                     "predictive_optimization"
                 ]
             },
-            
+
             "analytics_intelligence": {
                 "name": "Advanced Analytics & Insights",
                 "components": [
@@ -144,11 +143,11 @@ class TaurusAIDashboardPlatform:
                     "custom_dashboards"
                 ]
             },
-            
+
             "social_media_command": {
                 "name": "Social Media Command Center",
                 "platforms": [
-                    "facebook", "instagram", "twitter", "linkedin", 
+                    "facebook", "instagram", "twitter", "linkedin",
                     "tiktok", "youtube", "whatsapp", "telegram"
                 ],
                 "capabilities": [
@@ -161,22 +160,22 @@ class TaurusAIDashboardPlatform:
                 ]
             }
         }
-    
-    def _define_ai_capabilities(self) -> Dict[str, Any]:
+
+    def _define_ai_capabilities(self) -> dict[str, Any]:
         """Define AI capabilities integrated into the dashboard"""
-        
+
         return {
             "content_ai": {
                 "models": ["claude", "gpt4", "local_llama"],
                 "capabilities": [
                     "multi_cultural_content",
-                    "brand_voice_adaptation", 
+                    "brand_voice_adaptation",
                     "seo_optimization",
                     "sentiment_analysis",
                     "content_personalization"
                 ]
             },
-            
+
             "visual_ai": {
                 "models": ["dall_e", "midjourney", "stable_diffusion"],
                 "capabilities": [
@@ -187,7 +186,7 @@ class TaurusAIDashboardPlatform:
                     "logo_variations"
                 ]
             },
-            
+
             "analytics_ai": {
                 "models": ["custom_ml", "prophet", "tensorflow"],
                 "capabilities": [
@@ -198,7 +197,7 @@ class TaurusAIDashboardPlatform:
                     "market_intelligence"
                 ]
             },
-            
+
             "automation_ai": {
                 "models": ["workflow_ai", "decision_trees"],
                 "capabilities": [
@@ -210,10 +209,10 @@ class TaurusAIDashboardPlatform:
                 ]
             }
         }
-    
-    def _define_business_metrics(self) -> Dict[str, Any]:
+
+    def _define_business_metrics(self) -> dict[str, Any]:
         """Define key business metrics and KPIs for tracking"""
-        
+
         return {
             "revenue_metrics": {
                 "monthly_recurring_revenue": {
@@ -232,7 +231,7 @@ class TaurusAIDashboardPlatform:
                     "calculation": "automated"
                 }
             },
-            
+
             "lead_generation_metrics": {
                 "qualified_leads_monthly": {
                     "target": 150,
@@ -250,7 +249,7 @@ class TaurusAIDashboardPlatform:
                     "unit": "dollars"
                 }
             },
-            
+
             "operational_metrics": {
                 "content_production_cost": {
                     "reduction_target": 90,
@@ -269,11 +268,11 @@ class TaurusAIDashboardPlatform:
                 }
             }
         }
-    
+
     def generate_dashboard_html(self) -> str:
         """Generate the main dashboard HTML interface"""
-        
-        return f"""<!DOCTYPE html>
+
+        return """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -285,33 +284,33 @@ class TaurusAIDashboardPlatform:
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        .glass-effect {{
+        .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-        }}
+        }
         
-        .gradient-bg {{
+        .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }}
+        }
         
-        .metric-card {{
+        .metric-card {
             transition: all 0.3s ease;
-        }}
+        }
         
-        .metric-card:hover {{
+        .metric-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }}
+        }
         
-        .pulse-animation {{
+        .pulse-animation {
             animation: pulse 2s infinite;
-        }}
+        }
         
-        @keyframes pulse {{
-            0%, 100% {{ opacity: 1; }}
-            50% {{ opacity: 0.5; }}
-        }}
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body class="gradient-bg min-h-screen" x-data="dashboardData()">
@@ -570,84 +569,84 @@ class TaurusAIDashboardPlatform:
     </footer>
     
     <script>
-        function dashboardData() {{
-            return {{
+        function dashboardData() {
+            return {
                 lastUpdated: new Date().toLocaleTimeString(),
                 
-                metrics: {{
+                metrics: {
                     mrr: 15750,
                     mrrGrowth: 45,
                     leadsThisMonth: 127,
                     leadsTarget: 150,
                     conversionRate: 12.5,
                     costSavings: 87
-                }},
+                },
                 
-                contentStats: {{
+                contentStats: {
                     postsToday: 24,
                     languages: 8,
                     brandScore: 94
-                }},
+                },
                 
-                leadPipeline: {{
+                leadPipeline: {
                     cold: 245,
                     warm: 67,
                     hot: 23,
                     closed: 12
-                }},
+                },
                 
-                outreach: {{
+                outreach: {
                     linkedin: 50,
                     email: 100,
                     responseRate: 15.2
-                }},
+                },
                 
-                performance: {{
+                performance: {
                     cac: 175,
                     ltv: 14500,
                     roi: 3.2
-                }},
+                },
                 
                 markets: [
-                    {{ name: 'UAE', flag: '🇦🇪', opportunities: 23, growth: '+34%' }},
-                    {{ name: 'USA', flag: '🇺🇸', opportunities: 45, growth: '+28%' }},
-                    {{ name: 'Canada', flag: '🇨🇦', opportunities: 18, growth: '+22%' }},
-                    {{ name: 'India', flag: '🇮🇳', opportunities: 67, growth: '+41%' }}
+                    { name: 'UAE', flag: '🇦🇪', opportunities: 23, growth: '+34%' },
+                    { name: 'USA', flag: '🇺🇸', opportunities: 45, growth: '+28%' },
+                    { name: 'Canada', flag: '🇨🇦', opportunities: 18, growth: '+22%' },
+                    { name: 'India', flag: '🇮🇳', opportunities: 67, growth: '+41%' }
                 ],
                 
                 socialPlatforms: [
-                    {{ name: 'Facebook', icon: 'fab fa-facebook', status: 'Connected' }},
-                    {{ name: 'Instagram', icon: 'fab fa-instagram', status: 'Connected' }},
-                    {{ name: 'Twitter', icon: 'fab fa-twitter', status: 'Connected' }},
-                    {{ name: 'LinkedIn', icon: 'fab fa-linkedin', status: 'Connected' }},
-                    {{ name: 'TikTok', icon: 'fab fa-tiktok', status: 'Connected' }},
-                    {{ name: 'YouTube', icon: 'fab fa-youtube', status: 'Connected' }},
-                    {{ name: 'WhatsApp', icon: 'fab fa-whatsapp', status: 'Connected' }},
-                    {{ name: 'Telegram', icon: 'fab fa-telegram', status: 'Connected' }}
+                    { name: 'Facebook', icon: 'fab fa-facebook', status: 'Connected' },
+                    { name: 'Instagram', icon: 'fab fa-instagram', status: 'Connected' },
+                    { name: 'Twitter', icon: 'fab fa-twitter', status: 'Connected' },
+                    { name: 'LinkedIn', icon: 'fab fa-linkedin', status: 'Connected' },
+                    { name: 'TikTok', icon: 'fab fa-tiktok', status: 'Connected' },
+                    { name: 'YouTube', icon: 'fab fa-youtube', status: 'Connected' },
+                    { name: 'WhatsApp', icon: 'fab fa-whatsapp', status: 'Connected' },
+                    { name: 'Telegram', icon: 'fab fa-telegram', status: 'Connected' }
                 ],
                 
-                formatNumber(num) {{
+                formatNumber(num) {
                     return new Intl.NumberFormat().format(num);
-                }},
+                },
                 
                 // Update data every 30 seconds
-                init() {{
-                    setInterval(() => {{
+                init() {
+                    setInterval(() => {
                         this.lastUpdated = new Date().toLocaleTimeString();
                         // Simulate real-time updates
                         this.metrics.mrr += Math.floor(Math.random() * 100);
                         this.metrics.leadsThisMonth += Math.floor(Math.random() * 2);
-                    }}, 30000);
-                }}
-            }}
-        }}
+                    }, 30000);
+                }
+            }
+        }
     </script>
 </body>
 </html>"""
-    
-    def generate_platform_config(self) -> Dict[str, Any]:
+
+    def generate_platform_config(self) -> dict[str, Any]:
         """Generate complete platform configuration"""
-        
+
         return {
             "platform": self.platform_config,
             "features": self.dashboard_features,
@@ -656,7 +655,7 @@ class TaurusAIDashboardPlatform:
             "deployment": {
                 "domains": {
                     "main": "taurusai.io",
-                    "dashboard": "vibeEmpire.taurusai.io", 
+                    "dashboard": "vibeEmpire.taurusai.io",
                     "landing": "bizflow.taurusai.io"
                 },
                 "hosting": "vercel",
@@ -679,34 +678,34 @@ class TaurusAIDashboardPlatform:
                 "communication": ["slack", "discord", "zoom"]
             }
         }
-    
+
     def save_platform_files(self, output_dir: str = "../dashboard"):
         """Save all platform files"""
-        
+
         # Create dashboard HTML
         html_content = self.generate_dashboard_html()
         with open(f"{output_dir}/index.html", 'w') as f:
             f.write(html_content)
-        
+
         # Create platform configuration
         config = self.generate_platform_config()
         with open(f"{output_dir}/platform_config.json", 'w') as f:
             json.dump(config, f, indent=2)
-        
+
         # Create deployment instructions
         deployment_guide = self._generate_deployment_guide()
         with open(f"{output_dir}/DEPLOYMENT_GUIDE.md", 'w') as f:
             f.write(deployment_guide)
-        
+
         print("✅ Dashboard platform files generated successfully!")
         print(f"📁 Files saved to: {output_dir}/")
         print("🌐 Dashboard: index.html")
         print("⚙️ Configuration: platform_config.json")
         print("📖 Deployment: DEPLOYMENT_GUIDE.md")
-    
+
     def _generate_deployment_guide(self) -> str:
         """Generate deployment guide"""
-        
+
         return """# 🚀 TaurusAI Vibe Empire Dashboard - Deployment Guide
 
 ## 🌐 Domain Configuration
@@ -818,36 +817,36 @@ For deployment support:
 def main():
     """Main function to generate the dashboard platform"""
     print("🚀 Generating TaurusAI Vibe Empire Dashboard Platform...")
-    
+
     # Create platform instance
     platform = TaurusAIDashboardPlatform()
-    
+
     # Generate and save all platform files
     platform.save_platform_files()
-    
+
     # Display platform summary
     config = platform.generate_platform_config()
-    
+
     print("\n" + "="*80)
     print("🏰 TAURUS AI VIBE EMPIRE DASHBOARD PLATFORM")
     print("="*80)
-    
+
     print(f"📊 Dashboard Features: {len(platform.dashboard_features)}")
     print(f"🤖 AI Capabilities: {len(platform.ai_capabilities)}")
     print(f"📈 Business Metrics: {len(platform.business_metrics)}")
     print(f"🔗 Integrations: {len(config['integrations']['social_media'])} social platforms")
-    
-    print(f"\n🌐 Domains:")
+
+    print("\n🌐 Domains:")
     print(f"   • Main: {config['deployment']['domains']['main']}")
     print(f"   • Dashboard: {config['deployment']['domains']['dashboard']}")
     print(f"   • Landing: {config['deployment']['domains']['landing']}")
-    
-    print(f"\n🎯 Key Features:")
+
+    print("\n🎯 Key Features:")
     for feature_name, feature_data in platform.dashboard_features.items():
         print(f"   • {feature_data['name']}")
-    
-    print(f"\n✅ Platform ready for deployment!")
-    print(f"📁 Next steps: Deploy to Vercel and configure domains")
+
+    print("\n✅ Platform ready for deployment!")
+    print("📁 Next steps: Deploy to Vercel and configure domains")
 
 if __name__ == "__main__":
     main()

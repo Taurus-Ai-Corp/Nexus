@@ -1,14 +1,13 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
-from contextvars import ContextVar
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -16,20 +15,18 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
 from tools import (
-    username_context,
-    secret_context,
-    send_events,
-    get_projects,
-    get_events,
     get_event_properties,
     get_event_property_values,
-    run_funnels_query,
+    get_events,
+    get_projects,
     run_frequency_query,
+    run_funnels_query,
     run_retention_query,
     run_segmentation_query,
+    secret_context,
+    send_events,
+    username_context,
 )
 
 logger = logging.getLogger(__name__)
@@ -38,11 +35,11 @@ load_dotenv()
 
 MIXPANEL_MCP_SERVER_PORT = int(os.getenv("MIXPANEL_MCP_SERVER_PORT", "5000"))
 
-def extract_credentials(request_or_scope) -> Dict[str, str]:
+def extract_credentials(request_or_scope) -> dict[str, str]:
     """Extract service account credentials from x-auth-data header."""
     username = os.getenv("MIXPANEL_SERVICE_ACCOUNT_USERNAME")
     secret = os.getenv("MIXPANEL_SERVICE_ACCOUNT_SECRET")
-    
+
     auth_data = None
     # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
     if hasattr(request_or_scope, 'headers'):
@@ -56,7 +53,7 @@ def extract_credentials(request_or_scope) -> Dict[str, str]:
         auth_data_header = headers.get(b'x-auth-data')
         if auth_data_header:
             auth_data = base64.b64decode(auth_data_header).decode('utf-8')
-    
+
     # If no credentials from environment, try to parse from auth_data (from prod)
     if auth_data and (not username or not secret):
         try:
@@ -66,7 +63,7 @@ def extract_credentials(request_or_scope) -> Dict[str, str]:
             secret = auth_json.get('serviceaccount_secret', '') or secret
         except (json.JSONDecodeError, TypeError) as e:
             logger.warning(f"Failed to parse auth data JSON: {e}")
-    
+
     return {
         'username': username or "",
         'secret': secret or "",
@@ -449,11 +446,11 @@ def main(
     async def call_tool(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
-        
+
         if name == "mixpanel_send_events":
             project_id = arguments.get("project_id")
             events = arguments.get("events")
-            
+
             if not project_id:
                 return [
                     types.TextContent(
@@ -461,7 +458,7 @@ def main(
                         text="Error: project_id parameter is required",
                     )
                 ]
-                
+
             if not events:
                 return [
                     types.TextContent(
@@ -469,7 +466,7 @@ def main(
                         text="Error: events parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await send_events(project_id, events)
                 return [
@@ -486,7 +483,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "mixpanel_get_projects":
             try:
                 result = await get_projects()
@@ -504,7 +501,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
 
         elif name == "mixpanel_get_event_properties":
             project_id = arguments.get("project_id")
@@ -597,11 +594,11 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
-        
+
+
         elif name == "mixpanel_get_events":
             project_id = arguments.get("project_id")
-            
+
             if not project_id:
                 return [
                     types.TextContent(
@@ -609,7 +606,7 @@ def main(
                         text="Error: project_id parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await get_events(project_id)
                 return [
@@ -626,7 +623,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         elif name == "mixpanel_run_frequency_query":
             project_id = arguments.get("project_id")
             event = arguments.get("event")
@@ -787,10 +784,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract credentials from headers
         credentials = extract_credentials(request)
-        
+
         # Set the credentials in context for this request
         username_token = username_context.set(credentials['username'])
         secret_token = secret_context.set(credentials['secret'])
@@ -804,7 +801,7 @@ def main(
         finally:
             username_context.reset(username_token)
             secret_context.reset(secret_token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -819,10 +816,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract credentials from headers
         credentials = extract_credentials(scope)
-        
+
         # Set the credentials in context for this request
         username_token = username_context.set(credentials['username'])
         secret_token = secret_context.set(credentials['secret'])
@@ -849,7 +846,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],

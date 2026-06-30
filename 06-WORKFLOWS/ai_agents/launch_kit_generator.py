@@ -4,13 +4,14 @@ Launch Kit Generator Agent for TAAS Canada Inc.
 Creates comprehensive business launch packages using Claude AI
 """
 
-import anthropic
 import json
+import logging
 import os
-from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 from datetime import datetime
-import logging
+from typing import Any
+
+import anthropic
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -31,8 +32,8 @@ class LaunchKit:
     """Data structure for complete launch kit"""
     kit_id: str
     business_name: str
-    target_markets: List[str]
-    components: List[LaunchKitComponent]
+    target_markets: list[str]
+    components: list[LaunchKitComponent]
     created_at: datetime
     version: str
 
@@ -40,12 +41,12 @@ class LaunchKitGeneratorAgent:
     """
     AI-powered agent for generating comprehensive business launch kits
     """
-    
+
     def __init__(self, claude_api_key: str):
         self.client = anthropic.Anthropic(api_key=claude_api_key)
         self.launch_kits = []
-        
-    def generate_launch_kit(self, business_data: Dict[str, Any]) -> LaunchKit:
+
+    def generate_launch_kit(self, business_data: dict[str, Any]) -> LaunchKit:
         """
         Generate a complete launch kit using Claude AI
         
@@ -57,42 +58,42 @@ class LaunchKitGeneratorAgent:
         """
         try:
             kit_id = f"launch-kit-{business_data.get('business_name', 'taas').lower().replace(' ', '-')}-{datetime.now().strftime('%Y%m%d')}"
-            
+
             # Generate all components
             components = []
-            
+
             # 1. Executive Summary
             exec_summary = self._generate_executive_summary(business_data)
             components.append(exec_summary)
-            
+
             # 2. Company Presentation
             presentation = self._generate_company_presentation(business_data)
             components.append(presentation)
-            
+
             # 3. Service Portfolio
             service_portfolio = self._generate_service_portfolio(business_data)
             components.append(service_portfolio)
-            
+
             # 4. Marketing Strategy
             marketing_strategy = self._generate_marketing_strategy(business_data)
             components.append(marketing_strategy)
-            
+
             # 5. Video Scripts
             video_scripts = self._generate_video_scripts(business_data)
             components.append(video_scripts)
-            
+
             # 6. Business Tools
             business_tools = self._generate_business_tools(business_data)
             components.append(business_tools)
-            
+
             # 7. Market Analysis
             market_analysis = self._generate_market_analysis(business_data)
             components.append(market_analysis)
-            
+
             # 8. Financial Projections
             financial_projections = self._generate_financial_projections(business_data)
             components.append(financial_projections)
-            
+
             # Create launch kit object
             launch_kit = LaunchKit(
                 kit_id=kit_id,
@@ -102,21 +103,21 @@ class LaunchKitGeneratorAgent:
                 created_at=datetime.now(),
                 version="1.0"
             )
-            
+
             # Store the kit
             self.launch_kits.append(launch_kit)
-            
+
             # Generate package files
             self._generate_package_files(launch_kit)
-            
+
             logger.info(f"Launch kit generated successfully: {kit_id}")
             return launch_kit
-            
+
         except Exception as e:
             logger.error(f"Launch kit generation failed: {e}")
             return None
-    
-    def _generate_executive_summary(self, business_data: Dict[str, Any]) -> LaunchKitComponent:
+
+    def _generate_executive_summary(self, business_data: dict[str, Any]) -> LaunchKitComponent:
         """Generate executive summary"""
         try:
             prompt = f"""
@@ -138,13 +139,13 @@ class LaunchKitGeneratorAgent:
             Make it professional, engaging, and suitable for investors, partners, and clients.
             Keep it concise but comprehensive (2-3 pages).
             """
-            
+
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20241022",
                 max_tokens=3000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             content = response.content[0].text
             component = LaunchKitComponent(
                 component_id="executive-summary",
@@ -154,14 +155,14 @@ class LaunchKitGeneratorAgent:
                 file_path="",
                 created_at=datetime.now()
             )
-            
+
             return component
-            
+
         except Exception as e:
             logger.error(f"Executive summary generation failed: {e}")
             return None
-    
-    def _generate_company_presentation(self, business_data: Dict[str, Any]) -> LaunchKitComponent:
+
+    def _generate_company_presentation(self, business_data: dict[str, Any]) -> LaunchKitComponent:
         """Generate company presentation structure"""
         try:
             prompt = f"""
@@ -191,13 +192,13 @@ class LaunchKitGeneratorAgent:
             
             Format as JSON with clear slide structure.
             """
-            
+
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20241022",
                 max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             content = response.content[0].text
             component = LaunchKitComponent(
                 component_id="company-presentation",
@@ -207,14 +208,14 @@ class LaunchKitGeneratorAgent:
                 file_path="",
                 created_at=datetime.now()
             )
-            
+
             return component
-            
+
         except Exception as e:
             logger.error(f"Company presentation generation failed: {e}")
             return None
-    
-    def _generate_service_portfolio(self, business_data: Dict[str, Any]) -> LaunchKitComponent:
+
+    def _generate_service_portfolio(self, business_data: dict[str, Any]) -> LaunchKitComponent:
         """Generate service portfolio documentation"""
         try:
             prompt = f"""
@@ -245,13 +246,13 @@ class LaunchKitGeneratorAgent:
             Make it comprehensive and sales-ready.
             Format as JSON with clear service sections.
             """
-            
+
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20241022",
                 max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             content = response.content[0].text
             component = LaunchKitComponent(
                 component_id="service-portfolio",
@@ -261,14 +262,14 @@ class LaunchKitGeneratorAgent:
                 file_path="",
                 created_at=datetime.now()
             )
-            
+
             return component
-            
+
         except Exception as e:
             logger.error(f"Service portfolio generation failed: {e}")
             return None
-    
-    def _generate_marketing_strategy(self, business_data: Dict[str, Any]) -> LaunchKitComponent:
+
+    def _generate_marketing_strategy(self, business_data: dict[str, Any]) -> LaunchKitComponent:
         """Generate marketing strategy document"""
         try:
             prompt = f"""
@@ -296,13 +297,13 @@ class LaunchKitGeneratorAgent:
             Include cultural considerations and local market insights.
             Format as JSON with clear strategy sections.
             """
-            
+
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20241022",
                 max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             content = response.content[0].text
             component = LaunchKitComponent(
                 component_id="marketing-strategy",
@@ -312,14 +313,14 @@ class LaunchKitGeneratorAgent:
                 file_path="",
                 created_at=datetime.now()
             )
-            
+
             return component
-            
+
         except Exception as e:
             logger.error(f"Marketing strategy generation failed: {e}")
             return None
-    
-    def _generate_video_scripts(self, business_data: Dict[str, Any]) -> LaunchKitComponent:
+
+    def _generate_video_scripts(self, business_data: dict[str, Any]) -> LaunchKitComponent:
         """Generate video scripts for various marketing videos"""
         try:
             prompt = f"""
@@ -362,13 +363,13 @@ class LaunchKitGeneratorAgent:
             Make scripts engaging, professional, and conversion-focused.
             Format as JSON with clear script sections.
             """
-            
+
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20241022",
                 max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             content = response.content[0].text
             component = LaunchKitComponent(
                 component_id="video-scripts",
@@ -378,14 +379,14 @@ class LaunchKitGeneratorAgent:
                 file_path="",
                 created_at=datetime.now()
             )
-            
+
             return component
-            
+
         except Exception as e:
             logger.error(f"Video scripts generation failed: {e}")
             return None
-    
-    def _generate_business_tools(self, business_data: Dict[str, Any]) -> LaunchKitComponent:
+
+    def _generate_business_tools(self, business_data: dict[str, Any]) -> LaunchKitComponent:
         """Generate business tools and templates"""
         try:
             prompt = f"""
@@ -434,13 +435,13 @@ class LaunchKitGeneratorAgent:
             Include instructions and examples.
             Format as JSON with clear tool sections.
             """
-            
+
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20241022",
                 max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             content = response.content[0].text
             component = LaunchKitComponent(
                 component_id="business-tools",
@@ -450,14 +451,14 @@ class LaunchKitGeneratorAgent:
                 file_path="",
                 created_at=datetime.now()
             )
-            
+
             return component
-            
+
         except Exception as e:
             logger.error(f"Business tools generation failed: {e}")
             return None
-    
-    def _generate_market_analysis(self, business_data: Dict[str, Any]) -> LaunchKitComponent:
+
+    def _generate_market_analysis(self, business_data: dict[str, Any]) -> LaunchKitComponent:
         """Generate market analysis document"""
         try:
             prompt = f"""
@@ -490,13 +491,13 @@ class LaunchKitGeneratorAgent:
             Include specific insights for each market.
             Format as JSON with clear market sections.
             """
-            
+
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20241022",
                 max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             content = response.content[0].text
             component = LaunchKitComponent(
                 component_id="market-analysis",
@@ -506,14 +507,14 @@ class LaunchKitGeneratorAgent:
                 file_path="",
                 created_at=datetime.now()
             )
-            
+
             return component
-            
+
         except Exception as e:
             logger.error(f"Market analysis generation failed: {e}")
             return None
-    
-    def _generate_financial_projections(self, business_data: Dict[str, Any]) -> LaunchKitComponent:
+
+    def _generate_financial_projections(self, business_data: dict[str, Any]) -> LaunchKitComponent:
         """Generate financial projections and business plan"""
         try:
             prompt = f"""
@@ -563,13 +564,13 @@ class LaunchKitGeneratorAgent:
             Include assumptions and risk factors.
             Format as JSON with clear financial sections.
             """
-            
+
             response = self.client.messages.create(
                 model="claude-3-5-sonnet-20241022",
                 max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}]
             )
-            
+
             content = response.content[0].text
             component = LaunchKitComponent(
                 component_id="financial-projections",
@@ -579,42 +580,42 @@ class LaunchKitGeneratorAgent:
                 file_path="",
                 created_at=datetime.now()
             )
-            
+
             return component
-            
+
         except Exception as e:
             logger.error(f"Financial projections generation failed: {e}")
             return None
-    
+
     def _generate_package_files(self, launch_kit: LaunchKit):
         """Generate all package files and organize them"""
         try:
             # Create package directory
             package_dir = f"launch_kits/{launch_kit.kit_id}"
             os.makedirs(package_dir, exist_ok=True)
-            
+
             # Create subdirectories
             os.makedirs(f"{package_dir}/documents", exist_ok=True)
             os.makedirs(f"{package_dir}/presentations", exist_ok=True)
             os.makedirs(f"{package_dir}/templates", exist_ok=True)
             os.makedirs(f"{package_dir}/scripts", exist_ok=True)
-            
+
             # Generate individual files for each component
             for component in launch_kit.components:
                 file_path = self._save_component_file(component, package_dir)
                 component.file_path = file_path
-            
+
             # Create package index
             self._create_package_index(launch_kit, package_dir)
-            
+
             # Create README file
             self._create_package_readme(launch_kit, package_dir)
-            
+
             logger.info(f"Package files generated in {package_dir}")
-            
+
         except Exception as e:
             logger.error(f"Package file generation failed: {e}")
-    
+
     def _save_component_file(self, component: LaunchKitComponent, package_dir: str) -> str:
         """Save individual component to file"""
         try:
@@ -631,20 +632,20 @@ class LaunchKitGeneratorAgent:
             else:
                 ext = ".txt"
                 subdir = "documents"
-            
+
             # Create file path
             file_path = f"{package_dir}/{subdir}/{component.component_id}{ext}"
-            
+
             # Save content
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(component.content)
-            
+
             return file_path
-            
+
         except Exception as e:
             logger.error(f"Failed to save component {component.component_id}: {e}")
             return ""
-    
+
     def _create_package_index(self, launch_kit: LaunchKit, package_dir: str):
         """Create package index file"""
         try:
@@ -664,14 +665,14 @@ class LaunchKitGeneratorAgent:
                     for comp in launch_kit.components
                 ]
             }
-            
+
             index_file = f"{package_dir}/package_index.json"
             with open(index_file, 'w') as f:
                 json.dump(index_data, f, indent=2)
-                
+
         except Exception as e:
             logger.error(f"Failed to create package index: {e}")
-    
+
     def _create_package_readme(self, launch_kit: LaunchKit, package_dir: str):
         """Create package README file"""
         try:
@@ -718,14 +719,14 @@ For questions about this launch kit, contact the development team.
 Generated on: {launch_kit.created_at.strftime('%Y-%m-%d %H:%M:%S')}
 Version: {launch_kit.version}
 """
-            
+
             readme_file = f"{package_dir}/README.md"
             with open(readme_file, 'w', encoding='utf-8') as f:
                 f.write(readme_content)
-                
+
         except Exception as e:
             logger.error(f"Failed to create package README: {e}")
-    
+
     def export_launch_kit_data(self, filename: str = "launch_kits_data.json"):
         """Export all launch kit data to JSON"""
         try:
@@ -747,19 +748,19 @@ Version: {launch_kit.version}
                         for comp in kit.components
                     ]
                 })
-            
+
             report_data = {
                 "export_date": datetime.now().isoformat(),
                 "total_kits": len(kits_data),
                 "kits": kits_data
             }
-            
+
             with open(filename, 'w') as f:
                 json.dump(report_data, f, indent=2)
-            
+
             logger.info(f"Launch kit data exported to {filename}")
             return filename
-            
+
         except Exception as e:
             logger.error(f"Export failed: {e}")
             return None
@@ -769,7 +770,7 @@ def main():
     # Initialize agent (you'll need to set your API key)
     api_key = "your-claude-api-key-here"
     agent = LaunchKitGeneratorAgent(api_key)
-    
+
     # Business data for TAAS Canada Inc.
     business_data = {
         "business_name": "TAAS Canada Inc.",
@@ -790,23 +791,23 @@ def main():
         "funding_stage": "Seed",
         "revenue_model": "SaaS + Services"
     }
-    
+
     try:
         # Generate launch kit
         launch_kit = agent.generate_launch_kit(business_data)
-        
+
         if launch_kit:
             print(f"Launch kit generated successfully: {launch_kit.kit_id}")
             print(f"Components created: {len(launch_kit.components)}")
-            
+
             for component in launch_kit.components:
                 print(f"- {component.name} ({component.type})")
-        
+
         # Export data
         export_file = agent.export_launch_kit_data()
         if export_file:
             print(f"Data exported to {export_file}")
-        
+
     except Exception as e:
         logger.error(f"Main execution failed: {e}")
 

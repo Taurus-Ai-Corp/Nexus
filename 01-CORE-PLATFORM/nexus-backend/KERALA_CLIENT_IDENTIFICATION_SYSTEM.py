@@ -7,9 +7,6 @@ Automated client discovery and market entry strategy
 import asyncio
 import json
 import logging
-from datetime import datetime
-from typing import Dict, List, Optional
-import requests
 
 logger = logging.getLogger(__name__)
 
@@ -17,17 +14,17 @@ class KeralaClientIdentificationSystem:
     """
     Automated system for identifying potential clients in Kerala market
     """
-    
+
     def __init__(self):
         self.name = "Kerala Client Identification System"
         self.target_clients = []
         self.market_opportunities = []
         self.competitor_analysis = {}
-        
-    async def identify_tech_startups(self) -> List[Dict]:
+
+    async def identify_tech_startups(self) -> list[dict]:
         """Identify tech startups in Kerala that need AI-powered marketing"""
         logger.info("🔍 Identifying tech startups in Kerala...")
-        
+
         # Kerala tech startup data (simulated)
         tech_startups = [
             {
@@ -42,7 +39,7 @@ class KeralaClientIdentificationSystem:
             },
             {
                 "name": "Kerala HealthTech",
-                "location": "Ernakulam", 
+                "location": "Ernakulam",
                 "industry": "HealthTech",
                 "size": "20-100 employees",
                 "pain_points": ["Patient engagement", "Digital transformation", "Compliance"],
@@ -54,7 +51,7 @@ class KeralaClientIdentificationSystem:
                 "name": "EduTech Kerala",
                 "location": "Thiruvananthapuram",
                 "industry": "EdTech",
-                "size": "15-75 employees", 
+                "size": "15-75 employees",
                 "pain_points": ["Student acquisition", "Content automation", "Analytics"],
                 "budget_range": "₹1-4 lakhs",
                 "ai_readiness": "High",
@@ -81,15 +78,15 @@ class KeralaClientIdentificationSystem:
                 "contact_info": "support@keralaecommerce.com"
             }
         ]
-        
+
         self.target_clients.extend(tech_startups)
         logger.info(f"✅ Identified {len(tech_startups)} tech startups")
         return tech_startups
-    
-    async def identify_ecommerce_businesses(self) -> List[Dict]:
+
+    async def identify_ecommerce_businesses(self) -> list[dict]:
         """Identify e-commerce businesses in Kerala"""
         logger.info("🛒 Identifying e-commerce businesses in Kerala...")
-        
+
         ecommerce_businesses = [
             {
                 "name": "Kerala Spices Online",
@@ -132,15 +129,15 @@ class KeralaClientIdentificationSystem:
                 "contact_info": "hello@keralafashion.com"
             }
         ]
-        
+
         self.target_clients.extend(ecommerce_businesses)
         logger.info(f"✅ Identified {len(ecommerce_businesses)} e-commerce businesses")
         return ecommerce_businesses
-    
-    async def identify_healthcare_companies(self) -> List[Dict]:
+
+    async def identify_healthcare_companies(self) -> list[dict]:
         """Identify healthcare companies in Kerala"""
         logger.info("🏥 Identifying healthcare companies in Kerala...")
-        
+
         healthcare_companies = [
             {
                 "name": "Kerala Medical Center",
@@ -173,15 +170,15 @@ class KeralaClientIdentificationSystem:
                 "contact_info": "wellness@keralawellness.com"
             }
         ]
-        
+
         self.target_clients.extend(healthcare_companies)
         logger.info(f"✅ Identified {len(healthcare_companies)} healthcare companies")
         return healthcare_companies
-    
-    async def identify_educational_institutions(self) -> List[Dict]:
+
+    async def identify_educational_institutions(self) -> list[dict]:
         """Identify educational institutions in Kerala"""
         logger.info("🎓 Identifying educational institutions in Kerala...")
-        
+
         educational_institutions = [
             {
                 "name": "Kerala Engineering College",
@@ -214,15 +211,15 @@ class KeralaClientIdentificationSystem:
                 "contact_info": "contact@keralaitacademy.com"
             }
         ]
-        
+
         self.target_clients.extend(educational_institutions)
         logger.info(f"✅ Identified {len(educational_institutions)} educational institutions")
         return educational_institutions
-    
-    async def analyze_competitor_pricing(self) -> Dict:
+
+    async def analyze_competitor_pricing(self) -> dict:
         """Analyze competitor pricing and services"""
         logger.info("💰 Analyzing competitor pricing and services...")
-        
+
         competitor_pricing = {
             "Azura Creative Studio": {
                 "video_production": "₹50k-2 lakhs",
@@ -256,15 +253,15 @@ class KeralaClientIdentificationSystem:
                 "web_development": "₹50k-3 lakhs"
             }
         }
-        
+
         self.competitor_analysis = competitor_pricing
         logger.info("✅ Competitor pricing analysis completed")
         return competitor_pricing
-    
-    async def develop_market_entry_strategy(self) -> Dict:
+
+    async def develop_market_entry_strategy(self) -> dict:
         """Develop comprehensive market entry strategy"""
         logger.info("🎯 Developing market entry strategy...")
-        
+
         strategy = {
             "phase_1": {
                 "duration": "Months 1-3",
@@ -303,14 +300,14 @@ class KeralaClientIdentificationSystem:
                 "expected_revenue": "₹300-600 lakhs"
             }
         }
-        
+
         logger.info("✅ Market entry strategy developed")
         return strategy
-    
-    async def generate_client_outreach_plan(self) -> Dict:
+
+    async def generate_client_outreach_plan(self) -> dict:
         """Generate detailed client outreach plan"""
         logger.info("📧 Generating client outreach plan...")
-        
+
         outreach_plan = {
             "high_priority_clients": [
                 {
@@ -354,28 +351,28 @@ class KeralaClientIdentificationSystem:
                 "Case study presentations"
             ]
         }
-        
+
         logger.info("✅ Client outreach plan generated")
         return outreach_plan
-    
+
     async def run_complete_analysis(self):
         """Run complete Kerala market analysis"""
         logger.info("🏰 Starting Kerala Market Analysis...")
-        
+
         try:
             # Identify all client segments
             await self.identify_tech_startups()
             await self.identify_ecommerce_businesses()
             await self.identify_healthcare_companies()
             await self.identify_educational_institutions()
-            
+
             # Analyze competitors
             await self.analyze_competitor_pricing()
-            
+
             # Develop strategy
             strategy = await self.develop_market_entry_strategy()
             outreach_plan = await self.generate_client_outreach_plan()
-            
+
             # Generate summary report
             summary = {
                 "total_clients_identified": len(self.target_clients),
@@ -396,17 +393,17 @@ class KeralaClientIdentificationSystem:
                     "Guaranteed ROI improvement"
                 ]
             }
-            
+
             # Save results
             with open("kerala_market_analysis_results.json", "w") as f:
                 json.dump(summary, f, indent=2, default=str)
-            
+
             logger.info(f"✅ Analysis complete! Identified {len(self.target_clients)} potential clients")
-            logger.info(f"📊 Total potential revenue: ₹500+ crores")
-            logger.info(f"🎯 Ready to deploy market entry strategy!")
-            
+            logger.info("📊 Total potential revenue: ₹500+ crores")
+            logger.info("🎯 Ready to deploy market entry strategy!")
+
             return summary
-            
+
         except Exception as e:
             logger.error(f"❌ Analysis failed: {e}")
             return None
@@ -415,7 +412,7 @@ async def main():
     """Main execution function"""
     system = KeralaClientIdentificationSystem()
     results = await system.run_complete_analysis()
-    
+
     if results:
         print("\n🏰 TAURUS AI CORP. - KERALA MARKET ANALYSIS COMPLETE!")
         print(f"📊 Total Clients Identified: {results['total_clients_identified']}")

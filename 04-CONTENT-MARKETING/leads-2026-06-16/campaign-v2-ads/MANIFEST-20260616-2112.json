@@ -1,0 +1,98 @@
+[
+  {
+    "ad": "C1-unboxing",
+    "format": "UNBOXING",
+    "product": "Nexus Creative",
+    "aspect": "1:1",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/C1-unboxing_1x1_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "C1-unboxing",
+    "format": "UNBOXING",
+    "product": "Nexus Creative",
+    "aspect": "9:16",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/C1-unboxing_9x16_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "C2-before-after",
+    "format": "BEFORE-AFTER",
+    "product": "Nexus Creative",
+    "aspect": "1:1",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/C2-before-after_1x1_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "C2-before-after",
+    "format": "BEFORE-AFTER",
+    "product": "Nexus Creative",
+    "aspect": "9:16",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/C2-before-after_9x16_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "I1-tutorial",
+    "format": "TUTORIAL",
+    "product": "Nexus Intel",
+    "aspect": "1:1",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/I1-tutorial_1x1_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "I1-tutorial",
+    "format": "TUTORIAL",
+    "product": "Nexus Intel",
+    "aspect": "9:16",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/I1-tutorial_9x16_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "I2-dashboard",
+    "format": "PRODUCT HERO",
+    "product": "Nexus Intel",
+    "aspect": "1:1",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/I2-dashboard_1x1_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "I2-dashboard",
+    "format": "PRODUCT HERO",
+    "product": "Nexus Intel",
+    "aspect": "9:16",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/I2-dashboard_9x16_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "S1-alice",
+    "format": "UGC",
+    "product": "Nexus Social",
+    "aspect": "1:1",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/S1-alice_1x1_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "S1-alice",
+    "format": "UGC",
+    "product": "Nexus Social",
+    "aspect": "9:16",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/S1-alice_9x16_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "S2-solo-dev",
+    "format": "TESTIMONIAL",
+    "product": "Nexus Social",
+    "aspect": "1:1",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/S2-solo-dev_1x1_20260616-2112.png",
+    "status": "OK"
+  },
+  {
+    "ad": "S2-solo-dev",
+    "format": "TESTIMONIAL",
+    "product": "Nexus Social",
+    "aspect": "9:16",
+    "path": "/Users/taurus_ai/Documents/Nexus-Platform/04-CONTENT-MARKETING/leads-2026-06-16/campaign-v2-ads/S2-solo-dev_9x16_20260616-2112.png",
+    "status": "OK"
+  }
+]

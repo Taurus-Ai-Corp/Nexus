@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Dict
+from typing import Any
 
 from .base import make_airtable_request
 
@@ -13,8 +13,8 @@ async def create_field(
     name: str,
     type: str,
     description: str | None = None,
-    options: Dict[str, Any] | None = None,
-) -> Dict[str, Any]:
+    options: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Create a new field in a table."""
     endpoint = f"meta/bases/{base_id}/tables/{table_id}/fields"
 
@@ -41,7 +41,7 @@ async def update_field(
     field_id: str,
     name: str | None = None,
     description: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Update an existing field in a table."""
     endpoint = f"meta/bases/{base_id}/tables/{table_id}/fields/{field_id}"
 

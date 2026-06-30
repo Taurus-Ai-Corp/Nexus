@@ -1,12 +1,9 @@
-import streamlit as st
-import random
-from main import NewsletterGenerator
-from agno.storage.sqlite import SqliteStorage
 import os
-from dotenv import load_dotenv
-import asyncio
-from asyncio import get_event_loop
+
 import nest_asyncio
+import streamlit as st
+from dotenv import load_dotenv
+from main import NewsletterGenerator
 
 # Apply nest_asyncio to allow nested event loops
 nest_asyncio.apply()
@@ -71,18 +68,18 @@ with st.sidebar:
         type="password",
         help="Your Nebius API key"
     )
-    
+
     # Update environment variables with user input
     if firecrawl_api_key:
         os.environ["FIRECRAWL_API_KEY"] = firecrawl_api_key
     if nebius_api_key:
         os.environ["NEBIUS_API_KEY"] = nebius_api_key
-    
+
     # st.markdown("---")
     # st.header("⚙️ Cache Settings")
     # use_search_cache = st.checkbox("Use Search Cache", value=True, help="Use cached search results if available")
     # use_cached_report = st.checkbox("Use Cached Newsletter", value=True, help="Use cached newsletter if available")
-    
+
     st.markdown("---")
     st.markdown("### 📚 Example Topics")
     for topic in example_topics:
@@ -131,14 +128,14 @@ def generate_newsletter():
     elif not firecrawl_api_key or not nebius_api_key:
         st.error("Please provide both API keys in the sidebar.")
         return
-    
+
     with st.spinner("Generating your newsletter..."):
         try:
             # Convert the topic to a URL-safe string for use in session_id
             url_safe_topic = topic.lower().replace(" ", "-")
 
             # Initialize the newsletter generator
-            
+
 
             # Generate the newsletter using main function
             response = NewsletterGenerator(
@@ -168,7 +165,7 @@ st.markdown("""
 <div style='text-align: center'>
     <p>Built with ❤️ using Streamlit and Nebius AI</p>
 </div>
-""", unsafe_allow_html=True) 
+""", unsafe_allow_html=True)
 
 if st.button("Generate Newsletter", type="primary"):
     generate_newsletter()

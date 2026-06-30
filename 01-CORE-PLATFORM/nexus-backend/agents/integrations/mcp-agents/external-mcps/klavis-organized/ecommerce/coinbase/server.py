@@ -1,15 +1,12 @@
-import contextlib
 import base64
+import contextlib
 import json
 import logging
 import os
-
 from collections.abc import AsyncIterator
-from typing import List
 
 import click
 import mcp.types as types
-
 from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
@@ -18,17 +15,16 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-
 from tools import (
     auth_token_context,
-    coinbase_get_prices,
-    coinbase_get_current_exchange_rate,
-    coinbase_get_accounts,
     coinbase_get_account_balance,
-    coinbase_get_transactions,
-    coinbase_get_portfolio_value,
-    coinbase_get_product_details,
+    coinbase_get_accounts,
+    coinbase_get_current_exchange_rate,
     coinbase_get_historical_prices,
+    coinbase_get_portfolio_value,
+    coinbase_get_prices,
+    coinbase_get_product_details,
+    coinbase_get_transactions,
 )
 
 # Configure logging
@@ -42,7 +38,7 @@ COINBASE_MCP_SERVER_PORT = int(os.getenv("COINBASE_MCP_SERVER_PORT", "5000"))
 def extract_api_key(request_or_scope) -> str:
     """Extract API key from headers or environment."""
     api_key = os.getenv("API_KEY")
-    
+
     if not api_key:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -58,7 +54,7 @@ def extract_api_key(request_or_scope) -> str:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
         else:
             auth_data = None
-        
+
         if auth_data:
             try:
                 # Parse the JSON auth data to extract token
@@ -67,7 +63,7 @@ def extract_api_key(request_or_scope) -> str:
             except (json.JSONDecodeError, TypeError) as e:
                 logger.warning(f"Failed to parse auth data JSON: {e}")
                 api_key = ""
-    
+
     return api_key or ""
 
 
@@ -279,7 +275,7 @@ def main(
     @app.call_tool()
     async def call_tool(
         name: str, arguments: dict
-    ) -> List[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+    ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         logger.info(f"Calling tool: {name} with arguments: {arguments}")
 
         if name == "coinbase_get_prices":

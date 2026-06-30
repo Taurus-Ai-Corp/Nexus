@@ -1,20 +1,20 @@
-from typing import Any, Dict
 import logging
+from typing import Any
 
-from .constants import WORKSPACE_OPT_FIELDS
 from .base import (
+    AsanaToolExecutionError,
     get_asana_client,
     get_next_page,
     remove_none_values,
-    AsanaToolExecutionError,
 )
+from .constants import WORKSPACE_OPT_FIELDS
 
 logger = logging.getLogger(__name__)
 
 
 async def get_workspace_by_id(
     workspace_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get an Asana workspace by its ID"""
     try:
         client = get_asana_client()
@@ -32,7 +32,7 @@ async def get_workspace_by_id(
 async def list_workspaces(
     limit: int = 100,
     next_page_token: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """List workspaces in Asana that are visible to the authenticated user"""
     try:
         limit = max(1, min(100, limit))

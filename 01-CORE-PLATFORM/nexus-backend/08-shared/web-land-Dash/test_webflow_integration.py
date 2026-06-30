@@ -3,37 +3,38 @@
 Test Webflow Integration for Web-land-Dash Platform
 """
 
-import sys
-import os
-import requests
 import json
-from datetime import datetime
+import os
+import sys
+
+import requests
 
 # Add current directory to path
 sys.path.append(os.path.dirname(__file__))
 
 from webflow_integration import WebLandDashWebflowIntegration
 
+
 def test_webflow_api_connection():
     """Test Webflow API connection"""
     print("🔗 Testing Webflow API Connection...")
-    
+
     # Test with different API versions
     api_versions = [
         "https://api.webflow.com/v2",
-        "https://api.webflow.com/v1", 
+        "https://api.webflow.com/v1",
         "https://api.webflow.com"
     ]
-    
+
     headers = {
         'Authorization': 'Bearer ded536b9e74e112707f7087c7dabe365c7e76ba0c0949e6439e57868b4e40dad',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
     }
-    
+
     for base_url in api_versions:
         print(f"\n📡 Testing {base_url}...")
-        
+
         # Test sites endpoint
         try:
             response = requests.get(f"{base_url}/sites", headers=headers, timeout=10)
@@ -46,18 +47,18 @@ def test_webflow_api_connection():
                 print(f"   Error: {response.text}")
         except Exception as e:
             print(f"   Exception: {e}")
-    
+
     return None, None
 
 def test_webflow_integration():
     """Test the Webflow integration"""
     print("\n🚀 Testing Webflow Integration...")
-    
+
     try:
         # Create integration instance
         integration = WebLandDashWebflowIntegration()
         print("✅ Integration created successfully")
-        
+
         # Test dashboard creation
         print("\n📊 Testing Dashboard Creation...")
         test_dashboard = {
@@ -72,10 +73,10 @@ def test_webflow_integration():
             'is_active': True,
             'refresh_interval': 300
         }
-        
+
         result = integration.sync_dashboard_configurations([test_dashboard])
         print(f"✅ Dashboard sync result: {result}")
-        
+
         # Test template creation
         print("\n📋 Testing Template Creation...")
         template_result = integration.create_dashboard_from_template(
@@ -88,9 +89,9 @@ def test_webflow_integration():
             }
         )
         print(f"✅ Template creation result: {template_result}")
-        
+
         return True
-        
+
     except Exception as e:
         print(f"❌ Integration test failed: {e}")
         import traceback
@@ -101,10 +102,10 @@ def main():
     """Main test function"""
     print("🧪 Webflow Integration Test Suite")
     print("=" * 50)
-    
+
     # Test API connection
     base_url, sites_data = test_webflow_api_connection()
-    
+
     if base_url:
         print(f"\n✅ Found working API: {base_url}")
         if sites_data and 'sites' in sites_data and sites_data['sites']:
@@ -119,10 +120,10 @@ def main():
         print("   1. Check your Webflow access token")
         print("   2. Create a site in your Webflow dashboard")
         print("   3. Get the site ID from the dashboard")
-    
+
     # Test integration
     success = test_webflow_integration()
-    
+
     if success:
         print("\n🎉 All tests completed!")
     else:

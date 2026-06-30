@@ -1,6 +1,7 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from mcp.types import Tool
+
 from .http_client import QuickBooksHTTPClient
 
 # Minimal properties for payment creation (required by QuickBooks)
@@ -252,7 +253,7 @@ void_payment_tool = Tool(
 )
 
 
-def mcp_object_to_payment_data(**kwargs) -> Dict[str, Any]:
+def mcp_object_to_payment_data(**kwargs) -> dict[str, Any]:
     """
     Convert MCP object format to QuickBooks payment data format.
     This function transforms the flat MCP structure to the nested format expected by QuickBooks API.
@@ -333,7 +334,7 @@ def mcp_object_to_payment_data(**kwargs) -> Dict[str, Any]:
     return payment_data
 
 
-def payment_data_to_mcp_object(payment_data: Dict[str, Any]) -> Dict[str, Any]:
+def payment_data_to_mcp_object(payment_data: dict[str, Any]) -> dict[str, Any]:
     """
     Convert QuickBooks payment data format to MCP object format.
     This function flattens the nested QuickBooks structure to the flat format expected by MCP tools.
@@ -462,7 +463,7 @@ class PaymentManager:
     def __init__(self, client: QuickBooksHTTPClient):
         self.client = client
 
-    async def create_payment(self, **kwargs) -> Dict[str, Any]:
+    async def create_payment(self, **kwargs) -> dict[str, Any]:
         """Create a new payment with comprehensive property support."""
         payment_data = mcp_object_to_payment_data(**kwargs)
 
@@ -475,12 +476,12 @@ class PaymentManager:
         response = await self.client._post('payment', payment_data)
         return payment_data_to_mcp_object(response['Payment'])
 
-    async def get_payment(self, Id: str) -> Dict[str, Any]:
+    async def get_payment(self, Id: str) -> dict[str, Any]:
         """Get a specific payment by ID."""
         response = await self.client._get(f"payment/{Id}")
         return payment_data_to_mcp_object(response['Payment'])
 
-    async def list_payments(self, MaxResults: int = 100, StartPosition: int = 1) -> List[Dict[str, Any]]:
+    async def list_payments(self, MaxResults: int = 100, StartPosition: int = 1) -> list[dict[str, Any]]:
         """List all payments with comprehensive properties and pagination support."""
         query = f"select * from Payment STARTPOSITION {StartPosition} MAXRESULTS {MaxResults}"
         response = await self.client._get('query', params={'query': query})
@@ -492,7 +493,7 @@ class PaymentManager:
         payments = response['QueryResponse']['Payment']
         return [payment_data_to_mcp_object(payment) for payment in payments]
 
-    async def search_payments(self, **kwargs) -> List[Dict[str, Any]]:
+    async def search_payments(self, **kwargs) -> list[dict[str, Any]]:
         """
         Search payments with various filters and pagination support.
 
@@ -584,7 +585,7 @@ class PaymentManager:
 
         return results
 
-    async def update_payment(self, **kwargs) -> Dict[str, Any]:
+    async def update_payment(self, **kwargs) -> dict[str, Any]:
         """Update an existing payment with comprehensive property support."""
         Id = kwargs.get('Id')
         if not Id:
@@ -605,7 +606,7 @@ class PaymentManager:
         response = await self.client._post('payment', payment_data)
         return payment_data_to_mcp_object(response['Payment'])
 
-    async def delete_payment(self, Id: str) -> Dict[str, Any]:
+    async def delete_payment(self, Id: str) -> dict[str, Any]:
         """Delete a payment."""
         # Auto-fetch current sync token
         current_payment_response = await self.client._get(f"payment/{Id}")
@@ -623,7 +624,7 @@ class PaymentManager:
         }
         return await self.client._post("payment", delete_data, params={'operation': 'delete'})
 
-    async def send_payment(self, Id: str, SendTo: str) -> Dict[str, Any]:
+    async def send_payment(self, Id: str, SendTo: str) -> dict[str, Any]:
         """
         Send a payment receipt via email.
 
@@ -649,7 +650,7 @@ class PaymentManager:
 
         return response
 
-    async def void_payment(self, Id: str) -> Dict[str, Any]:
+    async def void_payment(self, Id: str) -> dict[str, Any]:
         """
         Void an existing payment in QuickBooks.
 

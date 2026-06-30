@@ -14,9 +14,10 @@ Usage: python3 create-social-assets.py
 import os
 from datetime import datetime
 
+
 def create_asset_specifications():
     """Create detailed specifications for all social media assets"""
-    
+
     assets = {
         "profile_pictures": {
             "description": "Circular profile pictures for all platforms",
@@ -29,7 +30,7 @@ def create_asset_specifications():
             },
             "platforms": ["Instagram", "LinkedIn", "Twitter", "YouTube", "TikTok"]
         },
-        
+
         "cover_images": {
             "linkedin": {
                 "size": "1192x220px",
@@ -37,7 +38,7 @@ def create_asset_specifications():
                 "elements": ["Brand colors", "Logo", "Tagline", "Contact info"]
             },
             "twitter": {
-                "size": "1500x500px", 
+                "size": "1500x500px",
                 "text": "Making Marketing Exciting in Dubai & India",
                 "elements": ["Bold typography", "Brand gradient", "Call to action"]
             },
@@ -52,7 +53,7 @@ def create_asset_specifications():
                 "elements": ["Professional look", "Contact details", "Services highlight"]
             }
         },
-        
+
         "instagram_highlights": {
             "covers_needed": [
                 {"name": "Tips", "icon": "💡", "color": "#8000FF"},
@@ -71,7 +72,7 @@ def create_asset_specifications():
                 "icon_style": "Clean, modern"
             }
         },
-        
+
         "content_templates": {
             "instagram_post": {
                 "size": "1080x1080px",
@@ -100,12 +101,12 @@ def create_asset_specifications():
             }
         }
     }
-    
+
     return assets
 
 def generate_figma_design_brief():
     """Generate a comprehensive design brief for Figma"""
-    
+
     brief = """
 🎨 VIBE MARKETING - FIGMA DESIGN BRIEF
 
@@ -215,32 +216,32 @@ Icons needed:
 - Highlight covers: Priority 3 (Instagram optimization)
 - Content templates: Priority 4 (ongoing content creation)
 """
-    
+
     return brief
 
 def create_asset_directory_structure():
     """Create organized directory structure for assets"""
-    
+
     base_dir = "social_media_assets"
     directories = [
         "profile_pictures",
         "cover_images/linkedin",
-        "cover_images/twitter", 
+        "cover_images/twitter",
         "cover_images/youtube",
         "cover_images/facebook",
         "instagram_highlights",
         "content_templates/instagram",
-        "content_templates/linkedin", 
+        "content_templates/linkedin",
         "content_templates/twitter",
         "content_templates/youtube",
         "brand_guidelines",
         "figma_exports"
     ]
-    
+
     for directory in directories:
         full_path = os.path.join(base_dir, directory)
         os.makedirs(full_path, exist_ok=True)
-        
+
         # Create placeholder files
         readme_content = f"""# {directory.replace('_', ' ').title()}
 
@@ -248,16 +249,16 @@ Assets for {directory.replace('_', ' ')} will be placed here.
 
 Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 """
-        
+
         with open(os.path.join(full_path, "README.md"), 'w') as f:
             f.write(readme_content)
-    
+
     print(f"✅ Created directory structure: {base_dir}/")
     return base_dir
 
 def generate_content_calendar_first_week():
     """Generate ready-to-post content for the first week"""
-    
+
     content_calendar = {
         "day_1": {
             "platform": "Instagram",
@@ -278,7 +279,7 @@ Ready to transform your marketing? Let's make some noise! 📢
             "visual": "Team photo with Vibe Marketing branding",
             "hashtags": ["#VibeMarketing", "#Dubai", "#India", "#MarketingAgency"]
         },
-        
+
         "day_2": {
             "platform": "LinkedIn",
             "type": "Story Post",
@@ -302,7 +303,7 @@ Ready to join the anti-boring marketing revolution?
 #MarketingAgency #Dubai #India #Entrepreneurship""",
             "visual": "Behind-the-scenes agency setup photo"
         },
-        
+
         "day_3": {
             "platform": "Instagram",
             "type": "Carousel Post",
@@ -322,7 +323,7 @@ Swipe to see what we've learned from 50+ Dubai campaigns →
                 "CTA: Follow for more insights"
             ]
         },
-        
+
         "day_4": {
             "platform": "Twitter",
             "type": "Thread",
@@ -354,7 +355,7 @@ After running campaigns in both markets, here's what's different:
 
 Retweet if this helped! 🔄"""
         },
-        
+
         "day_5": {
             "platform": "LinkedIn",
             "type": "Article",
@@ -371,7 +372,7 @@ This is our promise to every client in Dubai and India.
 
 #MarketingManifesto #AntiBoringMarketing"""
         },
-        
+
         "day_6": {
             "platform": "Instagram Stories",
             "type": "Behind-the-Scenes",
@@ -383,7 +384,7 @@ This is our promise to every client in Dubai and India.
                 "Planning content for next week 📅"
             ]
         },
-        
+
         "day_7": {
             "platform": "All Platforms",
             "type": "AMA Series",
@@ -401,48 +402,48 @@ We'll answer every single one! 💬
 #AMA #MarketingHelp #Dubai #India"""
         }
     }
-    
+
     return content_calendar
 
 def main():
     print("🎨 VIBE MARKETING - Social Media Asset Generator")
     print("=" * 50)
-    
+
     # Create directory structure
     asset_dir = create_asset_directory_structure()
-    
+
     # Generate asset specifications
     assets = create_asset_specifications()
-    
+
     # Save specifications to file
     specs_file = os.path.join(asset_dir, "asset_specifications.json")
     import json
     with open(specs_file, 'w') as f:
         json.dump(assets, f, indent=2)
-    
+
     # Generate Figma design brief
     design_brief = generate_figma_design_brief()
     brief_file = os.path.join(asset_dir, "brand_guidelines", "figma_design_brief.md")
     with open(brief_file, 'w') as f:
         f.write(design_brief)
-    
+
     # Generate first week content calendar
     content_calendar = generate_content_calendar_first_week()
     calendar_file = os.path.join(asset_dir, "first_week_content_calendar.json")
     with open(calendar_file, 'w') as f:
         json.dump(content_calendar, f, indent=2)
-    
+
     print(f"✅ Asset specifications created: {specs_file}")
     print(f"✅ Figma design brief created: {brief_file}")
     print(f"✅ First week content calendar: {calendar_file}")
     print(f"✅ Directory structure ready: {asset_dir}/")
-    
+
     print("\n🚀 Next Steps:")
     print("1. Use the Figma design brief to create visual assets")
     print("2. Follow the social profile setup guide")
     print("3. Use the first week content calendar for launch")
     print("4. Run the content automation system for ongoing content")
-    
+
     print("\n📋 Priority Order:")
     print("1. Create profile pictures (needed for all platforms)")
     print("2. Set up Instagram profile first (primary platform)")

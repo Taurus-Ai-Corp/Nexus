@@ -5,26 +5,23 @@ Competitor monitoring and strategy adaptation system
 """
 
 import asyncio
+import hashlib
 import json
 import re
-import hashlib
+from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Set, Tuple
-from dataclasses import dataclass, asdict
 from enum import Enum
-import aiofiles
+from typing import Any
+
 import aiohttp
-from bs4 import BeautifulSoup
-from fastapi import FastAPI, WebSocket, HTTPException, BackgroundTasks
-from fastapi.middleware.cors import CORSMiddleware
 import redis.asyncio as redis
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from bs4 import BeautifulSoup
+from fastapi import FastAPI, HTTPException, WebSocket
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-import pandas as pd
 from textblob import TextBlob
-import schedule
-import requests
+
 
 class MonitoringType(Enum):
     PRICING = "pricing"
@@ -51,8 +48,8 @@ class Competitor:
     name: str
     domain: str
     tier: CompetitorTier
-    monitoring_urls: List[str]
-    social_handles: Dict[str, str]
+    monitoring_urls: list[str]
+    social_handles: dict[str, str]
     last_checked: datetime
     is_active: bool = True
 
@@ -60,8 +57,8 @@ class Competitor:
 class CompetitorIntelligence:
     competitor_name: str
     monitoring_type: MonitoringType
-    data_snapshot: Dict[str, Any]
-    changes_detected: List[Dict[str, Any]]
+    data_snapshot: dict[str, Any]
+    changes_detected: list[dict[str, Any]]
     content_hash: str
     timestamp: datetime
     sentiment_score: float = 0.0
@@ -81,11 +78,11 @@ class StrategicAlert:
 
 @dataclass
 class MarketIntelligence:
-    market_trends: Dict[str, Any]
-    competitive_positioning: Dict[str, float]
-    opportunity_analysis: List[Dict[str, Any]]
-    threat_assessment: List[Dict[str, Any]]
-    strategic_recommendations: List[str]
+    market_trends: dict[str, Any]
+    competitive_positioning: dict[str, float]
+    opportunity_analysis: list[dict[str, Any]]
+    threat_assessment: list[dict[str, Any]]
+    strategic_recommendations: list[str]
     generated_at: datetime
 
 class RealtimeIntelligenceDashboardAgent:
@@ -96,24 +93,24 @@ class RealtimeIntelligenceDashboardAgent:
     - Generating automated strategy adaptation recommendations
     - Creating alert systems for competitive intelligence
     """
-    
+
     def __init__(self):
         self.name = "realtime-intelligence-dashboard"
         self.description = "Competitor monitoring & strategy adaptation"
-        self.redis_client: Optional[redis.Redis] = None
-        self.db_session: Optional[AsyncSession] = None
-        self.competitors: Dict[str, Competitor] = {}
+        self.redis_client: redis.Redis | None = None
+        self.db_session: AsyncSession | None = None
+        self.competitors: dict[str, Competitor] = {}
         self.monitoring_active = False
         self.intelligence_cache = {}
-        
-    async def initialize(self, config: Dict[str, Any]):
+
+    async def initialize(self, config: dict[str, Any]):
         """Initialize agent with configuration"""
         # Redis connection for real-time data
         self.redis_client = redis.from_url(
             config.get('redis_url', 'redis://localhost:6379'),
             decode_responses=True
         )
-        
+
         # Database connection for historical intelligence
         engine = create_async_engine(
             config.get('database_url', 'postgresql+asyncpg://user:pass@localhost/taurus'),
@@ -121,13 +118,13 @@ class RealtimeIntelligenceDashboardAgent:
         )
         async_session = sessionmaker(engine, class_=AsyncSession)
         self.db_session = async_session()
-        
+
         # Load competitor database
         await self._load_competitors()
-        
+
         # Start monitoring tasks
         asyncio.create_task(self.start_continuous_monitoring())
-        
+
         print(f"✅ {self.name} agent initialized successfully")
 
     async def _load_competitors(self):
@@ -151,7 +148,7 @@ class RealtimeIntelligenceDashboardAgent:
             ),
             "salesforce": Competitor(
                 name="Salesforce",
-                domain="salesforce.com", 
+                domain="salesforce.com",
                 tier=CompetitorTier.TIER_1,
                 monitoring_urls=[
                     "https://www.salesforce.com/products/platform/pricing/",
@@ -217,10 +214,10 @@ class RealtimeIntelligenceDashboardAgent:
             competitor = self.competitors.get(competitor_name)
             if not competitor:
                 raise ValueError(f"Competitor {competitor_name} not found")
-            
+
             intelligence_data = {}
             changes_detected = []
-            
+
             if monitoring_type == MonitoringType.PRICING:
                 intelligence_data = await self._monitor_pricing(competitor)
             elif monitoring_type == MonitoringType.FEATURES:
@@ -231,17 +228,17 @@ class RealtimeIntelligenceDashboardAgent:
                 intelligence_data = await self._monitor_social_media(competitor)
             elif monitoring_type == MonitoringType.CONTENT:
                 intelligence_data = await self._monitor_content(competitor)
-            
+
             # Create content hash for change detection
             content_str = json.dumps(intelligence_data, sort_keys=True)
             content_hash = hashlib.md5(content_str.encode()).hexdigest()
-            
+
             # Check for changes
             changes_detected = await self._detect_changes(competitor_name, monitoring_type, content_hash, intelligence_data)
-            
+
             # Calculate sentiment if applicable
             sentiment_score = await self._calculate_sentiment(intelligence_data)
-            
+
             intelligence = CompetitorIntelligence(
                 competitor_name=competitor_name,
                 monitoring_type=monitoring_type,
@@ -251,24 +248,24 @@ class RealtimeIntelligenceDashboardAgent:
                 timestamp=datetime.now(),
                 sentiment_score=sentiment_score
             )
-            
+
             # Cache the intelligence
             await self._cache_intelligence(intelligence)
-            
+
             # Generate alerts if significant changes detected
             if changes_detected:
                 await self._generate_alerts(intelligence, changes_detected)
-            
+
             return intelligence
-            
+
         except Exception as e:
             print(f"❌ Competitor monitoring failed for {competitor_name}: {e}")
             raise
 
-    async def _monitor_pricing(self, competitor: Competitor) -> Dict[str, Any]:
+    async def _monitor_pricing(self, competitor: Competitor) -> dict[str, Any]:
         """Monitor competitor pricing changes"""
         pricing_data = {}
-        
+
         try:
             async with aiohttp.ClientSession() as session:
                 for url in competitor.monitoring_urls:
@@ -277,31 +274,31 @@ class RealtimeIntelligenceDashboardAgent:
                             if response.status == 200:
                                 content = await response.text()
                                 soup = BeautifulSoup(content, 'html.parser')
-                                
+
                                 # Extract pricing information (simplified heuristic)
                                 prices = []
                                 price_patterns = [r'\$(\d+(?:,\d+)?(?:\.\d{2})?)', r'(\d+(?:,\d+)?)\s*\/\s*month']
-                                
+
                                 for pattern in price_patterns:
                                     matches = re.findall(pattern, content, re.IGNORECASE)
                                     prices.extend(matches)
-                                
+
                                 pricing_data[url] = {
                                     "detected_prices": prices[:10],  # Top 10 prices found
                                     "page_title": soup.title.string if soup.title else "",
                                     "last_modified": response.headers.get('last-modified', ''),
                                     "content_length": len(content)
                                 }
-                                
+
         except Exception as e:
             print(f"⚠️ Pricing monitoring failed for {competitor.name}: {e}")
-            
+
         return pricing_data
 
-    async def _monitor_features(self, competitor: Competitor) -> Dict[str, Any]:
+    async def _monitor_features(self, competitor: Competitor) -> dict[str, Any]:
         """Monitor competitor feature updates"""
         features_data = {}
-        
+
         try:
             async with aiohttp.ClientSession() as session:
                 for url in competitor.monitoring_urls:
@@ -310,38 +307,38 @@ class RealtimeIntelligenceDashboardAgent:
                             if response.status == 200:
                                 content = await response.text()
                                 soup = BeautifulSoup(content, 'html.parser')
-                                
+
                                 # Extract feature-related keywords
                                 feature_keywords = [
                                     'automation', 'ai', 'artificial intelligence', 'machine learning',
                                     'integration', 'api', 'workflow', 'analytics', 'dashboard',
                                     'crm', 'email marketing', 'lead generation', 'conversion'
                                 ]
-                                
+
                                 feature_mentions = {}
                                 text_content = soup.get_text().lower()
-                                
+
                                 for keyword in feature_keywords:
                                     count = text_content.count(keyword)
                                     if count > 0:
                                         feature_mentions[keyword] = count
-                                
+
                                 features_data[url] = {
                                     "feature_mentions": feature_mentions,
                                     "page_title": soup.title.string if soup.title else "",
                                     "headings": [h.get_text().strip() for h in soup.find_all(['h1', 'h2', 'h3'])[:10]],
                                     "meta_description": soup.find('meta', attrs={'name': 'description'})
                                 }
-                                
+
         except Exception as e:
             print(f"⚠️ Feature monitoring failed for {competitor.name}: {e}")
-            
+
         return features_data
 
-    async def _monitor_marketing(self, competitor: Competitor) -> Dict[str, Any]:
+    async def _monitor_marketing(self, competitor: Competitor) -> dict[str, Any]:
         """Monitor competitor marketing campaigns and messaging"""
         marketing_data = {}
-        
+
         try:
             async with aiohttp.ClientSession() as session:
                 for url in competitor.monitoring_urls:
@@ -350,40 +347,40 @@ class RealtimeIntelligenceDashboardAgent:
                             if response.status == 200:
                                 content = await response.text()
                                 soup = BeautifulSoup(content, 'html.parser')
-                                
+
                                 # Extract recent blog posts or news
                                 articles = []
                                 article_elements = soup.find_all(['article', 'div'], class_=re.compile(r'post|article|blog|news'))
-                                
+
                                 for article in article_elements[:5]:
                                     title_elem = article.find(['h1', 'h2', 'h3', 'h4'])
                                     title = title_elem.get_text().strip() if title_elem else "No title"
-                                    
+
                                     date_elem = article.find(['time', 'span'], class_=re.compile(r'date|time'))
                                     date = date_elem.get_text().strip() if date_elem else ""
-                                    
+
                                     articles.append({
                                         "title": title,
                                         "date": date,
                                         "url": url
                                     })
-                                
+
                                 marketing_data[url] = {
                                     "recent_articles": articles,
                                     "page_title": soup.title.string if soup.title else "",
                                     "meta_keywords": soup.find('meta', attrs={'name': 'keywords'})
                                 }
-                                
+
         except Exception as e:
             print(f"⚠️ Marketing monitoring failed for {competitor.name}: {e}")
-            
+
         return marketing_data
 
-    async def _monitor_social_media(self, competitor: Competitor) -> Dict[str, Any]:
+    async def _monitor_social_media(self, competitor: Competitor) -> dict[str, Any]:
         """Monitor competitor social media activity"""
         # Note: In production, this would integrate with Twitter API, LinkedIn API, etc.
         # For now, we'll simulate social media monitoring
-        
+
         social_data = {
             "twitter": {
                 "recent_posts": [
@@ -402,13 +399,13 @@ class RealtimeIntelligenceDashboardAgent:
                 "posting_frequency": "Daily"
             }
         }
-        
+
         return social_data
 
-    async def _monitor_content(self, competitor: Competitor) -> Dict[str, Any]:
+    async def _monitor_content(self, competitor: Competitor) -> dict[str, Any]:
         """Monitor competitor content strategy"""
         content_data = {}
-        
+
         try:
             async with aiohttp.ClientSession() as session:
                 main_url = f"https://{competitor.domain}"
@@ -416,11 +413,11 @@ class RealtimeIntelligenceDashboardAgent:
                     if response.status == 200:
                         content = await response.text()
                         soup = BeautifulSoup(content, 'html.parser')
-                        
+
                         # Extract main messaging and value propositions
                         h1_tags = [h1.get_text().strip() for h1 in soup.find_all('h1')]
                         h2_tags = [h2.get_text().strip() for h2 in soup.find_all('h2')]
-                        
+
                         # Look for call-to-action buttons
                         cta_buttons = []
                         button_elements = soup.find_all(['button', 'a'], class_=re.compile(r'btn|cta|button'))
@@ -428,7 +425,7 @@ class RealtimeIntelligenceDashboardAgent:
                             text = btn.get_text().strip()
                             if text and len(text) < 50:
                                 cta_buttons.append(text)
-                        
+
                         content_data = {
                             "main_headings": h1_tags[:5],
                             "sub_headings": h2_tags[:10],
@@ -436,31 +433,31 @@ class RealtimeIntelligenceDashboardAgent:
                             "page_title": soup.title.string if soup.title else "",
                             "meta_description": soup.find('meta', attrs={'name': 'description'})
                         }
-                        
+
         except Exception as e:
             print(f"⚠️ Content monitoring failed for {competitor.name}: {e}")
-            
+
         return content_data
 
-    async def _detect_changes(self, competitor_name: str, monitoring_type: MonitoringType, 
-                            new_hash: str, new_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    async def _detect_changes(self, competitor_name: str, monitoring_type: MonitoringType,
+                            new_hash: str, new_data: dict[str, Any]) -> list[dict[str, Any]]:
         """Detect changes from previous monitoring"""
         changes = []
-        
+
         try:
             if self.redis_client:
                 # Get previous hash
                 prev_key = f"hash:{competitor_name}:{monitoring_type.value}"
                 prev_hash = await self.redis_client.get(prev_key)
-                
+
                 if prev_hash and prev_hash != new_hash:
                     # Get previous data
                     data_key = f"intelligence:{competitor_name}:{monitoring_type.value}:previous"
                     prev_data_str = await self.redis_client.get(data_key)
-                    
+
                     if prev_data_str:
                         prev_data = json.loads(prev_data_str)
-                        
+
                         # Detect specific changes (simplified)
                         if monitoring_type == MonitoringType.PRICING:
                             changes.extend(await self._detect_pricing_changes(prev_data, new_data))
@@ -468,26 +465,26 @@ class RealtimeIntelligenceDashboardAgent:
                             changes.extend(await self._detect_feature_changes(prev_data, new_data))
                         elif monitoring_type == MonitoringType.MARKETING:
                             changes.extend(await self._detect_marketing_changes(prev_data, new_data))
-                
+
                 # Store current data as previous for next comparison
                 await self.redis_client.setex(prev_key, 604800, new_hash)  # 7 days
                 data_key = f"intelligence:{competitor_name}:{monitoring_type.value}:previous"
                 await self.redis_client.setex(data_key, 604800, json.dumps(new_data))
-                
+
         except Exception as e:
             print(f"⚠️ Change detection failed: {e}")
-            
+
         return changes
 
-    async def _detect_pricing_changes(self, prev_data: Dict, new_data: Dict) -> List[Dict[str, Any]]:
+    async def _detect_pricing_changes(self, prev_data: dict, new_data: dict) -> list[dict[str, Any]]:
         """Detect pricing changes"""
         changes = []
-        
+
         for url in new_data:
             if url in prev_data:
                 prev_prices = set(prev_data[url].get('detected_prices', []))
                 new_prices = set(new_data[url].get('detected_prices', []))
-                
+
                 if prev_prices != new_prices:
                     changes.append({
                         "type": "pricing_change",
@@ -496,18 +493,18 @@ class RealtimeIntelligenceDashboardAgent:
                         "new_prices": list(new_prices),
                         "change_type": "price_update"
                     })
-        
+
         return changes
 
-    async def _detect_feature_changes(self, prev_data: Dict, new_data: Dict) -> List[Dict[str, Any]]:
+    async def _detect_feature_changes(self, prev_data: dict, new_data: dict) -> list[dict[str, Any]]:
         """Detect feature changes"""
         changes = []
-        
+
         for url in new_data:
             if url in prev_data:
                 prev_features = prev_data[url].get('feature_mentions', {})
                 new_features = new_data[url].get('feature_mentions', {})
-                
+
                 # Check for new feature keywords
                 new_keywords = set(new_features.keys()) - set(prev_features.keys())
                 if new_keywords:
@@ -517,18 +514,18 @@ class RealtimeIntelligenceDashboardAgent:
                         "new_keywords": list(new_keywords),
                         "change_type": "feature_addition"
                     })
-        
+
         return changes
 
-    async def _detect_marketing_changes(self, prev_data: Dict, new_data: Dict) -> List[Dict[str, Any]]:
+    async def _detect_marketing_changes(self, prev_data: dict, new_data: dict) -> list[dict[str, Any]]:
         """Detect marketing changes"""
         changes = []
-        
+
         for url in new_data:
             if url in prev_data:
                 prev_articles = [a['title'] for a in prev_data[url].get('recent_articles', [])]
                 new_articles = [a['title'] for a in new_data[url].get('recent_articles', [])]
-                
+
                 # Check for new articles
                 new_titles = set(new_articles) - set(prev_articles)
                 if new_titles:
@@ -538,14 +535,14 @@ class RealtimeIntelligenceDashboardAgent:
                         "new_articles": list(new_titles),
                         "change_type": "content_publication"
                     })
-        
+
         return changes
 
-    async def _calculate_sentiment(self, data: Dict[str, Any]) -> float:
+    async def _calculate_sentiment(self, data: dict[str, Any]) -> float:
         """Calculate sentiment score from data"""
         try:
             text_content = ""
-            
+
             # Extract text content for sentiment analysis
             for key, value in data.items():
                 if isinstance(value, dict):
@@ -554,14 +551,14 @@ class RealtimeIntelligenceDashboardAgent:
                     if 'recent_articles' in value:
                         for article in value['recent_articles']:
                             text_content += article.get('title', '') + " "
-            
+
             if text_content.strip():
                 blob = TextBlob(text_content)
                 return blob.sentiment.polarity  # Range: -1 to 1
-            
+
         except Exception as e:
             print(f"⚠️ Sentiment calculation failed: {e}")
-            
+
         return 0.0
 
     async def _cache_intelligence(self, intelligence: CompetitorIntelligence):
@@ -577,12 +574,12 @@ class RealtimeIntelligenceDashboardAgent:
         except Exception as e:
             print(f"⚠️ Failed to cache intelligence: {e}")
 
-    async def _generate_alerts(self, intelligence: CompetitorIntelligence, changes: List[Dict[str, Any]]):
+    async def _generate_alerts(self, intelligence: CompetitorIntelligence, changes: list[dict[str, Any]]):
         """Generate alerts based on detected changes"""
         try:
             for change in changes:
                 severity = AlertSeverity.MEDIUM
-                
+
                 # Determine severity based on change type
                 if change['change_type'] == 'pricing_change':
                     severity = AlertSeverity.HIGH
@@ -590,7 +587,7 @@ class RealtimeIntelligenceDashboardAgent:
                     severity = AlertSeverity.MEDIUM
                 elif change['change_type'] == 'content_publication':
                     severity = AlertSeverity.LOW
-                
+
                 alert = StrategicAlert(
                     alert_id=f"alert_{int(datetime.now().timestamp())}_{intelligence.competitor_name}",
                     competitor_name=intelligence.competitor_name,
@@ -602,14 +599,14 @@ class RealtimeIntelligenceDashboardAgent:
                     impact_assessment=await self._assess_impact(change),
                     timestamp=datetime.now()
                 )
-                
+
                 # Cache alert
                 await self._cache_alert(alert)
-                
+
         except Exception as e:
             print(f"⚠️ Alert generation failed: {e}")
 
-    async def _get_recommended_action(self, change: Dict[str, Any]) -> str:
+    async def _get_recommended_action(self, change: dict[str, Any]) -> str:
         """Get recommended action based on change type"""
         recommendations = {
             'pricing_change': 'Review our pricing strategy and consider competitive adjustments',
@@ -617,10 +614,10 @@ class RealtimeIntelligenceDashboardAgent:
             'content_publication': 'Review their content strategy and identify opportunities for our content',
             'new_content': 'Monitor engagement levels and consider response content'
         }
-        
+
         return recommendations.get(change.get('change_type'), 'Monitor situation and assess impact')
 
-    async def _assess_impact(self, change: Dict[str, Any]) -> str:
+    async def _assess_impact(self, change: dict[str, Any]) -> str:
         """Assess impact of detected change"""
         impact_assessments = {
             'pricing_change': 'Medium - May affect competitive positioning and win rates',
@@ -628,7 +625,7 @@ class RealtimeIntelligenceDashboardAgent:
             'content_publication': 'Low - Monitor for messaging trends and competitive positioning',
             'new_content': 'Low - Track engagement and response strategies'
         }
-        
+
         return impact_assessments.get(change.get('change_type'), 'Unknown - Requires manual assessment')
 
     async def _cache_alert(self, alert: StrategicAlert):
@@ -648,7 +645,7 @@ class RealtimeIntelligenceDashboardAgent:
         """Start continuous monitoring of all competitors"""
         self.monitoring_active = True
         print("🔄 Starting continuous competitive intelligence monitoring...")
-        
+
         while self.monitoring_active:
             try:
                 for competitor_name in self.competitors:
@@ -659,12 +656,12 @@ class RealtimeIntelligenceDashboardAgent:
                             await asyncio.sleep(2)  # Rate limiting
                         except Exception as e:
                             print(f"⚠️ Monitoring failed for {competitor_name} - {monitoring_type}: {e}")
-                    
+
                     await asyncio.sleep(10)  # Delay between competitors
-                
+
                 # Wait before next full cycle (1 hour)
                 await asyncio.sleep(3600)
-                
+
             except Exception as e:
                 print(f"❌ Continuous monitoring error: {e}")
                 await asyncio.sleep(300)  # Wait 5 minutes before retry
@@ -674,31 +671,31 @@ class RealtimeIntelligenceDashboardAgent:
         try:
             if not self.redis_client:
                 raise ValueError("Redis not available")
-            
+
             # Get all intelligence data
             intelligence_keys = await self.redis_client.keys("intelligence:*")
             all_intelligence = []
-            
+
             for key in intelligence_keys[-50:]:  # Last 50 intelligence records
                 data = await self.redis_client.get(key)
                 if data:
                     all_intelligence.append(json.loads(data))
-            
+
             # Analyze market trends
             market_trends = await self._analyze_market_trends(all_intelligence)
-            
+
             # Calculate competitive positioning
             competitive_positioning = await self._calculate_competitive_positioning(all_intelligence)
-            
+
             # Identify opportunities and threats
             opportunities = await self._identify_opportunities(all_intelligence)
             threats = await self._identify_threats(all_intelligence)
-            
+
             # Generate strategic recommendations
             recommendations = await self._generate_strategic_recommendations(
                 market_trends, competitive_positioning, opportunities, threats
             )
-            
+
             report = MarketIntelligence(
                 market_trends=market_trends,
                 competitive_positioning=competitive_positioning,
@@ -707,14 +704,14 @@ class RealtimeIntelligenceDashboardAgent:
                 strategic_recommendations=recommendations,
                 generated_at=datetime.now()
             )
-            
+
             return report
-            
+
         except Exception as e:
             print(f"❌ Market intelligence report generation failed: {e}")
             raise
 
-    async def _analyze_market_trends(self, intelligence_data: List[Dict]) -> Dict[str, Any]:
+    async def _analyze_market_trends(self, intelligence_data: list[dict]) -> dict[str, Any]:
         """Analyze market trends from intelligence data"""
         trends = {
             "ai_automation_mentions": 0,
@@ -723,43 +720,43 @@ class RealtimeIntelligenceDashboardAgent:
             "content_themes": [],
             "sentiment_trend": 0.0
         }
-        
+
         ai_keywords = ['ai', 'artificial intelligence', 'automation', 'machine learning']
         sentiment_scores = []
-        
+
         for intel in intelligence_data:
             # Count AI mentions
             data_str = json.dumps(intel.get('data_snapshot', {})).lower()
             for keyword in ai_keywords:
                 trends["ai_automation_mentions"] += data_str.count(keyword)
-            
+
             # Collect sentiment scores
             if 'sentiment_score' in intel:
                 sentiment_scores.append(intel['sentiment_score'])
-        
+
         if sentiment_scores:
             trends["sentiment_trend"] = sum(sentiment_scores) / len(sentiment_scores)
-        
+
         return trends
 
-    async def _calculate_competitive_positioning(self, intelligence_data: List[Dict]) -> Dict[str, float]:
+    async def _calculate_competitive_positioning(self, intelligence_data: list[dict]) -> dict[str, float]:
         """Calculate competitive positioning scores"""
         positioning = {}
-        
+
         for competitor_name in self.competitors:
             # Simple scoring based on monitoring frequency and changes detected
             competitor_intel = [i for i in intelligence_data if i.get('competitor_name') == competitor_name]
-            
+
             activity_score = len(competitor_intel) * 10
             change_score = sum(len(i.get('changes_detected', [])) for i in competitor_intel) * 20
             sentiment_score = sum(i.get('sentiment_score', 0) for i in competitor_intel) * 10
-            
+
             total_score = activity_score + change_score + sentiment_score
             positioning[competitor_name] = min(100, max(0, total_score))
-        
+
         return positioning
 
-    async def _identify_opportunities(self, intelligence_data: List[Dict]) -> List[Dict[str, Any]]:
+    async def _identify_opportunities(self, intelligence_data: list[dict]) -> list[dict[str, Any]]:
         """Identify market opportunities"""
         opportunities = [
             {
@@ -771,7 +768,7 @@ class RealtimeIntelligenceDashboardAgent:
             },
             {
                 "opportunity": "Pricing Advantage",
-                "description": "Room for competitive pricing in mid-market segment", 
+                "description": "Room for competitive pricing in mid-market segment",
                 "priority": "Medium",
                 "estimated_impact": "15% conversion improvement",
                 "timeline": "1-2 months"
@@ -779,15 +776,15 @@ class RealtimeIntelligenceDashboardAgent:
             {
                 "opportunity": "Content Marketing Gap",
                 "description": "Competitors lack consistent thought leadership content",
-                "priority": "Medium", 
+                "priority": "Medium",
                 "estimated_impact": "20% brand awareness increase",
                 "timeline": "2-4 months"
             }
         ]
-        
+
         return opportunities
 
-    async def _identify_threats(self, intelligence_data: List[Dict]) -> List[Dict[str, Any]]:
+    async def _identify_threats(self, intelligence_data: list[dict]) -> list[dict[str, Any]]:
         """Identify competitive threats"""
         threats = [
             {
@@ -801,15 +798,15 @@ class RealtimeIntelligenceDashboardAgent:
                 "threat": "Price Competition",
                 "description": "Potential price wars in the automation space",
                 "severity": "Medium",
-                "probability": "Medium", 
+                "probability": "Medium",
                 "mitigation": "Focus on value differentiation over price"
             }
         ]
-        
+
         return threats
 
-    async def _generate_strategic_recommendations(self, trends: Dict, positioning: Dict, 
-                                               opportunities: List, threats: List) -> List[str]:
+    async def _generate_strategic_recommendations(self, trends: dict, positioning: dict,
+                                               opportunities: list, threats: list) -> list[str]:
         """Generate strategic recommendations"""
         recommendations = [
             "Accelerate AI automation feature development to maintain competitive advantage",
@@ -818,35 +815,35 @@ class RealtimeIntelligenceDashboardAgent:
             "Develop unique features that competitors cannot easily replicate",
             "Focus on customer success stories to differentiate from feature-focused competitors"
         ]
-        
+
         # Add dynamic recommendations based on trends
         if trends.get("ai_automation_mentions", 0) > 100:
             recommendations.append("AI automation is trending - prioritize AI-related marketing messages")
-        
+
         if trends.get("sentiment_trend", 0) < -0.2:
             recommendations.append("Negative sentiment detected - consider proactive PR strategy")
-        
+
         return recommendations
 
-    async def get_dashboard_data(self) -> Dict[str, Any]:
+    async def get_dashboard_data(self) -> dict[str, Any]:
         """Get real-time dashboard data"""
         try:
             if not self.redis_client:
                 return {"error": "Redis not available"}
-            
+
             # Get recent alerts
             alert_keys = await self.redis_client.keys("alert:*")
             alerts = []
-            
+
             for key in sorted(alert_keys)[-10:]:  # Last 10 alerts
                 data = await self.redis_client.get(key)
                 if data:
                     alerts.append(json.loads(data))
-            
+
             # Get competitor activity summary
             intelligence_keys = await self.redis_client.keys("intelligence:*")
             competitor_activity = {}
-            
+
             for competitor_name in self.competitors:
                 competitor_keys = [k for k in intelligence_keys if competitor_name in k]
                 competitor_activity[competitor_name] = {
@@ -854,7 +851,7 @@ class RealtimeIntelligenceDashboardAgent:
                     "last_checked": self.competitors[competitor_name].last_checked.isoformat(),
                     "tier": self.competitors[competitor_name].tier.value
                 }
-            
+
             dashboard_data = {
                 "monitoring_status": "active" if self.monitoring_active else "inactive",
                 "total_competitors": len(self.competitors),
@@ -863,9 +860,9 @@ class RealtimeIntelligenceDashboardAgent:
                 "competitor_activity": competitor_activity,
                 "last_update": datetime.now().isoformat()
             }
-            
+
             return dashboard_data
-            
+
         except Exception as e:
             return {"error": f"Dashboard data generation failed: {e}"}
 

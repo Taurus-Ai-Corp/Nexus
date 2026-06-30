@@ -3,12 +3,10 @@ Data Integration Layer for Micro-Loan Platform
 Handles CSV import/export, API endpoints, and data validation.
 """
 
-import pandas as pd
-import json
-from datetime import datetime
-from typing import Dict, List, Optional, Any
 from pathlib import Path
-import os
+from typing import Any
+
+import pandas as pd
 
 
 class DataIntegrationLayer:
@@ -18,7 +16,7 @@ class DataIntegrationLayer:
         self.borrowers_file = self.data_dir / "borrowers.csv"
         self.transactions_file = self.data_dir / "transactions.csv"
         self.loan_portfolio_file = self.data_dir / "loan_portfolio.csv"
-        
+
     def load_borrower_data(self, file_path: str) -> pd.DataFrame:
         """
         Load borrower data from CSV file.
@@ -27,7 +25,7 @@ class DataIntegrationLayer:
         df = pd.read_csv(file_path)
         self._validate_borrower_schema(df)
         return df
-    
+
     def load_transaction_data(self, file_path: str) -> pd.DataFrame:
         """
         Load transaction data from CSV file.
@@ -36,7 +34,7 @@ class DataIntegrationLayer:
         df = pd.read_csv(file_path)
         self._validate_transaction_schema(df)
         return df
-    
+
     def load_loan_portfolio(self, file_path: str) -> pd.DataFrame:
         """
         Load loan portfolio data from CSV file.
@@ -46,34 +44,34 @@ class DataIntegrationLayer:
         df = pd.read_csv(file_path)
         self._validate_loan_schema(df)
         return df
-    
-    def export_borrower_data(self, df: pd.DataFrame, file_path: Optional[str] = None) -> str:
+
+    def export_borrower_data(self, df: pd.DataFrame, file_path: str | None = None) -> str:
         """Export borrower data to CSV."""
         output_path = file_path or str(self.borrowers_file)
         df.to_csv(output_path, index=False)
         return output_path
-    
-    def export_transaction_data(self, df: pd.DataFrame, file_path: Optional[str] = None) -> str:
+
+    def export_transaction_data(self, df: pd.DataFrame, file_path: str | None = None) -> str:
         """Export transaction data to CSV."""
         output_path = file_path or str(self.transactions_file)
         df.to_csv(output_path, index=False)
         return output_path
-    
-    def export_loan_portfolio(self, df: pd.DataFrame, file_path: Optional[str] = None) -> str:
+
+    def export_loan_portfolio(self, df: pd.DataFrame, file_path: str | None = None) -> str:
         """Export loan portfolio data to CSV."""
         output_path = file_path or str(self.loan_portfolio_file)
         df.to_csv(output_path, index=False)
         return output_path
-    
-    def generate_sample_data(self, num_borrowers: int = 100) -> Dict[str, pd.DataFrame]:
+
+    def generate_sample_data(self, num_borrowers: int = 100) -> dict[str, pd.DataFrame]:
         """Generate sample data for testing."""
         import numpy as np
         np.random.seed(42)
-        
+
         # Generate borrowers
         segments = ['trader', 'hotelier', 'grocer']
         languages = ['en', 'hi', 'mr', 'ta', 'te']
-        
+
         borrowers_data = {
             'borrower_id': [f"BORR_{i:04d}" for i in range(1, num_borrowers + 1)],
             'name': [f"Borrower {i}" for i in range(1, num_borrowers + 1)],
@@ -83,7 +81,7 @@ class DataIntegrationLayer:
             'kyc_status': np.random.choice(['verified', 'pending', 'rejected'], num_borrowers, p=[0.8, 0.15, 0.05])
         }
         borrowers_df = pd.DataFrame(borrowers_data)
-        
+
         # Generate loan portfolio
         loans_data = {
             'loan_id': [f"LOAN_{i:05d}" for i in range(1, num_borrowers + 1)],
@@ -98,7 +96,7 @@ class DataIntegrationLayer:
             'payments_total': np.random.randint(3, 6, num_borrowers)
         }
         loans_df = pd.DataFrame(loans_data)
-        
+
         # Generate transactions
         transactions_data = []
         txn_id = 1
@@ -115,50 +113,50 @@ class DataIntegrationLayer:
                     'status': np.random.choice(['completed', 'pending', 'failed'], p=[0.85, 0.1, 0.05])
                 })
                 txn_id += 1
-        
+
         transactions_df = pd.DataFrame(transactions_data)
-        
+
         return {
             'borrowers': borrowers_df,
             'loans': loans_df,
             'transactions': transactions_df
         }
-    
+
     def _validate_borrower_schema(self, df: pd.DataFrame) -> None:
         """Validate borrower data schema."""
         required_columns = ['borrower_id', 'name', 'segment', 'phone', 'language', 'kyc_status']
         missing = [col for col in required_columns if col not in df.columns]
         if missing:
             raise ValueError(f"Missing required columns: {missing}")
-        
+
         # Validate segment values
         valid_segments = ['trader', 'hotelier', 'grocer']
         invalid_segments = df[~df['segment'].isin(valid_segments)]['segment'].unique()
         if len(invalid_segments) > 0:
             raise ValueError(f"Invalid segment values: {invalid_segments}")
-    
+
     def _validate_transaction_schema(self, df: pd.DataFrame) -> None:
         """Validate transaction data schema."""
         required_columns = ['transaction_id', 'borrower_id', 'date', 'amount', 'type', 'status']
         missing = [col for col in required_columns if col not in df.columns]
         if missing:
             raise ValueError(f"Missing required columns: {missing}")
-    
+
     def _validate_loan_schema(self, df: pd.DataFrame) -> None:
         """Validate loan portfolio schema."""
-        required_columns = ['loan_id', 'borrower_id', 'amount', 'interest_rate', 'term_days', 
+        required_columns = ['loan_id', 'borrower_id', 'amount', 'interest_rate', 'term_days',
                            'start_date', 'due_date', 'status', 'payments_made', 'payments_total']
         missing = [col for col in required_columns if col not in df.columns]
         if missing:
             raise ValueError(f"Missing required columns: {missing}")
-    
-    def get_portfolio_summary(self) -> Dict[str, Any]:
+
+    def get_portfolio_summary(self) -> dict[str, Any]:
         """Get a summary of the loan portfolio."""
         if not self.loan_portfolio_file.exists():
             return {"error": "No loan portfolio data found"}
-        
+
         loans_df = pd.read_csv(self.loan_portfolio_file)
-        
+
         summary = {
             'total_loans': len(loans_df),
             'total_amount': loans_df['amount'].sum(),
@@ -169,14 +167,14 @@ class DataIntegrationLayer:
             'average_term_days': loans_df['term_days'].mean(),
             'collection_efficiency': self._calculate_collection_efficiency(loans_df)
         }
-        
+
         return summary
-    
+
     def _calculate_collection_efficiency(self, loans_df: pd.DataFrame) -> float:
         """Calculate collection efficiency percentage."""
         if len(loans_df) == 0:
             return 0.0
-        
+
         # Simple calculation: (payments_made / payments_total) * 100
         efficiency = (loans_df['payments_made'].sum() / loans_df['payments_total'].sum()) * 100
         return round(efficiency, 2)
@@ -185,32 +183,32 @@ class DataIntegrationLayer:
 # Example usage
 if __name__ == "__main__":
     integration = DataIntegrationLayer()
-    
+
     # Generate sample data
     print("Generating sample data...")
     sample_data = integration.generate_sample_data(num_borrowers=50)
-    
+
     # Export data
     borrowers_path = integration.export_borrower_data(sample_data['borrowers'])
     loans_path = integration.export_loan_portfolio(sample_data['loans'])
     transactions_path = integration.export_transaction_data(sample_data['transactions'])
-    
+
     print(f"Exported borrowers to: {borrowers_path}")
     print(f"Exported loans to: {loans_path}")
     print(f"Exported transactions to: {transactions_path}")
-    
+
     # Get portfolio summary
     summary = integration.get_portfolio_summary()
     print("\nPortfolio Summary:")
     for key, value in summary.items():
         print(f"  {key}: {value}")
-    
+
     # Load and validate data
     print("\nLoading and validating data...")
     borrowers = integration.load_borrower_data(borrowers_path)
     loans = integration.load_loan_portfolio(loans_path)
     transactions = integration.load_transaction_data(transactions_path)
-    
+
     print(f"Loaded {len(borrowers)} borrowers")
     print(f"Loaded {len(loans)} loans")
     print(f"Loaded {len(transactions)} transactions")

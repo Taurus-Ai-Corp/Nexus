@@ -3,13 +3,14 @@ Chat completion tools for OpenRouter MCP Server.
 """
 
 import logging
-from typing import Dict, Any, Optional, List
+from typing import Any
+
 from .base import (
-    get_client, 
-    validate_required_params, 
-    validate_model_id, 
-    validate_messages,
     OpenRouterToolExecutionError,
+    get_client,
+    validate_messages,
+    validate_model_id,
+    validate_required_params,
 )
 
 logger = logging.getLogger(__name__)
@@ -17,18 +18,18 @@ logger = logging.getLogger(__name__)
 
 async def create_chat_completion(
     model: str,
-    messages: List[Dict[str, str]],
-    max_tokens: Optional[int] = None,
-    temperature: Optional[float] = None,
-    top_p: Optional[float] = None,
-    n: Optional[int] = None,
+    messages: list[dict[str, str]],
+    max_tokens: int | None = None,
+    temperature: float | None = None,
+    top_p: float | None = None,
+    n: int | None = None,
     stream: bool = False,
-    stop: Optional[List[str]] = None,
-    presence_penalty: Optional[float] = None,
-    frequency_penalty: Optional[float] = None,
-    logit_bias: Optional[Dict[str, float]] = None,
-    user: Optional[str] = None,
-) -> Dict[str, Any]:
+    stop: list[str] | None = None,
+    presence_penalty: float | None = None,
+    frequency_penalty: float | None = None,
+    logit_bias: dict[str, float] | None = None,
+    user: str | None = None,
+) -> dict[str, Any]:
     """
     Create a chat completion using OpenRouter.
     
@@ -53,49 +54,49 @@ async def create_chat_completion(
         validate_required_params({"model": model, "messages": messages}, ["model", "messages"])
         validate_model_id(model)
         validate_messages(messages)
-        
+
         if temperature is not None and (temperature < 0.0 or temperature > 2.0):
             raise OpenRouterToolExecutionError(
                 "Invalid temperature parameter",
                 additional_prompt_content="Temperature must be between 0.0 and 2.0.",
                 developer_message=f"Invalid temperature: {temperature}",
             )
-        
+
         if top_p is not None and (top_p < 0.0 or top_p > 1.0):
             raise OpenRouterToolExecutionError(
                 "Invalid top_p parameter",
                 additional_prompt_content="Top_p must be between 0.0 and 1.0.",
                 developer_message=f"Invalid top_p: {top_p}",
             )
-        
+
         if n is not None and (n < 1 or n > 10):
             raise OpenRouterToolExecutionError(
                 "Invalid n parameter",
                 additional_prompt_content="N must be between 1 and 10.",
                 developer_message=f"Invalid n: {n}",
             )
-        
+
         if presence_penalty is not None and (presence_penalty < -2.0 or presence_penalty > 2.0):
             raise OpenRouterToolExecutionError(
                 "Invalid presence_penalty parameter",
                 additional_prompt_content="Presence penalty must be between -2.0 and 2.0.",
                 developer_message=f"Invalid presence_penalty: {presence_penalty}",
             )
-        
+
         if frequency_penalty is not None and (frequency_penalty < -2.0 or frequency_penalty > 2.0):
             raise OpenRouterToolExecutionError(
                 "Invalid frequency_penalty parameter",
                 additional_prompt_content="Frequency penalty must be between -2.0 and 2.0.",
                 developer_message=f"Invalid frequency_penalty: {frequency_penalty}",
             )
-        
+
         client = get_client()
-        
+
         request_data = {
             "model": model,
             "messages": messages,
         }
-        
+
         if max_tokens is not None:
             request_data["max_tokens"] = max_tokens
         if temperature is not None:
@@ -116,11 +117,11 @@ async def create_chat_completion(
             request_data["logit_bias"] = logit_bias
         if user:
             request_data["user"] = user
-        
+
         response = await client.post("/chat/completions", request_data)
-        
+
         logger.info(f"Successfully created chat completion with model: {model}")
-        
+
         return {
             "success": True,
             "data": response,
@@ -128,7 +129,7 @@ async def create_chat_completion(
             "usage": response.get("usage", {}),
             "choices": response.get("choices", []),
         }
-        
+
     except OpenRouterToolExecutionError:
         raise
     except Exception as e:
@@ -142,16 +143,16 @@ async def create_chat_completion(
 
 async def create_chat_completion_stream(
     model: str,
-    messages: List[Dict[str, str]],
-    max_tokens: Optional[int] = None,
-    temperature: Optional[float] = None,
-    top_p: Optional[float] = None,
-    stop: Optional[List[str]] = None,
-    presence_penalty: Optional[float] = None,
-    frequency_penalty: Optional[float] = None,
-    logit_bias: Optional[Dict[str, float]] = None,
-    user: Optional[str] = None,
-) -> Dict[str, Any]:
+    messages: list[dict[str, str]],
+    max_tokens: int | None = None,
+    temperature: float | None = None,
+    top_p: float | None = None,
+    stop: list[str] | None = None,
+    presence_penalty: float | None = None,
+    frequency_penalty: float | None = None,
+    logit_bias: dict[str, float] | None = None,
+    user: str | None = None,
+) -> dict[str, Any]:
     """
     Create a streaming chat completion using OpenRouter.
     
@@ -174,43 +175,43 @@ async def create_chat_completion_stream(
         validate_required_params({"model": model, "messages": messages}, ["model", "messages"])
         validate_model_id(model)
         validate_messages(messages)
-        
+
         if temperature is not None and (temperature < 0.0 or temperature > 2.0):
             raise OpenRouterToolExecutionError(
                 "Invalid temperature parameter",
                 additional_prompt_content="Temperature must be between 0.0 and 2.0.",
                 developer_message=f"Invalid temperature: {temperature}",
             )
-        
+
         if top_p is not None and (top_p < 0.0 or top_p > 1.0):
             raise OpenRouterToolExecutionError(
                 "Invalid top_p parameter",
                 additional_prompt_content="Top_p must be between 0.0 and 1.0.",
                 developer_message=f"Invalid top_p: {top_p}",
             )
-        
+
         if presence_penalty is not None and (presence_penalty < -2.0 or presence_penalty > 2.0):
             raise OpenRouterToolExecutionError(
                 "Invalid presence_penalty parameter",
                 additional_prompt_content="Presence penalty must be between -2.0 and 2.0.",
                 developer_message=f"Invalid presence_penalty: {presence_penalty}",
             )
-        
+
         if frequency_penalty is not None and (frequency_penalty < -2.0 or frequency_penalty > 2.0):
             raise OpenRouterToolExecutionError(
                 "Invalid frequency_penalty parameter",
                 additional_prompt_content="Frequency penalty must be between -2.0 and 2.0.",
                 developer_message=f"Invalid frequency_penalty: {frequency_penalty}",
             )
-        
+
         client = get_client()
-        
+
         request_data = {
             "model": model,
             "messages": messages,
             "stream": True,
         }
-        
+
         if max_tokens is not None:
             request_data["max_tokens"] = max_tokens
         if temperature is not None:
@@ -227,14 +228,14 @@ async def create_chat_completion_stream(
             request_data["logit_bias"] = logit_bias
         if user:
             request_data["user"] = user
-        
+
         response = await client.post("/chat/completions", request_data)
-        
+
         logger.info(f"Successfully created streaming chat completion with model: {model}")
-        
+
         if response.get("stream"):
             logger.info("Returning streaming generator to caller...")
-            
+
             # Get the stream generator and return it directly
             generator = response.get("generator")
             if generator:
@@ -268,7 +269,7 @@ async def create_chat_completion_stream(
                 "usage": response.get("usage", {}),
                 "choices": response.get("choices", []),
             }
-        
+
     except OpenRouterToolExecutionError:
         raise
     except Exception as e:
@@ -283,17 +284,17 @@ async def create_chat_completion_stream(
 async def create_completion(
     model: str,
     prompt: str,
-    max_tokens: Optional[int] = None,
-    temperature: Optional[float] = None,
-    top_p: Optional[float] = None,
-    n: Optional[int] = None,
+    max_tokens: int | None = None,
+    temperature: float | None = None,
+    top_p: float | None = None,
+    n: int | None = None,
     stream: bool = False,
-    stop: Optional[List[str]] = None,
-    presence_penalty: Optional[float] = None,
-    frequency_penalty: Optional[float] = None,
-    logit_bias: Optional[Dict[str, float]] = None,
-    user: Optional[str] = None,
-) -> Dict[str, Any]:
+    stop: list[str] | None = None,
+    presence_penalty: float | None = None,
+    frequency_penalty: float | None = None,
+    logit_bias: dict[str, float] | None = None,
+    user: str | None = None,
+) -> dict[str, Any]:
     """
     Create a text completion using OpenRouter (legacy completion endpoint).
     
@@ -317,56 +318,56 @@ async def create_completion(
     try:
         validate_required_params({"model": model, "prompt": prompt}, ["model", "prompt"])
         validate_model_id(model)
-        
+
         if not prompt or not isinstance(prompt, str):
             raise OpenRouterToolExecutionError(
                 "Invalid prompt parameter",
                 additional_prompt_content="Prompt must be a non-empty string.",
                 developer_message="Prompt must be a non-empty string",
             )
-        
+
         if temperature is not None and (temperature < 0.0 or temperature > 2.0):
             raise OpenRouterToolExecutionError(
                 "Invalid temperature parameter",
                 additional_prompt_content="Temperature must be between 0.0 and 2.0.",
                 developer_message=f"Invalid temperature: {temperature}",
             )
-        
+
         if top_p is not None and (top_p < 0.0 or top_p > 1.0):
             raise OpenRouterToolExecutionError(
                 "Invalid top_p parameter",
                 additional_prompt_content="Top_p must be between 0.0 and 1.0.",
                 developer_message=f"Invalid top_p: {top_p}",
             )
-        
+
         if n is not None and (n < 1 or n > 10):
             raise OpenRouterToolExecutionError(
                 "Invalid n parameter",
                 additional_prompt_content="N must be between 1 and 10.",
                 developer_message=f"Invalid n: {n}",
             )
-        
+
         if presence_penalty is not None and (presence_penalty < -2.0 or presence_penalty > 2.0):
             raise OpenRouterToolExecutionError(
                 "Invalid presence_penalty parameter",
                 additional_prompt_content="Presence penalty must be between -2.0 and 2.0.",
                 developer_message=f"Invalid presence_penalty: {presence_penalty}",
             )
-        
+
         if frequency_penalty is not None and (frequency_penalty < -2.0 or frequency_penalty > 2.0):
             raise OpenRouterToolExecutionError(
                 "Invalid frequency_penalty parameter",
                 additional_prompt_content="Frequency penalty must be between -2.0 and 2.0.",
                 developer_message=f"Invalid frequency_penalty: {frequency_penalty}",
             )
-        
+
         client = get_client()
-        
+
         request_data = {
             "model": model,
             "prompt": prompt,
         }
-        
+
         if max_tokens is not None:
             request_data["max_tokens"] = max_tokens
         if temperature is not None:
@@ -387,11 +388,11 @@ async def create_completion(
             request_data["logit_bias"] = logit_bias
         if user:
             request_data["user"] = user
-        
+
         response = await client.post("/completions", request_data)
-        
+
         logger.info(f"Successfully created completion with model: {model}")
-        
+
         return {
             "success": True,
             "data": response,
@@ -399,7 +400,7 @@ async def create_completion(
             "usage": response.get("usage", {}),
             "choices": response.get("choices", []),
         }
-        
+
     except OpenRouterToolExecutionError:
         raise
     except Exception as e:
@@ -408,4 +409,4 @@ async def create_completion(
             f"Failed to create completion: {str(e)}",
             additional_prompt_content="There was an error creating the completion. Please check your parameters and try again.",
             developer_message=f"Unexpected error: {str(e)}",
-        ) 
+        )

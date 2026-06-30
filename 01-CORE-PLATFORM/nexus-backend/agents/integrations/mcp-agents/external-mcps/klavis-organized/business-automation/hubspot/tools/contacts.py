@@ -1,6 +1,8 @@
-import logging
 import json
-from hubspot.crm.contacts import SimplePublicObjectInputForCreate, SimplePublicObjectInput
+import logging
+
+from hubspot.crm.contacts import SimplePublicObjectInput, SimplePublicObjectInputForCreate
+
 from .base import get_hubspot_client
 
 # Configure logging
@@ -19,7 +21,7 @@ async def hubspot_get_contacts(limit: int = 10):
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         logger.info(f"Fetching up to {limit} contacts from HubSpot")
         result = client.crm.contacts.basic_api.get_page(limit=limit)
@@ -42,7 +44,7 @@ async def hubspot_get_contact_by_id(contact_id: str):
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         logger.info(f"Fetching contact with ID: {contact_id}")
         result = client.crm.contacts.basic_api.get_by_id(contact_id)
@@ -65,7 +67,7 @@ async def hubspot_delete_contact_by_id(contact_id: str) -> str:
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         logger.info(f"Deleting contact with ID: {contact_id}")
         client.crm.contacts.basic_api.archive(contact_id)
@@ -88,7 +90,7 @@ async def hubspot_create_contact(properties: str) -> str:
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         properties = json.loads(properties)
         logger.info(f"Creating contact with properties: {properties}")
@@ -114,7 +116,7 @@ async def hubspot_update_contact_by_id(contact_id: str, updates: str) -> str:
     client = get_hubspot_client()
     if not client:
         raise ValueError("HubSpot client not available. Please check authentication.")
-    
+
     try:
         updates = json.loads(updates)
         logger.info(f"Updating contact ID: {contact_id} with updates: {updates}")

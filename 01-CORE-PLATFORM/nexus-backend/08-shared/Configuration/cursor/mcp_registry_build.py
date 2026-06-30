@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-import os
 import json
+import os
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Any
 
 HUB_ROOT = Path("/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS-BUSINESS-INTELLIGENCE-HUB")
 BACKUP_ROOT = Path("/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/STRUCTURE_OPTIMIZATION_BACKUP")
@@ -19,8 +19,8 @@ CANDIDATE_NAMES = {
 }
 
 
-def find_candidates(root: Path) -> List[Path]:
-    out: List[Path] = []
+def find_candidates(root: Path) -> list[Path]:
+    out: list[Path] = []
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = [d for d in dirnames if d not in {"node_modules", "venv", "site-packages", ".git"}]
         for fn in filenames:
@@ -39,8 +39,8 @@ def safe_load_json(p: Path) -> Any:
         return None
 
 
-def normalize_entries(data: Any, source: Path) -> List[Dict[str, Any]]:
-    entries: List[Dict[str, Any]] = []
+def normalize_entries(data: Any, source: Path) -> list[dict[str, Any]]:
+    entries: list[dict[str, Any]] = []
     if isinstance(data, dict):
         # Try common shapes
         if "servers" in data and isinstance(data["servers"], list):
@@ -69,7 +69,7 @@ def normalize_entries(data: Any, source: Path) -> List[Dict[str, Any]]:
     return entries
 
 
-def unique_key(entry: Dict[str, Any]) -> str:
+def unique_key(entry: dict[str, Any]) -> str:
     # Prefer name or id; fallback to command path
     for k in ("name", "id", "title"):
         if k in entry and isinstance(entry[k], str):
@@ -85,7 +85,7 @@ def main():
     candidates = find_candidates(HUB_ROOT) + find_candidates(BACKUP_ROOT)
     # de-dup by full path
     seen_paths = set()
-    uniq_candidates: List[Path] = []
+    uniq_candidates: list[Path] = []
     for p in candidates:
         s = str(p)
         if s not in seen_paths:
@@ -95,7 +95,7 @@ def main():
     # write sources list
     SOURCES_LIST.write_text("\n".join(str(p) for p in uniq_candidates), encoding="utf-8")
 
-    merged: Dict[str, Dict[str, Any]] = {}
+    merged: dict[str, dict[str, Any]] = {}
     for p in uniq_candidates:
         data = safe_load_json(p)
         if data is None:

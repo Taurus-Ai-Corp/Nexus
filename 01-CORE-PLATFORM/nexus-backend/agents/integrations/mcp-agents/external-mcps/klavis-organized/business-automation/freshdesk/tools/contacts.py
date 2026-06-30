@@ -1,8 +1,9 @@
 import logging
-from typing import Any, Dict, List, Optional
 import mimetypes
 import os
-from .base import make_freshdesk_request, handle_freshdesk_error, remove_none_values
+from typing import Any
+
+from .base import handle_freshdesk_error, make_freshdesk_request, remove_none_values
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -15,17 +16,17 @@ CONTACT_STATUS_DELETED = "deleted"
 
 async def create_contact(
     name: str,
-    email: Optional[str] = None,
-    phone: Optional[str] = None,
-    mobile: Optional[str] = None,
-    company_id: Optional[int] = None,
-    description: Optional[str] = None,
-    job_title: Optional[str] = None,
-    tags: Optional[List[str]] = None,
-    custom_fields: Optional[Dict[str, Any]] = None,
-    avatar_path: Optional[str] = None,
+    email: str | None = None,
+    phone: str | None = None,
+    mobile: str | None = None,
+    company_id: int | None = None,
+    description: str | None = None,
+    job_title: str | None = None,
+    tags: list[str] | None = None,
+    custom_fields: dict[str, Any] | None = None,
+    avatar_path: str | None = None,
     **kwargs
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Create a new contact in Freshdesk.
     
@@ -47,7 +48,7 @@ async def create_contact(
     """
     if not any([email, phone, mobile]):
         return {"error": "At least one of email, phone, or mobile is required"}
-    
+
     contact_data = {
         "name": name,
         "email": email,
@@ -60,20 +61,20 @@ async def create_contact(
         "custom_fields": custom_fields,
         **kwargs
     }
-    
+
     contact_data = remove_none_values(contact_data)
 
     options = { }
-    
+
     try:
         if avatar_path:
             options["files"] = handle_freshdesk_attachments("avatar", [{"type": "local", "content": avatar_path, "name": os.path.basename(avatar_path), "media_type": mimetypes.guess_type(avatar_path)[0]}])
-    
+
         return await make_freshdesk_request("POST", "/contacts", data=contact_data, options=options)
     except Exception as e:
         return handle_freshdesk_error(e, "create", "contact")
 
-async def get_contact_by_id(contact_id: int) -> Dict[str, Any]:
+async def get_contact_by_id(contact_id: int) -> dict[str, Any]:
     """
     Retrieve a contact by ID.
     
@@ -89,15 +90,15 @@ async def get_contact_by_id(contact_id: int) -> Dict[str, Any]:
         return handle_freshdesk_error(e, "retrieve", "contact")
 
 async def list_contacts(
-    email: Optional[str] = None,
-    phone: Optional[str] = None,
-    mobile: Optional[str] = None,
-    company_id: Optional[int] = None,
-    state: Optional[str] = None,
-    updated_since: Optional[str] = None,
+    email: str | None = None,
+    phone: str | None = None,
+    mobile: str | None = None,
+    company_id: int | None = None,
+    state: str | None = None,
+    updated_since: str | None = None,
     page: int = 1,
     per_page: int = 30
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     List all contacts, optionally filtered by parameters.
     
@@ -122,11 +123,11 @@ async def list_contacts(
         "state": state,
         "updated_since": updated_since,
         "page": page,
-        "per_page": min(per_page, 100) 
+        "per_page": min(per_page, 100)
     }
-    
+
     params = remove_none_values(params)
-    
+
     try:
         return await make_freshdesk_request("GET", "/contacts", options={"query_params": params})
     except Exception as e:
@@ -135,18 +136,18 @@ async def list_contacts(
 
 async def update_contact(
     contact_id: int,
-    name: Optional[str] = None,
-    email: Optional[str] = None,
-    phone: Optional[str] = None,
-    mobile: Optional[str] = None,
-    company_id: Optional[int] = None,
-    description: Optional[str] = None,
-    job_title: Optional[str] = None,
-    tags: Optional[List[str]] = None,
-    custom_fields: Optional[Dict[str, Any]] = None,
-    avatar_path: Optional[str] = None,
+    name: str | None = None,
+    email: str | None = None,
+    phone: str | None = None,
+    mobile: str | None = None,
+    company_id: int | None = None,
+    description: str | None = None,
+    job_title: str | None = None,
+    tags: list[str] | None = None,
+    custom_fields: dict[str, Any] | None = None,
+    avatar_path: str | None = None,
     **kwargs
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Update an existing contact.
     
@@ -179,30 +180,30 @@ async def update_contact(
         "custom_fields": custom_fields,
         **kwargs
     }
-    
+
     contact_data = remove_none_values(contact_data)
 
     if not contact_data:
         raise ValueError("No fields to update")
 
     options = {}
-    
+
     try:
         if avatar_path:
             options["files"] = handle_freshdesk_attachments("avatar", [{"type": "local", "content": avatar_path, "name": os.path.basename(avatar_path), "media_type": mimetypes.guess_type(avatar_path)[0]}])
-           
+
         return await make_freshdesk_request("PUT", f"/contacts/{contact_id}", data=contact_data, options=options)
-        
+
     except Exception as e:
         return handle_freshdesk_error(e, "update", "contact")
 
 
 
 async def delete_contact(
-    contact_id: int, 
-    hard_delete: bool = False, 
+    contact_id: int,
+    hard_delete: bool = False,
     force: bool = False
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Delete a contact.
     
@@ -217,7 +218,7 @@ async def delete_contact(
     try:
         if hard_delete:
             return await make_freshdesk_request(
-                "DELETE", 
+                "DELETE",
                 f"/contacts/{contact_id}/hard_delete?force={str(force).lower()}"
             )
         else:
@@ -229,8 +230,8 @@ async def delete_contact(
 async def filter_contacts(
     query: str,
     page: int = 1,
-    updated_since: Optional[str] = None
-) -> Dict[str, Any]:
+    updated_since: str | None = None
+) -> dict[str, Any]:
     """
     Filter contacts using a query string.
     
@@ -247,15 +248,15 @@ async def filter_contacts(
         "page": page,
         "updated_since": updated_since
     }
-    
+
     params = remove_none_values(params)
-    
+
     try:
         return await make_freshdesk_request("GET", "/search/contacts", options={"query_params": params})
     except Exception as e:
         return handle_freshdesk_error(e, "filter", "contacts")
 
-async def search_contacts_by_name(name: str) -> Dict[str, Any]:
+async def search_contacts_by_name(name: str) -> dict[str, Any]:
     """
     Search contacts by name for autocomplete.
     
@@ -273,14 +274,14 @@ async def search_contacts_by_name(name: str) -> Dict[str, Any]:
 async def make_contact_agent(
     contact_id: int,
     occasional: bool = False,
-    signature: Optional[str] = None,
+    signature: str | None = None,
     ticket_scope: int = 1,
-    skill_ids: Optional[List[int]] = None,
-    group_ids: Optional[List[int]] = None,
-    role_ids: Optional[List[int]] = None,
+    skill_ids: list[int] | None = None,
+    group_ids: list[int] | None = None,
+    role_ids: list[int] | None = None,
     agent_type: str = "support_agent",
     focus_mode: bool = True
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Convert a contact to an agent.
     
@@ -308,9 +309,9 @@ async def make_contact_agent(
         "type": agent_type,
         "focus_mode": focus_mode
     }
-    
+
     agent_data = remove_none_values(agent_data)
-    
+
     try:
         return await make_freshdesk_request(
             "PUT",
@@ -320,7 +321,7 @@ async def make_contact_agent(
     except Exception as e:
         return handle_freshdesk_error(e, "create", "contact_agent")
 
-async def restore_contact(contact_id: int) -> Dict[str, Any]:
+async def restore_contact(contact_id: int) -> dict[str, Any]:
     """
     Restore a soft-deleted contact.
     
@@ -338,7 +339,7 @@ async def restore_contact(contact_id: int) -> Dict[str, Any]:
     except Exception as e:
         return handle_freshdesk_error(e, "restore", "contact")
 
-async def send_contact_invite(contact_id: int) -> Dict[str, Any]:
+async def send_contact_invite(contact_id: int) -> dict[str, Any]:
     """
     Send an activation email to a contact.
     
@@ -358,9 +359,9 @@ async def send_contact_invite(contact_id: int) -> Dict[str, Any]:
 
 async def merge_contacts(
     primary_contact_id: int,
-    secondary_contact_ids: List[int],
-    contact_data: Optional[Dict[str, Any]] = None
-) -> Dict[str, Any]:
+    secondary_contact_ids: list[int],
+    contact_data: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """
     Merge multiple contacts into a primary contact.
     
@@ -374,17 +375,17 @@ async def merge_contacts(
     """
     if not secondary_contact_ids:
         raise ValueError("At least one secondary contact ID is required")
-    
+
     merge_data = {
         "primary_contact_id": primary_contact_id,
         "secondary_contact_ids": secondary_contact_ids,
         "contact": contact_data or {}
     }
-    
+
     try:
         return await make_freshdesk_request(
             "PUT",
-            f"/contacts/merge",
+            "/contacts/merge",
             data=merge_data
         )
     except Exception as e:

@@ -2,7 +2,7 @@
 
 import asyncio
 import logging
-from typing import Dict, List, Optional, Any, Union
+from typing import Any
 
 import gradio as gr
 
@@ -137,7 +137,7 @@ class MCPTab:
 
             return tab
 
-    def list_available_repos_docs(self) -> List[Dict[str, str]]:
+    def list_available_repos_docs(self) -> list[dict[str, str]]:
         """
         List of available ingested repositories docs.
 
@@ -156,9 +156,9 @@ class MCPTab:
     def list_repository_files(
         self,
         repo_name: str,
-        file_extensions: Optional[List[str]] = None,
-        branch: Optional[str] = None,
-    ) ->  Union[List[str], Dict[str, str]]:
+        file_extensions: list[str] | None = None,
+        branch: str | None = None,
+    ) ->  list[str] | dict[str, str]:
         """
         List files in a repository with optional filtering by extensions and branch.
         Parameters:
@@ -186,8 +186,8 @@ class MCPTab:
         return filtered_files
 
     def get_single_file_content_from_repo(
-        self, repo_name: str, file_path: str, branch: Optional[str] = None
-    ) -> Dict[str, str]:
+        self, repo_name: str, file_path: str, branch: str | None = None
+    ) -> dict[str, str]:
         """
         Get content of a single file in a repository.
 
@@ -222,8 +222,8 @@ class MCPTab:
         )
 
     def get_multi_file_content_from_repo(
-        self, repo_name: str, file_paths: List[str], branch: Optional[str] = None
-    ) ->  Union[List[str], Dict[str, str]]:
+        self, repo_name: str, file_paths: list[str], branch: str | None = None
+    ) ->  list[str] | dict[str, str]:
         """
         Get content of multiple files in a repository.
 
@@ -271,9 +271,9 @@ class MCPTab:
         self,
         repo_name: str,
         query: str,
-        mode: Optional[str] = "default",
-        top_k: Optional[int] = None,
-    ) -> Dict[str, Any]:
+        mode: str | None = "default",
+        top_k: int | None = None,
+    ) -> dict[str, Any]:
         """
         Execute a query against the repository documents.
 

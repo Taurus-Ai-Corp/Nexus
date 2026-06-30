@@ -1,6 +1,6 @@
 import logging
-from typing import Any, Dict, Optional
 from datetime import date, timedelta
+from typing import Any
 
 from .base import MixpanelQueryClient
 
@@ -10,16 +10,16 @@ logger = logging.getLogger(__name__)
 async def run_retention_query(
     project_id: str,
     event: str,
-    born_event: Optional[str] = None,
-    from_date: Optional[str] = None,
-    to_date: Optional[str] = None,
-    unit: Optional[str] = "day",
-    retention_type: Optional[str] = "birth",
-    interval_count: Optional[int] = None,
-    metric: Optional[str] = "unique",
-    where: Optional[str] = None,
-    on: Optional[str] = None,
-) -> Dict[str, Any]:
+    born_event: str | None = None,
+    from_date: str | None = None,
+    to_date: str | None = None,
+    unit: str | None = "day",
+    retention_type: str | None = "birth",
+    interval_count: int | None = None,
+    metric: str | None = "unique",
+    where: str | None = None,
+    on: str | None = None,
+) -> dict[str, Any]:
     """Run Mixpanel Retention query via Query API.
 
     Args:
@@ -61,7 +61,7 @@ async def run_retention_query(
     if retention_type not in allowed_retention_types:
         raise ValueError(f"retention_type must be one of {sorted(allowed_retention_types)}")
 
-    params: Dict[str, Any] = {
+    params: dict[str, Any] = {
         "project_id": str(project_id),
         "from_date": from_date,
         "to_date": to_date,

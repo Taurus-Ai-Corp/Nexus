@@ -1,21 +1,21 @@
-from typing import Annotated, Any, Dict
 import logging
+from typing import Any
 
-from .constants import TAG_OPT_FIELDS, TagColor
 from .base import (
+    AsanaToolExecutionError,
     get_asana_client,
     get_next_page,
     get_unique_workspace_id_or_raise_error,
     remove_none_values,
-    AsanaToolExecutionError,
 )
+from .constants import TAG_OPT_FIELDS, TagColor
 
 logger = logging.getLogger(__name__)
 
 
 async def get_tag_by_id(
     tag_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get an Asana tag by its ID"""
     try:
         client = get_asana_client()
@@ -35,7 +35,7 @@ async def create_tag(
     description: str | None = None,
     color: TagColor | None = None,
     workspace_id: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create a tag in Asana"""
     try:
         if not 1 <= len(name) <= 100:
@@ -66,7 +66,7 @@ async def list_tags(
     workspace_id: str | None = None,
     limit: int = 100,
     next_page_token: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """List tags in an Asana workspace"""
     try:
         limit = max(1, min(100, limit))

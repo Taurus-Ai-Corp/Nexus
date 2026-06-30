@@ -4,11 +4,11 @@ TAURUS AI CORP - Startup Script
 Initialize and start the complete BizFlow™ platform
 """
 
-import asyncio
 import subprocess
 import sys
 import time
 from pathlib import Path
+
 
 def check_requirements():
     """Check if all requirements are installed"""
@@ -39,48 +39,48 @@ def check_docker():
 def start_infrastructure():
     """Start PostgreSQL and Redis using Docker Compose"""
     print("🚀 Starting database infrastructure...")
-    
+
     try:
         # Start only the core infrastructure
         result = subprocess.run([
-            "docker-compose", "up", "-d", 
+            "docker-compose", "up", "-d",
             "postgres", "redis"
         ], capture_output=True, text=True)
-        
+
         if result.returncode == 0:
             print("✅ Database infrastructure started successfully")
-            
+
             # Wait for services to be ready
             print("⏳ Waiting for databases to be ready...")
             time.sleep(10)
-            
+
             # Check PostgreSQL
             pg_result = subprocess.run([
                 "docker-compose", "exec", "-T", "postgres",
                 "pg_isready", "-U", "taurus_user", "-d", "taurus"
             ], capture_output=True, text=True)
-            
+
             if pg_result.returncode == 0:
                 print("✅ PostgreSQL is ready")
             else:
                 print("⚠️ PostgreSQL not ready, but continuing...")
-            
+
             # Check Redis
             redis_result = subprocess.run([
                 "docker-compose", "exec", "-T", "redis",
                 "redis-cli", "ping"
             ], capture_output=True, text=True)
-            
+
             if "PONG" in redis_result.stdout:
                 print("✅ Redis is ready")
             else:
                 print("⚠️ Redis not ready, but continuing...")
-            
+
             return True
         else:
             print(f"❌ Failed to start infrastructure: {result.stderr}")
             return False
-            
+
     except Exception as e:
         print(f"❌ Infrastructure startup failed: {e}")
         return False
@@ -88,7 +88,7 @@ def start_infrastructure():
 def start_agents():
     """Start specialized agents"""
     print("🤖 Starting specialized agents...")
-    
+
     agent_ports = {
         "intelligence_research": 8001,
         "webflow_integration": 8002,
@@ -97,34 +97,34 @@ def start_agents():
         "content_social_strategy": 8005,
         "realtime_intelligence": 8006
     }
-    
+
     agent_processes = []
-    
+
     for agent_name, port in agent_ports.items():
         try:
             agent_path = Path(f"agents/specialized/{agent_name.replace('_', '-')}/agent.py")
             if agent_path.exists():
                 print(f"🚀 Starting {agent_name} on port {port}")
-                
+
                 process = subprocess.Popen([
                     sys.executable, str(agent_path)
                 ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                
+
                 agent_processes.append((agent_name, process))
                 time.sleep(2)  # Stagger agent startup
             else:
                 print(f"⚠️ Agent file not found: {agent_path}")
-                
+
         except Exception as e:
             print(f"❌ Failed to start {agent_name}: {e}")
-    
+
     print(f"✅ Started {len(agent_processes)} specialized agents")
     return agent_processes
 
 def start_backend():
     """Start the main FastAPI backend"""
     print("🌟 Starting BizFlow™ Backend API...")
-    
+
     try:
         # Start the FastAPI server
         process = subprocess.Popen([
@@ -135,9 +135,9 @@ def start_backend():
             "--reload",
             "--log-level", "info"
         ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
+
         time.sleep(5)  # Give it time to start
-        
+
         # Check if it's running
         if process.poll() is None:
             print("✅ BizFlow™ Backend API started successfully")
@@ -148,7 +148,7 @@ def start_backend():
             stdout, stderr = process.communicate()
             print(f"❌ Backend failed to start: {stderr.decode()}")
             return None
-            
+
     except Exception as e:
         print(f"❌ Backend startup failed: {e}")
         return None
@@ -169,7 +169,7 @@ def show_status():
     print("  • Redis UI:          http://localhost:8081 (taurus/taurus_redis_ui_2024)")
     print("\n🤖 Specialized Agents:")
     print("  • Intelligence Research:        Port 8001")
-    print("  • Webflow Integration:          Port 8002") 
+    print("  • Webflow Integration:          Port 8002")
     print("  • Component Performance:        Port 8003")
     print("  • Performance Analysis:         Port 8004")
     print("  • Content Social Strategy:      Port 8005")
@@ -190,66 +190,66 @@ def main():
     """Main startup sequence"""
     print("🌊 TAURUS AI CORP BizFlow™ Platform Startup")
     print("=" * 50)
-    
+
     # Step 1: Check requirements
     if not check_requirements():
         print("❌ Requirements check failed")
         sys.exit(1)
-    
+
     # Step 2: Check Docker
     if not check_docker():
         print("❌ Docker check failed")
         sys.exit(1)
-    
+
     # Step 3: Start infrastructure
     if not start_infrastructure():
         print("❌ Infrastructure startup failed")
         sys.exit(1)
-    
+
     # Step 4: Start agents
     agent_processes = start_agents()
-    
+
     # Step 5: Start backend
     backend_process = start_backend()
     if not backend_process:
         print("❌ Backend startup failed")
         sys.exit(1)
-    
+
     # Step 6: Show status
     show_status()
-    
+
     try:
         # Keep running
         print("\n💡 Press Ctrl+C to stop all services")
         while True:
             time.sleep(1)
-            
+
             # Check if backend is still running
             if backend_process.poll() is not None:
                 print("❌ Backend process died, restarting...")
                 backend_process = start_backend()
                 if not backend_process:
                     break
-                    
+
     except KeyboardInterrupt:
         print("\n🛑 Shutting down TAURUS AI CORP BizFlow™ Platform...")
-        
+
         # Stop backend
         if backend_process and backend_process.poll() is None:
             backend_process.terminate()
             print("✅ Backend stopped")
-        
+
         # Stop agents
         for agent_name, process in agent_processes:
             if process.poll() is None:
                 process.terminate()
                 print(f"✅ {agent_name} stopped")
-        
+
         # Stop infrastructure
         print("🛑 Stopping database infrastructure...")
         subprocess.run(["docker-compose", "down"], capture_output=True)
         print("✅ Infrastructure stopped")
-        
+
         print("👋 TAURUS AI CORP BizFlow™ Platform stopped successfully")
 
 if __name__ == "__main__":

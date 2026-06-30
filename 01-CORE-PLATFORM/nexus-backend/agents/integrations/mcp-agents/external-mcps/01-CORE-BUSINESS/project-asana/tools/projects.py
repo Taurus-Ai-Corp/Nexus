@@ -1,15 +1,15 @@
-from typing import Annotated, Any, Dict
 import logging
 from datetime import datetime, timezone
+from typing import Any
 
-from .constants import PROJECT_OPT_FIELDS
 from .base import (
+    AsanaToolExecutionError,
     get_asana_client,
     get_next_page,
     get_unique_workspace_id_or_raise_error,
     remove_none_values,
-    AsanaToolExecutionError,
 )
+from .constants import PROJECT_OPT_FIELDS
 
 logger = logging.getLogger(__name__)
 
@@ -20,34 +20,34 @@ def parse_timestamp(timestamp_str: str) -> datetime:
         # Handle both with and without timezone info
         if timestamp_str.endswith('Z'):
             timestamp_str = timestamp_str[:-1] + '+00:00'
-        
+
         dt = datetime.fromisoformat(timestamp_str)
-        
+
         # If the datetime is naive (no timezone), assume UTC
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
-        
+
         return dt
     except (ValueError, AttributeError):
         return None
 
 
-def filter_projects_by_timestamps(projects: list, filter_dict: Dict[str, Any]) -> list:
+def filter_projects_by_timestamps(projects: list, filter_dict: dict[str, Any]) -> list:
     """Filter projects based on timestamp criteria."""
     if not filter_dict:
         return projects
-    
+
     filtered_projects = []
-    
+
     for project in projects:
         include_project = True
-        
+
         # Filter by created_at
         if "created_at" in filter_dict:
             project_created = parse_timestamp(project.get("created_at", ""))
             if project_created:
                 created_filter = filter_dict["created_at"]
-                
+
                 # Support both gt (greater than) and gte (greater than or equal)
                 if "gt" in created_filter:
                     filter_date = parse_timestamp(created_filter["gt"])
@@ -57,7 +57,7 @@ def filter_projects_by_timestamps(projects: list, filter_dict: Dict[str, Any]) -
                     filter_date = parse_timestamp(created_filter["gte"])
                     if filter_date and project_created < filter_date:
                         include_project = False
-                
+
                 # Support both lt (less than) and lte (less than or equal)
                 if "lt" in created_filter:
                     filter_date = parse_timestamp(created_filter["lt"])
@@ -67,13 +67,13 @@ def filter_projects_by_timestamps(projects: list, filter_dict: Dict[str, Any]) -
                     filter_date = parse_timestamp(created_filter["lte"])
                     if filter_date and project_created > filter_date:
                         include_project = False
-        
+
         # Filter by modified_at
         if include_project and "modified_at" in filter_dict:
             project_modified = parse_timestamp(project.get("modified_at", ""))
             if project_modified:
                 modified_filter = filter_dict["modified_at"]
-                
+
                 # Support both gt (greater than) and gte (greater than or equal)
                 if "gt" in modified_filter:
                     filter_date = parse_timestamp(modified_filter["gt"])
@@ -83,7 +83,7 @@ def filter_projects_by_timestamps(projects: list, filter_dict: Dict[str, Any]) -
                     filter_date = parse_timestamp(modified_filter["gte"])
                     if filter_date and project_modified < filter_date:
                         include_project = False
-                
+
                 # Support both lt (less than) and lte (less than or equal)
                 if "lt" in modified_filter:
                     filter_date = parse_timestamp(modified_filter["lt"])
@@ -93,16 +93,16 @@ def filter_projects_by_timestamps(projects: list, filter_dict: Dict[str, Any]) -
                     filter_date = parse_timestamp(modified_filter["lte"])
                     if filter_date and project_modified > filter_date:
                         include_project = False
-        
+
         if include_project:
             filtered_projects.append(project)
-    
+
     return filtered_projects
 
 
 async def get_project_by_id(
     project_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get a project by its ID"""
     try:
         client = get_asana_client()
@@ -125,8 +125,8 @@ async def list_projects(
     workspace_id: str | None = None,
     limit: int = 100,
     next_page_token: str | None = None,
-    filter: Dict[str, Any] | None = None,
-) -> Dict[str, Any]:
+    filter: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """List projects in Asana with optional filtering by timestamps.
     
     Args:
@@ -167,13 +167,13 @@ async def list_projects(
         )
 
         projects = response["data"]
-        
+
         # Apply client-side filtering if filter is provided
         if filter:
             projects = filter_projects_by_timestamps(projects, filter)
             # Trim to requested limit after filtering
             projects = projects[:limit]
-        
+
         return {
             "projects": projects,
             "count": len(projects),

@@ -1,22 +1,23 @@
-from typing import Optional, Dict, Any
-from mcp.server.fastmcp import FastMCP
 import smtplib
 from email.message import EmailMessage
+from typing import Any
+
+from mcp.server.fastmcp import FastMCP
 
 # Initialize FastMCP server
 mcp = FastMCP("email")
 
 # Global variables for email configuration
-SENDER_NAME: Optional[str] = None
-SENDER_EMAIL: Optional[str] = None
-SENDER_PASSKEY: Optional[str] = None
+SENDER_NAME: str | None = None
+SENDER_EMAIL: str | None = None
+SENDER_PASSKEY: str | None = None
 
 @mcp.tool()
 def configure_email(
     sender_name: str,
     sender_email: str,
     sender_passkey: str
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Configure email sender details.
     
     Args:
@@ -28,7 +29,7 @@ def configure_email(
     SENDER_NAME = sender_name
     SENDER_EMAIL = sender_email
     SENDER_PASSKEY = sender_passkey
-    
+
     return {
         "success": True,
         "message": "Email configuration updated successfully"
@@ -39,7 +40,7 @@ def send_email(
     receiver_email: str,
     subject: str,
     body: str
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Send an email to specified recipient.
     
     Args:
@@ -66,7 +67,7 @@ def send_email(
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
             smtp.login(SENDER_EMAIL, SENDER_PASSKEY)
             smtp.send_message(msg)
-            
+
         return {
             "success": True,
             "message": "Email sent successfully"

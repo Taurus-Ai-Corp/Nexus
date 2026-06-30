@@ -1,11 +1,12 @@
-import streamlit as st
 import os
-from llama_index.core import Settings, VectorStoreIndex, PromptTemplate
+import re
+
+import streamlit as st
+from dotenv import load_dotenv
+from llama_index.core import PromptTemplate, Settings, VectorStoreIndex
 from llama_index.embeddings.nebius import NebiusEmbedding
 from llama_index.llms.nebius import NebiusLLM
-from llama_index.readers.github import GithubRepositoryReader, GithubClient
-import re
-from dotenv import load_dotenv
+from llama_index.readers.github import GithubClient, GithubRepositoryReader
 
 # Load environment variables
 load_dotenv()
@@ -26,7 +27,7 @@ def load_github_data(github_token, owner, repo, branch="main"):
         owner=owner,
         repo=repo,
         filter_file_extensions=(
-            [".py", ".ipynb", ".js", ".ts", ".md"], 
+            [".py", ".ipynb", ".js", ".ts", ".md"],
             GithubRepositoryReader.FilterType.INCLUDE
         ),
         verbose=False,
@@ -44,7 +45,7 @@ def run_rag_completion(query_text: str, docs) -> str:
         model_name="BAAI/bge-en-icl",
         api_key=os.getenv("NEBIUS_API_KEY")
     )
-    
+
     Settings.llm = llm
     Settings.embed_model = embed_model
 
@@ -60,7 +61,7 @@ def run_rag_completion(query_text: str, docs) -> str:
         "Query: {query_str}\n"
         "Answer: "
     )
-    
+
     query_engine.update_prompts({"response_synthesizer:text_qa_template": qa_prompt_tmpl})
     response = query_engine.query(query_text)
     return str(response)
@@ -78,13 +79,13 @@ def main():
                 mime="text/plain",
                 icon=":material/download:",
             )
-    
+
     # Initialize session states
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "docs" not in st.session_state:
         st.session_state.docs = None
-    
+
     # Header with title and buttons
     col1, col2, col5, col3, col4 = st.columns([3, 1, 1, 1, 1])
     with col1:
@@ -95,9 +96,9 @@ def main():
         if st.button("🗑️ Clear Chat"):
             st.session_state.messages = []
             st.rerun()
-    
+
     st.caption("Powered by Nebius AI (DeepSeek-V3) and LlamaIndex")
-    
+
     # Sidebar
     with st.sidebar:
         # st.title("Select Model")
@@ -109,40 +110,40 @@ def main():
         # st.divider()
         st.subheader("GitHub Repository URL")
         repo_url = st.text_input("", placeholder="Enter repository URL")
-        
+
         if st.button("Load Repository"):
             if repo_url:
                 try:
                     github_token = os.getenv("GITHUB_TOKEN")
                     nebius_api_key = os.getenv("NEBIUS_API_KEY")
-                    
+
                     if not github_token or not nebius_api_key:
                         st.error("Missing API keys")
                         st.stop()
-                    
+
                     owner, repo, branch = parse_github_url(repo_url)
                     with st.spinner("Loading repository..."):
                         st.session_state.docs = load_github_data(github_token, owner, repo, branch)
                     st.success("✓ Repository loaded successfully")
                 except Exception as e:
                     st.error(f"Error: {str(e)}")
-    
+
     # Display chat messages
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
-    
+
     # Chat input
     if prompt := st.chat_input("Ask about the repository..."):
         if not st.session_state.docs:
             st.error("Please load a repository first")
             st.stop()
-        
+
         # Add user message
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
-        
+
         # Generate response
         with st.chat_message("assistant"):
             with st.spinner("Thinking..."):

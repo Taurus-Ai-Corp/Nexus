@@ -3,13 +3,13 @@ Prompt templates for the Conference Talk RAG System
 Contains all structured prompts for generating talk proposals
 """
 
-from typing import List, Dict, Any
+from typing import Any
 
 
 def create_talk_proposal_prompt(
     query: str,
-    conference_info: Dict[str, Any],
-    similar_talks: List[Dict[str, Any]],
+    conference_info: dict[str, Any],
+    similar_talks: list[dict[str, Any]],
     adk_research: str
 ) -> str:
     """
@@ -24,7 +24,7 @@ def create_talk_proposal_prompt(
     Returns:
         Formatted prompt string for the LLM
     """
-    
+
     # Prepare historical context in the structured format
     if similar_talks:
         historical_context = "\n\n".join([

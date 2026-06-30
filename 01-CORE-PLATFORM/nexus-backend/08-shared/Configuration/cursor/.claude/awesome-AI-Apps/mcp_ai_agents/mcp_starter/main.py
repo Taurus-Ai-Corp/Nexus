@@ -1,18 +1,20 @@
 import asyncio
 import os
+
 from agents import (
     Agent,
     OpenAIChatCompletionsModel,
     Runner,
     set_tracing_disabled,
 )
-from agents.mcp import  MCPServer, MCPServerStdio
-from openai import AsyncOpenAI
+from agents.mcp import MCPServer, MCPServerStdio
 from dotenv import load_dotenv
+from openai import AsyncOpenAI
+
 load_dotenv()
 
 api_key = os.environ["NEBIUS_API_KEY"]
-base_url = "https://api.studio.nebius.ai/v1" 
+base_url = "https://api.studio.nebius.ai/v1"
 client = AsyncOpenAI(base_url=base_url, api_key=api_key)
 set_tracing_disabled(disabled=True)
 
@@ -21,7 +23,7 @@ async def run(mcp_server: MCPServer, repo_url: str):
     parts = repo_url.strip("/").split("/")
     owner = parts[-2] if len(parts) >= 2 else None
     repo = parts[-1] if len(parts) >= 1 else None
-    
+
     if not owner or not repo:
         print("Invalid repository URL. Please provide URL in format: owner/repo")
         return
@@ -57,7 +59,7 @@ async def run(mcp_server: MCPServer, repo_url: str):
         - sort: 'created'
         - direction: 'desc'
         - per_page: 1  # Note: This is a number, not a string""",
-        
+
         f"""Using list_commits tool, analyze the most recent commit to the repository.
         Parameters to use:
         - owner: {owner}
@@ -96,6 +98,6 @@ if __name__ == "__main__":
     load_dotenv()
     if not os.getenv("GITHUB_PERSONAL_ACCESS_TOKEN"):
         raise RuntimeError("GITHUB_PERSONAL_ACCESS_TOKEN not found in environment variables")
-    
+
     set_tracing_disabled(disabled=True)
     asyncio.run(main())

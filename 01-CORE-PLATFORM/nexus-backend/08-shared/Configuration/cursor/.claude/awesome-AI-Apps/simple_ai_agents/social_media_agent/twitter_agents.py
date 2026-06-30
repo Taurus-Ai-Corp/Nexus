@@ -10,9 +10,10 @@ Requirements:
 - Set environment variables from env_template.txt
 """
 
-import os
 import json
-from typing import Dict, Any, List
+import os
+from typing import Any
+
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -20,11 +21,11 @@ load_dotenv()
 
 # Import required libraries
 from composio import Composio
-from openai import OpenAI
-from langchain_scrapegraph.tools import SmartScraperTool
-from langchain_nebius import ChatNebius
-from memori import Memori, create_memory_tool
 from create_tweet import create_tweet
+from langchain_nebius import ChatNebius
+from langchain_scrapegraph.tools import SmartScraperTool
+from memori import Memori, create_memory_tool
+from openai import OpenAI
 
 # Check for required environment variables
 required_vars = [
@@ -77,7 +78,7 @@ def create_memory_tool_instance(memory_system):
     return create_memory_tool(memory_system)
 
 
-def scrape_user_tweets(twitter_handle: str) -> List[Dict[str, Any]]:
+def scrape_user_tweets(twitter_handle: str) -> list[dict[str, Any]]:
     """Scrape user's tweets using ScrapeGraph"""
     try:
         # Remove @ if present
@@ -108,7 +109,7 @@ def scrape_user_tweets(twitter_handle: str) -> List[Dict[str, Any]]:
         tweets = result.get("latest_tweets") or result.get("tweets")
         if tweets is None:
             raise Exception(f"No tweets found in result: {result}")
-        
+
         print({
             "username": result.get("username"),
             "profile_image_url": result.get("profile_image_url"),
@@ -157,7 +158,7 @@ def render_tweet_card(username, handle, profile_image_url, tweet_text):
         '''
         return tweet_card_html
 
-def analyze_tweeting_style(tweets: List[Dict[str, Any]]) -> Dict[str, Any]:
+def analyze_tweeting_style(tweets: list[dict[str, Any]]) -> dict[str, Any]:
     """Analyze tweeting style using Nebius LLM"""
     try:
         # Prepare tweets for analysis
@@ -227,7 +228,7 @@ def analyze_tweeting_style(tweets: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 
 def store_tweeting_style_in_memori(
-    memory_system, style_analysis: Dict[str, Any], twitter_handle: str, profile_image_url: str, handle: str, username: str
+    memory_system, style_analysis: dict[str, Any], twitter_handle: str, profile_image_url: str, handle: str, username: str
 ):
     """Store tweeting style analysis in Memori"""
     try:

@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Dict
+from typing import Any
 
 from .auth import get_tavily_client
 
@@ -60,9 +60,9 @@ def _coerce_int(v: Any) -> Any:
     return v
 
 
-def _normalize_args(arguments: Dict[str, Any]) -> Dict[str, Any]:
+def _normalize_args(arguments: dict[str, Any]) -> dict[str, Any]:
     # apply aliases
-    norm: Dict[str, Any] = {}
+    norm: dict[str, Any] = {}
     for k, v in arguments.items():
         key = _ALIASES.get(k, k)
         norm[key] = v
@@ -81,7 +81,7 @@ def _normalize_args(arguments: Dict[str, Any]) -> Dict[str, Any]:
     return norm
 
 
-def tavily_search(arguments: Dict[str, Any]) -> Dict[str, Any]:
+def tavily_search(arguments: dict[str, Any]) -> dict[str, Any]:
     """
     Web Search (Tavily).
     Arguments: see server list_tools schema; this function expects a plain dict.

@@ -1,13 +1,13 @@
-import contextlib
 import base64
+import contextlib
+import json
 import logging
 import os
-import json
 from collections.abc import AsyncIterator
-from typing import Any, Dict
 
 import click
 import mcp.types as types
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
@@ -15,17 +15,14 @@ from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-
-from tools.base import CloseToolExecutionError
+from tools import contacts as contact_tools
 
 # Import tools
 from tools import leads as lead_tools
-from tools import contacts as contact_tools
 from tools import opportunities as opportunity_tools
 from tools import tasks as task_tools
 from tools import users as user_tools
-from tools.base import auth_token_context
+from tools.base import CloseToolExecutionError, auth_token_context
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -37,7 +34,7 @@ CLOSE_MCP_SERVER_PORT = int(os.getenv("CLOSE_MCP_SERVER_PORT", "5000"))
 def extract_access_token(request_or_scope) -> str:
     """Extract access token from x-auth-data header."""
     auth_data = os.getenv("AUTH_DATA")
-    
+
     if not auth_data:
         # Handle different input types (request object for SSE, scope dict for StreamableHTTP)
         if hasattr(request_or_scope, 'headers'):
@@ -51,10 +48,10 @@ def extract_access_token(request_or_scope) -> str:
             auth_data = headers.get(b'x-auth-data')
             if auth_data:
                 auth_data = base64.b64decode(auth_data).decode('utf-8')
-    
+
     if not auth_data:
         return ""
-    
+
     try:
         # Parse the JSON auth data to extract access_token
         auth_json = json.loads(auth_data)
@@ -135,7 +132,7 @@ def main(
                                         }
                                     },
                                     "phones": {
-                                        "type": "array", 
+                                        "type": "array",
                                         "items": {
                                             "type": "object",
                                             "properties": {
@@ -280,7 +277,7 @@ def main(
                     },
                 },
             ),
-            
+
             # Contact Management Tools
             types.Tool(
                 name="close_create_contact",
@@ -422,7 +419,7 @@ def main(
                     "required": ["contact_id"],
                 },
             ),
-            
+
             # Opportunity Management Tools
             types.Tool(
                 name="close_create_opportunity",
@@ -532,7 +529,7 @@ def main(
                     "required": ["opportunity_id"],
                 },
             ),
-            
+
             # Task Management Tools
             types.Tool(
                 name="close_create_task",
@@ -663,7 +660,7 @@ def main(
                     },
                 },
             ),
-            
+
             # User Management Tools
             types.Tool(
                 name="close_get_current_user",
@@ -728,7 +725,7 @@ def main(
                 result = await lead_tools.delete_lead(**arguments)
             elif name == "close_list_leads":
                 result = await lead_tools.list_leads(**arguments)
-            
+
             elif name == "close_create_contact":
                 result = await contact_tools.create_contact(**arguments)
             elif name == "close_get_contact":
@@ -739,7 +736,7 @@ def main(
                 result = await contact_tools.update_contact(**arguments)
             elif name == "close_delete_contact":
                 result = await contact_tools.delete_contact(**arguments)
-            
+
             elif name == "close_create_opportunity":
                 result = await opportunity_tools.create_opportunity(**arguments)
             elif name == "close_get_opportunity":
@@ -748,7 +745,7 @@ def main(
                 result = await opportunity_tools.update_opportunity(**arguments)
             elif name == "close_delete_opportunity":
                 result = await opportunity_tools.delete_opportunity(**arguments)
-                
+
             elif name == "close_create_task":
                 result = await task_tools.create_task(**arguments)
             elif name == "close_get_task":
@@ -759,7 +756,7 @@ def main(
                 result = await task_tools.delete_task(**arguments)
             elif name == "close_list_tasks":
                 result = await task_tools.list_tasks(**arguments)
-                
+
             elif name == "close_get_current_user":
                 result = await user_tools.get_current_user()
             elif name == "close_list_users":
@@ -791,10 +788,10 @@ def main(
 
     async def handle_sse(request):
         logger.info("Handling SSE connection")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(request)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -806,7 +803,7 @@ def main(
                 )
         finally:
             auth_token_context.reset(token)
-        
+
         return Response()
 
     # Set up StreamableHTTP transport
@@ -821,10 +818,10 @@ def main(
         scope: Scope, receive: Receive, send: Send
     ) -> None:
         logger.info("Handling StreamableHTTP request")
-        
+
         # Extract auth token from headers
         auth_token = extract_access_token(scope)
-        
+
         # Set the auth token in context for this request
         token = auth_token_context.set(auth_token)
         try:
@@ -849,7 +846,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
@@ -875,4 +872,4 @@ def main(
         return 1
 
 if __name__ == "__main__":
-    exit(main()) 
+    exit(main())

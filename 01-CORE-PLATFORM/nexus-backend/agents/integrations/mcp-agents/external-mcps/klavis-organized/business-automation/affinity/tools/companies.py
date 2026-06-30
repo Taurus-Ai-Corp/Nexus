@@ -1,17 +1,18 @@
 import logging
-from typing import Any, Dict, Optional, List
-from .base import make_v2_request, make_http_request
+from typing import Any
+
+from .base import make_http_request, make_v2_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 async def get_all_companies(
-    cursor: Optional[str] = None,
-    limit: Optional[int] = None,
-    ids: Optional[List[int]] = None,
-    field_ids: Optional[List[str]] = None,
-    field_types: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    cursor: str | None = None,
+    limit: int | None = None,
+    ids: list[int] | None = None,
+    field_ids: list[str] | None = None,
+    field_types: list[str] | None = None
+) -> dict[str, Any]:
     """Get all Companies in Affinity with basic information and field data.
     
     Args:
@@ -34,7 +35,7 @@ async def get_all_companies(
             params["fieldIds"] = field_ids
         if field_types:
             params["fieldTypes"] = field_types
-            
+
         return await make_v2_request("GET", "/companies", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_all_companies: {e}")
@@ -42,9 +43,9 @@ async def get_all_companies(
 
 async def get_single_company(
     company_id: int,
-    field_ids: Optional[List[str]] = None,
-    field_types: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    field_ids: list[str] | None = None,
+    field_types: list[str] | None = None
+) -> dict[str, Any]:
     """Get a single Company by ID with basic information and field data.
     
     Args:
@@ -59,16 +60,16 @@ async def get_single_company(
             params["fieldIds"] = field_ids
         if field_types:
             params["fieldTypes"] = field_types
-            
+
         return await make_v2_request("GET", f"/companies/{company_id}", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_single_company: {e}")
         raise e
 
 async def get_company_fields_metadata(
-    cursor: Optional[str] = None,
-    limit: Optional[int] = None
-) -> Dict[str, Any]:
+    cursor: str | None = None,
+    limit: int | None = None
+) -> dict[str, Any]:
     """Get metadata on Company Fields.
     
     Args:
@@ -82,7 +83,7 @@ async def get_company_fields_metadata(
             params["cursor"] = cursor
         if limit:
             params["limit"] = limit
-            
+
         return await make_v2_request("GET", "/companies/fields", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_company_fields_metadata: {e}")
@@ -90,9 +91,9 @@ async def get_company_fields_metadata(
 
 async def get_company_lists(
     company_id: int,
-    cursor: Optional[str] = None,
-    limit: Optional[int] = None
-) -> Dict[str, Any]:
+    cursor: str | None = None,
+    limit: int | None = None
+) -> dict[str, Any]:
     """Get all Lists that contain the specified Company.
     
     Args:
@@ -107,7 +108,7 @@ async def get_company_lists(
             params["cursor"] = cursor
         if limit:
             params["limit"] = limit
-            
+
         return await make_v2_request("GET", f"/companies/{company_id}/lists", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_company_lists: {e}")
@@ -115,9 +116,9 @@ async def get_company_lists(
 
 async def get_company_list_entries(
     company_id: int,
-    cursor: Optional[str] = None,
-    limit: Optional[int] = None
-) -> Dict[str, Any]:
+    cursor: str | None = None,
+    limit: int | None = None
+) -> dict[str, Any]:
     """Get List Entries for a Company across all Lists with field data.
     
     Args:
@@ -132,20 +133,20 @@ async def get_company_list_entries(
             params["cursor"] = cursor
         if limit:
             params["limit"] = limit
-            
+
         return await make_v2_request("GET", f"/companies/{company_id}/list-entries", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool get_company_list_entries: {e}")
         raise e
 
 async def search_organizations(
-    term: Optional[str] = None,
-    with_interaction_dates: Optional[bool] = None,
-    with_interaction_persons: Optional[bool] = None,
-    with_opportunities: Optional[bool] = None,
-    page_size: Optional[int] = None,
-    page_token: Optional[str] = None
-) -> Dict[str, Any]:
+    term: str | None = None,
+    with_interaction_dates: bool | None = None,
+    with_interaction_persons: bool | None = None,
+    with_opportunities: bool | None = None,
+    page_size: int | None = None,
+    page_token: str | None = None
+) -> dict[str, Any]:
     """Search for organizations / companies in Affinity.
     
     Searches your team's data and fetches all the organizations that meet the search criteria.
@@ -174,8 +175,8 @@ async def search_organizations(
             params["page_size"] = page_size
         if page_token:
             params["page_token"] = page_token
-            
+
         return await make_http_request("GET", "/organizations", params=params)
     except Exception as e:
         logger.exception(f"Error executing tool search_organizations: {e}")
-        raise e 
+        raise e

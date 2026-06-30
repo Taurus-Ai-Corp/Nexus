@@ -2,22 +2,22 @@ import contextlib
 import logging
 import os
 from collections.abc import AsyncIterator
-from typing import List, Dict, Any, Optional, Annotated
+from typing import Annotated, Any
 
+import anthropic
 import click
 import mcp.types as types
+import requests
+from dotenv import load_dotenv
 from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
+from pydantic import Field
 from starlette.applications import Starlette
 from starlette.responses import Response
 from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
-from dotenv import load_dotenv
-import anthropic
-import requests
-from supabase import create_client, Client
-from pydantic import Field
+from supabase import create_client
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -115,7 +115,7 @@ async def generate_report_with_claude(article_content: str) -> str:
         logger.error(f"Error generating report: {str(e)}")
         raise
 
-async def store_report_in_supabase(html_content: str) -> Dict[str, Any]:
+async def store_report_in_supabase(html_content: str) -> dict[str, Any]:
     """
     Store the generated report in Supabase
 
@@ -148,7 +148,7 @@ async def store_report_in_supabase(html_content: str) -> Dict[str, Any]:
         logger.error(f"Error storing report: {str(e)}")
         raise
 
-def search_firecrawl(query: str, limit: int = 3) -> List[str]:
+def search_firecrawl(query: str, limit: int = 3) -> list[str]:
     """
     Search for URLs using Firecrawl search API
 
@@ -213,7 +213,7 @@ async def generate_web_reports(
     """
     try:
         logger.info(f"Executing tool: generate_web_reports with query: {query}")
-        
+
         # 1. Search for relevant URLs
         url_to_content = search_firecrawl(query)
 
@@ -283,7 +283,7 @@ def main(
         name: str, arguments: dict
     ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
         ctx = app.request_context
-        
+
         if name == "generate_web_reports":
             query = arguments.get("query")
             if not query:
@@ -293,7 +293,7 @@ def main(
                         text="Error: query parameter is required",
                     )
                 ]
-            
+
             try:
                 result = await generate_web_reports(query)
                 return [
@@ -310,7 +310,7 @@ def main(
                         text=f"Error: {str(e)}",
                     )
                 ]
-        
+
         return [
             types.TextContent(
                 type="text",
@@ -362,7 +362,7 @@ def main(
             # SSE routes
             Route("/sse", endpoint=handle_sse, methods=["GET"]),
             Mount("/messages/", app=sse.handle_post_message),
-            
+
             # StreamableHTTP route
             Mount("/mcp", app=handle_streamable_http),
         ],
