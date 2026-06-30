@@ -1,0 +1,9 @@
+{
+  "overall_pass": false,
+  "model_pass_votes": [
+    "FAIL",
+    "FAIL",
+    "FAIL"
+  ],
+  "verdict_summary": "Subagent parliament: security=FAIL, correctness=FAIL, cloud=FAIL. Consensus FAIL \u2014 see reports for required fixes."
+}
