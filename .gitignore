@@ -16,6 +16,13 @@
 secrets/
 10-CONFIG/secrets/
 
+# Env backups with timestamped suffixes (the .backup.* pattern that slipped through before)
+*.env.backup.*
+master.env*
+master.env.backup*
+**/master.env*
+**/*.env.backup.*
+
 # ===========================================
 # PYTHON
 # ===========================================
