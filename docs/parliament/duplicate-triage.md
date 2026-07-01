@@ -2,30 +2,31 @@
 
 ## Current status
 
-- 2,334 identical numbered copies deleted from the main worktree (1,416 + 918).
+- 2,347 duplicate files deleted from the main worktree in total.
 - `.worktrees/comply-redirect-feat/` left untouched — separate linked worktree for GRIDERA|Comply.
-- 17 different-content duplicates remain for manual triage.
+- Zero numbered duplicate files remain in the main worktree.
 
-## Remaining different-content duplicates
+## Decisions made
 
-- `package 2.json` | `package.json` | different
-- `06-WORKFLOWS/yqg-partnership-demo/.next/trace-build 2` | `.next/trace-build` | different
-- `design_ai_mcp.py` | `design_ai_mcp.py` | different
-- `webflow_design_mcp.py` | `webflow_design_mcp.py` | different
-- `job_generator.py` | `job_generator.py` | different
-- `infographic_generator.py` | `infographic_generator.py` | different
-- `Dockerfile` | `Dockerfile` | different
-- `merge_all_registries.py` | `merge_all_registries.py` | different
-- `merge_registry.py` | `merge_registry.py` | different
-- `mcp_healthcheck.py` | `mcp_healthcheck.py` | different
-- `demo-github-mcp.py` | `demo-github-mcp.py` | different
-- `.gitignore` | `.gitignore` | different
-- `.next/cache/.rscinfo` | `.rscinfo` | different
-- `.next/cache/.previewinfo` | `.previewinfo` | different
-- `.next/cache/.tsbuildinfo` | `.tsbuildinfo` | different
-- `Screenshot 2026-06-17 at 10.27.05 PM.png` | `Screenshot ... PM.png` | different
-- `progress.md` | `progress.md` | different |
+| Duplicate | Canonical | Action | Reason |
+|-----------|-----------|--------|--------|
+| `package 2.json` | `package.json` | Deleted | Canonical has `nodemailer` needed by contact form |
+| `progress 2.md` | `progress.md` | Deleted | Older, empty progress file |
+| `Dockerfile 2` | `Dockerfile` | Deleted | Older BizFlow branding |
+| `trace-build 2` | `trace-build` | Deleted | Build cache artifact |
+| `.gitignore 2` | `.gitignore` | Deleted | Canonical excludes `.env.local` (more secure) |
+| `Screenshot ... PM 2.png` | `Screenshot ... PM.png` | Deleted | Duplicate screenshot |
+| `design_ai_mcp 2.py` | `design_ai_mcp.py` | Deleted | Duplicate had hardcoded credentials |
+| `webflow_design_mcp 2.py` | `webflow_design_mcp.py` | Deleted | Older formatting-only variant |
+| `infographic_generator 2.py` | `infographic_generator.py` | Deleted | Older typing variant |
+| `job_generator 2.py` | `job_generator.py` | Deleted | Older typing variant |
+| `merge_all_registries 2.py` | `merge_all_registries.py` | Deleted | Whitespace-only differences |
+| `mcp_healthcheck 2.py` | `mcp_healthcheck.py` | Deleted | Minor import differences |
+| `merge_registry 2.py` | `merge_registry.py` | Deleted | Minor import differences |
+| `demo-github-mcp 2.py` | `demo-github-mcp.py` | Deleted | Placeholder token variant |
+| nexus-studio `... 2` symlinks | originals | Deleted | Broken duplicate symlinks to external BizFlow repo |
+| `.next/cache/* 2` files | originals | Deleted | Build cache duplicates |
 
-## Action required
+## Guardrail
 
-Review each group, pick the canonical version, merge any unique changes from numbered copies, then delete the obsolete copies.
+`tests/test_repo_cleanup.py` now fails if any numbered duplicate file reappears.

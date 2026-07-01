@@ -91,27 +91,6 @@ def test_duplicate_numbered_files_do_not_exist():
     assert not identical_violations, msg
 
 def test_different_duplicates_have_triage_notes_or_are_known():
-    """Remaining different-content duplicates must be either known or recorded for triage."""
+    """After manual triage, no different-content numbered duplicates should remain."""
     numbered = _find_numbered_files(ROOT)
-    groups = _group_by_base(numbered)
-    triage_file = Path(ROOT) / 'docs' / 'parliament' / 'duplicate-triage.md'
-    triage_text = triage_file.read_text() if triage_file.exists() else ''
-
-    unknown = []
-    for (rel_dir, base_name), paths in groups.items():
-        canonical = _canonical(rel_dir, base_name, paths)
-        sizes = {p.stat().st_size for p in paths}
-        if len(sizes) == 1 and len(paths) > 1:
-            hashes = {_sha256(p) for p in paths}
-            if len(hashes) <= 1:
-                continue
-        key = str(rel_dir / base_name)
-        short_key = str(rel_dir / f"{base_name} 2{Path(base_name).suffix}")
-        # Accept if either the base name or any basename token appears in triage text
-        tokens = {base_name, Path(base_name).name, f"{Path(base_name).name} 2"}
-        if any(t in triage_text for t in tokens) or base_name in KNOWN_DIFFERENT_DUPLICATES:
-            continue
-        unknown.append(key)
-
-    if unknown:
-        pytest.skip(f"{len(unknown)} different-content duplicates need manual triage (listed in docs/parliament/duplicate-triage.md): {unknown[:5]}")
+    assert numbered == [], f"Found {len(numbered)} numbered duplicate files remaining: {numbered[:10]}..."
