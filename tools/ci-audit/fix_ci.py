@@ -3,7 +3,11 @@
 Apply safe CI/metadata fixes to Taurus-Ai-Corp GRIDERA/Q-GRID repos.
 All changes go through PRs except README/metadata updates pushed to main only when clearly safe.
 """
-import json, subprocess, textwrap, os, sys, re, tempfile, shutil, base64
+import json
+import os
+import re
+import subprocess
+import sys
 
 REPORT_DIR = "/Users/taurus_ai/Documents/Nexus-Platform/taurus-ai-corp-ci-audit"
 BRANCH = "fix/gridera-branding"

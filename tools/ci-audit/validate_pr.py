@@ -1,4 +1,6 @@
-import json, subprocess, sys
+import json
+import subprocess
+
 with open('fixes.json') as f: fixes=json.load(f)
 for fx in fixes:
     if 'PR' in fx:

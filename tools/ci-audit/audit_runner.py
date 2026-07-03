@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-import json, subprocess, sys, os, textwrap, re
-from datetime import datetime, timezone
+import json
+import re
+import subprocess
 
 with open('repos.json') as f:
     repos = json.load(f)
@@ -16,7 +17,7 @@ for r in repos:
         wfs = json.loads(subprocess.run(
             ['gh','api',f'repos/Taurus-Ai-Corp/{name}/actions/workflows','--jq','.workflows'],
             capture_output=True, text=True, timeout=30).stdout or '[]')
-    except Exception as e:
+    except Exception:
         wfs = []
     entry['workflows'] = [{'id':w['id'],'name':w['name'],'path':w['path'],'state':w['state']} for w in wfs]
 

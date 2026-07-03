@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Add minimal CI to active repos that lack it."""
-import json, subprocess, os, sys, textwrap
+import json
+import os
+import subprocess
+import sys
+import textwrap
+
 REPORT_DIR = "/Users/taurus_ai/Documents/Nexus-Platform/taurus-ai-corp-ci-audit"
 BRANCH = "fix/gridera-branding"
 COAUTHORS = "Co-Authored-By: E.Fdz <admin@taurusai.io>\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
@@ -66,7 +71,7 @@ for repo in ["Quantum_Bio_Foundry_IP_VAULT", "quantum-bio-foundry-vault", "quant
 # HTML demos: minimal CI just checks files exist
 for repo in ["quantum-infrastructure-demo", "hedera-quantum-ecosystem"]:
     p = clone(repo)
-    if os.path.exists(f"{p}/.github/workflows/ci.yml"): 
+    if os.path.exists(f"{p}/.github/workflows/ci.yml"):
         results.append(f"{repo}: CI exists")
         continue
     os.makedirs(f"{p}/.github/workflows", exist_ok=True)

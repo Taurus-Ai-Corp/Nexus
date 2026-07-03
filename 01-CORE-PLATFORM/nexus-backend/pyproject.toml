@@ -16,6 +16,12 @@ select = ["E", "F", "I", "N", "W", "UP", "S", "B"]
 "subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/klavis/mcp-clients/src/mcp_clients/slack/oauth_routes.py" = ["S105"]
 "08-shared/Configuration/cursor/.claude/awesome-AI-Apps/demo-github-mcp.py" = ["S105"]
 
+# One-shot CI-audit tooling (tools/ci-audit/): throwaway scripts that shell out
+# to `gh`/`git` with compact one-liners. Exempt from rules that flag legitimate
+# throwaway-script patterns (subprocess shell=True, long lines, one-line
+# conditionals, bare-except, ambiguous `l`). Not Nexus product code.
+"tools/ci-audit/*.py" = ["S603", "S607", "S110", "E501", "E701", "E741"]
+
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
