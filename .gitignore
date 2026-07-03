@@ -122,8 +122,8 @@ out/
 *.db
 *.sqlite
 *.sqlite3
-05-DATABASES/backups/*.sql
-05-DATABASES/backups/*.dump
+core/db/backups/*.sql
+core/db/backups/*.dump
 
 # ===========================================
 # IDE & EDITORS
@@ -201,7 +201,7 @@ temp/
 # PROJECT SPECIFIC
 # ===========================================
 # Agent logs
-02-AGENTS/mcp-integrations/*.log
+core/agents/mcp-integrations/*.log
 
 # Temporary workflow data
 06-WORKFLOWS/temp/
