@@ -56,8 +56,11 @@ wheels/
 *.egg
 MANIFEST
 
-# Virtual environments
-venv/
+# Virtual environments — any venv-prefixed dir (venv/, venv_registry/,
+# venv_fresh/, etc.). The bare `venv/` pattern previously missed the two
+# leaked venvs purged in Wave 2b because they were named venv_registry/
+# and venv_fresh/.
+venv*/
 .venv/
 ENV/
 env/
