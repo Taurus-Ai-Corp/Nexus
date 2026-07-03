@@ -5,17 +5,16 @@ extend-exclude = ["**/chat_with_code.ipynb"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "UP", "S", "B"]
-per-file-ignores = {
-    "backend/auth.py" = ["S105"],
-    "backend/main.py" = ["S105"],
-    "agents/integrations/mcp-agents/oauth_token_discovery.py" = ["S105"],
-    "agents/integrations/mcp-agents/test_basic.py" = ["S105"],
-    "agents/integrations/mcp-agents/design-ai-mcp/design_ai_mcp.py" = ["S105"],
-    "subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/design-ai-mcp/design_ai_mcp.py" = ["S105"],
-    "subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/klavis/mcp-clients/src/mcp_clients/slack/oauth_routes.py" = ["S105"],
 
-    "08-shared/Configuration/cursor/.claude/awesome-AI-Apps/demo-github-mcp.py" = ["S105"],
-}
+[tool.ruff.lint.per-file-ignores]
+"backend/auth.py" = ["S105"]
+"backend/main.py" = ["S105"]
+"agents/integrations/mcp-agents/oauth_token_discovery.py" = ["S105"]
+"agents/integrations/mcp-agents/test_basic.py" = ["S105"]
+"agents/integrations/mcp-agents/design-ai-mcp/design_ai_mcp.py" = ["S105"]
+"subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/design-ai-mcp/design_ai_mcp.py" = ["S105"]
+"subdomains/bizflow.taurusai.io/agents/integrations/mcp-agents/external-mcps/klavis/mcp-clients/src/mcp_clients/slack/oauth_routes.py" = ["S105"]
+"08-shared/Configuration/cursor/.claude/awesome-AI-Apps/demo-github-mcp.py" = ["S105"]
 
 [tool.ruff.format]
 quote-style = "double"
