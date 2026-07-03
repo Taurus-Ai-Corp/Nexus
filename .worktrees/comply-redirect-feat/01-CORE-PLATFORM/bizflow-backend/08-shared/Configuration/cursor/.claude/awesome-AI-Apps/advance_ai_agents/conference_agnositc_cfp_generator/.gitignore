@@ -1,9 +1,0 @@
-.env
-__pycache__*
-venv
-old_version/
-# Environment files
-.env.local
-.env.*.local
-*.env
-master.env

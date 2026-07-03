@@ -1,3 +1,0 @@
-# Ecommerce
-
-KAYA-RATTAN platform

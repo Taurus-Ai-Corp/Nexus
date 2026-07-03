@@ -1,6 +1,0 @@
-mcp
-httpx
-click
-starlette
-uvicorn[standard]
-python-dotenv

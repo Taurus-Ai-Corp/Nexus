@@ -1,3 +1,0 @@
-# Prototypes
-
-Prototype projects

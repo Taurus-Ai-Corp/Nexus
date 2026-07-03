@@ -1,3 +1,0 @@
-# Dashboards
-
-Business dashboards

@@ -1,8 +1,0 @@
-{
-  "deployment_id": "mcp-1758270723",
-  "timestamp": "2025-09-19T04:32:03.695572",
-  "environment": "production",
-  "backup_files": [
-    "backups/mcp-1758270723/working_mcp_integrator.py"
-  ]
-}

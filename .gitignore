@@ -23,6 +23,14 @@ master.env.backup*
 **/master.env*
 **/*.env.backup.*
 
+# Worktrees — local only, never tracked (the .worktrees/comply-redirect-feat/
+# 3.3 GB / 4,580-file stale duplicate snapshot that previously bloated the repo)
+.worktrees/
+
+# Vendored sibling clones — never tracked. GRIDERA / Quantum / bio-foundry are
+# separate product repos at github.com/Taurus-Ai-Corp/*, referenced not vendored.
+taurus-ai-corp-ci-audit/clones/
+
 # ===========================================
 # PYTHON
 # ===========================================

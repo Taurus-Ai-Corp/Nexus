@@ -1,3 +1,0 @@
-# Competitor Analysis
-
-Competitive intelligence

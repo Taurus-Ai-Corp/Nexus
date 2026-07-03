@@ -1,3 +1,0 @@
-# Private client demo — do not index
-User-agent: *
-Disallow: /

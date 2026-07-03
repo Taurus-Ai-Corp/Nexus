@@ -1,5 +1,0 @@
-{
-  "access_token": "ded536b9e74e112707f7087c7dabe365c7e76ba0c0949e6439e57868b4e40dad",
-  "token_type": "bearer",
-  "scope": "sites:read sites:write cms:read cms:write"
-}
