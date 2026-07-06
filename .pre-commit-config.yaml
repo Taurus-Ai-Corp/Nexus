@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.5
+    hooks:
+      - id: ruff
+        args: [--fix, --config, 01-CORE-PLATFORM/nexus-backend/pyproject.toml]
+        types_or: [python, pyi]
+        exclude: '^planning/'
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.25.0
+    hooks:
+      - id: eslint
+        args: [--config, eslint.config.mjs]
+        types_or: [javascript, jsx, ts, tsx]
+        exclude: '^planning/'
+        additional_dependencies:
+          - eslint@9
+          - '@eslint/js'
+          - typescript-eslint
+          - eslint-plugin-react
+          - eslint-plugin-react-hooks

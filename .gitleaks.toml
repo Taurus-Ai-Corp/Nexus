@@ -1,0 +1,18 @@
+title = "Nexus Platform Gitleaks Config"
+
+[allowlist]
+paths = [
+  ".*node_modules.*",
+  ".*venv.*",
+  ".*\\.venv.*",
+  ".*\\.next.*",
+  ".*dist.*",
+  ".*build.*",
+  ".*__pycache__.*",
+  ".*\\.git.*",
+  ".*\\.min\\.js$",
+  ".*package-lock\\.json$",
+  ".*\\.map$",
+  ".*\\.mypy_cache.*",
+  ".*\\.pytest_cache.*",
+]
