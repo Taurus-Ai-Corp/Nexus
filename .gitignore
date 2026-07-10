@@ -228,3 +228,6 @@ next-env.d.ts
 # settings.local.json holds per-user permission history — keep local.
 .claude/settings.local.json
 .claude/.local/
+
+# Wave 0 working doc — never commit (contains key last-4)
+SECURITY-ROTATION-CHECKLIST.md

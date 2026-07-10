@@ -870,7 +870,7 @@
     }
 
     async function callNeuralScore(brief) {
-      var res = await fetch('/api/neural-score', {
+      var res = await fetch('/api/neural?action=score', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ brief: brief })
@@ -1115,7 +1115,7 @@
       btn.textContent = 'Optimizing...';
 
       try {
-        var res = await fetch('/api/neural-refine', {
+        var res = await fetch('/api/neural?action=refine', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ brief: brief })
