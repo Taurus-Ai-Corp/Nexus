@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-06-18T02:00:00Z",
+  "models_used": [
+    {
+      "model": "Wan 2.2 I2V 14B (FP8 + Lightning LoRA)",
+      "space": "https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster",
+      "license": "Apache-2.0",
+      "source_image": "assets/v2/ai_breed_detection_v2.png",
+      "output": "videos/petpawsphere_wan22_ai_breed_detection.mp4",
+      "prompt": "A sleek smartphone gently rotates in warm studio light, the screen displays a beautiful Maine Coon cat with AI breed detection results, soft bokeh background in warm beige and olive green tones, premium product showcase, cinematic motion, smooth camera dolly, vertical 9:16 framing",
+      "settings": {
+        "steps": 6,
+        "duration_seconds": 3.5,
+        "guidance_scale": 1.0,
+        "guidance_scale_2": 1.0,
+        "seed": 42,
+        "randomize_seed": true
+      }
+    },
+    {
+      "model": "LivePortrait",
+      "space": "https://huggingface.co/spaces/innoai/LivePortrait",
+      "license": "MIT",
+      "source_image": "/tmp/petpawsphere_face_portrait.png",
+      "driving_video": "https://github.com/KwaiVGI/LivePortrait/raw/main/assets/examples/driving/d3.mp4",
+      "outputs": [
+        "videos/petpawsphere_face_portrait--d3.mp4",
+        "videos/petpawsphere_face_portrait--d3_concat.mp4"
+      ],
+      "settings": {
+        "relative_motion": true,
+        "do_crop": true,
+        "paste_back": true
+      }
+    }
+  ],
+  "notes": [
+    "Hugging Face token saved to ~/.cache/huggingface/token",
+    "LivePortrait UGC video generated successfully on innoai/LivePortrait Space",
+    "Wan 2.2 product video generated successfully on zerogpu-aoti/wan2-2-fp8da-aoti-faster Space",
+    "KlingTeam/LivePortrait rejected due to ZeroGPU max duration limit (240s requested > allowed)",
+    "ffmpeg/ffprobe on local machine has x265 dylib mismatch \u2014 use browser or VLC for playback inspection"
+  ]
+}

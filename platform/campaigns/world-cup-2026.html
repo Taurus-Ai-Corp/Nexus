@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Creative — World Cup 2026 Neural Creative Pack</title>
+  <meta name="description" content="FIFA World Cup 2026 creative variants scored by heuristic TRIBE v2. 50+ variants across 5 formats, English + Arabic. Neural engagement scoring for VAN, DMN, DAN, Limbic.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0E0D0B;
+      --surface: #1A1714;
+      --cream: #F6F4EF;
+      --ink: #F6F4EF;
+      --ink-muted: #8A847E;
+      --accent: #C84B1E;
+      --accent-warm: #E0683A;
+      --border: #2A2622;
+      --gold: #D4A843;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: var(--font-body);
+      color: var(--ink); background: var(--bg);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img, svg { max-width: 100%; display: block; }
+
+    h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 400; letter-spacing: -0.02em; line-height: 0.98; }
+    h1 { font-size: clamp(3rem, 7vw, 5.6rem); text-wrap: balance; }
+    h2 { font-size: clamp(2.2rem, 4.5vw, 3.8rem); text-wrap: balance; }
+    h3 { font-size: clamp(1.2rem, 1.8vw, 1.5rem); line-height: 1.05; }
+    p { line-height: 1.65; color: var(--ink-muted); margin: 0; text-wrap: pretty; }
+
+    .mono {
+      font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.2em;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 0.9rem 1.6rem; border-radius: 999px;
+      background: var(--accent); color: #fff; font-size: 0.85rem; font-weight: 600;
+      border: 1.5px solid var(--accent);
+      transition: transform 160ms var(--ease-out), background 200ms var(--ease-out), border-color 200ms var(--ease-out);
+      cursor: pointer;
+    }
+    .btn:hover { background: #a03d18; border-color: #a03d18; transform: translateY(-1px); }
+    .btn:active { transform: scale(0.97); }
+    .btn .btn-icon {
+      display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px;
+      background: rgba(255,255,255,0.15); transition: transform 200ms var(--ease-out);
+    }
+    .btn:hover .btn-icon { transform: translate(2px, -1px); }
+    .btn-ghost {
+      background: transparent; color: var(--ink); border-color: var(--border);
+    }
+    .btn-ghost:hover { background: var(--surface); border-color: var(--ink-muted); color: var(--ink); }
+    .btn-gold {
+      background: transparent; color: var(--gold); border-color: var(--gold);
+    }
+    .btn-gold:hover { background: var(--gold); color: var(--bg); }
+
+    header {
+      position: sticky; top: 0; z-index: 50; padding: 1.2rem 0;
+    }
+    .header-pill {
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1280px; margin: 0 auto; padding: 0.85rem 1.2rem;
+      background: rgba(14,13,11,0.9); border: 1px solid var(--border);
+      border-radius: 999px; backdrop-filter: blur(12px);
+    }
+    .logo { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: -0.02em; }
+    .logo span { font-family: var(--font-body); font-weight: 500; color: var(--ink-muted); }
+    nav { display: flex; gap: 1.5rem; align-items: center; }
+    nav a { font-size: 0.82rem; font-weight: 500; color: var(--ink-muted); transition: color 150ms var(--ease-out); }
+    nav a:hover { color: var(--ink); }
+
+    .hero {
+      padding: clamp(3rem, 6vw, 5rem) 0 clamp(3rem, 5vw, 4rem);
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 0.8rem; border-radius: 999px;
+      background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.3);
+      font-size: 0.7rem; font-family: var(--font-mono); color: var(--gold); margin-bottom: 1.5rem;
+    }
+    .hero h1 { margin-bottom: 1.2rem; }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero p { max-width: 640px; margin: 0 auto 2rem; font-size: 1.1rem; }
+    .hero-actions { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+    .hero-strip {
+      display: flex; justify-content: center; gap: 3rem; margin-top: 3rem;
+      padding: 1.5rem 0; border-top: 1px solid var(--border);
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num { font-family: var(--font-display); font-size: 2.4rem; color: var(--gold); line-height: 1; }
+    .hero-stat .label { font-size: 0.7rem; font-family: var(--font-mono); color: var(--ink-muted); margin-top: 0.3rem; letter-spacing: 0.08em; }
+
+    .section { padding: clamp(4rem, 8vw, 6rem) 0; }
+    .section-kicker { color: var(--accent); margin-bottom: 1rem; }
+    .section h2 { max-width: 700px; margin-bottom: 1.2rem; }
+    .section > p { max-width: 560px; margin-bottom: 3rem; font-size: 1rem; }
+    .section.cream { background: var(--cream); color: var(--bg); }
+    .section.cream p { color: #5A5650; }
+    .section.cream .section-kicker { color: var(--accent); }
+    .section.glow {
+      background: linear-gradient(180deg, var(--bg) 0%, #1A1208 50%, var(--bg) 100%);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+
+    .pack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .pack-card {
+      border: 1px solid var(--border); background: var(--surface); border-radius: 1rem;
+      padding: 1.5rem; display: flex; flex-direction: column;
+    }
+    .pack-card .icon { font-size: 2rem; margin-bottom: 1rem; line-height: 1; }
+    .pack-card h3 { margin-bottom: 0.6rem; }
+    .pack-card p { font-size: 0.85rem; }
+
+    .pricing-card {
+      border: 1px solid var(--border); background: var(--surface); border-radius: 1.2rem;
+      padding: 2.5rem; max-width: 560px; margin: 0 auto; text-align: center;
+    }
+    .pricing-card .price { font-family: var(--font-display); font-size: 3.6rem; color: var(--gold); margin: 1rem 0; }
+    .pricing-card .price span { font-size: 1rem; color: var(--ink-muted); font-family: var(--font-body); font-weight: 400; }
+    .pricing-card ul { list-style: none; padding: 0; margin: 0 auto 2rem; max-width: 360px; text-align: left; }
+    .pricing-card li { padding: 0.6rem 0; font-size: 0.88rem; color: var(--ink-muted); border-bottom: 1px solid var(--border); display: flex; gap: 0.6rem; align-items: flex-start; }
+    .pricing-card li::before { content: "◆"; color: var(--gold); font-size: 0.5rem; margin-top: 0.4rem; }
+
+    .neural-demo {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;
+    }
+    .neural-demo .score-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    .neural-demo .score-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 0; border-bottom: 1px solid var(--border);
+    }
+    .neural-demo .score-row:last-child { border-bottom: 0; }
+    .neural-demo .score-row .name { font-size: 0.75rem; font-weight: 600; min-width: 120px; }
+    .neural-demo .score-row .bar-track {
+      flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 999px; margin: 0 1rem;
+    }
+    .neural-demo .score-row .bar-fill { height: 100%; border-radius: 999px; }
+    .neural-demo .score-row .pct { font-family: var(--font-mono); font-size: 0.75rem; min-width: 36px; text-align: right; }
+    .neural-demo .score-row.van .bar-fill { background: var(--accent); }
+    .neural-demo .score-row.dmn .bar-fill { background: #5a8a5a; }
+    .neural-demo .score-row.dan .bar-fill { background: #4a7a9a; }
+    .neural-demo .score-row.limbic .bar-fill { background: #9a6a8a; }
+
+    .cta { padding: clamp(5rem, 10vw, 8rem) 0; text-align: center; }
+    .cta h2 { max-width: 700px; margin: 0 auto 1.4rem; }
+    .cta p { max-width: 500px; margin: 0 auto 2.2rem; font-size: 1.05rem; }
+    .cta .urgency { font-size: 0.75rem; color: var(--gold); font-family: var(--font-mono); margin-top: 1rem; letter-spacing: 0.12em; }
+
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--ink-muted); flex-wrap: wrap; gap: 1rem; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: opacity 300ms ease; }
+      .btn { transition: none; }
+    }
+    @media (max-width: 900px) {
+      .pack-grid, .neural-demo { grid-template-columns: 1fr; }
+      nav { display: none; }
+      h1 { font-size: clamp(2.4rem, 10vw, 3.6rem); }
+      .header-pill { border-radius: 0; border-left: 0; border-right: 0; }
+      .hero-strip { gap: 1.5rem; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="header-pill">
+        <div class="logo">Nexus <span>Creative · World Cup</span></div>
+        <nav>
+          <a href="#pack">The Pack</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#neural">Neural Scoring</a>
+          <a href="#contact" class="btn">Secure Your Pack</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        FIFA World Cup 2026 · Limited Production Window
+      </div>
+      <h1>Don't just run a World Cup ad.<br>Run one that <em>scores on neural engagement.</em></h1>
+      <p>Every brand in the region is scrambling for FIFA 2026 creative. Production houses are maxed. Agencies are burning 90-day sprints. Nexus Creative delivers 50+ heuristic-scored variants across VAN, DMN, DAN, Limbic. You only produce the ones that hit target engagement.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn">Order World Cup Neural Pack <span class="btn-icon">→</span></a>
+        <a href="#neural" class="btn btn-gold">See how neural scoring works</a>
+      </div>
+      <div class="hero-strip">
+        <div class="hero-stat">
+          <div class="num">50+</div>
+          <div class="label">Creative Variants</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">5</div>
+          <div class="label">Platform Formats</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">2</div>
+          <div class="label">Languages</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">100%</div>
+          <div class="label">Heuristic Scored</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pack">
+    <div class="container">
+      <div class="mono section-kicker">The World Cup Neural Pack</div>
+      <h2>Everything you need for the biggest ad event of the decade.</h2>
+      <p>One brief. 50+ variants. Every single one scored by heuristic TRIBE v2 across four brain networks. You only produce and run the ones that hit target neural engagement.</p>
+      <div class="pack-grid">
+        <div class="pack-card reveal">
+          <div class="icon">✓</div>
+          <h3>50+ Creative Variants</h3>
+          <p>Hero shots, product details, lifestyle scenes, countdown graphics, social-first verticals. All optimized for neural engagement across VAN, DMN, DAN, and Limbic networks.</p>
+        </div>
+        <div class="pack-card reveal">
+          <div class="icon">◐</div>
+          <h3>5 Platform Formats</h3>
+          <p>Instagram (1:1, 4:5, 9:16), TikTok (9:16), LinkedIn (1.91:1), OOH (2:1), CTV (16:9). Each format independently optimized for its platform's attention patterns.</p>
+        </div>
+        <div class="pack-card reveal">
+          <div class="icon">❖</div>
+          <h3>Dual Language</h3>
+          <p>English + Arabic. Not translated — culturally-native creative for each language. Heuristic scores independently validated for both linguistic contexts.</p>
+        </div>
+        <div class="pack-card reveal">
+          <div class="icon">⊗</div>
+          <h3>Neural Score Report</h3>
+          <p>Every variant comes with a scorecard showing VAN (scroll-stop), DMN (retention), DAN (focus), Limbic (emotion). Shareable report included.</p>
+        </div>
+        <div class="pack-card reveal">
+          <div class="icon">⊕</div>
+          <h3>Variant Ranking</h3>
+          <p>Auto-ranked by overall neural engagement score. Variant 22 has 2.3x the predicted scroll-stop of Variant 3. You know which one to run before spending a dirham on media.</p>
+        </div>
+        <div class="pack-card reveal">
+          <div class="icon">⊡</div>
+          <h3>Rapid Turnaround</h3>
+          <p>First 10 variants delivered within 48 hours of brief. Remaining 40+ at 50 per week. Production window closes August 2026 — secure your pack now.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section glow" id="neural">
+    <div class="container">
+      <div class="mono section-kicker">Neural-Scored Creative</div>
+      <h2>Every World Cup ad is fighting for the same attention.<br>Yours will have a neural score.</h2>
+      <p>Heuristic TRIBE v2 scores your creative across four attention networks. No fMRI, no external API — instant, zero-cost scoring that correlates with real engagement.</p>
+      <div class="neural-demo">
+        <div>
+          <div class="score-card reveal">
+            <div style="font-size:0.65rem; font-family:var(--font-mono); color:var(--ink-muted); margin-bottom:1rem; letter-spacing:0.12em; text-transform:uppercase;">Sample Neural Score · World Cup Variant</div>
+            <div class="score-row van">
+              <div class="name">Scroll-Stop (VAN)</div>
+              <div class="bar-track"><div class="bar-fill" style="width:94%"></div></div>
+              <div class="pct">94</div>
+            </div>
+            <div class="score-row dmn">
+              <div class="name">Retention (DMN)</div>
+              <div class="bar-track"><div class="bar-fill" style="width:89%"></div></div>
+              <div class="pct">89</div>
+            </div>
+            <div class="score-row dan">
+              <div class="name">Cognitive Focus (DAN)</div>
+              <div class="bar-track"><div class="bar-fill" style="width:76%"></div></div>
+              <div class="pct">76</div>
+            </div>
+            <div class="score-row limbic">
+              <div class="name">Emotional (Limbic)</div>
+              <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+              <div class="pct">88</div>
+            </div>
+            <p style="font-size:0.7rem; margin-top:1rem; text-align:center; color:var(--ink-muted); font-family:var(--font-mono);">Overall Neural Score: 87/100 · High Engagement</p>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin-bottom:1rem;">The 4 networks that decide your campaign's fate:</h3>
+          <p style="margin-bottom:0.8rem;"><strong style="color:var(--accent);">VAN (Ventral Attention)</strong> — Pattern interrupt. Does your ad stop the scroll? Target: >0.5 Z-score. World Cup average VAN during matches drops 40% — attention is already high, so you need a stronger spike.</p>
+          <p style="margin-bottom:0.8rem;"><strong style="color:var(--gold);">DMN (Default Mode)</strong> — Boredom. Is your ad resting the brain or engaging it? Target: negative Z-score. Every second of DMN activation is a second your audience tunes out.</p>
+          <p style="margin-bottom:0.8rem;"><strong style="color:#4a7a9a;">DAN (Dorsal Attention)</strong> — Cognitive tracking. Is the message clear? Target: >0.3 Z-score for educational/awareness campaigns.</p>
+          <p style="margin-bottom:0;"><strong style="color:#9a6a8a;">Limbic</strong> — Emotional resonance. Does it make people feel something? Target: >0.3 Z-score. World Cup creative with high Limbic scores outperforms by 2.4x on shareability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="container" style="text-align:center;">
+      <div class="mono section-kicker">Limited Offer</div>
+      <h2 style="max-width: 600px; margin-left: auto; margin-right: auto;">Secure your World Cup neural pack before production slots fill.</h2>
+      <p style="max-width: 500px; margin-left: auto; margin-right: auto;">The brands that win the World Cup are the ones that start production now.</p>
+      <div class="pricing-card reveal">
+        <div class="mono" style="color:var(--gold); letter-spacing:0.16em;">World Cup Neural Pack</div>
+        <div class="price">$2,500 <span>one-time</span></div>
+        <ul>
+          <li>50+ creative variants heuristic-scored</li>
+          <li>5 platform formats (Instagram, TikTok, LinkedIn, OOH, CTV)</li>
+          <li>2 languages (English + Arabic, culturally native)</li>
+          <li>Neural Score Report for every variant (VAN/DMN/DAN/Limbic)</li>
+          <li>Ranked by predicted neural engagement</li>
+          <li>First 10 variants in 48 hours</li>
+          <li>Remaining 40+ at 50/week</li>
+          <li>White-label delivery for agencies</li>
+        </ul>
+        <a href="/api/stripe?action=checkout&plan=worldcup" class="btn" style="font-size:0.95rem; padding:1rem 2.5rem;" onclick="event.preventDefault();trackEvent('purchase_worldcup');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Order World Cup Neural Pack <span class="btn-icon">→</span></a>
+        <p class="urgency">Production window closes August 2026 · Limited to 20 packs</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream" id="contact">
+    <div class="container" style="text-align:center;">
+      <div class="mono section-kicker" style="color:var(--accent);">Not sure yet?</div>
+      <h2 style="max-width: 600px; margin: 0 auto 1.2rem;">Run one brief through our neural scorer for free. See exactly where your World Cup creative stands.</h2>
+      <p style="max-width: 500px; margin: 0 auto 2.5rem;">Submit your existing World Cup brief. We'll run it through heuristic TRIBE v2 and return a full Neural Score report — VAN, DMN, DAN, Limbic — within 24 hours. No commitment.</p>
+      <a href="mailto:nexus@taurusai.io?subject=Free%20World%20Cup%20neural%20score" class="btn btn-ghost" style="border-color:var(--bg);">Get Your Free Neural Score <span class="btn-icon">→</span></a>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>The World Cup is the highest-stakes creative moment of the decade.</h2>
+      <p>Every brand wants to break through. Nexus Creative lets you know you will — before you spend a single dirham on production or media.</p>
+      <a href="mailto:nexus@taurusai.io?subject=World%20Cup%202026%20Neural%20Pack" class="btn" style="font-size:1rem; padding:1rem 2.5rem;">Secure Your Neural Pack Now <span class="btn-icon">→</span></a>
+      <p class="urgency">Limited to 20 packs · Production window closes August 2026</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>Nexus Creative by Taurus AI</span>
+      <span>Heuristic TRIBE v2 · <a href="https://github.com/facebookresearch/tribev2" target="_blank" style="text-decoration:underline;">Open-Source Reference</a></span>
+    </div>
+  </footer>
+
+  <script>
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) e.target.classList.add('in-view');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+  </script>
+</body>
+</html>

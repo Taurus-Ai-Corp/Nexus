@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Creative — Agency AI Enablement Platform</title>
+  <meta name="description" content="White-label heuristic neural scoring for creative agencies. Every asset scored across VAN/DMN/DAN/Limbic networks. Zero API dependency.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F6F4EF;
+      --surface: #FFFFFF;
+      --cream: #FAF8F4;
+      --ink: #14110F;
+      --ink-muted: #6B655E;
+      --accent: #B85C38;
+      --accent-warm: #C97B5C;
+      --border: #E3DED4;
+      --dark: #1A1714;
+      --neural-green: #3a6b3a;
+      --neural-amber: #8a5a1a;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: var(--font-body);
+      color: var(--ink); background: var(--bg);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 400; letter-spacing: -0.02em; line-height: 0.98; }
+    h1 { font-size: clamp(2.8rem, 6vw, 5rem); text-wrap: balance; }
+    h2 { font-size: clamp(2.4rem, 4.5vw, 4rem); text-wrap: balance; }
+    h3 { font-size: clamp(1.3rem, 2vw, 1.7rem); line-height: 1.05; }
+    p { line-height: 1.65; color: var(--ink-muted); margin: 0; text-wrap: pretty; }
+
+    .mono {
+      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.18em;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 0.9rem 1.6rem; border-radius: 999px;
+      background: var(--ink); color: var(--surface); font-size: 0.85rem; font-weight: 600;
+      border: 1.5px solid var(--ink);
+      transition: transform 160ms var(--ease-out), background 200ms var(--ease-out), border-color 200ms var(--ease-out), color 200ms var(--ease-out);
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
+    .btn:active { transform: scale(0.97); }
+    .btn .btn-icon {
+      display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px;
+      background: rgba(255,255,255,0.12); transition: transform 200ms var(--ease-out);
+    }
+    .btn:hover .btn-icon { transform: translate(2px, -1px); }
+    .btn-ghost {
+      background: transparent; color: var(--ink); border-color: var(--border);
+    }
+    .btn-ghost:hover { background: var(--cream); border-color: var(--ink-muted); color: var(--ink); }
+    .btn-surface { background: var(--surface); color: var(--ink); border-color: var(--surface); }
+    .btn-surface:hover { background: transparent; color: var(--surface); }
+    .btn-accent {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    .btn-accent:hover { background: #a04d2e; border-color: #a04d2e; }
+
+    header {
+      position: sticky; top: 0; z-index: 50; padding: 1.2rem 0;
+    }
+    .header-pill {
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1280px; margin: 0 auto; padding: 0.85rem 1.2rem;
+      background: rgba(246,244,239,0.88); border: 1px solid var(--border);
+      border-radius: 999px; backdrop-filter: blur(12px);
+    }
+    .logo { font-family: var(--font-display); font-size: 1.35rem; letter-spacing: -0.02em; }
+    .logo span { font-family: var(--font-body); font-weight: 500; color: var(--ink-muted); }
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a { font-size: 0.85rem; font-weight: 500; color: var(--ink-muted); transition: color 150ms var(--ease-out); }
+    nav a:hover { color: var(--ink); }
+
+    .hero {
+      padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center;
+    }
+    .hero-kicker { color: var(--accent); margin-bottom: 1.2rem; }
+    .hero h1 { margin-bottom: 1.4rem; }
+    .hero p { font-size: 1.1rem; margin-bottom: 2rem; }
+    .hero-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.9rem; border-radius: 999px;
+      background: var(--cream); border: 1px solid var(--border);
+      font-size: 0.75rem; font-family: var(--font-mono); margin-bottom: 1.5rem;
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--neural-green);
+    }
+    .hero-visual {
+      background: var(--dark); border-radius: 1.2rem; padding: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-visual .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .score-item { padding: 1rem; border-radius: 0.6rem; background: rgba(255,255,255,0.04); }
+    .score-item .label { font-size: 0.6rem; font-family: var(--font-mono); color: #a8a29e; text-transform: uppercase; letter-spacing: 0.12em; }
+    .score-item .value { font-size: 1.6rem; font-family: var(--font-display); color: var(--surface); margin-top: 0.2rem; }
+    .score-item .bar { height: 3px; margin-top: 0.4rem; border-radius: 999px; }
+    .score-item .bar.van { background: #B85C38; width: 94%; }
+    .score-item .bar.dmn { background: #5a8a5a; width: 89%; }
+    .score-item .bar.dan { background: #4a7a9a; width: 76%; }
+    .score-item .bar.limbic { background: #9a6a8a; width: 82%; }
+
+    .trust { padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .trust-item strong { display: block; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem; }
+
+    .section { padding: clamp(4rem, 8vw, 7rem) 0; }
+    .section-kicker { color: var(--accent); margin-bottom: 1.2rem; }
+    .section h2 { margin-bottom: 1.2rem; }
+    .section > p { max-width: 600px; margin-bottom: 3rem; font-size: 1.05rem; }
+    .section.dark { background: var(--dark); color: var(--surface); }
+    .section.dark p { color: #a8a29e; }
+    .section.cream { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .how-card {
+      padding: 2rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 1rem;
+    }
+    .how-card .num { font-family: var(--font-display); font-size: 2.6rem; color: var(--accent); margin-bottom: 1.2rem; line-height: 1; }
+    .how-card h3 { margin-bottom: 0.6rem; }
+    .how-card p { font-size: 0.9rem; }
+
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .pricing-card {
+      border: 1px solid var(--border); background: var(--surface); border-radius: 1.2rem; padding: 2rem;
+      display: flex; flex-direction: column;
+    }
+    .pricing-card.featured { grid-column: span 2; background: var(--dark); color: var(--surface); flex-direction: row; gap: 3rem; }
+    .pricing-card.featured p, .pricing-card.featured li, .pricing-card.featured .price span { color: #a8a29e; }
+    .pricing-card h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
+    .price { font-family: var(--font-display); font-size: 2.8rem; margin: 1.2rem 0; line-height: 1; }
+    .price span { font-size: 0.85rem; color: var(--ink-muted); font-family: var(--font-body); font-weight: 400; }
+    .pricing-card ul { list-style: none; padding: 0; margin: 0 0 1.5rem; flex: 1; }
+    .pricing-card li { padding: 0.6rem 0; font-size: 0.88rem; color: var(--ink-muted); border-bottom: 1px solid var(--border); }
+    .pricing-card.featured li { border-color: rgba(255,255,255,0.12); }
+    .pricing-tag {
+      display: inline-block; padding: 0.2rem 0.5rem; border-radius: 0.3rem;
+      font-size: 0.6rem; font-family: var(--font-mono); text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 0.6rem;
+    }
+    .pricing-tag.neural { background: #eef5ee; color: var(--neural-green); }
+    .pricing-tag.popular { background: var(--accent); color: #fff; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .feature-item { display: flex; gap: 1rem; }
+    .feature-icon { width: 2.5rem; height: 2.5rem; border-radius: 0.6rem; background: var(--cream); display: grid; place-items: center; flex-shrink: 0; font-size: 1.2rem; }
+    .feature-item strong { display: block; font-size: 0.95rem; margin-bottom: 0.3rem; }
+    .feature-item p { font-size: 0.85rem; }
+
+    .cta { padding: clamp(5rem, 10vw, 8rem) 0; text-align: center; }
+    .cta h2 { max-width: 800px; margin: 0 auto 1.4rem; }
+    .cta p { max-width: 540px; margin: 0 auto 2.2rem; font-size: 1.05rem; }
+
+    .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .comparison-table th { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-muted); font-weight: 500; }
+    .comparison-table td:first-child { font-weight: 600; }
+    .comparison-table .check { color: var(--neural-green); }
+    .comparison-table .no-check { color: var(--ink-muted); opacity: 0.3; }
+
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); background: var(--surface); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--ink-muted); flex-wrap: wrap; gap: 1rem; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: opacity 300ms ease; }
+      .btn, .btn .btn-icon { transition: none; }
+    }
+    @media (max-width: 900px) {
+      .hero-grid, .how-grid, .pricing-grid, .feature-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { grid-column: span 1; flex-direction: column; gap: 0; }
+      nav { display: none; }
+      h1 { font-size: clamp(2.4rem, 10vw, 3.6rem); }
+      .header-pill { border-radius: 0; border-left: 0; border-right: 0; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-visual .score-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="header-pill">
+        <div class="logo">Nexus <span>Creative · Agency</span></div>
+        <nav>
+          <a href="#how">How it works</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#features">Features</a>
+          <a href="#contact" class="btn btn-accent">Apply for Partnership</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Heuristic TRIBE v2 — Zero API Dependency
+        </div>
+        <div class="mono hero-kicker">Agency AI Enablement Platform</div>
+        <h1>Your agency now has a neural scoring engine.</h1>
+        <p>White-label heuristic scoring for every creative asset. VAN, DMN, DAN, Limbic — four brain networks scored instantly, no API keys, no external calls. Your clients can't build this. We give it to you for $399/mo.</p>
+        <div class="hero-actions">
+          <a href="#pricing" class="btn">Start Agency Plan <span class="btn-icon">→</span></a>
+          <a href="#contact" class="btn btn-ghost">Schedule Briefing</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="mono" style="color:#a8a29e; margin-bottom:1.5rem;">Neural Score Dashboard · White-Label</div>
+        <div class="score-grid">
+          <div class="score-item">
+            <div class="label">Scroll-Stop (VAN)</div>
+            <div class="value">94<span style="font-size:0.8rem; color:#a8a29e; font-family:var(--font-body);">/100</span></div>
+            <div class="bar van"></div>
+          </div>
+          <div class="score-item">
+            <div class="label">Retention (DMN)</div>
+            <div class="value">89<span style="font-size:0.8rem; color:#a8a29e; font-family:var(--font-body);">/100</span></div>
+            <div class="bar dmn"></div>
+          </div>
+          <div class="score-item">
+            <div class="label">Cognitive Focus (DAN)</div>
+            <div class="value">76<span style="font-size:0.8rem; color:#a8a29e; font-family:var(--font-body);">/100</span></div>
+            <div class="bar dan"></div>
+          </div>
+          <div class="score-item">
+            <div class="label">Emotional (Limbic)</div>
+            <div class="value">82<span style="font-size:0.8rem; color:#a8a29e; font-family:var(--font-body);">/100</span></div>
+            <div class="bar limbic"></div>
+          </div>
+        </div>
+        <p style="color:#a8a29e; font-size:0.75rem; margin-top:1rem; text-align:center;">
+          Client-facing neural score report · branded to your agency
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust">
+    <div class="container trust-grid">
+      <div class="trust-item">
+        <div class="mono" style="color:var(--ink-muted);">Your brand</div>
+        <strong>White-label delivery</strong>
+        <p style="font-size:0.82rem;">Nexus Creative is invisible to your clients. Creative portal branded to your agency.</p>
+      </div>
+      <div class="trust-item">
+        <div class="mono" style="color:var(--ink-muted);">Neuroscience</div>
+        <strong>Heuristic TRIBE v2 scoring</strong>
+        <p style="font-size:0.82rem;">Every asset scored across VAN, DMN, DAN, Limbic — four brain networks, instant, zero API.</p>
+      </div>
+      <div class="trust-item">
+        <div class="mono" style="color:var(--ink-muted);">No headcount</div>
+        <strong>Zero infrastructure</strong>
+        <p style="font-size:0.82rem;">No hiring, no GPUs, no prompt engineers. You brief. We score. You bill.</p>
+      </div>
+      <div class="trust-item">
+        <div class="mono" style="color:var(--ink-muted);">Margins</div>
+        <strong>80%+ gross margin</strong>
+        <p style="font-size:0.82rem;">Bill clients $2,500-$15,000 per campaign. Pay Nexus Creative $399-$999/mo + usage.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="how">
+    <div class="container">
+      <div class="mono section-kicker">How it works</div>
+      <h2>Three steps from brief to neural-scored creative.</h2>
+      <p>No hiring. No infrastructure. No prompt engineering. You brief us like a production partner. We deliver under your brand.</p>
+      <div class="how-grid">
+        <div class="how-card reveal">
+          <div class="num">01</div>
+          <h3>You submit the brief</h3>
+          <p>Upload your client's campaign brief through your branded agency portal. Product description, tone, audience, format requirements. Takes 2 minutes.</p>
+        </div>
+        <div class="how-card reveal">
+          <div class="num">02</div>
+          <h3>Heuristic neural scoring + generation</h3>
+          <p>Our system scores the brief across VAN (scroll-stop), DMN (retention), DAN (focus), Limbic (emotion) using heuristic TRIBE v2 signals. If VAN scores below 50, it auto-refines. Then generates the brief kit.</p>
+        </div>
+        <div class="how-card reveal">
+          <div class="num">03</div>
+          <h3>You present the neural score report</h3>
+          <p>Every asset includes a neural score report branded to your agency. "This campaign scored 94/100 on scroll-stop — powered by [Agency] Creative Intelligence."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream" id="features">
+    <div class="container">
+      <div class="mono section-kicker">Features</div>
+      <h2>Everything your agency needs to win the AI era.</h2>
+      <p>Agencies are being replaced by AI stacks. Here's how you prove you're irreplaceable.</p>
+      <div class="feature-grid">
+        <div class="feature-item reveal">
+          <div class="feature-icon">⊗</div>
+          <div>
+            <strong>Neural Score Report</strong>
+            <p>Every asset comes with a client-facing score report. VAN (scroll-stop), DMN (retention), DAN (focus), Limbic (emotion). White-labeled to your agency.</p>
+          </div>
+        </div>
+        <div class="feature-item reveal">
+          <div class="feature-icon">◐</div>
+          <div>
+            <strong>White-label Portal</strong>
+            <p>Your branded creative dashboard at <code style="font-family:var(--font-mono); font-size:0.78rem;">creative.[agency].com</code>. Submit briefs, review scores, download reports. Your clients never see "Nexus."</p>
+          </div>
+        </div>
+        <div class="feature-item reveal">
+          <div class="feature-icon">⊞</div>
+          <div>
+            <strong>Creative Variant Ranking</strong>
+            <p>Generate 10+ variants from one brief. Neural-scored variants from one brief. Ranked by neural engagement. You present the top 3 — backed by data, not opinion.</p>
+          </div>
+        </div>
+        <div class="feature-item reveal">
+          <div class="feature-icon">◈</div>
+          <div>
+            <strong>Multi-Format Output</strong>
+            <p>One brief produces hero shots, detail crops, packshots, social squares, stories, OOH billboards — all optimized for their specific platform's neural response pattern.</p>
+          </div>
+        </div>
+        <div class="feature-item reveal">
+          <div class="feature-icon">⊡</div>
+          <div>
+            <strong>Brand Memory & Tone Lock</strong>
+            <p>We learn your clients' brand guidelines once. Every generation stays on-tone, on-brand, on-legal. No more "this doesn't feel like us" revisions.</p>
+          </div>
+        </div>
+        <div class="feature-item reveal">
+          <div class="feature-icon">⤢</div>
+          <div>
+            <strong>Campaign Performance Feedback</strong>
+            <p>Connect Meta/Google Ads accounts. We correlate Neural Scores with real CTR and conversion data — and improve predictions for the next campaign.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark" id="pricing">
+    <div class="container">
+      <div class="mono section-kicker" style="color: var(--accent-warm);">Pricing</div>
+      <h2>The most cost-effective AI department your agency will ever have.</h2>
+      <p>One subscription replaces an entire production team. No hiring, no GPUs, no prompt engineers.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card reveal">
+          <div class="pricing-tag neural">Heuristic scored</div>
+          <h3>Agency Starter</h3>
+          <p class="price">$399 <span>/ month</span></p>
+          <ul>
+            <li>50 credits/month</li>
+            <li>Neural Score Report (VAN/DMN/DAN/Limbic)</li>
+            <li>Standard brand memory</li>
+            <li>Email support</li>
+            <li>Single agency brand</li>
+          </ul>
+          <a href="/api/stripe?action=checkout&plan=agency_starter" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault();trackEvent('purchase_agency_starter');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Start Agency Starter</a>
+        </div>
+        <div class="pricing-card featured reveal">
+          <div>
+            <div class="pricing-tag popular" style="display:inline-block;">Most Popular</div>
+            <h3>Agency Pro</h3>
+            <p class="price">$999 <span>/ month</span></p>
+            <ul>
+              <li>200 credits/month</li>
+              <li>White-label Neural Score Report</li>
+              <li>White-label creative portal</li>
+              <li>Creative variant ranking</li>
+              <li>Multi-client brand memory</li>
+              <li>Priority turnaround (24h)</li>
+              <li>Dedicated account manager</li>
+              <li>Score data export (CSV/JSON)</li>
+            </ul>
+            <a href="/api/stripe?action=checkout&plan=agency_pro" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault();trackEvent('purchase_agency_pro');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Start Agency Pro</a>
+          </div>
+          <div style="display:grid; place-items:center; min-width:160px;">
+            <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+              <rect width="160" height="160" rx="20" fill="#2A2622"/>
+              <circle cx="80" cy="60" r="35" fill="#B85C38" opacity="0.85"/>
+              <rect x="35" y="108" width="90" height="10" rx="2" fill="#F6F4EF"/>
+              <rect x="45" y="126" width="70" height="6" rx="2" fill="#6B655E"/>
+              <text x="80" y="36" text-anchor="middle" fill="#fff" font-family="'IBM Plex Mono',monospace" font-size="8" opacity="0.6">SCORE</text>
+              <text x="80" y="68" text-anchor="middle" fill="#fff" font-family="'DM Serif Display',serif" font-size="24" font-weight="400">94</text>
+            </svg>
+          </div>
+        </div>
+        <div class="pricing-card reveal">
+          <div class="pricing-tag neural">Enterprise</div>
+          <h3>Agency Enterprise</h3>
+          <p class="price">$2,499 <span>/ month</span></p>
+          <ul>
+            <li>Unlimited credits</li>
+            <li>Everything in Pro</li>
+            <li>Custom campaign training</li>
+            <li>API access for automation</li>
+            <li>Multi-agency management</li>
+            <li>Custom integration</li>
+            <li>SLA guarantee</li>
+            <li>Quarterly strategy sessions</li>
+          </ul>
+          <a href="/api/stripe?action=checkout&plan=agency_enterprise" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault();trackEvent('purchase_agency_enterprise');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(e);}">Start Enterprise</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="compare">
+    <div class="container">
+      <div class="mono section-kicker">The McEntee-proof Guarantee</div>
+      <h2>Why your agency needs this. Today.</h2>
+      <p>Rory McEntee, CMO of GymNation, wrote in Campaign ME (June 2026): <em>"What AI has killed is not creativity. It's the billable hours wrapped around creativity that were never really about creativity."</em></p>
+      <p style="margin-bottom:2rem;">Your clients are reading his article. Here's how you respond.</p>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Build your own AI stack</th>
+            <th>Hire a production agency</th>
+            <th style="color:var(--accent);">Nexus Creative Agency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monthly cost</td>
+            <td>$15,000+ (engineers + GPUs)</td>
+            <td>$10,000+ (retainer)</td>
+            <td style="color:var(--accent); font-weight:600;">$999/mo</td>
+          </tr>
+          <tr>
+            <td>Neuroscience integration</td>
+            <td><span class="no-check">—</span></td>
+            <td><span class="no-check">—</span></td>
+            <td><span class="check">Heuristic TRIBE v2</span></td>
+          </tr>
+          <tr>
+            <td>Time to first asset</td>
+            <td>3-6 months</td>
+            <td>2-4 weeks</td>
+            <td style="color:var(--accent); font-weight:600;">24 hours</td>
+          </tr>
+          <tr>
+            <td>White-label delivery</td>
+            <td><span class="check">Yes</span></td>
+            <td><span class="no-check">—</span></td>
+            <td><span class="check">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Neural Score Report</td>
+            <td><span class="no-check">—</span></td>
+            <td><span class="no-check">—</span></td>
+            <td><span class="check">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Client perception</td>
+            <td>"They're replacing us"</td>
+            <td>"Expensive and slow"</td>
+            <td style="color:var(--accent); font-weight:600;">"They have neural scoring"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section cream" id="contact">
+    <div class="container" style="text-align:center;">
+      <div class="mono section-kicker">Apply for Partnership</div>
+      <h2 style="max-width: 700px; margin: 0 auto 1.2rem;">Your agency already has the relationships. We give you the neural scoring engine.</h2>
+      <p style="max-width: 540px; margin: 0 auto 2.5rem;">Join 10 partner agencies in our first cohort. White-label heuristic scoring, creative variant ranking, and a branded portal. 80%+ margins from day one.</p>
+      <a href="mailto:nexus@taurusai.io?subject=Agency%20partnership%20inquiry" class="btn btn-accent" style="font-size:1rem; padding:1rem 2.5rem;">Apply for Agency Partnership <span class="btn-icon">→</span></a>
+      <p style="font-size:0.8rem; margin-top:1.5rem; color:var(--ink-muted);">Or <a href="https://cal.com/taurusai/15min" style="text-decoration:underline;">book a 15-minute briefing</a> to see the platform in action.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>Nexus Creative by Taurus AI</span>
+      <span>Heuristic TRIBE v2 · <a href="https://github.com/facebookresearch/tribev2" target="_blank" style="text-decoration:underline;">Open-Source Reference</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection observer for reveal animations
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) e.target.classList.add('in-view');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+  </script>
+</body>
+</html>

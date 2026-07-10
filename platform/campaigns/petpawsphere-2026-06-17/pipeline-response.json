@@ -1,0 +1,65 @@
+{
+  "status": "success",
+  "deploy_key": "mqhrw0uypywl",
+  "orca": "failed:500",
+  "campaign": {
+    "headline": "What they're not telling you.",
+    "subheadline": "PetPawsPhere \u2014 UAE's pet matching, care & verified breeder platform for pet owne...",
+    "brief": "PetPawsPhere \u2014 UAE's pet matching, care & verified breeder platform for pet owners, breeders, and vet clinics. AI-powered dog and cat breed detection, smart matching for pets, verified breeders with MOCCAE documents, pet care reminders, bilingual Arabic-first pet care app. Free pet matching, Plus 29 AED/mo, Breeder Pro 149 AED/mo.",
+    "platforms": [
+      "Twitter/X thread (hook-driven)"
+    ],
+    "image_prompt": "Premium Pet advertisement in vertical 3:4 format.\nProduct @img1: Preserve the exact product shape, deep red, kraft finish, bag, clean typography, label placement, proportions, and packaging identity exactly. Do not change the product branding, text layout, color, bag closure, structure, or proportions.\nThe background must complement the product color \u2014 kraft paper, warm brown, natural green, bright blue, fresh tone, slobber, water bowl splash, or kitchen floor, dog bed, outdoor grass.\nCOMPOSITION: Vertical 3:4, centered, close-up or hero foreground, premium ad framing.\nLIGHTING: natural window light, warm kitchen.\nQUALITY: Photorealistic, sharp focus, luxury campaign finish, commercial polish.\nThe overall feel is editorial, premium, pet campaign.",
+    "video_prompt": "12s UGC style review video, filmed on smartphone, natural window light, handheld selfie angle.\nProduct @img1: Preserve the exact product shape, deep red, kraft finish, bag, clean typography, label placement, proportions, and packaging identity exactly. Do not change the product branding, text layout, color, bag closure, structure, or proportions.\nJump cut \u2014 hook: show the product. Jump cut \u2014 demo: use it. Jump cut \u2014 result: react. Final shot \u2014 verdict.\nCAMERA: Handheld selfie angle, each jump cut slightly different angle.\nLIGHTING: natural window light, warm kitchen.\nAUDIO: Phone mic, room ambience, no music.\nThe product from @(img1) must remain visually unchanged in every shot. Maintain product design and label details throughout.\nThe overall feel is trustworthy, relatable, real.",
+    "cta_options": [
+      "Learn more",
+      "Get in touch",
+      "Request access"
+    ],
+    "aspect_ratios": [
+      "4:5",
+      "9:16",
+      "1:1",
+      "16:9",
+      "3:4"
+    ],
+    "tone": "authoritative",
+    "archetype": "ugc",
+    "product_category": "pet",
+    "category_confidence": 3
+  },
+  "neural_scores": {
+    "van": {
+      "z": 0.14,
+      "pct": 55
+    },
+    "dmn": {
+      "z": 0,
+      "pct": 50
+    },
+    "dan": {
+      "z": 0,
+      "pct": 50
+    },
+    "limbic": {
+      "z": 0,
+      "pct": 50
+    },
+    "overall": 52
+  },
+  "_orca": {
+    "error": "{\"error\":\"Internal server error\"}",
+    "http_status": 500
+  },
+  "_meta": {
+    "source": "heuristic+bible",
+    "brief_length": 332,
+    "generated_at": "2026-06-17T07:52:00.215Z",
+    "deploy_url": "https://nexus.taurusai.io/dogfood.html#campaign-mqhrw0uypywl",
+    "bible_version": "1.0.0",
+    "archetype": "ugc",
+    "product_category": "pet",
+    "archetype_label": "UGC Selfie Video (9-Layer)",
+    "category_label": "Pet"
+  }
+}

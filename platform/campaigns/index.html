@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Creative — AI Campaign Studio</title>
+  <meta name="description" content="Nexus Creative by Taurus AI builds high-fashion editorial and luxury campaign assets from a single product brief.">
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '801989623005365');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=801989623005365&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+  <!-- LinkedIn Insight Tag placeholder -->
+  <script type="text/javascript">
+    _linkedin_partner_id = "LINKEDIN_PARTNER_ID_PLACEHOLDER";
+  </script>
+  <script type="text/javascript">
+    (function(l) {
+      if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])}; window.lintrk.q=[]}
+      var s = document.getElementsByTagName("script")[0];
+      var b = document.createElement("script");
+      b.type = "text/javascript";b.async = true;
+      b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+      s.parentNode.insertBefore(b, s);})(window.lintrk);
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=LINKEDIN_PARTNER_ID_PLACEHOLDER&fmt=gif" />
+  </noscript>
+  <!-- End LinkedIn Insight Tag -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18242669881"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18242669881');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F6F4EF;
+      --surface: #FFFFFF;
+      --cream: #FAF8F4;
+      --ink: #14110F;
+      --ink-muted: #6B655E;
+      --accent: #B85C38;
+      --accent-warm: #C97B5C;
+      --border: #E3DED4;
+      --dark: #1A1714;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: var(--font-body);
+      color: var(--ink); background: var(--bg);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    img, svg { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 400; letter-spacing: -0.02em; line-height: 0.98; }
+    h1 { font-size: clamp(3.2rem, 7vw, 6rem); text-wrap: balance; }
+    h2 { font-size: clamp(2.6rem, 5vw, 4.6rem); text-wrap: balance; }
+    h3 { font-size: clamp(1.5rem, 2.2vw, 1.9rem); line-height: 1.05; }
+    p { line-height: 1.65; color: var(--ink-muted); margin: 0; text-wrap: pretty; }
+
+    .mono {
+      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.18em;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 0.9rem 1.6rem; border-radius: 999px;
+      background: var(--ink); color: var(--surface); font-size: 0.85rem; font-weight: 600;
+      border: 1.5px solid var(--ink);
+      transition: transform 160ms var(--ease-out), background 200ms var(--ease-out), border-color 200ms var(--ease-out), color 200ms var(--ease-out);
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
+    .btn:active { transform: scale(0.97); }
+    .btn .btn-icon {
+      display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px;
+      background: rgba(255,255,255,0.12); transition: transform 200ms var(--ease-out);
+    }
+    .btn:hover .btn-icon { transform: translate(2px, -1px); }
+
+    .btn-ghost {
+      background: transparent; color: var(--ink); border-color: var(--border);
+    }
+    .btn-ghost:hover { background: var(--cream); border-color: var(--ink-muted); color: var(--ink); }
+
+    .btn-surface { background: var(--surface); color: var(--ink); border-color: var(--surface); }
+    .btn-surface:hover { background: transparent; color: var(--surface); }
+
+    /* Header - floating pill */
+    header {
+      position: sticky; top: 0; z-index: 50; padding: 1.2rem 0;
+    }
+    .header-pill {
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1280px; margin: 0 auto; padding: 0.85rem 1.2rem;
+      background: rgba(246,244,239,0.88); border: 1px solid var(--border);
+      border-radius: 999px; backdrop-filter: blur(12px);
+    }
+    .logo { font-family: var(--font-display); font-size: 1.35rem; letter-spacing: -0.02em; }
+    .logo span { font-family: var(--font-body); font-weight: 500; color: var(--ink-muted); }
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a { font-size: 0.85rem; font-weight: 500; color: var(--ink-muted); transition: color 150ms var(--ease-out); }
+    nav a:hover { color: var(--ink); }
+
+    /* Hero - editorial split */
+    .hero { padding: clamp(4rem, 8vw, 6rem) 0 clamp(4rem, 8vw, 6rem); }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1.7fr; gap: clamp(2rem, 5vw, 5rem); align-items: end;
+    }
+    .hero-left { padding-bottom: 2rem; }
+    .hero-kicker { color: var(--accent); margin-bottom: 1.4rem; }
+    .hero h1 { margin-bottom: 1.6rem; }
+    .hero p { font-size: 1.1rem; max-width: 420px; margin-bottom: 2.2rem; }
+    .hero-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+
+    .hero-image {
+      position: relative; border-radius: 1.2rem; overflow: hidden;
+      aspect-ratio: 4/3; background: var(--cream); border: 1px solid var(--border);
+    }
+    .hero-image img, .hero-image svg { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Trust strip */
+    .trust { padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
+    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .trust-item { display: flex; flex-direction: column; gap: 0.35rem; }
+    .trust-item .mono { color: var(--ink-muted); }
+    .trust-item strong { font-weight: 600; font-size: 0.95rem; }
+
+    /* Campaigns */
+    .campaigns { padding: clamp(5rem, 10vw, 8rem) 0; }
+    .section-kicker { color: var(--accent); margin-bottom: 1.2rem; }
+    .campaigns h2 { max-width: 720px; margin-bottom: 4rem; }
+
+    .study {
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 0; align-items: stretch;
+      border: 1px solid var(--border); background: var(--surface); border-radius: 1.2rem; overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .study:nth-child(even) { grid-template-columns: 1.1fr 1fr; }
+    .study:nth-child(even) .study-text { order: 2; }
+    .study:nth-child(even) .study-visual { order: 1; }
+
+    .study-visual { min-height: 320px; position: relative; }
+    .study-visual img, .study-visual svg { width: 100%; height: 100%; object-fit: cover; }
+    .study-text { padding: clamp(2rem, 4vw, 3.5rem); display: flex; flex-direction: column; justify-content: center; }
+    .study-tag { color: var(--accent); margin-bottom: 1rem; }
+    .study-text h3 { margin-bottom: 1rem; }
+    .study-text p { font-size: 0.95rem; max-width: 420px; margin-bottom: 1.6rem; }
+
+    /* Live lab */
+    .lab { padding: clamp(5rem, 10vw, 8rem) 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .lab-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+    .lab h2 { margin-bottom: 1.2rem; }
+    .lab p { font-size: 1rem; margin-bottom: 2rem; max-width: 420px; }
+    .lab-input label { display: block; margin-bottom: 0.5rem; font-size: 0.75rem; color: var(--ink-muted); font-weight: 500; }
+    .lab-input textarea {
+      width: 100%; min-height: 140px; padding: 1rem; border-radius: 0.8rem;
+      border: 1.5px solid var(--border); background: var(--bg);
+      font-family: var(--font-body); font-size: 0.95rem; resize: vertical; outline: none;
+      transition: border-color 160ms var(--ease-out);
+    }
+    .lab-input textarea:focus { border-color: var(--accent); }
+    .lab-actions { margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .lab-output {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 1.2rem; padding: 2rem;
+      min-height: 420px;
+    }
+    .output-kicker { color: var(--accent); margin-bottom: 1rem; }
+    .output-title { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 1.2rem; line-height: 1.05; }
+    .output-body { font-size: 0.95rem; line-height: 1.7; color: var(--ink-muted); white-space: pre-line; }
+    .output-meta { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .meta-item { font-size: 0.75rem; color: var(--ink-muted); }
+    .meta-item strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 0.2rem; }
+    .image-status {
+      margin-top: 1.5rem; padding: 1rem; border: 1.5px dashed var(--border); border-radius: 0.6rem;
+      font-size: 0.8rem; color: var(--ink-muted);
+    }
+
+    /* Credit cost indicator */
+    .credit-indicator {
+      display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;
+      font-size: 0.72rem; color: var(--ink-muted); font-family: var(--font-mono);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .credit-indicator .cost-free { color: #5a8a5a; }
+    .credit-indicator .cost-paid { color: var(--accent); font-weight: 600; }
+
+    /* Neural Score display */
+    .neural-score {
+      margin-top: 1.2rem; padding: 1.2rem; border: 1.5px solid var(--border);
+      border-radius: 0.8rem; background: var(--bg);
+    }
+    .neural-score-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.8rem;
+    }
+    .neural-score-header .mono { color: var(--accent); }
+    .neural-score-badge {
+      font-family: var(--font-mono); font-size: 1.1rem; font-weight: 600;
+      padding: 0.2rem 0.6rem; border-radius: 0.3rem;
+    }
+    .neural-score-badge.high { background: #eef5ee; color: #3a6b3a; }
+    .neural-score-badge.medium { background: #fef5ee; color: #8a5a1a; }
+    .neural-score-badge.low { background: #fdeeee; color: #8a2a2a; }
+    .neural-bars { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .neural-bar {
+      flex: 1; min-width: 100px; display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .neural-bar-label {
+      font-size: 0.65rem; font-family: var(--font-mono); text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--ink-muted); display: flex;
+      justify-content: space-between;
+    }
+    .neural-bar-track {
+      height: 6px; background: var(--border); border-radius: 999px; overflow: hidden;
+    }
+    .neural-bar-fill {
+      height: 100%; border-radius: 999px; transition: width 500ms var(--ease-out);
+    }
+    .neural-bar-fill.van { background: #B85C38; }
+    .neural-bar-fill.dmn { background: #5a8a5a; }
+    .neural-bar-fill.dan { background: #4a7a9a; }
+    .neural-bar-fill.limbic { background: #9a6a8a; }
+    .neural-recs {
+      margin-top: 0.8rem; font-size: 0.78rem; color: var(--ink-muted);
+      padding: 0.6rem 0.8rem; background: var(--surface); border-radius: 0.5rem;
+      border: 1px solid var(--border);
+    }
+    .neural-recs strong { color: var(--ink); }
+    .neural-score-source {
+      font-size: 0.6rem; color: var(--ink-muted); margin-top: 0.5rem;
+      text-align: right; font-family: var(--font-mono); opacity: 0.6;
+    }
+    .btn-optimize {
+      margin-top: 0.8rem; font-size: 0.75rem; padding: 0.45rem 1rem;
+      background: transparent; border-color: var(--accent); color: var(--accent);
+    }
+    .btn-optimize:hover { background: var(--accent); color: #fff; }
+    .btn-optimize:disabled { opacity: 0.4; pointer-events: none; }
+
+    /* Optimization comparison panel */
+    .optim-compare {
+      margin-top: 1.2rem; padding: 1.2rem; border: 1.5px solid var(--accent-warm);
+      border-radius: 0.8rem; background: var(--surface);
+    }
+    .optim-compare-header {
+      font-family: var(--font-mono); font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.15em;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem; color: var(--accent);
+    }
+    .optim-compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;
+    }
+    .optim-version { font-size: 0.78rem; }
+    .optim-version-label {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 0.4rem; color: var(--ink-muted);
+    }
+    .optim-version-text {
+      line-height: 1.6; padding: 0.6rem; background: var(--bg);
+      border-radius: 0.4rem; border: 1px solid var(--border);
+      max-height: 140px; overflow-y: auto; white-space: pre-wrap;
+      font-size: 0.75rem;
+    }
+    .optim-delta-row {
+      display: flex; gap: 0.6rem; align-items: center;
+      font-family: var(--font-mono); font-size: 0.65rem;
+    }
+    .optim-delta-row .label { color: var(--ink-muted); min-width: 6rem; }
+    .optim-delta-up { color: #3a7a3a; }
+    .optim-delta-down { color: #8a3a3a; }
+    .optim-improvements {
+      margin-top: 0.8rem; padding: 0.4rem 0.8rem;
+      background: #f0f5f0; border-radius: 0.4rem;
+      font-size: 0.75rem;
+    }
+    .optim-accept-btn {
+      margin-top: 0.8rem; width: 100%;
+    }
+
+    /* Neural Score button variant */
+    .btn-neural {
+      background: var(--dark); border-color: var(--border);
+    }
+    .btn-neural:hover { background: var(--accent); color: #fff; }
+    .btn-colab {
+      background: transparent; border-color: var(--border); font-size: 0.75rem;
+    }
+    .btn-colab:hover { border-color: var(--accent); color: var(--accent); }
+    .colab-upload {
+      display: none; margin-top: 0.8rem; padding: 0.8rem; border-radius: 8px;
+      background: var(--surface); border: 1px dashed var(--border); font-size: 0.82rem;
+    }
+    .colab-upload.active { display: flex; align-items: center; gap: 0.8rem; }
+    .colab-upload input[type="file"] { font-size: 0.82rem; color: var(--ink-muted); }
+
+    /* Generate accent button */
+    .btn-accent {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    .btn-accent:hover { background: #a04d2e; border-color: #a04d2e; }
+
+    /* Loading spinner */
+    .spinner {
+      display: inline-block; width: 16px; height: 16px; border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn.loading { pointer-events: none; opacity: 0.7; }
+
+    /* Guardrail status */
+    .guardrail-status {
+      margin-top: 1rem; padding: 0.8rem 1rem; border-radius: 0.6rem; font-size: 0.8rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .guardrail-status.safe { background: #eef5ee; border: 1px solid #c3dfc3; color: #3a6b3a; }
+    .guardrail-status.warning { background: #fef5ee; border: 1px solid #e6cfa8; color: #8a5a1a; }
+    .guardrail-status.danger { background: #fdeeee; border: 1px solid #e6b0b0; color: #8a2a2a; }
+    .guardrail-status .dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .guardrail-status.safe .dot { background: #5a8a5a; }
+    .guardrail-status.warning .dot { background: #c97b2c; }
+    .guardrail-status.danger .dot { background: #c0392b; }
+    .guardrail-flags { margin-top: 0.4rem; padding-left: 1.2rem; font-size: 0.75rem; }
+    .guardrail-flags li { margin-bottom: 0.15rem; }
+
+    /* Liability modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 100;
+      background: rgba(20,17,15,0.6); backdrop-filter: blur(4px);
+      place-items: center;
+    }
+    .modal-overlay.open { display: grid; }
+    .modal {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 1.2rem;
+      padding: 2.5rem; max-width: 440px; width: 90%; text-align: center;
+    }
+    .modal h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .modal p { font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .modal label {
+      display: flex; align-items: flex-start; gap: 0.6rem; text-align: left;
+      font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 1.5rem; cursor: pointer;
+    }
+    .modal label input { margin-top: 3px; accent-color: var(--accent); }
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: center; }
+    .modal-actions .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Process */
+    .process { padding: clamp(5rem, 10vw, 8rem) 0; }
+    .process h2 { max-width: 600px; margin-bottom: 4rem; }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .process-card { padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 1rem; }
+    .process-card .num { font-family: var(--font-display); font-size: 2.6rem; color: var(--accent); margin-bottom: 1.2rem; line-height: 1; }
+    .process-card h3 { margin-bottom: 0.6rem; }
+    .process-card p { font-size: 0.9rem; }
+
+    /* Pricing - bento */
+    .pricing { padding: clamp(5rem, 10vw, 8rem) 0; background: var(--cream); border-top: 1px solid var(--border); }
+    .pricing h2 { max-width: 600px; margin-bottom: 3rem; }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .pricing-card {
+      border: 1px solid var(--border); background: var(--surface); border-radius: 1.2rem; padding: 2rem;
+      display: flex; flex-direction: column;
+    }
+    .pricing-card.featured { grid-column: span 2; background: var(--dark); color: var(--surface); flex-direction: row; gap: 3rem; }
+    .pricing-card.featured p, .pricing-card.featured li, .pricing-card.featured .price span { color: #a8a29e; }
+    .pricing-card h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
+    .price { font-family: var(--font-display); font-size: 2.8rem; margin: 1.2rem 0; line-height: 1; }
+    .price span { font-size: 0.85rem; color: var(--ink-muted); font-family: var(--font-body); font-weight: 400; }
+    .pricing-card ul { list-style: none; padding: 0; margin: 0 0 1.5rem; flex: 1; }
+    .pricing-card li { padding: 0.6rem 0; font-size: 0.88rem; color: var(--ink-muted); border-bottom: 1px solid var(--border); }
+    .pricing-card.featured li { border-color: rgba(255,255,255,0.12); }
+
+    /* CTA */
+    .cta { padding: clamp(5rem, 10vw, 8rem) 0; text-align: center; }
+    .cta h2 { max-width: 800px; margin: 0 auto 1.4rem; }
+    .cta p { max-width: 540px; margin: 0 auto 2.2rem; font-size: 1.05rem; }
+
+    /* Demo / Calendly */
+    .demo { padding: clamp(5rem, 10vw, 8rem) 0; background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
+    .demo h2 { max-width: 700px; margin: 0 auto 1.2rem; }
+    .demo .demo-sub { max-width: 600px; margin: 0 auto 2.5rem; font-size: 1.05rem; color: var(--ink-muted); line-height: 1.65; }
+    .demo-embed-wrap { max-width: 720px; margin: 0 auto; border: 1px solid var(--border); border-radius: 1.2rem; overflow: hidden; background: var(--surface); min-height: 400px; display: flex; align-items: center; justify-content: center; }
+    .demo-embed-wrap .calendly-placeholder { padding: 3rem 2rem; text-align: center; }
+    .demo-embed-wrap .calendly-placeholder p { font-size: 0.95rem; color: var(--ink-muted); margin-bottom: 1.5rem; }
+
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); background: var(--surface); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--ink-muted); flex-wrap: wrap; gap: 1rem; }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: opacity 300ms ease; }
+      .btn, .btn .btn-icon { transition: none; }
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid, .study, .study:nth-child(even), .lab-grid, .process-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .study .study-text, .study:nth-child(even) .study-text { order: 2; }
+      .study .study-visual, .study:nth-child(even) .study-visual { order: 1; min-height: 240px; }
+      .pricing-card.featured { grid-column: span 1; flex-direction: column; gap: 0; }
+      nav { display: none; }
+      h1 { font-size: clamp(2.8rem, 12vw, 4rem); }
+      .header-pill { border-radius: 0; border-left: 0; border-right: 0; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="header-pill">
+        <div class="logo">Nexus <span>Creative</span></div>
+        <nav>
+          <a href="#work">Work</a>
+          <a href="#lab">Lab</a>
+          <a href="#process">Process</a>
+          <a href="#pricing">Pricing</a>
+          <a href="/agency.html">Agencies</a>
+          <a href="/world-cup-2026.html" style="color:var(--accent);">World Cup</a>
+          <a href="/colab.html">Free GPU</a>
+          <a href="#contact" class="btn">Request Enterprise Audit</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-left">
+        <div class="mono hero-kicker">AI Campaign Studio</div>
+        <h1>The campaign brief. Scored.</h1>
+        <p>Nexus Creative turns a product description into a production-ready brief — headline, image prompt, platform plan, and a heuristic TRIBE v2 neural score. Ready for your studio or generative pipeline.</p>
+        <div class="hero-actions">
+          <a href="#lab" class="btn" onclick="trackEvent('view_demo')">Score your brief <span class="btn-icon">→</span></a>
+        <a href="/case-studies.html" class="btn" onclick="if(typeof gtag==='function'){gtag('event','view_case_studies',{event_category:'nexus_creative'});} if(typeof fbq==='function'){fbq('trackCustom','ViewCaseStudies');}">See our dogfood <span class="btn-icon">→</span></a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="/assets/campaigns/nexus-hero-01.png" alt="Nexus Creative editorial campaign system — warm paper textures and soft shadow play" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item"><span class="mono">Clients</span><strong>Mater Maria Homes · YQG Digital · Muthoot FinCorp</strong></div>
+        <div class="trust-item"><span class="mono">Speed</span><strong>Brief → scored assets in < 60s</strong></div>
+        <div class="trust-item"><span class="mono">Output</span><strong>Prompt + headline + platform plan + neural score</strong></div>
+        <div class="trust-item"><span class="mono">Stack</span><strong>Heuristic TRIBE v2 · zero API dependency</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="campaigns" id="work">
+    <div class="container">
+      <div class="reveal">
+        <div class="mono section-kicker">Example outputs</div>
+        <h2>What the system produces from one brief.</h2>
+      </div>
+
+      <article class="study reveal">
+        <div class="study-text">
+          <div class="mono study-tag">Example 01 — Nordic Minimalism</div>
+          <h3>Black technical basics, white space.</h3>
+          <p>A cyber-minimalist fashion lookbook concept generated from one sentence. Cool monochromatic grade, diffused backlight, editorial retouching.</p>
+          <a href="#lab" class="btn btn-ghost">Try this style</a>
+        </div>
+        <div class="study-visual">
+          <img src="/assets/campaigns/nordic-editorial-01.png" alt="Nordic minimalist skincare editorial campaign example" loading="lazy">
+        </div>
+      </article>
+
+      <article class="study reveal">
+        <div class="study-visual">
+          <img src="/assets/campaigns/sport-luxury-01.png" alt="Sporty luxury summer eyewear campaign example on a vintage racing boat" loading="lazy">
+        </div>
+        <div class="study-text">
+          <div class="mono study-tag">Example 02 — Summer Sport-Luxury</div>
+          <h3>Sun, motion, mirrored lens.</h3>
+          <p>A luxury eyewear campaign concept for peak summer. Dynamic low-angle composition, glossy reflections, Vogue-grade color grading.</p>
+          <a href="#lab" class="btn btn-ghost">Try this style</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="lab" id="lab">
+    <div class="container lab-grid">
+      <div class="reveal">
+        <div class="mono section-kicker">Live Prompt Lab</div>
+        <h2>Describe the shot. Get the brief.</h2>
+        <p>Type a product and scene the way you'd brief a photographer. Nexus Creative returns a production-ready image prompt, headline, and platform plan.</p>
+
+      <div class="lab-input">
+        <label for="brief">Your brief</label>
+        <textarea id="brief" placeholder="A Dubai penthouse at golden hour. Balcony overlooking the marina. Minimalist interiors. Family lifestyle."></textarea>
+      </div>
+      <div class="lab-actions">
+        <button class="btn btn-neural" id="neural-btn" onclick="scoreBrief(); trackEvent('neural_score');">Neural Score <span class="btn-icon">⊗</span></button>
+        <button class="btn btn-colab" onclick="toggleColabUpload(); trackEvent('colab_upload');">Free GPU (Colab) <span class="btn-icon">↥</span></button>
+        <button class="btn" id="refine-btn" onclick="refineBrief(); trackEvent('refine_brief');">Refine brief <span class="btn-icon">→</span></button>
+        <button class="btn btn-accent" id="generate-btn" onclick="generateCampaign(); trackEvent('generate_campaign');">Generate Final Campaign <span class="btn-icon">★</span></button>
+        <button class="btn btn-ghost" onclick="clearBrief()">Clear</button>
+      </div>
+      <div class="credit-indicator" id="credit-indicator">
+        <span class="cost-free">Score: FREE</span>
+        <span>·</span>
+        <span class="cost-free">Refine: FREE</span>
+        <span>·</span>
+        <span class="cost-paid">Generate: 1 credit</span>
+        <span id="credits-remaining" style="margin-left:0.5rem;"></span>
+      </div>
+      <div class="guardrail-status" id="guardrail-status" style="display:none;"></div>
+      </div>
+
+      <div class="lab-output reveal" id="output">
+        <div class="output-kicker mono">Generated campaign brief</div>
+        <div class="output-title" id="output-title">Nordic Tech-Street Capsule</div>
+        <div class="output-body" id="output-body">A model in a matte-black technical parka and wide cargo trousers stands against a pale concrete wall in Helsinki winter light. Soft diffused backlight, 35mm lens, minimal color grading, editorial retouching. The composition leaves generous negative space top-right for headline placement.
+
+<b>Headline:</b> Cold weather. Clean lines.
+<b>Platforms:</b> Instagram carousel (4:5), Stories (9:16), Pinterest pin.
+<b>Deliverables:</b> hero shot, detail crop, back-angle, flat-lay fabric swatch.
+<b>Color mood:</b> cool grey, black, off-white, faint clay accent.</div>
+        <div class="output-meta">
+          <div class="meta-item"><strong>Aspect ratio</strong>4:5 · 9:16</div>
+          <div class="meta-item"><strong>Retouching</strong>Editorial grade</div>
+          <div class="meta-item"><strong>Turnaround</strong>~3 minutes</div>
+        </div>
+        <div class="neural-score" id="neural-score" style="display:none;">
+          <div class="neural-score-header">
+            <span class="mono">Neural Engagement Score</span>
+            <span class="neural-score-badge" id="neural-badge"></span>
+          </div>
+          <div class="neural-bars" id="neural-bars"></div>
+          <button class="btn btn-optimize" id="optimize-btn" onclick="optimizeBrief()" style="display:none;">Optimize Neural Score <span class="btn-icon">↻</span></button>
+          <div class="neural-recs" id="neural-recs"></div>
+          <div class="neural-score-source" id="neural-source"></div>
+          <div class="optim-compare" id="optim-compare" style="display:none;">
+            <div class="optim-compare-header">
+              <span>Before vs After</span>
+              <span class="optim-delta-row" id="optim-overall-delta"></span>
+            </div>
+            <div class="optim-compare-grid">
+              <div class="optim-version">
+                <div class="optim-version-label">Original</div>
+                <div class="optim-version-text" id="optim-original-text"></div>
+              </div>
+              <div class="optim-version">
+                <div class="optim-version-label">Optimized</div>
+                <div class="optim-version-text" id="optim-optimized-text"></div>
+              </div>
+            </div>
+            <div class="optim-delta-row" id="optim-deltas"></div>
+            <div class="optim-improvements" id="optim-improvements"></div>
+            <button class="btn btn-accent optim-accept-btn" onclick="acceptOptimizedBrief()">Accept Optimized Brief <span class="btn-icon">←</span></button>
+          </div>
+        </div>
+        <div class="colab-upload" id="colab-upload">
+          <span style="white-space:nowrap;">Upload Colab results:</span>
+          <input type="file" id="colab-file" accept=".json" onchange="uploadColabResults(event)">
+          <a href="/colab.html" style="color:var(--accent); font-size:0.78rem; text-decoration:underline; white-space:nowrap;">How it works →</a>
+        </div>
+        <div class="image-status" id="image-status">
+          Neural-score your brief to generate campaign-ready creative assets.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="process">
+    <div class="container">
+      <div class="reveal">
+        <div class="mono section-kicker">How it works</div>
+        <h2>From brief to board in three steps.</h2>
+      </div>
+      <div class="process-grid">
+        <div class="process-card reveal">
+          <div class="num">01</div>
+          <h3>Describe the scene</h3>
+          <p>Write a product brief in plain language — location, mood, audience, shot type. No keyword gymnastics.</p>
+        </div>
+        <div class="process-card reveal">
+          <div class="num">02</div>
+          <h3>Get the campaign kit</h3>
+          <p>Nexus Creative returns a refined image prompt, headline options, platform plan, and deliverables list.</p>
+        </div>
+        <div class="process-card reveal">
+          <div class="num">03</div>
+          <h3>Ship or iterate</h3>
+          <p>Hand the brief to your photographer or run it through a generative image pipeline. Re-generate in seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="reveal">
+        <div class="mono section-kicker">Pricing</div>
+        <h2>Studio output without the studio overhead.</h2>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card reveal">
+          <h3>Starter</h3>
+          <p class="price">$99 <span>/ campaign</span></p>
+          <ul>
+            <li>1 campaign concept</li>
+            <li>Image prompt + copy</li>
+            <li>Platform plan</li>
+            <li>2 revision rounds</li>
+          </ul>
+          <a href="/api/stripe?action=checkout&plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_starter'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Proof of Concept</a>
+        </div>
+        <div class="pricing-card featured reveal">
+          <div>
+            <h3>Studio</h3>
+            <p class="price">$399 <span>/ month</span></p>
+            <ul>
+              <li>Unlimited campaign concepts</li>
+              <li>Photorealistic image generation pipeline</li>
+              <li>Brand memory & tone lock</li>
+              <li>Export to deck, CSV, or API</li>
+              <li>Priority turnaround</li>
+            </ul>
+            <a href="/api/stripe?action=checkout&plan=studio" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_studio'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Enterprise Plan</a>
+          </div>
+          <div style="display:grid; place-items:center; min-width:180px;">
+            <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="180" height="180" rx="24" fill="#2A2622"/>
+              <circle cx="90" cy="70" r="40" fill="#B85C38" opacity="0.9"/>
+              <rect x="45" y="120" width="90" height="12" rx="2" fill="#F6F4EF"/>
+              <rect x="55" y="140" width="70" height="8" rx="2" fill="#6B655E"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pricing-card reveal">
+          <h3>Agency</h3>
+          <p class="price">Custom</p>
+          <ul>
+            <li>White-label delivery</li>
+            <li>Dedicated model tuning</li>
+            <li>API access</li>
+            <li>SLA & support</li>
+          </ul>
+          <a href="mailto:nexus@taurusai.io?subject=Executive%20briefing%20request" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="trackEvent('lead_executive_briefing');">Schedule Executive Briefing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo" id="demo">
+    <div class="container reveal">
+      <div class="mono section-kicker">Book a Session</div>
+      <h2>Schedule Your Enterprise Audit</h2>
+      <p class="demo-sub">15 minutes. We run your worst-performing campaign through our AI and show you the uplift.</p>
+      <div class="demo-embed-wrap">
+        <!-- Cal.com inline embed -->
+        <iframe src="https://cal.com/taurusai/15min?embed=true" width="100%" height="600" frameborder="0" allowfullscreen style="border-radius:0.8rem; background:var(--surface);"></iframe>
+        <script type="text/javascript">
+          (function(C,A,L){var p=function(a,ar){a=q(a);ar.push(a);};var q=function(a){return A.createElement(a)};var r=function(a){return A.querySelector(a)};L='https://app.cal.com/embed/embed.js';var s=q('script');s.src=L;s.async=true;s.onload=function(){Cal('init',{origin:'https://cal.com'});Cal('inline',{elementOrSelector:'#cal-booking',calLink:'taurusai/15min'});};A.head.appendChild(s);})(window,document);
+        </script>
+        <!-- Fallback mailto remains below for users who block iframes -->
+        <div class="calendly-placeholder" style="margin-top:1rem;">
+          <a href="mailto:nexus@taurusai.io?subject=Enterprise%20audit%20request" class="btn" onclick="trackEvent('lead_enterprise_audit')">Request Enterprise Audit <span class="btn-icon">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="container reveal">
+      <h2>See what your ad spend is missing.</h2>
+      <p>Request a free ROI proof of concept. We run your worst-performing campaign through our AI and show you the uplift — real numbers, no pitch deck.</p>
+      <a href="#demo" class="btn">Request Enterprise Audit <span class="btn-icon">→</span></a>
+    </div>
+  </section>
+
+  <!-- Liability Acceptance Modal -->
+  <div class="modal-overlay" id="liability-modal" onclick="if(event.target===this) closeLiabilityModal()">
+    <div class="modal">
+      <h3>Brand Compliance Acceptance</h3>
+      <p>I confirm I have reviewed this AI-generated asset for brand compliance and accept liability for its public distribution. This asset was generated by AI (Vertex AI Imagen 3) and has not been manually verified for trademark, copyright, or cultural compliance.</p>
+      <label>
+        <input type="checkbox" id="liability-checkbox" onchange="document.getElementById('liability-download').disabled = !this.checked;">
+        I accept liability for distribution of this AI-generated asset
+      </label>
+      <input type="hidden" id="liability-image-url">
+      <input type="hidden" id="liability-title">
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeLiabilityModal()">Cancel</button>
+        <button class="btn btn-accent" id="liability-download" onclick="confirmDownload()" disabled>Download Asset</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="logo">Nexus <span>Creative</span></div>
+      <div>nexus.taurusai.io · nexus@taurusai.io</div>
+      <div>© 2026 Taurus AI Corp.</div>
+    </div>
+  </footer>
+
+  <script>
+    var DEFAULT_BRIEF = "A model in a matte-black technical parka and wide cargo trousers stands against a pale concrete wall in Helsinki winter light. Soft diffused backlight, 35mm lens, minimal color grading, editorial retouching.";
+
+    var SAMPLES = [
+      {
+        title: "Nordic Tech-Street Capsule",
+        body: "A model in a matte-black technical parka and wide cargo trousers stands against a pale concrete wall in Helsinki winter light. Soft diffused backlight, 35mm lens, minimal color grading, editorial retouching. The composition leaves generous negative space top-right for headline placement.\n\nHeadline: Cold weather. Clean lines.\nPlatforms: Instagram carousel (4:5), Stories (9:16), Pinterest pin.\nDeliverables: hero shot, detail crop, back-angle, flat-lay fabric swatch.\nColor mood: cool grey, black, off-white, faint clay accent.",
+        meta: "4:5 · 9:16|Editorial grade|~3 minutes"
+      },
+      {
+        title: "Marina Penthouse — Golden Hour",
+        body: "A family of three walks through a double-height living room in a Dubai penthouse. Floor-to-ceiling glass frames the marina at golden hour. Muted limestone, warm oak, and soft linen. 28mm architectural lens, natural light, lifestyle editorial.\n\nHeadline: Room for the view.\nPlatforms: LinkedIn sponsored content, Instagram Reels, property portal hero.\nDeliverables: hero living room, balcony detail, kids' bedroom, kitchen lifestyle.\nColor mood: warm gold, stone, soft shadow.",
+        meta: "16:9 · 1:1|Lifestyle grade|~3 minutes"
+      },
+      {
+        title: "Summer Sport-Luxury Eyewear",
+        body: "Athletic model on a beach at low angle, mirrored sunglass visor catching sun flare. Pastel sky gradient, wet sand texture, motion blur in the hair. Vogue-grade color, high gloss reflections.\n\nHeadline: See the heat.\nPlatforms: TikTok paid, Instagram Reels, OOH transit poster.\nDeliverables: hero shot, macro lens detail, packshot on black, 3 colorways.\nColor mood: turquoise, warm sand, tangerine, chrome.",
+        meta: "9:16 · 4:5|Vogue grade|~3 minutes"
+      }
+    ];
+
+    function trackEvent(eventName){
+      if(typeof gtag === 'function'){
+        var leadEvents = ['lead_enterprise_audit','lead_executive_briefing'];
+        var purchaseEvents = ['purchase_starter','purchase_studio'];
+        if(leadEvents.indexOf(eventName) !== -1){
+          gtag('event', 'conversion', {
+            send_to: 'AW-18242669881/XVbiCOTP978cELma5PpD',
+            value: 1.0,
+            currency: 'CAD'
+          });
+        }
+        gtag('event', eventName, { event_category: 'nexus_creative', non_interaction: false });
+      }
+    }
+
+    function parseMeta(meta){
+      var parts = meta.split('|');
+      var html = '';
+      var labels = ['Aspect ratio', 'Retouching', 'Turnaround'];
+      for(var i=0;i<labels.length;i++){
+        if(parts[i]) html += '<div class="meta-item"><strong>' + labels[i] + '</strong>' + parts[i] + '</div>';
+      }
+      return html;
+    }
+
+    function pickSample(text){
+      var t = text.toLowerCase();
+      if(t.indexOf('real estate') !== -1 || t.indexOf('penthouse') !== -1 || t.indexOf('property') !== -1 || t.indexOf('marina') !== -1) return SAMPLES[1];
+      if(t.indexOf('sunglass') !== -1 || t.indexOf('summer') !== -1 || t.indexOf('sport') !== -1 || t.indexOf('beach') !== -1) return SAMPLES[2];
+      return SAMPLES[0];
+    }
+
+    function setLoading(btnId, loading) {
+      var btn = document.getElementById(btnId);
+      var labels = {
+        'refine-btn': ['Refine brief <span class="btn-icon">→</span>', 'Refining...'],
+        'generate-btn': ['Generate Final Campaign <span class="btn-icon">★</span>', 'Generating...'],
+        'neural-btn': ['Neural Score <span class="btn-icon">⊗</span>', 'Scoring...'],
+      };
+      var pair = labels[btnId] || ['Run', 'Running...'];
+      if (loading) {
+        btn.classList.add('loading');
+        btn.innerHTML = '<span class="spinner"></span> ' + pair[1];
+      } else {
+        btn.classList.remove('loading');
+        btn.innerHTML = pair[0];
+      }
+    }
+
+    function showGuardrailStatus(result) {
+      var el = document.getElementById('guardrail-status');
+      if (!result) {
+        el.style.display = 'none';
+        return;
+      }
+      var severity = result.severity || 'low';
+      var cssClass = severity === 'high' ? 'danger' : (severity === 'medium' ? 'warning' : 'safe');
+      var flagsHtml = '';
+      if (result.flags && result.flags.length > 0) {
+        flagsHtml = '<ul class="guardrail-flags">' + result.flags.map(function(f) {
+          return '<li><strong>' + f.category + ' (' + f.severity + ')</strong>: ' + f.description + (f.suggestion ? ' — ' + f.suggestion : '') + '</li>';
+        }).join('') + '</ul>';
+      }
+      el.className = 'guardrail-status ' + cssClass;
+      el.innerHTML = '<span class="dot"></span> Content Safety: ' + (result.safe ? 'Checked — Safe' : 'Flagged — Review Required') + flagsHtml;
+      el.style.display = 'block';
+    }
+
+    function renderOutput(title, body, meta) {
+      document.getElementById('output-title').textContent = title;
+      document.getElementById('output-body').innerHTML = body.replace(/\n/g, '<br>').replace(/<b>(.*?)<\/b>/g, '<strong>$1</strong>');
+      document.querySelector('.output-meta').innerHTML = parseMeta(meta);
+    }
+
+    function updateCreditsDisplay(credits) {
+      var el = document.getElementById('credits-remaining');
+      if (el) {
+        el.textContent = credits !== null && credits !== undefined ? credits + ' credits left' : '';
+      }
+    }
+
+    async function callGenerate(brief, mode) {
+      var res = await fetch('/api/ai?action=' + (mode === 'generate' ? 'generate' : 'refine'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ brief: brief })
+      });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Generation failed');
+      return data;
+    }
+
+    async function callGuardrail(text, imageUrl) {
+      var res = await fetch('/api/ai?action=guardrail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, image_url: imageUrl })
+      });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Guardrail check failed');
+      return data;
+    }
+
+    async function callNeuralScore(brief) {
+      var res = await fetch('/api/neural-score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ brief: brief })
+      });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Neural scoring failed');
+      return data;
+    }
+
+    function renderNeuralScore(report) {
+      var el = document.getElementById('neural-score');
+      var bars = document.getElementById('neural-bars');
+      var badge = document.getElementById('neural-badge');
+      var recs = document.getElementById('neural-recs');
+      var source = document.getElementById('neural-source');
+
+      if (!report || report.status !== 'success') {
+        el.style.display = 'none';
+        return;
+      }
+
+      var s = report.scores;
+      var barHtml = '';
+      var networks = [
+        { key: 'van', label: s.van.label, score: s.van.percentile, z: s.van.z, cls: 'van' },
+        { key: 'dmn', label: s.dmn.label, score: s.dmn.percentile, z: s.dmn.z, cls: 'dmn' },
+        { key: 'dan', label: s.dan.label, score: s.dan.percentile, z: s.dan.z, cls: 'dan' },
+        { key: 'limbic', label: s.limbic.label, score: s.limbic.percentile, z: s.limbic.z, cls: 'limbic' },
+      ];
+
+      networks.forEach(function(n) {
+        barHtml += '<div class="neural-bar">' +
+          '<div class="neural-bar-label">' +
+          '<span>' + n.label + '</span>' +
+          '<span>' + n.score + '%</span>' +
+          '</div>' +
+          '<div class="neural-bar-track">' +
+          '<div class="neural-bar-fill ' + n.cls + '" style="width:' + n.score + '%"></div>' +
+          '</div>' +
+          '</div>';
+      });
+
+      bars.innerHTML = barHtml;
+
+      badge.textContent = 'Score: ' + report.overall + '/100';
+      badge.className = 'neural-score-badge ' + report.verdict;
+
+      // Capture lead silently when scoring
+      var briefText = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      var storedEmail = localStorage.getItem('nexus_lead_email');
+      if (storedEmail) {
+        fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: storedEmail, source: 'neural_score', brief: briefText, neural_score: report.overall }),
+        }).catch(function(){});
+      } else {
+        // Prompt for email on first score (non-blocking, store in localStorage)
+        var email = prompt('Enter your email to save this score and receive the optimized version:');
+        if (email && email.includes('@')) {
+          localStorage.setItem('nexus_lead_email', email);
+          fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: 'neural_score_first', brief: briefText, neural_score: report.overall }),
+          }).catch(function(){});
+        }
+      }
+
+      // Show optimize button when scored
+      var optimBtn = document.getElementById('optimize-btn');
+      optimBtn.style.display = 'inline-flex';
+      document.getElementById('optim-compare').style.display = 'none';
+
+      var recHtml = '<strong>Neural Analysis:</strong> ' + report.verdict_reason;
+      if (report.recommendations && report.recommendations.length > 0) {
+        recHtml += '<br><br><strong>Recommendations:</strong><ul style="margin:0.3rem 0 0 1rem; padding:0;">';
+        report.recommendations.forEach(function(r) {
+          recHtml += '<li>' + r + '</li>';
+        });
+        recHtml += '</ul>';
+      }
+      recs.innerHTML = recHtml;
+
+      var sourceText = 'Scored via ' + (report._meta ? report._meta.source : 'heuristic') + ' neural analysis';
+      if (report._meta && report._meta.source === 'heuristic') {
+        sourceText += ' · <a href="/colab.html" style="color:var(--accent);text-decoration:underline;" target="_blank">Free GPU upgrade →</a>';
+      }
+      source.innerHTML = sourceText;
+
+      el.style.display = 'block';
+    }
+
+    async function scoreBrief() {
+      var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      setLoading('neural-btn', true);
+
+      try {
+        var report = await callNeuralScore(brief);
+        renderNeuralScore(report);
+      } catch (err) {
+        console.error(err);
+        alert('Neural scoring failed: ' + err.message);
+      } finally {
+        setLoading('neural-btn', false);
+      }
+    }
+
+    async function checkCredits(email) {
+      try {
+        var res = await fetch('/api/stripe?action=balance&email=' + encodeURIComponent(email));
+        var data = await res.json();
+        if (res.ok) return data.credits_remaining;
+      } catch {}
+      return null;
+    }
+
+    async function refineBrief() {
+      var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      setLoading('refine-btn', true);
+      showGuardrailStatus(null);
+
+      try {
+        var result = await callGenerate(brief, 'refine');
+        renderOutput(result.title, result.body, result.meta);
+        showGuardrailStatus({ safe: true, flags: [], severity: 'low' });
+        document.getElementById('image-status').innerHTML =
+          'Refined brief ready. Click <strong>Generate Final Campaign</strong> to create the full campaign kit with image generation (1 credit).';
+
+        // Auto-score neural engagement on refines
+        try {
+          var report = await callNeuralScore(brief);
+          renderNeuralScore(report);
+        } catch (e) {
+          console.warn('Auto neural score failed:', e);
+        }
+      } catch (err) {
+        console.error(err);
+        showGuardrailStatus({ safe: false, flags: [{ category: 'system', description: err.message, severity: 'high' }], severity: 'high' });
+        document.getElementById('output-body').textContent = 'Error: ' + err.message;
+      } finally {
+        setLoading('refine-btn', false);
+      }
+    }
+
+    async function generateCampaign() {
+      var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+
+      // Check credits first (use a placeholder email for demo; replace with real user email)
+      var email = prompt('Enter your email to check credits:');
+      if (!email) return;
+
+      var credits = await checkCredits(email);
+      updateCreditsDisplay(credits);
+
+      if (credits !== null && credits < 1) {
+        alert('Insufficient credits. Please purchase a plan to generate final campaigns.');
+        return;
+      }
+
+      setLoading('generate-btn', true);
+      showGuardrailStatus(null);
+
+      try {
+        // Step 1: Generate campaign kit (text)
+        var result = await callGenerate(brief, 'generate');
+        renderOutput(result.title, result.body, result.meta);
+
+        // Step 2: Run guardrail on generated text
+        var guardrail = await callGuardrail(result.body);
+        showGuardrailStatus(guardrail);
+
+        if (guardrail.severity === 'high') {
+          document.getElementById('image-status').innerHTML =
+            '<strong>Content blocked:</strong> ' + guardrail.flags.map(function(f) { return f.description; }).join(', ');
+          return;
+        }
+
+        // Step 3: Generate image via Vertex AI Imagen 3
+        document.getElementById('image-status').innerHTML = '<span class="spinner"></span> Generating image with Vertex AI Imagen 3...';
+
+        var imgRes = await fetch('/api/imagen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: result.body })
+        });
+        var imgData = await imgRes.json();
+        if (!imgRes.ok) throw new Error(imgData.error || 'Image generation failed');
+
+        // Display image
+        var imageUrl = imgData.image_url || ('data:image/png;base64,' + imgData.image_base64);
+        document.getElementById('image-status').innerHTML =
+          '<img src="' + imageUrl + '" alt="Generated campaign asset" style="max-width:100%; border-radius:0.6rem; margin-top:1rem;">' +
+          '<p style="margin-top:0.5rem; font-size:0.75rem; color:var(--ink-muted);">AI-generated via Vertex AI Imagen 3. C2PA metadata embedded.</p>' +
+          '<button class="btn btn-accent" style="margin-top:1rem;" onclick="openLiabilityModal(\'' + imageUrl + '\', \'' + result.title + '\')">Download Asset</button>';
+
+        // Run guardrail on image too
+        var imgGuardrail = await callGuardrail(result.body, imageUrl);
+        if (imgGuardrail.severity === 'high') {
+          showGuardrailStatus(imgGuardrail);
+        }
+
+        // Step 4: Score the generated content for neural engagement
+        try {
+          var finalScore = await callNeuralScore(result.body);
+          renderNeuralScore(finalScore);
+        } catch (e) {
+          console.warn('Post-generation neural score failed:', e);
+        }
+
+        // Step 5: Offer to deploy as campaign
+        var deployBtn = document.getElementById('image-status');
+        var storedEmail = localStorage.getItem('nexus_lead_email');
+        if (storedEmail) {
+          deployBtn.innerHTML =
+            '<div style="margin-top:1rem;padding:1rem;border:1.5px solid var(--accent);border-radius:0.6rem;background:var(--cream);">' +
+            '<strong style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);">Campaign ready for deploy</strong>' +
+            '<p style="font-size:0.8rem;margin:0.3rem 0;">This campaign can be pushed to your live pipeline. Deploy to generate landing pages, social posts, and track performance.</p>' +
+            '<button class="btn btn-accent" style="margin-top:0.5rem;" onclick="deployCampaign(\'' + result.title.replace(/'/g, "\\'") + '\')">Deploy Campaign <span class="btn-icon">→</span></button>' +
+            '</div>';
+        }
+
+        // Update credits display
+        if (credits !== null) updateCreditsDisplay(credits - 1);
+
+      } catch (err) {
+        console.error(err);
+        showGuardrailStatus({ safe: false, flags: [{ category: 'system', description: err.message, severity: 'high' }], severity: 'high' });
+        document.getElementById('image-status').innerHTML = '<strong>Error:</strong> ' + err.message;
+      } finally {
+        setLoading('generate-btn', false);
+      }
+    }
+
+    var colabScores = null;
+    var lastScoreReport = null;
+
+    async function optimizeBrief() {
+      var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      var btn = document.getElementById('optimize-btn');
+      btn.disabled = true;
+      btn.textContent = 'Optimizing...';
+
+      try {
+        var res = await fetch('/api/neural-refine', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ brief: brief })
+        });
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Optimization failed');
+
+        renderOptimization(data);
+      } catch (err) {
+        console.error(err);
+        alert('Optimization failed: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Optimize Neural Score';
+      }
+    }
+
+    function renderOptimization(data) {
+      var el = document.getElementById('optim-compare');
+      var og = data.original;
+      var opt = data.optimized;
+
+      document.getElementById('optim-original-text').textContent = og.brief;
+      document.getElementById('optim-optimized-text').textContent = opt.brief;
+
+      // Deltas
+      var deltaHtml = '';
+      var networks = [
+        { key: 'van', label: 'Scroll-Stop' },
+        { key: 'dmn', label: 'Retention' },
+        { key: 'dan', label: 'Cognitive Focus' },
+        { key: 'limbic', label: 'Emotional Resonance' },
+      ];
+      networks.forEach(function(n) {
+        var d = data.deltas[n.key];
+        var arrow = d.direction === 'up' ? '↑' : d.direction === 'down' ? '↓' : '→';
+        var cls = d.improved ? 'optim-delta-up' : 'optim-delta-down';
+        var pctStr = (d.pct_delta >= 0 ? '+' : '') + d.pct_delta + '%';
+        deltaHtml += '<div class="optim-delta-row">' +
+          '<span class="label">' + n.label + '</span>' +
+          '<span class="' + cls + '">' + arrow + ' ' + pctStr + '</span>' +
+          '</div>';
+      });
+      document.getElementById('optim-deltas').innerHTML = deltaHtml;
+
+      // Overall delta
+      var overallBefore = Math.round(
+        og.scores.van.pct * 0.35 +
+        Math.max(0, -og.scores.dmn.z * 33 + 50) * 0.25 +
+        og.scores.dan.pct * 0.15 +
+        og.scores.limbic.pct * 0.25
+      );
+      var overallAfter = Math.round(
+        opt.scores.van.pct * 0.35 +
+        Math.max(0, -opt.scores.dmn.z * 33 + 50) * 0.25 +
+        opt.scores.dan.pct * 0.15 +
+        opt.scores.limbic.pct * 0.25
+      );
+      var overallDelta = overallAfter - overallBefore;
+      var deltaSign = overallDelta >= 0 ? '+' : '';
+      document.getElementById('optim-overall-delta').innerHTML =
+        'Score: ' + overallBefore + ' → ' + overallAfter +
+        ' <span style="color:' + (overallDelta >= 0 ? '#3a7a3a' : '#8a3a3a') + '">' +
+        deltaSign + overallDelta + '</span>';
+
+      // Improvements
+      var imprHtml = '<strong>Improvements made:</strong> ';
+      if (data.improvements_made && data.improvements_made.length > 0) {
+        imprHtml += data.improvements_made.map(function(i) { return '• ' + i; }).join('<br>');
+      } else {
+        imprHtml += 'Your brief already scores well — no changes needed.';
+      }
+      document.getElementById('optim-improvements').innerHTML = imprHtml;
+
+      el.style.display = 'block';
+      document.getElementById('neural-score').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function acceptOptimizedBrief() {
+      var text = document.getElementById('optim-optimized-text').textContent;
+      document.getElementById('brief').value = text;
+
+      // Hide the comparison panel
+      document.getElementById('optim-compare').style.display = 'none';
+
+      // Rescore the accepted brief
+      scoreBrief();
+    }
+
+    function toggleColabUpload() {
+      var el = document.getElementById('colab-upload');
+      el.classList.toggle('active');
+    }
+
+    function uploadColabResults(event) {
+      var file = event.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          var data = JSON.parse(e.target.result);
+          if (data.status === 'success' && data.scores) {
+            colabScores = data;
+            var report = {
+              status: 'success',
+              source: 'colab_tribev2',
+              scores: data.scores,
+              overall: data.overall || 50,
+              verdict: data.verdict || 'medium',
+              verdict_reason: 'Full TRIBE v2 inference via T4 GPU. Scores are from the actual fMRI model.',
+              recommendations: [],
+              _meta: { source: 'colab_tribev2 - full fMRI inference', brief_length: (data.content || '').length }
+            };
+            renderNeuralScore(report);
+            document.getElementById('neural-source').innerHTML +=
+              ' · <a href="/colab.html" style="color:var(--accent);text-decoration:underline;">Run again on Colab →</a>';
+            document.getElementById('colab-upload').classList.remove('active');
+            document.getElementById('colab-file').value = '';
+            trackEvent('colab_results_uploaded');
+          } else {
+            alert('Invalid Colab results file. Make sure you uploaded tribev2_results.json from the notebook.');
+          }
+        } catch(err) {
+          alert('Could not parse file: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    async function deployCampaign(campaignTitle) {
+      var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      var email = localStorage.getItem('nexus_lead_email') || '';
+
+      try {
+        var res = await fetch('/api/campaign-pipeline', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ brief: brief, email: email, platform: 'nexus_creative' }),
+        });
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Deploy failed');
+
+        var orcaHtml = '';
+        if (data.orca === 'pushed' && data._orca) {
+          orcaHtml = '<div style="margin-top:0.5rem;padding:0.6rem;border:1.5px solid #3a5a8a;border-radius:0.5rem;background:#eef3f8;">' +
+            '<strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:#3a5a8a;">ORCA — Campaign Pushed</strong>' +
+            '<p style="font-size:0.75rem;margin:0.3rem 0;color:var(--ink);">Status: <strong>' + data._orca.status + '</strong> · Multi-agent crew will adapt & schedule across ' + data.campaign.platforms.length + ' platforms.</p>' +
+            '<a href="' + data._orca.dashboard_url + '" class="btn" style="margin-top:0.3rem;font-size:0.7rem;padding:0.3rem 0.8rem;" target="_blank">Open in ORCA ↗</a>' +
+            '</div>';
+        } else if (data.orca === 'skipped') {
+          orcaHtml = '<p style="font-size:0.7rem;color:var(--ink-muted);margin-top:0.4rem;">ORCA: skipped (set ORCA_WEBHOOK_URL to enable auto-push)</p>';
+        } else {
+          orcaHtml = '<p style="font-size:0.7rem;color:#8a6a3a;margin-top:0.4rem;">ORCA: ' + (data._orca?.error || data.orca) + ' — campaign saved locally</p>';
+        }
+
+        document.getElementById('image-status').innerHTML =
+          '<div style="margin-top:1rem;padding:1.2rem;border:1.5px solid #3a7a3a;border-radius:0.6rem;background:#eef5ee;">' +
+          '<strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:#3a7a3a;">✓ Campaign deployed</strong>' +
+          '<p style="font-size:0.82rem;margin:0.4rem 0;color:var(--ink);">' +
+          '<strong>Headline:</strong> ' + data.campaign.headline + '<br>' +
+          '<strong>Neural Score:</strong> ' + data.neural_scores.overall + '/100<br>' +
+          '<strong>Platforms:</strong> ' + data.campaign.platforms.join(', ') + '</p>' +
+          '<p style="font-size:0.72rem;color:var(--ink-muted);">Deploy key: ' + data.deploy_key + ' · Tracked in pipeline.</p>' +
+          '<a href="/dogfood" class="btn" style="margin-top:0.3rem;font-size:0.7rem;padding:0.3rem 0.8rem;" target="_blank">See all deployed campaigns ↗</a>' +
+          orcaHtml +
+          '</div>';
+
+        trackEvent('campaign_deployed');
+      } catch (err) {
+        console.error(err);
+        document.getElementById('image-status').innerHTML =
+          '<div style="margin-top:1rem;padding:0.8rem;border:1px solid #8a3a3a;border-radius:0.4rem;font-size:0.8rem;color:#8a3a3a;">' +
+          'Deploy failed: ' + err.message + '</div>';
+      }
+    }
+
+    function clearBrief(){
+      document.getElementById('brief').value = '';
+      document.getElementById('brief').focus();
+      document.getElementById('output-title').textContent = 'Nordic Tech-Street Capsule';
+      document.getElementById('output-body').innerHTML = SAMPLES[0].body.replace(/\n/g, '<br>').replace(/<b>(.*?)<\/b>/g, '<strong>$1</strong>');
+      document.querySelector('.output-meta').innerHTML = parseMeta(SAMPLES[0].meta);
+      document.getElementById('image-status').innerHTML =
+        'Enter a brief and score it to generate your campaign.';
+      document.getElementById('neural-score').style.display = 'none';
+      document.getElementById('optimize-btn').style.display = 'none';
+      document.getElementById('optim-compare').style.display = 'none';
+      showGuardrailStatus(null);
+    }
+
+    function openLiabilityModal(imageUrl, title) {
+      document.getElementById('liability-image-url').value = imageUrl;
+      document.getElementById('liability-title').value = title;
+      document.getElementById('liability-checkbox').checked = false;
+      document.getElementById('liability-download').disabled = true;
+      document.getElementById('liability-modal').classList.add('open');
+    }
+
+    function closeLiabilityModal() {
+      document.getElementById('liability-modal').classList.remove('open');
+    }
+
+    function confirmDownload() {
+      var imageUrl = document.getElementById('liability-image-url').value;
+      var title = document.getElementById('liability-title').value;
+      var a = document.createElement('a');
+      a.href = imageUrl;
+      a.download = title.replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      closeLiabilityModal();
+    }
+
+    // Initialize credits display (demo - replace with real user email)
+    checkCredits('demo@nexus.taurusai.io').then(updateCreditsDisplay);
+
+    // Scroll reveal via IntersectionObserver
+    var revealObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function(el){ revealObserver.observe(el); });
+  </script>
+</body>
+</html>

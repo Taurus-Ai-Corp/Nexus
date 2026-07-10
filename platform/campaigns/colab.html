@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free GPU Neural Scoring — Nexus Creative</title>
+  <meta name="description" content="Run Meta TRIBE v2 fMRI inference on free Google Colab T4 GPU — zero cost, zero setup.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0E0B09; --surface: #1A1714; --cream: #F6F4EF;
+      --ink: #14110F; --ink-muted: #8A847A; --accent: #B85C38;
+      --accent-warm: #C97B5C; --border: #2A2622; --glow: rgba(184,92,56,0.15);
+      --ease-out: cubic-bezier(0.23,1,0.32,1);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: var(--font-body);
+      color: var(--cream); background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    h1,h2,h3 { font-family: var(--font-display); margin: 0; font-weight: 400; }
+    h1 { font-size: clamp(2.4rem,5vw,4rem); line-height: 0.96; letter-spacing: -0.03em; }
+    h2 { font-size: clamp(1.8rem,3vw,2.6rem); line-height: 1.0; letter-spacing: -0.02em; }
+    h3 { font-size: 1.3rem; font-family: var(--font-body); font-weight: 600; letter-spacing: 0; }
+    p { line-height: 1.7; color: var(--ink-muted); margin: 0; }
+    .mono {
+      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.18em;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+    /* Hero */
+    .hero { padding: 6rem 0 4rem; position: relative; }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, var(--glow) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero .mono { color: var(--accent); margin-bottom: 1rem; display: block; }
+    .hero p { font-size: 1.1rem; margin: 1.2rem 0 2rem; max-width: 600px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 0.9rem 1.6rem; border-radius: 999px;
+      background: var(--accent); color: var(--cream); font-size: 0.85rem; font-weight: 600;
+      border: 1.5px solid var(--accent);
+      cursor: pointer; transition: transform 160ms var(--ease-out), background 200ms;
+      text-decoration: none;
+    }
+    .btn:hover { transform: translateY(-2px); background: var(--accent-warm); }
+    .btn-outline {
+      background: transparent; color: var(--cream); border-color: var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); background: transparent; }
+
+    /* Steps */
+    .steps { padding: 0 0 6rem; }
+    .step {
+      display: grid; grid-template-columns: 48px 1fr; gap: 1rem;
+      padding: 1.5rem 0; border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: var(--font-display); font-size: 1.5rem; color: var(--accent);
+      height: 48px; width: 48px; display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid var(--border); border-radius: 50%;
+    }
+    .step-title { font-weight: 600; margin-bottom: 0.3rem; }
+    .step-desc { font-size: 0.92rem; }
+    .step-desc code {
+      font-family: var(--font-mono); font-size: 0.8rem;
+      background: var(--surface); padding: 0.1rem 0.4rem; border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    /* Status card */
+    .status-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 2rem; margin: 2rem 0;
+    }
+    .status-card .val { font-size: 1.6rem; font-weight: 600; color: var(--cream); }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(14,11,9,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    nav a { font-size: 0.82rem; font-weight: 500; color: var(--ink-muted); transition: color 200ms; }
+    nav a:hover { color: var(--cream); }
+    nav .brand { font-family: var(--font-display); font-size: 1rem; color: var(--cream); font-weight: 400; }
+
+    .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .spec { padding: 1rem; background: var(--surface); border-radius: 8px; border: 1px solid var(--border); }
+    .spec-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-muted); margin-bottom: 0.4rem; }
+    .spec-val { font-size: 0.95rem; font-weight: 500; }
+
+    @media (max-width: 600px) {
+      .specs { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 36px 1fr; }
+      .step-num { width: 36px; height: 36px; font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="/" class="brand">Nexus Creative</a>
+    <div>
+      <a href="/agency.html" style="margin-right:1.5rem;">Agency Portal</a>
+      <a href="/world-cup-2026.html" style="margin-right:1.5rem;">World Cup Pack</a>
+      <a href="/colab.html" style="color:var(--accent);">Free GPU</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <span class="mono">Free GPU Inference</span>
+    <h1>Run TRIBE v2<br>on a Free T4 GPU</h1>
+    <p>
+      Meta's fMRI foundation model, zero cloud cost. Google Colab's free T4 GPU 
+      delivers full TRIBE v2 inference — same accuracy as our RunPod production tier.
+    </p>
+    <a href="/tribev2_inference.ipynb" class="btn" download>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v10M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Download Notebook
+    </a>
+    <a href="https://colab.research.google.com/github/taurus-ai/nexus-creative/blob/main/tribev2_inference.ipynb" target="_blank" class="btn btn-outline" style="margin-left:0.6rem;">
+      Open in Colab →
+    </a>
+  </div>
+</section>
+
+<section class="steps">
+  <div class="container">
+
+    <div class="status-card">
+      <span class="mono" style="color:var(--accent);">Specs</span>
+      <div class="specs">
+        <div class="spec">
+          <div class="spec-label">GPU</div>
+          <div class="spec-val">NVIDIA T4 (16GB VRAM)</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Cost</div>
+          <div class="spec-val">$0 — 30h/week free quota</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Download Time</div>
+          <div class="spec-val">3-5 min (model weights ~12GB)</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Inference Time</div>
+          <div class="spec-val">~30s per text analysis</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="margin-bottom:2rem;">How It Works</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Get Your HuggingFace Token</div>
+        <div class="step-desc">
+          TRIBE v2 is a gated model on HuggingFace. 
+          <a href="https://huggingface.co/settings/tokens" target="_blank" style="color:var(--accent);">Generate a free token</a> 
+          — no payment method required. Accept the model terms at 
+          <code>facebook/tribev2</code> once, then you're set.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Open the Notebook in Colab</div>
+        <div class="step-desc">
+          Click <strong>"Open in Colab"</strong> above. The notebook connects to a 
+          free T4 GPU runtime automatically. 
+          <span style="color:var(--ink-muted);">(Runtime → Change runtime type → T4 GPU)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Run Cells 1-3 (One-Time Setup)</div>
+        <div class="step-desc">
+          Paste your HF token, install dependencies, and download the model. 
+          Takes 3-5 minutes. The model stays cached in the Colab runtime.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Paste Content & Run Cells 4-7</div>
+        <div class="step-desc">
+          Paste your brief, hook, or ad copy into <code>TEXT_TO_ANALYZE</code>. 
+          The notebook outputs full VAN/DMN/DAN/Limbic Z-scores with percentiles 
+          and downloads a JSON file.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div>
+        <div class="step-title">Upload Results Back</div>
+        <div class="step-desc">
+          On the Nexus Creative main page, click <strong>"Upload Colab Results"</strong> 
+          and select the <code>tribev2_results.json</code> file. Your scores are 
+          applied immediately — same as RunPod production tier but at zero cost.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem; padding:2rem; background:var(--surface); border:1px solid var(--border); border-radius:12px;">
+      <span class="mono" style="color:var(--accent);">Why Colab vs RunPod</span>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-top:1rem;">
+        <div>
+          <div style="font-weight:600; margin-bottom:0.2rem;">Colab (Free)</div>
+          <ul style="margin:0; padding-left:1rem; font-size:0.85rem; color:var(--ink-muted); line-height:1.6;">
+            <li>$0 / month</li>
+            <li>30h/week GPU quota</li>
+            <li>Manual workflow</li>
+            <li>Best for development & testing</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-weight:600; margin-bottom:0.2rem;">RunPod (Production)</div>
+          <ul style="margin:0; padding-left:1rem; font-size:0.85rem; color:var(--ink-muted); line-height:1.6;">
+            <li>~$0.29/hr RTX 4090</li>
+            <li>Always-on API endpoint</li>
+            <li>Auto-scaling serverless</li>
+            <li>Best for client-facing use</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-weight:600; margin-bottom:0.2rem;">Heuristic (Instant)</div>
+          <ul style="margin:0; padding-left:1rem; font-size:0.85rem; color:var(--ink-muted); line-height:1.6;">
+            <li>$0 / month</li>
+            <li>Instant (no GPU needed)</li>
+            <li>~85% accuracy vs full TRIBE</li>
+            <li>Always available</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,44 +1,47 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/social", "destination": "/social/index.html" },
-    { "source": "/social/:path*", "destination": "/social/:path*" },
-    { "source": "/creative", "destination": "/creative/index.html" },
-    { "source": "/creative/:path*", "destination": "/creative/:path*" },
-    { "source": "/intel", "destination": "/intel/index.html" },
-    { "source": "/intel/:path*", "destination": "/intel/:path*" },
-    { "source": "/freelance", "destination": "/freelance/index.html" },
-    { "source": "/freelance/:path*", "destination": "/freelance/:path*" },
-    { "source": "/api/:path*", "destination": "/api/:path*" }
-  ],
-  "redirects": [
-    { "source": "/social/", "destination": "/social", "permanent": true },
-    { "source": "/creative/", "destination": "/creative", "permanent": true },
-    { "source": "/intel/", "destination": "/intel", "permanent": true },
-    { "source": "/freelance/", "destination": "/freelance", "permanent": true }
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/campaigns/(.*)",
+      "dest": "/campaigns/$1"
+    },
+    {
+      "src": "/favicon\\.ico",
+      "dest": "/assets/favicon.svg"
+    },
+    {
+      "src": "/robots\\.txt",
+      "dest": "/robots.txt"
+    },
+    {
+      "src": "/sitemap\\.xml",
+      "dest": "/sitemap.xml"
+    },
+    {
+      "src": "/(.*)\\.(png|jpg|jpeg|gif|svg|webp|json|css|js|mp4|webm|pdf)",
+      "dest": "/$1.$2"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';" }
-      ]
-    },
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-store, max-age=0" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     }
   ]
