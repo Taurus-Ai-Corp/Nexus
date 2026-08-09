@@ -12,7 +12,7 @@
 > This document designs the business structure around **TAURUS AI CORP - FZCO**
 > (UAE, IFZA Dubai, License #68122). That entity was **retired on 2026-08-08**.
 > NEXUS now contracts through **TAURUS AI Corp.** (Canada — Federal CBCA,
-> 1702855-5) and serves worldwide.
+> 1001270625) and serves worldwide.
 >
 > The FZCO references below are deliberately left intact. They are not stale
 > branding that can be find-and-replaced — the document reasons about UAE

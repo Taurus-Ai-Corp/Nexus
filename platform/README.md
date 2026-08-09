@@ -45,5 +45,5 @@ Pushes to `feat/nexosync-to-nexus-rebrand` auto-deploy via Vercel. Subpaths are 
 ## Brand notes
 
 - Marketing copy uses **NEXUS by Taurus AI**.
-- Legal/footer uses **TAURUS AI Corp.** (Canada — Federal CBCA, 1702855-5). The UAE FZCO entity was retired 2026-08-08.
+- Legal/footer uses **TAURUS AI Corp.** (Canada — Federal CBCA, 1001270625). The UAE FZCO entity was retired 2026-08-08.
 - Creative vertical uses the warm editorial `.theme-creative` override while sharing the same design tokens.

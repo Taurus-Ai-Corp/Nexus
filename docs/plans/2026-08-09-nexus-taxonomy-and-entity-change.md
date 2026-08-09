@@ -14,7 +14,7 @@ called out about the older 3-flagship `prd_website_launch.md`. Read this one fir
 
 **"TAURUS AI CORP - FZCO"** (UAE, IFZA Dubai, License #68122) was retired as the NEXUS
 contracting entity. NEXUS now contracts through **TAURUS AI Corp.** (Canada — Federal CBCA,
-1702855-5, 2261 Marentette Ave, Windsor ON N8X 4E9) and serves worldwide.
+1001270625, 2261 Marentette Ave, Windsor ON N8X 4E9) and serves worldwide.
 
 Changed in the canonical source `~/.ai-context/taxonomy/TAXONOMY.toml` (v1.1.0), which
 regenerates 15 agent-context files. **Do not hand-edit the generated blocks.**
@@ -86,10 +86,17 @@ to prevent.
   mounts for Orchestra/Agency add none, but any new API route needs consolidation first.
   There is a test asserting the cap.
 - **`taurusai.io` is mid-registrar-transfer** (`pendingTransfer` as of 2026-08-08).
-  `nexus.taurusai.io` and every sibling subdomain resolve to registrar parking. The
-  Cloudflare zone `6e3b2864707588f82a4e6b022010002d` exists but is `status: pending`,
-  expecting `dexter`/`gina.ns.cloudflare.com`. Verify against
-  `nexus-platform-kohl.vercel.app` until delegation lands.
+  Every subdomain (`nexus`, `orca`, `opsflow`, `bizflow`, `bio-foundry`, `www`) resolves to
+  parking and **HTTPS times out** — verified 2026-08-09, now `104.219.250.37` (it was
+  `72.251.7.22/.23` on 2026-08-08, so the parking target is still moving). The Cloudflare
+  zone `6e3b2864707588f82a4e6b022010002d` exists but is `status: pending`, expecting
+  `dexter`/`gina.ns.cloudflare.com`. Verify against `nexus-platform-kohl.vercel.app` until
+  delegation lands. `matermariahomes.com` and `q-grid.net` are on separate zones and ARE live.
+- **Fix the mis-pointed subdomains BEFORE DNS is restored.** Nothing on `*.taurusai.io` is
+  publicly reachable right now, which makes this the cheapest possible window to correct
+  them. Two are wrong today (see `docs/plans/2026-08-09-vercel-project-audit.md`):
+  `opsflow.taurusai.io` serves an unrelated third party's site, and `orca.taurusai.io` serves
+  a retired brand with a broken stylesheet. Both go live the moment delegation lands.
 - **Use A records, not a CNAME, for `nexus`.** Vercel recommends
   `CNAME → 416043bc885ff1d4.vercel-dns-017.com`, but `nexus` also needs the Brevo
   `brevo-code:` TXT, and RFC 1034 forbids a CNAME coexisting with another record at the

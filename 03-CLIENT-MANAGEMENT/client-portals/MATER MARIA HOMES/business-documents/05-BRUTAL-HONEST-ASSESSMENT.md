@@ -88,7 +88,7 @@ UAE-registered entity, this payment is exempt from Indian TDS…"*
 
 **That guidance is no longer valid.** The UAE entity was retired on 2026-08-08
 and this engagement now contracts through TAURUS AI Corp. (Canada — Federal
-CBCA, 1702855-5). None of the above carries over:
+CBCA, 1001270625). None of the above carries over:
 
 - The UAE-India treaty cannot be invoked by a Canadian entity. Withholding is
   governed by the **Canada-India** DTAA, which has its own rates and its own

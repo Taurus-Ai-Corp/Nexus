@@ -11,7 +11,7 @@
 
 | Entity | Jurisdiction | Role | Signs |
 |---|---|---|---|
-| **TAURUS AI Corp.** | Canada — Federal (CBCA) (1702855-5) | Operating parent, R&D, primary operator. Signs NEXUS since 2026-08-08, serving worldwide. | SENTINEL, NEXUS |
+| **TAURUS AI Corp.** | Canada — Federal (CBCA) (1001270625) | Operating parent, R&D, primary operator. Signs NEXUS since 2026-08-08, serving worldwide. | SENTINEL, NEXUS |
 | **ARQ QUANTUM LLC** | USA — Wyoming | IP holding company. Holds the patents; grants exclusive worldwide license to TAURUS AI Corp. | GRIDERA |
 | **Quantum Grid LLC** | USA — Wyoming | Parked / unused. Registered legal entity, not a product name. <!-- brand-allow --> | — |
 
@@ -27,19 +27,19 @@
 
 - **Entity:** ARQ QUANTUM LLC
 - **Status:** **shipping**
-- **Domain:** `grid-era.com` — Domain migrated 2026-08-08 from q-grid.net. q-grid.net is the historical prod identifier and remains pointed during cutover; grid-era.com is the new canonical primary. Other q-grid.* (in/ca/eu/ae) remain parked per user direction 2026-08-08.
+- **Domain:** `q-grid.net` — PRODUCTION IS q-grid.net — eu.q-grid.net verified serving HTTP 200. grid-era.com was registered 2026-08-08 (Cloudflare) and its NS are delegated, but it has NO A RECORD and serves nothing (verified 2026-08-09 against 8.8.8.8 and 1.1.1.1). It is the INTENDED future primary, not the current one. eu.grid-era.com likewise does not resolve — never use it as a CTA/deploy target. Do not repoint product traffic or marketing copy until DNS actually resolves; the earlier gridera.net migration was attempted and reversed.
 - **Summary:** Post-quantum cryptography compliance platform. Sovereign jurisdiction cells (na/eu/in/ae/ca).
 - **Code:** `HEDERA/gridera-platform` · repo `Taurus-Ai-Corp/GRIDERA`
 - **Naming:** pipe form `GRIDERA|<SubProduct>` — space form is **FORBIDDEN**
 
 **Sub-products:**
 
-- `GRIDERA|Comply` — **shipping** — Primary product — assessments, compliance matrix, reports, systems, CA pack
+- `GRIDERA|Comply` — **shipping** — Primary product — assess & regulate: assessments, compliance matrix, systems, CA pack (EU AI Act, DORA). Report/attestation OUTPUT is branded GRIDERA|Certify, though it lives in the same app.
 - `GRIDERA|Scan` — **shipping** — Free public SSL/PQC scan — QRS funnel entry
 - `GRIDERA|Guard` — **shipping** — Executor / observe / LLM compliance assist
 - `GRIDERA|Migrate` — **shipping** — Org-change wizard / policies — IN-APP, not a separate deploy
 - `GRIDERA|Pay` — separate track — India CBDC / x402 rails. Out of the GRIDERA A-track; separate repo and domain.
-- `GRIDERA|Certify` — roadmap — No PRD or scope document exists yet.
+- `GRIDERA|Certify` — **shipping** — Executive reports / attestation / verifiable proof — IN-APP, not a separate deploy (same rule as Migrate). Surface brand over Comply's dashboard/executive + api/reports (ML-DSA-65 signed) + caConfig.documentTypes + Hedera HCS anchoring + tools/gridera-verify. Marketing route /certify on landing. NEVER imply accredited certification — 0 credentialed auditors.
 - `GRIDERA|Lend` — roadmap — Formerly LendGrid. No PRD or scope document exists yet.
 - `GRIDERA|Shield` — roadmap — No PRD or scope document exists yet.
 - `GRIDERA|Arq` — concept — Architecture demo, largely archived. STALE_DOC_AUDIT_2026-07-22 classes it as concept, not codebase.
@@ -196,7 +196,7 @@ taurus-ai-corp-ci-audit/  # CI/audit clones and external repo mirrors
 
 ## Corporate vs. Operating Brand
 
-- Legal docs (invoices, contracts, NDAs): header = "TAURUS AI Corp." (Canada — Federal CBCA, 1702855-5, 2261 Marentette Ave, Windsor ON N8X 4E9)
+- Legal docs (invoices, contracts, NDAs): header = "TAURUS AI Corp." (Canada — Federal CBCA, 1001270625, 2261 Marentette Ave, Windsor ON N8X 4E9)
 - Client-facing (marketing, SaaS, proposals): brand = "Nexus by Taurus AI" / "GRIDERA"
 - NEVER mix — government/legal uses the registered entity name, customer-facing uses the operating brand
 - The UAE entity ("TAURUS AI CORP - FZCO", IFZA Dubai, License #68122) was retired 2026-08-08. NEXUS now contracts through the Canadian entity and serves worldwide. Do not reintroduce it on any new document.
