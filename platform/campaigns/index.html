@@ -457,9 +457,9 @@
           <a href="#lab">Lab</a>
           <a href="#process">Process</a>
           <a href="#pricing">Pricing</a>
-          <a href="/agency.html">Agencies</a>
-          <a href="/world-cup-2026.html" style="color:var(--accent);">World Cup</a>
-          <a href="/colab.html">Free GPU</a>
+          <a href="/campaigns/agency.html">Agencies</a>
+          <a href="/campaigns/world-cup-2026.html" style="color:var(--accent);">World Cup</a>
+          <a href="/campaigns/colab.html">Free GPU</a>
           <a href="#contact" class="btn">Request Enterprise Audit</a>
         </nav>
       </div>
@@ -474,7 +474,7 @@
         <p>Nexus Creative turns a product description into a production-ready brief — headline, image prompt, platform plan, and a heuristic TRIBE v2 neural score. Ready for your studio or generative pipeline.</p>
         <div class="hero-actions">
           <a href="#lab" class="btn" onclick="trackEvent('view_demo')">Score your brief <span class="btn-icon">→</span></a>
-        <a href="/case-studies.html" class="btn" onclick="if(typeof gtag==='function'){gtag('event','view_case_studies',{event_category:'nexus_creative'});} if(typeof fbq==='function'){fbq('trackCustom','ViewCaseStudies');}">See our dogfood <span class="btn-icon">→</span></a>
+        <a href="/campaigns/case-studies.html" class="btn" onclick="if(typeof gtag==='function'){gtag('event','view_case_studies',{event_category:'nexus_creative'});} if(typeof fbq==='function'){fbq('trackCustom','ViewCaseStudies');}">See our dogfood <span class="btn-icon">→</span></a>
         </div>
       </div>
       <div class="hero-image">
@@ -603,7 +603,7 @@
         <div class="colab-upload" id="colab-upload">
           <span style="white-space:nowrap;">Upload Colab results:</span>
           <input type="file" id="colab-file" accept=".json" onchange="uploadColabResults(event)">
-          <a href="/colab.html" style="color:var(--accent); font-size:0.78rem; text-decoration:underline; white-space:nowrap;">How it works →</a>
+          <a href="/campaigns/colab.html" style="color:var(--accent); font-size:0.78rem; text-decoration:underline; white-space:nowrap;">How it works →</a>
         </div>
         <div class="image-status" id="image-status">
           Neural-score your brief to generate campaign-ready creative assets.
@@ -958,7 +958,7 @@
 
       var sourceText = 'Scored via ' + (report._meta ? report._meta.source : 'heuristic') + ' neural analysis';
       if (report._meta && report._meta.source === 'heuristic') {
-        sourceText += ' · <a href="/colab.html" style="color:var(--accent);text-decoration:underline;" target="_blank">Free GPU upgrade →</a>';
+        sourceText += ' · <a href="/campaigns/colab.html" style="color:var(--accent);text-decoration:underline;" target="_blank">Free GPU upgrade →</a>';
       }
       source.innerHTML = sourceText;
 
@@ -1232,7 +1232,7 @@
             };
             renderNeuralScore(report);
             document.getElementById('neural-source').innerHTML +=
-              ' · <a href="/colab.html" style="color:var(--accent);text-decoration:underline;">Run again on Colab →</a>';
+              ' · <a href="/campaigns/colab.html" style="color:var(--accent);text-decoration:underline;">Run again on Colab →</a>';
             document.getElementById('colab-upload').classList.remove('active');
             document.getElementById('colab-file').value = '';
             trackEvent('colab_results_uploaded');

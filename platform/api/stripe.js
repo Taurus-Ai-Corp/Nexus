@@ -50,7 +50,9 @@ async function handleCheckout(req, res) {
   const params = new URLSearchParams();
   params.append('mode', canonical === 'studio' ? 'subscription' : 'payment');
   params.append('customer_email', email);
-  params.append('success_url', 'https://nexus.taurusai.io/thanks.html?session_id={CHECKOUT_SESSION_ID}&plan=' + canonical);
+  // thanks.html lives under /campaigns/ since the nexus-creative-editorial migration.
+  // The bare /thanks.html path 404s, which stranded every completed checkout.
+  params.append('success_url', 'https://nexus.taurusai.io/campaigns/thanks.html?session_id={CHECKOUT_SESSION_ID}&plan=' + canonical);
   params.append('cancel_url', 'https://nexus.taurusai.io/#pricing');
   params.append('payment_method_types[]', 'card');
   params.append('line_items[0][price]', basePriceId);

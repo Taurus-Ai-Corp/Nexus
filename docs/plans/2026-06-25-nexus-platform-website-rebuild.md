@@ -1,5 +1,10 @@
 # Plan: Rebuild `nexus-web` as `platform/` — Nexus by Taurus AI (4-vertical architecture)
 
+> **SUPERSEDED 2026-08-09** -- this document locks the platform to exactly four verticals
+> (Social/Creative/Intel/Freelance) and keeps Agency OS as a sibling product. Both are no
+> longer true, and the contracting entity has moved from the UAE FZCO to TAURUS AI Corp.
+> (Canada). See `docs/plans/2026-08-09-nexus-taxonomy-and-entity-change.md`.
+
 **Date:** 2026-06-25  
 **Based on:** `docs/superpowers/specs/2026-06-24-nexus-enterprise-repo-design.md` (red / latest PRD)  
 **Branch:** `feat/nexosync-to-nexus-rebrand` (do not touch `main` directly)  

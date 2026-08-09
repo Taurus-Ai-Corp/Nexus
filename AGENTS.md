@@ -321,7 +321,9 @@ npm run n8n:import           # Import N8N workflows
 06-WORKFLOWS/               # Partnership pitches, demos, and reusable campaign flows
 platform/                   # NEXUS by Taurus AI marketing site (nexus.taurusai.io) — STATIC HTML/CSS/JS
 SWARM SR Internal Analysis/ # Internal research, analytics, and tooling docs
-taurus-agency-os/           # Agency OS frontend
+agency-os/                  # Nexus Agency — NOT YET CLONED. De-vendored to the sibling
+                            # Taurus-Ai-Corp/agency-os repo on 2026-06-25; the old
+                            # taurus-agency-os/ path no longer exists.
 taurus-ai-corp-ci-audit/  # CI/audit clones and external repo mirrors
 ```
 
