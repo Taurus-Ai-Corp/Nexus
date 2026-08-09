@@ -1,4 +1,21 @@
 repos:
+  # TAURUS brand guard. Rules are generated from the org-wide single source of
+  # truth at ~/.ai-context/taxonomy/TAXONOMY.toml, which knows that naming form
+  # differs per platform — "Nexus Social" is correct space form, while
+  # "GRIDERA Comply" is a violation.  # brand-allow
+  # Added as a local hook rather than via core.hooksPath, which would have
+  # disabled this framework and git-lfs.
+  # Skips silently if the taxonomy repo is not present on this machine.
+  - repo: local
+    hooks:
+      - id: taurus-brand-guard
+        name: TAURUS brand guard
+        language: system
+        pass_filenames: false
+        always_run: true
+        entry: >-
+          bash -c 'g="$HOME/.ai-context/taxonomy/scripts/check-brand.sh";
+          [ -x "$g" ] && exec "$g" || exit 0'
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.30.1
     hooks:
