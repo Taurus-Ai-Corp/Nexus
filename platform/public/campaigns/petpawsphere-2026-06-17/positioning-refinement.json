@@ -1,0 +1,20 @@
+{
+  "core_promise": "UAE's first AI-powered, MOCCAE-aligned pet breeding and matching platform",
+  "differentiators": [
+    "Only platform with MOCCAE-aligned breeder verification",
+    "Bilingual Arabic-first UX",
+    "AI compatibility matching + breed detection",
+    "Escrow-protected stud fees",
+    "Built in UAE for UAE pet owners"
+  ],
+  "competitive_gap": "PetCity/Petzone focus on daycare/boarding/products. No direct competitor combines matching + verification + escrow + AI in UAE.",
+  "primary_angles": [
+    "Trust/verification (MOCCAE, UAE PASS, KYC tiers)",
+    "AI convenience (breed detection, compatibility)",
+    "Safety (escrow replaces risky WhatsApp/cash deals)",
+    "Community (all 7 emirates, Arabic-first)"
+  ],
+  "budget_recommendation": "Start $50/day test ($20 B2C + $30 B2B), scale after CPL < $15 and ROAS > 2x",
+  "expected_cpm": "$6-12",
+  "expected_cpl": "$15-40 initial, optimize to <$15"
+}

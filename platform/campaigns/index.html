@@ -543,6 +543,7 @@
         <button class="btn btn-colab" onclick="toggleColabUpload(); trackEvent('colab_upload');">Free GPU (Colab) <span class="btn-icon">↥</span></button>
         <button class="btn" id="refine-btn" onclick="refineBrief(); trackEvent('refine_brief');">Refine brief <span class="btn-icon">→</span></button>
         <button class="btn btn-accent" id="generate-btn" onclick="generateCampaign(); trackEvent('generate_campaign');">Generate Final Campaign <span class="btn-icon">★</span></button>
+        <button class="btn" id="flow-btn" onclick="generateFlowBrief(); trackEvent('flow_brief');" style="background:var(--dark);color:#fff;border-color:var(--dark);">Google Flow Brief <span class="btn-icon">↗</span></button>
         <button class="btn btn-ghost" onclick="clearBrief()">Clear</button>
       </div>
       <div class="credit-indicator" id="credit-indicator">
@@ -1243,6 +1244,69 @@
         }
       };
       reader.readAsText(file);
+    }
+
+    async function generateFlowBrief() {
+      var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
+      var btn = document.getElementById('flow-btn');
+      btn.classList.add('loading');
+      btn.innerHTML = '<span class="spinner"></span> Building Flow brief...';
+
+      try {
+        var res = await fetch('/api/omni/brief', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ campaign: { brief: brief }, client: 'Nexus Creative', variants: 3 }),
+        });
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Flow brief failed');
+
+        var scenesHtml = data.scenes.map(function(s) {
+          return '<li style="margin-bottom:0.6rem;"><strong>' + s.title + '</strong> — ' + s.prompt + '<br><span style="font-size:0.72rem;color:var(--ink-muted);">Output: ' + s.output + ' · Tools: ' + s.tools.join(', ') + '</span></li>';
+        }).join('');
+
+        document.getElementById('output-title').textContent = data.brand.tagline || 'Google Flow Brief';
+        document.getElementById('output-body').innerHTML =
+          '<strong>Client:</strong> ' + data.client + '<br>' +
+          '<strong>Archetype:</strong> ' + data.archetype + '<br>' +
+          '<strong>Category:</strong> ' + data.category + '<br>' +
+          '<strong>Project:</strong> ' + data.flow_session_plan.project_name + '<br>' +
+          '<strong>Bible Prompt:</strong><br>' + data.bible_prompt.replace(/\n/g, '<br>') + '<br>' +
+          '<strong>Scenes:</strong><ol>' + scenesHtml + '</ol>';
+
+        document.querySelector('.output-meta').innerHTML =
+          '<div class="meta-item"><strong>Brief ID</strong>' + data.brief_id + '</div>' +
+          '<div class="meta-item"><strong>Variants</strong>' + (data.export_settings?.video ? '3 videos + 2 images' : '3') + '</div>' +
+          '<div class="meta-item"><strong>Export</strong>' + (data.export_settings?.video?.aspect_ratio || '9:16') + '</div>';
+
+        document.getElementById('image-status').innerHTML =
+          '<div style="margin-top:1rem;padding:1rem;border:1.5px solid #3a5a8a;border-radius:0.6rem;background:#eef3f8;">' +
+          '<strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:#3a5a8a;">Google Flow Brief Ready</strong>' +
+          '<p style="font-size:0.82rem;margin:0.4rem 0;color:var(--ink);">Open <a href="https://labs.google/fx/tools/flow" target="_blank" style="color:var(--accent);text-decoration:underline;">labs.google/fx/tools/flow</a>, create project "' + data.flow_session_plan.project_name + '", then paste scenes into the prompt tree.</p>' +
+          '<button class="btn btn-accent" style="margin-top:0.3rem;font-size:0.7rem;padding:0.3rem 0.8rem;" onclick="copyFlowBrief()">Copy brief to clipboard</button>' +
+          '</div>';
+
+        window._lastFlowBrief = data;
+        trackEvent('flow_brief_generated');
+      } catch (err) {
+        console.error(err);
+        document.getElementById('image-status').innerHTML =
+          '<div style="margin-top:1rem;padding:0.8rem;border:1px solid #8a3a3a;border-radius:0.4rem;font-size:0.8rem;color:#8a3a3a;">' +
+          'Flow brief failed: ' + err.message + '</div>';
+      } finally {
+        btn.classList.remove('loading');
+        btn.innerHTML = 'Google Flow Brief <span class="btn-icon">↗</span>';
+      }
+    }
+
+    function copyFlowBrief() {
+      if (!window._lastFlowBrief) return;
+      var text = JSON.stringify(window._lastFlowBrief, null, 2);
+      navigator.clipboard.writeText(text).then(function() {
+        alert('Flow brief copied to clipboard.');
+      }).catch(function() {
+        alert('Copy failed. Select the output text manually.');
+      });
     }
 
     async function deployCampaign(campaignTitle) {

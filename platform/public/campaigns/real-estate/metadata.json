@@ -1,0 +1,29 @@
+{
+  "campaignId": "real-estate-2026-06",
+  "client": "Nexus Real Estate",
+  "vertical": "creative",
+  "archetype": "studio",
+  "category": "real_estate",
+  "createdAt": "2026-06-15",
+  "status": "draft",
+  "brand": {
+    "name": "Nexus Real Estate",
+    "tagline": "Listings that sell faster with AI staging.",
+    "colors": {
+      "primary": "#B85C38",
+      "secondary": "#3D6B57",
+      "surface": "#F6F4EF"
+    },
+    "market": "Global"
+  },
+  "assets": [],
+  "metadata": {
+    "brief": "Real estate listing campaign with AI virtual staging and neighborhood intelligence.",
+    "archetype": "studio",
+    "category": "real_estate",
+    "neuralScores": { "overall": 74, "van": 58, "dmn": 28, "dan": 62, "limbic": 55 },
+    "bibleVersion": "1.0.0",
+    "flowSession": null,
+    "deployKey": "real-estate-2026-06"
+  }
+}

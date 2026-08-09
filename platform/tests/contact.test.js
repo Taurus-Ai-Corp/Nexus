@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import handler from './contact.js';
+import handler from '../api/contact.js';
 
 function mockRes() {
   const headers = [];
@@ -71,5 +71,25 @@ describe('contact handler', () => {
     await handler(req, res);
     assert.strictEqual(res.getStatus(), 400);
     assert.strictEqual(res.getBody().error, 'Invalid submission');
+  });
+
+  it('rejects an over-long name with 400', async () => {
+    const req = mockReq({ body: { name: 'a'.repeat(101), email: 'test@example.com' } });
+    const res = mockRes();
+    await handler(req, res);
+    assert.strictEqual(res.getStatus(), 400);
+    assert.strictEqual(res.getBody().error, 'Field exceeds maximum length');
+    assert.strictEqual(res.getBody().field, 'name');
+  });
+
+  it('rejects an over-long message with 400', async () => {
+    const req = mockReq({
+      body: { name: 'A', email: 'test@example.com', message: 'x'.repeat(5001) },
+    });
+    const res = mockRes();
+    await handler(req, res);
+    assert.strictEqual(res.getStatus(), 400);
+    assert.strictEqual(res.getBody().error, 'Field exceeds maximum length');
+    assert.strictEqual(res.getBody().field, 'message');
   });
 });

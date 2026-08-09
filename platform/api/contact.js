@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer';
 
+const MAX_LENGTHS = { name: 100, email: 254, company: 150, vertical: 100, market: 100, message: 5000 };
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -23,6 +25,14 @@ export default async function handler(req, res) {
   if (!emailRegex.test(email.trim())) {
     res.status(400).json({ error: 'Invalid email address' });
     return;
+  }
+
+  for (const [field, max] of Object.entries(MAX_LENGTHS)) {
+    const value = (req.body || {})[field];
+    if (typeof value === 'string' && value.length > max) {
+      res.status(400).json({ error: 'Field exceeds maximum length', field });
+      return;
+    }
   }
 
   const lead = {

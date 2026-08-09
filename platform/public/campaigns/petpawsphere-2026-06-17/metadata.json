@@ -1,0 +1,37 @@
+{
+  "campaignId": "petpawsphere-2026-06-17",
+  "client": "PetPawSphere",
+  "vertical": "creative",
+  "archetype": "ugc",
+  "category": "pet",
+  "createdAt": "2026-06-17",
+  "status": "launched",
+  "brand": {
+    "name": "PetPawSphere",
+    "tagline": "Where every paw finds its trusted path.",
+    "colors": {
+      "warmPaper": "#f5f0e4",
+      "green": "#00843D",
+      "red": "#CE1126",
+      "black": "#0e0e0e"
+    },
+    "market": "UAE-first, Arabic bilingual, PDPL-compliant"
+  },
+  "assets": [
+    { "type": "image", "scene": "hero_pet_owner", "variant": "v1", "path": "assets/petpawsphere_hero_pet_owner.png" },
+    { "type": "image", "scene": "breeder_marketplace", "variant": "v1", "path": "assets/petpawsphere_breeder_marketplace.png" },
+    { "type": "image", "scene": "ai_breed_detection", "variant": "v1", "path": "assets/petpawsphere_ai_breed_detection.png" },
+    { "type": "video", "scene": "ugc_selfie_review", "variant": "v1", "path": "videos/petpawsphere_wan22_ai_breed_detection.mp4" },
+    { "type": "video", "scene": "face_portrait", "variant": "d3", "path": "videos/petpawsphere_face_portrait--d3.mp4" },
+    { "type": "video", "scene": "face_portrait", "variant": "d3-concat", "path": "videos/petpawsphere_face_portrait--d3_concat.mp4" }
+  ],
+  "metadata": {
+    "brief": "PetPawSphere — UAE-first pet ecosystem with AI breed detection, MOCCAE-verified breeders, escrow on stud fees, and care reminders with OCR. Premium but approachable.",
+    "archetype": "ugc",
+    "category": "pet",
+    "neuralScores": { "overall": 87, "van": 72, "dmn": 12, "dan": 65, "limbic": 78 },
+    "bibleVersion": "1.0.0",
+    "flowSession": "flow-petpawsphere-2026-06",
+    "deployKey": "petpawsphere-2026-06-17"
+  }
+}
