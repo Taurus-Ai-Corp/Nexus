@@ -1,7 +1,7 @@
 # PRD: NeoVibe Agentic RAG Orchestrator (NARO)
 
 **Date:** 2026-04-24  
-**Owner:** TAURUS AI Corp - FZCO  
+**Owner:** TAURUS AI Corp.  
 **Model:** hy3-preview-free (opencode)  
 **Status:** Draft v1.0
 

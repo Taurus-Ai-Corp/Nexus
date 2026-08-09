@@ -1,5 +1,5 @@
 # Nexus Platform — Unified Docker Compose
-# TAURUS AI CORP - FZCO | Open-Source First
+# TAURUS AI Corp. | Open-Source First
 # Phase 1: Foundation Stack
 #
 # SECURITY: All secrets MUST be set in .env (never use defaults in production).

@@ -29,7 +29,7 @@ We help businesses in the UAE, India, and Americas automate their marketing and 
 - **Website**: www.taurusai.io
 - **Email**: contact@taurusai.io
 - **LinkedIn**: TaurusAI Corp
-- **Base**: UAE (FZCO), with operations in India and Canada
+- **Base**: Canada (CBCA), with operations in India and Canada
 
 ---
 

@@ -3,13 +3,33 @@
 **Date:** 2026-03-21
 **Author:** TAURUS AI Corp Strategy Team (Effin Fernandez + Claude Opus 4.6)
 **Classification:** Confidential & Proprietary
-**Status:** APPROVED FOR IMPLEMENTATION
+**Status:** ~~APPROVED FOR IMPLEMENTATION~~ — **SUPERSEDED 2026-08-08**
+
+---
+
+> ## ⚠️ SUPERSEDED — historical record, do not implement
+>
+> This document designs the business structure around **TAURUS AI CORP - FZCO**
+> (UAE, IFZA Dubai, License #68122). That entity was **retired on 2026-08-08**.
+> NEXUS now contracts through **TAURUS AI Corp.** (Canada — Federal CBCA,
+> 1702855-5) and serves worldwide.
+>
+> The FZCO references below are deliberately left intact. They are not stale
+> branding that can be find-and-replaced — the document reasons about UAE
+> free-zone *mechanics* (corporate bank account opening, trade-name-under-
+> existing-licence structuring, IFZA employer health-insurance obligations,
+> 0% VAT on exported services, UAE-India DTAA withholding). None of that
+> transfers to a Canadian federal corporation, so swapping the entity name
+> would turn accurate history into confident nonsense.
+>
+> Read this as a record of what was decided in March 2026. For the current
+> structure, see `~/.ai-context/taxonomy/TAXONOMY.toml` (v1.1.0+).
 
 ---
 
 ## 1. Executive Summary
 
-This document defines the complete business structure for **Nexus by Taurus AI** — an AI-powered digital marketing enterprise operating under **TAURUS AI CORP - FZCO** (IFZA Dubai Silicon Oasis). Nexus targets Kerala/India SMEs with enterprise-grade digital marketing at 90% lower cost than traditional agencies, leveraging multi-agent AI automation for delivery.
+This document defines the complete business structure for **Nexus by Taurus AI** — an AI-powered digital marketing enterprise operating under **TAURUS AI Corp.** (IFZA Dubai Silicon Oasis). Nexus targets Kerala/India SMEs with enterprise-grade digital marketing at 90% lower cost than traditional agencies, leveraging multi-agent AI automation for delivery.
 
 ### Key Decisions
 
@@ -30,7 +50,7 @@ This document defines the complete business structure for **Nexus by Taurus AI**
 ### 2.1 Legal Entity
 
 ```
-TAURUS AI CORP - FZCO
+TAURUS AI Corp.
 ├── Registration: #66075
 ├── License: #68122
 ├── Formation: 18/08/2025
@@ -53,7 +73,7 @@ TAURUS AI CORP - FZCO
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│            TAURUS AI CORP - FZCO                     │
+│            TAURUS AI Corp.                     │
 │            Effin Fernandez — Director/GM/Secretary    │
 └───────────────────┬─────────────────────────────────┘
                     │
@@ -87,13 +107,13 @@ TAURUS AI CORP - FZCO
 |-----------|--------|
 | Title | Business Development Manager / Creative Director |
 | Contract type | UAE Employment Contract (IFZA standard template) |
-| Visa | Employee visa under TAURUS AI CORP - FZCO |
+| Visa | Employee visa under TAURUS AI Corp. |
 | Base salary | AED 3,000/month (minimum for visa approval) |
 | Commission | 25% of project revenue he brings, paid on collection |
 | Profit share | 5-10% of Nexus division annual net profit, vesting over 24 months with 6-month cliff |
 | Probation | 6 months |
 | Non-compete | 12 months post-termination, UAE + India digital marketing |
-| IP assignment | All work product belongs to TAURUS AI CORP - FZCO |
+| IP assignment | All work product belongs to TAURUS AI Corp. |
 
 ### 3.2 Visa Processing — Documents Required from Praveen
 
@@ -143,7 +163,7 @@ TAURUS AI CORP - FZCO
 | Coordinate deliverables | Approve refunds |
 | Answer client calls/WhatsApp | Bind FZCO to any agreement |
 
-**All contracts, invoices, pricing, and payments flow through TAURUS AI CORP - FZCO (UAE entity).** This must be documented in Praveen's employment contract and in the company's standard operating procedures.
+**All contracts, invoices, pricing, and payments flow through TAURUS AI Corp. (UAE entity).** This must be documented in Praveen's employment contract and in the company's standard operating procedures.
 
 ---
 
@@ -176,7 +196,7 @@ TAURUS AI CORP - FZCO
 
 ### 4.4 Invoicing
 
-- Invoice from: TAURUS AI CORP - FZCO
+- Invoice from: TAURUS AI Corp.
 - Invoice currency: AED or USD (with INR equivalent)
 - Required fields: IFZA license #, trade license #, client GSTIN/PAN, SAC code, bank IBAN/SWIFT
 - Tool: Zoho Invoice (free tier) or Refrens.com (India-optimized)
@@ -521,6 +541,6 @@ These questions were identified during the brainstorming process as requiring fo
 
 ---
 
-*This document is confidential and proprietary to TAURUS AI CORP - FZCO. Distribution outside the organization requires written approval from the Director.*
+*This document is confidential and proprietary to TAURUS AI Corp. Distribution outside the organization requires written approval from the Director.*
 
 *Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>*

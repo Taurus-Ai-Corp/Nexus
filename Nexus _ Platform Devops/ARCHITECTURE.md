@@ -1,6 +1,6 @@
 # NeoSync™ — Orchestrated Intelligent Platform Architecture
 
-> **TAURUS AI CORP - FZCO** | License #68122, IFZA Dubai
+> **TAURUS AI Corp.** | License #68122, IFZA Dubai
 > Operating Brand: NeoVibe by Taurus AI
 > Document: Architecture v1.0 — Open-Source First, Locally-Hosted Intelligence
 > Date: 2026-05-16
@@ -20,7 +20,7 @@ NeoSync™ is a **novel, open-source-first social media management platform** th
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
 │                          NeoSync™ Intelligent Platform                           │
-│                     TAURUS AI CORP - FZCO | Open-Source First                    │
+│                     TAURUS AI Corp. | Open-Source First                    │
 ├─────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                  │
 │  ┌──────────────────────────────────────────────────────────────────────────┐   │
@@ -670,5 +670,5 @@ AWS (t3.xlarge + RDS + ElastiCache)
 
 ---
 
-*Generated: 2026-05-16 | TAURUS AI CORP - FZCO | NeoSync™ v1.0 Architecture*
+*Generated: 2026-05-16 | TAURUS AI Corp. | NeoSync™ v1.0 Architecture*
 *Open-Source First. Locally-Hosted Intelligence. PQC-Secured. Zero Vendor Lock-In.*

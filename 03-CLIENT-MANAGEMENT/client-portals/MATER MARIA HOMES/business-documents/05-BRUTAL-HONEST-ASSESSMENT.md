@@ -79,15 +79,27 @@ The website is live. It needs:
 
 **This is your recurring revenue opportunity.** The $400/month retainer in your Service Agreement is where the real money is over time. $400 x 12 months = $4,800/year — more than the initial project fee.
 
-### 7. UAE Free Zone Tax Advantages — Use Them
+### 7. Tax Position — SUPERSEDED 2026-08-08, DO NOT FOLLOW AS WRITTEN
 
-Your IFZA FZCO gives you:
-- 0% corporate tax on first AED 375K profit
-- 0% VAT on exported digital services (this client is in India)
-- No TDS (Tax Deducted at Source) obligation — UAE-India DTAA Article 7
-- International wire transfers with no forex restrictions
+This section previously set out UAE Free Zone advantages (0% corporate tax to
+AED 375K, 0% VAT on exported digital services, and no Indian TDS obligation
+under **UAE-India DTAA Article 7**), and coached telling the client: *"As a
+UAE-registered entity, this payment is exempt from Indian TDS…"*
 
-**BUT:** The client may try to deduct TDS (Indian tax) when paying you. Educate them: "As a UAE-registered entity, this payment is exempt from Indian TDS under the UAE-India Double Taxation Avoidance Agreement. I can provide a Tax Residency Certificate if needed."
+**That guidance is no longer valid.** The UAE entity was retired on 2026-08-08
+and this engagement now contracts through TAURUS AI Corp. (Canada — Federal
+CBCA, 1702855-5). None of the above carries over:
+
+- The UAE-India treaty cannot be invoked by a Canadian entity. Withholding is
+  governed by the **Canada-India** DTAA, which has its own rates and its own
+  TRC / Form 10F documentation requirements.
+- UAE VAT treatment is irrelevant; Canadian GST/HST rules apply instead.
+- Telling an Indian client they need not deduct TDS on the old basis would be
+  incorrect and could expose them to a withholding shortfall.
+
+**Action required:** confirm the Canada-India withholding position with the
+accountant before invoicing or advising this client. Do not restate a tax
+position from this document until that is done.
 
 ### 8. Questions You Should Be Asking (But Aren't)
 

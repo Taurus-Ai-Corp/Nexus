@@ -60,7 +60,7 @@ I read the SWARM SR Internal Analysis and superpowers docs. The facts that must 
 
 ### From `docs/superpowers/specs/2026-05-18-taurus-ai-brand-architecture.md`
 - Client-facing brand: **"Nexus by Taurus AI"**
-- Legal entity: **"TAURUS AI CORP — FZCO"** (invoices, contracts, footer)
+- Legal entity: **"TAURUS AI Corp."** (invoices, contracts, footer)
 - Never mix the two.
 
 ---
@@ -135,7 +135,7 @@ Each page follows the same anatomy:
 #### 3.1 `platform/index.html` — Platform home
 - Hero: "One platform, four AI workforces."
 - Four large product cards linking to `/social/`, `/creative/`, `/intel/`, `/freelance/`.
-- Trust bar: TAURUS AI CORP — FZCO, Heiro/Hedera audit, C2PA provenance.
+- Trust bar: TAURUS AI Corp., Heiro/Hedera audit, C2PA provenance.
 - Unified CTA: "Book a 15-min AI marketing audit" (primary revenue motion from SWARM).
 
 #### 3.2 `platform/social/index.html` — Nexus Social

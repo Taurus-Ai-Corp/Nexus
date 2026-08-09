@@ -92,7 +92,7 @@ Each campaign needs its own focused landing page:
 - Headline matching the keyword.
 - One clear CTA ("Book a 15-min AI audit" or "Get a free content plan").
 - Form: Name, Business name, Email, Phone, Monthly marketing budget.
-- Trust signals: Taurus AI Corp FZCO license, Nexus brand, case-study placeholders.
+- Trust signals: TAURUS AI Corp. license, Nexus brand, case-study placeholders.
 - Geo-proof: local city/region references and currency (AED / ₹).
 
 ## 6. Conversion Tracking Setup

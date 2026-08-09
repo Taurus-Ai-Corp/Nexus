@@ -75,4 +75,4 @@ Title: [Title - e.g., CISO, CTO, Head of Risk]
 Date: _________________________
 
 ---
-*Pilot conducted under Taurus AI's Nexus operating brand. Legal entity: TAURUS AI CORP - FZCO (License #68122, IFZA Dubai)*
+*Pilot conducted under Taurus AI's Nexus operating brand. Legal entity: TAURUS AI Corp.*

@@ -18,7 +18,7 @@
 - **Irreversible ops:** `git mv` and `git rm` are destructive. Run every such command behind a verification step that confirms the source path exists first. If a `git mv` target already exists, stop and reconcile — never clobber.
 - **Preserve history:** use `git mv` for all relocations so rename history follows. Never copy+delete.
 - **Naming rule (executable):** `NeoVibe`, `NeoSync`, `BizFlow`, `GridDB` are retired → NEXUS. Wave 6 enforces this via lint; until then, do not introduce new occurrences.
-- **Corporate vs operating brand:** legal docs = "TAURUS AI CORP - FZCO"; client-facing = "Nexus by Taurus AI". Never mixed.
+- **Corporate vs operating brand:** legal docs = "TAURUS AI Corp."; client-facing = "Nexus by Taurus AI". Never mixed.
 - **Verified sibling repos on `Taurus-Ai-Corp`:** `matercare-homes` (PUBLIC, exists), `GRIDERA` (PUBLIC, exists). **`agency-os` does NOT exist** — Wave 1 Task 2 must create it before de-vendoring.
 - **Each wave ends with:** (1) green verification, (2) a single commit, (3) user approval before the next wave.
 

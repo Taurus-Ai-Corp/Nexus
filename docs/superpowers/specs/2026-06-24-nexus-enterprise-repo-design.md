@@ -1,7 +1,7 @@
 # NEXUS by Taurus AI — Enterprise Platform Repo Design (PRD)
 
 **Status:** Approved · **Date:** 2026-06-24 · **Branch:** `feat/nexosync-to-nexus-rebrand`
-**Owner:** TAURUS AI CORP - FZCO (License #68122, IFZA Dubai)
+**Owner:** TAURUS AI Corp.
 **Operating brand:** NEXUS by Taurus AI
 **Canonical source of truth for naming:** `docs/superpowers/specs/2026-06-09-platform-rename-source-of-truth.md`
 
@@ -86,7 +86,7 @@ This PRD defines the **target enterprise repo topology** (a hybrid: one Nexus mo
 ## 4. Brand architecture (multi-level portfolio)
 
 ```
-L0  TAURUS AI CORP - FZCO            (corporate entity — legal docs, invoices, NDAs only)
+L0  TAURUS AI Corp.            (corporate entity — legal docs, invoices, NDAs only)
        │
 L1  NEXUS by Taurus AI               (platform product → nexus.taurusai.io)
        │
@@ -100,7 +100,7 @@ L3  Sibling products (same corp, SEPARATE repos, referenced not vendored):
 
 **Naming rule (executable):** NeoVibe, NeoSync, BizFlow, GridDB are **retired → NEXUS** (per `2026-06-09-platform-rename-source-of-truth.md`). Surviving brands: NEXUS, GRIDERA, NEOFLOW™, Noverm, Brivera, Crivera, Nebula. A pre-commit/lint rule flags any new `NeoVibe|NeoSync|BizFlow|GridDB` token outside an explicit allowlist.
 
-**Corporate vs operating brand rule:** legal/government docs = "TAURUS AI CORP - FZCO"; client-facing/marketing/SaaS = "Nexus by Taurus AI". Never mixed.
+**Corporate vs operating brand rule:** legal/government docs = "TAURUS AI Corp."; client-facing/marketing/SaaS = "Nexus by Taurus AI". Never mixed.
 
 ---
 
@@ -216,7 +216,7 @@ Each vertical is a self-contained workspace: `landing/` (public site) + `app/` (
 | Sign-up + billing | Clerk auth → Stripe checkout → workspace. (Creative already wires Stripe: "Starter Campaign", "Studio".) |
 | Private client workspace | On becoming a client, a Google Drive folder auto-creates with 5 subfolders (Contracts, Project Docs, Assets, Reports, Proposals) via the GWS Bridge. |
 | Human BDM | A Business Development Manager is assigned and named in the workspace (e.g. Praveen Varkey — Kerala market). |
-| Provenance & trust | C2PA "made with AI" tags on generated media; "TAURUS AI CORP - FZCO" on legal docs. |
+| Provenance & trust | C2PA "made with AI" tags on generated media; "TAURUS AI Corp." on legal docs. |
 | Audit trail | Every agent action signed + logged immutably on Heiro/Hedera; client can prove what happened. |
 
 ### 8.2 Client journey (PetPawSphere, Dubai pet brand)

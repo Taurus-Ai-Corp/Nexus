@@ -1,6 +1,6 @@
 # NeoSync™ Social Suite Dashboard — Launch Checklist
 
-> **TAURUS AI CORP - FZCO** | License #68122, IFZA Dubai
+> **TAURUS AI Corp.** | License #68122, IFZA Dubai
 > Product: NeoSync™ Social Suite Dashboard
 > Operating Brand: NeoVibe by Taurus AI
 > Date: 2026-05-15
@@ -318,4 +318,4 @@
 
 ---
 
-*Generated: 2026-05-15 | TAURUS AI CORP - FZCO | NeoSync™ Social Suite Dashboard*
+*Generated: 2026-05-15 | TAURUS AI Corp. | NeoSync™ Social Suite Dashboard*

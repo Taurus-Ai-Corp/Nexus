@@ -1,6 +1,6 @@
 # SWARM SR Internal Analysis — NEXUS Platform Revenue-Action Synthesis
 
-**Prepared for:** TAURUS AI CORP - FZCO (License #68122, IFZA Dubai)  
+**Prepared for:** TAURUS AI Corp.  
 **Primary brand:** NEXUS by Taurus AI  
 **Workspace:** `/Users/taurus_ai/Documents/Nexus-Platform/SWARM SR Internal Analysis`  
 **Date:** 2026-06-15  

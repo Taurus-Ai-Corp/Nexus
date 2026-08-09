@@ -83,4 +83,4 @@ Title: [Title - e.g., Head of Retail Lending, Collections Head]
 Date: _________________________
 
 ---
-*Pilot conducted under Taurus AI's Nexus operating brand. Legal entity: TAURUS AI CORP - FZCO (License #68122, IFZA Dubai)*
+*Pilot conducted under Taurus AI's Nexus operating brand. Legal entity: TAURUS AI Corp.*

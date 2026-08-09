@@ -4,7 +4,7 @@
 
 ### Week 1: Business Infrastructure Setup
 **Legal & Administrative**
-- Finalize business banking for TAURUS AI CORP - FZCO
+- Finalize business banking for TAURUS AI Corp.
 - Set up accounting system (QuickBooks or similar)
 - Create basic contracts and service agreements
 - Establish business insurance coverage

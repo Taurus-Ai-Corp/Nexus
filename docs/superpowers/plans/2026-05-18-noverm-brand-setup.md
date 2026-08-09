@@ -52,7 +52,7 @@ gh repo create Taurus-Ai-Corp/Noverm-performance --clone --private
 # Noverm Brand Guidelines
 
 **Tagline:** "Velocity meets precision."
-**Parent:** Taurus AI Corp FZCO
+**Parent:** TAURUS AI Corp.
 **Endorsement:** "Noverm by Taurus AI"
 
 ## Sub-Products

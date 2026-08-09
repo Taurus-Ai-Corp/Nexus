@@ -314,7 +314,7 @@ When generating copy for a client, prepend a brand-persona block:
 Brand: Nexus by Taurus AI
 Voice: confident, concise, enterprise-grade, no hype
 Forbidden: "revolutionary," "disruptive," unverified superlatives
-Mandatory legal entity: client-facing docs use "Nexus by Taurus AI"; legal docs use "TAURUS AI CORP - FZCO"
+Mandatory legal entity: client-facing docs use "Nexus by Taurus AI"; legal docs use "TAURUS AI Corp."
 ```
 
 This directly operationalizes the corporate-vs-operating-brand rule from `~/.ai-context/TAURUS_CONTEXT.md`.

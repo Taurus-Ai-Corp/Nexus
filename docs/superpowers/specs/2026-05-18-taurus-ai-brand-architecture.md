@@ -13,12 +13,12 @@ TAURUS AI Corp (Parent Trust)
 │   ├── GRIDERA | Lend
 │   └── GRIDERA | Pay (future)
 │
-├── Nexus (Taurus AI Corp FZCO — Dubai, UAE)
+├── Nexus (TAURUS AI Corp. — Dubai, UAE)
 │   ├── Nexus | Analytics
 │   ├── Nexus | Social
 │   └── Nexus | Marketing
 │
-├── Noverm (Taurus AI Corp FZCO — Dubai, UAE + Canada)
+├── Noverm (TAURUS AI Corp. — Dubai, UAE + Canada)
 │   ├── Noverm | Devops
 │   └── Noverm | Performance
 │
@@ -27,11 +27,11 @@ TAURUS AI Corp (Parent Trust)
 │   ├── Nebula | IQ
 │   └── Nebula | Cloud
 │
-├── Brivera (Taurus AI Corp FZCO — Dubai, UAE)
+├── Brivera (TAURUS AI Corp. — Dubai, UAE)
 │   ├── Brivera | Pay (Payments/Transactions)
 │   └── Brivera | Sync (Integration/Orchestration)
 │
-└── Crivera (Taurus AI Corp FZCO — Dubai, UAE)
+└── Crivera (TAURUS AI Corp. — Dubai, UAE)
     ├── Crivera | Insights (Analytics/BI)
     ├── Crivera | Vizard (Data Visualization)
     └── Crivera | Verify (Verification/Audit)
@@ -57,7 +57,7 @@ TAURUS AI Corp (Parent Trust)
 ---
 
 ### 2.2 Noverm
-**Parent:** Taurus AI Corp FZCO (Dubai, UAE) + Canadian entity
+**Parent:** TAURUS AI Corp. (Dubai, UAE) + Canadian entity
 **Tagline:** "Velocity meets precision."
 **Positioning:** Performance devops and automation
 
@@ -71,7 +71,7 @@ TAURUS AI Corp (Parent Trust)
 ---
 
 ### 2.3 Nexus
-**Parent:** Taurus AI Corp FZCO (Dubai, UAE)
+**Parent:** TAURUS AI Corp. (Dubai, UAE)
 **Tagline:** "Everything connected."
 **Positioning:** Social media management, marketing automation, business analytics
 
@@ -103,7 +103,7 @@ TAURUS AI Corp (Parent Trust)
 ---
 
 ### 2.5 Brivera
-**Parent:** Taurus AI Corp FZCO (Dubai, UAE)
+**Parent:** TAURUS AI Corp. (Dubai, UAE)
 **Tagline:** "Bridges built, not broken."
 **Positioning:** Payments, transactions, and integration orchestration
 
@@ -119,7 +119,7 @@ TAURUS AI Corp (Parent Trust)
 ---
 
 ### 2.6 Crivera
-**Parent:** Taurus AI Corp FZCO (Dubai, UAE)
+**Parent:** TAURUS AI Corp. (Dubai, UAE)
 **Tagline:** "Clarity in every byte."
 **Positioning:** Analytics, data visualization, and verification/audit
 
