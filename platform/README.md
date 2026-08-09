@@ -1,6 +1,6 @@
 # NEXUS by Taurus AI — Marketing Platform
 
-Static marketing site for NEXUS, the AI-powered growth platform from TAURUS AI CORP - FZCO.
+Static marketing site for NEXUS, the AI-powered growth platform from TAURUS AI Corp.
 
 ## Structure
 
@@ -45,5 +45,5 @@ Pushes to `feat/nexosync-to-nexus-rebrand` auto-deploy via Vercel. Subpaths are 
 ## Brand notes
 
 - Marketing copy uses **NEXUS by Taurus AI**.
-- Legal/footer uses **TAURUS AI CORP - FZCO**.
+- Legal/footer uses **TAURUS AI Corp.** (Canada — Federal CBCA, 1702855-5). The UAE FZCO entity was retired 2026-08-08.
 - Creative vertical uses the warm editorial `.theme-creative` override while sharing the same design tokens.
