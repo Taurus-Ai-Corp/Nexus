@@ -75,6 +75,38 @@ campaign-diagnostic entry point** into Creative rather than a separately-priced 
 nav entries whose titles both say "Nexus Creative" is the inconsistency this doc is meant
 to prevent.
 
+## 2b. ⚠️ DO NOT DEPLOY the current tree — five pages are still behind production
+
+Found 2026-08-09 during the Vercel visual sweep, **after** Phase 5 was committed. The Phase 1
+reconciliation was incomplete: it verified `design-system.css` and the six campaign pages
+byte-matched production, but never diffed the main page HTML. Five pages are stale.
+
+Production runs a **nav dropdown** (`.nav-dropdown`, 3 occurrences per page) on every page.
+Locally, only `flow/index.html` has it — `index`, `social`, `creative`, `intel` and
+`freelance` still carry the older flat nav. The four vertical pages are each **555 bytes
+smaller** than their deployed counterparts, which is exactly the missing dropdown markup.
+This is also why `design-system.css` needed the `.nav-dropdown*` rules restored in Phase 1 —
+the CSS was newer than the HTML that uses it.
+
+The two trees are each ahead of the other:
+
+| | Production | Local tree |
+|---|---|---|
+| Nav | dropdown (newer) | flat (older) |
+| Public products | Creative, Social, Intel, **Flow**, Freelance | Social, Creative, **Campaign**, Intel, Freelance |
+| Entity | still **FZCO** (pre-migration) | TAURUS AI Corp. (migrated) |
+
+**Deploying the tree as-is would regress production twice:** it would replace the dropdown nav
+with the old flat nav on five pages, and it would remove **Flow** — which production presents
+as one of five public products, in both the hero copy and the nav.
+
+Note this contradicts the canonical taxonomy, which marks Nexus Flow as "roadmap… not in site
+nav." Production disagrees. **Resolve which is right before deploying** — the taxonomy may
+simply be out of date.
+
+Remediation: take the deployed HTML for those five pages as the base, then re-apply the
+entity swap and the taxonomy edits on top. Do not merge the other direction.
+
 ## 3. Operational facts a future session will otherwise rediscover the hard way
 
 - **Production drifts from git.** Every `nexus-platform` deploy is a CLI deploy from a
