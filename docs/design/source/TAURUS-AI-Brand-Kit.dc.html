@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#000;color:#fff}
+*{box-sizing:border-box}
+a{color:#FF1621;text-decoration:none}
+a:hover{color:#FF5A5F}
+::selection{background:#FF1621;color:#000}
+@keyframes tbk-pulse{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes tbk-scan{0%{transform:translateY(-100%)}100%{transform:translateY(2400%)}}
+@keyframes tbk-spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+
+<div style="background:#000;font-family:'Instrument Sans',system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased">
+
+<section data-screen-label="00 Cover" style="position:relative;min-height:920px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.1)">
+<canvas data-fx="burst" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 20%, rgba(0,0,0,.72) 78%)"></div>
+<div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;padding:34px 48px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)">
+<span>TAURUS&nbsp;AI&nbsp;/&nbsp;taurusai.io</span>
+<span style="color:#FF1621">BRAND&nbsp;SYSTEM&nbsp;v1.0</span>
+</div>
+<div style="position:relative;padding:0 48px;display:flex;flex-direction:column;gap:26px;max-width:1180px">
+<div style="display:flex;align-items:center;gap:16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">
+<span style="width:9px;height:9px;background:#FF1621;display:block;box-shadow:0 0 14px #FF1621"></span>CORPORATE&nbsp;&amp;&nbsp;PLATFORM&nbsp;ARCHITECTURE
+</div>
+<h1 style="margin:0;font-size:112px;line-height:.9;font-weight:700;letter-spacing:-.045em;text-wrap:balance">Light is the<br>only interface.</h1>
+<p style="margin:0;max-width:620px;font-size:19px;line-height:1.55;color:rgba(255,255,255,.62);text-wrap:pretty">A single visual DNA — a point of light, a lattice, and the void — spanning TAURUS AI corporate, four platforms, and every product beneath them.</p>
+</div>
+<div style="position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.12);border-top:1px solid rgba(255,255,255,.12);margin-top:60px">
+<div style="background:#000;padding:22px 28px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4);margin-bottom:7px">PLATFORM 01</div><div style="font-size:17px;font-weight:600;letter-spacing:-.01em">GRIDERA</div></div>
+<div style="background:#000;padding:22px 28px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4);margin-bottom:7px">PLATFORM 02</div><div style="font-size:17px;font-weight:600;letter-spacing:-.01em">SENTINEL</div></div>
+<div style="background:#000;padding:22px 28px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4);margin-bottom:7px">PLATFORM 03</div><div style="font-size:17px;font-weight:600;letter-spacing:-.01em">NEXUS</div></div>
+<div style="background:#000;padding:22px 28px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4);margin-bottom:7px">PLATFORM 04</div><div style="font-size:17px;font-weight:600;letter-spacing:-.01em">DEFQUAN</div></div>
+</div>
+</section>
+
+<section data-screen-label="01 Architecture" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">01</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Brand Architecture</h2></div>
+<p style="margin:0 0 52px;max-width:640px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.6)">Three viable structures. Each shares the lattice and the void; they differ in how much autonomy a platform gets.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)">
+<div style="background:#000;padding:36px 32px;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;padding:4px 9px;background:#FF1621;color:#000;font-weight:600">OPTION A</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.35)">RECOMMENDED</span></div>
+<h3 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.02em">Branded House</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:rgba(255,255,255,.58)">TAURUS AI is the only brand that carries equity. Platforms are descriptors: <em style="color:#fff;font-style:normal">Taurus Gridera</em>, <em style="color:#fff;font-style:normal">Taurus Sentinel</em>. One logo, one accent, product colour used only for wayfinding.</p>
+<div style="display:flex;flex-direction:column;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.5)">
+<div style="display:flex;gap:10px;align-items:center"><span style="color:#FF1621">+</span>Cheapest to run, fastest trust transfer</div>
+<div style="display:flex;gap:10px;align-items:center"><span style="color:#FF1621">+</span>Enterprise buyers see one vendor</div>
+<div style="display:flex;gap:10px;align-items:center"><span style="color:rgba(255,255,255,.3)">−</span>Hard to spin a platform out later</div>
+</div>
+</div>
+<div style="background:#000;padding:36px 32px;display:flex;flex-direction:column;gap:20px">
+<span style="align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;padding:4px 9px;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7)">OPTION B</span>
+<h3 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.02em">Endorsed Platforms</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:rgba(255,255,255,.58)">Each platform owns a wordmark and a spectral accent; every surface carries <em style="color:#fff;font-style:normal">a TAURUS AI platform</em>. Shared lattice, shared type, distinct light colour.</p>
+<div style="display:flex;flex-direction:column;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.5)">
+<div style="display:flex;gap:10px;align-items:center"><span style="color:#FF1621">+</span>Platforms can be sold or funded separately</div>
+<div style="display:flex;gap:10px;align-items:center"><span style="color:#FF1621">+</span>Room for 9+ sub-products per platform</div>
+<div style="display:flex;gap:10px;align-items:center"><span style="color:rgba(255,255,255,.3)">−</span>4× the asset production</div>
+</div>
+</div>
+<div style="background:#000;padding:36px 32px;display:flex;flex-direction:column;gap:20px">
+<span style="align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;padding:4px 9px;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7)">OPTION C</span>
+<h3 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.02em">House of Brands</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:rgba(255,255,255,.58)">Gridera, Sentinel, Nexus and DefQuan stand alone. TAURUS AI appears only in the footer and on cap tables.</p>
+<div style="display:flex;flex-direction:column;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.5)">
+<div style="display:flex;gap:10px;align-items:center"><span style="color:#FF1621">+</span>Maximum M&amp;A optionality</div>
+<div style="display:flex;gap:10px;align-items:center"><span style="color:rgba(255,255,255,.3)">−</span>No compounding trust — expensive at your stage</div>
+<div style="display:flex;gap:10px;align-items:center"><span style="color:rgba(255,255,255,.3)">−</span>Four go-to-market motions</div>
+</div>
+</div>
+</div>
+<div style="margin-top:1px;border:1px solid rgba(255,255,255,.12);border-top:0;padding:40px 32px;display:grid;grid-template-columns:180px 1fr;gap:40px;align-items:start">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">SYSTEM MAP</div>
+<div style="display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;align-items:center;gap:14px"><span style="font-size:22px;font-weight:700;letter-spacing:-.02em">TAURUS AI</span><span style="height:1px;flex:1;background:linear-gradient(90deg,#FF1621,rgba(255,255,255,.1))"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.35)">CORPORATE / taurusai.io</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px">
+<div style="border:1px solid rgba(255,22,33,.4);padding:18px;background:linear-gradient(180deg,rgba(255,22,33,.09),transparent)"><div style="font-weight:600;font-size:16px;margin-bottom:12px">GRIDERA</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.9;color:rgba(255,255,255,.5)">Q-GRID COMPLY<br>Q-GRID LEND<br>Q-GRID SHIELD<br>Q-GRID CERTIFY</div></div>
+<div style="border:1px solid rgba(139,107,217,.4);padding:18px;background:linear-gradient(180deg,rgba(139,107,217,.09),transparent)"><div style="font-weight:600;font-size:16px;margin-bottom:12px">SENTINEL</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.9;color:rgba(255,255,255,.5)">THREAT GRAPH<br>POSTURE<br>ATTEST</div></div>
+<div style="border:1px solid rgba(79,191,139,.4);padding:18px;background:linear-gradient(180deg,rgba(79,191,139,.09),transparent)"><div style="font-weight:600;font-size:16px;margin-bottom:12px">NEXUS</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.9;color:rgba(255,255,255,.5)">PIPELINE<br>CONNECTORS<br>AGENT MESH</div></div>
+<div style="border:1px solid rgba(255,255,255,.28);padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.06),transparent)"><div style="font-weight:600;font-size:16px;margin-bottom:12px">DEFQUAN</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.9;color:rgba(255,255,255,.5)">PQC KEYS<br>ENTROPY<br>MIGRATE</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="02 Logo" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">02</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">The Mark</h2></div>
+<p style="margin:0 0 52px;max-width:640px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.6)">Six blocks on a three-row lattice — your uploaded Gridera mark, regularised onto an 8-unit grid so it holds at 16px and at billboard scale.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)">
+<div style="background:#0A0A0C;padding:52px;display:flex;flex-direction:column;gap:24px;align-items:center;justify-content:center">
+<svg viewBox="120 100 380 380" width="180" height="180" fill="#fff"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.4)">PRIMARY / LIGHT ON VOID</span>
+</div>
+<div style="background:#fff;padding:52px;display:flex;flex-direction:column;gap:24px;align-items:center;justify-content:center">
+<svg viewBox="120 100 380 380" width="180" height="180" fill="#0A0A0C"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:rgba(0,0,0,.45)">INVERSE / PRINT &amp; PAPER</span>
+</div>
+<div style="background:#000;padding:52px;display:flex;flex-direction:column;gap:24px;align-items:center;justify-content:center">
+<svg viewBox="120 100 380 380" width="180" height="180" fill="#FF1621" style="filter:drop-shadow(0 0 26px rgba(255,22,33,.65))"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.4)">SIGNAL / EMISSIVE ONLY</span>
+</div>
+<div style="background:#0A0A0C;padding:52px;display:flex;flex-direction:column;gap:24px;align-items:center;justify-content:center">
+<svg viewBox="110 90 400 400" width="180" height="180"><rect x="110" y="90" width="400" height="400" fill="none" stroke="rgba(255,22,33,.35)" stroke-dasharray="4 5"/><g fill="none" stroke="rgba(255,255,255,.14)"><path d="M137 90V490M224 90V490M270 90V490M312 90V490M355 90V490M483 90V490M110 118H510M110 205H510M110 246H510M110 333H510M110 374H510M110 464H510"/></g><g fill="rgba(255,255,255,.85)"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></g></svg>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.4)">CONSTRUCTION / CLEARSPACE = 1 BLOCK</span>
+</div>
+</div>
+<div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px">
+<div style="border:1px solid rgba(255,255,255,.12);padding:30px;display:flex;flex-direction:column;gap:18px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">LOCKUP A — HORIZONTAL</span>
+<div style="display:flex;align-items:center;gap:16px"><svg viewBox="120 100 380 380" width="40" height="40" fill="#fff"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg><span style="width:1px;height:34px;background:rgba(255,255,255,.2)"></span><span style="font-size:23px;font-weight:700;letter-spacing:-.02em">TAURUS AI</span></div>
+</div>
+<div style="border:1px solid rgba(255,255,255,.12);padding:30px;display:flex;flex-direction:column;gap:18px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">LOCKUP B — ENDORSED</span>
+<div style="display:flex;align-items:center;gap:16px"><svg viewBox="120 100 380 380" width="40" height="40" fill="#fff"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg><div style="display:flex;flex-direction:column;gap:3px"><span style="font-size:20px;font-weight:700;letter-spacing:-.02em">GRIDERA</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;color:rgba(255,255,255,.45)">A TAURUS AI PLATFORM</span></div></div>
+</div>
+<div style="border:1px solid rgba(255,255,255,.12);padding:30px;display:flex;flex-direction:column;gap:18px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">LOCKUP C — STACKED / AVATAR</span>
+<div style="display:flex;align-items:center;gap:14px"><div style="width:52px;height:52px;background:#FF1621;display:flex;align-items:center;justify-content:center"><svg viewBox="120 100 380 380" width="30" height="30" fill="#000"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg></div><div style="width:52px;height:52px;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center"><svg viewBox="120 100 380 380" width="30" height="30" fill="#fff"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg></div></div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="03 Colour" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">03</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Colour</h2></div>
+<p style="margin:0 0 52px;max-width:660px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.6)">Dark is not a mode — it is the brand. Colour is emitted light on a void, never a fill. Light mode is the accommodation.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);margin-bottom:56px">
+<div style="background:#000000;padding:30px 24px;height:210px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px"><span style="font-size:15px;font-weight:600">Void</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45)">#000000</span></div>
+<div style="background:#0A0A0C;padding:30px 24px;height:210px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px"><span style="font-size:15px;font-weight:600">Panel</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45)">#0A0A0C</span></div>
+<div style="background:#8A0710;padding:30px 24px;height:210px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px"><span style="font-size:15px;font-weight:600">Deep Laser</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.6)">#8A0710</span></div>
+<div style="background:#FF1621;padding:30px 24px;height:210px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px"><span style="font-size:15px;font-weight:600;color:#000">Laser Red</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(0,0,0,.6)">#FF1621</span></div>
+<div style="background:#FF5A5F;padding:30px 24px;height:210px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px"><span style="font-size:15px;font-weight:600;color:#000">Glow</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(0,0,0,.55)">#FF5A5F</span></div>
+<div style="background:#FFFFFF;padding:30px 24px;height:210px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px"><span style="font-size:15px;font-weight:600;color:#000">Point Light</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(0,0,0,.55)">#FFFFFF</span></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:44px">
+<div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4);margin-bottom:18px">PLATFORM SPECTRUM — FROM THE PRISM</div>
+<div style="display:flex;flex-direction:column;gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)">
+<div style="background:#000;padding:16px 20px;display:flex;align-items:center;gap:16px"><span style="width:34px;height:34px;background:#FF1621;box-shadow:0 0 18px rgba(255,22,33,.6)"></span><span style="flex:1;font-weight:600">GRIDERA</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45)">#FF1621</span></div>
+<div style="background:#000;padding:16px 20px;display:flex;align-items:center;gap:16px"><span style="width:34px;height:34px;background:#8B6BD9;box-shadow:0 0 18px rgba(139,107,217,.6)"></span><span style="flex:1;font-weight:600">SENTINEL</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45)">#8B6BD9</span></div>
+<div style="background:#000;padding:16px 20px;display:flex;align-items:center;gap:16px"><span style="width:34px;height:34px;background:#4FBF8B;box-shadow:0 0 18px rgba(79,191,139,.6)"></span><span style="flex:1;font-weight:600">NEXUS</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45)">#4FBF8B</span></div>
+<div style="background:#000;padding:16px 20px;display:flex;align-items:center;gap:16px"><span style="width:34px;height:34px;background:#E8E8ED;box-shadow:0 0 18px rgba(232,232,237,.5)"></span><span style="flex:1;font-weight:600">DEFQUAN</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45)">#E8E8ED</span></div>
+</div>
+</div>
+<div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4);margin-bottom:18px">Q-GRID PRODUCT TAXONOMY</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)">
+<div style="background:#000;padding:20px"><span style="display:block;height:6px;background:#007A7A;margin-bottom:14px"></span><div style="font-weight:600;font-size:14px;margin-bottom:4px">Q-GRID COMPLY</div><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.42)">#007A7A</span></div>
+<div style="background:#000;padding:20px"><span style="display:block;height:6px;background:#059669;margin-bottom:14px"></span><div style="font-weight:600;font-size:14px;margin-bottom:4px">Q-GRID LEND</div><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.42)">#059669</span></div>
+<div style="background:#000;padding:20px"><span style="display:block;height:6px;background:#004646;margin-bottom:14px"></span><div style="font-weight:600;font-size:14px;margin-bottom:4px">Q-GRID SHIELD</div><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.42)">#004646</span></div>
+<div style="background:#000;padding:20px"><span style="display:block;height:6px;background:#009494;margin-bottom:14px"></span><div style="font-weight:600;font-size:14px;margin-bottom:4px">Q-GRID CERTIFY</div><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.42)">#009494</span></div>
+</div>
+<p style="margin:18px 0 0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.45)">Teal family is wayfinding only — it never replaces laser red as the action colour. Rule: one accent per screen.</p>
+</div>
+</div>
+</section>
+
+<section data-screen-label="04 Typography" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">04</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Typography</h2></div>
+<p style="margin:0 0 52px;max-width:660px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.6)">Instrument Sans for voice — same skeleton as the ubiquitous grotesques, none of the ubiquity. IBM Plex Mono for everything machine-readable: labels, hashes, telemetry.</p>
+<div style="border:1px solid rgba(255,255,255,.12);padding:44px;display:flex;flex-direction:column;gap:40px">
+<div style="display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.35)">DISPLAY / 96 / 700 / −.045em</span><span style="font-size:88px;line-height:.92;font-weight:700;letter-spacing:-.045em">Post-quantum by default</span></div>
+<div style="display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:baseline;border-top:1px solid rgba(255,255,255,.1);padding-top:36px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.35)">H2 / 40 / 600 / −.025em</span><span style="font-size:40px;line-height:1.1;font-weight:600;letter-spacing:-.025em">Verifiable agentic identity</span></div>
+<div style="display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:baseline;border-top:1px solid rgba(255,255,255,.1);padding-top:36px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.35)">BODY / 17 / 400 / 1.6</span><span style="font-size:17px;line-height:1.6;max-width:640px;color:rgba(255,255,255,.75)">Every agent, ledger entry and settlement carries a lattice-signed attestation. No trust assumption survives the handshake — the proof travels with the payload.</span></div>
+<div style="display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:baseline;border-top:1px solid rgba(255,255,255,.1);padding-top:36px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.35)">MONO / 13 / 400 / .04em</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.04em;color:#FF1621">0x8f2a…c41e · ML-DSA-65 · verified 0.412s</span></div>
+<div style="display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:baseline;border-top:1px solid rgba(255,255,255,.1);padding-top:36px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.35)">LABEL / 10 / 500 / .2em</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55)">Enterprise · Sovereign · Auditable</span></div>
+</div>
+</section>
+
+<section data-screen-label="05 Lattice" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">05</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">The Lattice</h2></div>
+<p style="margin:0 0 52px;max-width:660px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.6)">One static SVG motif that survives everywhere the canvas can't go: slides, email headers, print, packaging, watermarks.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)">
+<div style="background:#000;height:250px;position:relative;overflow:hidden">
+<svg width="100%" height="100%"><defs><pattern id="tbkLat" width="46" height="46" patternUnits="userSpaceOnUse"><path d="M23 0V46M0 23H46" stroke="rgba(255,255,255,.13)" stroke-width="1"/><circle cx="23" cy="23" r="1.6" fill="#FF1621"/></pattern></defs><rect width="100%" height="100%" fill="url(#tbkLat)"/></svg>
+<span style="position:absolute;left:20px;bottom:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.5)">TILE / NODE GRID</span>
+</div>
+<div style="background:#000;height:250px;position:relative;overflow:hidden">
+<svg width="100%" height="100%"><defs><pattern id="tbkRay" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><path d="M0 0V60" stroke="rgba(255,22,33,.42)" stroke-width="1"/><path d="M30 0V60" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="2 7"/></pattern></defs><rect width="100%" height="100%" fill="url(#tbkRay)"/></svg>
+<span style="position:absolute;left:20px;bottom:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.5)">TILE / RAY FIELD</span>
+</div>
+<div style="background:#000;height:250px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
+<svg viewBox="0 0 200 200" width="200" height="200" style="opacity:.9"><g stroke="#FF1621" stroke-width=".7" fill="none"><circle cx="100" cy="100" r="20"/><circle cx="100" cy="100" r="45"/><circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="95"/></g><g stroke="rgba(255,255,255,.35)" stroke-width=".6"><path d="M100 5V195M5 100H195M33 33L167 167M167 33L33 167"/></g><circle cx="100" cy="100" r="3" fill="#fff"/></svg>
+<span style="position:absolute;left:20px;bottom:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.5)">SEAL / EMISSION POINT</span>
+</div>
+<div style="background:#000;height:250px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
+<svg viewBox="120 100 380 380" width="150" height="150" style="opacity:.14" fill="#fff"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg>
+<span style="position:absolute;left:20px;bottom:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.5)">WATERMARK / 14% MAX</span>
+</div>
+</div>
+</section>
+
+<section data-screen-label="06 Motion" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">06</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Motion</h2></div>
+<p style="margin:0 0 52px;max-width:660px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.6)">Nothing bounces. Nothing fades in from below. Points of light travel in straight lines, accumulate, and resolve into structure.</p>
+<div style="border:1px solid rgba(255,255,255,.12);height:420px;position:relative;overflow:hidden;margin-bottom:1px">
+<canvas data-fx="wave" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+<div style="position:absolute;left:32px;top:28px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.55)">SIGNATURE LOOP / POINT-CLOUD TERRAIN</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)">
+<div style="background:#000;padding:30px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#FF1621;margin-bottom:12px">01 EMISSION</div><p style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.6)">Everything originates from a single point. Content enters as rays, not as blocks.</p></div>
+<div style="background:#000;padding:30px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#FF1621;margin-bottom:12px">02 LINEAR TRUTH</div><p style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.6)">cubic-bezier(.16,1,.3,1) for UI. Linear for ambient loops. No overshoot, ever.</p></div>
+<div style="background:#000;padding:30px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#FF1621;margin-bottom:12px">03 ACCUMULATION</div><p style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.6)">Scroll adds density. Pinned sections build the lattice node by node rather than swapping scenes.</p></div>
+<div style="background:#000;padding:30px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#FF1621;margin-bottom:12px">04 RESPECT</div><p style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.6)">prefers-reduced-motion collapses every loop to its final static frame. The frame must be beautiful alone.</p></div>
+</div>
+</section>
+
+<section data-screen-label="07 Components" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">07</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Components</h2></div>
+<p style="margin:0 0 52px;max-width:660px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.6)">Zero radius. Hairline borders. State is signalled by emission, not by fill.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)">
+<div style="background:#000;padding:36px;display:flex;flex-direction:column;gap:22px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">BUTTONS</span>
+<div style="display:flex;flex-wrap:wrap;gap:12px">
+<button style="font-family:'Instrument Sans',sans-serif;background:#FF1621;color:#000;border:0;padding:14px 26px;font-size:14px;font-weight:600;cursor:pointer;transition:box-shadow .3s cubic-bezier(.16,1,.3,1)" style-hover="box-shadow:0 0 26px rgba(255,22,33,.75)">Request access</button>
+<button style="font-family:'Instrument Sans',sans-serif;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3);padding:14px 26px;font-size:14px;font-weight:600;cursor:pointer;transition:border-color .3s,color .3s" style-hover="border-color:#FF1621;color:#FF1621">Read docs</button>
+<button style="font-family:'IBM Plex Mono',monospace;background:transparent;color:rgba(255,255,255,.5);border:0;padding:14px 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.25)" style-hover="color:#FF1621;border-bottom-color:#FF1621">View spec →</button>
+<button disabled="disabled" style="font-family:'Instrument Sans',sans-serif;background:rgba(255,255,255,.06);color:rgba(255,255,255,.28);border:0;padding:14px 26px;font-size:14px;font-weight:600">Disabled</button>
+</div>
+</div>
+<div style="background:#000;padding:36px;display:flex;flex-direction:column;gap:22px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">FIELDS</span>
+<div style="display:flex;flex-direction:column;gap:14px">
+<label style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.45)">WORK EMAIL</span><input type="email" placeholder="you@enterprise.com" style="font-family:'Instrument Sans',sans-serif;background:#0A0A0C;border:1px solid rgba(255,255,255,.16);color:#fff;padding:14px 16px;font-size:14px;outline:none;transition:border-color .25s" style-focus="border-color:#FF1621"></label>
+<label style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.45)">ENVIRONMENT</span><select style="font-family:'Instrument Sans',sans-serif;background:#0A0A0C;border:1px solid rgba(255,255,255,.16);color:#fff;padding:14px 16px;font-size:14px;outline:none"><option>Mainnet</option><option>Testnet</option></select></label>
+</div>
+</div>
+<div style="background:#000;padding:36px;display:flex;flex-direction:column;gap:22px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">STATUS &amp; TAGS</span>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<span style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;border:1px solid rgba(79,191,139,.5);color:#4FBF8B;padding:6px 12px"><span style="width:6px;height:6px;background:#4FBF8B;animation:tbk-pulse 2s infinite"></span>OPERATIONAL</span>
+<span style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;border:1px solid rgba(255,22,33,.5);color:#FF1621;padding:6px 12px"><span style="width:6px;height:6px;background:#FF1621;animation:tbk-pulse 1.2s infinite"></span>DEGRADED</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);padding:6px 12px">PQC</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;background:rgba(139,107,217,.16);color:#8B6BD9;padding:6px 12px">SENTINEL</span>
+</div>
+<div style="border:1px solid rgba(255,255,255,.14);padding:20px;display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg,rgba(255,22,33,.06),transparent)">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:15px">Attestation Card</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.4)">ML-DSA-65</span></div>
+<p style="margin:0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.55)">Signed proof travelling with the payload. Verified at every hop.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="08 Auth" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">08</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Auth &amp; Wallet Connect</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:32px;margin-top:44px">
+<div style="border:1px solid rgba(255,255,255,.12);position:relative;overflow:hidden;min-height:520px;display:flex;flex-direction:column;justify-content:center;padding:56px 48px;gap:28px">
+<canvas data-fx="burst" data-scale="0.6" style="position:absolute;inset:0;width:100%;height:100%;opacity:.35"></canvas>
+<div style="position:relative;display:flex;flex-direction:column;gap:28px;max-width:340px">
+<svg viewBox="120 100 380 380" width="34" height="34" fill="#fff"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg>
+<div><h3 style="margin:0 0 8px;font-size:32px;font-weight:600;letter-spacing:-.025em">Sign in</h3><p style="margin:0;font-size:14.5px;color:rgba(255,255,255,.5)">TAURUS AI identity — one credential, four platforms.</p></div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<input type="email" placeholder="you@enterprise.com" style="font-family:'Instrument Sans',sans-serif;background:rgba(10,10,12,.85);border:1px solid rgba(255,255,255,.18);color:#fff;padding:15px 16px;font-size:14px;outline:none" style-focus="border-color:#FF1621">
+<button style="font-family:'Instrument Sans',sans-serif;background:#FF1621;color:#000;border:0;padding:15px;font-size:14px;font-weight:600;cursor:pointer" style-hover="box-shadow:0 0 26px rgba(255,22,33,.7)">Continue</button>
+</div>
+<div style="display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.3)"><span style="flex:1;height:1px;background:rgba(255,255,255,.14)"></span>OR<span style="flex:1;height:1px;background:rgba(255,255,255,.14)"></span></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<button style="font-family:'Instrument Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;background:transparent;border:1px solid rgba(255,255,255,.18);color:#fff;padding:14px 16px;font-size:14px;cursor:pointer" style-hover="border-color:rgba(255,255,255,.5)"><span>Connect wallet</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.4)">WALLETCONNECT</span></button>
+<button style="font-family:'Instrument Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;background:transparent;border:1px solid rgba(255,255,255,.18);color:#fff;padding:14px 16px;font-size:14px;cursor:pointer" style-hover="border-color:rgba(255,255,255,.5)"><span>Enterprise SSO</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.4)">SAML · OIDC</span></button>
+</div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.3)">SESSION KEYS: ML-KEM-768 · HYBRID X25519</span>
+</div>
+</div>
+<div style="border:1px solid rgba(255,255,255,.12);padding:44px 40px;display:flex;flex-direction:column;gap:30px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">ONBOARDING WIZARD — STEP 2 OF 5</span>
+<div style="display:flex;gap:6px">
+<span style="flex:1;height:3px;background:#FF1621"></span><span style="flex:1;height:3px;background:#FF1621"></span><span style="flex:1;height:3px;background:rgba(255,255,255,.15)"></span><span style="flex:1;height:3px;background:rgba(255,255,255,.15)"></span><span style="flex:1;height:3px;background:rgba(255,255,255,.15)"></span>
+</div>
+<h3 style="margin:0;font-size:30px;font-weight:600;letter-spacing:-.025em">Choose your platform</h3>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="border:1px solid #FF1621;padding:18px 20px;display:flex;align-items:center;gap:16px;background:rgba(255,22,33,.07);cursor:pointer"><span style="width:10px;height:10px;background:#FF1621;box-shadow:0 0 12px #FF1621"></span><div style="flex:1"><div style="font-weight:600;font-size:15px">GRIDERA</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-top:3px">COMPLIANCE · LENDING · CERTIFICATION</div></div><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF1621">SELECTED</span></div>
+<div style="border:1px solid rgba(255,255,255,.14);padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer" style-hover="border-color:rgba(139,107,217,.6)"><span style="width:10px;height:10px;border:1px solid rgba(255,255,255,.35)"></span><div style="flex:1"><div style="font-weight:600;font-size:15px">SENTINEL</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-top:3px">THREAT GRAPH · POSTURE · ATTEST</div></div></div>
+<div style="border:1px solid rgba(255,255,255,.14);padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer" style-hover="border-color:rgba(79,191,139,.6)"><span style="width:10px;height:10px;border:1px solid rgba(255,255,255,.35)"></span><div style="flex:1"><div style="font-weight:600;font-size:15px">NEXUS</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-top:3px">PIPELINE · CONNECTORS · AGENT MESH</div></div></div>
+<div style="border:1px solid rgba(255,255,255,.14);padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer" style-hover="border-color:rgba(255,255,255,.45)"><span style="width:10px;height:10px;border:1px solid rgba(255,255,255,.35)"></span><div style="flex:1"><div style="font-weight:600;font-size:15px">DEFQUAN</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.45);margin-top:3px">PQC KEYS · ENTROPY · MIGRATE</div></div></div>
+</div>
+<div style="display:flex;gap:12px;margin-top:auto"><button style="font-family:'Instrument Sans',sans-serif;background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;padding:14px 26px;font-size:14px;font-weight:600;cursor:pointer">Back</button><button style="font-family:'Instrument Sans',sans-serif;flex:1;background:#FF1621;border:0;color:#000;padding:14px 26px;font-size:14px;font-weight:600;cursor:pointer" style-hover="box-shadow:0 0 26px rgba(255,22,33,.7)">Continue</button></div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="09 Explorer" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:44px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">09</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Network Explorer</h2></div>
+<div style="border:1px solid rgba(255,255,255,.12);background:#000">
+<div style="display:flex;align-items:center;gap:28px;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.12)">
+<div style="display:flex;align-items:center;gap:11px"><svg viewBox="120 100 380 380" width="20" height="20" fill="#fff"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg><span style="font-weight:700;font-size:14px;letter-spacing:-.01em">GRIDERA SCAN</span></div>
+<div style="display:flex;gap:22px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.5)"><span style="color:#FF1621;border-bottom:1px solid #FF1621;padding-bottom:3px">DASHBOARD</span><span>TRANSACTIONS</span><span>ACCOUNTS</span><span>TOKENS</span><span>NODES</span></div>
+<input placeholder="Search by hash / account / agent DID" style="font-family:'IBM Plex Mono',monospace;flex:1;background:#0A0A0C;border:1px solid rgba(255,255,255,.16);color:#fff;padding:10px 14px;font-size:11.5px;outline:none" style-focus="border-color:#FF1621">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;border:1px solid rgba(79,191,139,.5);color:#4FBF8B;padding:5px 10px">MAINNET</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.12)">
+<div style="background:#000;padding:26px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-bottom:10px">TPS</div><div style="font-size:34px;font-weight:600;letter-spacing:-.03em">12,418</div></div>
+<div style="background:#000;padding:26px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-bottom:10px">FINALITY</div><div style="font-size:34px;font-weight:600;letter-spacing:-.03em">0.41<span style="font-size:16px;color:rgba(255,255,255,.45)">s</span></div></div>
+<div style="background:#000;padding:26px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-bottom:10px">ATTESTED AGENTS</div><div style="font-size:34px;font-weight:600;letter-spacing:-.03em">8,902</div></div>
+<div style="background:#000;padding:26px 24px;position:relative;overflow:hidden"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-bottom:10px">PQC COVERAGE</div><div style="font-size:34px;font-weight:600;letter-spacing:-.03em;color:#FF1621">97.4<span style="font-size:16px">%</span></div></div>
+</div>
+<div style="display:grid;grid-template-columns:1.6fr 1fr;gap:1px;background:rgba(255,255,255,.12);border-top:1px solid rgba(255,255,255,.12)">
+<div style="background:#000;padding:26px 24px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.45)">LATEST TRANSACTIONS</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF1621">LIVE ●</span></div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ txs }}" as="tx" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:1.3fr .9fr .8fr .7fr;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.07);font-family:'IBM Plex Mono',monospace;font-size:11.5px;align-items:center">
+<span style="color:#FF1621">{{ tx.hash }}</span>
+<span style="color:rgba(255,255,255,.55)">{{ tx.type }}</span>
+<span style="color:rgba(255,255,255,.8)">{{ tx.amount }}</span>
+<span style="color:rgba(255,255,255,.35);text-align:right">{{ tx.age }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="background:#000;padding:26px 24px;display:flex;flex-direction:column;gap:18px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.45)">CONSENSUS NODES</span>
+<div style="position:relative;height:220px;border:1px solid rgba(255,255,255,.08);overflow:hidden"><canvas data-fx="nodes" style="position:absolute;inset:0;width:100%;height:100%"></canvas></div>
+<div style="display:flex;flex-direction:column;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.5)">
+<div style="display:flex;justify-content:space-between"><span>ACTIVE</span><span style="color:#4FBF8B">39 / 39</span></div>
+<div style="display:flex;justify-content:space-between"><span>REGIONS</span><span style="color:#fff">11</span></div>
+<div style="display:flex;justify-content:space-between"><span>SIG SCHEME</span><span style="color:#fff">ML-DSA-65</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="10 Pipeline" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">10</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Integration Pipeline</h2></div>
+<p style="margin:0 0 44px;max-width:660px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.6)">Nexus builder — source, transform, attest, settle. Every edge is a light ray; every node emits its own state.</p>
+<div style="border:1px solid rgba(255,255,255,.12);background:#000;padding:44px 40px;position:relative;overflow:hidden">
+<svg width="100%" height="6" style="position:absolute;left:0;top:0"><rect width="100%" height="6" fill="url(#tbkRay)"/></svg>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-items:stretch;margin-top:20px">
+<div style="position:relative;padding-right:34px"><div style="border:1px solid rgba(255,255,255,.18);padding:24px;background:#0A0A0C;height:100%;display:flex;flex-direction:column;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">01 SOURCE</span><div style="font-size:18px;font-weight:600">Connectors</div><p style="margin:0;font-size:13px;line-height:1.55;color:rgba(255,255,255,.5)">SWIFT, ISO 20022, REST, Kafka, on-chain events.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4FBF8B;margin-top:auto">● 42 ACTIVE</span></div><span style="position:absolute;right:0;top:50%;width:34px;height:1px;background:linear-gradient(90deg,#FF1621,rgba(255,22,33,.15))"></span></div>
+<div style="position:relative;padding-right:34px;padding-left:0"><div style="border:1px solid rgba(255,255,255,.18);padding:24px;background:#0A0A0C;height:100%;display:flex;flex-direction:column;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">02 TRANSFORM</span><div style="font-size:18px;font-weight:600">Policy Engine</div><p style="margin:0;font-size:13px;line-height:1.55;color:rgba(255,255,255,.5)">Deterministic rules, jurisdiction-aware, versioned.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4FBF8B;margin-top:auto">● 8 RULESETS</span></div><span style="position:absolute;right:0;top:50%;width:34px;height:1px;background:linear-gradient(90deg,#FF1621,rgba(255,22,33,.15))"></span></div>
+<div style="position:relative;padding-right:34px"><div style="border:1px solid #FF1621;padding:24px;background:linear-gradient(180deg,rgba(255,22,33,.1),#0A0A0C);height:100%;display:flex;flex-direction:column;gap:12px;box-shadow:0 0 40px rgba(255,22,33,.16)"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#FF1621">03 ATTEST</span><div style="font-size:18px;font-weight:600">Lattice Signature</div><p style="margin:0;font-size:13px;line-height:1.55;color:rgba(255,255,255,.55)">ML-DSA proof bound to the payload and the agent DID.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF1621;margin-top:auto">● 0.41s AVG</span></div><span style="position:absolute;right:0;top:50%;width:34px;height:1px;background:linear-gradient(90deg,#FF1621,rgba(255,22,33,.15))"></span></div>
+<div><div style="border:1px solid rgba(255,255,255,.18);padding:24px;background:#0A0A0C;height:100%;display:flex;flex-direction:column;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">04 SETTLE</span><div style="font-size:18px;font-weight:600">Ledger Write</div><p style="margin:0;font-size:13px;line-height:1.55;color:rgba(255,255,255,.5)">Finality, receipt, and an immutable audit ray.</p><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4FBF8B;margin-top:auto">● FINAL</span></div></div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="11 Developer" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:44px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">11</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Developer Portal &amp; Keys</h2></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)">
+<div style="background:#000;padding:36px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.45)">API KEYS</span><button style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;background:#FF1621;border:0;color:#000;padding:7px 13px;cursor:pointer">+ NEW KEY</button></div>
+<div style="display:flex;flex-direction:column;gap:1px;background:rgba(255,255,255,.1)">
+<div style="background:#0A0A0C;padding:16px 18px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:14px">production-eu</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4FBF8B">ACTIVE</span></div><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45)">tau_live_8f2a••••••••••••c41e</span></div>
+<div style="background:#0A0A0C;padding:16px 18px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:14px">staging</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.4)">ROTATES 12d</span></div><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45)">tau_test_1b93••••••••••••7de0</span></div>
+<div style="background:#0A0A0C;padding:16px 18px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:14px">agent-mesh</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF1621">SCOPED</span></div><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45)">tau_agnt_c07d••••••••••••99af</span></div>
+</div>
+</div>
+<div style="background:#000;padding:36px;display:flex;flex-direction:column;gap:22px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.45)">USAGE — 30 DAYS</span>
+<div style="display:flex;align-items:flex-end;gap:4px;height:150px">
+<sc-for list="{{ usage }}" as="bar" hint-placeholder-count="30">
+<span style="flex:1;background:{{ bar.fill }};height:{{ bar.h }}"></span>
+</sc-for>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px">
+<div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.4);margin-bottom:7px">REQUESTS</div><div style="font-size:22px;font-weight:600">4.19M</div></div>
+<div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.4);margin-bottom:7px">P99</div><div style="font-size:22px;font-weight:600">88ms</div></div>
+<div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.4);margin-bottom:7px">ERRORS</div><div style="font-size:22px;font-weight:600;color:#FF1621">0.02%</div></div>
+</div>
+</div>
+</div>
+<div style="border:1px solid rgba(255,255,255,.12);border-top:0;background:#0A0A0C;padding:28px 32px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:2;color:rgba(255,255,255,.7)">
+<div style="color:rgba(255,255,255,.3);margin-bottom:10px">// attest and settle in one call</div>
+<div><span style="color:#8B6BD9">const</span> receipt = <span style="color:#8B6BD9">await</span> taurus.<span style="color:#FF1621">nexus</span>.settle({</div>
+<div>&nbsp;&nbsp;payload, agent: <span style="color:#4FBF8B">'did:tau:8f2a…c41e'</span>,</div>
+<div>&nbsp;&nbsp;attest: <span style="color:#4FBF8B">'ML-DSA-65'</span></div>
+<div>});</div>
+</div>
+</section>
+
+<section data-screen-label="12 Marketing wireframe" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">12</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">taurusai.io — Scroll Wireframe</h2></div>
+<p style="margin:0 0 44px;max-width:660px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.6)">Structure first. Five pinned scenes; the lattice densifies as you descend.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px">
+<sc-for list="{{ wireframe }}" as="w" hint-placeholder-count="5">
+<div style="border:1px dashed rgba(255,255,255,.28);background:#08080A;padding:20px;display:flex;flex-direction:column;gap:14px;min-height:330px">
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#FF1621"><span>{{ w.n }}</span><span style="color:rgba(255,255,255,.35)">{{ w.scroll }}</span></div>
+<div style="font-size:17px;font-weight:600;letter-spacing:-.015em">{{ w.title }}</div>
+<div style="display:flex;flex-direction:column;gap:8px;flex:1">
+<sc-for list="{{ w.blocks }}" as="b" hint-placeholder-count="4">
+<div style="border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);padding:9px 11px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.5)">{{ b }}</div>
+</sc-for>
+</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.32);line-height:1.6;border-top:1px solid rgba(255,255,255,.12);padding-top:11px">{{ w.motion }}</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section data-screen-label="13 Newsletter" style="padding:96px 48px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:44px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">13</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Catalogue, Carousel &amp; Newsletter</h2></div>
+<div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
+<div style="width:320px;border:1px solid rgba(255,255,255,.12);background:#000">
+<div style="height:400px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:26px">
+<canvas data-fx="burst" data-scale="0.45" style="position:absolute;inset:0;width:100%;height:100%;opacity:.6"></canvas>
+<div style="position:relative;display:flex;justify-content:space-between;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;color:#FF1621">Q-GRID SHIELD</span><svg viewBox="120 100 380 380" width="18" height="18" fill="rgba(255,255,255,.7)"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg></div>
+<div style="position:relative"><h3 style="margin:0 0 10px;font-size:34px;line-height:1;font-weight:700;letter-spacing:-.035em">Harvest now,<br>decrypt later.</h3><p style="margin:0;font-size:13px;line-height:1.55;color:rgba(255,255,255,.6)">Your 2026 traffic is already someone's 2032 archive.</p></div>
+<div style="position:relative;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.14);padding-top:12px"><span>TAURUS AI</span><span>01 / 08</span></div>
+</div>
+<div style="padding:14px 18px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.12)">CAROUSEL 1080×1350 — 3 ZONES</div>
+</div>
+<div style="width:340px;border:1px solid rgba(255,255,255,.12);background:#000">
+<div style="padding:26px 24px;border-bottom:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;justify-content:space-between;align-items:center"><svg viewBox="120 100 380 380" width="22" height="22" fill="#fff"><rect x="137" y="118" width="87" height="87"/><rect x="312" y="117" width="171" height="86"/><rect x="137" y="246" width="87" height="87"/><rect x="270" y="248" width="213" height="85"/><rect x="137" y="374" width="131" height="90"/><rect x="355" y="374" width="128" height="90"/></svg><span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;color:rgba(255,255,255,.4)">ISSUE 014 · AUG 2026</span></div>
+<svg width="100%" height="34"><rect width="100%" height="34" fill="url(#tbkLat)"/></svg>
+<h3 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.025em;line-height:1.15">The Lattice Dispatch</h3>
+</div>
+<div style="padding:24px;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;color:#FF1621">01 · SHIPPED</span><span style="font-size:15px;font-weight:600">Agent DIDs on mainnet</span><span style="font-size:13px;line-height:1.55;color:rgba(255,255,255,.5)">Every agent now carries a verifiable, revocable identity.</span></div>
+<div style="height:1px;background:rgba(255,255,255,.1)"></div>
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;color:#FF1621">02 · FIELD NOTE</span><span style="font-size:15px;font-weight:600">ISO 20022 in 11 days</span><span style="font-size:13px;line-height:1.55;color:rgba(255,255,255,.5)">A tier-2 bank's migration, start to settlement.</span></div>
+<button style="font-family:'Instrument Sans',sans-serif;background:#FF1621;border:0;color:#000;padding:13px;font-size:13.5px;font-weight:600;cursor:pointer">Read the dispatch</button>
+</div>
+<div style="padding:14px 18px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.12)">EMAIL 600px — TABLE-SAFE</div>
+</div>
+<div style="flex:1;min-width:280px;border:1px solid rgba(255,255,255,.12);padding:30px;display:flex;flex-direction:column;gap:18px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.4)">EXPORT RATIOS — ONE TEMPLATE</span>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ ratios }}" as="r" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;gap:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)">
+<span style="width:56px;height:34px;border:1px solid rgba(255,22,33,.55);background:rgba(255,22,33,.08);flex:none"></span>
+<div style="flex:1"><div style="font-size:13.5px;font-weight:600">{{ r.name }}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(255,255,255,.4);margin-top:2px">{{ r.size }}</div></div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="14 Rules" style="padding:96px 48px">
+<div style="display:flex;align-items:baseline;gap:18px;margin-bottom:44px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#FF1621">14</span><h2 style="margin:0;font-size:15px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:rgba(255,255,255,.55)">Rules &amp; Open Questions</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);margin-bottom:56px">
+<div style="background:#000;padding:34px;display:flex;flex-direction:column;gap:16px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#4FBF8B">ALWAYS</span>
+<div style="display:flex;flex-direction:column;gap:12px;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.7)">
+<div>Design the dark frame first; derive light from it.</div>
+<div>One accent per screen. Red owns action.</div>
+<div>Zero border-radius. Hairlines at 1px, never 2.</div>
+<div>Mono for anything a machine produced.</div>
+<div>Ship the static final frame with every animation.</div>
+</div>
+</div>
+<div style="background:#000;padding:34px;display:flex;flex-direction:column;gap:16px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#FF1621">NEVER</span>
+<div style="display:flex;flex-direction:column;gap:12px;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.7)">
+<div>Gradient meshes or purple-to-blue SaaS washes.</div>
+<div>Stock photography of people at laptops.</div>
+<div>Emoji in product or corporate surfaces.</div>
+<div>Red as a background fill larger than a button.</div>
+<div>Rotating the mark, or recolouring individual blocks.</div>
+</div>
+</div>
+<div style="background:#000;padding:34px;display:flex;flex-direction:column;gap:16px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:rgba(255,255,255,.45)">QUESTIONS WORTH ANSWERING NEXT</span>
+<div style="display:flex;flex-direction:column;gap:12px;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.62)">
+<div>Should the attestation receipt become a public, embeddable badge? That is a distribution channel, not a feature.</div>
+<div>Does the explorer get an agent-first view — identity as the primary object, transactions secondary?</div>
+<div>Is DefQuan a platform, or the substrate all four run on? Naming it a platform may undersell it.</div>
+</div>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding-top:36px;border-top:1px solid rgba(255,255,255,.12);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:rgba(255,255,255,.35)">
+<span>TAURUS AI — BRAND SYSTEM v1.0</span><span>GRIDERA · SENTINEL · NEXUS · DEFQUAN</span>
+</div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#FF1621&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#FF1621&quot;,&quot;#8B6BD9&quot;,&quot;#4FBF8B&quot;,&quot;#E8E8ED&quot;],&quot;section&quot;:&quot;Brand&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const accent = this.props.accentColor ?? '#FF1621';
+    const txs = [
+      { hash: '0x8f2a…c41e', type: 'ATTEST', amount: '— ', age: '2s' },
+      { hash: '0x1b93…7de0', type: 'SETTLE', amount: '412.00 USDX', age: '4s' },
+      { hash: '0xc07d…99af', type: 'AGENT.REG', amount: '—', age: '6s' },
+      { hash: '0x44e1…20ba', type: 'SETTLE', amount: '18,904.55 USDX', age: '9s' },
+      { hash: '0x9ac2…f731', type: 'POLICY', amount: '—', age: '11s' },
+      { hash: '0x0d58…3e17', type: 'SETTLE', amount: '2,100.00 EURX', age: '14s' },
+      { hash: '0xb612…8c40', type: 'ATTEST', amount: '—', age: '17s' }
+    ];
+    const usage = Array.from({ length: 30 }, (_, i) => {
+      const v = 26 + Math.round(58 * Math.abs(Math.sin(i * 0.7)) + (i % 5) * 3);
+      return { h: v + '%', fill: i > 25 ? accent : 'rgba(255,255,255,.22)' };
+    });
+    const wireframe = [
+      { n: '01', scroll: '0–100vh', title: 'Emission', blocks: ['FULL-BLEED CANVAS', 'H1 · 2 LINES MAX', 'SUB · 24 WORDS', 'CTA PAIR', 'PLATFORM STRIP'], motion: 'Ray burst resolves from a single point. Nav fades in at 60vh.' },
+      { n: '02', scroll: '100–220vh', title: 'Problem', blocks: ['PINNED STAT', 'COUNTER 3×', 'SUPPORTING LINE'], motion: 'Numbers count while pinned. Lattice density rises with progress.' },
+      { n: '03', scroll: '220–380vh', title: 'Pipeline', blocks: ['4-NODE DIAGRAM', 'STEP COPY', 'CODE SAMPLE'], motion: 'Horizontal scroll-jack across the four nodes; edges light in sequence.' },
+      { n: '04', scroll: '380–500vh', title: 'Platforms', blocks: ['4 CARDS', 'SPECTRAL ACCENT', 'SUB-PRODUCT LIST'], motion: 'Cards enter as rays from screen edges. Hover shifts accent light.' },
+      { n: '05', scroll: '500–600vh', title: 'Ask', blocks: ['H2 · SHORT', 'FORM · 1 FIELD', 'TRUST ROW', 'FOOTER'], motion: 'Canvas collapses back to a single point behind the form.' }
+    ];
+    const ratios = [
+      { name: 'LinkedIn carousel', size: '1080 × 1350' },
+      { name: 'LinkedIn preview', size: '1200 × 628' },
+      { name: 'Instagram square', size: '1080 × 1080' },
+      { name: 'LinkedIn banner', size: '1584 × 396' },
+      { name: 'X header', size: '1500 × 500' },
+      { name: 'X image', size: '1200 × 675' }
+    ];
+    return { txs, usage, wireframe, ratios };
+  }
+
+  componentDidMount() {
+    this._raf = null;
+    this._stops = [];
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const accent = this.props.accentColor ?? '#FF1621';
+    const canvases = Array.from(document.querySelectorAll('canvas[data-fx]'));
+    canvases.forEach((c) => this._mount(c, accent, reduce));
+  }
+
+  componentWillUnmount() {
+    this._stops.forEach((f) => f());
+  }
+
+  _mount(canvas, accent, reduce) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const kind = canvas.dataset.fx;
+    const scale = parseFloat(canvas.dataset.scale || '1');
+    let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const fit = () => {
+      const r = canvas.getBoundingClientRect();
+      w = Math.max(1, r.width); h = Math.max(1, r.height);
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    fit();
+    const ro = new ResizeObserver(fit); ro.observe(canvas);
+
+    let t = 0, raf = null, running = true;
+    const io = new IntersectionObserver((e) => { running = e[0].isIntersecting; }, { threshold: 0 });
+    io.observe(canvas);
+
+    const draw = () => {
+      t += reduce ? 0 : 0.006;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h);
+      if (kind === 'burst') this._burst(ctx, w, h, t, accent, scale);
+      else if (kind === 'wave') this._wave(ctx, w, h, t, accent);
+      else this._nodes(ctx, w, h, t, accent);
+      if (!reduce) raf = requestAnimationFrame(() => { if (running) draw(); else setTimeout(draw, 400); });
+    };
+    draw();
+    this._stops.push(() => { ro.disconnect(); io.disconnect(); if (raf) cancelAnimationFrame(raf); });
+  }
+
+  _burst(ctx, w, h, t, accent, scale) {
+    const cx = w * 0.5, cy = h * 0.5;
+    const R = Math.max(w, h) * 0.85 * scale;
+    const rays = 150;
+    for (let i = 0; i < rays; i++) {
+      const spread = 1.05;
+      const a = -spread / 2 + (i / rays) * spread + Math.sin(t * 0.7 + i * 0.02) * 0.05;
+      const len = R * (0.35 + 0.65 * ((i * 37) % 100) / 100);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(a) * len, cy + Math.sin(a) * len);
+      ctx.strokeStyle = i % 9 === 0 ? 'rgba(255,255,255,.5)' : accent + '55';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      const p = ((t * 0.35 + i * 0.013) % 1);
+      const px = cx + Math.cos(a) * len * p, py = cy + Math.sin(a) * len * p;
+      ctx.fillStyle = i % 5 === 0 ? '#fff' : accent;
+      ctx.fillRect(px, py, 1.6, 1.6);
+    }
+    for (let i = 0; i < 120; i++) {
+      const x = ((i * 173.7) % w), y = ((i * 91.3 + t * 40 * ((i % 3) + 1)) % h);
+      ctx.fillStyle = i % 4 === 0 ? 'rgba(255,255,255,.75)' : accent + '77';
+      ctx.fillRect(x, y, 1.4, 1.4);
+    }
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, 60);
+    g.addColorStop(0, accent); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, 60, 0, 6.283); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.fillRect(cx - 2, cy - 2, 4, 4);
+  }
+
+  _wave(ctx, w, h, t, accent) {
+    const cols = 74, rows = 34;
+    for (let r = 0; r < rows; r++) {
+      ctx.beginPath();
+      for (let c = 0; c < cols; c++) {
+        const u = c / (cols - 1), v = r / (rows - 1);
+        const depth = 0.28 + v * 0.72;
+        const x = w * 0.5 + (u - 0.5) * w * 1.25 * depth;
+        const z = Math.sin(u * 7 + t * 3) * Math.cos(v * 5 - t * 2) * 26 * depth;
+        const y = h * 0.18 + v * h * 0.78 + z;
+        if (c === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        if ((c + r) % 4 === 0) { ctx.save(); ctx.fillStyle = 'rgba(255,255,255,' + (0.15 + depth * 0.5) + ')'; ctx.fillRect(x, y, 1.3, 1.3); ctx.restore(); }
+      }
+      ctx.strokeStyle = accent + (r % 5 === 0 ? '99' : '3A');
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+  }
+
+  _nodes(ctx, w, h, t, accent) {
+    const n = 39;
+    const pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * 6.283 + t * 0.35;
+      const rr = Math.min(w, h) * (0.2 + 0.22 * (((i * 53) % 10) / 10));
+      pts.push([w / 2 + Math.cos(a) * rr, h / 2 + Math.sin(a) * rr * 0.9]);
+    }
+    ctx.strokeStyle = 'rgba(255,255,255,.09)';
+    for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j += 6) {
+      ctx.beginPath(); ctx.moveTo(pts[i][0], pts[i][1]); ctx.lineTo(pts[j][0], pts[j][1]); ctx.stroke();
+    }
+    pts.forEach((p, i) => {
+      const lit = (Math.sin(t * 4 + i) + 1) / 2;
+      ctx.fillStyle = i % 7 === 0 ? accent : 'rgba(255,255,255,' + (0.3 + lit * 0.7) + ')';
+      ctx.fillRect(p[0] - 1.5, p[1] - 1.5, 3, 3);
+    });
+  }
+}
+</script>
+</body>
+</html>
