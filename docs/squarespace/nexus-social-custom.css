@@ -1,0 +1,223 @@
+/* ============================================================
+   Nexus Social — Squarespace 7.1 Custom CSS
+   Paste into: Design → Custom CSS
+   Keeps the template's own palette: accent #FF5E1A, bg #DAD9D9, Syne / Syne Mono.
+   Purpose: sharpen the stock template into something that reads as a product site.
+   Everything here is cosmetic and reversible — clear the panel to revert.
+   ============================================================ */
+
+:root {
+  --nx-accent: #ff5e1a;
+  --nx-accent-ink: #ffffff;
+  --nx-ink: #0d0d0f;
+  --nx-ink-soft: rgba(13, 13, 15, 0.62);
+  --nx-hairline: rgba(13, 13, 15, 0.14);
+  --nx-surface: #ffffff;
+  --nx-radius: 14px;
+  --nx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ---------- 1. Type: tighten the scale, calm the weight ---------- */
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+h1 { line-height: 0.98; }
+h2 { line-height: 1.04; }
+
+/* Body copy reads small and grey in the stock theme — lift it. */
+.sqs-block-html p {
+  color: var(--nx-ink-soft);
+  line-height: 1.55;
+  max-width: 62ch;
+}
+
+/* Mono is the "evidence" face — use it for small labels, not paragraphs. */
+.sqs-block-html p em {
+  font-family: "Syne Mono", monospace;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72em;
+  color: var(--nx-accent);
+}
+
+/* ---------- 2. Buttons: one confident pill ---------- */
+
+.sqs-block-button-element,
+.header-actions .btn,
+.header-actions-action--cta a {
+  border-radius: 999px !important;
+  font-family: "Syne Mono", monospace !important;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  transition: transform 0.18s var(--nx-ease), box-shadow 0.18s var(--nx-ease),
+              background-color 0.18s var(--nx-ease);
+  will-change: transform;
+}
+
+.sqs-block-button-element--primary,
+.header-actions-action--cta a {
+  background-color: var(--nx-accent) !important;
+  color: var(--nx-accent-ink) !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.sqs-block-button-element:hover,
+.header-actions-action--cta a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(255, 94, 26, 0.28);
+}
+
+/* Secondary / outline buttons */
+.sqs-block-button-element--secondary,
+.sqs-block-button-element--tertiary {
+  border: 1px solid var(--nx-hairline) !important;
+  background: transparent !important;
+  color: var(--nx-ink) !important;
+}
+
+/* ---------- 3. Header: hairline, tighter nav ---------- */
+
+/* NOTE: Squarespace compiles this panel as LESS, so any CSS function that shares a
+   name with a LESS built-in (saturate, lighten, darken, fade, spin…) must be escaped
+   with ~"..." or the WHOLE file fails to compile and nothing applies. */
+#header {
+  border-bottom: 1px solid var(--nx-hairline);
+  backdrop-filter: ~"saturate(140%) blur(6px)";
+}
+
+.header-nav-item a {
+  letter-spacing: 0.02em;
+  position: relative;
+}
+
+.header-nav-item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -4px;
+  height: 1.5px;
+  background: var(--nx-accent);
+  transition: right 0.24s var(--nx-ease);
+}
+
+.header-nav-item a:hover::after { right: 0; }
+
+#site-title { letter-spacing: -0.04em; }
+
+/* ---------- 4. Product + service cards ---------- */
+
+.grid-item,
+.list-item,
+.products .grid-item {
+  border-radius: var(--nx-radius);
+  transition: transform 0.22s var(--nx-ease), box-shadow 0.22s var(--nx-ease);
+}
+
+.grid-item:hover,
+.list-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(13, 13, 15, 0.1);
+}
+
+.grid-image,
+.list-item-media,
+.grid-item .grid-image-wrapper img {
+  border-radius: var(--nx-radius);
+  overflow: hidden;
+}
+
+/* Product titles carry the plan name — make them lead. */
+.grid-title,
+.product-title {
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+/* Price reads as evidence, not decoration. */
+.product-price,
+.grid-prices {
+  font-family: "Syne Mono", monospace;
+  color: var(--nx-accent);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- 5. Section rhythm + hairlines ---------- */
+
+.page-section {
+  border-top: 1px solid transparent;
+}
+
+.page-section + .page-section {
+  border-top-color: var(--nx-hairline);
+}
+
+/* Kill the hairline directly under the hero — it fights the image. */
+.page-section:nth-of-type(2) { border-top-color: transparent; }
+
+/* ---------- 6. Forms ---------- */
+
+.form-wrapper input[type="text"],
+.form-wrapper input[type="email"],
+.form-wrapper textarea,
+.form-wrapper select {
+  border: 1px solid var(--nx-hairline) !important;
+  border-radius: 10px !important;
+  background: var(--nx-surface) !important;
+  transition: border-color 0.18s var(--nx-ease), box-shadow 0.18s var(--nx-ease);
+}
+
+.form-wrapper input:focus,
+.form-wrapper textarea:focus {
+  border-color: var(--nx-accent) !important;
+  box-shadow: 0 0 0 3px rgba(255, 94, 26, 0.16) !important;
+  outline: none !important;
+}
+
+.form-wrapper .field-error { font-family: "Syne Mono", monospace; }
+
+/* ---------- 7. Footer ---------- */
+
+footer.sections,
+#footer-sections {
+  border-top: 1px solid var(--nx-hairline);
+}
+
+/* Endorsement line — RULE 03 of the corporate design system.
+   Add a text block in the footer containing exactly: a TAURUS AI CORP platform */
+footer .sqs-block-html p:last-child {
+  font-family: "Syne Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.46;
+}
+
+/* ---------- 8. Accessibility + motion ---------- */
+
+a:focus-visible,
+button:focus-visible,
+.sqs-block-button-element:focus-visible {
+  outline: 2px solid var(--nx-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- 9. Mobile tightening ---------- */
+
+@media screen and (max-width: 767px) {
+  h1 { letter-spacing: -0.03em; }
+  .sqs-block-html p { max-width: none; }
+  .sqs-block-button-element { width: 100%; text-align: center; }
+}
