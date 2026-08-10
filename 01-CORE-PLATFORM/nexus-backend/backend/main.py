@@ -14,6 +14,7 @@ import sys
 import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
+from pathlib import Path
 from typing import Any
 
 import bcrypt
@@ -40,26 +41,43 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from pydantic import BaseModel as PydanticBaseModel
 from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-sys.path.append(
-    "/Users/user/Documents/TAURUS AI Corp./CURSOR Projects/TAURUS AI CORP/BizFlow-Orchestrator/agents"
-)
+# Resolve the agents package relative to this file rather than an absolute path.
+# The previous hardcoded path pointed at a different machine's home directory, so the
+# six `from specialized.*` imports below raised ImportError before `app` was created.
+_BACKEND_DIR = Path(__file__).resolve().parent
+_AGENTS_DIR = _BACKEND_DIR.parent / "agents"
+for _p in (str(_AGENTS_DIR), str(_BACKEND_DIR)):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
-from specialized.content_social_strategy.agent import ContentSocialStrategyAgent
-from specialized.custom_component_performance.agent import (
+# ruff: the imports below must follow the sys.path mutation above, so E402 is expected.
+# Vector retrieval service (turbovec-powered RAG layer)
+from services.vector_retrieval import vector_store  # noqa: E402
+from specialized.content_social_strategy.agent import (  # noqa: E402
+    ContentSocialStrategyAgent,
+)
+from specialized.custom_component_performance.agent import (  # noqa: E402
     CustomComponentPerformanceAgent,
 )
-from specialized.intelligence_research.agent import IntelligenceResearchAgent
-from specialized.performance_analysis.agent import PerformanceAnalysisAgent
-from specialized.realtime_intelligence_dashboard.agent import (
+from specialized.intelligence_research.agent import (  # noqa: E402
+    IntelligenceResearchAgent,
+)
+from specialized.performance_analysis.agent import (  # noqa: E402
+    PerformanceAnalysisAgent,
+)
+from specialized.realtime_intelligence_dashboard.agent import (  # noqa: E402
     RealtimeIntelligenceDashboardAgent,
 )
-from specialized.webflow_integration_master.agent import WebflowIntegrationMasterAgent
+from specialized.webflow_integration_master.agent import (  # noqa: E402
+    WebflowIntegrationMasterAgent,
+)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -332,6 +350,17 @@ async def startup_event():
                 logger.info(f"✅ Agent {name} initialized successfully")
             except Exception as e:
                 logger.error(f"❌ Failed to initialize agent {name}: {e}")
+
+        # Initialize vector retrieval service (turbovec-powered RAG)
+        try:
+            await vector_store.initialize(config)
+            logger.info(
+                f"✅ Vector retrieval service initialized "
+                f"(dim={vector_store.dim}, bit_width={vector_store.bit_width}, "
+                f"size={vector_store.size})"
+            )
+        except Exception as e:
+            logger.error(f"❌ Vector retrieval service init failed (non-fatal): {e}")
 
         logger.info("🎉 All backend services initialized successfully!")
 
@@ -992,6 +1021,104 @@ async def get_dashboard_data(user_id: str = Depends(verify_token)):
     except Exception as e:
         logger.error(f"Dashboard error: {e}")
         raise HTTPException(status_code=500, detail="Dashboard data unavailable")
+
+
+# ─── Knowledge / Vector Search Routes (turbovec-powered RAG) ───
+
+
+class IngestRequest(PydanticBaseModel):
+    """Request body for /api/knowledge/ingest."""
+    documents: list[dict[str, Any]]  # [{"text": "...", "metadata": {...}}, ...]
+
+
+class SearchRequest(PydanticBaseModel):
+    """Request body for /api/knowledge/search."""
+    query: str
+    k: int = 10
+    allowlist: list[int] | None = None
+
+
+@app.post("/api/knowledge/ingest")
+async def ingest_documents(
+    request: IngestRequest,
+    user_id: str = Depends(verify_token),
+):
+    """
+    Ingest text documents into the vector store for semantic search.
+    Documents are embedded via OpenAI and stored in the turbovec index.
+
+    Requires authentication. Each document: {"text": "...", "metadata": {...}}
+    """
+    try:
+        if not request.documents:
+            raise HTTPException(status_code=400, detail="No documents provided")
+
+        ids = vector_store.ingest_documents(request.documents)
+        return {
+            "status": "success",
+            "ingested": len(ids),
+            "ids": ids,
+            "total_documents": vector_store.size,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Knowledge ingest error: {e}")
+        raise HTTPException(status_code=500, detail="Ingest failed")
+
+
+@app.post("/api/knowledge/search")
+async def search_knowledge(
+    request: SearchRequest,
+    user_id: str = Depends(verify_token),
+):
+    """
+    Semantic search over the knowledge base using turbovec.
+
+    Returns top-k matching documents with relevance scores.
+    Optional allowlist restricts search to specific document ids.
+    """
+    try:
+        if not request.query:
+            raise HTTPException(status_code=400, detail="Query is required")
+
+        results = vector_store.search(
+            query=request.query,
+            k=request.k,
+            allowlist=request.allowlist,
+        )
+        return {
+            "status": "success",
+            "query": request.query,
+            "results": [
+                {
+                    "id": r.id,
+                    "score": r.score,
+                    "text": r.text,
+                    "metadata": r.metadata,
+                }
+                for r in results
+            ],
+            "total": len(results),
+            "index_size": vector_store.size,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Knowledge search error: {e}")
+        raise HTTPException(status_code=500, detail="Search failed")
+
+
+@app.get("/api/knowledge/status")
+async def knowledge_status(user_id: str = Depends(verify_token)):
+    """Get vector store status — size, dimension, bit width."""
+    return {
+        "status": "ready" if vector_store.is_ready else "empty",
+        "dim": vector_store.dim,
+        "bit_width": vector_store.bit_width,
+        "size": vector_store.size,
+        "documents": len(vector_store._documents),
+    }
 
 
 # Error Handlers

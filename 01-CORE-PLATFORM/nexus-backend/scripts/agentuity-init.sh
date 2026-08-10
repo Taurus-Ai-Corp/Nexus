@@ -109,32 +109,32 @@ print_header "Deploying Specialized Agents"
 
 # Deploy Intelligence & Research Agent
 print_info "Deploying Intelligence & Research Agent..."
-agentuity deploy intelligence-research-agent --config agents/specialized/intelligence-research/config.yaml
+agentuity deploy intelligence-research-agent --config agents/specialized/intelligence_research/config.yaml
 print_status "Intelligence & Research Agent deployed"
 
 # Deploy Webflow Integration Master Agent
 print_info "Deploying Webflow Integration Master Agent..."
-agentuity deploy webflow-integration-master --config agents/specialized/webflow-integration-master/config.yaml
+agentuity deploy webflow-integration-master --config agents/specialized/webflow_integration_master/config.yaml
 print_status "Webflow Integration Master Agent deployed"
 
 # Deploy Custom Component Performance Agent
 print_info "Deploying Custom Component Performance Agent..."
-agentuity deploy custom-component-performance --config agents/specialized/custom-component-performance/config.yaml
+agentuity deploy custom-component-performance --config agents/specialized/custom_component_performance/config.yaml
 print_status "Custom Component Performance Agent deployed"
 
 # Deploy Performance Analysis Agent
 print_info "Deploying Performance Analysis Agent..."
-agentuity deploy performance-analysis --config agents/specialized/performance-analysis/config.yaml
+agentuity deploy performance-analysis --config agents/specialized/performance_analysis/config.yaml
 print_status "Performance Analysis Agent deployed"
 
 # Deploy Content & Social Strategy Agent
 print_info "Deploying Content & Social Strategy Agent..."
-agentuity deploy content-social-strategy --config agents/specialized/content-social-strategy/config.yaml
+agentuity deploy content-social-strategy --config agents/specialized/content_social_strategy/config.yaml
 print_status "Content & Social Strategy Agent deployed"
 
 # Deploy Real-Time Intelligence Dashboard Agent
 print_info "Deploying Real-Time Intelligence Dashboard Agent..."
-agentuity deploy realtime-intelligence-dashboard --config agents/specialized/realtime-intelligence-dashboard/config.yaml
+agentuity deploy realtime-intelligence-dashboard --config agents/specialized/realtime_intelligence_dashboard/config.yaml
 print_status "Real-Time Intelligence Dashboard Agent deployed"
 
 print_header "Starting Coordinated Development"
