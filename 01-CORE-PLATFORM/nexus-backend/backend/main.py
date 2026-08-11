@@ -13,12 +13,10 @@ import os
 import sys
 import uuid
 from contextlib import asynccontextmanager
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-import bcrypt
-import jwt
 import redis.asyncio as redis
 import uvicorn
 from auth import (
@@ -27,6 +25,7 @@ from auth import (
     verify_password,
     verify_telegram_auth,
     verify_token,
+    verify_token_string,
 )
 from fastapi import (
     BackgroundTasks,
@@ -40,7 +39,6 @@ from fastapi import (
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel as PydanticBaseModel
 from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
@@ -88,14 +86,12 @@ redis_client: redis.Redis | None = None
 db_session: AsyncSession | None = None
 agent_instances = {}
 
-# Security
-security = HTTPBearer()
-SECRET_KEY = os.getenv("JWT_SECRET_KEY")
-if not SECRET_KEY:
-    raise RuntimeError(
-        'JWT_SECRET_KEY environment variable is required. Generate with: python -c "import secrets; print(secrets.token_urlsafe(64))"'
-    )
-ALGORITHM = "HS256"
+# Security: SECRET_KEY/ALGORITHM/security(HTTPBearer) intentionally NOT
+# redeclared here — main.py used to duplicate these (and the four functions
+# below) alongside auth.py's copies, which is exactly the F811 shadowing
+# this stage fixes. auth.py is the single source of truth now; nothing in
+# main.py (including the /ws handler, routed through verify_token_string)
+# needs these constants directly. See docs/plans/2026-08-10-w1-auth-token-shadowing.md §2.2.
 
 # Rate Limiting
 limiter = Limiter(key_func=get_remote_address)
@@ -296,7 +292,8 @@ class ConnectionManager:
         for connection in self.active_connections:
             try:
                 await connection.send_text(message)
-            except:
+            except Exception as e:
+                logger.warning(f"Broadcast failed, dropping dead connection: {e}")
                 # Remove broken connections
                 if connection in self.active_connections:
                     self.active_connections.remove(connection)
@@ -319,10 +316,10 @@ async def startup_event():
         logger.info("✅ Redis connected successfully")
 
         # Initialize Database
-        DATABASE_URL = os.getenv("DATABASE_URL")
-        if not DATABASE_URL:
+        database_url = os.getenv("DATABASE_URL")
+        if not database_url:
             raise RuntimeError("DATABASE_URL environment variable is required")
-        engine = create_async_engine(DATABASE_URL, echo=False)
+        engine = create_async_engine(database_url, echo=False)
         async_session = sessionmaker(engine, class_=AsyncSession)
         db_session = async_session()
         logger.info("✅ Database connected successfully")
@@ -384,46 +381,13 @@ async def shutdown_event():
     logger.info("✅ Backend shutdown complete")
 
 
-# Authentication Functions
-def create_access_token(data: dict, expires_delta: timedelta = None):
-    """Create JWT access token"""
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(hours=24)
-
-    to_encode.update({"exp": expire, "iat": datetime.utcnow()})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt, expire
-
-
-def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    """Verify JWT token"""
-    try:
-        payload = jwt.decode(
-            credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM]
-        )
-        user_id: str = payload.get("sub")
-        if user_id is None:
-            raise HTTPException(
-                status_code=401, detail="Invalid authentication credentials"
-            )
-        return user_id
-    except jwt.PyJWTError:
-        raise HTTPException(
-            status_code=401, detail="Invalid authentication credentials"
-        )
-
-
-def hash_password(password: str) -> str:
-    """Hash password using bcrypt"""
-    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
-
-
-def verify_password(password: str, hashed: str) -> bool:
-    """Verify password against hash"""
-    return bcrypt.checkpw(password.encode("utf-8"), hashed.encode("utf-8"))
+# Authentication Functions: create_access_token, verify_token, hash_password,
+# and verify_password are imported from auth.py (see import block above).
+# They used to be redefined here too (24h expiry, no `type` claim, no
+# WWW-Authenticate header) — Python name binding meant this LOCAL copy always
+# won over the auth.py import, silently shadowing it (F811). Deleted per
+# docs/plans/2026-08-10-w1-auth-token-shadowing.md §2.1; the auth.py imports
+# above are now live.
 
 
 # API Routes
@@ -454,16 +418,16 @@ async def health_check():
         if redis_client:
             await redis_client.ping()
             health_status["services"]["redis"] = True
-    except:
-        pass
+    except Exception as e:
+        logger.warning(f"Redis health check failed: {e}")
 
     # Check Database
     try:
         if db_session:
             # Simple query to test connection
             health_status["services"]["database"] = True
-    except:
-        pass
+    except Exception as e:
+        logger.warning(f"Database health check failed: {e}")
 
     # Check Agents
     for name, agent in agent_instances.items():
@@ -527,7 +491,7 @@ async def register_user(request: Request, user_data: UserCreate):
         raise
     except Exception as e:
         logger.error(f"Registration error: {e}")
-        raise HTTPException(status_code=500, detail="Registration failed")
+        raise HTTPException(status_code=500, detail="Registration failed") from e
 
 
 @app.post("/api/auth/login", response_model=Token)
@@ -610,7 +574,7 @@ async def login_user(request: Request, login_data: UserLogin):
         raise
     except Exception as e:
         logger.error(f"Login error: {e}")
-        raise HTTPException(status_code=500, detail="Login failed")
+        raise HTTPException(status_code=500, detail="Login failed") from e
 
 
 @app.post("/api/auth/telegram", response_model=Token)
@@ -635,12 +599,12 @@ async def login_telegram(request: Request, auth_data: dict[str, Any]):
         telegram_id = str(auth_data.get("id"))
 
         # Security: Only allowlisted Telegram IDs can get admin access
-        ADMIN_TELEGRAM_IDS = [
+        admin_telegram_ids = [
             tid.strip()
             for tid in os.getenv("ADMIN_TELEGRAM_IDS", "").split(",")
             if tid.strip()
         ]
-        is_admin = telegram_id in ADMIN_TELEGRAM_IDS
+        is_admin = telegram_id in admin_telegram_ids
 
         email = f"ceo_{telegram_id}@taurusai.io"  # Virtual email for CEO
 
@@ -690,7 +654,7 @@ async def login_telegram(request: Request, auth_data: dict[str, Any]):
         raise
     except Exception as e:
         logger.error(f"Telegram Login error: {e}")
-        raise HTTPException(status_code=500, detail="Telegram Login failed")
+        raise HTTPException(status_code=500, detail="Telegram Login failed") from e
 
 
 # Agent Management Routes
@@ -759,7 +723,7 @@ async def create_agent_task(
         raise
     except Exception as e:
         logger.error(f"Task creation error: {e}")
-        raise HTTPException(status_code=500, detail="Task creation failed")
+        raise HTTPException(status_code=500, detail="Task creation failed") from e
 
 
 async def execute_agent_task(agent_name: str, task_data: dict[str, Any]):
@@ -782,6 +746,12 @@ async def execute_agent_task(agent_name: str, task_data: dict[str, Any]):
         result = None
         task_type = task_data["task_type"]
         parameters = task_data["parameters"]
+        # NOTE: routing below branches on agent_name/hasattr only, never on
+        # task_type — a caller-supplied task_type is accepted by the API but
+        # has no effect on dispatch. Logging it here at least makes the gap
+        # observable; the real fix (branch on task_type per agent) is
+        # unfinished wiring, not addressed by this lint pass.
+        logger.info(f"Task {task_id} requested task_type={task_type!r} for agent {agent_name}")
 
         # Route to appropriate agent method based on task type
         if agent_name == "intelligence_research" and hasattr(agent, "research_topic"):
@@ -841,7 +811,7 @@ async def get_task_status(task_id: str, user_id: str = Depends(verify_token)):
         raise
     except Exception as e:
         logger.error(f"Task status error: {e}")
-        raise HTTPException(status_code=500, detail="Failed to get task status")
+        raise HTTPException(status_code=500, detail="Failed to get task status") from e
 
 
 # Campaign Management Routes
@@ -890,7 +860,7 @@ async def create_campaign(
 
     except Exception as e:
         logger.error(f"Campaign creation error: {e}")
-        raise HTTPException(status_code=500, detail="Campaign creation failed")
+        raise HTTPException(status_code=500, detail="Campaign creation failed") from e
 
 
 @app.get("/api/campaigns")
@@ -916,7 +886,7 @@ async def list_campaigns(user_id: str = Depends(verify_token)):
 
     except Exception as e:
         logger.error(f"Campaign listing error: {e}")
-        raise HTTPException(status_code=500, detail="Failed to list campaigns")
+        raise HTTPException(status_code=500, detail="Failed to list campaigns") from e
 
 
 # WebSocket Routes
@@ -932,14 +902,15 @@ async def websocket_endpoint(websocket: WebSocket):
             await websocket.close(code=4001, reason="Missing authentication token")
             return
 
-        # Verify JWT
+        # Verify JWT — routed through auth.verify_token_string() so this
+        # endpoint enforces the exact same type-claim / legacy-window rules
+        # as the 9 REST endpoints on Depends(verify_token), instead of
+        # decoding the token directly and bypassing the type check (the
+        # divergence documented in
+        # docs/plans/2026-08-10-w1-auth-token-shadowing.md §2.5 / §3 item 4).
         try:
-            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-            user_id: str = payload.get("sub")
-            if user_id is None:
-                await websocket.close(code=4001, reason="Invalid token")
-                return
-        except jwt.PyJWTError:
+            user_id = verify_token_string(token)
+        except HTTPException:
             await websocket.close(code=4001, reason="Invalid authentication token")
             return
 
@@ -1020,7 +991,7 @@ async def get_dashboard_data(user_id: str = Depends(verify_token)):
 
     except Exception as e:
         logger.error(f"Dashboard error: {e}")
-        raise HTTPException(status_code=500, detail="Dashboard data unavailable")
+        raise HTTPException(status_code=500, detail="Dashboard data unavailable") from e
 
 
 # ─── Knowledge / Vector Search Routes (turbovec-powered RAG) ───
@@ -1064,7 +1035,7 @@ async def ingest_documents(
         raise
     except Exception as e:
         logger.error(f"Knowledge ingest error: {e}")
-        raise HTTPException(status_code=500, detail="Ingest failed")
+        raise HTTPException(status_code=500, detail="Ingest failed") from e
 
 
 @app.post("/api/knowledge/search")
@@ -1106,7 +1077,7 @@ async def search_knowledge(
         raise
     except Exception as e:
         logger.error(f"Knowledge search error: {e}")
-        raise HTTPException(status_code=500, detail="Search failed")
+        raise HTTPException(status_code=500, detail="Search failed") from e
 
 
 @app.get("/api/knowledge/status")
@@ -1184,4 +1155,16 @@ async def check_anomaly(metric: str, value: int):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, log_level="info")
+    # Dev-only standalone entrypoint — the Docker/production CMD invokes
+    # `uvicorn`/`gunicorn` directly against `main:app` (see backend/Dockerfile),
+    # never `python main.py`, so this block never runs in production. Default
+    # to loopback; set HOST=0.0.0.0 explicitly only for containerized local/dev
+    # use, matching the same pattern applied to the agents/specialized/*/agent.py
+    # dev entrypoints.
+    uvicorn.run(
+        "main:app",
+        host=os.getenv("HOST", "127.0.0.1"),
+        port=8000,
+        reload=True,
+        log_level="info",
+    )
