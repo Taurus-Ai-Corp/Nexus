@@ -324,7 +324,7 @@ async def analyze_component(component_name: str):
         metric = await agent.analyze_component_performance(component_path)
         return asdict(metric)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 @app.get("/performance/report")
 async def get_performance_report():
@@ -350,6 +350,11 @@ async def websocket_performance(websocket: WebSocket):
         print(f"WebSocket error: {e}")
 
 if __name__ == "__main__":
+    import os
+
     import uvicorn
     print("🚀 Starting Custom Component Performance Agent...")
-    uvicorn.run(app, host="0.0.0.0", port=8003)
+    # Dev-only standalone entrypoint (not used by backend/main.py, which imports
+    # this module's classes directly). Default to loopback; set HOST=0.0.0.0
+    # explicitly only for containerized local/dev use.
+    uvicorn.run(app, host=os.environ.get("HOST", "127.0.0.1"), port=8003)

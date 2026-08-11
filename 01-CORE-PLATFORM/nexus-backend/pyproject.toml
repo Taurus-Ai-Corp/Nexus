@@ -8,31 +8,72 @@ select = ["E", "F", "I", "N", "W", "UP", "S", "B"]
 
 [tool.ruff.lint.per-file-ignores]
 # Pre-existing lint debt inherited by the hyphen->underscore rename of these
-# agent modules (2026-08-10). The rename made pre-commit lint them for the first
-# time; none of it is new code. Suppressed to unblock the rename, NOT resolved.
-# SECURITY-RELEVANT and still outstanding — track separately, do not just delete
-# these ignores: S311 (non-crypto RNG), S324 (md5), S104 (bind 0.0.0.0).
-"**/agents/specialized/*/agent.py" = ["B007", "B904", "E501", "F841", "S104", "S311", "S324"]
+# agent modules (2026-08-10) has been fixed (2026-08-10 follow-up), not just
+# suppressed, in the six agent.py files this repo owns directly:
+#   - S311 (21x, all in content_social_strategy/agent.py): every call site is
+#     random.choice() picking placeholder values for simulated marketing copy
+#     (sample percentages, timeframes, hashtags, demo company names) — never a
+#     token/id/password/nonce. Kept as `random`, with a targeted `# noqa: S311`
+#     at each call site plus a module-level rationale comment.
+#   - S324 (md5, realtime_intelligence_dashboard/agent.py): it's a content
+#     fingerprint for change detection, not a security hash. Fixed honestly
+#     with `hashlib.md5(..., usedforsecurity=False)` instead of suppressing.
+#   - S104 (bind 0.0.0.0, 4x): all four are `if __name__ == "__main__":`
+#     dev-only entrypoints — backend/main.py imports these modules' classes
+#     directly and never executes these blocks. Fixed by making the bind host
+#     configurable via `HOST` env var, defaulting to 127.0.0.1.
+#   - B904 (8x): fixed with `raise ... from e`.
+#   - B007 (1x): fixed by renaming the unused loop variable to `_key`.
+#   - F841 (2x, webflow_integration_master/agent.py): both were unfinished
+#     wiring (a built config dict never stored/returned) rather than dead
+#     code — fixed by actually using the values (return + self-attribute
+#     storage), matching the pattern already used elsewhere in that class,
+#     instead of deleting them and erasing the evidence.
+# E501 (line length) remains ignored: it is cosmetic pre-existing debt across
+# hundreds of lines predating this pass; reflowing it is unrelated churn.
+# NOTE: agents/specialized/whatsapp-communication/agent.py is intentionally
+# NOT covered by the fixes above — a separate workstream owns that directory
+# (mid hyphen->underscore rename) and edits there would collide.
+"**/agents/specialized/*/agent.py" = ["E501"]
 "**/backend/tests/*.py" = ["S101"]
-"backend/auth.py" = ["S105"]
-# main.py carried 35 ruff errors at HEAD and predates the pre-commit ruff hook,
-# so it has never passed. Suppressed as inherited debt, NOT fixed. E402 is
-# structural (the imports must follow the sys.path mutation). B008 is the normal
-# FastAPI Depends() idiom. Still outstanding and worth a dedicated pass:
-# E722 bare except, S110 try-except-pass, F841 unused, S104 dev-server bind.
-#
-# !! F811 here is a REAL SECURITY FINDING, not style. main.py imports
-#    create_access_token / verify_token / hash_password / verify_password from
-#    auth.py (lines 25-29) and then REDEFINES all four (lines 388-426). The local
-#    definitions win, so auth.py's versions are dead. Consequences:
-#      * tokens live 24h instead of ACCESS_TOKEN_EXPIRE_MINUTES = 15 (96x longer)
-#      * the `type == "access_token"` claim check is skipped, so any JWT signed
-#        with the same secret is accepted by the 9 endpoints using verify_token
-#    Deleting the four duplicates restores auth.py's behaviour, but that shortens
-#    live sessions and starts rejecting type-less tokens — a deliberate rollout,
-#    not a lint fix. Ignored to unblock the commit; MUST be resolved separately.
-"**/backend/main.py" = ["S105", "B904", "E402", "E722", "E501", "S110", "N806",
-                        "N805", "S104", "F841", "B008", "F811"]
+# S105: "bearer" token_type literal, not a secret. B008: Depends(security) in
+# the verify_token signature is the standard FastAPI dependency-injection
+# idiom (the call must happen in the default so FastAPI can resolve it per
+# request) — sanctioned, not deferred debt.
+# Glob'd (**/) rather than a bare relative path: ruff resolves per-file-ignore
+# patterns against its project root, which is the invoking cwd when --config
+# points at an explicit file (as pre-commit does, from the repo root) — a
+# bare "backend/auth.py" only matches a file at <repo-root>/backend/auth.py
+# and silently never fires for 01-CORE-PLATFORM/nexus-backend/backend/auth.py.
+"**/backend/auth.py" = ["S105", "B008"]
+# main.py: F811 auth-shadowing (the real security finding this list used to
+# carry — main.py duplicated create_access_token/verify_token/hash_password/
+# verify_password from auth.py, and the local copies silently won, giving
+# 24h token life instead of 15m and skipping the `type` claim check) is FIXED,
+# not suppressed: the four duplicate definitions were deleted and auth.py's
+# versions are the single source of truth. See
+# docs/plans/2026-08-10-w1-auth-token-shadowing.md for the rollout.
+# B904 (10x raise-without-from), E722+S110 (3x bare-except / try-except-pass),
+# N806 (2x, DATABASE_URL/ADMIN_TELEGRAM_IDS), S104 (dev-only __main__ bind,
+# now HOST-env-configurable, defaulting to 127.0.0.1 — Docker/gunicorn CMD
+# never runs this block, see backend/Dockerfile), and F841 (task_type, kept
+# and now logged rather than deleted — the routing below never branched on it,
+# which is unfinished wiring worth a follow-up, not dead code) are likewise
+# FIXED in code, not ignored. S105 needs no file-wide entry: the one hit
+# (Token.token_type = "bearer") has its own inline `# noqa: S105`.
+# Genuinely remaining, and justified:
+#   - E402: structural — these imports must follow the sys.path mutation
+#     above (~line 52-56) that makes the `specialized.*` agent modules
+#     importable; moving them to the top would break at import time.
+#   - E501: cosmetic pre-existing debt (2 long f-string lines); reflowing is
+#     unrelated churn.
+#   - B008: `Depends(verify_token)` / `Depends(security)` — the standard
+#     FastAPI dependency-injection idiom, same rationale as backend/auth.py.
+#   - N805: `@validator("password") def validate_password(cls, v)` at ~line
+#     224 is pydantic's (deprecated-but-live) v1-style validator, which
+#     pydantic wraps as a classmethod — `cls` is the correct first-arg name
+#     here, not `self`; renaming would break it.
+"**/backend/main.py" = ["E402", "E501", "N805", "B008"]
 "agents/integrations/mcp-agents/oauth_token_discovery.py" = ["S105"]
 "agents/integrations/mcp-agents/test_basic.py" = ["S105"]
 "agents/integrations/mcp-agents/design-ai-mcp/design_ai_mcp.py" = ["S105"]

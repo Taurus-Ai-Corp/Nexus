@@ -29,6 +29,7 @@ class WebflowIntegrationMasterAgent:
         self.site_id = None
         self.templates = {}
         self.cms_collections = {}
+        self.brand_integrations = {}
 
     async def setup_oauth_integration(self, client_id: str, client_secret: str):
         """Complete OAuth 2.0 setup with Webflow"""
@@ -113,6 +114,7 @@ class WebflowIntegrationMasterAgent:
             logger.info(f"  📊 CMS collection '{content_type}' configured")
 
         logger.info("✅ CMS synchronization setup completed")
+        return cms_config
 
     async def build_visual_editor_bridge(self):
         """Edit Webflow sites from within platform"""
@@ -145,6 +147,7 @@ class WebflowIntegrationMasterAgent:
                 "sync_frequency": "real_time",
                 "last_updated": datetime.now()
             }
+            self.brand_integrations[asset_type] = integration_config
             logger.info(f"  🎨 {asset_type.title()} integration configured")
 
         logger.info("✅ Brand Asset Integration completed")

@@ -229,9 +229,11 @@ class RealtimeIntelligenceDashboardAgent:
             elif monitoring_type == MonitoringType.CONTENT:
                 intelligence_data = await self._monitor_content(competitor)
 
-            # Create content hash for change detection
+            # Create content hash for change detection (fingerprint only, not
+            # security-sensitive) -- usedforsecurity=False documents that and
+            # satisfies the linter honestly rather than suppressing the rule.
             content_str = json.dumps(intelligence_data, sort_keys=True)
-            content_hash = hashlib.md5(content_str.encode()).hexdigest()
+            content_hash = hashlib.md5(content_str.encode(), usedforsecurity=False).hexdigest()
 
             # Check for changes
             changes_detected = await self._detect_changes(competitor_name, monitoring_type, content_hash, intelligence_data)
@@ -544,7 +546,7 @@ class RealtimeIntelligenceDashboardAgent:
             text_content = ""
 
             # Extract text content for sentiment analysis
-            for key, value in data.items():
+            for _key, value in data.items():
                 if isinstance(value, dict):
                     if 'page_title' in value:
                         text_content += value['page_title'] + " "
@@ -896,7 +898,7 @@ async def monitor_competitor(competitor_name: str, monitoring_type: str):
         intelligence = await agent.monitor_competitor(competitor_name, monitor_type)
         return asdict(intelligence)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 @app.get("/intelligence/report")
 async def get_market_intelligence():
@@ -905,7 +907,7 @@ async def get_market_intelligence():
         report = await agent.generate_market_intelligence_report()
         return asdict(report)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 @app.get("/intelligence/dashboard")
 async def get_dashboard():
@@ -925,6 +927,11 @@ async def websocket_intelligence(websocket: WebSocket):
         print(f"WebSocket error: {e}")
 
 if __name__ == "__main__":
+    import os
+
     import uvicorn
     print("🚀 Starting Real-Time Intelligence Dashboard Agent...")
-    uvicorn.run(app, host="0.0.0.0", port=8006)
+    # Dev-only standalone entrypoint (not used by backend/main.py, which imports
+    # this module's classes directly). Default to loopback; set HOST=0.0.0.0
+    # explicitly only for containerized local/dev use.
+    uvicorn.run(app, host=os.environ.get("HOST", "127.0.0.1"), port=8006)

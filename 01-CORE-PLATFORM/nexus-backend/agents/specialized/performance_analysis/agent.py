@@ -520,7 +520,7 @@ async def compare_components(webflow_component: str, custom_component: str):
         report = await agent.compare_components(webflow_component, custom_component)
         return asdict(report)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 @app.get("/analysis/performance")
 async def get_site_performance():
@@ -545,6 +545,11 @@ async def websocket_analysis(websocket: WebSocket):
         print(f"WebSocket error: {e}")
 
 if __name__ == "__main__":
+    import os
+
     import uvicorn
     print("🚀 Starting Performance Analysis Agent...")
-    uvicorn.run(app, host="0.0.0.0", port=8004)
+    # Dev-only standalone entrypoint (not used by backend/main.py, which imports
+    # this module's classes directly). Default to loopback; set HOST=0.0.0.0
+    # explicitly only for containerized local/dev use.
+    uvicorn.run(app, host=os.environ.get("HOST", "127.0.0.1"), port=8004)
