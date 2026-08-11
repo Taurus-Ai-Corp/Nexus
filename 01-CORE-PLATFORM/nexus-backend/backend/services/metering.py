@@ -29,6 +29,22 @@ class JobStatus(str, Enum):
     FAILED = "failed"
 
 
+class CostBasis(str, Enum):
+    """How `JobRecord.cost_cents` was arrived at. Independent of `status`/`error`
+    — those still own success/failure. This only answers whether the recorded
+    cost is a confirmed provider rate, a placeholder zero pending confirmation,
+    or simply not applicable (e.g. the job failed before any cost applied).
+
+    Replaces the old scheme of stuffing an `"RATE_UNVERIFIED:<provider>"`
+    string into `JobRecord.error` on success, which made `error is not null`
+    match every successful job. See `providers/orchestrator.py`.
+    """
+
+    NOT_APPLICABLE = "not_applicable"
+    UNVERIFIED = "unverified"
+    VERIFIED = "verified"
+
+
 #: Client-facing credit price per workflow. These are BUSINESS decisions, set
 #: deliberately, not derived from provider cost at request time.
 WORKFLOW_CREDITS: dict[str, int] = {
@@ -77,6 +93,11 @@ class JobRecord:
     job_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     error: str | None = None
+    cost_basis: CostBasis = CostBasis.NOT_APPLICABLE
+    """How `cost_cents` was determined — see `CostBasis`. Additive field, set
+    by `close_job` callers (e.g. `generate_and_bill`) on success; left at the
+    default for failed jobs, where cost attribution doesn't apply. Not
+    persisted by `SupabaseLedger` — in-process only, no schema column."""
 
     def margin_cents(self, cents_per_credit: int) -> int:
         """Revenue minus cost. Negative means the job lost money."""
