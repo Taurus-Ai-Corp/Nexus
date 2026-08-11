@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class WhatsAppCommunicationAgent(BaseAgent):
     """
     WhatsApp Communication Agent for TAURUS AI CORP
-    
+
     Capabilities:
     - Customer support automation
     - Lead qualification and nurturing
