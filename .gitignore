@@ -238,3 +238,13 @@ next-env.d.ts
 
 # Wave 0 working doc — never commit (contains key last-4)
 SECURITY-ROTATION-CHECKLIST.md
+
+# --- credential-shaped files, SUFFIX form -------------------------------------
+# The rules above match `.env*` (prefix). They do NOT match `<name>.env`, which
+# left live credentials unignored under 08-DOCUMENTATION/research/ -- including a
+# Stripe webhook signing secret. 08-DOCUMENTATION/ holds ~7,180 untracked files,
+# so a single `git add 08-DOCUMENTATION/` would have committed them.
+# Rotate anything that was ever exposed; ignoring it here does not un-leak it.
+*.env
+!*.env.example
+!*.env.sample

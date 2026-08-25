@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campaign vs the rest — NEXUS design review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../platform/assets/css/tokens.css">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-sans);line-height:1.6}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 30px 100px}
+  h1,h2,h3{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;line-height:1.04;text-wrap:balance}
+  h1{font-size:clamp(2.6rem,6vw,4.4rem);margin:0 0 .4em}
+  h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:0 0 .5em}
+  h3{font-size:1.35rem;margin:0 0 .4em}
+  .eyebrow{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 18px}
+  p{color:var(--text-muted);margin:0 0 1em;max-width:68ch}
+  header{padding:72px 0 40px;border-bottom:1px solid var(--border-strong)}
+  section{padding:56px 0;border-bottom:1px solid var(--border)}
+  .verdict{background:var(--surface);border:1px solid var(--border-strong);border-left:4px solid var(--accent);border-radius:var(--r-md);padding:26px 30px;margin:28px 0}
+  .verdict strong{color:var(--text)}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:32px 0}
+  @media(max-width:900px){.cols{grid-template-columns:1fr}}
+  figure{margin:0;background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--r-md);overflow:hidden}
+  figure img{display:block;width:100%;height:auto}
+  figcaption{padding:14px 18px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim)}
+  figcaption b{color:var(--accent);font-weight:700}
+  .tbl{overflow-x:auto;border:1px solid var(--border-strong);border-radius:var(--r-md);background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:660px}
+  th{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);text-align:left;padding:14px 18px;background:var(--bg-elev);border-bottom:1px solid var(--border-strong);white-space:nowrap}
+  td{padding:13px 18px;border-bottom:1px solid var(--border);font-size:14.5px;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.win{color:var(--accent);font-weight:600}
+  td.lose{color:var(--text-dim)}
+  .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;margin-top:26px}
+  .gallery figure img{aspect-ratio:4/3;object-fit:cover}
+  ol,ul{color:var(--text-muted);max-width:70ch;padding-left:1.2em}
+  li{margin-bottom:.6em}
+  li strong{color:var(--text)}
+  .ask{background:var(--bg-elev);border:1px dashed var(--border-control);border-radius:var(--r-md);padding:22px 26px;margin-top:26px}
+  .ask h3{color:var(--accent)}
+  code{font-family:var(--font-mono);font-size:.86em;background:var(--bg-elev);border:1px solid var(--border);border-radius:3px;padding:1px 5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">NEXUS · Design review · 24 Aug 2026</p>
+  <h1>The Campaign page is the good one.<br>Everything else is a wireframe.</h1>
+  <p>You asked what the difference is. Here it is measured, not described — screenshots from a real browser at the same viewport, and counts pulled from the source.</p>
+</header>
+
+<section>
+  <h2>Look at them next to each other</h2>
+  <div class="cols">
+    <figure>
+      <img src="shots/campaign.png" alt="The /campaigns/ page: floating pill nav, oversized serif headline, cinematic photograph of a hand holding a brass compass">
+      <figcaption><b>/campaigns/</b> — Nexus Creative</figcaption>
+    </figure>
+    <figure>
+      <img src="shots/home.png" alt="The home page: flat nav, smaller headline, no photography">
+      <figcaption>/ — home</figcaption>
+    </figure>
+  </div>
+  <div class="cols">
+    <figure>
+      <img src="shots/creative.png" alt="The /creative/ landing page, no photography">
+      <figcaption>/creative/ — the landing for the same product</figcaption>
+    </figure>
+    <figure>
+      <img src="shots/social.png" alt="The /social/ landing page, no photography">
+      <figcaption>/social/</figcaption>
+    </figure>
+  </div>
+
+  <div class="verdict">
+    <p><strong>The nav item labelled “Campaign” is Nexus Creative.</strong> That page's own brand lockup reads <em>Nexus Creative</em> and its eyebrow reads <em>AI Campaign Studio</em> — while a separate <code>/creative/</code> landing page also exists, with a different nav, different type scale and no imagery. Two pages, one product, two identities.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What actually differs</h2>
+  <div class="tbl">
+  <table>
+    <thead><tr><th>Measure</th><th>/campaigns/</th><th>/ · /creative/ · /social/</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Real photographs</td><td class="win num">3</td><td class="lose num">0</td><td>The single biggest gap. The rest of the site has no photography at all — only CSS cards and terminal mockups.</td></tr>
+      <tr><td>Hero type ceiling</td><td class="win num">6rem</td><td class="lose num">4.1rem</td><td>The campaign hero is ~46% larger. That confidence is most of the “expensive” feeling.</td></tr>
+      <tr><td>Page weight</td><td class="win num">68 KB</td><td class="lose num">11–16 KB</td><td>4–6× the content. The others are skeletons.</td></tr>
+      <tr><td>Semantic sections</td><td class="win num">8</td><td class="lose num">0</td><td>The others have no <code>&lt;section&gt;</code> structure — no narrative sequence to scroll through.</td></tr>
+      <tr><td>Nav pattern</td><td class="win">Floating pill, 8 items, black CTA</td><td class="lose">Flat bar, 9 items, terracotta CTA</td><td>Two different navigation systems on one site.</td></tr>
+      <tr><td>Stylesheet</td><td>Self-contained inline</td><td>Shared <code>design-system.css</code></td><td>The campaign page shares no code with the rest — it can drift independently, and has.</td></tr>
+      <tr><td>Type stack</td><td colspan="2" class="win">Now identical across all — Instrument Serif / Instrument Sans / JetBrains Mono</td><td>Fixed today. It was six different stacks this morning.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>The image pipeline already exists</h2>
+  <p>Five campaign images sit in <code>platform/assets/campaigns/</code>, each with a <code>.json</code> sidecar carrying the original prompt, an enhanced prompt, and the provider (<code>vertex-imagen-3</code>). This is a working, reproducible pipeline — not stock art. Only three of the five are used anywhere.</p>
+  <div class="gallery">
+    <figure><img src="../../platform/assets/campaigns/nexus-hero-01.png" alt="Hand holding a vintage brass compass over fashion lookbook pages in warm morning light"><figcaption><b>in use</b> · nexus-hero-01</figcaption></figure>
+    <figure><img src="../../platform/assets/campaigns/nordic-editorial-01.png" alt="Nordic editorial campaign photograph"><figcaption><b>in use</b> · nordic-editorial-01</figcaption></figure>
+    <figure><img src="../../platform/assets/campaigns/sport-luxury-01.png" alt="Sport luxury campaign photograph"><figcaption><b>in use</b> · sport-luxury-01</figcaption></figure>
+    <figure><img src="../../platform/assets/campaigns/cafe-lifestyle-01.png" alt="Cafe lifestyle campaign photograph"><figcaption>unused · cafe-lifestyle-01</figcaption></figure>
+    <figure><img src="../../platform/assets/campaigns/dubai-real-estate-01.png" alt="Dubai real estate campaign photograph"><figcaption>unused · dubai-real-estate-01</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2>What I think we do</h2>
+  <p>Direction only — nothing is built yet, and I am not starting until you pick.</p>
+  <ol>
+    <li><strong>Promote the campaign page's language to the whole site.</strong> Raise the hero ceiling to 6rem, adopt the floating pill nav everywhere, and give every vertical a real photograph above the fold. That is the change that makes the site stop reading as a wireframe.</li>
+    <li><strong>Collapse the Campaign / Creative duplication.</strong> One product, one page. <code>/creative/</code> becomes the marketing page; the current campaign build becomes the live demo it links to.</li>
+    <li><strong>Give every sub-product two buttons</strong> — one to read, one to try. A pilot/demo link per vertical, exactly as you described.</li>
+    <li><strong>Commission the missing photography</strong> through the same prompt pipeline. Two images already exist unused; Social, Intel, Freelance and Flow each need one.</li>
+  </ol>
+
+  <div class="ask">
+    <h3>Before I build — three things only you can answer</h3>
+    <ul>
+      <li><strong>Nav:</strong> floating pill everywhere, or keep the flat bar on the corporate pages and pill on product pages?</li>
+      <li><strong>Campaign vs Creative:</strong> merge into one page, or keep the campaign build as a separate linked demo?</li>
+      <li><strong>Honest question back to you:</strong> is the compass photograph the register you want for <em>all</em> verticals? It reads editorial-fashion. Nexus Intel is a data product — the same treatment may fight it.</li>
+    </ul>
+  </div>
+</section>
+
+<section style="border:none">
+  <h2>Still running</h2>
+  <ul>
+    <li>A competitive analysis of top-tier agency sites — structure, section order, where the conversion sits — against the best-funded creative markets.</li>
+    <li>A full GitHub audit: every repo classified, what is worth cherry-picking, what is safe to retire, and where secrets are exposed. <strong>Nothing will be deleted</strong> — you get a list and you decide.</li>
+  </ul>
+</section>
+
+</div>
+</body>
+</html>
