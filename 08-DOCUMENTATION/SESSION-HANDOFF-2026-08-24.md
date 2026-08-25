@@ -36,22 +36,32 @@ Nothing is merged. Nothing is deployed to production. `main` is untouched.
 
 ## BLOCKED — needs the owner
 
-1. **Cloudflare DNS.** `nexus.taurusai.io` is **NXDOMAIN**. The site is healthy and serving
-   at `nexus-platform-kohl.vercel.app`; DNS is the only break. The `Nexus-Core` token is
-   valid but is an **account-scoped** token with no `Zone -> DNS -> Edit` policy, so
-   `dns_records` returns `code 10000`. Note `/user/tokens/verify` returns `code 1000` for
-   this token by design — that endpoint only validates *user*-owned tokens, so it is NOT
-   evidence the token is bad. Record to create once the policy is added:
+1. ~~**Cloudflare DNS**~~ — **RESOLVED 2026-08-25.** All four gates pass:
 
-   ```
-   CNAME  nexus  ->  416043bc885ff1d4.vercel-dns-017.com   proxy: DNS only (grey cloud)
-   zone id 6e3b2864707588f82a4e6b022010002d
-   ```
+   | Gate | Result |
+   |---|---|
+   | DNS resolution | `Status: 0` -> `416043bc885ff1d4.vercel-dns-017.com` -> 216.198.79.1 / 64.29.17.1 |
+   | TLS certificate | `CN=nexus.taurusai.io`, Let's Encrypt YR1, valid **Aug 25 -> Nov 23 2026** |
+   | HTTP | all 16 public pages return 200 |
+   | Stripe success page | `/campaigns/thanks.html` -> 200 |
+   | API method guard | `/api/contact` GET -> 405 (correctly rejects) |
 
-   Grey cloud matters — orange-cloud proxy in front of Vercel breaks cert issuance.
-   Consequence while NXDOMAIN: `platform/api/stripe.js` hardcodes
-   `https://nexus.taurusai.io/campaigns/thanks.html` as the Stripe `success_url`, so every
-   completed checkout redirects into a domain that does not exist.
+   **Root cause was two faults, not one.** The CNAME was missing, AND the certificate had
+   **expired on 2026-08-09** — Let's Encrypt validates via DNS, so NXDOMAIN broke renewal and
+   the cert lapsed silently. The site served an expired certificate for 16 days with no alert.
+
+   Fix sequence that actually worked:
+   1. Owner added the CNAME by hand (grey cloud / DNS-only).
+   2. Vercel held **no cert record** for the domain, so it would not self-heal —
+      issued one via `POST /v3/certs {"cns":["nexus.taurusai.io"]}`.
+   3. The edge kept serving the stale cert anyway. Detached and re-added the domain
+      (`DELETE` then `POST /v10/projects/{id}/domains`) to force re-binding. Config restored
+      identically — redirect null, gitBranch null.
+   4. Edge cache took ~25 min to flush. Verified with a watcher requiring **3 consecutive**
+      clean passes, so a single lucky hit could not produce a false green.
+
+   **Open follow-up: there is still no cert-expiry monitor.** Sixteen days of silent failure
+   is the real finding. Add one regardless of which host we end up on.
 
 2. **PR creation is blocked by a policy hook** (`gh pr list` works, `gh pr create` does
    not). CI only triggers on PRs targeting `main`, so nothing runs until the owner creates
@@ -131,3 +141,51 @@ Both were session-local background subagents; a restart does not pause them, it 
 - `npx serve platform -p 4173` and `npx serve . -p 4174` — the design review page was at
   `http://localhost:4174/08-DOCUMENTATION/design-review/`. It also opens directly from disk
   as a file; the asset paths are relative.
+
+---
+
+## DECISION 2026-08-25 — hosting moves Vercel → Cloudflare after the design iteration
+
+Owner's call. Not a new direction: **Convergence Analysis item A3 already adopted it** —
+*"Cloudflare as the named substrate: Pages for the six fronts, Workers as the edge router
+and MCP proxy, Edge KMS for hardware-isolated signing keys, R2 for object storage."* The
+review's stated reason was that naming no host left the signing identity — the centre of the
+moat — with no custody model.
+
+**Sequencing:** after the design iteration lands, not during. Do not start the migration
+while pages are still being restructured.
+
+### What the move actually buys
+
+| | Today (Vercel) | After (Cloudflare) |
+|---|---|---|
+| Serverless functions | **12 / 12 — Hobby hard cap, zero headroom** | Workers has no equivalent cap |
+| TLS certs | Vercel-issued; **failed today** — see below | Cloudflare manages certs for its own zone |
+| DNS | Already Cloudflare | Same zone, one less hop |
+| Object storage | none | R2 (campaign images, generated assets) |
+| Signing keys | no custody model | Edge KMS, hardware isolation |
+
+### The cert failure that proves the point
+
+2026-08-25: `nexus.taurusai.io` was NXDOMAIN. Because Let's Encrypt validates via DNS, the
+renewal could not validate and the certificate **expired 2026-08-09**. The site was serving
+an expired cert for 16 days. Vercel held *no* cert record for the domain; issuance had to be
+triggered manually via `POST /v3/certs`.
+
+With DNS and hosting both at Cloudflare, the cert lifecycle stops depending on a record in
+one provider validating for a cert in another. This exact failure mode disappears.
+
+### Migration surface — scope it before starting
+
+- `platform/api/*.js` — 12 Vercel serverless functions → Workers. Note `api/campaign-pipeline.js`
+  imports `../lib/prompt-bible.mjs`; `platform/lib/` was gitignored until commit `8ea8775`.
+- `platform/vercel.json` — routes, security headers, cache-control → `_headers` / `_redirects`
+  or Workers routing. The security-header assertions in `tests/vercel-config.test.js` must be
+  ported, not dropped.
+- `tests/deploy-safety.test.js` encodes production invariants learned from two real
+  regressions. Port these first, before any traffic moves.
+- Stripe `success_url` in `api/stripe.js` is a hardcoded absolute URL — re-verify after cutover.
+
+**Cutover rule:** keep the Vercel deployment live and serving until the Cloudflare one passes
+the same four-part gate (DNS resolves, HTTP 200, cert covers the host, `/campaigns/thanks.html`
+returns 200). Do not repoint DNS first.
