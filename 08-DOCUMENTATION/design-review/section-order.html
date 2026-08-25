@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Section order — what we can and cannot copy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../platform/assets/css/tokens.css">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-sans);line-height:1.62}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 30px 100px}
+  h1,h2,h3{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;line-height:1.05;text-wrap:balance}
+  h1{font-size:clamp(2.6rem,6vw,4.2rem);margin:0 0 .35em}
+  h2{font-size:clamp(1.7rem,3.2vw,2.4rem);margin:0 0 .5em}
+  h3{font-size:1.25rem;margin:0 0 .4em}
+  .eyebrow{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 18px}
+  p{color:var(--text-muted);margin:0 0 1em;max-width:68ch}
+  strong{color:var(--text)}
+  header{padding:70px 0 38px;border-bottom:1px solid var(--border-strong)}
+  section{padding:54px 0;border-bottom:1px solid var(--border)}
+  a{color:var(--accent)}
+
+  .stop{background:var(--surface);border:1px solid var(--border-strong);border-left:4px solid var(--danger);border-radius:var(--r-md);padding:26px 30px;margin:26px 0}
+  .stop h3{color:var(--danger)}
+  .ok{border-left-color:var(--success)}
+  .ok h3{color:var(--success-text)}
+
+  .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:30px}
+  @media(max-width:940px){.three{grid-template-columns:1fr}}
+  .col{background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--r-md);overflow:hidden}
+  .col > .hd{padding:15px 20px;border-bottom:1px solid var(--border-strong);background:var(--bg-elev)}
+  .col > .hd b{display:block;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim)}
+  .col > .hd span{font-family:var(--font-display);font-size:1.15rem}
+  ol.steps{list-style:none;margin:0;padding:10px 0}
+  ol.steps li{display:flex;gap:12px;padding:9px 20px;align-items:baseline;font-size:14px;border-bottom:1px solid var(--border)}
+  ol.steps li:last-child{border-bottom:none}
+  ol.steps .n{font-family:var(--font-mono);font-size:10.5px;color:var(--text-faint);flex:none;width:16px}
+  .tag{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;margin-left:auto;flex:none}
+  .miss{background:var(--crit-soft,var(--surface-2));color:var(--danger);border:1px solid var(--danger)}
+  .new{background:var(--success-tint);color:var(--success-text);border:1px solid var(--success-tint-border)}
+  .moved{background:var(--gold-tint);color:var(--gold-text);border:1px solid var(--gold-tint-border)}
+  .blocked{background:var(--surface-2);color:var(--text-dim);border:1px dashed var(--border-control)}
+
+  .tbl{overflow-x:auto;border:1px solid var(--border-strong);border-radius:var(--r-md);background:var(--surface);margin-top:24px}
+  table{border-collapse:collapse;width:100%;min-width:620px}
+  th{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);text-align:left;padding:13px 18px;background:var(--bg-elev);border-bottom:1px solid var(--border-strong)}
+  td{padding:13px 18px;border-bottom:1px solid var(--border);font-size:14.5px;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  code{font-family:var(--font-mono);font-size:.86em;background:var(--bg-elev);border:1px solid var(--border);border-radius:3px;padding:1px 5px}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:3px solid var(--accent);background:var(--bg-elev);border-radius:0 var(--r-sm) var(--r-sm) 0;color:var(--text);font-size:15px}
+  ul{color:var(--text-muted);max-width:70ch;padding-left:1.15em}
+  li{margin-bottom:.55em}
+  .ask{background:var(--bg-elev);border:1px dashed var(--border-control);border-radius:var(--r-md);padding:22px 26px;margin-top:28px}
+  .ask h3{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">NEXUS · Design review 02 · Section order</p>
+  <h1>The pattern that wins assumes proof we don't have.</h1>
+  <p>The agency research came back with one dominant recommendation: reorder every page. Before I touch 16 pages, here is what that reorder actually requires — and the part of it we cannot honestly do yet.</p>
+  <p style="font-size:14px"><a href="./index.html">← Design review 01: Campaign vs the rest</a></p>
+</header>
+
+<section>
+  <h2>Three orders, side by side</h2>
+  <div class="three">
+
+    <div class="col">
+      <div class="hd"><b>Verified today</b><span>What our homepage does</span></div>
+      <ol class="steps">
+        <li><span class="n">1</span> Hero — <em>“One AI marketing platform. Five revenue engines.”</em></li>
+        <li><span class="n">2</span> Services — “Pick the engine that moves the needle”</li>
+        <li><span class="n">3</span> Process — “One command. Six phases.”</li>
+        <li><span class="n">4</span> Positioning — “Built for outcomes”</li>
+        <li><span class="n">5</span> Pricing ladder</li>
+        <li><span class="n">6</span> CTA band</li>
+        <li><span class="n">—</span> No proof section <span class="tag miss">missing</span></li>
+        <li><span class="n">—</span> No work section <span class="tag miss">missing</span></li>
+      </ol>
+    </div>
+
+    <div class="col">
+      <div class="hd"><b>Verified across 12 agency sites</b><span>The dominant pattern</span></div>
+      <ol class="steps">
+        <li><span class="n">1</span> Hero — brand or work, <strong>never a pitch</strong></li>
+        <li><span class="n">2</span> Positioning — one sentence</li>
+        <li><span class="n">3</span> Proof — awards, logos, press</li>
+        <li><span class="n">4</span> <strong>Work — largest section by far</strong></li>
+        <li><span class="n">5</span> Services — named plainly</li>
+        <li><span class="n">6</span> POV / culture</li>
+        <li><span class="n">7</span> One CTA, late and quiet</li>
+        <li><span class="n">8</span> Heavy footer</li>
+      </ol>
+    </div>
+
+    <div class="col">
+      <div class="hd"><b>Proposed</b><span>What we can honestly ship</span></div>
+      <ol class="steps">
+        <li><span class="n">1</span> Hero — photograph + claim <span class="tag moved">reframe</span></li>
+        <li><span class="n">2</span> Positioning — one sentence <span class="tag moved">move up</span></li>
+        <li><span class="n">3</span> Proof <span class="tag blocked">blocked</span></li>
+        <li><span class="n">4</span> Work — 4 pilots, labelled <span class="tag new">new</span></li>
+        <li><span class="n">5</span> Services <span class="tag moved">move down</span></li>
+        <li><span class="n">6</span> How it works</li>
+        <li><span class="n">7</span> One CTA <span class="tag moved">dedupe</span></li>
+        <li><span class="n">8</span> Heavy footer <span class="tag new">new</span></li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="stop">
+    <h3>Why step 3 is blocked, not deferred</h3>
+    <p>The research is explicit that the proof strip must be <strong>real client logos, a real press line, or nothing — never invented badges</strong>. I checked what we have:</p>
+    <ul>
+      <li><strong>Zero client logo assets exist</strong> anywhere in the repo.</li>
+      <li>All four case studies are <strong>anonymised</strong> — “Dubai F&amp;B Brand”, “Kerala Retailer”, “Real-Estate Agency”, “UAE Pet Brand”. No named client, no quote, no attribution.</li>
+      <li>No press coverage, no awards.</li>
+    </ul>
+    <p>A proof strip built from this would be decoration pretending to be evidence. That is the one move on the list that would actively cost us credibility rather than gain it, so I am not building it.</p>
+  </div>
+
+  <div class="stop">
+    <h3>And one thing on the live site needs fixing regardless</h3>
+    <p><code>case-studies.html</code> is titled <strong>“Proof — Real outcomes from the NEXUS platform”</strong>. Underneath it, the first metric reads:</p>
+    <blockquote>“Side-by-side demo showed <strong>projected</strong> CTR uplift of 2.3× and a 40% lower CPC.”</blockquote>
+    <p>A <em>projected</em> number from a <em>demo</em>, presented under a heading that says <em>real outcomes</em>. The second card's “leads up 41% and CPL down 23%” carries no source either. That framing is a misrepresentation risk under Canadian consumer-protection law (Competition Act s.74.01), and it is the kind of thing a prospect checks.</p>
+    <p>Two honest fixes, both cheap: change the heading from “Real outcomes” to “Pilot results”, and label the projected figure as projected on the card itself. I have not made either change — copy claims are yours.</p>
+  </div>
+
+  <div class="stop ok">
+    <h3>Already fixed</h3>
+    <p>The third case study read <strong>“Real-Easte Agency”</strong> on the live page. Corrected to “Real-Estate”. Unambiguous typo, no judgement call, so I just fixed it.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What the reorder buys, and what it costs</h2>
+  <div class="tbl">
+  <table>
+    <thead><tr><th>Move</th><th>Effort</th><th>Blocked on</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Positioning above services</td><td>Low — reorder markup</td><td>Nothing</td><td>Answers “who is this for” before “what can I buy”.</td></tr>
+      <tr><td>Services below work</td><td>Low — reorder markup</td><td>Needs a work section to sit under</td><td>Makes the services list read as a menu, not a pitch.</td></tr>
+      <tr><td>Work section on the homepage</td><td>Medium</td><td>Nothing — 4 pilots exist</td><td>The largest section on every top-tier site. We currently have none; the case studies are a separate page most visitors never reach.</td></tr>
+      <tr><td>Real photography on all verticals</td><td>Medium</td><td>4 images to generate; pipeline already works</td><td>Zero of 16 top-tier sites use terminal mockups. Two unused images already sit in <code>assets/campaigns/</code>.</td></tr>
+      <tr><td>Cut to one closing CTA</td><td>Low</td><td>Nothing</td><td>Nine of 16 have no header CTA button at all. We ask three times.</td></tr>
+      <tr><td>Heavy footer</td><td>Low</td><td>Real address + routed mailboxes</td><td>Footer as credibility asset: offices, named humans, careers.</td></tr>
+      <tr><td>Proof strip</td><td>—</td><td><strong>No real proof exists</strong></td><td>Do not build until there is a named client or a press line.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>The uncomfortable part of the verdict</h2>
+  <p>Design review 01 said the campaign page is “the standard the rest has to reach.” The research says that was half right, and I want the correction on the record:</p>
+  <blockquote>Real photography is <strong>table stakes</strong> in this set, not differentiation. A serif headline over a photograph with developer-marketing body copy beneath will read as a costume — the pixels are already there, the sequence is the gap.</blockquote>
+  <p>So copying the campaign page's <em>style</em> to the other four verticals is the easy half and will not, on its own, move us out of mid-tier. The section order is the lever. That is why I stopped and built this instead of restyling four more pages.</p>
+
+  <div class="ask">
+    <h3>What I need from you</h3>
+    <ul>
+      <li><strong>Approve the proposed order</strong> (column three) and I'll apply it to the homepage first, screenshot it, and show you before touching the other pages.</li>
+      <li><strong>The copy fix on case-studies.html</strong> — “Real outcomes” → “Pilot results”, and label the 2.3× as projected. Your call, it's your claim.</li>
+      <li><strong>Proof:</strong> is there <em>any</em> client who would let us use their name or a quote? One named client changes what we can build more than any amount of layout work.</li>
+      <li><strong>Footer:</strong> can I use the Windsor address from the corporate entity, and do you want routed mailboxes (hello@ / press@ / careers@)?</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+</body>
+</html>
