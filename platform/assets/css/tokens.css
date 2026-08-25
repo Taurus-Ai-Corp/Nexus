@@ -1,0 +1,132 @@
+/* ==========================================================================
+   NEXUS-CORE — design tokens
+
+   GENERATED FILE — DO NOT EDIT.
+   Source: platform/lib/tokens.mjs · regenerate with `npm run tokens`.
+
+   Normative: HANDOFF-Claude-Code.md §3, extended by Liquid Crystal decision 2
+   (Ember ramp) and bounded by decision 3 rule R3 (warm chrome, cold canvas).
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+
+  /* Surfaces — handoff §3.2 PAPER */
+  --bg: #EDE8DE;
+  --bg-elev: #F2EEE6;
+  --surface: #F7F4EE;
+  --surface-2: #E4DED2;
+  --card-hover: #FBF9F4;
+  --border: rgba(23,21,15,.08);
+  --border-strong: rgba(23,21,15,.13);
+  --border-control: rgba(23,21,15,.16);
+
+  /* Text — handoff §3.2 INK */
+  --text: #17150F;
+  --text-soft: #3B372D;
+  --text-muted: #6B6559;
+  --text-dim: #8A8375;
+  --text-faint: #B9B2A3;
+
+  /* Dark panels — handoff §3.2 ON-DARK */
+  --panel: #17150F;
+  --panel-text: #EDE8DE;
+  --panel-text-2: #A69E90;
+  --panel-label: #8A8375;
+  --panel-faint: #7E776A;
+  --panel-code: #CFC8BA;
+  --panel-border: rgba(237,232,222,.11);
+  --panel-accent: #D9A48E;
+  --panel-green: #A8C48A;
+
+  /* Accents — handoff §3.2, semantic, do not repurpose */
+  --accent: #B44A24;
+  --accent-text: #8E3617;
+  --accent-2: #4A6B8A;
+  --accent-2-text: #3A5570;
+  --accent-3: #B8862B;
+  --gold: #B8862B;
+  --gold-text: #8A6318;
+  --success: #7FA05F;
+  --success-text: #4F6B37;
+  --warn: #B8862B;
+  --danger: #C25A2E;
+  --neutral-bar: #C9BFAD;
+
+  /* Ember ramp — Liquid Crystal decision 2. Step 0 === --accent. */
+  --ember-0: #B44A24;
+  --ember-1: #C85431;
+  --ember-2: #DC5F3E;
+  --ember-3: #EC684C;
+  --ember-4: #F86B57;
+  --ember-rest: #B44A24;
+  --ember-live: #F86B57;
+
+  /* Vertical accents — handoff §3.2, locked */
+  --vertical-creative: #B44A24;
+  --vertical-social: #4A6B8A;
+  --vertical-intel: #B8862B;
+  --vertical-freelance: #4F6B37;
+  --vertical-partners: #4F6B37;
+  --vertical-core: #17150F;
+
+  /* Typography — handoff §3.1 */
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Chrome — handoff §3.3 */
+  --sidebar-w: 236px;
+  --topbar-h: 58px;
+  --statusbar-h: 27px;
+  --container: 1220px;
+  --container-narrow: 860px;
+  --content-pad: 30px;
+  --nav-h: 58px;
+
+  /* Tints and scrims. The dark system tinted surfaces with white alpha
+     (rgba(255,255,255,.03)) and scrimmed the nav with near-black. Both invert
+     on paper — white-on-white vanishes and the nav reads as a black bar — so
+     every one of those is replaced by an ink-alpha tint or a paper scrim. */
+  --tint-1: rgba(23,21,15,.025);
+  --tint-2: rgba(23,21,15,.05);
+  --tint-3: rgba(23,21,15,.08);
+  --scrim: rgba(242,238,230,.82);
+  --scrim-solid: rgba(242,238,230,.97);
+  --on-accent: #EDE8DE;
+  --accent-tint: rgba(180,74,36,.10);
+  --accent-tint-border: rgba(180,74,36,.26);
+  --accent-2-tint: rgba(74,107,138,.10);
+  --accent-2-tint-border: rgba(74,107,138,.26);
+  --gold-tint: rgba(184,134,43,.10);
+  --gold-tint-border: rgba(184,134,43,.26);
+  --success-tint: rgba(127,160,95,.12);
+  --success-tint-border: rgba(127,160,95,.28);
+
+  /* Flattened legacy aliases. §3: "do not add a gradient." The old dark system
+     used --grad-* /--glow in 9 places; rather than leave them undefined (which
+     renders as transparent and silently breaks buttons), they resolve to flat
+     token values. Do not reintroduce a gradient here. */
+  --grad-brand: #B44A24;
+  --grad-text: #17150F;
+  --grad-surface: transparent;
+  --glow: 0 0 0 1px rgba(23,21,15,.20);
+
+  /* Radii + elevation — flat by design; §3 forbids gradients */
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+  --shadow-accent: 0 6px 18px -8px rgba(180,74,36,.35);
+  --shadow-accent-hover: 0 10px 26px -8px rgba(180,74,36,.45);
+
+  /* macOS window-control dots in the terminal motif. Not brand colour — these
+     are a literal depiction of a real UI, so they stay at their real values. */
+  --dot-r: #ff5f57;
+  --dot-y: #febc2e;
+  --dot-g: #28c840;
+  --shadow-1: 0 1px 2px rgba(23,21,15,.06);
+  --shadow-2: 0 12px 32px -16px rgba(23,21,15,.20);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}

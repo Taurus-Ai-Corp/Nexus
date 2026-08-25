@@ -47,6 +47,13 @@ eggs/
 .eggs/
 lib/
 lib64/
+# ...but platform/lib/ is JavaScript source, not a Python build artifact. The
+# bare `lib/` above comes from a Python .gitignore template and was silently
+# excluding platform/lib/prompt-bible.mjs -- which platform/api/campaign-pipeline.js
+# imports at runtime -- and platform/lib/tokens.mjs, the design-token source of
+# truth. A fresh checkout could not build either. Do not remove these negations.
+!platform/lib/
+!platform/lib/**
 parts/
 sdist/
 var/

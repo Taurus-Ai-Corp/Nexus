@@ -49,13 +49,19 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
   <style>
+    /* Colour, type and chrome come from ../assets/css/tokens.css (generated from
+       platform/lib/tokens.mjs). This page previously carried its own palette and
+       type stack -- DM Serif Display / Plus Jakarta Sans on #F6F4EF -- which is
+       exactly the second copy Convergence Analysis E2 warns about. Only the
+       local ALIASES this page's markup already references remain below; they
+       point at canonical tokens rather than restating any value. */
     :root {
-      --bg: #F6F4EF; --surface: #FFFFFF; --ink: #14110F; --ink-muted: #6B655E;
-      --accent: #B85C38; --border: #E3DED4; --font-display: 'DM Serif Display', Georgia, serif;
-      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
-      --font-mono: 'IBM Plex Mono', monospace;
+      --ink: var(--text);
+      --ink-muted: var(--text-muted);
+      --font-body: var(--font-sans);
     }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: var(--font-body); color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
@@ -148,7 +154,7 @@
 
       if (!name || !email || !brief) {
         statusEl.textContent = 'Please fill all required fields.';
-        statusEl.style.color = '#8a3a3a';
+        statusEl.style.color = 'var(--danger)';
         return;
       }
 
@@ -174,15 +180,15 @@
         var data = await res.json();
         if (res.ok) {
           statusEl.textContent = 'Brief received. Our team will contact you within 1 business day.';
-          statusEl.style.color = '#3a7a3a';
+          statusEl.style.color = 'var(--success-text)';
           document.getElementById('brief-form').reset();
         } else {
           statusEl.textContent = 'Error: ' + (data.error || 'Submission failed');
-          statusEl.style.color = '#8a3a3a';
+          statusEl.style.color = 'var(--danger)';
         }
       } catch (err) {
         statusEl.textContent = 'Network error. Please email nexus@taurusai.io directly.';
-        statusEl.style.color = '#8a3a3a';
+        statusEl.style.color = 'var(--danger)';
       }
     }
   </script>
