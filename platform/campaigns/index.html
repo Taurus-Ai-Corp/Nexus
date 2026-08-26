@@ -451,7 +451,7 @@
   <header>
     <div class="container">
       <div class="header-pill">
-        <div class="logo">Neorm<span>ative</span></div>
+        <a href="/" class="logo" style="text-decoration:none;color:inherit;">Neorm<span>ative</span></a>
         <nav>
           <a href="#work">Work</a>
           <a href="#lab">Lab</a>
@@ -654,7 +654,7 @@
             <li>Platform plan</li>
             <li>2 revision rounds</li>
           </ul>
-          <a href="/api/stripe?action=checkout&plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_starter'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Proof of Concept</a>
+          <a href="/api/stripe?action=checkout&plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_starter'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){var u=this.href+'&email='+encodeURIComponent(email);fetch(u,{method:'POST'}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{window.alert((d&&d.error)||'Checkout is unavailable for this plan.');}}).catch(function(){window.alert('Checkout is unavailable right now.');});}">Start Proof of Concept</a>
         </div>
         <div class="pricing-card featured reveal">
           <div>
@@ -667,7 +667,7 @@
               <li>Export to deck, CSV, or API</li>
               <li>Priority turnaround</li>
             </ul>
-            <a href="/api/stripe?action=checkout&plan=studio" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_studio'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){window.location.href=this.href+'&email='+encodeURIComponent(email);}">Start Enterprise Plan</a>
+            <a href="/api/stripe?action=checkout&plan=studio" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_studio'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){var u=this.href+'&email='+encodeURIComponent(email);fetch(u,{method:'POST'}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{window.alert((d&&d.error)||'Checkout is unavailable for this plan.');}}).catch(function(){window.alert('Checkout is unavailable right now.');});}">Start Enterprise Plan</a>
           </div>
           <div style="display:grid; place-items:center; min-width:180px;">
             <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
@@ -740,7 +740,7 @@
 
   <footer>
     <div class="container footer-inner">
-      <div class="logo">Neorm<span>ative</span></div>
+      <a href="/" class="logo" style="text-decoration:none;color:inherit;">Neorm<span>ative</span></a>
       <div>www.neorm-era.com · nexus@taurusai.io</div>
       <div>© 2026 Taurus AI Corp.</div>
     </div>

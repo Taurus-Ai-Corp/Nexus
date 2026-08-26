@@ -17,20 +17,25 @@ async function handleCheckout(req, res) {
     return res.status(400).json({ error: 'Missing email query parameter.' });
   }
 
+  // Only two products have Stripe price IDs on file (STRIPE_STARTER_* / STRIPE_STUDIO_*).
+  // This map previously collapsed agency_starter, agency_pro, agency_enterprise, worldcup
+  // and enterprise onto 'studio' and fell back to 'starter' for anything unrecognised.
+  // Those pages advertise $999, $2,499, $10,000-15,000 and $2,500 respectively, so a
+  // successful checkout would have charged Studio's $399/mo instead — an undercharge that
+  // looks like a working purchase. Only alias a plan here when its page sells the same
+  // product at the same price; reject everything else rather than guess a price.
   const planMap = {
     starter: 'starter',
     studio: 'studio',
-    enterprise: 'studio',
-    agency_starter: 'studio',
-    agency_pro: 'studio',
-    agency_enterprise: 'studio',
-    worldcup: 'studio',
-    dogfood: 'studio',
+    dogfood: 'studio', // campaigns/dogfood.html sells Studio by name, at Studio's price
   };
-  const canonical = planMap[plan] || 'starter';
+  const canonical = planMap[plan];
 
-  if (!['starter', 'studio'].includes(canonical)) {
-    return res.status(400).json({ error: 'Invalid plan. Use starter or studio.' });
+  if (!canonical) {
+    return res.status(400).json({
+      error: `No price is configured for plan "${plan ?? ''}". `
+        + 'Contact sales rather than checking out at another plan\'s price.',
+    });
   }
 
   const basePriceId = canonical === 'starter'

@@ -295,7 +295,7 @@
     <h2>This is what you're buying.</h2>
     <p>Not a tool. Not a subscription. A system that produces proven marketing outcomes — already tested on ourselves.</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-      <a href="/api/stripe?action=checkout&plan=dogfood" class="btn btn-accent">Start with Studio → $399/mo</a>
+      <a href="/api/stripe?action=checkout&plan=dogfood" class="btn btn-accent" onclick="event.preventDefault();var e=window.prompt('Enter your email to checkout:');if(e&&e.includes('@')){var u=this.href+'&email='+encodeURIComponent(e);fetch(u,{method:'POST'}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{window.alert((d&&d.error)||'Checkout is unavailable for this plan.');}}).catch(function(){window.alert('Checkout is unavailable right now.');});}">Start with Studio → $399/mo</a>
       <a href="/campaigns/agency.html" class="btn btn-ghost">Agency plan →</a>
       <a href="mailto:nexus@taurusai.io?subject=Proof%20of%20concept%20request" class="btn btn-ghost">Request POC</a>
     </div>
