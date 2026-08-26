@@ -1,6 +1,6 @@
 # PetPawSphere — Launch Campaign Playbook
 **Prepared for:** PetPawSphere FZ-LLC | www.petpawsphere.com  
-**Prepared by:** Nexus Creative, Taurus AI Corp  
+**Prepared by:** Neormative, Taurus AI Corp  
 **Date:** 17 June 2026  
 **Campaign ID:** PPS-LAUNCH-20260617  
 **Classification:** Client-Ready — Launch GTM Package  
@@ -485,7 +485,7 @@ At a USD 15 CPL (≈55 AED), payback is immediate for any Breeder Pro or clinic 
 ## 10. DELIVERABLES CHECKLIST
 
 All files are located in:
-`/Users/taurus_ai/Documents/Nexus-Platform/SWARM SR Internal Analysis/nexus-creative-editorial/campaigns/petpawsphere-2026-06-17/`
+`/Users/taurus_ai/Documents/NEXUS-CORE/SWARM SR Internal Analysis/nexus-creative-editorial/campaigns/petpawsphere-2026-06-17/`
 
 | File | Description |
 |------|-------------|
@@ -495,7 +495,7 @@ All files are located in:
 | `perplexity-research.json` | Raw UAE pet market research |
 | `positioning-refinement.json` | Consolidated positioning summary |
 | `bible-prompts.json` | All 9-block structured prompts |
-| `pipeline-response.json` | Nexus Creative pipeline output (neural scores, archetype) |
+| `pipeline-response.json` | Neormative pipeline output (neural scores, archetype) |
 | `assets-review.html` | Browser gallery for visual asset review |
 | `assets/` | V1 generated images (3 files) |
 | `assets/v2/` | V2 enhanced images (4 files) |
@@ -515,8 +515,8 @@ All files are located in:
 
 ## 12. CONTACT & SUPPORT
 
-**Campaign prepared by:** Nexus Creative, Taurus AI Corp  
-**Pipeline:** Nexus Creative AI + Ad Campaign Prompt Bible v1.0.0  
+**Campaign prepared by:** Neormative, Taurus AI Corp  
+**Pipeline:** Neormative AI + Ad Campaign Prompt Bible v1.0.0  
 **Image generation:** Google Vertex AI Imagen 3  
 **Market research:** Perplexity Sonar  
 **Client POC:** contact@petpawsphere.com

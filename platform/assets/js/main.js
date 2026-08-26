@@ -1,11 +1,11 @@
 /* ==========================================================================
-   NEXUS by Taurus AI — Platform Shared JavaScript
+   NEORM-ERA by Taurus AI — Platform Shared JavaScript
    Handles: sticky nav, mobile toggle, active link, scroll reveals,
             code tabs, FAQ accordion, demo form, console year.
    ========================================================================== */
 /* global window, document, IntersectionObserver, gtag */
 
-const Nexus = (function () {
+const NeormEra = (function () {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Console brand + year
@@ -15,7 +15,7 @@ const Nexus = (function () {
     if (!window.location.hostname.includes('localhost')) {
       // eslint-disable-next-line no-console
       console.log(
-        `%c NEXUS by Taurus AI %c ${year} `,
+        `%c NEORM-ERA by Taurus AI %c ${year} `,
         'background:#7c5cff;color:#fff;font-weight:700;padding:4px 8px;border-radius:4px 0 0 4px;',
         'background:#22d3ee;color:#05060a;font-weight:700;padding:4px 8px;border-radius:0 4px 4px 0;'
       );
@@ -239,7 +239,7 @@ const Nexus = (function () {
 })();
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', Nexus.init);
+  document.addEventListener('DOMContentLoaded', NeormEra.init);
 } else {
-  Nexus.init();
+  NeormEra.init();
 }

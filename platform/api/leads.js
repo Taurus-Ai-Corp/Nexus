@@ -56,7 +56,7 @@ async function enrichIp(ip) {
         is_hosting: data.security?.hosting || false,
       };
     }
-  } catch {}
+  } catch { /* best-effort: fall through to the next strategy below */ }
   // Fallback
   try {
     const ctrl2 = new AbortController();
@@ -78,7 +78,7 @@ async function enrichIp(ip) {
         };
       }
     }
-  } catch {}
+  } catch { /* best-effort: fall through to the next strategy below */ }
   return { country: '', city: '', asn: '', org: '', is_vpn: false, is_proxy: false, is_tor: false, is_hosting: false };
 }
 
@@ -208,7 +208,7 @@ export default async function handler(req, res) {
       enrichmentPromise,
       new Promise(r => setTimeout(() => r(enrichment), 2000)),
     ]);
-  } catch {}
+  } catch { /* best-effort: fall through to the next strategy below */ }
 
   // Update fingerprint record with enrichment
   const fpRec = fingerprintStore.get(fingerprint);

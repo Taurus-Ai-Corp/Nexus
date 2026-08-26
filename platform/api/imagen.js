@@ -4,6 +4,11 @@
 
 const VERTEX_LOCATION = 'us-central1';
 const VERTEX_MODEL = 'imagen-3.0-generate-002';
+// Declared before VERTEX_ENDPOINT deliberately: this const is interpolated into
+// that template literal, and while it sat further down the file the module threw
+// "Cannot access 'VERTEX_PROJECT' before initialization" on import -- /api/imagen
+// was dead, not degraded. Do not move this below its use.
+const VERTEX_PROJECT = process.env.GOOGLE_CLOUD_PROJECT_ID || 'project-0ae56a62-0f0a-4d8a-9b7';
 const VERTEX_ENDPOINT = `https://${VERTEX_LOCATION}-aiplatform.googleapis.com/v1/projects/${VERTEX_PROJECT}/locations/${VERTEX_LOCATION}/publishers/google/models/${VERTEX_MODEL}:predict`;
 
 // Get OAuth2 access token from ADC metadata server (Vercel / GCP environments)
@@ -30,7 +35,7 @@ async function getAccessToken() {
         const tokenData = await tokenRes.json();
         if (tokenData.access_token) return tokenData.access_token;
       }
-    } catch {}
+    } catch { /* best-effort: fall through to the next strategy below */ }
   }
 
   // 2. Try metadata server (GCP/Vercel with workload identity)
@@ -43,7 +48,7 @@ async function getAccessToken() {
       const meta = await metaRes.json();
       return meta.access_token;
     }
-  } catch {}
+  } catch { /* best-effort: fall through to the next strategy below */ }
 
   // 3. Try GOOGLE_APPLICATION_CREDENTIALS JSON file
   if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
@@ -53,7 +58,7 @@ async function getAccessToken() {
       if (creds.private_key && creds.client_email) {
         return await getAccessTokenFromSA(creds);
       }
-    } catch {}
+    } catch { /* best-effort: fall through to the next strategy below */ }
   }
 
   // 4. Try explicit GOOGLE_ACCESS_TOKEN (for dev/testing)
@@ -64,7 +69,6 @@ async function getAccessToken() {
   return null;
 }
 
-const VERTEX_PROJECT = process.env.GOOGLE_CLOUD_PROJECT_ID || 'project-0ae56a62-0f0a-4d8a-9b7';
 async function getAccessTokenFromSA(creds) {
   const now = Math.floor(Date.now() / 1000);
   const header = { alg: 'RS256', typ: 'JWT' };

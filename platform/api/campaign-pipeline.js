@@ -89,11 +89,11 @@ function buildFlowBrief(body) {
       steps: [
         { step: 1, action: 'Create new project', details: `Name it "${client} Launch Campaign"` },
         { step: 2, action: 'Set recurring cast', details: 'Add Amina, Khalid, Luna, Simba with their descriptions and voices' },
-        { step: 3, action: 'Upload reference images', details: 'Use Nexus campaign assets as image references for product UI and brand colors' },
+        { step: 3, action: 'Upload reference images', details: 'Use Neorm-Era campaign assets as image references for product UI and brand colors' },
         { step: 4, action: 'Generate scenes', details: scenes },
         { step: 5, action: 'Apply Flow tools', details: ['Video Resizer → 9:16', 'Type Overlays → bilingual CTA', 'MOCCAE Trust Badge Overlay', 'Shader Effects → warm premium grade'] },
         { step: 6, action: 'Download best variants', details: `${variants} video variants + 2 image variants per scene` },
-        { step: 7, action: 'Return to Nexus', details: 'POST to /api/campaign-pipeline with action=omni_ingest and files + metadata' },
+        { step: 7, action: 'Return to Neorm-Era', details: 'POST to /api/campaign-pipeline with action=omni_ingest and files + metadata' },
       ],
     },
     scenes,
@@ -130,7 +130,7 @@ async function handleOmniIngest(req, res) {
   if (!asset_url && !asset_base64) return res.status(400).json({ error: 'Missing asset_url or asset_base64' });
   const record = { id: `omni-asset-${Date.now()}`, asset_url: asset_url || `data:video/mp4;base64,${asset_base64?.slice(0, 32)}...`, filename: filename || `omni-asset-${Date.now()}.mp4`, scene: scene || 'unknown', prompt_hash: prompt_hash || null, metadata, ingested_at: new Date().toISOString() };
   omniAssetStore.push(record);
-  return res.status(200).json({ status: 'success', message: 'Asset ingested into Nexus', asset: record, next_steps: ['Run compliance check', 'Convert to 9:16 / 1:1 / 16:9', 'Tag with campaign ID and A/B variant', 'Push to Meta/TikTok/Google Ads via ORCA'] });
+  return res.status(200).json({ status: 'success', message: 'Asset ingested into Neorm-Era', asset: record, next_steps: ['Run compliance check', 'Convert to 9:16 / 1:1 / 16:9', 'Tag with campaign ID and A/B variant', 'Push to Meta/TikTok/Google Ads via ORCA'] });
 }
 
 async function handleOmniTemplates(req, res) {
@@ -186,7 +186,7 @@ export default async function handler(req, res) {
   // Step 3: Capture lead if email provided
   if (email && email.includes('@')) {
     try {
-      await fetch('https://nexus.taurusai.io/api/leads', {
+      await fetch('https://www.neorm-era.com/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -198,7 +198,7 @@ export default async function handler(req, res) {
           campaign_headline: kit.campaign.headline,
         }),
       }).catch(() => {});
-    } catch {}
+    } catch { /* best-effort: fall through to the next strategy below */ }
   }
 
   // Step 4: Push to ORCA (Social Media Orchestra) for multi-agent orchestration
@@ -231,7 +231,7 @@ export default async function handler(req, res) {
         brand_profile: {
           name: 'TAURUS AI Corp',
           voice: kit.campaign.tone,
-          guidelines: 'Neural-scored campaign from Nexus Creative. Score: ' + kit.neural_scores.overall + '/100',
+          guidelines: 'Neural-scored campaign from Neormative. Score: ' + kit.neural_scores.overall + '/100',
           colors: {},
         },
         platforms: orcaPlatforms,
@@ -281,7 +281,7 @@ export default async function handler(req, res) {
       source: 'heuristic+bible',
       brief_length: brief.trim().length,
       generated_at: new Date().toISOString(),
-      deploy_url: `https://nexus.taurusai.io/dogfood.html#campaign-${deployKey}`,
+      deploy_url: `https://www.neorm-era.com/dogfood.html#campaign-${deployKey}`,
       bible_version: '1.0.0',
       archetype: kit.campaign.archetype,
       product_category: kit.campaign.product_category,

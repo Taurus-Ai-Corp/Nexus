@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://nexus.taurusai.io/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://nexus.taurusai.io/creative/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://nexus.taurusai.io/social/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://nexus.taurusai.io/intel/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://nexus.taurusai.io/flow/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://nexus.taurusai.io/freelance/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://nexus.taurusai.io/pricing.html</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://nexus.taurusai.io/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://nexus.taurusai.io/case-studies.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://nexus.taurusai.io/contact.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://nexus.taurusai.io/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://nexus.taurusai.io/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://nexus.taurusai.io/security.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.neorm-era.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.neorm-era.com/creative/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.neorm-era.com/social/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.neorm-era.com/intel/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.neorm-era.com/flow/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.neorm-era.com/freelance/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.neorm-era.com/pricing.html</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.neorm-era.com/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.neorm-era.com/case-studies.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.neorm-era.com/contact.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.neorm-era.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.neorm-era.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.neorm-era.com/security.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

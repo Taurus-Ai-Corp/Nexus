@@ -1,6 +1,6 @@
 # PetPawsPhere — Launch Campaign Package
 **Client:** PetPawsPhere FZ-LLC (www.petpawsphere.com)
-**Prepared by:** Nexus Creative by Taurus AI
+**Prepared by:** Neormative by Taurus AI
 **Date:** June 17, 2026
 **Campaign ID:** petpawsphere-2026-06-17
 **Bible Version:** 1.0.0
@@ -9,7 +9,7 @@
 
 ## 1. EXECUTIVE SUMMARY
 
-This package contains the complete launch campaign for petPAWSphere — UAE's pet matching, care & verified breeder platform. The campaign was generated through the Nexus Creative pipeline powered by the Ad Campaign Prompt Bible (9-block universal skeleton), with images generated via Google Vertex AI Imagen 3.
+This package contains the complete launch campaign for petPAWSphere — UAE's pet matching, care & verified breeder platform. The campaign was generated through the Neormative pipeline powered by the Ad Campaign Prompt Bible (9-block universal skeleton), with images generated via Google Vertex AI Imagen 3.
 
 **Campaign objective:** Drive app installs and breeder signups for the UAE pet platform launch.
 
@@ -416,7 +416,7 @@ petpawsphere-2026-06-17/
 
 - **Image generation:** Google Vertex AI Imagen 3 (imagen-3.0-fast-generate-001), us-central1, project-0ae56a62-0f0a-4d8a-9b7
 - **Prompt framework:** Ad Campaign Prompt Bible v1.0.0 (9-block universal skeleton)
-- **Pipeline:** Nexus Creative /api/campaign-pipeline + /api/prompt-bible (heuristic+bible)
+- **Pipeline:** Neormative /api/campaign-pipeline + /api/prompt-bible (heuristic+bible)
 - **Neural scoring:** Heuristic NLP (VAN/DMN/DAN/Limbic) — TRIBE v2 inference available when RUNPOD configured
 - **LLM copy:** NVIDIA NIM (requires NVIDIA_API_KEY on Vercel) — fallback to heuristic copy
 - **Guardrail:** UAE cultural compliance reviewed manually (NVIDIA guardrail API available when configured)
@@ -424,7 +424,7 @@ petpawsphere-2026-06-17/
 
 ---
 
-*Prepared by Nexus Creative by Taurus AI*
+*Prepared by Neormative by Taurus AI*
 *Powered by the Ad Campaign Prompt Bible*
 *Co-Authored-By: E.Fdz <admin@taurusai.io>*
 *Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>*

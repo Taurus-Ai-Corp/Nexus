@@ -50,7 +50,7 @@ export default async function handler(req, res) {
   const smtpPort = parseInt(process.env['SMTP_PORT'] || '587', 10);
   const smtpUser = process.env['SMTP_USER'];
   const smtpPass = process.env['SMTP_PASS'];
-  const fromEmail = process.env['EMAIL_FROM'] || 'Nexus Leads <leads@nexus.taurusai.io>';
+  const fromEmail = process.env['EMAIL_FROM'] || 'Neorm-Era Leads <leads@neorm-era.com>';
   const recipient = process.env['LEAD_RECIPIENT_EMAIL'];
 
   if (!smtpHost || !smtpUser || !smtpPass || !recipient) {
@@ -79,7 +79,7 @@ export default async function handler(req, res) {
       from: fromEmail,
       to: [recipient],
       replyTo: lead.email,
-      subject: `Nexus lead: ${lead.name} — ${lead.vertical}`,
+      subject: `Neorm-Era lead: ${lead.name} — ${lead.vertical}`,
       text: [
         `Name: ${lead.name}`,
         `Email: ${lead.email}`,
@@ -93,7 +93,7 @@ export default async function handler(req, res) {
         lead.message,
       ].join('\n'),
       html: `
-        <h2>New NEXUS lead</h2>
+        <h2>New NEORM-ERA lead</h2>
         <ul>
           <li><strong>Name:</strong> ${escapeHtml(lead.name)}</li>
           <li><strong>Email:</strong> ${escapeHtml(lead.email)}</li>

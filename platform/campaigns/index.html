@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexus Creative — AI Campaign Studio</title>
-  <meta name="description" content="Nexus Creative by Taurus AI builds high-fashion editorial and luxury campaign assets from a single product brief.">
+  <title>Neormative — AI Campaign Studio</title>
+  <meta name="description" content="Neormative by Taurus AI builds high-fashion editorial and luxury campaign assets from a single product brief.">
   <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -451,7 +451,7 @@
   <header>
     <div class="container">
       <div class="header-pill">
-        <div class="logo">Nexus <span>Creative</span></div>
+        <div class="logo">Neorm<span>ative</span></div>
         <nav>
           <a href="#work">Work</a>
           <a href="#lab">Lab</a>
@@ -471,14 +471,14 @@
       <div class="hero-left">
         <div class="mono hero-kicker">AI Campaign Studio</div>
         <h1>The campaign brief. Scored.</h1>
-        <p>Nexus Creative turns a product description into a production-ready brief — headline, image prompt, platform plan, and a heuristic TRIBE v2 neural score. Ready for your studio or generative pipeline.</p>
+        <p>Neormative turns a product description into a production-ready brief — headline, image prompt, platform plan, and a heuristic TRIBE v2 neural score. Ready for your studio or generative pipeline.</p>
         <div class="hero-actions">
           <a href="#lab" class="btn" onclick="trackEvent('view_demo')">Score your brief <span class="btn-icon">→</span></a>
-        <a href="/campaigns/case-studies.html" class="btn" onclick="if(typeof gtag==='function'){gtag('event','view_case_studies',{event_category:'nexus_creative'});} if(typeof fbq==='function'){fbq('trackCustom','ViewCaseStudies');}">See our dogfood <span class="btn-icon">→</span></a>
+        <a href="/campaigns/case-studies.html" class="btn" onclick="if(typeof gtag==='function'){gtag('event','view_case_studies',{event_category:'neorm_creative'});} if(typeof fbq==='function'){fbq('trackCustom','ViewCaseStudies');}">See our dogfood <span class="btn-icon">→</span></a>
         </div>
       </div>
       <div class="hero-image">
-        <img src="/assets/campaigns/nexus-hero-01.png" alt="Nexus Creative editorial campaign system — warm paper textures and soft shadow play" loading="lazy">
+        <img src="/assets/campaigns/nexus-hero-01.png" alt="Neormative editorial campaign system — warm paper textures and soft shadow play" loading="lazy">
       </div>
     </div>
   </section>
@@ -532,7 +532,7 @@
       <div class="reveal">
         <div class="mono section-kicker">Live Prompt Lab</div>
         <h2>Describe the shot. Get the brief.</h2>
-        <p>Type a product and scene the way you'd brief a photographer. Nexus Creative returns a production-ready image prompt, headline, and platform plan.</p>
+        <p>Type a product and scene the way you'd brief a photographer. Neormative returns a production-ready image prompt, headline, and platform plan.</p>
 
       <div class="lab-input">
         <label for="brief">Your brief</label>
@@ -627,7 +627,7 @@
         <div class="process-card reveal">
           <div class="num">02</div>
           <h3>Get the campaign kit</h3>
-          <p>Nexus Creative returns a refined image prompt, headline options, platform plan, and deliverables list.</p>
+          <p>Neormative returns a refined image prompt, headline options, platform plan, and deliverables list.</p>
         </div>
         <div class="process-card reveal">
           <div class="num">03</div>
@@ -740,8 +740,8 @@
 
   <footer>
     <div class="container footer-inner">
-      <div class="logo">Nexus <span>Creative</span></div>
-      <div>nexus.taurusai.io · nexus@taurusai.io</div>
+      <div class="logo">Neorm<span>ative</span></div>
+      <div>www.neorm-era.com · nexus@taurusai.io</div>
       <div>© 2026 Taurus AI Corp.</div>
     </div>
   </footer>
@@ -778,7 +778,7 @@
             currency: 'CAD'
           });
         }
-        gtag('event', eventName, { event_category: 'nexus_creative', non_interaction: false });
+        gtag('event', eventName, { event_category: 'neorm_creative', non_interaction: false });
       }
     }
 
@@ -921,7 +921,7 @@
 
       // Capture lead silently when scoring
       var briefText = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
-      var storedEmail = localStorage.getItem('nexus_lead_email');
+      var storedEmail = localStorage.getItem('neorm_lead_email');
       if (storedEmail) {
         fetch('/api/leads', {
           method: 'POST',
@@ -932,7 +932,7 @@
         // Prompt for email on first score (non-blocking, store in localStorage)
         var email = prompt('Enter your email to save this score and receive the optimized version:');
         if (email && email.includes('@')) {
-          localStorage.setItem('nexus_lead_email', email);
+          localStorage.setItem('neorm_lead_email', email);
           fetch('/api/leads', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1084,7 +1084,7 @@
 
         // Step 5: Offer to deploy as campaign
         var deployBtn = document.getElementById('image-status');
-        var storedEmail = localStorage.getItem('nexus_lead_email');
+        var storedEmail = localStorage.getItem('neorm_lead_email');
         if (storedEmail) {
           deployBtn.innerHTML =
             '<div style="margin-top:1rem;padding:1rem;border:1.5px solid var(--accent);border-radius:0.6rem;background:var(--cream);">' +
@@ -1256,7 +1256,7 @@
         var res = await fetch('/api/omni/brief', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ campaign: { brief: brief }, client: 'Nexus Creative', variants: 3 }),
+          body: JSON.stringify({ campaign: { brief: brief }, client: 'Neormative', variants: 3 }),
         });
         var data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Flow brief failed');
@@ -1311,13 +1311,13 @@
 
     async function deployCampaign(campaignTitle) {
       var brief = document.getElementById('brief').value.trim() || DEFAULT_BRIEF;
-      var email = localStorage.getItem('nexus_lead_email') || '';
+      var email = localStorage.getItem('neorm_lead_email') || '';
 
       try {
         var res = await fetch('/api/campaign-pipeline', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ brief: brief, email: email, platform: 'nexus_creative' }),
+          body: JSON.stringify({ brief: brief, email: email, platform: 'neorm_creative' }),
         });
         var data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Deploy failed');
@@ -1395,7 +1395,7 @@
     }
 
     // Initialize credits display (demo - replace with real user email)
-    checkCredits('demo@nexus.taurusai.io').then(updateCreditsDisplay);
+    checkCredits('demo@neorm-era.com').then(updateCreditsDisplay);
 
     // Scroll reveal via IntersectionObserver
     var revealObserver = new IntersectionObserver(function(entries){

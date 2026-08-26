@@ -1,6 +1,6 @@
 # PetPawSphere — Complete Launch Intelligence & Marketing Asset Suite
 **Client:** PetPawSphere FZ-LLC | www.petpawsphere.com  
-**Prepared by:** Nexus Creative by Taurus AI  
+**Prepared by:** Neormative by Taurus AI  
 **Date:** 17 June 2026  
 **Suite ID:** PPS-COMPLETE-20260617
 
@@ -22,7 +22,7 @@ This suite replaces the previous CAMPAIGN-PLAYBOOK.md with a deeper, more action
 | **research-synthesis.json** | Condensed research insights extracted from the raw files | ~8 KB | Executive summary |
 | **enhanced-copy.md** | Earlier Perplexity-generated campaign copy (headlines, captions, scripts) | ~5 KB | Reference |
 | **bible-prompts.json** | 9-block structured prompts used for image generation | ~10 KB | Creative reference |
-| **pipeline-response.json** | Nexus Creative API response with neural scores and archetype | ~8 KB | Technical reference |
+| **pipeline-response.json** | Neormative API response with neural scores and archetype | ~8 KB | Technical reference |
 | **assets-gallery-embedded.html** | Base64-embedded image gallery — opens in any browser | ~13 MB | Asset review |
 | **assets/** | V1 generated images (3) | ~4 MB | Generated |
 | **assets/v2/** | V2 enhanced images (4) | ~6 MB | Generated |
@@ -148,5 +148,5 @@ UAE competitors fall into three buckets:
 
 ---
 
-**Prepared by:** Nexus Creative by Taurus AI  
+**Prepared by:** Neormative by Taurus AI  
 **© 2026 Taurus AI Corp — All rights reserved.**

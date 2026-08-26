@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nexus.taurusai.io/sitemap.xml
+Sitemap: https://www.neorm-era.com/sitemap.xml

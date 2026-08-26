@@ -1,4 +1,4 @@
-# Nexus Creative — Real Estate Variant Design
+# Neormative — Real Estate Variant Design
 
 ## Direction
 Luxury Dubai real-estate campaign studio. Same editorial DNA as the fashion page, but warmer, more architectural.
@@ -27,4 +27,4 @@ Luxury Dubai real-estate campaign studio. Same editorial DNA as the fashion page
 8. Footer
 
 ## Domain
-`nexus.taurusai.io/real-estate`
+`www.neorm-era.com/real-estate`

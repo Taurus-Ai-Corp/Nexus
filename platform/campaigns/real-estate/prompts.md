@@ -1,4 +1,4 @@
-# Nexus Creative — Dubai Real Estate Campaign Reference
+# Neormative — Dubai Real Estate Campaign Reference
 
 ## Vertical: Dubai Real Estate
 **Use case:** luxury apartments, villas, off-plan launches, short-term rentals.

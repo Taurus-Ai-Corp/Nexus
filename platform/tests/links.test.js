@@ -33,7 +33,12 @@ describe('campaign pages use /campaigns/-prefixed links', () => {
 describe('Stripe redirect targets resolve to real files', () => {
   // A success_url pointing at a 404 strands the customer after they have paid.
   const src = readFileSync(join(platform, 'api/stripe.js'), 'utf8');
-  const urls = [...src.matchAll(/https:\/\/nexus\.taurusai\.io(\/[^'"?#]*)/g)].map((m) => m[1]);
+  // Canonical host, kept in one place so a rebrand cannot silently empty this list.
+  // If this regex stops matching, the per-path assertions below vanish and the suite
+  // still looks green -- which is why `extracts at least one redirect path` exists.
+  const CANONICAL_HOST = 'www.neorm-era.com';
+  const hostPattern = new RegExp(`https://${CANONICAL_HOST.replace(/\./g, '\\.')}(/[^'"?#]*)`, 'g');
+  const urls = [...src.matchAll(hostPattern)].map((m) => m[1]);
 
   it('extracts at least one redirect path', () => assert.ok(urls.length > 0));
 

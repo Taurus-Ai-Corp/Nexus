@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thanks — Nexus Creative</title>
+  <title>Thanks — Neormative</title>
   <meta name="robots" content="noindex">
   <!-- Meta Pixel Code -->
   <script>
@@ -82,7 +82,7 @@
 <body>
   <div class="container">
     <div class="card">
-      <div class="mono">Nexus Creative</div>
+      <div class="mono">Neormative</div>
       <h1>Welcome aboard.</h1>
       <p>Your payment is confirmed. To start your first campaign, send us your product or property brief. We will return a production-ready image prompt, headline options, and platform plan within one business day.</p>
 
@@ -99,7 +99,7 @@
         <label for="brief">Your brief</label>
         <textarea id="brief" name="brief" rows="6" required placeholder="Describe your product, target audience, and the mood you want. Example: 'Luxury sunscreen for women 30-45, summer campaign, Mediterranean yacht setting, golden hour.'"></textarea>
 
-        <button type="submit" class="btn" onclick="event.preventDefault();submitBrief();if(typeof gtag==='function'){gtag('event','conversion',{send_to:'AW-18242669881/XVbiCOTP978cELma5PpD',value:1.0,currency:'CAD'});gtag('event','lead_brief_submit',{event_category:'nexus_creative'});}">Send brief →</button>
+        <button type="submit" class="btn" onclick="event.preventDefault();submitBrief();if(typeof gtag==='function'){gtag('event','conversion',{send_to:'AW-18242669881/XVbiCOTP978cELma5PpD',value:1.0,currency:'CAD'});gtag('event','lead_brief_submit',{event_category:'neorm_creative'});}">Send brief →</button>
       </form>
       <p id="form-status" style="margin-top:1rem;font-size:0.8rem;color:var(--ink-muted);"></p>
     </div>
@@ -124,7 +124,7 @@
           transaction_id: params.get('session_id') || ('nexus_' + Date.now())
         });
         gtag('event', 'purchase_' + plan, {
-          event_category: 'nexus_creative',
+          event_category: 'neorm_creative',
           value: value,
           currency: 'USD'
         });

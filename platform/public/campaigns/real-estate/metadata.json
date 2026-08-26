@@ -1,13 +1,13 @@
 {
   "campaignId": "real-estate-2026-06",
-  "client": "Nexus Real Estate",
+  "client": "Neorm-Era Real Estate",
   "vertical": "creative",
   "archetype": "studio",
   "category": "real_estate",
   "createdAt": "2026-06-15",
   "status": "draft",
   "brand": {
-    "name": "Nexus Real Estate",
+    "name": "Neorm-Era Real Estate",
     "tagline": "Listings that sell faster with AI staging.",
     "colors": {
       "primary": "#B85C38",

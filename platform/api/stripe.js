@@ -52,8 +52,8 @@ async function handleCheckout(req, res) {
   params.append('customer_email', email);
   // thanks.html lives under /campaigns/ since the nexus-creative-editorial migration.
   // The bare /thanks.html path 404s, which stranded every completed checkout.
-  params.append('success_url', 'https://nexus.taurusai.io/campaigns/thanks.html?session_id={CHECKOUT_SESSION_ID}&plan=' + canonical);
-  params.append('cancel_url', 'https://nexus.taurusai.io/#pricing');
+  params.append('success_url', 'https://www.neorm-era.com/campaigns/thanks.html?session_id={CHECKOUT_SESSION_ID}&plan=' + canonical);
+  params.append('cancel_url', 'https://www.neorm-era.com/#pricing');
   params.append('payment_method_types[]', 'card');
   params.append('line_items[0][price]', basePriceId);
   params.append('line_items[0][quantity]', '1');
@@ -111,7 +111,7 @@ async function handleBalance(req, res) {
       return res.status(200).json({
         credits_remaining: 0,
         plan: null,
-        message: 'No credits found. Purchase a plan at https://nexus.taurusai.io/#pricing',
+        message: 'No credits found. Purchase a plan at https://www.neorm-era.com/#pricing',
       });
     }
 

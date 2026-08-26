@@ -1,3 +1,11 @@
+// NOTE: this file was produced by concatenating the former neural-score and
+// neural-refine handlers to fit the 12-function Vercel cap. That concatenation
+// redeclared SIGNALS and SYNTAX_SIGNALS, which is a SyntaxError -- the module
+// never parsed, so /api/neural has been dead, not merely degraded. The duplicate
+// declarations are removed; the first definitions are authoritative.
+// STILL BROKEN: handler() calls buildOptimizedBrief() for action='refine', and
+// that function is not defined anywhere in this file. Restore it from the
+// original neural-refine source before relying on the refine action.
 // /api/neural.js — Combined neural score + refine endpoint
 // POST /api/neural?action=score { brief }
 // POST /api/neural?action=refine { brief, scores? }
@@ -273,76 +281,6 @@ async function callRunPodTRIBE(text) {
 // targeted refinements to improve engagement across all 4 networks.
 // Returns original + optimized with before/after comparison.
 
-const SIGNALS = {
-  van_positive: {
-    keywords: ['surprising', 'unexpected', 'never', 'secret', 'revealed',
-      'stop', 'wait', 'breakthrough', 'finally', 'introducing', 'new',
-      'exclusive', 'first look', 'sneak peek', 'discover', 'shock',
-      'revolutionary', 'game-changer', 'this is not', 'what if',
-      'the truth about', 'why your', 'the reason', 'forget everything'],
-    weight: 0.08,
-  },
-  van_negative: {
-    keywords: ['welcome to', 'introduction', 'as we know', 'traditional',
-      'standard', 'usual', 'conventional', 'typical'],
-    weight: -0.06,
-  },
-  dmn_positive: {
-    keywords: ['as previously mentioned', 'in conclusion', 'furthermore',
-      'moreover', 'additionally', 'it is important to note',
-      'as you can see', 'clearly', 'obviously', 'in other words',
-      'to summarize', 'in summary'],
-    weight: 0.07,
-  },
-  dmn_negative: {
-    keywords: ['you', 'your', 'imagine', 'picture this', 'what would',
-      'how to', 'step by step', 'inside', 'behind the scenes',
-      'exclusive access', 'limited', 'only', 'now', 'today',
-      'deadline', 'hurry', 'last chance', 'act now'],
-    weight: -0.05,
-  },
-  dan_positive: {
-    keywords: ['because', 'therefore', 'which means', 'as a result',
-      'this is why', 'the reason', 'here\'s how', 'explain',
-      'breakdown', 'analysis', 'compare', 'versus', 'vs',
-      'data', 'research', 'study', 'statistics', 'percent',
-      'numbers', 'strategy', 'framework', 'system', 'method'],
-    weight: 0.06,
-  },
-  dan_negative: {
-    keywords: ['complicated', 'complex', 'difficult', 'confusing',
-      'messy', 'chaotic', 'overwhelming', 'too many',
-      'jargon', 'technical', 'abstract'],
-    weight: -0.04,
-  },
-  limbic_positive: {
-    keywords: ['love', 'hate', 'fear', 'excited', 'terrified',
-      'beautiful', 'stunning', 'breathtaking', 'incredible',
-      'heart', 'soul', 'passion', 'dream', 'nightmare',
-      'family', 'home', 'community', 'together', 'belong',
-      'future', 'legacy', 'transform', 'change', 'impact',
-      'story', 'journey', 'human', 'real', 'authentic'],
-    weight: 0.07,
-  },
-  limbic_negative: {
-    keywords: ['functional', 'utility', 'efficient', 'optimized',
-      'solution', 'tool', 'feature', 'specification',
-      'enterprise', 'scalable', 'robust', 'seamless'],
-    weight: -0.04,
-  },
-};
-
-const SYNTAX_SIGNALS = {
-  exclamation: { pattern: /!/g, weight: 0.12 },
-  question: { pattern: /\?/g, weight: 0.08 },
-  ellipsis: { pattern: /\.\.\./g, weight: 0.10 },
-  em_dash: { pattern: /—/g, weight: 0.06 },
-  colon: { pattern: /:/g, weight: 0.02 },
-  numbers: { pattern: /\d+/g, weight: 0.04 },
-  caps_word: { pattern: /\b[A-Z]{3,}\b/g, weight: 0.05 },
-  quotes: { pattern: /[""''""]/g, weight: 0.03 },
-};
-
 // === Heuristic scoring (mirrors neural-score.js exactly) ===
 
 
@@ -376,12 +314,14 @@ export default async function handler(req, res) {
   }
 
   if (action === 'refine') {
-    const report = generateNeuralReport(brief.trim(), scores);
-    const optimized = buildOptimizedBrief(brief.trim(), scores);
-    return res.status(200).json({
-      ...report,
-      optimized_brief: optimized,
-      original_brief: brief.trim(),
+    // buildOptimizedBrief() was lost when neural-score and neural-refine were
+    // concatenated to fit the 12-function cap -- it is called here but defined
+    // nowhere. Returning 501 is honest: previously this threw ReferenceError,
+    // and before that the whole module failed to parse. Restore the function
+    // from the original neural-refine source to re-enable this action.
+    return res.status(501).json({
+      error: 'The refine action is not implemented.',
+      detail: 'buildOptimizedBrief() is missing from this handler. Use action=score.',
     });
   }
 

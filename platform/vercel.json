@@ -1,45 +1,41 @@
 {
-  "version": 2,
-  "routes": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
     {
-      "src": "/api/omni/(.*)",
-      "dest": "/api/omni/$1"
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "neorm-era.com"
+        }
+      ],
+      "destination": "https://www.neorm-era.com/$1",
+      "permanent": true
     },
     {
-      "src": "/api/campaigns/(.*)",
-      "dest": "/api/campaigns/$1"
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "nexus.taurusai.io"
+        }
+      ],
+      "destination": "https://www.neorm-era.com/$1",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/favicon.ico",
+      "destination": "/assets/favicon.svg"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "source": "/((?!api/|assets/|_next/).*\\.[a-zA-Z0-9]+)",
+      "destination": "/$1"
     },
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/campaigns/(.*)",
-      "dest": "/campaigns/$1"
-    },
-    {
-      "src": "/favicon\\.ico",
-      "dest": "/assets/favicon.svg"
-    },
-    {
-      "src": "/robots\\.txt",
-      "dest": "/robots.txt"
-    },
-    {
-      "src": "/sitemap\\.xml",
-      "dest": "/sitemap.xml"
-    },
-    {
-      "src": "/(.*)\\.(png|jpg|jpeg|gif|svg|webp|json|css|js|mp4|webm|pdf)",
-      "dest": "/$1.$2"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/((?!api/|assets/).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -57,7 +53,7 @@
       "headers": [
         {
           "key": "Strict-Transport-Security",
-          "value": "max-age=31536000; includeSubDomains"
+          "value": "max-age=63072000; includeSubDomains; preload"
         },
         {
           "key": "X-Frame-Options",

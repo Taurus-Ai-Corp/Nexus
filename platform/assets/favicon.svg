@@ -1,4 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="20" fill="#05060a"/>
-  <text x="50" y="68" font-family="Inter, system-ui, sans-serif" font-size="48" font-weight="800" text-anchor="middle" fill="#7c5cff">NX</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- NEORM-ERA Canonical Favicon & Monogram Mark -->
+  <rect width="200" height="200" rx="46" fill="#0A0C1A"/>
+  <rect width="200" height="200" rx="46" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+  
+  <!-- Left Pillar -->
+  <path d="M52 50H74V150H52V50Z" fill="#FFFFFF"/>
+  
+  <!-- Right Pillar -->
+  <path d="M126 50H148V150H126V50Z" fill="#FFFFFF"/>
+  
+  <!-- Signal Coral Kinetic Growth Vector (The 'N' + Performance Arrow) -->
+  <path d="M68 54L136 142H110L42 54H68Z" fill="#F86B57"/>
+  
+  <!-- Apex Horizon Node -->
+  <circle cx="136" cy="56" r="8" fill="#F86B57"/>
 </svg>
