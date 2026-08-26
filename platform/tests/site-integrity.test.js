@@ -181,7 +181,37 @@ describe('Stripe checkout is wired to the handler it actually has', () => {
     0,
   );
 
-  test('finds all seven checkout buttons', () => assert.equal(buttonCount, 7));
+  test('finds the checkout buttons', () => assert.ok(buttonCount > 0, 'no checkout buttons found'));
+
+  test('every checkout button names a plan that has a price', () => {
+    // The stronger invariant, replacing a hardcoded count of 7. Four plans
+    // (agency_starter, agency_pro, agency_enterprise, worldcup) have no Stripe
+    // price ID, so handleCheckout refuses them by design — a button pointing at
+    // one is a button that always 400s. Those four now link to
+    // /contact.html?plan=... instead. If a plan gains a real price ID, add it to
+    // planMap and the button may come back; until then this fails loudly.
+    const priced = new Set(
+      [...stripe.matchAll(/^\s{4}([a-z_]+):\s*'(?:starter|studio)',/gm)].map((m) => m[1]),
+    );
+    assert.ok(priced.size >= 2, `parsed ${priced.size} priced plans from planMap; regex is stale`);
+
+    const sold = new Set(
+      checkoutPages.flatMap((p) => [...read(p).matchAll(/action=checkout&plan=([a-z_]+)/g)]
+        .map((m) => m[1])),
+    );
+    const unpriced = [...sold].filter((plan) => !priced.has(plan));
+    assert.deepEqual(unpriced, [], `checkout buttons for unpriced plans: ${unpriced.join(', ')}`);
+  });
+
+  test('the unpriced plans route to sales instead', () => {
+    const routed = new Set(
+      pages.flatMap((p) => [...read(p).matchAll(/href="\/contact\.html\?plan=([a-z_]+)"/g)]
+        .map((m) => m[1])),
+    );
+    for (const plan of ['agency_starter', 'agency_pro', 'agency_enterprise', 'worldcup']) {
+      assert.ok(routed.has(plan), `${plan} has neither a priced checkout nor a sales link`);
+    }
+  });
 
   for (const page of checkoutPages) {
     test(`${page} does not navigate to the API by GET`, () => {

@@ -164,6 +164,30 @@
     </div>
   </footer>
 
+  <script>
+    // Four plans (agency_starter / agency_pro / agency_enterprise / worldcup) are
+    // sold here rather than through Stripe, because no price ID exists for them.
+    // Their buttons arrive with ?plan=..., so say so in the message instead of
+    // dropping the parameter and showing an empty generic form — the visitor
+    // already told us what they wanted by clicking.
+    (function () {
+      var PLANS = {
+        agency_starter:    { label: 'Agency Starter ($399/mo)',        vertical: 'creative' },
+        agency_pro:        { label: 'Agency Pro ($999/mo)',            vertical: 'creative' },
+        agency_enterprise: { label: 'Agency Enterprise',               vertical: 'creative' },
+        worldcup:          { label: 'World Cup Neural Pack ($2,500)',  vertical: 'creative' }
+      };
+      var plan = PLANS[new URLSearchParams(window.location.search).get('plan')];
+      if (!plan) return;
+
+      var message = document.getElementById('message');
+      if (message && !message.value) {
+        message.value = 'I would like to discuss ' + plan.label + '.\n\n';
+      }
+      var vertical = document.getElementById('vertical');
+      if (vertical && !vertical.value) vertical.value = plan.vertical;
+    }());
+  </script>
   <script src="assets/js/main.js" defer></script>
 </body>
 </html>

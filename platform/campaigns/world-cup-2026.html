@@ -335,7 +335,7 @@
           <li>Remaining 40+ at 50/week</li>
           <li>White-label delivery for agencies</li>
         </ul>
-        <a href="/api/stripe?action=checkout&plan=worldcup" class="btn" style="font-size:0.95rem; padding:1rem 2.5rem;" onclick="event.preventDefault();trackEvent('purchase_worldcup');var e=prompt('Enter your email to checkout:');if(e&&e.includes('@')){var u=this.href+'&email='+encodeURIComponent(e);fetch(u,{method:'POST'}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{window.alert((d&&d.error)||'Checkout is unavailable for this plan.');}}).catch(function(){window.alert('Checkout is unavailable right now.');});}">Order World Cup Neural Pack <span class="btn-icon">→</span></a>
+        <a href="/contact.html?plan=worldcup" class="btn" style="font-size:0.95rem; padding:1rem 2.5rem;" onclick="trackEvent('contact_sales_worldcup');">Talk to Sales — World Cup Pack <span class="btn-icon">→</span></a>
         <p class="urgency">Production window closes August 2026 · Limited to 20 packs</p>
       </div>
     </div>
