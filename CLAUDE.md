@@ -52,19 +52,19 @@
 - **Domain:** `neorm-era.com` — REGISTERED 2026-08-25, NOT YET LIVE. Nameservers are still launch1/launch2.spaceship.net (parking); www has no record and the apex serves a Spaceship park page. The shipping site is nexus.taurusai.io, which is a FROZEN infrastructure host, not a brand statement — it stays after the cutover. Do not hardcode neorm-era.com anywhere: platform/lib/site-origin.mjs derives the origin from the request, and SITE_ORIGIN overrides it when the cutover happens.
 - **Summary:** AI agentic studio for performance marketing — 'New Normalized Era'. Seven engines. Replaced the NEXUS platform brand on 2026-08-25; absorbed the retired NeoVibe brand before that. <!-- brand-allow -->
 - **Code:** `Documents/NEXUS-CORE` · repo `Taurus-Ai-Corp/Nexus`
-- **Naming:** sub-product names are **standalone coined words** — never `NEORM-ERA|<SubProduct>`, never `Neorm-Era <SubProduct>`, never split in two
-- **Note:** Engine names are single coined words (Neormative, not 'Neorm Ative' and not 'NEORM|Ative'). Do NOT apply GRIDERA's pipe rule. The platform itself is hyphenated and upper-case: NEORM-ERA. 'NEORM ERA' and 'Neorm-Era' are wrong.
+- **Naming:** two-part form — indivisible coined stem + descriptor, e.g. `Neormative Ads`. The stem alone is valid shorthand and is what the URL slug uses. The platform name never prefixes an engine: never `NEORM-ERA|<Engine>`, never `Neorm-Era <Engine>`.
+- **Note:** TWO-PART form: coined stem + descriptor, e.g. 'Neormative Ads', 'Neormeo Authority'. The STEM is one indivisible coined word — 'Neorm Ative' and 'NEORM|Ative' are both wrong — but the stem is NOT the whole product name. Set the descriptor in italic where type allows; plain text otherwise. The stem alone is acceptable shorthand in running prose and is what the URL slug uses (/creative/, /seo/). Never apply GRIDERA's pipe rule. The platform is hyphenated and upper-case: NEORM-ERA; 'NEORM ERA' and 'Neorm-Era' are wrong. Platform lockup is 'NEORM-ERA' followed by the descriptor 'Agentic Studio'.
 - **Status detail:** Code and content pivoted on branch feat/nexus-core-organic-design-system (f2b8834, 2026-08-25). PRODUCTION AT nexus.taurusai.io IS STILL PRE-PIVOT as of 2026-08-26: it serves the old five-SKU Nexus site and /estate and /seo return 404 there. Verify which you are looking at before trusting a page.
 
 **Sub-products:**
 
-- `Neormative` — **shipping** — AI creative & campaign generation (was 'Nexus Creative', before that 'NeoVibe' / 'Vibe Marketing') <!-- brand-allow -->
-- `Neormedia` — **shipping** — Social automation & multi-platform distribution (was 'Nexus Social', before that 'ORCA') <!-- brand-allow -->
-- `Neormintel` — landing only — Predictive intelligence & attribution (was 'Nexus Intel'). Marketing page live; no product app yet. <!-- brand-allow -->
-- `Neormestate` — landing only — Real estate AI marketing vertical. New engine, no NEXUS predecessor. Wedge B of the Day-1 GTM.
-- `Neormeo` — landing only — GEO/AEO & AI search optimization. New engine, no NEXUS predecessor.
-- `Neormence` — skeleton — Collaborative freelance / agency workspace (was 'Nexus Freelance') <!-- brand-allow -->
-- `Neormestra` — roadmap — Agentic workflow orchestration (was 'Nexus Flow'). Site footers link it as 'soon'. <!-- brand-allow -->
+- `ENGINE_01 · Neormative Ads (Creative Studio)` — **shipping** — AI creative & campaign generation (was 'Nexus Creative', before that 'NeoVibe' / 'Vibe Marketing') <!-- brand-allow -->
+- `ENGINE_02 · Neormedia Sync (Social Autopilot)` — **shipping** — Social automation & multi-platform distribution (was 'Nexus Social', before that 'ORCA') <!-- brand-allow -->
+- `ENGINE_03 · Neormintel Data (Predictive ROAS)` — landing only — Predictive intelligence & attribution (was 'Nexus Intel'). Marketing page live; no product app yet. <!-- brand-allow -->
+- `ENGINE_04 · Neormestra Flow (Orchestration)` — roadmap — Agentic workflow orchestration (was 'Nexus Flow'). Site footers link it as 'soon'. <!-- brand-allow -->
+- `ENGINE_05 · Neormestate Reels (Real Estate)` — landing only — Real estate AI marketing vertical. New engine, no NEXUS predecessor. Wedge B of the Day-1 GTM.
+- `ENGINE_06 · Neormeo Authority (GEO & AI Search)` — landing only — GEO/AEO & AI search optimization. New engine, no NEXUS predecessor.
+- `ENGINE_07 · Neormence Studio (Agency Workspace)` — skeleton — Collaborative freelance / agency workspace (was 'Nexus Freelance') <!-- brand-allow -->
 
 #### SENTINEL by Taurus AI
 
@@ -198,10 +198,24 @@ agent experiments, and archived material.
 `.pre-commit-config.yaml` installs a **brand guard** that will fail your commit. Rules come from
 `~/.ai-context/taxonomy/TAXONOMY.toml` (skips silently if that file is absent).
 
-- The platform is **NEORM-ERA** (hyphenated, upper-case). Its seven engines are single coined
-  words: `Neormative`, `Neormedia`, `Neormintel`, `Neormestate`, `Neormeo`, `Neormence`,
-  `Neormestra`. Do **not** apply GRIDERA's `PIPE|Form` rule, and do **not** split them
-  (`Neorm Ative` is wrong).
+- The platform is **NEORM-ERA** (hyphenated, upper-case), lockup `NEORM-ERA Agentic Studio`.
+- Engine names are **two-part**: an indivisible coined stem plus a descriptor. The stem is one
+  word — `Neorm Ative` is wrong — but the stem is not the whole name.
+
+  | # | Full name | Stem (slug) | Card category |
+  |---|---|---|---|
+  | 01 | Neormative *Ads* | `Neormative` (`/creative/`) | Creative Studio |
+  | 02 | Neormedia *Sync* | `Neormedia` (`/social/`) | Social Autopilot |
+  | 03 | Neormintel *Data* | `Neormintel` (`/intel/`) | Predictive ROAS |
+  | 04 | Neormestra *Flow* | `Neormestra` (`/flow/`) | Orchestration |
+  | 05 | Neormestate *Reels* | `Neormestate` (`/estate/`) | Real Estate |
+  | 06 | Neormeo *Authority* | `Neormeo` (`/seo/`) | GEO & AI Search |
+  | 07 | Neormence *Studio* | `Neormence` (`/freelance/`) | Agency Workspace |
+
+  The descriptor is set in italic where the type system allows it, plain otherwise. The stem
+  alone is valid shorthand in running prose and is what every URL slug uses — the slugs are
+  the pre-rebrand words (`/creative/`, `/seo/`) and are **not** being renamed. Never apply
+  GRIDERA's `PIPE|Form` rule, and the platform name never prefixes an engine.
 - **The `Nexus <X>` sub-product names are retired as of 2026-08-25.** The brand guard now
   rejects them, so each mapping below carries an inline allow marker — that is the pattern to
   copy if you ever need to name one of them again:
