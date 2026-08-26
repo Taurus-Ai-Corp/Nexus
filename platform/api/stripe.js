@@ -3,6 +3,7 @@
 // GET /api/stripe?action=balance&email=... → check customer credits
 
 import Stripe from 'stripe';
+import { siteOrigin } from '../lib/site-origin.mjs';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2024-12-18.acacia',
@@ -57,8 +58,13 @@ async function handleCheckout(req, res) {
   params.append('customer_email', email);
   // thanks.html lives under /campaigns/ since the nexus-creative-editorial migration.
   // The bare /thanks.html path 404s, which stranded every completed checkout.
-  params.append('success_url', 'https://www.neorm-era.com/campaigns/thanks.html?session_id={CHECKOUT_SESSION_ID}&plan=' + canonical);
-  params.append('cancel_url', 'https://www.neorm-era.com/#pricing');
+  // Derived from the request rather than hardcoded: the host these were pinned to
+  // has no DNS record, so every completed checkout would have landed on an
+  // unresolvable domain. lib/site-origin.mjs explains why the Host header is
+  // allowlisted rather than trusted — these values are redirect targets.
+  const origin = siteOrigin(req);
+  params.append('success_url', origin + '/campaigns/thanks.html?session_id={CHECKOUT_SESSION_ID}&plan=' + canonical);
+  params.append('cancel_url', origin + '/#pricing');
   params.append('payment_method_types[]', 'card');
   params.append('line_items[0][price]', basePriceId);
   params.append('line_items[0][quantity]', '1');
@@ -116,7 +122,7 @@ async function handleBalance(req, res) {
       return res.status(200).json({
         credits_remaining: 0,
         plan: null,
-        message: 'No credits found. Purchase a plan at https://www.neorm-era.com/#pricing',
+        message: `No credits found. Purchase a plan at ${siteOrigin(req)}/#pricing`,
       });
     }
 

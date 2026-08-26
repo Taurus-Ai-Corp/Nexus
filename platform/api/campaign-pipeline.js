@@ -5,6 +5,7 @@
 // Now powered by the Ad Campaign Prompt Bible (9-block universal skeleton).
 // See lib/prompt-bible.mjs for the full framework.
 
+import { siteOrigin } from '../lib/site-origin.mjs';
 import { buildBibleCampaignKit, build9BlockPrompt, detectCategory, ARCHETYPES, CATEGORY_ELEMENTS } from '../lib/prompt-bible.mjs';
 
 function heuristicScore(text) {
@@ -186,7 +187,7 @@ export default async function handler(req, res) {
   // Step 3: Capture lead if email provided
   if (email && email.includes('@')) {
     try {
-      await fetch('https://www.neorm-era.com/api/leads', {
+      await fetch(`${siteOrigin(req)}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -281,7 +282,7 @@ export default async function handler(req, res) {
       source: 'heuristic+bible',
       brief_length: brief.trim().length,
       generated_at: new Date().toISOString(),
-      deploy_url: `https://www.neorm-era.com/dogfood.html#campaign-${deployKey}`,
+      deploy_url: `${siteOrigin(req)}/campaigns/dogfood.html#campaign-${deployKey}`,
       bible_version: '1.0.0',
       archetype: kit.campaign.archetype,
       product_category: kit.campaign.product_category,

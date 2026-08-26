@@ -33,12 +33,17 @@ describe('campaign pages use /campaigns/-prefixed links', () => {
 describe('Stripe redirect targets resolve to real files', () => {
   // A success_url pointing at a 404 strands the customer after they have paid.
   const src = readFileSync(join(platform, 'api/stripe.js'), 'utf8');
-  // Canonical host, kept in one place so a rebrand cannot silently empty this list.
-  // If this regex stops matching, the per-path assertions below vanish and the suite
-  // still looks green -- which is why `extracts at least one redirect path` exists.
-  const CANONICAL_HOST = 'www.neorm-era.com';
-  const hostPattern = new RegExp(`https://${CANONICAL_HOST.replace(/\./g, '\\.')}(/[^'"?#]*)`, 'g');
-  const urls = [...src.matchAll(hostPattern)].map((m) => m[1]);
+  // The host is no longer a literal -- it is derived per request by
+  // lib/site-origin.mjs, because the hardcoded one had no DNS record. So the
+  // paths are now the tail of a concatenation rather than the tail of a URL.
+  // If these regexes stop matching, the per-path assertions below vanish and the
+  // suite still looks green -- which is why `extracts at least one redirect path`
+  // exists, and it is what caught this change.
+  const PATH_SOURCES = [
+    /\borigin\s*\+\s*'(\/[^'?#]*)/g,            // origin + '/campaigns/thanks.html?...'
+    /\$\{siteOrigin\(req\)\}(\/[^`'"?#\s]*)/g,  // `${siteOrigin(req)}/#pricing`
+  ];
+  const urls = PATH_SOURCES.flatMap((re) => [...src.matchAll(re)].map((m) => m[1]));
 
   it('extracts at least one redirect path', () => assert.ok(urls.length > 0));
 

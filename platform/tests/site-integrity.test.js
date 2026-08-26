@@ -218,3 +218,38 @@ describe('Stripe checkout is wired to the handler it actually has', () => {
     }
   });
 });
+
+describe('serverless functions do not hardcode a hostname', () => {
+  // success_url, cancel_url, a self-referential fetch of /api/leads and a
+  // deploy_url were all pinned to a host with no DNS record, so a completed
+  // checkout would have redirected the customer to an unresolvable domain and
+  // the lead-capture fetch would have thrown. A hardcoded host is also wrong on
+  // every preview deploy. lib/site-origin.mjs derives it from the request.
+  const fns = readdirSync(join(platform, 'api')).filter((f) => f.endsWith('.js'));
+
+  for (const fn of fns) {
+    test(`api/${fn} builds URLs from the request`, () => {
+      const src = read(join('api', fn));
+      // Strip comments first: the reason this rule exists is written in them.
+      const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+      const literals = [...code.matchAll(/https?:\/\/(?:www\.)?(neorm-era\.com|nexus\.taurusai\.io)/g)];
+      assert.equal(
+        literals.length,
+        0,
+        `api/${fn} hardcodes ${[...new Set(literals.map((m) => m[0]))].join(', ')}; use siteOrigin(req)`,
+      );
+    });
+  }
+});
+
+describe('siteOrigin refuses an untrusted Host header', () => {
+  // success_url is a redirect target and Host is attacker-controlled, so the
+  // allowlist is load-bearing, not defensive decoration.
+  test('unknown host falls back to the canonical origin', async () => {
+    const { siteOrigin, CANONICAL_ORIGIN } = await import('../lib/site-origin.mjs');
+    assert.equal(siteOrigin({ headers: { host: 'evil.example.com' } }), CANONICAL_ORIGIN);
+    assert.equal(siteOrigin({ headers: {} }), CANONICAL_ORIGIN);
+    assert.equal(siteOrigin({ headers: { host: 'nexus.taurusai.io' } }), 'https://nexus.taurusai.io');
+    assert.equal(siteOrigin({ headers: { host: 'x1.vercel.app' } }), 'https://x1.vercel.app');
+  });
+});
