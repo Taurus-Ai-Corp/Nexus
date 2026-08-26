@@ -83,6 +83,71 @@ describe('no engine page is orphaned', () => {
       const missing = Object.keys(ENGINES).filter((slug) => !footer[0].includes(`href="/${slug}/"`));
       assert.deepEqual(missing, [], `${page} footer omits: ${missing.join(', ')}`);
     });
+
+    test(`${page} footer names each engine once`, () => {
+      // Adding the missing engines produced a second Neormestra row: the footer
+      // already carried a "Neormestra soon" waitlist entry, so the same engine
+      // appeared as both live and unreleased. Compare whole labels with the
+      // <small> qualifier stripped, so "Neormestra soon" collides with
+      // "Neormestra" while the distinct "Neormative demo" entry does not.
+      const labels = [...footer[0].matchAll(/<a\s[^>]*>([\s\S]*?)<\/a>/g)]
+        .map((m) => m[1].replace(/<small>[\s\S]*?<\/small>/g, '').replace(/<[^>]+>/g, '').trim());
+      const dupes = Object.values(ENGINES).filter(
+        (name) => labels.filter((l) => l === name).length > 1,
+      );
+      assert.deepEqual(dupes, [], `${page} footer lists twice: ${dupes.join(', ')}`);
+    });
+  }
+});
+
+describe('nav markup is well formed', () => {
+  for (const [slug] of Object.entries(ENGINES)) {
+    const page = `${slug}/index.html`;
+    test(`${page} nav has no duplicate link`, () => {
+      // flow/ carried a stray </div> that closed .nav-inner early, plus a second
+      // Pricing anchor. Both the duplicate and .nav-cta then rendered at x=0
+      // below the nav bar rather than inside it.
+      // Scoped to .nav-links: the brand lockup also points at "/", and that
+      // duplicate is intentional.
+      const links = read(page).match(/<div class="nav-links[^"]*">([\s\S]*?)<\/div>/);
+      assert.ok(links, `${page} has no .nav-links`);
+      const hrefs = [...links[1].matchAll(/<a\s[^>]*href="([^"]+)"/g)].map((m) => m[1]);
+      const seen = new Set();
+      const dupes = hrefs.filter((h) => (seen.has(h) ? true : (seen.add(h), false)));
+      assert.deepEqual([...new Set(dupes)], [], `${page} nav links twice to: ${dupes.join(', ')}`);
+    });
+
+    test(`${page} nav-cta sits inside nav-inner`, () => {
+      const inner = read(page).match(/<div class="container nav-inner">([\s\S]*?)<\/nav>/);
+      assert.ok(inner, `${page} has no .nav-inner`);
+      assert.match(inner[1], /nav-cta/, `${page} .nav-cta escaped .nav-inner`);
+    });
+  }
+});
+
+describe('retired names and misspellings stay out of published copy', () => {
+  // tests/brand.test.js scans only for the previous platform name, so a retired
+  // sub-brand in body copy passed both it and the pre-commit brand guard.
+  const BANNED = [
+    // These four name the retired brands on purpose — this list is what keeps
+    // them out of published copy, so the guard has to tolerate them here.
+    [/\bBizFlow\b/i, 'BizFlow — retired brand'], // brand-allow
+    [/\bNeoVibe\b/i, 'NeoVibe — retired brand'], // brand-allow
+    [/\bNeoSync\b/i, 'NeoSync — retired brand'], // brand-allow
+    [/\bGridDB\b/i, 'GridDB — retired brand'], // brand-allow
+    [/\bORCA\b/, 'ORCA — retired brand'],
+    [/\bHeiro\b/i, 'Heiro — misspelling of Hiero'],
+  ];
+
+  for (const page of pages) {
+    test(`${page} is clean`, () => {
+      // ORCA_WEBHOOK_URL is a deployment env var and data.orca / orcaHtml are API
+      // field and variable names — infrastructure identifiers, not visible copy.
+      // Renaming them breaks the contract without changing what a visitor sees.
+      const html = read(page).replace(/ORCA_WEBHOOK_URL/g, '').replace(/\borca[A-Za-z_]*\b/g, '');
+      const hits = BANNED.filter(([re]) => re.test(html)).map(([, label]) => label);
+      assert.deepEqual(hits, [], `${page} contains: ${hits.join('; ')}`);
+    });
   }
 });
 
