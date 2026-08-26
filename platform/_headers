@@ -1,0 +1,19 @@
+# Cloudflare Pages header rules.
+#
+# vercel.json's "headers" block does not apply on Pages, so a straight port of
+# this site to Cloudflare silently dropped HSTS, X-Frame-Options, the
+# Permissions-Policy and the immutable asset cache. Pages supplies
+# x-content-type-options and referrer-policy on its own; the rest are these.
+#
+# Keep this file and the vercel.json headers block in step for as long as both
+# targets exist. tests/deploy-safety.test.js asserts they agree.
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()

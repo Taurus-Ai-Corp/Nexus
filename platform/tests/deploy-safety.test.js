@@ -108,3 +108,38 @@ describe('no redirect black-holes the host that actually serves the site', () =>
     assert.deepEqual(unconditional, [], 'unconditional catch-all redirect would strand every host');
   });
 });
+
+describe('_headers and vercel.json agree', () => {
+  // The site deploys to Cloudflare Pages (neorm-era.pages.dev) and Vercel
+  // (nexus.taurusai.io). Pages ignores vercel.json entirely, so the first
+  // Cloudflare deploy silently served the site with NO HSTS, no
+  // X-Frame-Options and no Permissions-Policy, and with assets at
+  // max-age=0 instead of immutable — confirmed by curling both hosts.
+  // Nothing detects that drift except comparing the two files.
+  const cfg = JSON.parse(readFileSync(join(platform, 'vercel.json'), 'utf8'));
+  const headersFile = readFileSync(join(platform, '_headers'), 'utf8');
+
+  const vercelGlobal = (cfg.headers ?? []).find((h) => h.source === '/(.*)');
+
+  it('vercel.json still declares global headers', () => {
+    assert.ok(vercelGlobal, 'no /(.*) headers block in vercel.json');
+  });
+
+  for (const { key, value } of vercelGlobal?.headers ?? []) {
+    it(`_headers carries ${key}`, () => {
+      // Cloudflare sets its own x-content-type-options and referrer-policy,
+      // but declaring them keeps the two files a like-for-like comparison.
+      const line = headersFile.split('\n').find((l) => l.trim().toLowerCase().startsWith(`${key.toLowerCase()}:`));
+      assert.ok(line, `_headers is missing ${key}, which vercel.json sets`);
+      assert.equal(line.split(':').slice(1).join(':').trim(), value,
+        `_headers and vercel.json disagree on ${key}`);
+    });
+  }
+
+  it('asset cache policy matches', () => {
+    const vercelAssets = (cfg.headers ?? []).find((h) => h.source === '/assets/(.*)');
+    assert.ok(vercelAssets, 'vercel.json has no /assets/(.*) block');
+    const expected = vercelAssets.headers.find((h) => h.key === 'Cache-Control').value;
+    assert.ok(headersFile.includes(expected), `_headers does not set assets to "${expected}"`);
+  });
+});
