@@ -131,12 +131,22 @@
       Meta's fMRI foundation model, zero cloud cost. Google Colab's free T4 GPU 
       delivers full TRIBE v2 inference — same accuracy as our RunPod production tier.
     </p>
-    <a href="/tribev2_inference.ipynb" class="btn" download>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v10M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Download Notebook
-    </a>
-    <a href="https://colab.research.google.com/github/taurus-ai/nexus-creative/blob/main/tribev2_inference.ipynb" target="_blank" class="btn btn-outline" style="margin-left:0.6rem;">
-      Open in Colab →
+    <!--
+      The "Download Notebook" button linked /tribev2_inference.ipynb, which does
+      not exist under platform/ and returned 404. The only copy on this machine
+      is untracked, is not valid JSON (a cell's "source" array is unterminated,
+      so Jupyter and Colab both refuse it), and contains a hardcoded
+      HuggingFace token. Publishing that file to fix the 404 would have shipped
+      a live credential to a public site, so the button is removed rather than
+      repointed. Restore it only after the notebook is repaired, the token is
+      pulled out into a userdata prompt, and the file is placed under platform/.
+
+      "Open in Colab" is also dead: the GitHub repo it pointed at returns 404
+      under both the taurus-ai and the Taurus-Ai-Corp org, so Colab has nothing
+      to load. Both CTAs are replaced with the one route that works today.
+    -->
+    <a href="/contact.html?vertical=creative" class="btn">
+      Request notebook access →
     </a>
   </div>
 </section>

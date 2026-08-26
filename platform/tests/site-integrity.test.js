@@ -6,7 +6,7 @@
  * strings and config keys but never checked that the pages agree with each other.
  */
 
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test, { describe } from 'node:test';
@@ -282,4 +282,48 @@ describe('siteOrigin refuses an untrusted Host header', () => {
     assert.equal(siteOrigin({ headers: { host: 'nexus.taurusai.io' } }), 'https://nexus.taurusai.io');
     assert.equal(siteOrigin({ headers: { host: 'x1.vercel.app' } }), 'https://x1.vercel.app');
   });
+});
+
+describe('inline scripts parse', () => {
+  // campaigns/dogfood.html carried a string literal broken across two physical
+  // lines, so the ENTIRE inline script failed to parse and renderCampaigns()
+  // never ran. #campaign-list has no static fallback, so the campaign gallery
+  // — the substance of the page — rendered empty, on every visit, since the
+  // file was created. Nothing caught it: the HTML is well formed, the brand is
+  // right, every link resolves, and no test had ever executed the page.
+  for (const page of pages) {
+    const src = read(page);
+    const blocks = [...src.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)]
+      .map((m) => m[1])
+      .filter((b) => b.trim() && !/^\s*\{[\s\S]*\}\s*$/.test(b.trim())); // skip JSON-LD
+    if (!blocks.length) continue;
+    test(`${page} — ${blocks.length} inline script(s) compile`, () => {
+      blocks.forEach((body, i) => {
+        // Compiles without executing; a syntax error throws here.
+        assert.doesNotThrow(() => new Function(body), `${page} script block ${i} does not parse`);
+      });
+    });
+  }
+});
+
+describe('root-relative links resolve to something on disk', () => {
+  // campaigns/index.html linked "/dogfood" (404) where the page is at
+  // "/campaigns/dogfood". campaigns/colab.html offers a notebook download at
+  // "/tribev2_inference.ipynb" which exists nowhere in platform/.
+  const skip = (h) => h.startsWith('/api/') || h.startsWith('//');
+  for (const page of pages) {
+    const hrefs = [...new Set(
+      [...read(page).matchAll(/(?:href|src)="(\/[^"'#?]*)/g)].map((m) => m[1]).filter((h) => !skip(h)),
+    )];
+    if (!hrefs.length) continue;
+    test(`${page} — ${hrefs.length} local target(s) exist`, () => {
+      const missing = hrefs.filter((h) => {
+        const p = h.replace(/^\//, '') || 'index.html';
+        return !(existsSync(join(platform, p))
+          || existsSync(join(platform, `${p}.html`))
+          || existsSync(join(platform, p, 'index.html')));
+      });
+      assert.deepEqual(missing, [], `${page} links to missing: ${missing.join(', ')}`);
+    });
+  }
 });
