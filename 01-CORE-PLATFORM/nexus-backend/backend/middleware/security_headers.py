@@ -1,4 +1,4 @@
-"""Security Headers Middleware for TAURUS AI BizFlow Backend"""
+"""Security Headers Middleware for TAURUS AI NEORM-ERA Backend"""
 
 import os
 from collections.abc import Callable

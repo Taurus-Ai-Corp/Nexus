@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-TAURUS AI CORP - BizFlow™ Core Backend API
+TAURUS AI CORP - NEORM-ERA Core Backend API
 FastAPI-based microservices architecture with multi-tenant support
 """
 
@@ -109,7 +109,7 @@ async def lifespan(app: FastAPI):
 
 # FastAPI app with lifespan
 app = FastAPI(
-    title="TAURUS AI CORP - BizFlow™ Platform",
+    title="TAURUS AI CORP - NEORM-ERA Platform",
     description="AI-Powered Business Intelligence Automation Platform",
     version="1.0.0",
     docs_url="/api/docs",
@@ -308,7 +308,7 @@ async def startup_event():
     global redis_client, db_session, agent_instances
 
     try:
-        logger.info("🚀 Starting TAURUS AI CORP BizFlow™ Backend...")
+        logger.info("🚀 Starting TAURUS AI CORP NEORM-ERA Backend...")
 
         # Initialize Redis
         redis_client = redis.from_url("redis://localhost:6379", decode_responses=True)
@@ -397,7 +397,7 @@ async def shutdown_event():
 async def root():
     """Root endpoint"""
     return {
-        "message": "Welcome to TAURUS AI CORP BizFlow™ Platform",
+        "message": "Welcome to TAURUS AI CORP NEORM-ERA Platform",
         "version": "1.0.0",
         "status": "active",
         "timestamp": datetime.now().isoformat(),
