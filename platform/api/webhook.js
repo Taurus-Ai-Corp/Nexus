@@ -1,14 +1,17 @@
 // /api/webhook.js — Stripe webhook handler for metered billing credits
 // Handles: checkout.session.completed, customer.subscription.updated,
 //          customer.subscription.deleted, invoice.payment_succeeded
-import { createHmac } from 'crypto';
+import { createHmac, timingSafeEqual } from 'crypto';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2024-12-18.acacia',
 });
 
-function verifySignature(body, sigHeader, secret) {
+/** Stripe's own default replay window. Signed payloads older than this are refused. */
+const SIGNATURE_TOLERANCE_SECONDS = 300;
+
+function verifySignature(body, sigHeader, secret, nowSeconds = Math.floor(Date.now() / 1000)) {
   const elements = sigHeader.split(',');
   const sigMap = {};
   for (const el of elements) {
@@ -21,10 +24,27 @@ function verifySignature(body, sigHeader, secret) {
 
   if (!timestamp || !signature) return false;
 
+  // Reject stale payloads. Without this the signature stays valid forever, so a
+  // single captured checkout.session.completed request could be replayed to
+  // mint credits indefinitely — the grant path has no idempotency key to stop
+  // it. Stripe's own libraries enforce the same 300s tolerance.
+  const ts = Number(timestamp);
+  if (!Number.isFinite(ts) || Math.abs(nowSeconds - ts) > SIGNATURE_TOLERANCE_SECONDS) {
+    return false;
+  }
+
   const payload = `${timestamp}.${body}`;
   const expected = createHmac('sha256', secret).update(payload).digest('hex');
-  return expected === signature;
+
+  // Constant-time compare: `===` on hex strings leaks how many leading bytes
+  // matched, which is enough to forge a signature one byte at a time.
+  const a = Buffer.from(expected, 'utf8');
+  const b = Buffer.from(signature, 'utf8');
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
 }
+
+export { verifySignature, SIGNATURE_TOLERANCE_SECONDS };
 
 async function updateCustomerCredits(customerId, creditsDelta, plan) {
   try {
