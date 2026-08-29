@@ -33,9 +33,16 @@ export function siteOrigin(req) {
   const host = String(req?.headers?.host ?? '').toLowerCase();
   if (!host) return CANONICAL_ORIGIN;
 
-  // Vercel preview deploys get a generated *.vercel.app host that cannot be
-  // enumerated ahead of time; the suffix match is the allowlist entry for them.
-  const trusted = ALLOWED_HOSTS.has(host) || /^[a-z0-9-]+\.vercel\.app$/.test(host);
+  // Preview/branch deploys get a generated host that cannot be enumerated
+  // ahead of time, so each platform gets one suffix rule:
+  //   Vercel     <name>.vercel.app
+  //   CF Pages   <name>.pages.dev and <branch>.<name>.pages.dev
+  // Without the Pages rule a checkout started on neorm-era.pages.dev fell back
+  // to CANONICAL_ORIGIN and sent the customer to the Vercel site after paying.
+  const trusted =
+    ALLOWED_HOSTS.has(host)
+    || /^[a-z0-9-]+\.vercel\.app$/.test(host)
+    || /^([a-z0-9-]+\.)?[a-z0-9-]+\.pages\.dev$/.test(host);
   if (!trusted) return CANONICAL_ORIGIN;
 
   const proto = host.startsWith('localhost') ? 'http' : 'https';
