@@ -1024,7 +1024,7 @@ async def ingest_documents(
         if not request.documents:
             raise HTTPException(status_code=400, detail="No documents provided")
 
-        ids = vector_store.ingest_documents(request.documents)
+        ids = await vector_store.ingest_documents(request.documents)
         return {
             "status": "success",
             "ingested": len(ids),
@@ -1053,7 +1053,7 @@ async def search_knowledge(
         if not request.query:
             raise HTTPException(status_code=400, detail="Query is required")
 
-        results = vector_store.search(
+        results = await vector_store.search(
             query=request.query,
             k=request.k,
             allowlist=request.allowlist,

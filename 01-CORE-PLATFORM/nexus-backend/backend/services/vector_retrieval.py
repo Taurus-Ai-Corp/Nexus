@@ -8,6 +8,7 @@ Built on TurboQuant 2-4 bit quantization via turbovec (Rust + pyo3).
 ~8x memory reduction vs float32, ~8ms/query at 1M vectors.
 """
 
+import hashlib
 import logging
 import os
 from dataclasses import dataclass
@@ -111,7 +112,7 @@ class VectorRetrievalService:
             self._redis_client = redis.from_url(redis_url, decode_responses=True)
             logger.info("Redis client initialized for embedding cache")
 
-    def ingest_documents(
+    async def ingest_documents(
         self,
         documents: list[dict[str, Any]],
     ) -> list[int]:
@@ -133,7 +134,7 @@ class VectorRetrievalService:
             )
 
         texts = [doc["text"] for doc in documents]
-        embeddings = self._get_embeddings(texts)
+        embeddings = await self._get_embeddings(texts)
 
         ids = np.arange(self._next_id, self._next_id + len(documents), dtype=np.uint64)
         self._index.add_with_ids(embeddings, ids)
@@ -173,7 +174,7 @@ class VectorRetrievalService:
                 if int(doc_id) >= self._next_id:
                     self._next_id = int(doc_id) + 1
 
-    def search(
+    async def search(
         self,
         query: str,
         k: int = 10,
@@ -193,7 +194,7 @@ class VectorRetrievalService:
         if not self._openai_client:
             raise RuntimeError("OpenAI client not configured — set OPENAI_API_KEY")
 
-        query_vec = self._get_embeddings([query])[0]
+        query_vec = (await self._get_embeddings([query]))[0]
         return self.search_vectors(query_vec, k, allowlist)
 
     def search_vectors(
@@ -261,20 +262,32 @@ class VectorRetrievalService:
             return True
         return False
 
-    def _get_embeddings(self, texts: list[str]) -> np.ndarray:
-        """Get embeddings for texts, using Redis cache if available."""
-        cache_keys = [f"embed:{hash(t)}" for t in texts]
+    @staticmethod
+    def _cache_key(text: str) -> str:
+        """Stable cache key for one text.
+
+        Python's built-in `hash()` is salted per process (PYTHONHASHSEED), so it
+        produced a different key for the same text on every restart and a
+        different key per worker in the same deploy — the cache never hit and we
+        paid OpenAI for every call. SHA-256 is stable across processes and hosts.
+        """
+        return f"embed:{hashlib.sha256(text.encode('utf-8')).hexdigest()}"
+
+    async def _get_embeddings(self, texts: list[str]) -> np.ndarray:
+        """Get embeddings for texts, using Redis cache if available.
+
+        Async because every caller reaches this from a FastAPI request, i.e.
+        from inside a running event loop. This used to be sync and wrapped each
+        await in `asyncio.run()`, which raises `RuntimeError: asyncio.run()
+        cannot be called from a running event loop` — so both knowledge
+        endpoints returned 500 in every configuration.
+        """
+        cache_keys = [self._cache_key(t) for t in texts]
         embeddings = []
 
         # Check cache
         if self._redis_client:
-            import asyncio
-
-            async def fetch_cached():
-                pipe = self._redis_client.mget(cache_keys)
-                return await pipe
-
-            cached = asyncio.run(fetch_cached())
+            cached = await self._redis_client.mget(cache_keys)
             to_embed = []
             to_embed_idx = []
             for i, cached_val in enumerate(cached):
@@ -289,28 +302,17 @@ class VectorRetrievalService:
 
         # Generate new embeddings
         if to_embed:
-            import asyncio
-
-            async def get_new():
-                resp = await self._openai_client.embeddings.create(
-                    model="text-embedding-3-small", input=to_embed
-                )
-                return [np.array(e.embedding, dtype=np.float32) for e in resp.data]
-
-            new_embeddings = asyncio.run(get_new())
+            resp = await self._openai_client.embeddings.create(
+                model="text-embedding-3-small", input=to_embed
+            )
+            new_embeddings = [np.array(e.embedding, dtype=np.float32) for e in resp.data]
 
             # Cache them
             if self._redis_client:
-                import asyncio
-
-                async def cache_them():
-                    pipe = self._redis_client.pipeline()
-                    for text, emb in zip(to_embed, new_embeddings, strict=False):
-                        key = f"embed:{hash(text)}"
-                        pipe.setex(key, 86400, emb.tobytes().hex())  # 24h TTL
-                    await pipe.execute()
-
-                asyncio.run(cache_them())
+                pipe = self._redis_client.pipeline()
+                for text, emb in zip(to_embed, new_embeddings, strict=False):
+                    pipe.setex(self._cache_key(text), 86400, emb.tobytes().hex())  # 24h TTL
+                await pipe.execute()
 
             # Insert into results at correct positions
             for idx, emb in zip(to_embed_idx, new_embeddings, strict=False):
