@@ -11,6 +11,17 @@
       ],
       "destination": "https://www.neorm-era.com/$1",
       "permanent": true
+    },
+    {
+      "source": "/((?!api/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "nexus.taurusai.io"
+        }
+      ],
+      "destination": "https://www.neorm-era.com/$1",
+      "permanent": true
     }
   ],
   "rewrites": [

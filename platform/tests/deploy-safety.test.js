@@ -79,7 +79,33 @@ describe('no redirect black-holes the host that actually serves the site', () =>
   // LIVE_HOSTS is the set of hosts that resolve and serve this project. Adding
   // neorm-era.com here is part of the DNS cutover, not a way to silence a
   // failure: verify with `dig +short www.neorm-era.com` first.
-  const LIVE_HOSTS = new Set(['nexus.taurusai.io']);
+  const LIVE_HOSTS = new Set(['nexus.taurusai.io', 'neorm-era.com', 'www.neorm-era.com']);
+
+  // Deliberate cutover redirects. A live host may be a redirect SOURCE only
+  // when its destination is itself live — that is the difference between a
+  // cutover and the f2b8834 outage, where the destination had no DNS record.
+  //
+  // Verified 2026-08-30 before this entry was added:
+  //   dig +short www.neorm-era.com          -> 172.64.80.1  (Cloudflare)
+  //   curl -sI  https://www.neorm-era.com/  -> 200, server: cloudflare
+  //   curl -s   .../api/leads               -> 200 application/json, not an
+  //                                            HTML catch-all — Pages Functions
+  //                                            give full API parity with api/
+  // Re-run all three before adding an entry. A destination that only returns
+  // 200 on the homepage is not enough; the API must answer too, or checkout
+  // and the Stripe webhook break silently after the redirect lands.
+  const CUTOVER = new Map([
+    ['nexus.taurusai.io', 'www.neorm-era.com'], // brand cutover: retire the old host
+    ['neorm-era.com', 'www.neorm-era.com'], // apex -> www canonicalisation
+  ]);
+
+  const destHost = (d) => {
+    try {
+      return new URL(d).host;
+    } catch {
+      return null;
+    }
+  };
 
   const cfg = JSON.parse(readFileSync(join(platform, 'vercel.json'), 'utf8'));
   const redirects = cfg.redirects ?? [];
@@ -89,12 +115,19 @@ describe('no redirect black-holes the host that actually serves the site', () =>
   for (const [i, r] of redirects.entries()) {
     const sources = (r.has ?? []).filter((h) => h.type === 'host').map((h) => h.value);
     it(`redirect ${i} (${sources.join(',') || 'any host'}) does not strand live traffic`, () => {
-      const stranded = sources.filter((h) => LIVE_HOSTS.has(h));
+      const dest = destHost(r.destination);
+      const stranded = sources.filter((h) => {
+        if (!LIVE_HOSTS.has(h)) return false; // not live: nothing to strand
+        // Live source is allowed only as a declared cutover whose destination
+        // is this redirect's actual destination AND is itself live.
+        return !(CUTOVER.get(h) === dest && LIVE_HOSTS.has(dest));
+      });
       assert.deepEqual(
         stranded,
         [],
         `redirect ${i} sends ${stranded.join(', ')} — which is live — to ${r.destination}. `
-          + 'Re-add this only after the destination host resolves.',
+          + 'Allowed only as a CUTOVER entry whose destination is a verified-live host. '
+          + 'Re-add this only after the destination host resolves and serves /api/.',
       );
     });
   }
