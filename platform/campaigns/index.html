@@ -647,14 +647,14 @@
       <div class="pricing-grid">
         <div class="pricing-card reveal">
           <h3>Starter</h3>
-          <p class="price">$99 <span>/ campaign</span></p>
+          <p class="price">$99 <span>/ month</span></p>
           <ul>
-            <li>1 campaign concept</li>
+            <li>10 campaigns included</li>
             <li>Image prompt + copy</li>
             <li>Platform plan</li>
-            <li>2 revision rounds</li>
+            <li>2 revision rounds per campaign</li>
           </ul>
-          <a href="/api/stripe?action=checkout&plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_starter'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){var u=this.href+'&email='+encodeURIComponent(email);fetch(u,{method:'POST'}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{window.alert((d&&d.error)||'Checkout is unavailable for this plan.');}}).catch(function(){window.alert('Checkout is unavailable right now.');});}">Start Proof of Concept</a>
+          <a href="/api/stripe?action=checkout&plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_starter'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){var u=this.href+'&email='+encodeURIComponent(email);fetch(u,{method:'POST'}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{window.alert((d&&d.error)||'Checkout is unavailable for this plan.');}}).catch(function(){window.alert('Checkout is unavailable right now.');});}">Start Starter plan</a>
         </div>
         <div class="pricing-card featured reveal">
           <div>

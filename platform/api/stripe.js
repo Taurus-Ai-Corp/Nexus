@@ -9,7 +9,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2024-12-18.acacia',
 });
 
-const creditsMap = { starter: 5, studio: 20 };
+// Campaigns included per billing period. Starter moved from a one-time
+// $99/campaign POC to $99/month with 10 campaigns on 2026-09-08.
+const creditsMap = { starter: 10, studio: 20 };
 
 async function handleCheckout(req, res) {
   const { email, plan } = req.query;
@@ -39,8 +41,15 @@ async function handleCheckout(req, res) {
     });
   }
 
+  // Starter is a monthly subscription as of 2026-09-08. Stripe rejects a one-time
+  // Price in mode=subscription, and STRIPE_STARTER_PRICE_ID / _BASE_ still point at
+  // the old one-time $99 POC price — so this deliberately does NOT fall back to them.
+  // Silently reusing a one-time price is the same failure mode the planMap comment
+  // above records: a checkout that looks like it worked while billing the wrong thing.
+  // Set STRIPE_STARTER_MONTHLY_PRICE_ID to a recurring monthly Price before Starter
+  // checkout will work.
   const basePriceId = canonical === 'starter'
-    ? process.env.STRIPE_STARTER_BASE_PRICE_ID || process.env.STRIPE_STARTER_PRICE_ID
+    ? process.env.STRIPE_STARTER_MONTHLY_PRICE_ID
     : process.env.STRIPE_STUDIO_BASE_PRICE_ID || process.env.STRIPE_STUDIO_PRICE_ID;
 
   const meteredPriceId = canonical === 'starter'
@@ -50,11 +59,16 @@ async function handleCheckout(req, res) {
   const includedCredits = creditsMap[canonical];
 
   if (!basePriceId) {
-    return res.status(500).json({ error: `Stripe price not configured for ${canonical}.` });
+    return res.status(500).json({
+      error: canonical === 'starter'
+        ? 'Starter is billed monthly; STRIPE_STARTER_MONTHLY_PRICE_ID is not set to a '
+          + 'recurring Stripe Price. Contact sales rather than checking out.'
+        : `Stripe price not configured for ${canonical}.`,
+    });
   }
 
   const params = new URLSearchParams();
-  params.append('mode', canonical === 'studio' ? 'subscription' : 'payment');
+  params.append('mode', 'subscription'); // Starter and Studio are both monthly
   params.append('customer_email', email);
   // thanks.html lives under /campaigns/ since the nexus-creative-editorial migration.
   // The bare /thanks.html path 404s, which stranded every completed checkout.
@@ -73,9 +87,17 @@ async function handleCheckout(req, res) {
     params.append('line_items[1][price]', meteredPriceId);
   }
 
-  if (canonical === 'studio') {
-    params.append('subscription_data[metadata][plan]', 'studio');
-    params.append('subscription_data[metadata][included_credits]', String(includedCredits));
+  params.append('subscription_data[metadata][plan]', canonical);
+  params.append('subscription_data[metadata][included_credits]', String(includedCredits));
+
+  if (canonical === 'starter') {
+    // api/webhook.js only tops the balance up on customer.subscription.updated when
+    // reset_credits is the string 'true'. Without it a monthly Starter would be billed
+    // every month for an allowance granted once at checkout — strictly worse for the
+    // customer than the one-time POC it replaced.
+    // NOTE: Studio deliberately still omits this flag, because turning it on would
+    // change billing behaviour for existing Studio subscribers. See the handover note.
+    params.append('subscription_data[metadata][reset_credits]', 'true');
   }
 
   params.append('metadata[plan]', canonical);
