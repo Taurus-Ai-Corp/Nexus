@@ -1,4 +1,4 @@
-# Continuity Snapshot — 2026-09-08 (evening, America/Toronto)
+# Continuity Snapshot — 2026-09-09 (deployed)
 
 ## Goal
 
@@ -30,7 +30,9 @@ is still entirely unexecuted and is *not* the current priority.
       `creditsMap.starter` 5→10, mode `payment`→`subscription`, and
       `subscription_data[metadata][reset_credits]='true'`. Six files. Commit `fbbcda8`.
 - [x] Suite **295/295**. Verified in headless Chromium at 1440px and 390px.
-- [ ] **Deploy** — blocked only on the owner's explicit verb.
+- [x] **DEPLOYED 2026-09-09.** Cloudflare Pages production, canonical `c062f665`,
+      commit `6ed592c`. All nine routes 200, zero `/video/` references, browser-verified
+      (shader canvas, no page errors, no 4xx/5xx).
 - [ ] **Create a recurring monthly $99 Stripe Price** and set
       `STRIPE_STARTER_MONTHLY_PRICE_ID`. Owner-only. Starter checkout returns a
       specific 500 until this exists (deliberate — fails loudly, never mischarges).
@@ -52,6 +54,30 @@ npx wrangler pages deploy platform --project-name=neorm-era --branch=feat/nexus-
 upload without touching production.
 
 ## Landmines
+
+- **`wrangler pages deploy platform` run from the repo root SILENTLY DROPS `functions/`.**
+  Wrangler looks for `functions/` relative to the *current working directory*, not the asset
+  directory — so it found `NEXUS-CORE/functions` (absent) instead of `platform/functions`.
+  The upload succeeded, and the whole `/api/*` surface fell through to the static SPA
+  handler: GET returned the site's HTML, POST returned 405. This broke the live API for
+  about two minutes on 2026-09-09 before it was caught and redeployed.
+  **Always `cd platform` first and deploy `.`** The proof it worked is two lines in the
+  output — `Compiled Worker successfully` and `Uploading Functions bundle`. If those are
+  missing, the API is not deployed.
+
+- **CORRECTION to the earlier "live security hole" claim.** The Stripe webhook replay guard
+  was genuinely missing from the deployed code, but it was **never exploitable on either
+  host**: `STRIPE_WEBHOOK_SECRET` is not configured on Cloudflare Pages *or* on
+  nexus.taurusai.io, so `/api/webhook` rejects every request with
+  `{"error":"Webhook secret not configured."}` before reaching the credit-granting path.
+  Verified on the pre-deploy production build too, so this was not introduced by the deploy.
+  The code defect was real; the impact was overstated.
+
+- **The Pages project has NO environment variables set at all** — production and preview both
+  empty (verified via the Cloudflare API). So on neorm-era.com: Stripe checkout, Stripe
+  webhooks, and anything needing an API key are non-functional. They fail closed, which is
+  safe, but the site cannot currently take money or deliver a contact form. This is
+  pre-existing and is the single biggest gap left.
 
 - **Cloudflare Pages `neorm-era` is Direct Upload (`source: null`).** It **cannot** be
   connected to Git — Cloudflare's docs are explicit that you must create a new project.
