@@ -217,6 +217,14 @@ export function cssVariables() {
     ['--tint-3', 'rgba(23,21,15,.08)'],
     ['--scrim', 'rgba(242,238,230,.82)'],
     ['--scrim-solid', 'rgba(242,238,230,.97)'],
+
+    [
+      'Hero-media scrims. Same paper pigment as --scrim, four alphas because the\n     layer beneath differs: arbitrary footage needs a heavy veil to hold text\n     contrast, while the procedural canvas already renders on our own palette and\n     a heavy veil would flatten its gradient to a flat colour.',
+    ],
+    ['--scrim-media-cool', 'rgba(242,238,230,.72)'],
+    ['--scrim-media-warm', 'rgba(242,238,230,.66)'],
+    ['--scrim-media-none', 'rgba(242,238,230,.8)'],
+    ['--scrim-media-procedural', 'rgba(242,238,230,.18)'],
     ['--on-accent', onDark.text],
     ['--accent-tint', 'rgba(180,74,36,.10)'],
     ['--accent-tint-border', 'rgba(180,74,36,.26)'],
