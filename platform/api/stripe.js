@@ -2,12 +2,9 @@
 // POST /api/stripe?action=checkout → create Stripe Checkout Session
 // GET /api/stripe?action=balance&email=... → check customer credits
 
-import Stripe from 'stripe';
 import { siteOrigin } from '../lib/site-origin.mjs';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-12-18.acacia',
-});
+// Built per call, not at module scope — see lib/stripe-client.mjs for why.
+import { getStripe } from '../lib/stripe-client.mjs';
 
 // Campaigns included per billing period. Starter moved from a one-time
 // $99/campaign POC to $99/month with 10 campaigns on 2026-09-08.
@@ -138,7 +135,7 @@ async function handleBalance(req, res) {
   }
 
   try {
-    const customers = await stripe.customers.list({ email, limit: 1 });
+    const customers = await getStripe().customers.list({ email, limit: 1 });
 
     if (customers.data.length === 0) {
       return res.status(200).json({

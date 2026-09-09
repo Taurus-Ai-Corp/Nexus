@@ -2,11 +2,9 @@
 // Handles: checkout.session.completed, customer.subscription.updated,
 //          customer.subscription.deleted, invoice.payment_succeeded
 import { createHmac, timingSafeEqual } from 'crypto';
-import Stripe from 'stripe';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-12-18.acacia',
-});
+// Built per call, not at module scope — see lib/stripe-client.mjs for why.
+// Signature verification below uses node:crypto directly and never needed it.
+import { getStripe } from '../lib/stripe-client.mjs';
 
 /** Stripe's own default replay window. Signed payloads older than this are refused. */
 const SIGNATURE_TOLERANCE_SECONDS = 300;
@@ -48,11 +46,11 @@ export { verifySignature, SIGNATURE_TOLERANCE_SECONDS };
 
 async function updateCustomerCredits(customerId, creditsDelta, plan) {
   try {
-    const customer = await stripe.customers.retrieve(customerId);
+    const customer = await getStripe().customers.retrieve(customerId);
     const currentCredits = parseInt(customer.metadata?.credits_remaining || '0', 10);
     const newCredits = Math.max(0, currentCredits + creditsDelta);
 
-    await stripe.customers.update(customerId, {
+    await getStripe().customers.update(customerId, {
       metadata: {
         ...customer.metadata,
         credits_remaining: String(newCredits),
@@ -124,8 +122,8 @@ export default async function handler(req, res) {
           console.log(`Monthly credits reset for customer ${customerId}: ${newCredits} credits`);
         } else if (newPlan) {
           // Just update plan metadata
-          const customer = await stripe.customers.retrieve(customerId);
-          await stripe.customers.update(customerId, {
+          const customer = await getStripe().customers.retrieve(customerId);
+          await getStripe().customers.update(customerId, {
             metadata: {
               ...customer.metadata,
               plan: newPlan,
@@ -140,9 +138,9 @@ export default async function handler(req, res) {
         const customerId = subscription.customer;
 
         // Remove credits on subscription cancellation
-        await stripe.customers.update(customerId, {
+        await getStripe().customers.update(customerId, {
           metadata: {
-            ...((await stripe.customers.retrieve(customerId)).metadata || {}),
+            ...((await getStripe().customers.retrieve(customerId)).metadata || {}),
             plan: 'none',
             credits_remaining: '0',
           },
@@ -157,7 +155,7 @@ export default async function handler(req, res) {
         // Re-grant credits on monthly subscription renewal
         if (invoice.billing_reason === 'subscription_cycle') {
           const subscriptionId = invoice.subscription;
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+          const subscription = await getStripe().subscriptions.retrieve(subscriptionId);
           const customerId = subscription.customer;
 
           if (subscription.metadata?.plan === 'studio') {
