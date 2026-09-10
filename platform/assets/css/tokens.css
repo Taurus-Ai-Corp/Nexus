@@ -76,6 +76,56 @@
   --font-sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
+  /* Type scale — sizes the stylesheet already uses, named once */
+  --fs-2xs: 0.72rem;
+  --fs-xs: 0.78rem;
+  --fs-sm: 0.85rem;
+  --fs-base: 0.95rem;
+  --fs-md: 1.05rem;
+  --fs-lg: 1.2rem;
+  --fs-h3: clamp(1.3rem, 2vw, 1.6rem);
+  --fs-h2: clamp(1.9rem, 3.6vw, 2.9rem);
+  --fs-h1: clamp(2.4rem, 5.2vw, 4.1rem);
+  --fs-lead: clamp(1.05rem, 1.6vw, 1.3rem);
+  --lh-display: 1.05;
+  --lh-body: 1.6;
+  --lh-lead: 1.65;
+  --lh-prose: 1.7;
+  --lh-loose: 1.75;
+  --tracking-tighter: -0.03em;
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-wider: 0.04em;
+  --tracking-caps: 0.08em;
+  --tracking-label: 0.14em;
+  --tracking-label-wide: 0.16em;
+  --tracking-eyebrow: 0.18em;
+
+  /* Spacing — 4px grid */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 120px;
+
+  /* Motion — six intents, replacing eleven scattered durations */
+  --dur-instant: .08s;
+  --dur-fast: .16s;
+  --dur-base: .25s;
+  --dur-slow: .32s;
+  --dur-slower: .8s;
+  --dur-ambient: 1.1s;
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+
   /* Chrome — handoff §3.3 */
   --sidebar-w: 236px;
   --topbar-h: 58px;

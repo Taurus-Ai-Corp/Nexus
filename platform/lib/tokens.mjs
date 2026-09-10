@@ -135,6 +135,63 @@ export const chrome = {
 };
 
 /**
+ * Spacing — 4px grid.
+ *
+ * There were no spacing tokens at all: every gap/padding/margin in
+ * design-system.css was a raw literal. An audit of that file found 28 distinct
+ * px values (2,4,5,6,8,10,12,14,16,18,20,22,24,26,28,30,32,36,40,48,56,60,64,
+ * 70,110,120,130,150) — i.e. no grid, just accretion. This ladder is the target
+ * the common ones already sit on; the stragglers (5, 18, 26, 70, 130…) are
+ * migrated as each rule is touched, not in one sweep that no one can review.
+ *
+ * `--content-pad: 30px` predates this and is deliberately left alone — it is a
+ * chrome dimension from handoff §3.3, not a spacing step.
+ */
+export const space = {
+  1: '4px', 2: '8px', 3: '12px', 4: '16px', 5: '20px', 6: '24px',
+  7: '32px', 8: '40px', 9: '48px', 10: '64px', 11: '80px', 12: '120px',
+};
+
+/**
+ * Type scale. Every value below is one the stylesheet already uses — the four
+ * fluid sizes are lifted verbatim from the h1/h2/h3/.lead rules so the display
+ * ramp stops living inline in four separate places.
+ */
+export const fontSize = {
+  '2xs': '0.72rem', xs: '0.78rem', sm: '0.85rem',
+  base: '0.95rem', md: '1.05rem', lg: '1.2rem',
+  h3: 'clamp(1.3rem, 2vw, 1.6rem)',
+  h2: 'clamp(1.9rem, 3.6vw, 2.9rem)',
+  h1: 'clamp(2.4rem, 5.2vw, 4.1rem)',
+  lead: 'clamp(1.05rem, 1.6vw, 1.3rem)',
+};
+
+/** Line heights, named for role. All five are values already in use. */
+export const lineHeight = {
+  display: '1.05', body: '1.6', lead: '1.65', prose: '1.7', loose: '1.75',
+};
+
+/** Letter-spacing. Negative on display, positive on mono/caps labels. */
+export const tracking = {
+  tighter: '-0.03em', tight: '-0.02em', snug: '-0.01em', normal: '0',
+  wide: '0.02em', wider: '0.04em', caps: '0.08em',
+  label: '0.14em', labelWide: '0.16em', eyebrow: '0.18em',
+};
+
+/**
+ * Motion. There was exactly one token, `--ease`, while durations were scattered
+ * as .08/.16/.18/.2/.24/.25/.3/.32/.7/.8/1.1s — eleven values for maybe four
+ * intents. These six are the intents; `--ease-smooth` is the symmetric partner
+ * to `--ease`, which is deliberately asymmetric (fast out, long settle) and
+ * wrong for anything that has to feel reversible, like a toggle.
+ */
+export const motion = {
+  instant: '.08s', fast: '.16s', base: '.25s',
+  slow: '.32s', slower: '.8s', ambient: '1.1s',
+  easeSmooth: 'cubic-bezier(0.65, 0, 0.35, 1)',
+};
+
+/**
  * Ordered CSS custom properties.
  *
  * The left-hand names are the ones the existing 16 pages already reference
@@ -199,6 +256,25 @@ export function cssVariables() {
     ['--font-display', type.display],
     ['--font-sans', type.sans],
     ['--font-mono', type.mono],
+
+    ['Type scale — sizes the stylesheet already uses, named once'],
+    ...Object.entries(fontSize).map(([k, v]) => [`--fs-${k}`, v]),
+    ...Object.entries(lineHeight).map(([k, v]) => [`--lh-${k}`, v]),
+    ...Object.entries(tracking).map(([k, v]) => [
+      `--tracking-${k.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`, v,
+    ]),
+
+    ['Spacing — 4px grid'],
+    ...Object.entries(space).map(([k, v]) => [`--space-${k}`, v]),
+
+    ['Motion — six intents, replacing eleven scattered durations'],
+    ['--dur-instant', motion.instant],
+    ['--dur-fast', motion.fast],
+    ['--dur-base', motion.base],
+    ['--dur-slow', motion.slow],
+    ['--dur-slower', motion.slower],
+    ['--dur-ambient', motion.ambient],
+    ['--ease-smooth', motion.easeSmooth],
 
     ['Chrome — handoff §3.3'],
     ['--sidebar-w', chrome.sidebar],
