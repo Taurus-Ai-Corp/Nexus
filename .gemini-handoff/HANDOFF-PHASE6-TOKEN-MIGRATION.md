@@ -55,6 +55,28 @@ This is the only part of Phase 6 that is design work rather than substitution, a
 that should change a pixel. Keep it restrained; Direction A is flat chrome, 4–14px radii,
 hairline `--glow`, **no gradients**.
 
+## 2b. FIRST — fix the idempotency defect in your own build script
+
+`scripts/build-pages.mjs` is **not idempotent**. Measured 2026-09-11: every
+`npm run build` adds two more spaces of indentation to `<nav>` and `<footer>`, without bound.
+
+    build #1  nav indent 10 chars, footer 8
+    build #2               12              10
+    build #3               14              12
+
+Rendering is unaffected — HTML ignores the whitespace — and the nav/footer shasum proof still
+returns 1, because every page drifts by the same amount. That is exactly why nothing caught it,
+and it is the more useful lesson: a proof that all files match does not prove any of them is
+*correct*.
+
+A generator you cannot safely run twice is a trap: anyone running `npm run build` in a loop, or
+twice before committing, silently bloats all 15 pages. Fix this before Phase 6 proper, because
+Phase 6 will have you running the build repeatedly.
+
+There is a comment marking the offending block in the file. **Add a test that runs the build
+twice and asserts the second run is a byte-for-byte no-op** — and confirm it goes red against the
+current code before you fix it.
+
 ## 3. Constraints that will bite
 
 - **`design-tokens.test.js` forbids any colour literal in `design-system.css`** — no hex, no
