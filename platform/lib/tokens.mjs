@@ -345,6 +345,12 @@ export function cssVariables() {
     ['--gold-tint-border', 'rgba(184,134,43,.26)'],
     ['--success-tint', 'rgba(127,160,95,.12)'],
     ['--success-tint-border', 'rgba(127,160,95,.28)'],
+    ['--estate-tint', 'rgba(176,65,98,.10)'],
+    ['--estate-tint-border', 'rgba(176,65,98,.26)'],
+    ['--seo-tint', 'rgba(8,116,124,.10)'],
+    ['--seo-tint-border', 'rgba(8,116,124,.26)'],
+    ['--flow-tint', 'rgba(86,113,26,.12)'],
+    ['--flow-tint-border', 'rgba(86,113,26,.28)'],
 
     [
       'Flattened legacy aliases. §3: "do not add a gradient." The old dark system\n     used --grad-*/--glow in 9 places; rather than leave them undefined (which\n     renders as transparent and silently breaks buttons), they resolve to flat\n     token values. Do not reintroduce a gradient here.',

@@ -7,8 +7,12 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 test('video assets referenced by ENGINE_VIDEOS exist on disk', () => {
   const src = readFileSync(join(ROOT, 'assets/js/video-hero.js'), 'utf8');
+  // Both declarations are evaluated together: entries spread a shared AMBIENT const
+  // so the content hash lives in one place, and AMBIENT would be a ReferenceError
+  // here if only the ENGINE_VIDEOS block were extracted.
+  const ambientSrc = src.match(/const AMBIENT = \{[\s\S]*?\};/)?.[0] ?? '';
   const mapSrc = src.match(/const ENGINE_VIDEOS = \{[\s\S]*?\};/)[0];
-  const ENGINE_VIDEOS = new Function(`${mapSrc}; return ENGINE_VIDEOS;`)();
+  const ENGINE_VIDEOS = new Function(`${ambientSrc}${mapSrc}; return ENGINE_VIDEOS;`)();
   for (const [key, entry] of Object.entries(ENGINE_VIDEOS)) {
     for (const field of ['mp4', 'webm', 'poster']) {
       const onDisk = join(ROOT, entry[field].replace(/^\//, '')); // publish root, NOT public/ — the browser requests /video/..., so checking public/ passed while every URL 404'd
@@ -19,9 +23,11 @@ test('video assets referenced by ENGINE_VIDEOS exist on disk', () => {
   }
 });
 
-// ENGINE_VIDEOS is empty today, so the assertion above passes vacuously — which is
-// precisely the shape of test this repo has been bitten by before. This one carries
-// the real invariant: the Envato preview tree was moved out of platform/ on
+// Until 2026-09-11 ENGINE_VIDEOS was empty, so the assertion above passed vacuously —
+// precisely the shape of test this repo has been bitten by before. It is no longer
+// vacuous: eight entries now point at the Higgsfield-generated ambient clip, and a
+// wrong content hash fails it. The test below carries a second, separate invariant:
+// the Envato preview tree was moved out of platform/ on
 // 2026-09-08 because a preview file carries no licence, and nothing that ships may
 // reference it. A page requesting /video/... would 404 in production AND, if the
 // files were ever restored, would publish unlicensed footage.

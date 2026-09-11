@@ -42,8 +42,39 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  * is listed here actually exists on disk, and that nothing shipping references
  * /video/ — so an entry pointing at a missing or unlicensed file fails the suite
  * rather than 404ing in production.
+ *
+ * 2026-09-11: footage is back, and this time we own it. Phase 5 generated a single
+ * ambient clip on Higgsfield (kling3_0, 7.5 credits) — no third-party licence, no
+ * preview terms. Filenames are content-hashed because /assets/* ships
+ * `immutable, max-age=31536000`; an unhashed name there is unrevisable forever.
+ *
+ * ONE clip, re-tinted per engine — see .gemini-handoff/HANDOFF-PHASE5-HIGGSFIELD.md:25.
+ * Engine identity is carried by --vertical-*, not by eight separate renders. The
+ * warm/cool split mirrors the shader's own PALETTES weighting in hero-gradient.js:40:
+ * clay/rose-forward engines take the warm scrim, slate-forward ones the cool, and
+ * default stays untinted. Only `cool`, `warm` and `none` have CSS rules
+ * (design-system.css:544-546) — `procedural` is a class on the shader layer, not a
+ * valid overlay value here.
+ *
+ * AMBIENT is deliberately a separate const so the content hash lives in exactly one
+ * place; `tests/video-hero.test.js` evaluates both declarations together.
  */
-const ENGINE_VIDEOS = {};
+const AMBIENT = {
+  mp4: '/assets/video/ambient.2b43ddea.mp4',
+  webm: '/assets/video/ambient.2b43ddea.webm',
+  poster: '/assets/video/ambient.2b43ddea.webp',
+};
+
+const ENGINE_VIDEOS = {
+  default: { ...AMBIENT, overlay: 'none' },
+  creative: { ...AMBIENT, overlay: 'warm' },
+  social: { ...AMBIENT, overlay: 'cool' },
+  intel: { ...AMBIENT, overlay: 'cool' },
+  flow: { ...AMBIENT, overlay: 'warm' },
+  estate: { ...AMBIENT, overlay: 'warm' },
+  seo: { ...AMBIENT, overlay: 'cool' },
+  freelance: { ...AMBIENT, overlay: 'warm' },
+};
 
 function engineKey() {
   const p = window.location.pathname;

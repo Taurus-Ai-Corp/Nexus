@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -176,3 +176,27 @@ describe('_headers and vercel.json agree', () => {
     assert.ok(headersFile.includes(expected), `_headers does not set assets to "${expected}"`);
   });
 });
+
+describe('build-pages is idempotent', () => {
+  it('consecutive builds produce byte-for-byte identical output', async () => {
+    const { buildPage, PAGES_CONFIG } = await import('../scripts/build-pages.mjs');
+    for (const relPath of Object.keys(PAGES_CONFIG)) {
+      const fullPath = join(platform, relPath);
+      const original = readFileSync(fullPath, 'utf8');
+      try {
+        buildPage(relPath);
+        const pass1 = readFileSync(fullPath, 'utf8');
+        buildPage(relPath);
+        const pass2 = readFileSync(fullPath, 'utf8');
+        assert.strictEqual(
+          pass2,
+          pass1,
+          `buildPage("${relPath}") is not idempotent: second build drifted from first`,
+        );
+      } finally {
+        writeFileSync(fullPath, original, 'utf8');
+      }
+    }
+  });
+});
+

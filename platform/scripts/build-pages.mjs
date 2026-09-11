@@ -9,7 +9,7 @@
  * Run via: npm run build (or node scripts/build-pages.mjs)
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -248,12 +248,14 @@ export function buildPage(relPath) {
   if (!cfg) return;
 
   // 1. Unified nav replacement
+  // Idempotent: matches from start of line including leading indentation so repeated builds never drift.
   const navHtml = renderNav(cfg);
-  html = html.replace(/<nav[\s\S]*?<\/nav>/, navHtml);
+  html = html.replace(/^[ \t]*<nav[\s\S]*?<\/nav>/m, navHtml);
 
   // 2. Unified footer replacement
+  // Idempotent: matches from start of line including leading indentation.
   const footerHtml = renderFooter();
-  html = html.replace(/<footer[\s\S]*?<\/footer>/, footerHtml);
+  html = html.replace(/^[ \t]*<footer[\s\S]*?<\/footer>/m, footerHtml);
 
   // 3. Skip link injection (immediately following <body...>)
   const skipLink = '<a href="#main-content" class="skip-link">Skip to main content</a>';
@@ -263,14 +265,7 @@ export function buildPage(relPath) {
 
   // 4. <main id="main-content"> landmark
   // Wrap content between </nav> and <footer> if not already wrapped
-  // KNOWN DEFECT - this generator is NOT idempotent. Measured 2026-09-11:
-  // every `npm run build` adds two more spaces of indentation to <nav> and
-  // <footer>, without bound (10 -> 12 -> 14 chars over three consecutive runs).
-  // Rendering is unaffected because HTML ignores the whitespace, and the
-  // nav/footer shasum proof still holds because every page drifts equally -
-  // which is exactly why nothing caught it. A generator you cannot safely run
-  // twice is a trap. Fix is queued in
-  // .gemini-handoff/HANDOFF-PHASE6-TOKEN-MIGRATION.md.
+  // Fixed: nav and footer replacements are now idempotent (/^[ \t]*<...>/m).
   if (!html.includes('<main id="main-content">')) {
     // Remove any bare <main> if present
     html = html.replace(/<main[^>]*>/i, '').replace(/<\/main>/i, '');
@@ -307,6 +302,22 @@ export function buildPage(relPath) {
     gtag('config', 'G-PLACEHOLDER', { send_page_view: true });
   </script>`;
     html = html.replace(/(<\/head>)/i, `${gtagSnippet}\n$1`);
+  }
+
+  // 8. Inject ambient video poster preload if video manifest exists and page has a hero
+  const videoManifestPath = join(platform, 'assets', 'video', 'manifest.json');
+  if (existsSync(videoManifestPath)) {
+    try {
+      const vManifest = JSON.parse(readFileSync(videoManifestPath, 'utf8'));
+      if (vManifest.poster && (html.includes('class="hero"') || html.includes('class="hero ') || html.includes('class="hero-grid'))) {
+        const preloadTag = `  <link rel="preload" as="image" href="${vManifest.poster}" type="image/webp" fetchpriority="high">`;
+        if (!html.includes(vManifest.poster)) {
+          html = html.replace(/(<\/head>)/i, `${preloadTag}\n$1`);
+        }
+      }
+    } catch {
+      // Manifest parse error or absent — skip cleanly
+    }
   }
 
   writeFileSync(fullPath, html, 'utf8');
