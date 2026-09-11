@@ -12,6 +12,11 @@
   <url><loc>https://www.neorm-era.com/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.neorm-era.com/case-studies.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.neorm-era.com/contact.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Linked from the footer of every page as "Neormative demo", and carries a
+       live Google Ads conversion tag (AW-18242669881), so it takes paid traffic —
+       yet it was missing from this sitemap entirely. Extensionless because it is
+       a directory index, so unlike the .html entries above it does not 308. -->
+  <url><loc>https://www.neorm-era.com/campaigns/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.neorm-era.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://www.neorm-era.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://www.neorm-era.com/security.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>

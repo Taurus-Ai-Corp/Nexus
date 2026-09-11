@@ -73,6 +73,32 @@ export const PAGES_CONFIG = {
     description: 'Real-world campaign results and performance marketing outcomes across UAE and GCC retail, real estate, and clinic brands.',
     ogImage: '/assets/og-nexus-platform.png',
   },
+  // The footer on EVERY page links here as "Neormative demo" (see renderFooter
+  // below), yet this page was absent from PAGES_CONFIG, so it never received nav,
+  // footer, canonical, og:image, analytics or JSON-LD. The 2026-09-11 audit read
+  // that as "an orphaned page"; it is the opposite — site-wide linked and simply
+  // never processed.
+  //
+  // engineSlug stays null on purpose. /creative/ already emits the
+  // SoftwareApplication entity for Neormative; a second page claiming the same
+  // product would split the entity for anything reading the graph. This page is a
+  // demo OF that product, not a second listing of it.
+  //
+  // The title is deliberately NOT the bare "Neormative — AI Campaign Studio" it
+  // carried before: that collided verbatim with /creative/, two pages competing on
+  // one keyword. "Live demo" is the distinguishing term.
+  'campaigns/index.html': {
+    brandStem: 'NEORM-ERA',
+    brandLockup: '<span style="white-space:nowrap">NEORM-ERA <small>Agentic Studio</small></span>',
+    ctaLabel: 'Book audit',
+    ctaHref: '/contact.html',
+    engineSlug: null,
+    breadcrumbName: 'Neormative Live Demo',
+    title: 'Neormative Live Demo — AI Campaign Studio | NEORM-ERA by Taurus AI',
+    description:
+      'A worked example of Neormative (Engine 01): one product brief in, editorial campaign concepts, multi-platform copy and visual direction out.',
+    ogImage: '/assets/og-nexus-creative.png',
+  },
   'privacy.html': {
     brandStem: 'NEORM-ERA',
     brandLockup: '<span style="white-space:nowrap">NEORM-ERA <small>Agentic Studio</small></span>',
