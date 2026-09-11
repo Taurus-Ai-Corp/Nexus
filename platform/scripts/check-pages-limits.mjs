@@ -24,8 +24,28 @@ const FILE_COUNT_CAP = 20_000; // Free plan
 const HEADER_RULE_CAP = 100;
 const REDIRECT_RULE_CAP = 2100;
 
-// Mirrors what wrangler excludes from a Pages upload.
-const SKIP = new Set(["node_modules", ".git", ".vercel", "functions", "tests", "scripts"]);
+// Mirrors what wrangler excludes from a Pages upload — which is .assetsignore,
+// NOT this list. Keep the two in sync; tests/assetsignore-parity.test.js fails
+// if they drift.
+//
+// They did drift, and it mattered: this set skipped "scripts" while
+// .assetsignore did not, so everything under platform/scripts/ shipped to
+// production without ever being size-checked — including scripts/tmp/, where
+// process-ambient-video.mjs leaves ~4.5 MB of intermediates (raw.mp4 is the
+// ungraded Higgsfield master). A skipped directory that still uploads is the
+// exact silent failure this gate exists to prevent.
+//
+// ".git" is listed here but not in .assetsignore because wrangler excludes it
+// unconditionally; the parity test knows about that one exception.
+const SKIP = new Set([
+  "node_modules",
+  ".git",
+  ".vercel",
+  "functions",
+  "tests",
+  "scripts",
+  "prototype",
+]);
 
 const failures = [];
 let count = 0;
