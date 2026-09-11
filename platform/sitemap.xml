@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  URLs here MUST match each page's own rel=canonical exactly.
+
+  Until 2026-09-11 seven entries were listed as .html while every one of those
+  pages declared an extensionless canonical, and the live site 308-redirects
+  .html -> extensionless. The sitemap was therefore advertising URLs that
+  redirect away from the canonical it declares — a crawler following it ate a
+  redirect hop on 7 of 13 URLs and then landed somewhere the sitemap never
+  mentioned.
+
+  Verified 2026-09-11 against production: all eight non-engine URLs below return
+  200 text/html directly, with no redirect.
+
+  If you add a page: take the URL from its <link rel="canonical">, not from the
+  filename. Engine pages and campaigns/ are directory indexes and were always
+  correct; the .html pages were not.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.neorm-era.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://www.neorm-era.com/creative/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
@@ -8,16 +25,15 @@
   <url><loc>https://www.neorm-era.com/freelance/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.neorm-era.com/estate/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.neorm-era.com/seo/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.neorm-era.com/pricing.html</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.neorm-era.com/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.neorm-era.com/case-studies.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.neorm-era.com/contact.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.neorm-era.com/pricing</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.neorm-era.com/about</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.neorm-era.com/case-studies</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.neorm-era.com/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <!-- Linked from the footer of every page as "Neormative demo", and carries a
        live Google Ads conversion tag (AW-18242669881), so it takes paid traffic —
-       yet it was missing from this sitemap entirely. Extensionless because it is
-       a directory index, so unlike the .html entries above it does not 308. -->
+       yet it was missing from this sitemap entirely until 2026-09-11. -->
   <url><loc>https://www.neorm-era.com/campaigns/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.neorm-era.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.neorm-era.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.neorm-era.com/security.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.neorm-era.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.neorm-era.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.neorm-era.com/security</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
