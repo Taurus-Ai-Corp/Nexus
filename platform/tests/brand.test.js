@@ -61,6 +61,23 @@ describe('no legacy brand leaks in published markup', () => {
   }
 });
 
+describe('no mixed-case Neorm-Era casing in published markup', () => {
+  const files = publishedHtml();
+
+  for (const file of files) {
+    const rel = relative(platform, file);
+    test(`${rel} carries no mixed-case Neorm-Era`, () => {
+      const body = readFileSync(file, 'utf8');
+      const matches = body.match(/\bNeorm-Era\b/g) ?? [];
+      assert.deepEqual(
+        [...new Set(matches)],
+        [],
+        `${rel} carries mixed-case brand "${[...new Set(matches)].join(', ')}" — use NEORM-ERA`,
+      );
+    });
+  }
+});
+
 describe('vercel.json deploy config', () => {
   const config = JSON.parse(readFileSync(join(platform, 'vercel.json'), 'utf8'));
 

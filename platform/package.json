@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test \"tests/*.test.js\"",
-    "tokens": "node scripts/build-tokens.mjs"
+    "tokens": "node scripts/build-tokens.mjs",
+    "build": "npm run tokens && node scripts/build-pages.mjs"
   },
   "dependencies": {
     "stripe": "^16.0.0",
