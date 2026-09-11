@@ -106,12 +106,47 @@ export const ember = [
 /**
  * Handoff §3.2 — "Vertical accent assignment (locked)".
  * Core/company is ink, not an accent; that is intentional.
+ *
+ * ESTATE / SEO / FLOW — added 2026-09-11, and NOT taken verbatim from the
+ * engine matrix. The reason is measured, not aesthetic.
+ *
+ * `00-PRODUCT-PLANNING/.../08_COLOR_TAXONOMY_AND_ENGINE_PALETTES.md` gives each
+ * engine a triad: a dark base and a vivid accent. That matrix was written for the
+ * Liquid Crystal direction — its own §3 mandates a #EEF2F5 / #F2F1EC ground, with
+ * the base absorbed at 8% into a glass card and the vivid cast as a caustic glow.
+ * We shipped the Hybrid direction instead: flat warm paper (--bg #EDE8DE), no
+ * gradients, no glass. On that ground neither half of the triad functions.
+ *
+ * Contrast against #EDE8DE, measured:
+ *
+ *   shipped band   creative 4.36:1 · social 4.57:1 · freelance 4.93:1
+ *   body text      #17150F  14.95:1
+ *
+ *   estate base    #5A2132  10.13:1   vivid #EFE9E9  1.02:1
+ *   seo base       #001619  15.24:1   vivid #50E8F4  1.21:1
+ *   flow base      #1F0E06  15.31:1   vivid #C6E385  1.17:1
+ *
+ * The seo and flow bases are DARKER than body text — ship them and those two
+ * engines have no visible identity at all. Every vivid is invisible on paper.
+ *
+ * So each value below keeps its engine's identifying HUE from the matrix and
+ * moves only lightness, until contrast lands on the shipped band (~4.55:1, AA for
+ * body text). For seo and flow the identifying hue is the vivid, not the base —
+ * the bases are all but black and carry no identity. This is the same operation
+ * the four original verticals already represent: creative's matrix base is
+ * Midnight Blue #1E223D, yet --vertical-creative ships as terracotta.
+ *
+ * If the Liquid Crystal direction is ever adopted, revert these to the matrix
+ * bases — on dark glass they are correct and these are not.
  */
 export const verticals = {
   creative: accent.terracotta,
   social: accent.blue,
   intel: accent.gold,
   freelance: accent.greenText,
+  estate: '#B04162', // hue of Masterpiece Red #5A2132, fitted — 4.55:1
+  seo: '#08747C', // hue of Fluorescent Blue #50E8F4, fitted — 4.53:1
+  flow: '#56711A', // hue of Yellow Green #C6E385, fitted — 4.56:1
   partners: accent.greenText,
   core: ink.ink,
 };
