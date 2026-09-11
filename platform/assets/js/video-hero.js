@@ -16,7 +16,9 @@
 
 /* global window, document, IntersectionObserver */
 
-import { createGradientLayer } from './hero-gradient.js';
+// hero-gradient.js is intentionally NOT imported — see initHeroMedia() for why.
+// Importing it shipped ~120 lines of WebGL to every hero page for a branch that
+// can no longer be reached.
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -208,24 +210,27 @@ function initHeroMedia() {
 
   const key = engineKey();
 
-  // Shader path: no network, no decode, nothing to license. Taken whenever the
-  // engine has no ENGINE_VIDEOS entry, which is every engine today.
-  if (!ENGINE_VIDEOS[key]) {
-    const layer = createGradientLayer(key);
-    // createGradientLayer returns null when WebGL is unavailable — keep the
-    // static CSS hero rather than inserting a blank canvas.
-    if (layer) {
-      hero.insertBefore(layer.media, hero.firstChild);
-      layer.media.dataset.state = 'procedural';
-      layer.media.classList.add('is-live');
-      // createGradientLayer no longer schedules itself; the loop above owns it.
-      registerTick(layer.tick);
-      return;
-    }
-    return;
-  }
-
+  // The shader path used to live here: `if (!ENGINE_VIDEOS[key]) createGradientLayer(key)`.
+  // It went unreachable on 2026-09-11 when all eight engine keys gained an entry,
+  // and the import of hero-gradient.js was shipping ~120 lines of WebGL to every
+  // hero page that could never execute.
+  //
+  // It was kept for a while on the theory that the shader was the WebGL-absent
+  // fallback. That reasoning was wrong, and Gemini caught it: createGradientLayer
+  // opens its own `canvas.getContext('webgl')` and returns null without it — so it
+  // needs the very thing it was supposedly covering for. The real no-WebGL path is
+  // the video layer's poster, which is a plain background-image and needs no GL at
+  // all.
+  //
+  // assets/js/hero-gradient.js is deliberately NOT deleted. The Envato footage was
+  // pulled once already for licensing (2026-09-08), and if the Higgsfield clip ever
+  // has to go the same way, restoring the shader is re-adding one import and
+  // emptying ENGINE_VIDEOS. tests/single-frame-loop.test.js also still reads it to
+  // assert neither file schedules its own rAF.
   const entry = ENGINE_VIDEOS[key];
+  // Defensive: an engine with no entry now renders no media layer rather than
+  // throwing inside buildVideoLayer. The static CSS hero remains.
+  if (!entry) return;
   const { media, video } = buildVideoLayer(entry);
   hero.insertBefore(media, hero.firstChild);
 
