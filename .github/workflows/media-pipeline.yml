@@ -1,0 +1,292 @@
+name: Media pipeline & Pages deploy
+
+# One deploy path, and only one. Cloudflare Pages' own Git build is turned OFF
+# for this project (Settings -> Builds & deployments -> "Enable automatic
+# production branch deployments" toggled off, preview branch set to "None"),
+# so nothing reaches neorm-era.com except through this workflow. That is what
+# makes `git log` an accurate record of what is live — the property the sibling
+# Vercel project lost by deploying from a working tree.
+#
+# Caveat while the push trigger is disabled (see `on:` below): a manual run
+# deploys whatever the branch points at when you press the button, so `git log`
+# tells you what COULD be live, not when it went live. The verify job closes
+# that gap by refetching /build.json and refusing to pass unless the live commit
+# matches the run — check its output, not the commit date.
+
+on:
+  # ── PUSH TRIGGER DELIBERATELY DISABLED ──────────────────────────────────────
+  # Owner decision, 2026-09-11: manual dispatch only until one run has been
+  # watched end to end.
+  #
+  # This workflow has never executed. Three things made an unattended first run
+  # a bad idea:
+  #
+  #   1. The paths filter below includes this file itself, so the very push that
+  #      published the workflow would also have been its first run — the least
+  #      supervised moment possible.
+  #   2. The first run depends on the neorm-era-masters R2 bucket being
+  #      populated. If it is empty, "Place renditions" fails on a missing
+  #      manifest. Loud rather than silent, and production is unaffected, but
+  #      not something to discover by accident.
+  #   3. The job commits regenerated renditions and build.json back to the
+  #      branch with GITHUB_TOKEN, so a bot commit lands on top of yours.
+  #
+  # TO RE-ENABLE: uncomment the five lines below. Do that only after a manual
+  # run has gone green, including the /api/ content-type check in the verify
+  # job. Nothing else needs to change.
+  #
+  # push:
+  #   branches: [feat/nexus-core-organic-design-system]
+  #   paths:
+  #     - "platform/**"
+  #     - ".github/workflows/media-pipeline.yml"
+  workflow_dispatch:
+    inputs:
+      force_transcode:
+        description: "Ignore the rendition cache and re-encode every master"
+        type: boolean
+        default: false
+
+concurrency:
+  group: pages-production
+  cancel-in-progress: false # never cancel a half-finished upload
+
+permissions:
+  contents: write # commits the derived renditions + manifest back to the branch
+  deployments: write
+
+env:
+  PROJECT_NAME: neorm-era
+  MASTERS_BUCKET: neorm-era-masters
+  MEDIA_BUCKET: neorm-era-media
+  FFMPEG_VERSION: "7.1.1" # pinned: encoder version is part of reproducibility
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-24.04
+    outputs:
+      deploy_sha: ${{ steps.commit.outputs.sha }}
+      deploy_url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Deliberately still false, then pulled selectively below.
+          #
+          # The original reasoning — masters live in R2, never in git — held
+          # until 2026-09-11, when platform/assets/video/ambient.2b43ddea.
+          # {mp4,webm} were committed directly, and .gitattributes puts *.mp4
+          # and *.webm in LFS. Left at false with no pull, those check out as
+          # ~130-byte pointer files and `pages deploy` uploads the pointers as
+          # the video: no error, no failing test, just a hero that silently
+          # falls back to its poster in production.
+          #
+          # But `lfs: true` is the wrong fix. It fetches every LFS object in the
+          # tree — 94 objects, ~731 MB, mostly mater-maria and manim renders
+          # this job never touches — against a 1 GB/month free bandwidth quota,
+          # on every push to platform/**. One run would very nearly exhaust it.
+          lfs: false
+
+      # 2 objects, ~418 KB, instead of 94 and ~731 MB. Keep the include pattern
+      # narrow: widening it to platform/** silently re-admits the campaign mp4s.
+      - name: Fetch only the LFS objects this deploy ships
+        run: git lfs pull --include="platform/assets/video/*"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # --- masters come from R2, never from git ------------------------------
+      - name: Pull masters from R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          R2_ENDPOINT: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
+        run: |
+          mkdir -p /tmp/masters
+          aws s3 sync "s3://${MASTERS_BUCKET}/" /tmp/masters/ \
+            --endpoint-url "$R2_ENDPOINT" --only-show-errors
+          ls -la /tmp/masters
+
+      # Cache key is the content of every master, so an unchanged master is
+      # never re-encoded. ffmpeg on a 54s 1080p master costs ~2 minutes.
+      - name: Compute masters fingerprint
+        id: fp
+        run: |
+          echo "hash=$(cat /tmp/masters/* | sha256sum | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore rendition cache
+        if: ${{ !inputs.force_transcode }}
+        uses: actions/cache@v4
+        with:
+          path: /tmp/renditions
+          key: renditions-${{ env.FFMPEG_VERSION }}-${{ steps.fp.outputs.hash }}
+
+      - name: Install ffmpeg (pinned)
+        uses: federicocarboni/setup-ffmpeg@v3
+        with:
+          ffmpeg-version: ${{ env.FFMPEG_VERSION }}
+
+      - name: Transcode masters -> delivery renditions
+        run: |
+          chmod +x platform/scripts/transcode-media.sh
+          platform/scripts/transcode-media.sh /tmp/masters /tmp/renditions
+
+      # --- split by the 25 MiB Pages cap -------------------------------------
+      # <= 25 MiB  -> committed to git, served by Pages (free, unlimited egress)
+      #  > 25 MiB  -> R2, served by media.neorm-era.com (free, zero egress)
+      - name: Place renditions
+        run: |
+          mkdir -p platform/assets/video
+          node -e '
+            const {readFileSync,copyFileSync,mkdirSync}=require("fs");
+            const m=JSON.parse(readFileSync("/tmp/renditions/manifest.json","utf8"));
+            mkdirSync("/tmp/r2-upload",{recursive:true});
+            for (const r of m.renditions) {
+              const dest = r.host === "pages"
+                ? `platform/assets/video/${r.file}`
+                : `/tmp/r2-upload/${r.file}`;
+              copyFileSync(`/tmp/renditions/${r.file}`, dest);
+            }
+          '
+          cp /tmp/renditions/manifest.json platform/assets/video/manifest.json
+
+      - name: Upload oversize renditions to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          R2_ENDPOINT: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
+        run: |
+          # Filenames are content-addressed, so this is add-only: an existing
+          # object is never overwritten with different bytes.
+          aws s3 sync /tmp/r2-upload/ "s3://${MEDIA_BUCKET}/video/" \
+            --endpoint-url "$R2_ENDPOINT" \
+            --content-type video/mp4 \
+            --cache-control "public, max-age=31536000, immutable" \
+            --size-only --only-show-errors
+
+      # --- gates -------------------------------------------------------------
+      - name: Enforce Cloudflare Pages limits
+        working-directory: platform
+        run: node scripts/check-pages-limits.mjs .
+
+      - name: Test
+        working-directory: platform
+        run: |
+          npm ci --omit=dev --no-audit --no-fund
+          npm test
+
+      # --- stamp the commit into the deployed artifact -----------------------
+      # /build.json is what makes the live site self-identify. The verify job
+      # below fetches it and refuses to pass unless it matches this run.
+      - name: Write build stamp
+        run: |
+          cat > platform/build.json <<EOF
+          {
+            "commit": "${GITHUB_SHA}",
+            "ref": "${GITHUB_REF_NAME}",
+            "run_id": "${GITHUB_RUN_ID}",
+            "built_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          EOF
+
+      - name: Commit renditions and manifest
+        id: commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add platform/assets/video platform/build.json
+          if git diff --cached --quiet; then
+            echo "no media changes"
+          else
+            # Pushes made with GITHUB_TOKEN do not re-trigger workflows, so this
+            # cannot loop.
+            git commit -m "chore(media): regenerate delivery renditions
+
+          Co-Authored-By: E.Fdz <admin@taurusai.io>
+          Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+          Co-Authored-By: Grok 4.5 <noreply@x.ai>"
+            git push
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # MUST run from inside platform/, deploying `.` — never `pages deploy
+          # platform` from the repo root. wrangler resolves functions/ relative
+          # to the CWD, not to the asset directory, so from the root it finds no
+          # functions/ and ships a static-only build: platform/functions/api/
+          # [[route]].js is dropped and the entire /api/* surface falls through
+          # to the SPA catch-all (GET returns HTML, POST returns 405). Verified
+          # the hard way on 2026-09-09 by A/B against deploy 983da5fd. It fails
+          # silently — every page still returns 200.
+          # A deploy that included the API prints two lines: "Compiled Worker
+          # successfully" and "Uploading Functions bundle". Those are only
+          # visible in the log, so the verify job below probes /api/ directly —
+          # this setting prevents the bug, that check is what catches it coming
+          # back.
+          workingDirectory: platform
+          command: >-
+            pages deploy .
+            --project-name=${{ env.PROJECT_NAME }}
+            --branch=${{ github.ref_name }}
+            --commit-hash=${{ steps.commit.outputs.sha }}
+            --commit-message=run-${{ github.run_id }}
+            --commit-dirty=false
+
+  verify:
+    needs: build-and-deploy
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Live site must report the commit we just deployed
+        run: |
+          for i in $(seq 1 10); do
+            live=$(curl -fsS https://neorm-era.com/build.json | jq -r .commit || echo "")
+            if [ "$live" = "${{ needs.build-and-deploy.outputs.deploy_sha }}" ]; then
+              echo "live commit matches: $live"; exit 0
+            fi
+            echo "attempt $i: live=$live expected=${{ needs.build-and-deploy.outputs.deploy_sha }}"
+            sleep 15
+          done
+          echo "::error::neorm-era.com is not serving the commit this run deployed."
+          exit 1
+
+      - name: Assets referenced by the site must actually resolve
+        run: |
+          fail=0
+          for u in \
+            https://neorm-era.com/assets/video/manifest.json \
+            https://media.neorm-era.com/video/ ; do
+            code=$(curl -o /dev/null -sw '%{http_code}' "$u")
+            echo "$code  $u"
+            case "$code" in 200|301|302|403) ;; *) fail=1 ;; esac
+          done
+          exit $fail
+
+      # The status code alone proves nothing here. When functions/ is dropped
+      # from the deploy, /api/* falls through to the SPA catch-all and still
+      # answers 200 — with an HTML page. So assert the CONTENT TYPE. This is the
+      # check that would have caught the 2026-09-09 outage, where every page
+      # returned 200 while the whole API was gone.
+      # Same probe deploy-safety.test.js:91-93 documents as the parity check.
+      - name: API must be served by Pages Functions, not the SPA catch-all
+        run: |
+          ct=$(curl -sS -o /dev/null -w '%{content_type}' https://neorm-era.com/api/leads)
+          code=$(curl -sS -o /dev/null -w '%{http_code}' https://neorm-era.com/api/leads)
+          echo "/api/leads -> $code $ct"
+          case "$ct" in
+            application/json*) echo "Functions bundle is live." ;;
+            text/html*)
+              echo "::error::/api/leads returned HTML, not JSON. functions/ was"
+              echo "::error::dropped from the deploy — wrangler must run from"
+              echo "::error::inside platform/ (workingDirectory), deploying '.'."
+              exit 1 ;;
+            *) echo "::error::/api/leads unexpected content-type: $ct"; exit 1 ;;
+          esac
