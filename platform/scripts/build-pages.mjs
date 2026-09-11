@@ -578,11 +578,32 @@ export function renderJsonLd(relPath, cfg) {
   return `  <script type="application/ld+json" id="schema-org">\n${jsonString}\n  </script>`;
 }
 
-export function buildPage(relPath) {
+/**
+ * Build one page.
+ *
+ * Default behaviour is unchanged: read the file, transform it, write it back.
+ *
+ * `opts` exists so the idempotency test can run this as a PURE function —
+ * `{ html, write: false }` takes the input as a string and returns the result
+ * instead of touching disk. That is not a convenience; it fixes a real race.
+ * The test used to call buildPage(relPath) twice against the live
+ * platform/*.html and restore afterwards, but `npm test` runs test files
+ * CONCURRENTLY (13 workers here), and site-integrity, brand, links,
+ * design-tokens, video-hero and seo-schema all read those same pages. A reader
+ * landing inside the write-then-restore window sees a half-built page and fails
+ * for no reason. Measured at roughly 1 run in 13 before this change, and it got
+ * worse as more page-reading tests were added — on 2026-09-11 it surfaced as
+ * "privacy.html missing Canadian CBCA legal footer" in seo-schema.test.js,
+ * which passes 28/28 when run alone.
+ */
+export function buildPage(relPath, opts = {}) {
+  const { html: inputHtml, write = true } = opts;
   const fullPath = join(platform, relPath);
-  let html = readFileSync(fullPath, 'utf8');
+  let html = inputHtml ?? readFileSync(fullPath, 'utf8');
   const cfg = PAGES_CONFIG[relPath];
-  if (!cfg) return;
+  // Unconfigured page: a no-op. Return the input unchanged so a pure caller
+  // gets a string back rather than undefined.
+  if (!cfg) return write ? undefined : html;
 
   // 1. Unified nav replacement
   const navHtml = renderNav(cfg);
@@ -680,7 +701,9 @@ export function buildPage(relPath) {
     }
   }
 
+  if (!write) return html;
   writeFileSync(fullPath, html, 'utf8');
+  return undefined;
 }
 
 /** Fix mixed-case Neorm-Era across all html files */

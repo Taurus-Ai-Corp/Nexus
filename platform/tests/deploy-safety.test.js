@@ -1,6 +1,8 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+// No writeFileSync: this suite is read-only by design now. The idempotency test
+// used to write and restore platform/*.html, which raced other test files.
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -180,22 +182,25 @@ describe('_headers and vercel.json agree', () => {
 describe('build-pages is idempotent', () => {
   it('consecutive builds produce byte-for-byte identical output', async () => {
     const { buildPage, PAGES_CONFIG } = await import('../scripts/build-pages.mjs');
+    // Pure: each page is read once, then transformed in memory. This used to
+    // build against the live platform/*.html and restore in a finally — but
+    // `npm test` runs test files CONCURRENTLY, and site-integrity, brand,
+    // links, design-tokens, video-hero and seo-schema all read those same
+    // pages. A reader landing inside the write-then-restore window saw a
+    // half-built page and failed for no reason: roughly 1 run in 13, and
+    // worsening as more page-reading tests were added. Last seen 2026-09-11 as
+    // "privacy.html missing Canadian CBCA legal footer" from seo-schema, which
+    // passes 28/28 when run alone. Nothing is written now, so the window is
+    // gone — and a Ctrl-C mid-test can no longer leave the tree modified.
     for (const relPath of Object.keys(PAGES_CONFIG)) {
-      const fullPath = join(platform, relPath);
-      const original = readFileSync(fullPath, 'utf8');
-      try {
-        buildPage(relPath);
-        const pass1 = readFileSync(fullPath, 'utf8');
-        buildPage(relPath);
-        const pass2 = readFileSync(fullPath, 'utf8');
-        assert.strictEqual(
-          pass2,
-          pass1,
-          `buildPage("${relPath}") is not idempotent: second build drifted from first`,
-        );
-      } finally {
-        writeFileSync(fullPath, original, 'utf8');
-      }
+      const original = readFileSync(join(platform, relPath), 'utf8');
+      const pass1 = buildPage(relPath, { html: original, write: false });
+      const pass2 = buildPage(relPath, { html: pass1, write: false });
+      assert.strictEqual(
+        pass2,
+        pass1,
+        `buildPage("${relPath}") is not idempotent: second build drifted from first`,
+      );
     }
   });
 });
