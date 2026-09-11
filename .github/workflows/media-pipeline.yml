@@ -6,13 +6,40 @@ name: Media pipeline & Pages deploy
 # so nothing reaches neorm-era.com except through this workflow. That is what
 # makes `git log` an accurate record of what is live — the property the sibling
 # Vercel project lost by deploying from a working tree.
+#
+# Caveat while the push trigger is disabled (see `on:` below): a manual run
+# deploys whatever the branch points at when you press the button, so `git log`
+# tells you what COULD be live, not when it went live. The verify job closes
+# that gap by refetching /build.json and refusing to pass unless the live commit
+# matches the run — check its output, not the commit date.
 
 on:
-  push:
-    branches: [feat/nexus-core-organic-design-system]
-    paths:
-      - "platform/**"
-      - ".github/workflows/media-pipeline.yml"
+  # ── PUSH TRIGGER DELIBERATELY DISABLED ──────────────────────────────────────
+  # Owner decision, 2026-09-11: manual dispatch only until one run has been
+  # watched end to end.
+  #
+  # This workflow has never executed. Three things made an unattended first run
+  # a bad idea:
+  #
+  #   1. The paths filter below includes this file itself, so the very push that
+  #      published the workflow would also have been its first run — the least
+  #      supervised moment possible.
+  #   2. The first run depends on the neorm-era-masters R2 bucket being
+  #      populated. If it is empty, "Place renditions" fails on a missing
+  #      manifest. Loud rather than silent, and production is unaffected, but
+  #      not something to discover by accident.
+  #   3. The job commits regenerated renditions and build.json back to the
+  #      branch with GITHUB_TOKEN, so a bot commit lands on top of yours.
+  #
+  # TO RE-ENABLE: uncomment the five lines below. Do that only after a manual
+  # run has gone green, including the /api/ content-type check in the verify
+  # job. Nothing else needs to change.
+  #
+  # push:
+  #   branches: [feat/nexus-core-organic-design-system]
+  #   paths:
+  #     - "platform/**"
+  #     - ".github/workflows/media-pipeline.yml"
   workflow_dispatch:
     inputs:
       force_transcode:
