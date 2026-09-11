@@ -151,7 +151,21 @@ jobs:
               copyFileSync(`/tmp/renditions/${r.file}`, dest);
             }
           '
-          cp /tmp/renditions/manifest.json platform/assets/video/manifest.json
+          # renditions.json, NOT manifest.json. Two different files with two
+          # different schemas used to collide at the same path:
+          #
+          #   manifest.json   {hash, mp4, webm, poster, duration, sizes}
+          #                   hand-authored for the Higgsfield ambient clip, and
+          #                   read by scripts/build-pages.mjs:308, which uses
+          #                   .poster to inject the hero preload tag.
+          #   this file       {generated_by, pages_file_cap_bytes, renditions[]}
+          #                   emitted by transcode-media.sh. No .poster key.
+          #
+          # Overwriting the former with the latter makes vManifest.poster
+          # undefined, so build-pages silently stops injecting the preload — and
+          # the "Commit renditions" step below would persist that to git. No test
+          # covered it; platform/tests/video-manifest.test.js now does.
+          cp /tmp/renditions/manifest.json platform/assets/video/renditions.json
 
       - name: Upload oversize renditions to R2
         env:
@@ -263,6 +277,7 @@ jobs:
           fail=0
           for u in \
             https://neorm-era.com/assets/video/manifest.json \
+            https://neorm-era.com/assets/video/renditions.json \
             https://media.neorm-era.com/video/ ; do
             code=$(curl -o /dev/null -sw '%{http_code}' "$u")
             echo "$code  $u"
