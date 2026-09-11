@@ -8,15 +8,21 @@
  * produce an unlicensed derivative rather than fix the problem.
  *
  * This draws the same *kind* of soft mesh gradient in the brand palette, from
- * tokens.css, at ~5 KB with no network request, no decode, and no seek. That last
- * point matters: scroll-scrubbing a <video> is bound by keyframe seeking and fails
- * outright under iOS Low Power Mode, which is undetectable. A shader has neither
- * failure mode.
+ * tokens.css, at ~5 KB with no network request, no decode, and no seek.
+ *
+ * CORRECTION (2026-09-11): an earlier version of this comment claimed that
+ * scroll-scrubbing a <video> "fails outright under iOS Low Power Mode". No source
+ * supports that. WebKit bug 219889 (WONTFIX) documents Low Power Mode disabling
+ * *autoplay*, not seeking — the penalty attaches to the `autoplay` attribute and
+ * forces native controls. Scrubbing is still the wrong tool here, but for real
+ * reasons: a dense-GOP encode costs roughly 5x the file size, and Chrome, Firefox
+ * and Safari diverge sharply on seek quality. The claim was wrong; the conclusion
+ * happened to be right, which is the worst way to be wrong.
  *
  * Exports createGradientLayer(paletteName) -> { media, canvas, destroy }
  */
 
-/* global window, document, requestAnimationFrame, cancelAnimationFrame */
+/* global window, document */
 
 /* Brand palette, normalised from assets/css/tokens.css. Keep in sync with that file —
    these are the same hex values, not approximations. */
@@ -129,8 +135,6 @@ export function createGradientLayer(paletteName = 'default') {
   const uS = gl.getUniformLocation(prog, 'S');
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let scroll = 0;
-  let raf = 0;
   let alive = true;
 
   function resize() {
@@ -143,39 +147,56 @@ export function createGradientLayer(paletteName = 'default') {
     gl.viewport(0, 0, canvas.width, canvas.height);
   }
 
-  function onScroll() {
+  /**
+   * Scroll position of this layer, read per frame rather than from a listener.
+   *
+   * This used to be a `window.addEventListener('scroll', ...)`, which
+   * design-taste-frontend SKILL.md §5.D bans outright: it fires on every scroll
+   * frame, is not batched, and is a known jank source. Reading the rect inside
+   * the tick costs the same layout query at a rate the frame loop already
+   * governs, and removes a listener that could fire independently of it.
+   */
+  function readScroll() {
     const r = media.getBoundingClientRect();
     const span = r.height + window.innerHeight;
-    scroll = span > 0 ? Math.min(Math.max((window.innerHeight - r.top) / span, 0), 1) : 0;
+    return span > 0 ? Math.min(Math.max((window.innerHeight - r.top) / span, 0), 1) : 0;
   }
 
-  function frame(ms) {
-    if (!alive) return;
+  /**
+   * Draw one frame. THE CALLER OWNS THE LOOP — this function must never schedule
+   * itself.
+   *
+   * It previously ran its own `requestAnimationFrame` while video-hero.js was
+   * separately driving Lenis on `gsap.ticker`, so every hero page ran two
+   * independent frame loops. gsap-advanced-design/references/performance-guide.md
+   * §10 is explicit: "Use requestAnimationFrame alongside GSAP ticker (use one or
+   * the other)."
+   *
+   * Returns false once it has nothing further to draw, which lets the caller drop
+   * it from the loop: under reduced motion the shader paints a single static frame
+   * and is done.
+   */
+  function tick(ms) {
+    if (!alive) return false;
     gl.uniform2f(uR, canvas.width, canvas.height);
     gl.uniform1f(uT, reduced ? 0 : ms * 0.001);
-    gl.uniform1f(uS, scroll);
+    gl.uniform1f(uS, readScroll());
     gl.drawArrays(gl.TRIANGLES, 0, 3);
-    // Reduced motion: paint one frame from the scroll position, then stop the loop.
-    if (reduced) return;
-    raf = requestAnimationFrame(frame);
+    return !reduced;
   }
 
   window.addEventListener('resize', resize, { passive: true });
-  window.addEventListener('scroll', onScroll, { passive: true });
   resize();
-  onScroll();
-  raf = requestAnimationFrame(frame);
+  tick(0); // paint immediately so the layer is never briefly blank
 
   function destroy() {
     alive = false;
-    cancelAnimationFrame(raf);
     window.removeEventListener('resize', resize);
-    window.removeEventListener('scroll', onScroll);
     const ext = gl.getExtension('WEBGL_lose_context');
     if (ext) ext.loseContext();
   }
 
-  return { media, canvas, destroy };
+  return { media, canvas, tick, destroy };
 }
 
 export const PROCEDURAL_PALETTES = PALETTES;

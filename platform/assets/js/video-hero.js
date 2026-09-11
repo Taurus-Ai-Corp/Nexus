@@ -91,10 +91,89 @@ function buildVideoLayer(entry) {
   return { media, video, poster };
 }
 
+/**
+ * The page's single frame loop.
+ *
+ * Every hero page used to run two: hero-gradient.js drove the shader with its own
+ * requestAnimationFrame, while initMotion() below drove Lenis on gsap.ticker.
+ * gsap-advanced-design/references/performance-guide.md §10 bans exactly that —
+ * "Use requestAnimationFrame alongside GSAP ticker (use one or the other)."
+ *
+ * So callbacks register here instead. The loop starts on rAF because the hero
+ * paints long before GSAP finishes loading from the CDN, and migrates onto
+ * gsap.ticker if GSAP ever arrives — cancelling the rAF in the same breath, so
+ * the two never overlap. If GSAP fails to load, rAF simply remains the owner.
+ *
+ * A callback returning false is dropped: that is how the shader retires itself
+ * after painting its single static frame under reduced motion, leaving the loop
+ * empty and idle rather than spinning on a no-op.
+ */
+const ticks = new Set();
+let rafId = 0;
+let driver = 'none'; // 'none' | 'raf' | 'gsap'
+
+function runTicks(ms) {
+  for (const fn of ticks) {
+    let keep;
+    try {
+      keep = fn(ms) !== false;
+    } catch {
+      keep = false; // a throwing callback is dropped, never left to throw every frame
+    }
+    if (!keep) ticks.delete(fn);
+  }
+  if (ticks.size === 0) stopLoop();
+}
+
+function rafStep(ms) {
+  if (driver !== 'raf') return;
+  runTicks(ms);
+  if (driver === 'raf' && ticks.size) rafId = window.requestAnimationFrame(rafStep);
+}
+
+function startLoop() {
+  if (driver !== 'none' || ticks.size === 0) return;
+  driver = 'raf';
+  rafId = window.requestAnimationFrame(rafStep);
+}
+
+function stopLoop() {
+  if (driver === 'raf' && rafId) window.cancelAnimationFrame(rafId);
+  rafId = 0;
+  driver = 'none';
+}
+
+function registerTick(fn) {
+  ticks.add(fn);
+  startLoop();
+}
+
+/**
+ * Hand the loop to GSAP. Called once, only if GSAP actually loaded.
+ *
+ * gsap.ticker reports elapsed time in SECONDS; requestAnimationFrame reports
+ * MILLISECONDS. Every registered callback is written against the rAF contract, so
+ * the conversion happens here — once — rather than each callback having to know
+ * which driver is currently running. Getting this wrong is silent: the shader
+ * would simply animate a thousand times too slowly and read as frozen.
+ */
+function adoptGsapTicker(gsap) {
+  if (driver === 'raf' && rafId) window.cancelAnimationFrame(rafId);
+  rafId = 0;
+  driver = 'gsap';
+  gsap.ticker.add((seconds) => runTicks(seconds * 1000));
+}
+
 function initHeroMedia() {
   const hero = document.querySelector('.hero');
   if (!hero || hero.querySelector('.hero-media')) return;
-  if (REDUCED) return; // static CSS hero remains
+
+  // Reduced motion is NOT an early return. It used to be, which meant .hero-media
+  // was never created at all and those users got a bare hero — and for the video
+  // path the poster is the LCP element, so they also lost their largest paint.
+  // The request is less movement, not less design. So the layer is still built:
+  // the shader's tick() paints a single static frame and retires itself from the
+  // loop, and the video path mounts its poster and never calls play().
 
   const key = engineKey();
 
@@ -108,6 +187,8 @@ function initHeroMedia() {
       hero.insertBefore(layer.media, hero.firstChild);
       layer.media.dataset.state = 'procedural';
       layer.media.classList.add('is-live');
+      // createGradientLayer no longer schedules itself; the loop above owns it.
+      registerTick(layer.tick);
       return;
     }
     return;
@@ -122,6 +203,12 @@ function initHeroMedia() {
   // If the source cannot load (deploy without /video), keep the poster.
   video.addEventListener('error', () => media.classList.remove('is-live'));
   media.dataset.state = 'poster';
+
+  if (REDUCED) {
+    // Poster only: visible, static, and never observed so play() is never called.
+    media.dataset.state = 'poster-static';
+    return;
+  }
 
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(
@@ -163,17 +250,28 @@ async function initMotion() {
     ]);
     gsap.registerPlugin(ScrollTrigger);
 
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
-    window.__lenis = lenis;
-
-    lenis.on('scroll', ScrollTrigger.update);
-    const raf = (time) => lenis.raf(time * 1000);
-    gsap.ticker.add(raf);
+    // One loop from here on: GSAP takes over from the rAF the hero started with.
+    adoptGsapTicker(gsap);
     gsap.ticker.lagSmoothing(0);
+
+    // Lenis is desktop-only. performance-guide.md §10: "Add Lenis smooth scroll on
+    // mobile (conflicts with iOS momentum)" sits on its DON'T list. Touch devices
+    // keep native momentum scrolling; ScrollTrigger still runs, just off native
+    // scroll events rather than Lenis.
+    const COARSE = window.matchMedia('(pointer: coarse)').matches;
+    if (!COARSE) {
+      const lenis = new Lenis({
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+      window.__lenis = lenis;
+      lenis.on('scroll', ScrollTrigger.update);
+      registerTick((time) => {
+        lenis.raf(time);
+        return true;
+      });
+    }
 
     // Reveal choreography: .reveal elements cascade with a soft rise.
     document.querySelectorAll('.reveal, .reveal-hero').forEach((el) => {

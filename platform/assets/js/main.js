@@ -36,16 +36,27 @@ const NeormEra = (function () {
       }
     });
 
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          nav?.classList.toggle('scrolled', window.scrollY > 24);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
+    // Nav shadow state, via IntersectionObserver rather than a scroll listener.
+    //
+    // This was `addEventListener('scroll', ...)` with rAF coalescing — the correct
+    // old-style pattern, but design-taste-frontend SKILL.md §5.D bans raw scroll
+    // listeners outright and names IntersectionObserver as the replacement. It was
+    // also the last stray requestAnimationFrame outside video-hero.js's single loop.
+    //
+    // A 24px-tall sentinel at the top of the document reproduces `scrollY > 24`
+    // exactly: with the default threshold the observer fires the moment the
+    // sentinel has fully left the viewport, which is the same instant.
+    const sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText =
+      'position:absolute;top:0;left:0;width:1px;height:24px;pointer-events:none;visibility:hidden;';
+    document.body.prepend(sentinel);
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        nav?.classList.toggle('scrolled', !entry.isIntersecting);
+      }).observe(sentinel);
+    }
 
     const toggle = document.querySelector('.nav-toggle');
     const menu = document.querySelector('.nav-links');

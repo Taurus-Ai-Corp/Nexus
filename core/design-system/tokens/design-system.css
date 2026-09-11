@@ -81,6 +81,25 @@ p { color: var(--text-muted); }
 }
 
 /* ---------- Layout ---------- */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 24px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: var(--r-sm);
+  z-index: 1000;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: top .2s var(--ease);
+}
+.skip-link:focus {
+  top: 16px;
+  outline: 2px solid var(--accent);
+}
 .container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 24px; }
 .container.narrow { max-width: var(--container-narrow); }
 section { padding: clamp(64px, 9vw, 120px) 0; position: relative; }
@@ -385,8 +404,8 @@ footer { border-top: 1px solid var(--border); padding: 64px 0 32px; margin-top: 
 .price.featured { border-color: var(--accent); box-shadow: var(--glow); position: relative; }
 .price.featured::after { content: "Most Popular"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: var(--on-accent); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; }
 .price .name { font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
-.price .amt { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.03em; margin: 12px 0 4px; font-family: var(--font-mono); }
-.price .amt small { font-size: 1rem; color: var(--text-dim); font-weight: 500; }
+.price .amt, .price .amount { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.03em; margin: 12px 0 4px; font-family: var(--font-mono); }
+.price .amt small, .price .amount .per, .price .per { font-size: 1rem; color: var(--text-dim); font-weight: 500; }
 .price .desc { font-size: 0.9rem; margin-bottom: 22px; }
 .price ul { margin-bottom: 26px; flex: 1; }
 .price li { padding: 8px 0; color: var(--text-muted); font-size: 0.92rem; display: flex; gap: 10px; border-bottom: 1px solid var(--border); }
@@ -510,5 +529,15 @@ footer { border-top: 1px solid var(--border); padding: 64px 0 32px; margin-top: 
 .hero-media.is-procedural .hero-media__scrim { background: var(--scrim-media-procedural); }
 .hero > .container { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) {
-  .hero-media { display: none; }
+  /* Suppress the MOTION, not the visual. This used to be `display: none`, which
+     removed the hero image entirely — reduced-motion users asked for less
+     movement, not a blank hero, and for a video hero the poster is the LCP
+     element, so hiding it also cost them their largest paint. The shader already
+     paints a single static frame and retires itself under reduced motion; the
+     video simply never starts, leaving its poster showing. */
+  .hero-media { display: block; }
+  .hero-media__video { display: none; }
+  .hero-media,
+  .hero-media__poster,
+  .hero-media__scrim { transition: none; animation: none; }
 }
