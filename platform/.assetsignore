@@ -4,3 +4,6 @@ prototype
 .vercel
 functions
 scripts
+package.json
+package-lock.json
+.assetsignore

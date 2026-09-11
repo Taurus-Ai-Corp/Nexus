@@ -517,6 +517,11 @@ footer { border-top: 1px solid var(--border); padding: var(--space-10) 0 var(--s
   .btn-row { flex-direction: column; }
   .btn-row .btn { width: 100%; }
 }
+@media (max-width: 480px) {
+  .nav-cta .btn { display: none; }
+  .nav-cta { gap: var(--space-2); }
+  .brand small { display: none; }
+}
 
 /* ==========================================================================
    VideoHero — ambient video layer (see assets/js/video-hero.js)
@@ -576,3 +581,96 @@ footer { border-top: 1px solid var(--border); padding: var(--space-10) 0 var(--s
   .hero-media__poster,
   .hero-media__scrim { transition: none; animation: none; }
 }
+
+/* ---------- Component: Theme Toggle ---------- */
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--space-8); height: var(--space-8);
+  border-radius: var(--r-md); border: 1px solid var(--border);
+  background: transparent; color: var(--text);
+  cursor: pointer; transition: background var(--dur-fast), border-color var(--dur-fast);
+  padding: 0; font-size: var(--fs-sm); line-height: 1;
+}
+.theme-toggle:hover { background: var(--tint-2); }
+.theme-icon-dark { display: none; }
+[data-theme="dark"] .theme-icon-light { display: none; }
+[data-theme="dark"] .theme-icon-dark { display: inline-block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-light { display: none; }
+  :root:not([data-theme="light"]) .theme-icon-dark { display: inline-block; }
+}
+
+/* ---------- Component: Proof Strip ---------- */
+.proof-strip {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--r-md); margin-top: var(--space-6);
+  font-size: var(--fs-xs); color: var(--text-muted);
+}
+.proof-item { display: inline-flex; align-items: baseline; gap: var(--space-2); }
+.proof-metric { font-family: var(--font-mono); font-weight: 700; color: var(--accent); font-size: var(--fs-base); }
+.proof-label small { color: var(--text-dim); }
+.proof-link { margin-left: auto; color: var(--accent); font-weight: 600; text-decoration: underline; }
+
+/* ---------- Component: FAQ Section ---------- */
+.faq-section { margin-top: var(--space-12); padding-bottom: var(--space-12); }
+.faq-list { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-6); }
+.faq-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: var(--space-5) var(--space-6);
+  transition: border-color var(--dur-fast);
+}
+.faq-item:hover { border-color: var(--border-strong); }
+.faq-question {
+  font-family: var(--font-sans); font-size: var(--fs-md); font-weight: 600;
+  color: var(--text); margin-bottom: var(--space-2);
+}
+.faq-answer {
+  font-size: var(--fs-base); line-height: var(--lh-body);
+  color: var(--text-muted); margin: 0;
+}
+
+/* ---------- Theme: Dark Mode Overrides ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--panel);
+    --bg-elev: var(--panel);
+    --surface: var(--panel);
+    --surface-2: var(--tint-3);
+    --card-hover: var(--panel);
+    --text: var(--panel-text);
+    --text-soft: var(--panel-text-2);
+    --text-muted: var(--panel-text-2);
+    --text-dim: var(--panel-code);
+    --border: var(--panel-border);
+    --border-strong: var(--panel-border);
+    --border-control: var(--panel-border);
+    --scrim: var(--panel);
+    --scrim-solid: var(--panel);
+    --scrim-media-none: var(--panel);
+    --scrim-media-cool: var(--panel);
+    --scrim-media-warm: var(--panel);
+  }
+}
+
+[data-theme="dark"] {
+  --bg: var(--panel);
+  --bg-elev: var(--panel);
+  --surface: var(--panel);
+  --surface-2: var(--tint-3);
+  --card-hover: var(--panel);
+  --text: var(--panel-text);
+  --text-soft: var(--panel-text-2);
+  --text-muted: var(--panel-text-2);
+  --text-dim: var(--panel-code);
+  --border: var(--panel-border);
+  --border-strong: var(--panel-border);
+  --border-control: var(--panel-border);
+  --scrim: var(--panel);
+  --scrim-solid: var(--panel);
+  --scrim-media-none: var(--panel);
+  --scrim-media-cool: var(--panel);
+  --scrim-media-warm: var(--panel);
+}
+

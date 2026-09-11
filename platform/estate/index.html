@@ -30,6 +30,119 @@
     gtag('config', 'G-PLACEHOLDER', { send_page_view: true });
   </script>
   <link rel="preload" as="image" href="/assets/video/ambient.2b43ddea.webp" type="image/webp" fetchpriority="high">
+  <script id="theme-persist">
+    (function(){
+      var s = localStorage.getItem('theme');
+      if(s) document.documentElement.setAttribute('data-theme', s);
+      document.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('theme-toggle');
+        if(btn){
+          btn.addEventListener('click', function(){
+            var cur = document.documentElement.getAttribute('data-theme');
+            var isDark = cur === 'dark' || (!cur && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            var next = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+          });
+        }
+      });
+    })();
+  </script>
+  <script type="application/ld+json" id="schema-org">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.neorm-era.com/#organization",
+      "name": "NEORM-ERA",
+      "url": "https://www.neorm-era.com",
+      "logo": "https://www.neorm-era.com/assets/favicon.svg",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "TAURUS AI Corp.",
+        "url": "https://www.taurusai.io",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "CA"
+        }
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/taurus-ai-corp"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.neorm-era.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Neormestate Reels",
+          "item": "https://www.neorm-era.com/estate/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Engine 05 · Neormestate Reels",
+      "description": "Neormestate (Engine 05) turns an MLS or property URL into 9:16 video tours and hyper-local Facebook and Instagram lead ads in 90 seconds.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "149",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@id": "https://www.neorm-era.com/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does Neormestate Reels generate real estate videos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neormestate Reels (Engine 05) accepts an MLS number or property listing URL, extracts architectural photos, highlights key amenities, and synthesizes 9:16 vertical video tours with motion graphics, captions, and licensed music in under 90 seconds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Neormestate also generate the Meta lead campaign?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, alongside video rendering, Neormestate writes hyper-local ad copy, selects neighborhood demographic targeting parameters, and formats instant lead generation forms for Facebook and Instagram."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can agents white-label Neormestate videos with their own branding?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, agent headshots, brokerage logos, contact details, and custom brand colors can be automatically watermarked into all video outputs and lead form banners."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does Neormestate Reels cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neormestate Reels pricing starts at $149 per month for individual real estate agents, covering up to 10 property video packages per month."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body class="theme-estate">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -50,6 +163,7 @@
         <a href="/pricing.html">Pricing</a>
       </div>
       <div class="nav-cta">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode"><span class="theme-icon-light" aria-hidden="true">☀️</span><span class="theme-icon-dark" aria-hidden="true">🌙</span></button>
         <a href="/contact.html" class="btn btn-primary" data-track="cta_click" data-track-label="contact">Get early access</a>
         <button class="nav-toggle" aria-label="Menu"><span></span></button>
       </div>
@@ -107,6 +221,33 @@ $ neorm estate ads --radius 8km --budget AED 120/day
       </div>
     </div>
   </section>
+  <section class="section faq-section" id="faq">
+    <div class="container narrow">
+      <div class="section-head reveal">
+        <div class="eyebrow">FAQ</div>
+        <h2>Frequently asked questions.</h2>
+        <p class="lead">Direct answers about capabilities, workflow integration, and pricing.</p>
+      </div>
+      <dl class="faq-list">
+        <div class="faq-item reveal">
+          <dt class="faq-question">How does Neormestate Reels generate real estate videos?</dt>
+          <dd class="faq-answer">Neormestate Reels (Engine 05) accepts an MLS number or property listing URL, extracts architectural photos, highlights key amenities, and synthesizes 9:16 vertical video tours with motion graphics, captions, and licensed music in under 90 seconds.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">Does Neormestate also generate the Meta lead campaign?</dt>
+          <dd class="faq-answer">Yes, alongside video rendering, Neormestate writes hyper-local ad copy, selects neighborhood demographic targeting parameters, and formats instant lead generation forms for Facebook and Instagram.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">Can agents white-label Neormestate videos with their own branding?</dt>
+          <dd class="faq-answer">Yes, agent headshots, brokerage logos, contact details, and custom brand colors can be automatically watermarked into all video outputs and lead form banners.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">How much does Neormestate Reels cost?</dt>
+          <dd class="faq-answer">Neormestate Reels pricing starts at $149 per month for individual real estate agents, covering up to 10 property video packages per month.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
   </main>
   <footer>
     <div class="container">
@@ -147,7 +288,7 @@ $ neorm estate ads --radius 8km --budget AED 120/day
         </div>
       </div>
       <div class="foot-bottom">
-        <span>© <span data-year>2026</span> TAURUS AI Corp. All rights reserved.</span>
+        <span>© <span data-year>2026</span> TAURUS AI Corp. (Canada CBCA 1001270625). All rights reserved. Serving worldwide.</span>
         <div class="legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
       </div>
     </div>

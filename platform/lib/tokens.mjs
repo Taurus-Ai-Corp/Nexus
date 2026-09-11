@@ -28,7 +28,14 @@ export const ink = {
   ink: '#17150F', // primary text, dark panels, sidebar
   inkSoft: '#3B372D', // secondary heading, footer prose
   muted: '#6B6559', // body secondary
-  muted2: '#8A8375', // labels, mono meta
+  // Was #8A8375, which measured 3.08:1 on --bg #EDE8DE — under the 4.5:1 AA
+  // floor on every page that used it (eyebrows, .hero-meta, small text). Found
+  // independently twice on 2026-09-11: by the design critic sampling rendered
+  // colours, and by a token-level audit. #5E574B is not a new colour — it is
+  // the existing onDark.navKbd value — and measures 5.85:1 on --bg, 5.33:1 on
+  // --surface. Do not lighten it back toward #8A8375 for "softness": the whole
+  // point of a muted token is that it stays readable while receding.
+  muted2: '#5E574B', // labels, mono meta — 5.85:1 on --bg (AA)
   faint: '#B9B2A3', // axis labels, disabled
 };
 

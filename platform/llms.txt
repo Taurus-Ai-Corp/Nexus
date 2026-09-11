@@ -1,0 +1,70 @@
+# NEORM-ERA by Taurus AI
+
+> AI Agentic Studio for Performance Marketing. Seven specialized engines from brief to creative, social autopilot, and predictive ROAS.
+
+## Company & Jurisdiction
+- Platform: NEORM-ERA
+- Operating Parent & Signatory: TAURUS AI Corp.
+- Jurisdiction: Canada — Federal Corporation (CBCA 1001270625)
+- Operations: Worldwide (Canada, United States, UAE, GCC, India)
+- Official Domain: https://www.neorm-era.com
+- Contact: admin@taurusai.io
+
+## The Seven Engines
+
+### 1. Neormative Ads (Creative Studio)
+- Route: /creative/
+- Canonical URL: https://www.neorm-era.com/creative/
+- Description: AI campaign and creative generation. Generates editorial-grade ad concepts, multi-platform copy variants, visual briefs, and heuristic ad scoring for performance marketing.
+- Target Audience: E-commerce, direct-to-consumer, luxury retail, and growth marketing teams.
+
+### 2. Neormedia Sync (Social Autopilot)
+- Route: /social/
+- Canonical URL: https://www.neorm-era.com/social/
+- Description: Autonomous multi-platform distribution and engagement. Manages scheduling, publishing, and customer responses across Meta (Facebook & Instagram), WhatsApp Business, and Google Business Profile.
+- Target Audience: Local retail, clinics, salons, hospitality, and SMBs across UAE, GCC, and India.
+
+### 3. Neormintel Data (Predictive ROAS)
+- Route: /intel/
+- Canonical URL: https://www.neorm-era.com/intel/
+- Description: Real-time marketing intelligence and attribution. Connects ad accounts, web events, review channels, and AI-search visibility with predictive ROAS modeling and CPL anomaly alerts.
+- Target Audience: CMOs, performance marketing leads, and analytical media buyers.
+
+### 4. Neormestra Flow (Orchestration)
+- Route: /flow/
+- Canonical URL: https://www.neorm-era.com/flow/
+- Description: Agentic workflow orchestration. Coordinates multi-agent campaign pipelines across brief ingestion, creative approval, automated distribution, and performance feedback loops.
+- Target Audience: Enterprise marketing operations and high-velocity digital brands.
+
+### 5. Neormestate Reels (Real Estate AI Marketing)
+- Route: /estate/
+- Canonical URL: https://www.neorm-era.com/estate/
+- Description: Automated real estate marketing vertical. Ingests MLS or property listing URLs and automatically renders 9:16 vertical video walkthrough tours and hyper-local Meta lead ads in under 90 seconds.
+- Target Audience: Real estate brokerages, property developers, and independent real estate agents.
+
+### 6. Neormeo Authority (GEO & AI Search)
+- Route: /seo/
+- Canonical URL: https://www.neorm-era.com/seo/
+- Description: Generative Engine Optimization (GEO/AEO). Injects automated Schema.org structured data and tunes brand knowledge graphs for maximum citation authority across ChatGPT, Perplexity, Google Gemini, and AI search engines.
+- Target Audience: B2B brands, founders, agencies, and high-consideration consumer brands.
+
+### 7. Neormence Studio (Agency Workspace)
+- Route: /freelance/
+- Canonical URL: https://www.neorm-era.com/freelance/
+- Description: White-label collaborative agency workspace. Secure sandbox providing client portals, design knowledge base RAG, and production component export with strict brand asset isolation.
+- Target Audience: Digital marketing agencies, creative studios, and freelance marketing collectives.
+
+## Key Pages Index
+- Platform Overview: https://www.neorm-era.com/
+- About Us: https://www.neorm-era.com/about.html
+- Pricing Plans: https://www.neorm-era.com/pricing.html
+- Case Studies & Proof: https://www.neorm-era.com/case-studies.html
+- Contact & Strategic Audits: https://www.neorm-era.com/contact.html
+- Security Architecture: https://www.neorm-era.com/security.html
+- Privacy Policy: https://www.neorm-era.com/privacy.html
+- Terms of Service: https://www.neorm-era.com/terms.html
+
+## Technology & Design Standards
+- Architecture: Edge-optimized, static-first with serverless API functions.
+- Core Tenet: Organic Design System with paper/ink contrast, strict typography scales, and zero generic WebGL gradient blobs.
+- Performance: Sub-300ms LCP with high-priority preloaded WebP posters and progressive progressive enhancement.

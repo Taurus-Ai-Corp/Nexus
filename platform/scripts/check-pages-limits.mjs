@@ -45,6 +45,18 @@ const SKIP = new Set([
   "tests",
   "scripts",
   "prototype",
+  // Files, not directories. All three were being SERVED from the production
+  // origin — verified 2026-09-11 against neorm-era.com:
+  //   /package.json       200 application/json,    287 b
+  //   /package-lock.json  200 application/json, 10,947 b  (full dep tree,
+  //                       exact versions — the useful one for an attacker
+  //                       matching known CVEs)
+  //   /.assetsignore      200,                     47 b  (the exclusion list
+  //                       itself, which is its own small joke)
+  // A static marketing site needs none of them at runtime.
+  "package.json",
+  "package-lock.json",
+  ".assetsignore",
 ]);
 
 const failures = [];

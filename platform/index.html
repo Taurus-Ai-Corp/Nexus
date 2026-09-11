@@ -31,6 +31,109 @@
     gtag('config', 'G-PLACEHOLDER', { send_page_view: true });
   </script>
   <link rel="preload" as="image" href="/assets/video/ambient.2b43ddea.webp" type="image/webp" fetchpriority="high">
+  <script id="theme-persist">
+    (function(){
+      var s = localStorage.getItem('theme');
+      if(s) document.documentElement.setAttribute('data-theme', s);
+      document.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('theme-toggle');
+        if(btn){
+          btn.addEventListener('click', function(){
+            var cur = document.documentElement.getAttribute('data-theme');
+            var isDark = cur === 'dark' || (!cur && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            var next = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+          });
+        }
+      });
+    })();
+  </script>
+  <script type="application/ld+json" id="schema-org">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.neorm-era.com/#organization",
+      "name": "NEORM-ERA",
+      "url": "https://www.neorm-era.com",
+      "logo": "https://www.neorm-era.com/assets/favicon.svg",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "TAURUS AI Corp.",
+        "url": "https://www.taurusai.io",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "CA"
+        }
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/taurus-ai-corp"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.neorm-era.com/#website",
+      "name": "NEORM-ERA",
+      "url": "https://www.neorm-era.com",
+      "publisher": {
+        "@id": "https://www.neorm-era.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.neorm-era.com/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is NEORM-ERA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NEORM-ERA by TAURUS AI Corp. is an AI agentic studio for performance marketing. It operates seven specialized engines covering autonomous ad creative generation, social distribution, real-time ROAS attribution, real estate video tours, GEO search authority, agency workspaces, and workflow orchestration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which engines are currently shipping in NEORM-ERA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Engine 01 (Neormative Ads) and Engine 02 (Neormedia Sync) are currently shipping. Engine 03 (Neormintel Data), Engine 05 (Neormestate Reels), and Engine 06 (Neormeo Authority) have live landing demos and early access. Engine 04 (Neormestra Flow) and Engine 07 (Neormence Studio) are in private preview."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is NEORM-ERA incorporated and operating?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NEORM-ERA is developed and operated worldwide by TAURUS AI Corp., a federally incorporated Canadian corporation (CBCA 1001270625), with primary regional market hubs across the UAE, GCC, and India."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What results have businesses achieved using NEORM-ERA engines?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Case studies demonstrate measurable outcomes including a 2.3× projected CTR uplift for luxury dining, a 41% increase in qualified leads with a 23% CPL reduction for retail chains, and proof-of-concept deployments converting to $399/month subscriptions within 48 hours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does NEORM-ERA integrate with existing ad accounts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NEORM-ERA connects directly to Meta Ads Manager, Instagram Graph API, Google Business Profile, and WhatsApp Business API without requiring replacement of your existing ad accounts or creative stack."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -51,6 +154,7 @@
         <a href="/pricing.html">Pricing</a>
       </div>
       <div class="nav-cta">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode"><span class="theme-icon-light" aria-hidden="true">☀️</span><span class="theme-icon-dark" aria-hidden="true">🌙</span></button>
         <a href="/contact.html" class="btn btn-primary" data-track="cta_click" data-track-label="contact">Book a 15-min audit</a>
         <button class="nav-toggle" aria-label="Menu"><span></span></button>
       </div>
@@ -67,6 +171,21 @@
         <div class="hero-cta btn-row">
           <a href="#products" class="btn btn-primary btn-lg">Explore verticals <span class="arrow">→</span></a>
           <a href="/contact.html" class="btn btn-ghost btn-lg">Book free audit</a>
+        </div>
+        <div class="proof-strip">
+          <div class="proof-item">
+            <span class="proof-metric">2.3×</span>
+            <span class="proof-label">Projected CTR uplift <small>(Luxury F&B Chain)</small></span>
+          </div>
+          <div class="proof-item">
+            <span class="proof-metric">+41%</span>
+            <span class="proof-label">Verified leads <small>(Retail Boutique)</small></span>
+          </div>
+          <div class="proof-item">
+            <span class="proof-metric">−23%</span>
+            <span class="proof-label">Lower CPL <small>(Social Pilot)</small></span>
+          </div>
+          <a href="/case-studies.html" class="proof-link">Read 4 case studies →</a>
         </div>
         <div class="hero-meta">
           <span>Built by <strong>TAURUS AI Corp.</strong></span>
@@ -285,7 +404,38 @@
     </div>
   </section>
 
-    </main>
+  <section class="section faq-section" id="faq">
+    <div class="container narrow">
+      <div class="section-head reveal">
+        <div class="eyebrow">FAQ</div>
+        <h2>Frequently asked questions.</h2>
+        <p class="lead">Direct answers about capabilities, workflow integration, and pricing.</p>
+      </div>
+      <dl class="faq-list">
+        <div class="faq-item reveal">
+          <dt class="faq-question">What is NEORM-ERA?</dt>
+          <dd class="faq-answer">NEORM-ERA by TAURUS AI Corp. is an AI agentic studio for performance marketing. It operates seven specialized engines covering autonomous ad creative generation, social distribution, real-time ROAS attribution, real estate video tours, GEO search authority, agency workspaces, and workflow orchestration.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">Which engines are currently shipping in NEORM-ERA?</dt>
+          <dd class="faq-answer">Engine 01 (Neormative Ads) and Engine 02 (Neormedia Sync) are currently shipping. Engine 03 (Neormintel Data), Engine 05 (Neormestate Reels), and Engine 06 (Neormeo Authority) have live landing demos and early access. Engine 04 (Neormestra Flow) and Engine 07 (Neormence Studio) are in private preview.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">Where is NEORM-ERA incorporated and operating?</dt>
+          <dd class="faq-answer">NEORM-ERA is developed and operated worldwide by TAURUS AI Corp., a federally incorporated Canadian corporation (CBCA 1001270625), with primary regional market hubs across the UAE, GCC, and India.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">What results have businesses achieved using NEORM-ERA engines?</dt>
+          <dd class="faq-answer">Case studies demonstrate measurable outcomes including a 2.3× projected CTR uplift for luxury dining, a 41% increase in qualified leads with a 23% CPL reduction for retail chains, and proof-of-concept deployments converting to $399/month subscriptions within 48 hours.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">How does NEORM-ERA integrate with existing ad accounts?</dt>
+          <dd class="faq-answer">NEORM-ERA connects directly to Meta Ads Manager, Instagram Graph API, Google Business Profile, and WhatsApp Business API without requiring replacement of your existing ad accounts or creative stack.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+  </main>
   <footer>
     <div class="container">
       <div class="foot-grid">
@@ -325,7 +475,7 @@
         </div>
       </div>
       <div class="foot-bottom">
-        <span>© <span data-year>2026</span> TAURUS AI Corp. All rights reserved.</span>
+        <span>© <span data-year>2026</span> TAURUS AI Corp. (Canada CBCA 1001270625). All rights reserved. Serving worldwide.</span>
         <div class="legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
       </div>
     </div>

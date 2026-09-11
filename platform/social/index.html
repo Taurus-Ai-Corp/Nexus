@@ -31,6 +31,119 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="preload" as="image" href="/assets/video/ambient.2b43ddea.webp" type="image/webp" fetchpriority="high">
+  <script id="theme-persist">
+    (function(){
+      var s = localStorage.getItem('theme');
+      if(s) document.documentElement.setAttribute('data-theme', s);
+      document.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('theme-toggle');
+        if(btn){
+          btn.addEventListener('click', function(){
+            var cur = document.documentElement.getAttribute('data-theme');
+            var isDark = cur === 'dark' || (!cur && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            var next = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+          });
+        }
+      });
+    })();
+  </script>
+  <script type="application/ld+json" id="schema-org">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.neorm-era.com/#organization",
+      "name": "NEORM-ERA",
+      "url": "https://www.neorm-era.com",
+      "logo": "https://www.neorm-era.com/assets/favicon.svg",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "TAURUS AI Corp.",
+        "url": "https://www.taurusai.io",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "CA"
+        }
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/taurus-ai-corp"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.neorm-era.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Neormedia Sync",
+          "item": "https://www.neorm-era.com/social/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Engine 02 · Neormedia Sync",
+      "description": "Neormedia (Engine 02) is autonomous social media management: Meta, Instagram, WhatsApp, and Google Business Profile sync with smart publishing.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "49",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@id": "https://www.neorm-era.com/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Neormedia Sync?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neormedia Sync (Engine 02) is an autonomous social media management and distribution system connecting Meta, Instagram, WhatsApp Business, and Google Business Profile for scheduled multi-channel publishing and automated customer engagement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Neormedia Sync support two-way WhatsApp messaging?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Neormedia Sync integrates with the WhatsApp Business API to handle inbound prospect queries, qualify leads with AI conversational agents, and route high-intent conversations to sales representatives."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Neormedia maintain Google Business Profile visibility?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neormedia schedules weekly localized GBP updates, manages photo uploads, and drafts automated review responses to maximize local 3-pack search rankings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does Neormedia Sync cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neormedia Sync starts at $49 per month for single-location businesses and scales to $199 per month for multi-location brands and agencies."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -51,6 +164,7 @@
         <a href="/pricing.html">Pricing</a>
       </div>
       <div class="nav-cta">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode"><span class="theme-icon-light" aria-hidden="true">☀️</span><span class="theme-icon-dark" aria-hidden="true">🌙</span></button>
         <a href="/contact.html" class="btn btn-primary" data-track="cta_click" data-track-label="contact">Free audit</a>
         <button class="nav-toggle" aria-label="Menu"><span></span></button>
       </div>
@@ -195,7 +309,34 @@
     </div>
   </section>
 
-    </main>
+  <section class="section faq-section" id="faq">
+    <div class="container narrow">
+      <div class="section-head reveal">
+        <div class="eyebrow">FAQ</div>
+        <h2>Frequently asked questions.</h2>
+        <p class="lead">Direct answers about capabilities, workflow integration, and pricing.</p>
+      </div>
+      <dl class="faq-list">
+        <div class="faq-item reveal">
+          <dt class="faq-question">What is Neormedia Sync?</dt>
+          <dd class="faq-answer">Neormedia Sync (Engine 02) is an autonomous social media management and distribution system connecting Meta, Instagram, WhatsApp Business, and Google Business Profile for scheduled multi-channel publishing and automated customer engagement.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">Does Neormedia Sync support two-way WhatsApp messaging?</dt>
+          <dd class="faq-answer">Yes, Neormedia Sync integrates with the WhatsApp Business API to handle inbound prospect queries, qualify leads with AI conversational agents, and route high-intent conversations to sales representatives.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">How does Neormedia maintain Google Business Profile visibility?</dt>
+          <dd class="faq-answer">Neormedia schedules weekly localized GBP updates, manages photo uploads, and drafts automated review responses to maximize local 3-pack search rankings.</dd>
+        </div>
+        <div class="faq-item reveal">
+          <dt class="faq-question">How much does Neormedia Sync cost?</dt>
+          <dd class="faq-answer">Neormedia Sync starts at $49 per month for single-location businesses and scales to $199 per month for multi-location brands and agencies.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+  </main>
   <footer>
     <div class="container">
       <div class="foot-grid">
@@ -235,7 +376,7 @@
         </div>
       </div>
       <div class="foot-bottom">
-        <span>© <span data-year>2026</span> TAURUS AI Corp. All rights reserved.</span>
+        <span>© <span data-year>2026</span> TAURUS AI Corp. (Canada CBCA 1001270625). All rights reserved. Serving worldwide.</span>
         <div class="legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
       </div>
     </div>
