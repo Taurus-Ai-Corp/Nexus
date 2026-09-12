@@ -189,7 +189,7 @@
         </div>
         <div class="hero-meta">
           <span>Built by <strong>TAURUS AI Corp.</strong></span>
-          <span>Serving <strong>UAE · India · GCC</strong></span>
+          <span>Serving <strong>North America · UK &amp; Europe · UAE &amp; GCC · India</strong></span>
           <span>Hiero/Hedera signed audit trail</span>
         </div>
       </div>
@@ -335,8 +335,8 @@
       </div>
       <div class="stats">
         <div class="stat reveal"><div class="n"><span class="accent-text">10×</span></div><div class="l">Faster campaign production vs. agency timelines</div></div>
-        <div class="stat reveal d1"><div class="n"><span class="accent-text">95%+</span></div><div class="l">Cost reduction on creative retainer vs. Dubai agencies</div></div>
-        <div class="stat reveal d2"><div class="n"><span class="accent-text">AED 599</span></div><div class="l">Growth-tier local pricing for UAE/Kerala SMBs</div></div>
+        <div class="stat reveal d1"><div class="n"><span class="accent-text">95%+</span></div><div class="l">Cost reduction on creative retainer vs. agency rates</div></div>
+        <div class="stat reveal d2"><div class="n"><span class="accent-text">AED 599</span></div><div class="l">Neormedia local-currency tier for UAE/Kerala SMBs — see <a href="/pricing" style="color:inherit;text-decoration:underline;">pricing</a></div></div>
         <div class="stat reveal d3"><div class="n"><span class="accent-text">15 min</span></div><div class="l">Free AI marketing audit CTA across all landings</div></div>
       </div>
     </div>
@@ -349,45 +349,58 @@
         <h2>Start small, scale with proof</h2>
         <p class="lead">Local-currency tiers for SMBs, transparent per-seat SaaS for marketing teams, and custom enterprise plans for agencies and multi-brand groups.</p>
       </div>
+      <!--
+        These three mirror pricing.html exactly. Starter $99 / 10 campaigns and
+        Studio $399 / 20 are the only plans api/stripe.js can sell (planMap +
+        creditsMap, api/stripe.js:9-31); change a price there and here together.
+
+        This grid previously showed SMB Starter AED 299 / Growth AED 599 /
+        Enterprise-Creative $399 — a THIRD price list, different again from
+        pricing.html's body ($49/$199/$349/$799) and from pricing.html's own meta
+        description ($99). Those AED tiers described social posting volumes
+        (Neormedia) while the $99/$399 plans are campaign-based (Neormative), so
+        this was two product lines drifting apart rather than one list being
+        mistyped. The regional and per-engine detail still lives on pricing.html.
+      -->
       <div class="price-grid">
         <div class="price reveal">
-          <div class="name">SMB Starter</div>
-          <div class="amt">AED 299 <small>/mo</small></div>
-          <div class="desc">2 channels, 8 posts/mo, basic analytics. Best for one-location businesses testing AI marketing.</div>
+          <div class="name">Starter</div>
+          <div class="amt"><span data-price data-price-usd="$99">$99</span> <small>/mo</small></div>
+          <div class="desc">10 campaigns a month, one brand, single seat. Neormative or Neormedia — swap engines any time.</div>
           <ul>
-            <li>Instagram + Facebook + GBP</li>
-            <li>8 AI-generated posts</li>
-            <li>Basic lead dashboard</li>
-            <li>WhatsApp reply suggestions</li>
+            <li>10 AI campaigns / month</li>
+            <li>One engine, one brand</li>
+            <li>Lead + CPL dashboard</li>
+            <li>Email support</li>
           </ul>
-          <a href="/contact.html" class="btn btn-ghost">Get started</a>
+          <a href="/pricing" class="btn btn-primary" data-track="cta_click" data-track-label="home_pricing_starter">See Starter</a>
         </div>
         <div class="price featured reveal d1">
-          <div class="name">Growth</div>
-          <div class="amt">AED 599 <small>/mo</small></div>
-          <div class="desc">4 channels, 20 posts/mo, Meta ads, WhatsApp replies, and monthly review. The sweet spot for serious SMBs.</div>
+          <div class="name">Studio</div>
+          <div class="amt"><span data-price data-price-usd="$399">$399</span> <small>/mo</small></div>
+          <div class="desc">20 campaigns a month across multiple engines and brands, with team seats and predictive ROAS.</div>
           <ul>
-            <li>4 social + GBP + WhatsApp</li>
-            <li>20 AI posts + ad-copy variants</li>
-            <li>Meta/Instagram campaign manager</li>
-            <li>Intel leads + CPL dashboard</li>
+            <li>20 AI campaigns / month</li>
+            <li>Multiple engines + brands</li>
+            <li>Predictive ROAS via Neormintel</li>
+            <li>Team seats + brand memory</li>
           </ul>
-          <a href="/contact.html" class="btn btn-primary" data-track="cta_click" data-track-label="contact">Book audit</a>
+          <a href="/pricing" class="btn btn-primary" data-track="cta_click" data-track-label="home_pricing_studio">See Studio</a>
         </div>
         <div class="price reveal d2">
-          <div class="name">Enterprise / Creative</div>
-          <div class="amt">$399 <small>/mo</small></div>
-          <div class="desc">Unlimited creative velocity for teams shipping 3+ campaigns per month. Includes brand memory, tone lock, and API export.</div>
+          <div class="name">Agency &amp; Enterprise</div>
+          <div class="amt">Custom</div>
+          <div class="desc">All seven engines, white-label client portal via Neormence, unlimited seats, volume and local-currency terms.</div>
           <ul>
-            <li>Unlimited campaign concepts</li>
-            <li>Image/video generation pipeline</li>
-            <li>Brand memory + tone lock</li>
-            <li>Deck/CSV/API export</li>
+            <li>All seven engines</li>
+            <li>White-label via Neormence</li>
+            <li>Unlimited seats</li>
+            <li>AED / INR terms available</li>
           </ul>
-          <a href="/creative/" class="btn btn-ghost">Explore Creative</a>
+          <a href="/contact.html?plan=enterprise" class="btn btn-ghost" data-track="cta_click" data-track-label="home_pricing_enterprise">Contact sales</a>
         </div>
       </div>
-      <p class="lead" style="margin-top:28px;text-align:center;max-width:720px;margin-inline:auto;">Agency white-label and multi-brand custom plans start at $1,500/mo. <a href="/contact.html" style="color:var(--accent);text-decoration:underline;">Contact sales</a>.</p>
+      <p class="lead" style="margin-top:28px;text-align:center;max-width:720px;margin-inline:auto;">Local-currency plans for UAE and India SMBs, and per-engine tiers, are on the <a href="/pricing" style="color:var(--accent);text-decoration:underline;">pricing page</a>.</p>
     </div>
   </section>
 
@@ -483,5 +496,6 @@
 
   <script src="assets/js/main.js" defer></script>
   <script type="module" src="/assets/js/video-hero.js"></script>
+  <script type="module" src="/assets/js/currency.js"></script>
 </body>
 </html>

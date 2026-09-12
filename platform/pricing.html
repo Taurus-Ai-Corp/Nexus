@@ -134,31 +134,56 @@
         <div class="eyebrow">Platform plans</div>
         <h2>Pick a plan, not a product</h2>
       </div>
-      <div class="grid grid-4">
+      <!--
+        These are the ONLY two plans api/stripe.js can sell. Its planMap has
+        exactly `starter` and `studio` (plus `dogfood` aliased to studio), and
+        creditsMap sets 10 and 20 campaigns respectively.
+
+        This grid used to advertise Starter Sprint $49 / Pro Growth $199 / Real
+        Estate Pro $349 / Agency Accelerator $799 — four tiers, none of which
+        exists in the billing code, and none matching this page's own
+        <meta name="description">, which has said "$99/month Starter with 10
+        campaigns" the whole time. The page contradicted itself, and the
+        homepage advertised a third set again (AED 299 / AED 599).
+
+        Prices here are NOT invented: $99/10 campaigns and $399/20 come from
+        api/stripe.js:9-11 and its 2026-09-08 comment. If you change a price,
+        change it there too — that file is what actually charges.
+
+        CTAs deliberately still point at /contact.html rather than
+        /api/stripe?action=checkout. With STRIPE_STARTER_MONTHLY_PRICE_ID unset,
+        that endpoint returns HTTP 500 (api/stripe.js:58-65), so wiring the
+        button today would send buyers to an error page. Once a recurring
+        monthly Stripe Price exists and the env var is set, swap the two hrefs
+        to /api/stripe?action=checkout&plan=starter and &plan=studio — the
+        ?plan= is already carried below so the contact form knows the intent
+        either way.
+      -->
+      <div class="grid grid-3">
           <div class="price reveal">
-            <div class="name">Starter Sprint</div>
-            <div class="amount">$49<span class="per">/mo</span></div>
-            <p>One engine, one brand. Neormative or Neormedia, 30 AI generations a month, single seat.</p>
-            <a href="/contact.html" class="btn btn-primary" data-track="cta_click" data-track-label="pricing_starter_sprint">Get started</a>
+            <div class="name">Starter</div>
+            <div class="amount"><span data-price data-price-usd="$99">$99</span><span class="per">/mo</span></div>
+            <p>10 campaigns a month, one brand, single seat. Neormative or Neormedia — swap engines any time.</p>
+            <a href="/contact.html?plan=starter" class="btn btn-primary" data-track="cta_click" data-track-label="pricing_starter">Start Starter</a>
           </div>
           <div class="price featured reveal">
-            <div class="name">Pro Growth</div>
-            <div class="amount">$199<span class="per">/mo</span></div>
-            <p>Three engines, predictive ROAS via Neormintel, 250 generations, 3 seats.</p>
-            <a href="/contact.html" class="btn btn-primary" data-track="cta_click" data-track-label="pricing_pro_growth">Get started</a>
+            <div class="name">Studio</div>
+            <div class="amount"><span data-price data-price-usd="$399">$399</span><span class="per">/mo</span></div>
+            <p>20 campaigns a month, multiple engines and brands, team seats, predictive ROAS via Neormintel.</p>
+            <a href="/contact.html?plan=studio" class="btn btn-primary" data-track="cta_click" data-track-label="pricing_studio">Start Studio</a>
           </div>
           <div class="price reveal">
-            <div class="name">Real Estate Pro</div>
-            <div class="amount">$349<span class="per">/mo</span></div>
-            <p>Neormestate listing suite — MLS ingest, 9:16 tours, hyper-local lead ads. Built for agents and developers.</p>
-            <a href="/contact.html" class="btn btn-primary" data-track="cta_click" data-track-label="pricing_real_estate_pro">Get started</a>
+            <div class="name">Agency &amp; Enterprise</div>
+            <div class="amount">Custom<span class="per">&nbsp;</span></div>
+            <p>All seven engines, white-label client portal via Neormence, unlimited seats, volume and local-currency terms.</p>
+            <a href="/contact.html?plan=enterprise" class="btn btn-ghost" data-track="cta_click" data-track-label="pricing_enterprise">Contact sales</a>
           </div>
-          <div class="price reveal">
-            <div class="name">Agency Accelerator</div>
-            <div class="amount">$799<span class="per">/mo</span></div>
-            <p>All seven engines, Neormence white-label client portal, unlimited seats, priority routing.</p>
-            <a href="/contact.html" class="btn btn-primary" data-track="cta_click" data-track-label="pricing_agency_accelerator">Get started</a>
-          </div>
+      </div>
+      <p class="currency-note" data-currency-note hidden style="text-align:center;font-size:var(--fs-sm);color:var(--text-dim);margin-bottom:var(--space-4);"></p>
+      <div class="currency-switcher" data-currency-switcher hidden style="display:flex;gap:var(--space-2);justify-content:center;margin-bottom:var(--space-5);">
+        <button type="button" class="btn btn-ghost" data-currency-choice="USD" aria-pressed="true">USD</button>
+        <button type="button" class="btn btn-ghost" data-currency-choice="AED" aria-pressed="false">AED</button>
+        <button type="button" class="btn btn-ghost" data-currency-choice="INR" aria-pressed="false">INR</button>
       </div>
       <div class="proof-strip" style="margin-bottom:var(--space-6);">
         <div class="proof-item">
@@ -457,5 +482,6 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
+  <script type="module" src="/assets/js/currency.js"></script>
 </body>
 </html>
