@@ -130,9 +130,11 @@ app.state.limiter = limiter
 # month is simply a key that has not been seen. Nothing to schedule means nothing
 # that can silently stop running and hand out unlimited access.
 #
-# See api/__init__.py for why this router is mounted where platform_core's is
-# not, and for the SupabaseLedger swap required before public traffic.
+# Quotas live in Postgres (SupabaseLedger over DATABASE_URL), not in process
+# memory, so they survive a deploy. See api/__init__.py for why this router is
+# mounted where platform_core's is not.
 from api import free_tier_router  # noqa: E402
+from api.free_tier import aclose as free_tier_aclose  # noqa: E402
 
 app.include_router(free_tier_router)
 
@@ -393,6 +395,12 @@ async def shutdown_event():
 
     if db_session:
         await db_session.close()
+
+    # The free tier owns its own engine (api/free_tier.py builds it lazily from
+    # DATABASE_URL) rather than sharing db_session, because SupabaseLedger needs
+    # an AsyncEngine and its own transactions. Disposing it here keeps a
+    # --reload cycle from leaking a connection pool per restart.
+    await free_tier_aclose()
 
     logger.info("✅ Backend shutdown complete")
 

@@ -26,10 +26,19 @@ All API routes and endpoints for NEORM-ERA platform
 # Mounting it IS a feature launch, per the reasoning above, and it was an owner
 # decision on 2026-09-13: free tier, 2 generations per email per month.
 #
-# NOT YET PRODUCTION-SAFE. free_tier._ledger is an in-memory Ledger, so quotas
-# reset on every process restart — two generations becomes two per deploy. Swap
-# it for SupabaseLedger before this serves public traffic; that ledger's UNIQUE
-# credit_ledger.idempotency_key is what makes the monthly grant durable.
+# Quotas are durable as of the SupabaseLedger swap: free_tier builds a
+# SupabaseLedger from DATABASE_URL, and the monthly grant is enforced by the
+# UNIQUE index on credit_ledger.idempotency_key rather than by anything held in
+# process memory. It previously used an in-memory Ledger, which meant every
+# deploy silently reset every user's allowance while reporting success.
+#
+# Two deployment prerequisites, both of which turn the tier OFF (503) rather
+# than degrading it if missing — never a silent fallback:
+#
+#   * DATABASE_URL, with migrations 0001-0003 applied. 0003 in particular adds
+#     generation_jobs.quota_credits; without it every free job is rejected by
+#     the free_must_consume_quota constraint.
+#   * FREE_TIER_API_KEY, so free traffic can never spend the platform key.
 from .free_tier import router as free_tier_router  # noqa: E402
 
 __all__: list[str] = ["free_tier_router"]

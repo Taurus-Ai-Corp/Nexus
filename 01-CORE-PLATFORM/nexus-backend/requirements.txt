@@ -24,8 +24,16 @@ structlog==24.4.0
 # Monitoring & Error Tracking
 sentry-sdk[fastapi]==2.20.0
 
-# Database (use one of the following)
-# psycopg2-binary==2.9.10  # PostgreSQL (uncomment for production)
+# Database
+# NOT optional, despite the commented-out block this replaced. main.py imports
+# sqlalchemy.ext.asyncio at module scope and api/free_tier.py opens an asyncpg
+# engine for the credit ledger, so an install from this file without them
+# produces an app that cannot import — it would fail at startup, not at first
+# use. asyncpg specifically: SupabaseLedger is async, and a sync driver would
+# serialise the whole event loop even if it connected.
+sqlalchemy[asyncio]==2.0.36
+asyncpg==0.30.0
+# psycopg2-binary==2.9.10  # sync PostgreSQL driver — not used by the ledger
 # redis==5.2.1             # Redis for rate limiting (uncomment for production)
 
 # Additional utilities

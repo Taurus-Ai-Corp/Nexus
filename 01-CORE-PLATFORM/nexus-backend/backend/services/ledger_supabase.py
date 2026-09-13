@@ -18,7 +18,10 @@ durable. Two properties matter more than anything else here:
    SQLAlchemy async engine. This matters because the surrounding FastAPI app is
    asyncio — a synchronous DB call here would serialise every request.
 
-Schema: supabase/migrations/0001_credits.sql + 0002_generation_jobs.sql.
+Schema: 05-DATABASES/supabase-migrations/migrations/0001_credits.sql,
+0002_generation_jobs.sql and 0003_free_tier_quota.sql. 0003 adds
+`generation_jobs.quota_credits` and the `free_must_consume_quota` constraint;
+without it applied, every FREE job this ledger opens is rejected.
 """
 
 from __future__ import annotations
@@ -68,26 +71,45 @@ class SupabaseLedger:
             raise ValueError("credits must be non-negative")
 
         async with self.engine.begin() as conn:
-            if idempotency_key:
-                seen = (
+            # The movement is written FIRST, and its `on conflict do nothing`
+            # is what decides whether this grant happens at all. Asking
+            # "select 1 ... where idempotency_key = :i" and then inserting is
+            # the obvious shape and it races: two concurrent first-requests
+            # both see no row, both insert, and the UNIQUE index fails the
+            # second — so the balance stayed right (the index held) but one
+            # caller got an unhandled IntegrityError and a 500. Verified
+            # against Postgres 17; it lost on the first attempt.
+            #
+            # Letting the index arbitrate makes the replay path a no-op
+            # instead of an error, which is what "idempotent" has to mean for
+            # a Stripe webhook redelivery and for a free user double-clicking
+            # Generate on their first ever request.
+            #
+            # A NULL idempotency_key never conflicts (Postgres treats NULLs as
+            # distinct), so unkeyed grants still always apply.
+            claimed = (
+                await conn.execute(
+                    text(
+                        "insert into credit_ledger "
+                        "(customer_key, delta, reason, idempotency_key) "
+                        "values (:k, :d, :r, :i) "
+                        "on conflict (idempotency_key) do nothing "
+                        "returning id"
+                    ),
+                    {"k": tenant_id, "d": credits, "r": reason, "i": idempotency_key},
+                )
+            ).first()
+
+            if claimed is None:
+                # Replay: this key already bought its credits. Report the
+                # balance and add nothing.
+                row = (
                     await conn.execute(
-                        text(
-                            "select 1 from credit_ledger "
-                            "where idempotency_key = :i limit 1"
-                        ),
-                        {"i": idempotency_key},
+                        text("select balance from credits where customer_key = :k"),
+                        {"k": tenant_id},
                     )
                 ).first()
-                if seen:
-                    row = (
-                        await conn.execute(
-                            text(
-                                "select balance from credits where customer_key = :k"
-                            ),
-                            {"k": tenant_id},
-                        )
-                    ).first()
-                    return int(row[0]) if row else 0
+                return int(row[0]) if row else 0
 
             row = (
                 await conn.execute(
@@ -102,15 +124,6 @@ class SupabaseLedger:
                     {"k": tenant_id, "n": credits},
                 )
             ).first()
-
-            await conn.execute(
-                text(
-                    "insert into credit_ledger "
-                    "(customer_key, delta, reason, idempotency_key) "
-                    "values (:k, :d, :r, :i)"
-                ),
-                {"k": tenant_id, "d": credits, "r": reason, "i": idempotency_key},
-            )
         return int(row[0])
 
     # ---- job lifecycle ------------------------------------------------------
@@ -159,11 +172,20 @@ class SupabaseLedger:
 
             await conn.execute(
                 text(
+                    # quota_credits MUST be in both lists. It was passed in the
+                    # params dict but had no column and no placeholder, and
+                    # SQLAlchemy drops an unbound param from a text() silently —
+                    # no warning, no error. The column then took its default of
+                    # 0, which for a FREE job violates 0003's
+                    # `free_must_consume_quota` and made every free generation a
+                    # 500; for a MANAGED job nothing objected at all and the
+                    # allowance actually consumed was recorded as zero forever.
                     "insert into generation_jobs "
                     "(job_id, tenant_id, provider, workflow, payer, billable, "
-                    " status, billed_credits, cost_centre) "
+                    " status, billed_credits, quota_credits, cost_centre) "
                     "values (:job_id, :tenant_id, :provider, :workflow, :payer, "
-                    "        :billable, 'pending', :billed_credits, :cost_centre)"
+                    "        :billable, 'pending', :billed_credits, "
+                    "        :quota_credits, :cost_centre)"
                 ),
                 {
                     "job_id": job_id,
