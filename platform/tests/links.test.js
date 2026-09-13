@@ -30,9 +30,10 @@ describe('campaign pages use /campaigns/-prefixed links', () => {
   }
 });
 
-describe('Stripe redirect targets resolve to real files', () => {
+describe('checkout redirect targets resolve to real files', () => {
   // A success_url pointing at a 404 strands the customer after they have paid.
-  const src = readFileSync(join(platform, 'api/stripe.js'), 'utf8');
+  // Moved from api/stripe.js to api/sokin.js when the Stripe rail was retired.
+  const src = readFileSync(join(platform, 'api/sokin.js'), 'utf8');
   // The host is no longer a literal -- it is derived per request by
   // lib/site-origin.mjs, because the hardcoded one had no DNS record. So the
   // paths are now the tail of a concatenation rather than the tail of a URL.

@@ -53,7 +53,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
  * this list, so an omission here fails the suite instead of shipping.
  */
 export const PAGES = [
-  "404.html", "about.html", "case-studies.html", "contact.html", "index.html",
+  "404.html", "about.html", "case-studies.html", "checkout.html", "contact.html", "index.html",
   "pricing.html", "privacy.html", "security.html", "terms.html",
   "creative/index.html", "social/index.html", "intel/index.html",
   "freelance/index.html", "flow/index.html", "estate/index.html",

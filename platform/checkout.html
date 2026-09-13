@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Checkout — NEORM-ERA by Taurus AI</title>
+  <meta name="description" content="Complete your NEORM-ERA Campaign subscription.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/design-system.css?v=a97a6948">
+  <link rel="icon" href="assets/favicon.svg">
+
+  <!-- Analytics: Cloudflare Web Analytics. See index.html for why the Google
+       tag was removed rather than re-pointed. -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "4360938169334ddaa06363ba8a732c85"}'></script>
+
+  <!--
+    Sokin's embed SDK. Loaded here rather than site-wide: it is a payment
+    dependency and every page that carries it is a page whose security review
+    now includes a third-party script. Only this page needs it.
+
+    Sokin returns no hosted checkout URL, so there is nothing to redirect to —
+    the SDK draws an iframe from the orderId and paymentRequestId the server
+    obtains. That is the whole reason this page exists instead of the button
+    simply pointing somewhere new.
+  -->
+  <script src="https://pay.sokin.com/sdk/v1/sokin-payments-embed-sdk.umd.min.js" defer></script>
+
+  <script id="theme-persist">
+    (function () {
+      var s = localStorage.getItem('theme');
+      if (s) document.documentElement.setAttribute('data-theme', s);
+    })();
+  </script>
+  <style>
+    .checkout-shell { max-width: 940px; margin-inline: auto; padding-block: var(--space-10) var(--space-12); }
+    .checkout-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--space-10); align-items: start; }
+    @media (max-width: 820px) { .checkout-grid { grid-template-columns: 1fr; gap: var(--space-8); } }
+    .summary { border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--space-6); background: var(--surface); }
+    .summary .amount { font-size: clamp(2rem, 5vw, 2.8rem); font-family: var(--font-display); font-weight: 400; line-height: 1; }
+    .summary .per { color: var(--text-muted); font-size: var(--fs-sm); }
+    .field { display: grid; gap: 6px; margin-bottom: var(--space-4); }
+    .field label { font-size: var(--fs-sm); font-weight: 600; }
+    .field input { width: 100%; padding: 0.7rem 0.9rem; border-radius: var(--r-md); border: 1px solid var(--border-strong); background: var(--bg-elev); color: var(--text); font: inherit; }
+    .field input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    @media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+    #payment-container { min-height: 420px; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+    #payment-container:empty { display: none; }
+    .notice { padding: var(--space-4); border-radius: var(--r-md); font-size: var(--fs-sm); margin-bottom: var(--space-4); }
+    .notice[hidden] { display: none !important; }
+    .notice.err { background: var(--tint-1); border: 1px solid var(--accent); color: var(--text); }
+    .notice.env { background: var(--tint-1); border: 1px dashed var(--border-strong); color: var(--text-muted); font-family: var(--font-mono); font-size: 0.78rem; }
+  </style>
+</head>
+<body class="theme-creative">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <main id="main" class="container checkout-shell">
+    <div class="checkout-grid">
+      <aside class="summary reveal">
+        <p class="eyebrow">NEORM-ERA</p>
+        <h1 style="font-size: var(--fs-xl); margin-bottom: var(--space-3);">Campaign</h1>
+        <p class="amount">$99<span class="per"> / month</span></p>
+        <p style="color: var(--text-muted); margin-top: var(--space-4); font-size: var(--fs-sm);">
+          Ten campaign kits per month — the diagnostic-and-rebuild loop run on a cadence,
+          rather than once. Cancel any time.
+        </p>
+        <p class="notice env" id="env-note" hidden></p>
+      </aside>
+
+      <section>
+        <h2 style="font-size: var(--fs-lg); margin-bottom: var(--space-5);">Your details</h2>
+
+        <p class="notice err" id="error" role="alert" hidden></p>
+
+        <form id="checkout-form" novalidate>
+          <div class="row2">
+            <div class="field">
+              <label for="firstName">First name</label>
+              <input id="firstName" name="firstName" autocomplete="given-name" required>
+            </div>
+            <div class="field">
+              <label for="lastName">Last name</label>
+              <input id="lastName" name="lastName" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          </div>
+          <button class="btn btn-primary btn-lg" type="submit" id="submit" style="width:100%; justify-content:center;">
+            Continue to payment
+          </button>
+        </form>
+
+        <!-- The SDK renders into this. Empty until the server returns both ids. -->
+        <div id="payment-container" aria-live="polite"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/js/main.js?v=278a40dc"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('checkout-form');
+      var submit = document.getElementById('submit');
+      var errorBox = document.getElementById('error');
+      var envNote = document.getElementById('env-note');
+      var container = document.getElementById('payment-container');
+
+      function fail(message) {
+        errorBox.textContent = message;
+        errorBox.hidden = false;
+        submit.disabled = false;
+        submit.textContent = 'Continue to payment';
+      }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        errorBox.hidden = true;
+
+        var payload = {
+          firstName: form.firstName.value.trim(),
+          lastName: form.lastName.value.trim(),
+          email: form.email.value.trim(),
+          plan: 'campaign'
+        };
+        if (!payload.firstName || !payload.lastName || !payload.email.includes('@')) {
+          return fail('Please enter your name and a valid email address.');
+        }
+
+        submit.disabled = true;
+        submit.textContent = 'Starting checkout…';
+
+        fetch('/api/sokin?action=checkout', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+          .then(function (res) {
+            if (!res.ok) return fail(res.d && res.d.error ? res.d.error : 'Checkout could not be started.');
+            return render(res.d);
+          })
+          .catch(function () { fail('Checkout is unavailable right now. Please try again.'); });
+      });
+
+      function render(session) {
+        // The SDK is a deferred third-party script. If it failed to load, say so
+        // rather than throwing a ReferenceError into the console and leaving the
+        // customer looking at a spinner that never resolves.
+        if (typeof SokinPayments === 'undefined' || !SokinPayments.SokinPayments) {
+          return fail('The payment form could not load. Please refresh and try again.');
+        }
+
+        envNote.textContent = 'environment: ' + session.environment
+          + (session.environment !== 'production' ? ' — no real payment will be taken' : '');
+        envNote.hidden = false;
+
+        form.hidden = true;
+
+        var sdk = new SokinPayments.SokinPayments({
+          environment: session.environment === 'production' ? 'production' : 'sandbox',
+          logLevel: 'info'
+        });
+
+        sdk.renderPayment({
+          orderId: session.orderId,
+          paymentRequestId: session.paymentRequestId,
+          iframeConfig: { container: '#payment-container' }
+        }).then(function (result) {
+          if (result && result.success) {
+            window.location.href = '/campaigns/thanks.html?order=' + encodeURIComponent(session.orderId);
+          } else {
+            form.hidden = false;
+            container.innerHTML = '';
+            fail((result && result.error) || 'Payment was not completed.');
+          }
+        }).catch(function () {
+          form.hidden = false;
+          container.innerHTML = '';
+          fail('Payment could not be completed. No charge was made.');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -173,78 +173,56 @@ describe('the demo pages are not dead ends', () => {
   }
 });
 
-describe('Stripe checkout is wired to the handler it actually has', () => {
-  const stripe = read('api/stripe.js');
-  const checkoutPages = pages.filter((p) => read(p).includes('action=checkout&plan='));
-  const buttonCount = checkoutPages.reduce(
-    (n, p) => n + (read(p).match(/action=checkout&plan=/g) ?? []).length,
-    0,
-  );
+describe('checkout is wired to the rail that actually exists', () => {
+  // Rewritten when the Stripe rail was retired. The old block asserted a
+  // pattern that no longer exists: buttons carrying `action=checkout&plan=`
+  // straight at /api/stripe. Checkout now goes through /checkout.html, which
+  // collects name and email and calls /api/sokin — because Sokin returns no
+  // hosted URL to redirect to, only ids for its embed SDK.
+  //
+  // Two invariants survive the rail change and are what this block is really
+  // for: the amount must come from the SERVER, and a plan with no price must
+  // reach a human instead of a broken checkout.
+  const sokin = read('api/sokin.js');
 
-  test('finds the checkout buttons', () => assert.ok(buttonCount > 0, 'no checkout buttons found'));
-
-  test('every checkout button names a plan that has a price', () => {
-    // The stronger invariant, replacing a hardcoded count of 7. Four plans
-    // (agency_starter, agency_pro, agency_enterprise, worldcup) have no Stripe
-    // price ID, so handleCheckout refuses them by design — a button pointing at
-    // one is a button that always 400s. Those four now link to
-    // /contact.html?plan=... instead. If a plan gains a real price ID, add it to
-    // planMap and the button may come back; until then this fails loudly.
-    const priced = new Set(
-      [...stripe.matchAll(/^\s{4}([a-z_]+):\s*'(?:starter|studio)',/gm)].map((m) => m[1]),
+  test('the plan set and its amounts live on the server', () => {
+    // A price the browser can post is a price the customer can edit.
+    assert.match(sokin, /const PLANS = \{/, 'api/sokin.js must own the plan set');
+    assert.match(sokin, /totalAmount:\s*\d+/, 'amounts must be literal on the server');
+    assert.doesNotMatch(
+      sokin,
+      /totalAmount:\s*(body|req)\./,
+      'the amount must never be taken from the request body',
     );
-    assert.ok(priced.size >= 2, `parsed ${priced.size} priced plans from planMap; regex is stale`);
+  });
 
-    const sold = new Set(
-      checkoutPages.flatMap((p) => [...read(p).matchAll(/action=checkout&plan=([a-z_]+)/g)]
-        .map((m) => m[1])),
+  test('an unknown plan is rejected, never silently repriced', () => {
+    // The retired planMap collapsed agency_starter ($999), agency_pro ($2,499),
+    // agency_enterprise ($10,000-15,000) and worldcup ($2,500) onto 'studio',
+    // and fell back to 'starter' for anything unrecognised — a successful
+    // checkout that charged the wrong amount while looking like it worked.
+    assert.doesNotMatch(
+      sokin,
+      /PLANS\[plan\]\s*\|\|/,
+      'api/sokin.js falls back to a default plan for an unrecognised plan id',
     );
-    const unpriced = [...sold].filter((plan) => !priced.has(plan));
-    assert.deepEqual(unpriced, [], `checkout buttons for unpriced plans: ${unpriced.join(', ')}`);
+    assert.match(sokin, /No plan/, 'an unknown plan must be refused explicitly');
+  });
+
+  test('no page still points a checkout button at the retired Stripe endpoint', () => {
+    const stale = pages.filter((p) => read(p).includes('/api/stripe'));
+    assert.deepEqual(stale, [], `these pages still call the removed /api/stripe: ${stale.join(', ')}`);
   });
 
   test('the unpriced plans route to sales instead', () => {
+    // Independent of which rail is live: a plan with no price must reach a
+    // human rather than a checkout that always fails.
     const routed = new Set(
       pages.flatMap((p) => [...read(p).matchAll(/href="\/contact\.html\?plan=([a-z_]+)"/g)]
         .map((m) => m[1])),
     );
     for (const plan of ['agency_starter', 'agency_pro', 'agency_enterprise', 'worldcup']) {
       assert.ok(routed.has(plan), `${plan} has neither a priced checkout nor a sales link`);
-    }
-  });
-
-  for (const page of checkoutPages) {
-    test(`${page} does not navigate to the API by GET`, () => {
-      // Every button did `window.location.href = '/api/stripe?action=checkout...'`.
-      // The handler routes checkout on POST only, so all of them returned
-      // 400 {"error":"Invalid request..."} rendered as raw JSON. Even on POST a
-      // plain navigation would show the JSON body, because handleCheckout returns
-      // {url} rather than issuing a redirect.
-      assert.doesNotMatch(
-        read(page),
-        /window\.location\.href\s*=\s*this\.href/,
-        `${page} navigates to /api/stripe by GET; it must POST and follow the returned url`,
-      );
-    });
-  }
-
-  test('an unknown plan is rejected, never silently repriced', () => {
-    // planMap collapsed agency_starter ($999), agency_pro ($2,499),
-    // agency_enterprise ($10,000-15,000) and worldcup ($2,500) onto 'studio',
-    // and fell back to 'starter' for anything unrecognised. Only STARTER and
-    // STUDIO price IDs exist, so a successful checkout would have charged $399/mo
-    // — an undercharge that looks like a working purchase.
-    assert.doesNotMatch(
-      stripe,
-      /planMap\[plan\]\s*\|\|/,
-      'stripe.js falls back to a default plan for an unrecognised plan id',
-    );
-    for (const unpriced of ['agency_starter', 'agency_pro', 'agency_enterprise', 'worldcup']) {
-      assert.doesNotMatch(
-        stripe,
-        new RegExp(`${unpriced}:\\s*'`),
-        `${unpriced} is aliased to a plan whose page advertises a different price`,
-      );
     }
   });
 });

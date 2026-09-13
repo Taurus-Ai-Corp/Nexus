@@ -748,7 +748,7 @@
             <li>Platform plan</li>
             <li>2 revision rounds per campaign</li>
           </ul>
-          <a href="/api/stripe?action=checkout&plan=starter" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_starter'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){var u=this.href+'&email='+encodeURIComponent(email);fetch(u,{method:'POST'}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{window.alert((d&&d.error)||'Checkout is unavailable for this plan.');}}).catch(function(){window.alert('Checkout is unavailable right now.');});}">Start Starter plan</a>
+          <a href="/checkout.html" class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="trackEvent('purchase_starter')">Start Starter plan</a>
         </div>
         <div class="pricing-card featured reveal">
           <div>
@@ -761,7 +761,7 @@
               <li>Export to deck, CSV, or API</li>
               <li>Priority turnaround</li>
             </ul>
-            <a href="/api/stripe?action=checkout&plan=studio" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="event.preventDefault(); trackEvent('purchase_studio'); var email=prompt('Enter your email to continue to checkout:'); if(email&&email.includes('@')){var u=this.href+'&email='+encodeURIComponent(email);fetch(u,{method:'POST'}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{window.alert((d&&d.error)||'Checkout is unavailable for this plan.');}}).catch(function(){window.alert('Checkout is unavailable right now.');});}">Start Enterprise Plan</a>
+            <a href="/checkout.html" class="btn btn-surface" style="width:100%; justify-content:center;" onclick="trackEvent('purchase_studio')">Start Enterprise Plan</a>
           </div>
           <div style="display:grid; place-items:center; min-width:180px;">
             <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
@@ -1114,9 +1114,10 @@
 
     async function checkCredits(email) {
       try {
-        var res = await fetch('/api/stripe?action=balance&email=' + encodeURIComponent(email));
-        var data = await res.json();
-        if (res.ok) return data.credits_remaining;
+          // Credits lived on the retired Stripe rail. Sokin's merchant API has
+          // no equivalent balance endpoint, so this returns null until one
+          // exists — every caller already handles null.
+          return null;
       } catch {}
       return null;
     }

@@ -18,7 +18,7 @@ import extras from '../../api/extras.js';
 import imagen from '../../api/imagen.js';
 import leads from '../../api/leads.js';
 import neural from '../../api/neural.js';
-import stripe from '../../api/stripe.js';
+import sokin from '../../api/sokin.js';
 import webhook from '../../api/webhook.js';
 
 const HANDLERS = {
@@ -29,7 +29,7 @@ const HANDLERS = {
   imagen,
   leads,
   neural,
-  stripe,
+  sokin,
   webhook,
 };
 

@@ -61,18 +61,21 @@ test('every displayed price has a USD fallback', () => {
   }
 });
 
-test('displayed plan prices match what api/stripe.js would charge', () => {
+test('displayed plan prices match what the billing code would charge', () => {
   // The homepage and pricing page must agree with each other AND with the
   // billing code's plan set. They disagreed three ways before 2026-09-11:
   // homepage AED 299/599, pricing body $49/$199/$349/$799, pricing meta $99.
-  const stripe = readFileSync(join(ROOT, 'api/stripe.js'), 'utf8');
-  const planMap = stripe.match(/const planMap = \{([\s\S]*?)\};/);
-  if (!planMap) throw new Error('planMap not found in api/stripe.js');
+  //
+  // The plan set moved from api/stripe.js to api/sokin.js when the Stripe rail
+  // was retired. The amount lives on the SERVER in both cases, which is the
+  // property this test actually guards: a price the browser can post is a
+  // price the customer can edit.
+  const sokin = readFileSync(join(ROOT, 'api/sokin.js'), 'utf8');
+  const planMap = sokin.match(/const PLANS = \{([\s\S]*?)\};/);
+  if (!planMap) throw new Error('PLANS not found in api/sokin.js');
   const plans = [...planMap[1].matchAll(/^\s*(\w+):/gm)].map((m) => m[1]);
-  for (const required of ['starter', 'studio']) {
-    if (!plans.includes(required)) {
-      throw new Error(`api/stripe.js planMap lost "${required}" — the pricing pages still advertise it`);
-    }
+  if (!plans.includes('campaign')) {
+    throw new Error('api/sokin.js PLANS lost "campaign" — the pricing pages still advertise it');
   }
 
   const usdOn = (page) => {

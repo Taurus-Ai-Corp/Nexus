@@ -19,7 +19,11 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // client construction back to module scope.
 
 const KEY = 'STRIPE_SECRET_KEY';
-const HANDLERS = ['../api/stripe.js', '../api/webhook.js'];
+// api/stripe.js was deleted on 2026-09-13 when the Stripe rail was retired.
+// api/webhook.js still speaks Stripe and still needs this guard: it is the
+// remaining Stripe-bound handler, and its migration to Sokin's
+// /payment_notification is outstanding.
+const HANDLERS = ['../api/webhook.js'];
 
 function withoutKey(fn) {
   const prior = process.env[KEY];

@@ -140,29 +140,31 @@
         <h2>Pick a plan, not a product</h2>
       </div>
       <!--
-        These are the ONLY two plans api/stripe.js can sell. Its planMap has
-        exactly `starter` and `studio` (plus `dogfood` aliased to studio), and
-        creditsMap sets 10 and 20 campaigns respectively.
+          The billing code owns the plan set: api/sokin.js PLANS. Today that is
+          exactly `campaign` at $99/month for ten campaign kits. Prices here are
+          NOT invented — change them there and here together, because that file
+          is what actually charges.
 
-        This grid used to advertise Starter Sprint $49 / Pro Growth $199 / Real
-        Estate Pro $349 / Agency Accelerator $799 — four tiers, none of which
-        exists in the billing code, and none matching this page's own
-        <meta name="description">, which has said "$99/month Starter with 10
-        campaigns" the whole time. The page contradicted itself, and the
-        homepage advertised a third set again (AED 299 / AED 599).
+          This grid used to advertise Starter Sprint $49 / Pro Growth $199 / Real
+          Estate Pro $349 / Agency Accelerator $799 — four tiers, none of which
+          existed in the billing code, and none matching this page's own
+          <meta name="description">, which has said "$99/month" the whole time.
 
-        Prices here are NOT invented: $99/10 campaigns and $399/20 come from
-        api/stripe.js:9-11 and its 2026-09-08 comment. If you change a price,
-        change it there too — that file is what actually charges.
+          The rail changed on 2026-09-13. Stripe is retired: its account was
+          registered to TAURUS AI CORP - FZCO, a UAE entity wound up 2026-08-08,
+          it never processed a transaction, and a Stripe account's country is
+          immutable so it could never become the Canadian entity that signs
+          NEORM-ERA. That handler is deleted.
 
-        CTAs deliberately still point at /contact.html rather than
-        /api/stripe?action=checkout. With STRIPE_STARTER_MONTHLY_PRICE_ID unset,
-        that endpoint returns HTTP 500 (api/stripe.js:58-65), so wiring the
-        button today would send buyers to an error page. Once a recurring
-        monthly Stripe Price exists and the env var is set, swap the two hrefs
-        to /api/stripe?action=checkout&plan=starter and &plan=studio — the
-        ?plan= is already carried below so the contact form knows the intent
-        either way.
+          Checkout now goes to /checkout.html, which collects a name and email
+          and calls the Sokin endpoint. It is a PAGE rather than a redirect
+          because Sokin returns no hosted checkout URL — its embed SDK renders
+          an iframe from an orderId and a paymentRequestId. Without credentials
+          that endpoint returns 503 and the page says so, rather than stranding
+          the buyer on an error.
+
+          The ?plan= is still carried on the sales CTAs below so the contact
+          form knows the intent either way.
       -->
       <div class="grid grid-3">
           <div class="price reveal">
