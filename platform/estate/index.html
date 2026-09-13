@@ -22,14 +22,19 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <meta property="og:image" content="https://www.neorm-era.com/assets/og-nexus-estate.png">
   <meta name="twitter:image" content="https://www.neorm-era.com/assets/og-nexus-estate.png">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PLACEHOLDER', { send_page_view: true });
-  </script>
+  <!-- Analytics: Cloudflare Web Analytics.
+       This replaced a Google tag hardcoded to the literal id "G-PLACEHOLDER" on
+       16 of 17 pages. That is not a property — every page view since launch was
+       posted to an id that does not exist, so the site has never recorded a
+       single visitor while appearing to be instrumented.
+
+       Cloudflare Web Analytics was already provisioned for this zone and simply
+       had no beacon installed. It needs no account, sets no cookies, and needs
+       no consent banner. To go back to GA4, put a real G-XXXXXXXXXX here -- but
+       never a placeholder again: a dead id is worse than no analytics, because
+       it looks like it is working. -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "4360938169334ddaa06363ba8a732c85"}'></script>
   <link rel="preload" as="image" href="/assets/video/ambient.2b43ddea.webp" type="image/webp" fetchpriority="high">
   <script id="theme-persist">
     (function(){
