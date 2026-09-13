@@ -486,6 +486,18 @@ footer { border-top: 1px solid var(--border); padding: var(--space-10) 0 var(--s
   .stats { grid-template-columns: repeat(2, 1fr); }
   .foot-grid { grid-template-columns: 1fr 1fr; }
   .price-grid { grid-template-columns: 1fr; }
+}
+
+/* The nav collapses on its OWN breakpoint, not the layout one.
+ * The full nav needs ~1330px of room, but it only folded into the hamburger
+ * below 980px. Between those the nav-cta ran past the right edge and the
+ * whole page scrolled sideways - measured at 1000/1100/1200/1280/1320px,
+ * with scrollWidth matching nav-cta.right to the pixel. The dark-mode toggle
+ * widened nav-cta by 50px, which is what pushed 1280px over too.
+ * These rules cannot simply move into the 980px block: that block also
+ * collapses .hero-grid, .grid-4, .stats and .price-grid, so widening it
+ * would force single-column heroes onto 1280px laptops. */
+@media (max-width: 1340px) {
   .nav-links, .nav-cta .btn-ghost { display: none; }
   .nav-toggle { display: flex; }
   .nav-links.open {
