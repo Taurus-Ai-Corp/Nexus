@@ -18,6 +18,7 @@ import { dirname, join, resolve } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
+import { archetypeNames } from '../lib/archetypes.mjs';
 import { backdrops, engineCss, engines, slugs } from '../lib/engine-identity.mjs';
 import { verticals } from '../lib/tokens.mjs';
 
@@ -77,7 +78,12 @@ test('every engine page carries its theme class and its backdrop', () => {
   const problems = [];
   for (const s of slugs) {
     const html = read(`${s}/index.html`);
-    if (!html.includes(`class="theme-${s}"`)) problems.push(`${s}/index.html has no body.theme-${s}`);
+    // Matched as a CLASS TOKEN, not as the whole attribute: the body also
+    // carries arch-<archetype>, so `class="theme-x"` stopped matching the
+    // moment the architecture work landed.
+    if (!new RegExp(`<body[^>]*class="[^"]*\\btheme-${s}\\b`).test(html)) {
+      problems.push(`${s}/index.html has no body.theme-${s}`);
+    }
     if (!html.includes(`data-backdrop="${engines[s].backdrop}"`)) {
       problems.push(`${s}/index.html is missing data-backdrop="${engines[s].backdrop}"`);
     }
@@ -100,4 +106,56 @@ test('reduced motion still paints a composed frame, not a blank canvas', () => {
   const js = read('assets/js/engine-backdrop.js');
   assert.match(js, /paint\(REDUCED \? [\d.]+ : 0\)/,
     'under prefers-reduced-motion the backdrop must paint one frame at a non-zero time, so the composition still reads');
+});
+
+/* ── page architecture ───────────────────────────────────────────────────── */
+
+test('every engine page carries its archetype class', () => {
+  const problems = [];
+  for (const s of slugs) {
+    const html = read(`${s}/index.html`);
+    const cls = `arch-${engines[s].archetype}`;
+    if (!html.includes(cls)) problems.push(`${s}/index.html is missing ${cls}`);
+  }
+  assert.deepEqual(problems, [], `engine pages without their architecture:\n  ${problems.join('\n  ')}`);
+});
+
+test('every archetype has CSS, and every CSS archetype is used', () => {
+  const used = new Set(slugs.map((s) => engines[s].archetype));
+  const missing = [...used].filter((a) => !archetypeNames.includes(a));
+  assert.deepEqual(missing, [], `archetype declared with no stylesheet: ${missing.join(', ')}`);
+  const orphan = archetypeNames.filter((a) => !used.has(a));
+  assert.deepEqual(orphan, [], `archetype CSS nothing uses — dead weight on every page: ${orphan.join(', ')}`);
+});
+
+test('archetype rules target what the pages actually contain', () => {
+  // The first version targeted `.grid-3 > .feature` only. creative and social
+  // use .card, freelance has no .grid-3 at all — so three of the seven
+  // architectures styled nothing and the pages looked unchanged.
+  const css = read('assets/css/engines.css');
+  for (const a of archetypeNames) {
+    const block = css.split(`body.arch-${a} `).slice(1).join(' ');
+    assert.ok(block.length, `no rules emitted for arch-${a}`);
+    assert.match(
+      block,
+      /:is\(\.grid-3, \.grid-2\)/,
+      `arch-${a} must match both .grid-3 and .grid-2 — freelance has no .grid-3`,
+    );
+    assert.match(
+      block,
+      /:is\(\.feature, \.card\)/,
+      `arch-${a} must match both .feature and .card — creative and social have no .feature`,
+    );
+  }
+});
+
+test('no two engines are given the same architecture', () => {
+  const seen = new Map();
+  const clash = [];
+  for (const s of slugs) {
+    const a = engines[s].archetype;
+    if (seen.has(a)) clash.push(`${seen.get(a)} and ${s} both use ${a}`);
+    seen.set(a, s);
+  }
+  assert.deepEqual(clash, [], `shared architecture defeats the point:\n  ${clash.join('\n  ')}`);
 });

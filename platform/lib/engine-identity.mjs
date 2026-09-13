@@ -46,6 +46,8 @@
  * video-hero.js already keys its source map by the same slugs.
  */
 
+import { buildArchetypeCss } from './archetypes.mjs';
+
 /**
  * Each engine's world.
  *
@@ -192,6 +194,7 @@ export function engineCss() {
     ' */',
     '',
     ...blocks,
+    buildArchetypeCss(slugs.map((s) => engines[s].archetype)),
     '',
     '/* The backdrop layer itself. Static, not per-engine: only the palette and',
     ' * the renderer differ. The canvas sits BEHIND the hero content and is',
