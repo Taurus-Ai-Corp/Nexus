@@ -8,8 +8,20 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // Two lists describe "what does not ship", and they are read by different
 // things:
 //
-//   .assetsignore                  wrangler reads this. It is what ACTUALLY
-//                                  ships.
+//   .assetsignore                  does NOT control what ships. Measured against
+//                                  the live project on 2026-09-13: it listed
+//                                  scripts, tests and package.json and wrangler
+//                                  uploaded all three anyway (172 files on disk,
+//                                  170 uploaded, this gate counting 144). The
+//                                  comment here used to claim the opposite, and
+//                                  that claim is what let platform/scripts/ and
+//                                  lib/prompt-bible.mjs reach production.
+//                                  scripts/deploy-pages.mjs is the real
+//                                  mechanism: it stages a site/ directory and
+//                                  leaves everything else outside it. This file
+//                                  is still worth keeping in step because it is
+//                                  the human-readable statement of intent that
+//                                  the gate's SKIP set is checked against.
 //   scripts/check-pages-limits.mjs its SKIP set decides what gets size-checked
 //                                  before the deploy.
 //
