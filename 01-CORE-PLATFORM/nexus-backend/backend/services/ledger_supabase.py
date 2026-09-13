@@ -126,6 +126,84 @@ class SupabaseLedger:
             ).first()
         return int(row[0])
 
+    async def top_up_to(
+        self,
+        tenant_id: str,
+        target: int,
+        *,
+        reason: str = "top_up",
+        idempotency_key: str | None = None,
+    ) -> int:
+        """Raise the balance TO `target`, at most once per `idempotency_key`.
+
+        The difference from `grant_credits` is the whole point: this adds
+        `max(0, target - balance)` rather than a fixed amount, so an allowance
+        refreshes instead of accumulating. A free email that never generates
+        holds `target`, not `target` per idle month.
+
+        Never reduces a balance. A tenant holding more than `target` — a
+        promotional grant, a support credit — keeps all of it.
+
+        The key is claimed even when the top-up is ZERO, and that is the part
+        that is easy to get wrong. The natural shape is "work out what's
+        needed, and if it's nothing, skip the write" — which never claims the
+        month's key, so the month stays open. A user who begins October already
+        holding 2, spends both, and comes back would then find an unclaimed key
+        and get topped up a second time: four generations in one month, from
+        code whose every individual step looks right. The zero-delta row in
+        `credit_ledger` is the record that this month has been dealt with.
+        """
+        if target < 0:
+            raise ValueError("target must be non-negative")
+
+        async with self.engine.begin() as conn:
+            # FOR UPDATE, so a concurrent open_job cannot spend a credit between
+            # this read and the arithmetic below. open_job's conditional UPDATE
+            # blocks on this lock until the transaction commits.
+            current = (
+                await conn.execute(
+                    text(
+                        "select balance from credits "
+                        " where customer_key = :k for update"
+                    ),
+                    {"k": tenant_id},
+                )
+            ).first()
+            balance = int(current[0]) if current else 0
+            delta = max(0, target - balance)
+
+            claimed = (
+                await conn.execute(
+                    text(
+                        "insert into credit_ledger "
+                        "(customer_key, delta, reason, idempotency_key) "
+                        "values (:k, :d, :r, :i) "
+                        "on conflict (idempotency_key) do nothing "
+                        "returning id"
+                    ),
+                    {"k": tenant_id, "d": delta, "r": reason, "i": idempotency_key},
+                )
+            ).first()
+            if claimed is None:
+                return balance  # already topped up for this key
+            if delta == 0:
+                return balance
+
+            row = (
+                await conn.execute(
+                    text(
+                        "insert into credits (customer_key, balance) "
+                        "values (:k, :n) "
+                        "on conflict (customer_key) do update "
+                        "set balance = credits.balance + excluded.balance, "
+                        "    updated_at = now() "
+                        "returning balance"
+                    ),
+                    {"k": tenant_id, "n": delta},
+                )
+            ).first()
+        return int(row[0])
+
     # ---- job lifecycle ------------------------------------------------------
 
     async def open_job(

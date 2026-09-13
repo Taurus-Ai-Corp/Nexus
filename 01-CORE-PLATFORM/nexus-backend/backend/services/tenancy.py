@@ -109,10 +109,17 @@ FREE_TIER_ENV_VAR = "FREE_TIER_API_KEY"
 #: becomes expensive.
 FREE_TIER_COST_CENTRE = "free-tier"
 
-#: Generations a free email gets per calendar month. Owner decision, 2026-09-13.
+#: Generations a free email may hold. Owner decision, 2026-09-13; capped rather
+#: than accumulating on 2026-09-13 by a second owner decision.
+#:
+#: This is a CEILING, not a monthly increment. The month's grant tops the
+#: balance UP to this number, it does not add this number — so an email that
+#: never generates still holds 2, not 2 per idle month. Adding would have meant
+#: someone who signed up and waited a year arrived with 24 free generations.
+#:
 #: The reset is not a scheduled job: grants carry the idempotency key
 #: "free:<email>:<YYYY-MM>", and credit_ledger.idempotency_key is UNIQUE, so the
-#: same email can be granted at most once per month and the new month simply has
+#: same email is topped up at most once per month and the new month simply has
 #: a new key. Nothing to schedule means nothing to fail to run.
 FREE_TIER_MONTHLY_GENERATIONS = 2
 

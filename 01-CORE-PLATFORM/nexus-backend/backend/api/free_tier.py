@@ -2,8 +2,10 @@
 The free tier's front door: POST /api/free/generate.
 
 Two generations per email per calendar month, never billed, on a dedicated key.
-Owner decisions 2026-09-13; the counting rules live in services/tenancy.py and
-services/metering.py, not here. This module is deliberately thin — it turns an
+The allowance is a CEILING refreshed monthly, not an accrual: unused generations
+do not stack up, so a year of not using the product leaves 2 waiting rather than
+24. Owner decisions 2026-09-13; the counting rules live in services/tenancy.py
+and services/metering.py, not here. This module is deliberately thin — it turns an
 HTTP request into a `generate_and_bill` call and turns the result back into
 JSON. Every rule it appears to enforce is enforced somewhere else, on purpose,
 so a second caller (a CLI, a Cloudflare Function) cannot get different answers.
@@ -34,7 +36,7 @@ It now uses `SupabaseLedger` against `DATABASE_URL`, which changes three things:
     process memory could never have been right here for the same reason the
     ledger could not: two processes would have kept two different sets.
   * Every ledger call is awaited. `generate_and_bill` already handled both
-    ledgers via `_await_maybe`, but the direct `balance`/`grant_credits` calls
+    ledgers via `_await_maybe`, but the direct `balance`/`top_up_to` calls
     in this module did not, and a forgotten `await` on an async method returns
     a truthy coroutine rather than raising — quota checks would have passed
     unconditionally. `tests/test_free_tier_endpoint.py` drives every path
@@ -169,7 +171,13 @@ class FreeQuotaOut(BaseModel):
 
 
 async def _ensure_monthly_grant(ledger: Any, tenant_id: str, email: str) -> None:
-    """Give this email its monthly allowance, at most once per calendar month.
+    """Refresh this email's allowance, at most once per calendar month.
+
+    Tops the balance UP to the allowance; it does not add the allowance. An
+    unused free generation therefore does not accumulate — someone who signs
+    up and comes back a year later has 2 waiting, not 24. Owner decision,
+    2026-09-13. See `SupabaseLedger.top_up_to`, and in particular why it claims
+    the month's key even when the top-up amount is zero.
 
     The idempotency key carries the month — "free:<email>:2026-09" — and
     `credit_ledger.idempotency_key` is UNIQUE, so a second call in the same
@@ -186,7 +194,7 @@ async def _ensure_monthly_grant(ledger: Any, tenant_id: str, email: str) -> None
     the question, which is the only place that can answer it for every process
     at once.
     """
-    await ledger.grant_credits(
+    await ledger.top_up_to(
         tenant_id,
         FREE_TIER_MONTHLY_GENERATIONS,
         reason=FREE_GRANT_REASON,

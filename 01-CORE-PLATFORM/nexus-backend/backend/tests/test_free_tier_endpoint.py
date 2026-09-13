@@ -24,6 +24,7 @@ actually be proven.
 
 from __future__ import annotations
 
+import asyncio
 import sys
 import types
 from pathlib import Path
@@ -73,6 +74,26 @@ class _AsyncLedger:
                 return self._inner.balance(tenant_id)
             self._keys.add(idempotency_key)
         return self._inner.grant_credits(tenant_id, credits)
+
+    async def top_up_to(
+        self,
+        tenant_id: str,
+        target: int,
+        *,
+        reason: str = "top_up",
+        idempotency_key: str | None = None,
+    ) -> int:
+        """Mirrors SupabaseLedger.top_up_to, including the part that matters:
+        the key is claimed even when the top-up is zero."""
+        balance = self._inner.balance(tenant_id)
+        if idempotency_key is not None:
+            if idempotency_key in self._keys:
+                return balance
+            self._keys.add(idempotency_key)
+        delta = max(0, target - balance)
+        if delta == 0:
+            return balance
+        return self._inner.grant_credits(tenant_id, delta)
 
     async def open_job(self, resolution, workflow):  # noqa: ANN001
         return self._inner.open_job(resolution, workflow)
@@ -315,3 +336,64 @@ def test_grant_is_issued_once_per_month_with_the_month_in_the_key(client):
     key = next(iter(keys))
     assert key.startswith("free:bob@example.com:")
     assert len(key.rsplit(":", 1)[1]) == 7, "key must carry YYYY-MM"
+
+
+# --------------------------------------------------------------------------
+# The cap on rollover
+# --------------------------------------------------------------------------
+
+def test_an_unused_allowance_does_not_accumulate(client):
+    """Owner decision 2026-09-13: the monthly grant is a ceiling, not an income.
+
+    Four idle months must leave the user holding the allowance, not four times
+    it. Driven by re-running the grant with successive month keys, which is
+    exactly what the endpoint does on the first request of each month.
+    """
+    email = "idle@example.com"
+    tenant_id = f"free:{email}"
+    ledger = free_tier._ledger
+
+    for month in ("2026-09", "2026-10", "2026-11", "2026-12"):
+        asyncio.run(
+            ledger.top_up_to(
+                tenant_id,
+                FREE_TIER_MONTHLY_GENERATIONS,
+                idempotency_key=f"free:{email}:{month}",
+            )
+        )
+
+    r = client.get("/api/free/quota", params={"email": email})
+    assert r.json()["remaining_this_month"] == FREE_TIER_MONTHLY_GENERATIONS, (
+        "idle months must refresh the allowance, never stack it"
+    )
+
+
+def test_a_full_balance_still_consumes_the_month_key(client):
+    """The trap in the obvious implementation.
+
+    "Work out what's needed; if it's nothing, skip the write" never claims the
+    month's key, leaving the month open. A user who starts the month already
+    full, spends everything, and comes back then gets topped up a SECOND time —
+    four generations in one month, from code where every step looks right.
+
+    This covers the ENDPOINT's use of a correct ledger. It cannot catch the
+    ledger itself regressing, because _AsyncLedger carries its own
+    implementation — verified by reintroducing the bug in SupabaseLedger, which
+    this test did not notice. The authoritative guard is
+    test_free_tier_postgres.py::test_a_zero_top_up_still_consumes_the_month_key.
+    """
+    email = "full@example.com"
+    body = {"email": email, "prompt": PROMPT}
+
+    # Starts the month already holding a full allowance.
+    asyncio.run(
+        free_tier._ledger.grant_credits(f"free:{email}", FREE_TIER_MONTHLY_GENERATIONS)
+    )
+
+    for _ in range(FREE_TIER_MONTHLY_GENERATIONS):
+        assert client.post("/api/free/generate", json=body).status_code == 200
+
+    r = client.post("/api/free/generate", json=body)
+    assert r.status_code == 402, (
+        "a zero top-up must still spend the month's key, or the month re-opens"
+    )

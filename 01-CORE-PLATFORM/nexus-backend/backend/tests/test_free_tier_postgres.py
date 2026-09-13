@@ -341,3 +341,120 @@ async def test_free_traffic_never_becomes_revenue(api, ledger):
     before = (await ledger.margin_report())["revenue_cents"]
     await api.post("/api/free/generate", json={"email": _email(), "prompt": PROMPT})
     assert (await ledger.margin_report())["revenue_cents"] == before
+
+
+# --------------------------------------------------------------------------
+# The rollover cap (owner decision 2026-09-13)
+# --------------------------------------------------------------------------
+
+@pytest.mark.asyncio
+async def test_idle_months_refresh_the_allowance_instead_of_stacking(ledger):
+    """A year of not using the product must leave 2 waiting, not 24."""
+    email = _email()
+    tenant = free_tier_tenant(email)
+    for month in range(1, 13):
+        await ledger.top_up_to(
+            tenant.id,
+            FREE_TIER_MONTHLY_GENERATIONS,
+            reason="free_monthly",
+            idempotency_key=f"free:{email}:2026-{month:02d}",
+        )
+    assert await ledger.balance(tenant.id) == FREE_TIER_MONTHLY_GENERATIONS
+
+
+@pytest.mark.asyncio
+async def test_a_partly_spent_allowance_is_topped_back_up_not_doubled(ledger):
+    """Spend one in September; October must restore to the cap, not add a full
+    allowance on top of the leftover."""
+    email = _email()
+    tenant = free_tier_tenant(email)
+    res = resolve_credentials(tenant, Provider.GEMINI, env=ENV)
+
+    await ledger.top_up_to(
+        tenant.id, FREE_TIER_MONTHLY_GENERATIONS, idempotency_key=f"free:{email}:2026-09"
+    )
+    await ledger.close_job(await ledger.open_job(res, WORKFLOW), cost_cents=0)
+    assert await ledger.balance(tenant.id) == FREE_TIER_MONTHLY_GENERATIONS - 1
+
+    await ledger.top_up_to(
+        tenant.id, FREE_TIER_MONTHLY_GENERATIONS, idempotency_key=f"free:{email}:2026-10"
+    )
+    assert await ledger.balance(tenant.id) == FREE_TIER_MONTHLY_GENERATIONS
+
+
+@pytest.mark.asyncio
+async def test_a_zero_top_up_still_consumes_the_month_key(ledger):
+    """The trap. If "nothing to add" skips the write, the month's key is never
+    claimed and the month re-opens the moment the balance is spent — two
+    allowances in one month from code that looks correct at every step."""
+    email = _email()
+    tenant = free_tier_tenant(email)
+    res = resolve_credentials(tenant, Provider.GEMINI, env=ENV)
+    key = f"free:{email}:2026-09"
+
+    # Starts the month already full.
+    await ledger.grant_credits(tenant.id, FREE_TIER_MONTHLY_GENERATIONS)
+    assert await ledger.top_up_to(tenant.id, FREE_TIER_MONTHLY_GENERATIONS,
+                                  idempotency_key=key) == FREE_TIER_MONTHLY_GENERATIONS
+
+    for _ in range(FREE_TIER_MONTHLY_GENERATIONS):
+        await ledger.close_job(await ledger.open_job(res, WORKFLOW), cost_cents=0)
+    assert await ledger.balance(tenant.id) == 0
+
+    # Same month, same key: must add nothing.
+    await ledger.top_up_to(tenant.id, FREE_TIER_MONTHLY_GENERATIONS, idempotency_key=key)
+    assert await ledger.balance(tenant.id) == 0, "the month's key was already spent"
+    with pytest.raises(InsufficientCreditsError):
+        await ledger.open_job(res, WORKFLOW)
+
+
+@pytest.mark.asyncio
+async def test_top_up_never_reduces_a_larger_balance(ledger):
+    """A promotional or support grant above the cap must survive the monthly
+    top-up. "Cap the rollover" means stop accruing, not claw back."""
+    email = _email()
+    tenant = free_tier_tenant(email)
+    await ledger.grant_credits(tenant.id, 10, reason="support_credit")
+    await ledger.top_up_to(
+        tenant.id, FREE_TIER_MONTHLY_GENERATIONS, idempotency_key=f"free:{email}:2026-09"
+    )
+    assert await ledger.balance(tenant.id) == 10
+
+
+@pytest.mark.asyncio
+async def test_concurrent_top_ups_apply_once(ledger):
+    """Four simultaneous first requests. The FOR UPDATE row lock plus the
+    UNIQUE key must leave exactly one allowance and zero errors."""
+    email = _email()
+    tenant = free_tier_tenant(email)
+    key = f"free:{email}:2026-09"
+    results = await asyncio.gather(
+        *(
+            ledger.top_up_to(tenant.id, FREE_TIER_MONTHLY_GENERATIONS, idempotency_key=key)
+            for _ in range(4)
+        ),
+        return_exceptions=True,
+    )
+    errors = [r for r in results if isinstance(r, BaseException)]
+    assert not errors, f"concurrent top-ups must not error: {errors}"
+    assert await ledger.balance(tenant.id) == FREE_TIER_MONTHLY_GENERATIONS
+
+
+@pytest.mark.asyncio
+async def test_endpoint_gives_two_a_month_across_a_month_boundary(api, ledger):
+    """End to end: the cap holds through a simulated month rollover."""
+    email = _email()
+    tenant = free_tier_tenant(email)
+    body = {"email": email, "prompt": PROMPT}
+
+    for _ in range(FREE_TIER_MONTHLY_GENERATIONS):
+        assert (await api.post("/api/free/generate", json=body)).status_code == 200
+    assert (await api.post("/api/free/generate", json=body)).status_code == 402
+
+    # Next month arrives: the endpoint would use a new key, so do the same.
+    await ledger.top_up_to(
+        tenant.id, FREE_TIER_MONTHLY_GENERATIONS, idempotency_key=f"free:{email}:2099-01"
+    )
+    assert await ledger.balance(tenant.id) == FREE_TIER_MONTHLY_GENERATIONS, (
+        "a new month restores exactly the allowance"
+    )
