@@ -205,3 +205,26 @@ describe('build-pages is idempotent', () => {
   });
 });
 
+
+it('every shipped page is in the deploy whitelist', () => {
+  // scripts/deploy-pages.mjs copies an explicit PUBLIC list into the staged
+  // site. That list can go stale silently, and did: checkout.html was written,
+  // tested, committed and deployed — and served 404, because it was never
+  // added here. The deploy reported success. Nothing else noticed.
+  //
+  // Scans the tree rather than trusting the list, for the same reason
+  // asset-versioning does: a check that reads the same list as the code under
+  // test cannot catch an omission from that list.
+  const script = readFileSync(join(platform, 'scripts/deploy-pages.mjs'), 'utf8');
+  const block = script.match(/const PUBLIC = \[([\s\S]*?)\];/);
+  assert.ok(block, 'PUBLIC list not found in scripts/deploy-pages.mjs');
+  const listed = new Set([...block[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]));
+
+  const rootPages = readdirSync(platform).filter((f) => f.endsWith('.html'));
+  const missing = rootPages.filter((f) => !listed.has(f));
+  assert.deepEqual(
+    missing,
+    [],
+    `these pages exist but would NOT be deployed: ${missing.join(', ')}`,
+  );
+});

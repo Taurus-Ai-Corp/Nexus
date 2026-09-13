@@ -58,7 +58,7 @@ const PRODUCTION_BRANCH = "feat/nexus-core-organic-design-system";
 /** Copied into <stage>/site and therefore PUBLIC. Adding an entry publishes it. */
 const PUBLIC = [
   "404.html", "_headers", "_redirects", "about.html", "assets", "campaigns",
-  "case-studies.html", "contact.html", "creative", "estate", "flow", "freelance",
+  "case-studies.html", "checkout.html", "contact.html", "creative", "estate", "flow", "freelance",
   "functions", "index.html", "intel", "llms.txt", "pricing.html", "privacy.html",
   "public", "robots.txt", "security.html", "seo", "sitemap.xml", "social",
   "terms.html", "vercel.json",
