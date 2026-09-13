@@ -89,6 +89,14 @@ class JobRecord:
     """What WE paid the provider. Always recorded, even for BYOK and INTERNAL."""
     billed_credits: int = 0
     """What the CLIENT paid us. Zero unless the tenant is billable."""
+    quota_credits: int = 0
+    """Allowance consumed by this job.
+
+    Equals billed_credits for a paying tenant; non-zero with billed_credits == 0
+    for a FREE one, which is exactly the case the two fields exist to tell apart.
+    Refunds are computed from THIS, so a failed free generation returns the
+    user's attempt instead of silently costing them one of two per month.
+    """
     cost_centre: str | None = None
     job_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
@@ -140,7 +148,11 @@ class Ledger:
             raise KeyError(f"unpriced workflow: {workflow}")
         price = WORKFLOW_CREDITS[workflow]
 
-        if resolution.billable:
+        # Decrement on consumes_quota, NOT on billable. Those were the same
+        # question until the free tier existed: a FREE job earns nothing but must
+        # still spend from its 2/month allowance, and gating the decrement on
+        # `billable` gave free users an uncapped tier that merely looked capped.
+        if resolution.consumes_quota:
             available = self.balance(resolution.tenant_id)
             if available < price:
                 raise InsufficientCreditsError(
@@ -156,6 +168,7 @@ class Ledger:
             payer=resolution.payer,
             billable=resolution.billable,
             billed_credits=price if resolution.billable else 0,
+            quota_credits=price if resolution.consumes_quota else 0,
             cost_centre=resolution.cost_centre,
         )
         self.jobs.append(job)
@@ -174,11 +187,15 @@ class Ledger:
         job.status = status
         job.error = error
 
-        if status is JobStatus.FAILED and job.billable and job.billed_credits:
-            # Never charge for a failed generation.
+        if status is JobStatus.FAILED and job.quota_credits:
+            # Never charge — or spend an allowance — for a failed generation.
+            # Keyed on quota_credits rather than billable so a FREE user whose
+            # generation fails gets the attempt back. Under the old condition
+            # they lost one of two monthly tries because our provider errored.
             self._balances[job.tenant_id] = (
-                self.balance(job.tenant_id) + job.billed_credits
+                self.balance(job.tenant_id) + job.quota_credits
             )
+            job.quota_credits = 0
             job.billed_credits = 0
         return job
 

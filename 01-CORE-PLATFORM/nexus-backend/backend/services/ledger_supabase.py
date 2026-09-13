@@ -128,7 +128,10 @@ class SupabaseLedger:
         job_id = str(uuid.uuid4())
 
         async with self.engine.begin() as conn:
-            if resolution.billable:
+            # consumes_quota, not billable: a FREE job earns nothing but must
+            # still spend from its monthly allowance. Kept identical to
+            # metering.Ledger.open_job so local and production agree.
+            if resolution.consumes_quota:
                 # Single conditional UPDATE — the whole point. No read-then-write.
                 debited = (
                     await conn.execute(
@@ -170,6 +173,7 @@ class SupabaseLedger:
                     "payer": resolution.payer.value,
                     "billable": resolution.billable,
                     "billed_credits": price if resolution.billable else 0,
+                    "quota_credits": price if resolution.consumes_quota else 0,
                     "cost_centre": resolution.cost_centre,
                 },
             )
@@ -181,6 +185,7 @@ class SupabaseLedger:
             payer=resolution.payer,
             billable=resolution.billable,
             billed_credits=price if resolution.billable else 0,
+            quota_credits=price if resolution.consumes_quota else 0,
             cost_centre=resolution.cost_centre,
             job_id=job_id,
             created_at=datetime.now(UTC),
@@ -196,9 +201,12 @@ class SupabaseLedger:
     ) -> JobRecord:
         """Persist the real provider cost. Refunds credits when the job failed."""
         cost_cents = max(0, cost_cents)
+        # Refund what was TAKEN, which for a free user is quota with no
+        # revenue attached. Keying this on billable would make a provider
+        # error cost a free user one of their two monthly attempts.
         refund = (
-            job.billed_credits
-            if (status is JobStatus.FAILED and job.billable and job.billed_credits)
+            job.quota_credits
+            if (status is JobStatus.FAILED and job.quota_credits)
             else 0
         )
 

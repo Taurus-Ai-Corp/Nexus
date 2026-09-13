@@ -22,6 +22,7 @@ from __future__ import annotations
 import os
 from collections.abc import Callable
 from dataclasses import dataclass, field
+from datetime import UTC, datetime
 from enum import Enum
 
 
@@ -36,6 +37,27 @@ class TenantMode(str, Enum):
 
     INTERNAL = "internal"
     """Our own company work. Our key, metered to a cost centre, never billed."""
+
+    FREE = "free"
+    """Prospect on the free tier. A dedicated FREE_TIER_API_KEY, metered against a
+    hard monthly quota, never billed.
+
+    Deliberately NOT a variant of INTERNAL, even though neither is billed. They
+    differ on the two things that matter:
+
+      * Key. INTERNAL spends the company platform key. FREE spends its own, so a
+        spike or an abuse run throttles free traffic ALONE and leaves paying work
+        and internal work untouched. Same reason you do not put the shop float in
+        the same drawer as the takings.
+      * Ceiling. INTERNAL is uncapped and costed to a cost centre after the fact.
+        FREE is capped BEFORE the call — 2 generations per calendar month per
+        email — because an uncapped free tier is just an unbilled paid tier.
+
+    Like INTERNAL it may not touch SUBSCRIPTION-tier providers, but for a stricter
+    reason: INTERNAL is barred from reselling metered access, whereas FREE is
+    serving an anonymous member of the public, which no consumer subscription
+    licence contemplates at all.
+    """
 
 
 class ProviderTier(str, Enum):
@@ -76,6 +98,24 @@ PROVIDER_TIER: dict[Provider, ProviderTier] = {
     Provider.HIGGSFIELD_SUB: ProviderTier.SUBSCRIPTION,
 }
 
+#: The free tier spends this key and only this key. Keep it distinct from
+#: GEMINI_API_KEY even if both point at the same Google project today — the
+#: separation is what lets you revoke, rotate or rate-limit free traffic without
+#: touching paying work, and what makes free-tier spend legible on its own line.
+FREE_TIER_ENV_VAR = "FREE_TIER_API_KEY"
+
+#: Free work is costed here rather than to a client. It is a real cost, just not
+#: a billable one, and burying it in "unattributed" is how a free tier quietly
+#: becomes expensive.
+FREE_TIER_COST_CENTRE = "free-tier"
+
+#: Generations a free email gets per calendar month. Owner decision, 2026-09-13.
+#: The reset is not a scheduled job: grants carry the idempotency key
+#: "free:<email>:<YYYY-MM>", and credit_ledger.idempotency_key is UNIQUE, so the
+#: same email can be granted at most once per month and the new month simply has
+#: a new key. Nothing to schedule means nothing to fail to run.
+FREE_TIER_MONTHLY_GENERATIONS = 2
+
 #: Env var holding the platform/company key for each provider.
 #: Subscription-tier providers have no key here on purpose — they are driven by
 #: a human through a UI, not by the request pipeline.
@@ -112,8 +152,34 @@ class Tenant:
 
     @property
     def is_billable(self) -> bool:
-        """True when a generation should decrement credits and produce revenue."""
+        """True when a generation produces REVENUE.
+
+        Note this is no longer the same question as `consumes_quota`. It used to
+        be, and that conflation is what would have made the free tier unlimited:
+        `open_job()` decremented only when billable, so a non-billable FREE job
+        took nothing from its allowance.
+        """
         return self.mode is TenantMode.MANAGED
+
+    @property
+    def consumes_quota(self) -> bool:
+        """True when a generation should DECREMENT the tenant's allowance.
+
+        Two different questions, deliberately separated:
+
+            is_billable     -> did this earn money?
+            consumes_quota  -> did this use up what the tenant was given?
+
+        MANAGED answers yes to both. FREE answers yes only here: a free
+        generation costs the free key real quota and must count against the 2/month,
+        but it must never appear as revenue or it corrupts the margin view that
+        rates.py and the generation_margin SQL view exist to protect.
+
+        BYOK is no on both — the client's own key is paying, so there is nothing
+        of ours to use up. INTERNAL is no on both by design: company work is
+        costed to a cost centre after the fact, not capped in advance.
+        """
+        return self.mode in (TenantMode.MANAGED, TenantMode.FREE)
 
 
 @dataclass(frozen=True)
@@ -124,6 +190,10 @@ class CredentialResolution:
     tenant_id: str
     payer: TenantMode
     billable: bool
+    #: Decrement the tenant's allowance for this job. Separate from `billable`:
+    #: a FREE job consumes quota and earns nothing. Defaulted so existing
+    #: constructions keep their old meaning (billable implies counted).
+    consumes_quota: bool
     cost_centre: str | None
     _secret: str = field(repr=False)
 
@@ -135,7 +205,7 @@ class CredentialResolution:
         return (
             f"CredentialResolution(provider={self.provider.value}, "
             f"tenant={self.tenant_id}, payer={self.payer.value}, "
-            f"billable={self.billable})"
+            f"billable={self.billable}, consumes_quota={self.consumes_quota})"
         )
 
 
@@ -190,7 +260,33 @@ def resolve_credentials(
             tenant_id=tenant.id,
             payer=TenantMode.BYOK,
             billable=False,
+            consumes_quota=False,  # client's own key pays; nothing of ours to use up
             cost_centre=None,
+            _secret=secret,
+        )
+
+    if tenant.mode is TenantMode.FREE:
+        # A dedicated key, never the platform one. The whole point of the free
+        # tier is that its worst day cannot become a paying customer's worst day:
+        # if free traffic is abused or simply succeeds, it exhausts FREE_TIER_API_KEY
+        # and nothing else. Reusing the platform key would couple them.
+        #
+        # This deliberately ignores PROVIDER_ENV_VAR: the free tier is one key for
+        # one provider by design. Free users get the cheap fast model, not a menu.
+        secret = env.get(FREE_TIER_ENV_VAR)
+        if not secret:
+            raise CredentialMissingError(
+                f"tenant {tenant.id} is on the free tier but {FREE_TIER_ENV_VAR} "
+                f"is not set. Set it to a key whose quota you are willing to give "
+                f"away, and never to the platform key."
+            )
+        return CredentialResolution(
+            provider=provider,
+            tenant_id=tenant.id,
+            payer=TenantMode.FREE,
+            billable=False,
+            consumes_quota=True,  # the whole point: free is capped, not unlimited
+            cost_centre=FREE_TIER_COST_CENTRE,
             _secret=secret,
         )
 
@@ -208,6 +304,49 @@ def resolve_credentials(
         tenant_id=tenant.id,
         payer=tenant.mode,
         billable=tenant.is_billable,
+        consumes_quota=tenant.consumes_quota,
         cost_centre=tenant.cost_centre if tenant.mode is TenantMode.INTERNAL else None,
         _secret=secret,
     )
+
+
+def free_tier_tenant(email: str) -> Tenant:
+    """A Tenant for one free-tier email.
+
+    The email IS the tenant id. There is no account, no row to create ahead of
+    time, and no signup table: the ledger's customer_key does that work already.
+    Normalised to lowercase so Bob@x.com and bob@x.com are one person and not
+    two quotas.
+    """
+    normalised = email.strip().lower()
+    if "@" not in normalised or len(normalised) < 3:
+        raise TenancyError(f"not an email address: {email!r}")
+    return Tenant(
+        id=f"free:{normalised}",
+        mode=TenantMode.FREE,
+        cost_centre=FREE_TIER_COST_CENTRE,
+        # Free users get exactly one provider. Widening this is a pricing
+        # decision, not a config tweak.
+        allowed_providers=frozenset({Provider.GEMINI}),
+    )
+
+
+def free_tier_grant_key(email: str, *, now: datetime | None = None) -> str:
+    """Idempotency key for this email's monthly free grant.
+
+    This single string is the entire monthly-reset mechanism. Because
+    credit_ledger.idempotency_key is UNIQUE, granting with
+    "free:<email>:2026-09" succeeds once and is a no-op every other time that
+    month; October produces "free:<email>:2026-10", a key that has never been
+    seen, so the grant lands again.
+
+    There is no cron, no reset job and no "did the monthly task run?" question —
+    which matters because a reset job that silently stops running gives every
+    free user unlimited access without anything failing.
+
+    UTC deliberately: a local-timezone month boundary would hand a second monthly
+    grant to anyone who travels, or to everyone if the server moves region.
+    """
+    normalised = email.strip().lower()
+    stamp = (now or datetime.now(UTC)).strftime("%Y-%m")
+    return f"free:{normalised}:{stamp}"

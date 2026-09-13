@@ -120,6 +120,22 @@ app = FastAPI(
 # Attach rate limiter to app state
 app.state.limiter = limiter
 
+# --- Free tier -------------------------------------------------------------
+# POST /api/free/generate and GET /api/free/quota. Two generations per email per
+# calendar month, never billed, on a dedicated FREE_TIER_API_KEY so free traffic
+# can never exhaust the quota paying work depends on.
+#
+# The monthly reset is not a scheduled job: grants carry the idempotency key
+# "free:<email>:<YYYY-MM>" and credit_ledger.idempotency_key is UNIQUE, so a new
+# month is simply a key that has not been seen. Nothing to schedule means nothing
+# that can silently stop running and hand out unlimited access.
+#
+# See api/__init__.py for why this router is mounted where platform_core's is
+# not, and for the SupabaseLedger swap required before public traffic.
+from api import free_tier_router  # noqa: E402
+
+app.include_router(free_tier_router)
+
 
 # Rate limit exceeded handler
 @app.exception_handler(RateLimitExceeded)
